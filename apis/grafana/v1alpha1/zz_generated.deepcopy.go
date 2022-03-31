@@ -1272,6 +1272,11 @@ func (in *DashboardObservation) DeepCopyInto(out *DashboardObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.URL != nil {
+		in, out := &in.URL, &out.URL
+		*out = new(string)
+		**out = **in
+	}
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(float64)
@@ -2106,6 +2111,11 @@ func (in *FolderObservation) DeepCopyInto(out *FolderObservation) {
 	*out = *in
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
+		*out = new(string)
+		**out = **in
+	}
+	if in.URL != nil {
+		in, out := &in.URL, &out.URL
 		*out = new(string)
 		**out = **in
 	}

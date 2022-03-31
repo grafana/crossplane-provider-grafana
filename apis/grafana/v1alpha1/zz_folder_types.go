@@ -27,6 +27,8 @@ import (
 
 type FolderObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type FolderParameters struct {

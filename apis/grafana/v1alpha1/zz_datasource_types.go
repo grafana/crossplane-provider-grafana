@@ -320,11 +320,11 @@ type SecureJSONDataObservation struct {
 
 type SecureJSONDataParameters struct {
 
-	// (CloudWatch, Athena) The access key to use to access the data source.
+	// (CloudWatch, Athena) The access key used to access the data source.
 	// +kubebuilder:validation:Optional
 	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
-	// (Github) The access token to use to access the data source
+	// (Github) The access token used to access the data source.
 	// +kubebuilder:validation:Optional
 	AccessTokenSecretRef *v1.SecretKeySelector `json:"accessTokenSecretRef,omitempty" tf:"-"`
 

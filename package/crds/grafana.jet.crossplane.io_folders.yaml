@@ -123,6 +123,8 @@ spec:
                 properties:
                   id:
                     type: string
+                  url:
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -34,6 +34,8 @@ type DashboardObservation struct {
 
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
 

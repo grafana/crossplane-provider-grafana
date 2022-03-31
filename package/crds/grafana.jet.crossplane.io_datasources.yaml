@@ -358,8 +358,8 @@ spec:
                     items:
                       properties:
                         accessKeySecretRef:
-                          description: (CloudWatch, Athena) The access key to use
-                            to access the data source.
+                          description: (CloudWatch, Athena) The access key used to
+                            access the data source.
                           properties:
                             key:
                               description: The key to select.
@@ -376,8 +376,8 @@ spec:
                           - namespace
                           type: object
                         accessTokenSecretRef:
-                          description: (Github) The access token to use to access
-                            the data source
+                          description: (Github) The access token used to access the
+                            data source.
                           properties:
                             key:
                               description: The key to select.
