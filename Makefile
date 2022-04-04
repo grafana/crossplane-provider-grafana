@@ -8,7 +8,7 @@ export TERRAFORM_VERSION := 1.1.6
 export TERRAFORM_PROVIDER_SOURCE := grafana/grafana
 export TERRAFORM_PROVIDER_VERSION := 1.21.1
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-grafana
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://github.com/grafana/terraform-provider-grafana/releases/download/v1.21.0
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://github.com/grafana/terraform-provider-grafana/releases/download/v1.21.1
 
 PLATFORMS ?= linux_amd64
 
