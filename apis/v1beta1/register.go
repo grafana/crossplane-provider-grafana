@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "grafana.com"
+	Group   = "grafana.crossplane.io"
 	Version = "v1beta1"
 )
 

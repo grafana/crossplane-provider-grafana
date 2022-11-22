@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: providerconfigusages.grafana.com
+  name: providerconfigusages.grafana.crossplane.io
 spec:
-  group: grafana.com
+  group: grafana.crossplane.io
   names:
     categories:
     - crossplane

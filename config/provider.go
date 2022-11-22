@@ -28,7 +28,7 @@ var providerMetadata string
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithShortName("grafana"),
-		ujconfig.WithRootGroup("grafana.com"),
+		ujconfig.WithRootGroup("grafana.crossplane.io"),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithDefaultResourceOptions(
 			GroupKindOverrides(),
