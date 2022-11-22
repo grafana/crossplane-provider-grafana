@@ -81,6 +81,11 @@ xpkg.build.provider-grafana: do.build.images
 # build steps in parallel to avoid encountering an installation race condition.
 build.init: $(UP)
 
+publish: login
+
+login:
+	@$(UP) login -u $(UPBOUND_MARKETPLACE_PUSH_ROBOT_USR) -p $(UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW)
+
 # ====================================================================================
 # Fallthrough
 

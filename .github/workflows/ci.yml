@@ -287,3 +287,6 @@ jobs:
 
       - name: Publish Artifacts
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
+        env:
+          UPBOUND_MARKETPLACE_PUSH_ROBOT_USR: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
+          UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
