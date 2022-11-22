@@ -9,6 +9,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	grafanadashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/grafanadashboard"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
 )
 
@@ -16,6 +17,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		grafanadashboard.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
