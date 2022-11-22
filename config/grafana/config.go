@@ -10,8 +10,8 @@ import (
 
 // Configure configures the null group
 func Configure(p *ujconfig.Provider) {
-	p.AddResourceConfigurator("null_resource", func(r *ujconfig.Resource) {
-		r.Kind = "Resource"
-		// And other overrides.
-	})
+	// p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {
+	// 	r.Kind = "Resource"
+	// 	// And other overrides.
+	// })
 }

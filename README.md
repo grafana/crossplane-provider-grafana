@@ -1,16 +1,16 @@
-# Provider Template
+# Provider Grafana
 
-`upjet-provider-template` is a [Crossplane](https://crossplane.io/) provider that
+`provider-grafana` is a [Crossplane](https://crossplane.io/) provider that
 is built using [Upjet](https://github.com/upbound/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
-Template API.
+Grafana API.
 
 ## Getting Started
 
 Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/upbound/upjet-provider-template):
+to the [latest release](https://marketplace.upbound.io/providers/grafana/provider-grafana):
 ```
-up ctp provider install upbound/upjet-provider-template:v0.1.0
+up ctp provider install grafana/provider-grafana:v0.1.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -19,15 +19,15 @@ cat <<EOF | kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: upjet-provider-template
+  name: provider-grafana
 spec:
-  package: upbound/upjet-provider-template:v0.1.0
+  package: grafana/provider-grafana:v0.1.0
 EOF
 ```
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/upbound/upjet-provider-template).
+You can see the API reference [here](https://doc.crds.dev/github.com/grafana/crossplane-provider-grafana).
 
 ## Developing
 
@@ -57,4 +57,4 @@ make build
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please
-open an [issue](https://github.com/upbound/upjet-provider-template/issues).
+open an [issue](https://github.com/grafana/crossplane-provider-grafana/issues).

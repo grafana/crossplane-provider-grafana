@@ -10,12 +10,12 @@ import (
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 
-	"github.com/upbound/upjet-provider-template/config/null"
+	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/upbound/upjet-provider-template"
+	resourcePrefix = "grafana"
+	modulePath     = "github.com/grafana/crossplane-provider-grafana"
 )
 
 //go:embed schema.json
@@ -34,7 +34,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		grafana.Configure,
 	} {
 		configure(pc)
 	}

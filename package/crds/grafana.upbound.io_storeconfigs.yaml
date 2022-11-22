@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: storeconfigs.template.upbound.io
+  name: storeconfigs.grafana.upbound.io
 spec:
-  group: template.upbound.io
+  group: grafana.upbound.io
   names:
     categories:
     - crossplane
