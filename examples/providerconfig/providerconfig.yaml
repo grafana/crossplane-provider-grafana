@@ -1,4 +1,4 @@
-apiVersion: grafana.upbound.io/v1beta1
+apiVersion: grafana.com/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
