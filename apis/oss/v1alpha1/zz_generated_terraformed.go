@@ -13,18 +13,18 @@ import (
 	"github.com/upbound/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this GrafanaDashboard
-func (mg *GrafanaDashboard) GetTerraformResourceType() string {
-	return "grafana_dashboard"
+// GetTerraformResourceType returns Terraform resource type for this APIKey
+func (mg *APIKey) GetTerraformResourceType() string {
+	return "grafana_api_key"
 }
 
-// GetConnectionDetailsMapping for this GrafanaDashboard
-func (tr *GrafanaDashboard) GetConnectionDetailsMapping() map[string]string {
-	return nil
+// GetConnectionDetailsMapping for this APIKey
+func (tr *APIKey) GetConnectionDetailsMapping() map[string]string {
+	return map[string]string{"key": "status.atProvider.key"}
 }
 
-// GetObservation of this GrafanaDashboard
-func (tr *GrafanaDashboard) GetObservation() (map[string]any, error) {
+// GetObservation of this APIKey
+func (tr *APIKey) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -33,8 +33,8 @@ func (tr *GrafanaDashboard) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this GrafanaDashboard
-func (tr *GrafanaDashboard) SetObservation(obs map[string]any) error {
+// SetObservation for this APIKey
+func (tr *APIKey) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -42,16 +42,16 @@ func (tr *GrafanaDashboard) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this GrafanaDashboard
-func (tr *GrafanaDashboard) GetID() string {
+// GetID returns ID of underlying Terraform resource of this APIKey
+func (tr *APIKey) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this GrafanaDashboard
-func (tr *GrafanaDashboard) GetParameters() (map[string]any, error) {
+// GetParameters of this APIKey
+func (tr *APIKey) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -60,8 +60,8 @@ func (tr *GrafanaDashboard) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this GrafanaDashboard
-func (tr *GrafanaDashboard) SetParameters(params map[string]any) error {
+// SetParameters for this APIKey
+func (tr *APIKey) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -69,10 +69,10 @@ func (tr *GrafanaDashboard) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// LateInitialize this GrafanaDashboard using its observed tfState.
+// LateInitialize this APIKey using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *GrafanaDashboard) LateInitialize(attrs []byte) (bool, error) {
-	params := &GrafanaDashboardParameters{}
+func (tr *APIKey) LateInitialize(attrs []byte) (bool, error) {
+	params := &APIKeyParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -83,6 +83,302 @@ func (tr *GrafanaDashboard) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *GrafanaDashboard) GetTerraformSchemaVersion() int {
+func (tr *APIKey) GetTerraformSchemaVersion() int {
+	return 0
+}
+
+// GetTerraformResourceType returns Terraform resource type for this Dashboard
+func (mg *Dashboard) GetTerraformResourceType() string {
+	return "grafana_dashboard"
+}
+
+// GetConnectionDetailsMapping for this Dashboard
+func (tr *Dashboard) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this Dashboard
+func (tr *Dashboard) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this Dashboard
+func (tr *Dashboard) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this Dashboard
+func (tr *Dashboard) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this Dashboard
+func (tr *Dashboard) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this Dashboard
+func (tr *Dashboard) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this Dashboard using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *Dashboard) LateInitialize(attrs []byte) (bool, error) {
+	params := &DashboardParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *Dashboard) GetTerraformSchemaVersion() int {
 	return 1
+}
+
+// GetTerraformResourceType returns Terraform resource type for this Folder
+func (mg *Folder) GetTerraformResourceType() string {
+	return "grafana_folder"
+}
+
+// GetConnectionDetailsMapping for this Folder
+func (tr *Folder) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this Folder
+func (tr *Folder) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this Folder
+func (tr *Folder) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this Folder
+func (tr *Folder) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this Folder
+func (tr *Folder) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this Folder
+func (tr *Folder) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this Folder using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *Folder) LateInitialize(attrs []byte) (bool, error) {
+	params := &FolderParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *Folder) GetTerraformSchemaVersion() int {
+	return 0
+}
+
+// GetTerraformResourceType returns Terraform resource type for this Team
+func (mg *Team) GetTerraformResourceType() string {
+	return "grafana_team"
+}
+
+// GetConnectionDetailsMapping for this Team
+func (tr *Team) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this Team
+func (tr *Team) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this Team
+func (tr *Team) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this Team
+func (tr *Team) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this Team
+func (tr *Team) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this Team
+func (tr *Team) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this Team using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *Team) LateInitialize(attrs []byte) (bool, error) {
+	params := &TeamParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *Team) GetTerraformSchemaVersion() int {
+	return 0
+}
+
+// GetTerraformResourceType returns Terraform resource type for this User
+func (mg *User) GetTerraformResourceType() string {
+	return "grafana_user"
+}
+
+// GetConnectionDetailsMapping for this User
+func (tr *User) GetConnectionDetailsMapping() map[string]string {
+	return map[string]string{"password": "spec.forProvider.passwordSecretRef"}
+}
+
+// GetObservation of this User
+func (tr *User) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this User
+func (tr *User) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this User
+func (tr *User) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this User
+func (tr *User) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this User
+func (tr *User) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this User using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *User) LateInitialize(attrs []byte) (bool, error) {
+	params := &UserParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *User) GetTerraformSchemaVersion() int {
+	return 0
 }

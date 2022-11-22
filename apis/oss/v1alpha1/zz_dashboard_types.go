@@ -13,7 +13,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type GrafanaDashboardObservation struct {
+type DashboardObservation struct {
 
 	// The numeric ID of the dashboard computed by Grafana.
 	DashboardID *float64 `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
@@ -33,7 +33,7 @@ type GrafanaDashboardObservation struct {
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
 
-type GrafanaDashboardParameters struct {
+type DashboardParameters struct {
 
 	// The complete dashboard model JSON.
 	// +kubebuilder:validation:Required
@@ -52,51 +52,51 @@ type GrafanaDashboardParameters struct {
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
-// GrafanaDashboardSpec defines the desired state of GrafanaDashboard
-type GrafanaDashboardSpec struct {
+// DashboardSpec defines the desired state of Dashboard
+type DashboardSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     GrafanaDashboardParameters `json:"forProvider"`
+	ForProvider     DashboardParameters `json:"forProvider"`
 }
 
-// GrafanaDashboardStatus defines the observed state of GrafanaDashboard.
-type GrafanaDashboardStatus struct {
+// DashboardStatus defines the observed state of Dashboard.
+type DashboardStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        GrafanaDashboardObservation `json:"atProvider,omitempty"`
+	AtProvider        DashboardObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// GrafanaDashboard is the Schema for the GrafanaDashboards API. <no value>
+// Dashboard is the Schema for the Dashboards API. <no value>
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
-type GrafanaDashboard struct {
+type Dashboard struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              GrafanaDashboardSpec   `json:"spec"`
-	Status            GrafanaDashboardStatus `json:"status,omitempty"`
+	Spec              DashboardSpec   `json:"spec"`
+	Status            DashboardStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// GrafanaDashboardList contains a list of GrafanaDashboards
-type GrafanaDashboardList struct {
+// DashboardList contains a list of Dashboards
+type DashboardList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []GrafanaDashboard `json:"items"`
+	Items           []Dashboard `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	GrafanaDashboard_Kind             = "GrafanaDashboard"
-	GrafanaDashboard_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: GrafanaDashboard_Kind}.String()
-	GrafanaDashboard_KindAPIVersion   = GrafanaDashboard_Kind + "." + CRDGroupVersion.String()
-	GrafanaDashboard_GroupVersionKind = CRDGroupVersion.WithKind(GrafanaDashboard_Kind)
+	Dashboard_Kind             = "Dashboard"
+	Dashboard_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Dashboard_Kind}.String()
+	Dashboard_KindAPIVersion   = Dashboard_Kind + "." + CRDGroupVersion.String()
+	Dashboard_GroupVersionKind = CRDGroupVersion.WithKind(Dashboard_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&GrafanaDashboard{}, &GrafanaDashboardList{})
+	SchemeBuilder.Register(&Dashboard{}, &DashboardList{})
 }

@@ -10,6 +10,6 @@ import (
 
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
-	p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {
-	})
+	// p.AddResourceConfigurator("grafana_data_source", func(r *ujconfig.Resource) {
+	// })
 }

@@ -9,7 +9,15 @@ import "github.com/upbound/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
+	"grafana_cloud_api_key": config.IdentifierFromProvider,
+	"grafana_cloud_stack":   config.IdentifierFromProvider,
+
+	"grafana_api_key": config.IdentifierFromProvider,
+	// "grafana_data_source": config.IdentifierFromProvider,
 	"grafana_dashboard": config.IdentifierFromProvider,
+	"grafana_folder":    config.IdentifierFromProvider,
+	"grafana_team":      config.IdentifierFromProvider,
+	"grafana_user":      config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

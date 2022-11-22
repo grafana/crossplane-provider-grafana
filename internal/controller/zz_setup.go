@@ -9,7 +9,13 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
-	grafanadashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/grafanadashboard"
+	apikey "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/apikey"
+	stack "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stack"
+	apikeyoss "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/apikey"
+	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
+	folder "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folder"
+	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
+	user "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
 )
 
@@ -17,7 +23,13 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		grafanadashboard.Setup,
+		apikey.Setup,
+		stack.Setup,
+		apikeyoss.Setup,
+		dashboard.Setup,
+		folder.Setup,
+		team.Setup,
+		user.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

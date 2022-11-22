@@ -38,8 +38,7 @@ type GroupKindCalculator func(resource string) (string, string)
 // a number of words in resource name before calculating the kind of the resource.
 func ReplaceGroupWords(group string, count int) GroupKindCalculator {
 	return func(resource string) (string, string) {
-		// "aws_route53_resolver_rule": "route53resolver" -> (route53resolver, Rule)
-		words := strings.Split(strings.TrimPrefix(resource, "aws_"), "_")
+		words := strings.Split(strings.TrimPrefix(resource, "grafana_"), "_")
 		snakeKind := strings.Join(words[count:], "_")
 		return group, name.NewFromSnake(snakeKind).Camel
 	}
@@ -47,7 +46,15 @@ func ReplaceGroupWords(group string, count int) GroupKindCalculator {
 
 // GroupMap contains all overrides we'd like to make to the default group search.
 var GroupMap = map[string]GroupKindCalculator{
-	"grafana_dashboard": ReplaceGroupWords("oss", 0),
+	"grafana_cloud_api_key": ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack":   ReplaceGroupWords("cloud", 1),
+
+	"grafana_api_key":     ReplaceGroupWords("oss", 0),
+	"grafana_data_source": ReplaceGroupWords("oss", 0),
+	"grafana_dashboard":   ReplaceGroupWords("oss", 0),
+	"grafana_folder":      ReplaceGroupWords("oss", 0),
+	"grafana_team":        ReplaceGroupWords("oss", 0),
+	"grafana_user":        ReplaceGroupWords("oss", 0),
 }
 
 // KindMap contains kind string overrides.
