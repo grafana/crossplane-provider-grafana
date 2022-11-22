@@ -57,18 +57,20 @@ UPTEST_VERSION = v0.2.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/upbound
+# TODO(julienduchesne): This should be Grafana
+REGISTRY_ORGS ?= xpkg.upbound.io/grafana
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= xpkg.upbound.io/upbound
+# TODO(julienduchesne): This should be Grafana
+XPKG_REG_ORGS ?= xpkg.upbound.io/julienduchesne
 # NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
 # inferred.
 XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/upbound
-XPKGS = $(PROJECT_NAME)
+XPKGS = provider-grafana
 -include build/makelib/xpkg.mk
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
