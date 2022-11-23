@@ -12,12 +12,24 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"grafana_cloud_api_key": config.IdentifierFromProvider,
 	"grafana_cloud_stack":   config.IdentifierFromProvider,
 
-	"grafana_api_key": config.IdentifierFromProvider,
-	// "grafana_data_source": config.IdentifierFromProvider,
-	"grafana_dashboard": config.IdentifierFromProvider,
-	"grafana_folder":    config.IdentifierFromProvider,
-	"grafana_team":      config.IdentifierFromProvider,
-	"grafana_user":      config.IdentifierFromProvider,
+	"grafana_oncall_escalation":       config.IdentifierFromProvider,
+	"grafana_oncall_escalation_chain": config.IdentifierFromProvider,
+	"grafana_oncall_integration":      config.IdentifierFromProvider,
+	"grafana_oncall_on_call_shift":    config.IdentifierFromProvider,
+	"grafana_oncall_outgoing_webhook": config.IdentifierFromProvider,
+	"grafana_oncall_route":            config.IdentifierFromProvider,
+	"grafana_oncall_schedule":         config.IdentifierFromProvider,
+
+	"grafana_api_key":     config.IdentifierFromProvider,
+	"grafana_data_source": config.IdentifierFromProvider,
+	"grafana_dashboard":   config.IdentifierFromProvider,
+	"grafana_folder":      config.IdentifierFromProvider,
+	"grafana_team":        config.IdentifierFromProvider,
+	"grafana_user":        config.IdentifierFromProvider,
+
+	"grafana_synthetic_monitoring_check":        config.IdentifierFromProvider,
+	"grafana_synthetic_monitoring_installation": config.IdentifierFromProvider,
+	"grafana_synthetic_monitoring_probe":        config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

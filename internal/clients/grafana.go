@@ -63,12 +63,20 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		}
 
 		// Set credentials in Terraform provider configuration.
+		// https://registry.terraform.io/providers/grafana/grafana/latest/docs
 		ps.Configuration = map[string]any{}
-		if v, ok := creds["auth"]; ok {
-			ps.Configuration["auth"] = v
-		}
-		if v, ok := creds["url"]; ok {
-			ps.Configuration["url"] = v
+		for _, k := range []string{
+			"url",
+			"auth",
+			"cloud_api_key",
+			"cloud_api_url",
+			"oncall_access_token",
+			"sm_access_token",
+			"sm_url",
+		} {
+			if v, ok := creds[k]; ok {
+				ps.Configuration[k] = v
+			}
 		}
 		return ps, nil
 	}

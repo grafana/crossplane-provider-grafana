@@ -7,8 +7,8 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/pkg/resource"
 
-// GetItems of this APIKeyList.
-func (l *APIKeyList) GetItems() []resource.Managed {
+// GetItems of this EscalationChainList.
+func (l *EscalationChainList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -16,8 +16,8 @@ func (l *APIKeyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DashboardList.
-func (l *DashboardList) GetItems() []resource.Managed {
+// GetItems of this EscalationList.
+func (l *EscalationList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -25,8 +25,8 @@ func (l *DashboardList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this DataSourceList.
-func (l *DataSourceList) GetItems() []resource.Managed {
+// GetItems of this IntegrationList.
+func (l *IntegrationList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -34,8 +34,8 @@ func (l *DataSourceList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this FolderList.
-func (l *FolderList) GetItems() []resource.Managed {
+// GetItems of this OnCallShiftList.
+func (l *OnCallShiftList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -43,8 +43,8 @@ func (l *FolderList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this TeamList.
-func (l *TeamList) GetItems() []resource.Managed {
+// GetItems of this OutgoingWebhookList.
+func (l *OutgoingWebhookList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -52,8 +52,17 @@ func (l *TeamList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this UserList.
-func (l *UserList) GetItems() []resource.Managed {
+// GetItems of this RouteList.
+func (l *RouteList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ScheduleList.
+func (l *ScheduleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

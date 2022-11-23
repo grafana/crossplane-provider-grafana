@@ -49,12 +49,24 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_cloud_api_key": ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_stack":   ReplaceGroupWords("cloud", 1),
 
+	"grafana_oncall_escalation":       ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_escalation_chain": ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_integration":      ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_on_call_shift":    ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_outgoing_webhook": ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_route":            ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_schedule":         ReplaceGroupWords("oncall", 1),
+
 	"grafana_api_key":     ReplaceGroupWords("oss", 0),
 	"grafana_data_source": ReplaceGroupWords("oss", 0),
 	"grafana_dashboard":   ReplaceGroupWords("oss", 0),
 	"grafana_folder":      ReplaceGroupWords("oss", 0),
 	"grafana_team":        ReplaceGroupWords("oss", 0),
 	"grafana_user":        ReplaceGroupWords("oss", 0),
+
+	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),
+	"grafana_synthetic_monitoring_installation": ReplaceGroupWords("sm", 2),
+	"grafana_synthetic_monitoring_probe":        ReplaceGroupWords("sm", 2),
 }
 
 // KindMap contains kind string overrides.
