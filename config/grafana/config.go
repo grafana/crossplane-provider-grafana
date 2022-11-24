@@ -5,6 +5,9 @@ Copyright 2021 Upbound Inc.
 package grafana
 
 import (
+	"encoding/json"
+	"fmt"
+
 	"github.com/upbound/upjet/pkg/config"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
@@ -21,6 +24,25 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
+			Extractor:         SelfPackagePath + ".CloudStackSlugExtractor()",
+		}
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+
+			instanceConfig := map[string]string{}
+			if a, ok := attr["cloud_stack_slug"].(string); ok {
+				instanceConfig["url"] = fmt.Sprintf("https://%s.grafana.net", a)
+			}
+			if a, ok := attr["key"].(string); ok {
+				instanceConfig["auth"] = a
+			}
+			marshalled, err := json.Marshal(instanceConfig)
+			if err != nil {
+				return nil, err
+			}
+			conn["instanceCredentials"] = marshalled
+
+			return conn, nil
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {

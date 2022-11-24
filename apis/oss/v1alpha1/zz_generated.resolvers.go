@@ -23,7 +23,7 @@ func (mg *APIKey) ResolveReferences(ctx context.Context, c client.Reader) error 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.CloudStackSlug),
-		Extract:      reference.ExternalName(),
+		Extract:      grafana.CloudStackSlugExtractor(),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
 		To: reference.To{
