@@ -32,8 +32,20 @@ type TeamParameters struct {
 	// +kubebuilder:validation:Optional
 	IgnoreExternallySyncedMembers *bool `json:"ignoreExternallySyncedMembers,omitempty" tf:"ignore_externally_synced_members,omitempty"`
 
+	// References to User in oss to populate members.
+	// +kubebuilder:validation:Optional
+	MemberRefs []v1.Reference `json:"memberRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate members.
+	// +kubebuilder:validation:Optional
+	MemberSelector *v1.Selector `json:"memberSelector,omitempty" tf:"-"`
+
 	// A set of email addresses corresponding to users who should be given membership
 	// to the team. Note: users specified here must already exist in Grafana.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UserEmailExtractor()
+	// +crossplane:generate:reference:refFieldName=MemberRefs
+	// +crossplane:generate:reference:selectorFieldName=MemberSelector
 	// +kubebuilder:validation:Optional
 	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
 

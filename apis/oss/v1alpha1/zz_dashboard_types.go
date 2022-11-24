@@ -40,8 +40,19 @@ type DashboardParameters struct {
 	ConfigJSON *string `json:"configJson" tf:"config_json,omitempty"`
 
 	// The id of the folder to save the dashboard in. This attribute is a string to reflect the type of the folder's id.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
+
+	// Reference to a Folder in oss to populate folder.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folder.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
 	// Set a commit message for the version history.
 	// +kubebuilder:validation:Optional
