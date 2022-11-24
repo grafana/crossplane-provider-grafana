@@ -12,7 +12,7 @@ func CloudStackSlugExtractor() reference.ExtractValueFn {
 		if err != nil {
 			return ""
 		}
-		r, err := paved.GetString("status.forProvider.slug")
+		r, err := paved.GetString("spec.forProvider.slug")
 		if err != nil {
 			return ""
 		}
@@ -26,7 +26,7 @@ func UserEmailExtractor() reference.ExtractValueFn {
 		if err != nil {
 			return ""
 		}
-		r, err := paved.GetString("status.forProvider.email")
+		r, err := paved.GetString("spec.forProvider.email")
 		if err != nil {
 			return ""
 		}
