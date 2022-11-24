@@ -6,6 +6,7 @@ import (
 	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
 )
 
+// nolint: golint
 func CloudStackSlugExtractor() reference.ExtractValueFn {
 	return func(mg xpresource.Managed) string {
 		paved, err := fieldpath.PaveObject(mg)
@@ -20,6 +21,7 @@ func CloudStackSlugExtractor() reference.ExtractValueFn {
 	}
 }
 
+// nolint: golint
 func UserEmailExtractor() reference.ExtractValueFn {
 	return func(mg xpresource.Managed) string {
 		paved, err := fieldpath.PaveObject(mg)

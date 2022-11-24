@@ -1,0 +1,9 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  name: cloud-stack-folder
+spec:
+  forProvider:
+    title: 'Crossplane Folder Test!'
+  providerConfigRef:
+    name: grafana-cloud-instance-provider
