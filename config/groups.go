@@ -45,10 +45,20 @@ func ReplaceGroupWords(group string, count int) GroupKindCalculator {
 }
 
 // GroupMap contains all overrides we'd like to make to the default group search.
+// Keep the same structure as in the Terraform docs: https://registry.terraform.io/providers/grafana/grafana/latest/docs
 var GroupMap = map[string]GroupKindCalculator{
+	// Alerting
+	"grafana_contact_point":       ReplaceGroupWords("alerting", 0),
+	"grafana_message_template":    ReplaceGroupWords("alerting", 0),
+	"grafana_mute_timing":         ReplaceGroupWords("alerting", 0),
+	"grafana_notification_policy": ReplaceGroupWords("alerting", 0),
+	"grafana_rule_group":          ReplaceGroupWords("alerting", 0),
+
+	// Cloud
 	"grafana_cloud_api_key": ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_stack":   ReplaceGroupWords("cloud", 1),
 
+	// OnCall
 	"grafana_oncall_escalation":       ReplaceGroupWords("oncall", 1),
 	"grafana_oncall_escalation_chain": ReplaceGroupWords("oncall", 1),
 	"grafana_oncall_integration":      ReplaceGroupWords("oncall", 1),
@@ -57,6 +67,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_oncall_route":            ReplaceGroupWords("oncall", 1),
 	"grafana_oncall_schedule":         ReplaceGroupWords("oncall", 1),
 
+	// OSS
 	"grafana_api_key":     ReplaceGroupWords("oss", 0),
 	"grafana_data_source": ReplaceGroupWords("oss", 0),
 	"grafana_dashboard":   ReplaceGroupWords("oss", 0),
@@ -64,6 +75,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_team":        ReplaceGroupWords("oss", 0),
 	"grafana_user":        ReplaceGroupWords("oss", 0),
 
+	// Synthetic Monitoring
 	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),
 	"grafana_synthetic_monitoring_installation": ReplaceGroupWords("sm", 2),
 	"grafana_synthetic_monitoring_probe":        ReplaceGroupWords("sm", 2),

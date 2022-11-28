@@ -1,0 +1,1203 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.8.0
+  creationTimestamp: null
+  name: contactpoints.alerting.grafana.crossplane.io
+spec:
+  group: alerting.grafana.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - grafana
+    kind: ContactPoint
+    listKind: ContactPointList
+    plural: contactpoints
+    singular: contactpoint
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ContactPoint is the Schema for the ContactPoints API. <no value>
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ContactPointSpec defines the desired state of ContactPoint
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: DeletionPolicy specifies what will happen to the underlying
+                  external when this managed resource is deleted - either "Delete"
+                  or "Orphan" the external resource.
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  alertmanager:
+                    description: A contact point that sends notifications to other
+                      Alertmanager instances.
+                    items:
+                      properties:
+                        basicAuthPasswordSecretRef:
+                          description: The password component of the basic auth credentials
+                            to use.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        basicAuthUser:
+                          description: The username component of the basic auth credentials
+                            to use.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        url:
+                          description: The URL of the Alertmanager instance.
+                          type: string
+                      required:
+                      - url
+                      type: object
+                    type: array
+                  dingding:
+                    description: A contact point that sends notifications to DingDing.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated content of the message.
+                          type: string
+                        messageType:
+                          description: The format of message to send - either 'link'
+                            or 'actionCard'
+                          type: string
+                        url:
+                          description: The DingDing webhook URL.
+                          type: string
+                      required:
+                      - url
+                      type: object
+                    type: array
+                  discord:
+                    description: A contact point that sends notifications as Discord
+                      messages
+                    items:
+                      properties:
+                        avatarUrl:
+                          description: The URL of a custom avatar image to use. Defaults
+                            to “.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated content of the message. Defaults
+                            to “.
+                          type: string
+                        urlSecretRef:
+                          description: The discord webhook URL.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        useDiscordUsername:
+                          description: Whether to use the bot account's plain username
+                            instead of "Grafana." Defaults to `false`.
+                          type: boolean
+                      required:
+                      - urlSecretRef
+                      type: object
+                    type: array
+                  email:
+                    description: A contact point that sends notifications to an email
+                      address.
+                    items:
+                      properties:
+                        addresses:
+                          description: The addresses to send emails to.
+                          items:
+                            type: string
+                          type: array
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated content of the email. Defaults
+                            to “.
+                          type: string
+                        singleEmail:
+                          description: Whether to send a single email CC'ing all addresses,
+                            rather than a separate email to each address. Defaults
+                            to `false`.
+                          type: boolean
+                        subject:
+                          description: The templated subject line of the email. Defaults
+                            to “.
+                          type: string
+                      required:
+                      - addresses
+                      type: object
+                    type: array
+                  googlechat:
+                    description: A contact point that sends notifications to Google
+                      Chat.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated content of the message.
+                          type: string
+                        urlSecretRef:
+                          description: The Google Chat webhook URL.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - urlSecretRef
+                      type: object
+                    type: array
+                  kafka:
+                    description: A contact point that publishes notifications to Apache
+                      Kafka topics.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        restProxyUrlSecretRef:
+                          description: The URL of the Kafka REST proxy to send requests
+                            to.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        topic:
+                          description: The name of the Kafka topic to publish to.
+                          type: string
+                      required:
+                      - restProxyUrlSecretRef
+                      - topic
+                      type: object
+                    type: array
+                  name:
+                    description: The name of the contact point.
+                    type: string
+                  opsgenie:
+                    description: A contact point that sends notifications to OpsGenie.
+                    items:
+                      properties:
+                        apiKeySecretRef:
+                          description: The OpsGenie API key to use.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        autoClose:
+                          description: Whether to auto-close alerts in OpsGenie when
+                            they resolve in the Alertmanager.
+                          type: boolean
+                        description:
+                          description: A templated high-level description to use for
+                            the alert.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated content of the message.
+                          type: string
+                        overridePriority:
+                          description: Whether to allow the alert priority to be configured
+                            via the value of the `og_priority` annotation on the alert.
+                          type: boolean
+                        sendTagsAs:
+                          description: Whether to send annotations to OpsGenie as
+                            Tags, Details, or both. Supported values are `tags`, `details`,
+                            `both`, or empty to use the default behavior of Tags.
+                          type: string
+                        url:
+                          description: Allows customization of the OpsGenie API URL.
+                          type: string
+                      required:
+                      - apiKeySecretRef
+                      type: object
+                    type: array
+                  pagerduty:
+                    description: A contact point that sends notifications to PagerDuty.
+                    items:
+                      properties:
+                        class:
+                          description: The class or type of event, for example `ping
+                            failure`.
+                          type: string
+                        component:
+                          description: The component being affected by the event.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        group:
+                          description: The group to which the provided component belongs
+                            to.
+                          type: string
+                        integrationKeySecretRef:
+                          description: The PagerDuty API key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        severity:
+                          description: The PagerDuty event severity level. Default
+                            is `critical`.
+                          type: string
+                        summary:
+                          description: The templated summary message of the event.
+                          type: string
+                      required:
+                      - integrationKeySecretRef
+                      type: object
+                    type: array
+                  pushover:
+                    description: A contact point that sends notifications to Pushover.
+                    items:
+                      properties:
+                        apiTokenSecretRef:
+                          description: The Pushover API token.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        device:
+                          description: Comma-separated list of devices to which the
+                            event is associated.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        expire:
+                          description: How many seconds for which the notification
+                            will continue to be retried by Pushover.
+                          type: number
+                        message:
+                          description: The templated notification message content.
+                          type: string
+                        okPriority:
+                          description: The priority level of the resolved event.
+                          type: number
+                        okSound:
+                          description: The sound associated with the resolved notification.
+                          type: string
+                        priority:
+                          description: The priority level of the event.
+                          type: number
+                        retry:
+                          description: How often, in seconds, the Pushover servers
+                            will send the same notification to the user.
+                          type: number
+                        sound:
+                          description: The sound associated with the notification.
+                          type: string
+                        userKeySecretRef:
+                          description: The Pushover user key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - apiTokenSecretRef
+                      - userKeySecretRef
+                      type: object
+                    type: array
+                  sensugo:
+                    description: A contact point that sends notifications to SensuGo.
+                    items:
+                      properties:
+                        apiKeySecretRef:
+                          description: The SensuGo API key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        check:
+                          description: The SensuGo check to which the event should
+                            be routed.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        entity:
+                          description: The entity being monitored.
+                          type: string
+                        handler:
+                          description: A custom handler to execute in addition to
+                            the check.
+                          type: string
+                        message:
+                          description: Templated message content describing the alert.
+                          type: string
+                        namespace:
+                          description: The namespace in which the check resides.
+                          type: string
+                        url:
+                          description: The SensuGo URL to send requests to.
+                          type: string
+                      required:
+                      - apiKeySecretRef
+                      - url
+                      type: object
+                    type: array
+                  slack:
+                    description: A contact point that sends notifications to Slack.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        endpointUrl:
+                          description: Use this to override the Slack API endpoint
+                            URL to send requests to.
+                          type: string
+                        iconEmoji:
+                          description: The name of a Slack workspace emoji to use
+                            as the bot icon.
+                          type: string
+                        iconUrl:
+                          description: A URL of an image to use as the bot icon.
+                          type: string
+                        mentionChannel:
+                          description: Describes how to ping the slack channel that
+                            messages are being sent to. Options are `here` for an
+                            @here ping, `channel` for @channel, or empty for no ping.
+                          type: string
+                        mentionGroups:
+                          description: Comma-separated list of groups to mention in
+                            the message.
+                          type: string
+                        mentionUsers:
+                          description: Comma-separated list of users to mention in
+                            the message.
+                          type: string
+                        recipient:
+                          description: Channel, private group, or IM channel (can
+                            be an encoded ID or a name) to send messages to.
+                          type: string
+                        text:
+                          description: Templated content of the message.
+                          type: string
+                        title:
+                          description: Templated title of the message.
+                          type: string
+                        tokenSecretRef:
+                          description: A Slack API token,for sending messages directly
+                            without the webhook method.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        urlSecretRef:
+                          description: A Slack webhook URL,for sending messages via
+                            the webhook method.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        username:
+                          description: Username for the bot to use.
+                          type: string
+                      type: object
+                    type: array
+                  teams:
+                    description: A contact point that sends notifications to Microsoft
+                      Teams.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated message content to send.
+                          type: string
+                        sectionTitle:
+                          description: The templated subtitle for each message section.
+                          type: string
+                        title:
+                          description: The templated title of the message.
+                          type: string
+                        urlSecretRef:
+                          description: A Teams webhook URL.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - urlSecretRef
+                      type: object
+                    type: array
+                  telegram:
+                    description: A contact point that sends notifications to Telegram.
+                    items:
+                      properties:
+                        chatId:
+                          description: The chat ID to send messages to.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated content of the message.
+                          type: string
+                        tokenSecretRef:
+                          description: The Telegram bot token.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - chatId
+                      - tokenSecretRef
+                      type: object
+                    type: array
+                  threema:
+                    description: A contact point that sends notifications to Threema.
+                    items:
+                      properties:
+                        apiSecretSecretRef:
+                          description: The Threema API key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        gatewayId:
+                          description: The Threema gateway ID.
+                          type: string
+                        recipientId:
+                          description: The ID of the recipient of the message.
+                          type: string
+                      required:
+                      - apiSecretSecretRef
+                      - gatewayId
+                      - recipientId
+                      type: object
+                    type: array
+                  victorops:
+                    description: A contact point that sends notifications to VictorOps
+                      (now known as Splunk OnCall).
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        messageType:
+                          description: The VictorOps alert state - typically either
+                            `CRITICAL` or `RECOVERY`.
+                          type: string
+                        url:
+                          description: The VictorOps webhook URL.
+                          type: string
+                      required:
+                      - url
+                      type: object
+                    type: array
+                  webhook:
+                    description: 'A contact point that sends notifications to an arbitrary
+                      webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config'
+                    items:
+                      properties:
+                        authorizationCredentialsSecretRef:
+                          description: Allows a custom authorization scheme - attaches
+                            an auth header with this value. Do not use in conjunction
+                            with basic auth parameters.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        authorizationScheme:
+                          description: Allows a custom authorization scheme - attaches
+                            an auth header with this name. Do not use in conjunction
+                            with basic auth parameters.
+                          type: string
+                        basicAuthPasswordSecretRef:
+                          description: The username to use in basic auth headers attached
+                            to the request. If omitted, basic auth will not be used.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        basicAuthUser:
+                          description: The username to use in basic auth headers attached
+                            to the request. If omitted, basic auth will not be used.
+                          type: string
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        httpMethod:
+                          description: The HTTP method to use in the request. Defaults
+                            to `POST`.
+                          type: string
+                        maxAlerts:
+                          description: The maximum number of alerts to send in a single
+                            request. This can be helpful in limiting the size of the
+                            request body. The default is 0, which indicates no limit.
+                          type: number
+                        url:
+                          description: The URL to send webhook requests to.
+                          type: string
+                      required:
+                      - url
+                      type: object
+                    type: array
+                  wecom:
+                    description: A contact point that sends notifications to WeCom.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: Whether to disable sending resolve messages.
+                            Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: The templated content of the message to send.
+                          type: string
+                        title:
+                          description: The templated title of the message to send.
+                          type: string
+                        urlSecretRef:
+                          description: The WeCom webhook URL.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - urlSecretRef
+                      type: object
+                    type: array
+                required:
+                - name
+                type: object
+              providerConfigRef:
+                default:
+                  name: default
+                description: ProviderConfigReference specifies how the provider that
+                  will be used to create, observe, update, and delete this managed
+                  resource should be configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              providerRef:
+                description: 'ProviderReference specifies the provider that will be
+                  used to create, observe, update, and delete this managed resource.
+                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: Resolution specifies whether resolution of this
+                          reference is required. The default is 'Required', which
+                          means the reconcile will fail if the reference cannot be
+                          resolved. 'Optional' means this reference will be a no-op
+                          if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: Resolve specifies when this reference should
+                          be resolved. The default is 'IfNotPresent', which will attempt
+                          to resolve the reference only when the corresponding field
+                          is not present. Use 'Always' to resolve the reference on
+                          every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              publishConnectionDetailsTo:
+                description: PublishConnectionDetailsTo specifies the connection secret
+                  config which contains a name, metadata and a reference to secret
+                  store config to which any connection details for this managed resource
+                  should be written. Connection details frequently include the endpoint,
+                  username, and password required to connect to the managed resource.
+                properties:
+                  configRef:
+                    default:
+                      name: default
+                    description: SecretStoreConfigRef specifies which secret store
+                      config should be used for this ConnectionSecret.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  metadata:
+                    description: Metadata is the metadata for connection secret.
+                    properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations are the annotations to be added to
+                          connection secret. - For Kubernetes secrets, this will be
+                          used as "metadata.annotations". - It is up to Secret Store
+                          implementation for others store types.
+                        type: object
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: Labels are the labels/tags to be added to connection
+                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store
+                          types.
+                        type: object
+                      type:
+                        description: Type is the SecretType for the connection secret.
+                          - Only valid for Kubernetes Secret Stores.
+                        type: string
+                    type: object
+                  name:
+                    description: Name is the name of the connection secret.
+                    type: string
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: WriteConnectionSecretToReference specifies the namespace
+                  and name of a Secret to which any connection details for this managed
+                  resource should be written. Connection details frequently include
+                  the endpoint, username, and password required to connect to the
+                  managed resource. This field is planned to be replaced in a future
+                  release in favor of PublishConnectionDetailsTo. Currently, both
+                  could be set independently and connection details would be published
+                  to both without affecting each other.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            description: ContactPointStatus defines the observed state of ContactPoint.
+            properties:
+              atProvider:
+                properties:
+                  alertmanager:
+                    description: A contact point that sends notifications to other
+                      Alertmanager instances.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  dingding:
+                    description: A contact point that sends notifications to DingDing.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  discord:
+                    description: A contact point that sends notifications as Discord
+                      messages
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  email:
+                    description: A contact point that sends notifications to an email
+                      address.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  googlechat:
+                    description: A contact point that sends notifications to Google
+                      Chat.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  id:
+                    type: string
+                  kafka:
+                    description: A contact point that publishes notifications to Apache
+                      Kafka topics.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  opsgenie:
+                    description: A contact point that sends notifications to OpsGenie.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  pagerduty:
+                    description: A contact point that sends notifications to PagerDuty.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  pushover:
+                    description: A contact point that sends notifications to Pushover.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  sensugo:
+                    description: A contact point that sends notifications to SensuGo.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  slack:
+                    description: A contact point that sends notifications to Slack.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  teams:
+                    description: A contact point that sends notifications to Microsoft
+                      Teams.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  telegram:
+                    description: A contact point that sends notifications to Telegram.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  threema:
+                    description: A contact point that sends notifications to Threema.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  victorops:
+                    description: A contact point that sends notifications to VictorOps
+                      (now known as Splunk OnCall).
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  webhook:
+                    description: 'A contact point that sends notifications to an arbitrary
+                      webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config'
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                  wecom:
+                    description: A contact point that sends notifications to WeCom.
+                    items:
+                      properties:
+                        uid:
+                          description: The UID of the contact point.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: LastTransitionTime is the last time this condition
+                        transitioned from one status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A Message containing details about this condition's
+                        last transition from one status to another, if any.
+                      type: string
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: Type of this condition. At most one of each condition
+                        type may apply to a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
