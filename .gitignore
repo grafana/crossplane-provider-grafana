@@ -9,3 +9,6 @@ cover.out
 # ignore IDE folders
 .vscode/
 .idea/
+
+# ignore build artifacts
+dist/crds.yaml
