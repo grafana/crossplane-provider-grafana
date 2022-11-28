@@ -2,3 +2,14 @@ apiVersion: meta.pkg.crossplane.io/v1alpha1
 kind: Provider
 metadata:
   name: provider-grafana
+  annotations:
+    meta.crossplane.io/maintainer: "Julien Duchesne <julien.duchesne@grafana.com>"
+    meta.crossplane.io/source: "https://github.com/grafana/crossplane-provider-grafana"
+    meta.crossplane.io/license": "Apache-2.0"
+    meta.crossplane.io/description: "Crossplane provider generated from https://github.com/grafana/terraform-provider-grafana."
+    meta.crossplane.io/readme: |
+      # Grafana Provider
+
+      This provider is generated from https://github.com/grafana/terraform-provider-grafana by https://github.com/upbound/upjet.
+
+      See the [examples directory in the source repository](https://github.com/grafana/crossplane-provider-grafana/tree/main/examples/) for examples on how to use this provider.
