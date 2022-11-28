@@ -9,6 +9,11 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	contactpoint "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/contactpoint"
+	messagetemplate "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/messagetemplate"
+	mutetiming "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/mutetiming"
+	notificationpolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/notificationpolicy"
+	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/rulegroup"
 	apikey "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/apikey"
 	stack "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stack"
 	escalation "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/escalation"
@@ -34,6 +39,11 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		contactpoint.Setup,
+		messagetemplate.Setup,
+		mutetiming.Setup,
+		notificationpolicy.Setup,
+		rulegroup.Setup,
 		apikey.Setup,
 		stack.Setup,
 		escalation.Setup,

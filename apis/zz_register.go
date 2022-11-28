@@ -10,7 +10,8 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1"
+	v1alpha1cloud "github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1"
 	v1alpha1oncall "github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1"
 	v1alpha1oss "github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1"
 	v1alpha1sm "github.com/grafana/crossplane-provider-grafana/apis/sm/v1alpha1"
@@ -22,6 +23,7 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1cloud.SchemeBuilder.AddToScheme,
 		v1alpha1oncall.SchemeBuilder.AddToScheme,
 		v1alpha1oss.SchemeBuilder.AddToScheme,
 		v1alpha1sm.SchemeBuilder.AddToScheme,

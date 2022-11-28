@@ -8,7 +8,14 @@ import "github.com/upbound/upjet/pkg/config"
 
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
+// Keep same structure as in groups.go
 var ExternalNameConfigs = map[string]config.ExternalName{
+	"grafana_contact_point":       config.IdentifierFromProvider,
+	"grafana_message_template":    config.IdentifierFromProvider,
+	"grafana_mute_timing":         config.IdentifierFromProvider,
+	"grafana_notification_policy": config.IdentifierFromProvider,
+	"grafana_rule_group":          config.IdentifierFromProvider,
+
 	"grafana_cloud_api_key": config.IdentifierFromProvider,
 	"grafana_cloud_stack":   config.IdentifierFromProvider,
 

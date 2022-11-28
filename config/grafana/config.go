@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/upbound/upjet/pkg/config"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -19,8 +19,44 @@ const (
 
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
+	p.AddResourceConfigurator("grafana_contact_point", func(r *ujconfig.Resource) {
+		// TODO: Make maps work!
+		delete(r.TerraformResource.Schema["alertmanager"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["dingding"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["discord"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["email"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["googlechat"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["kafka"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["opsgenie"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["pagerduty"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["pushover"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["sensugo"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["slack"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["teams"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["telegram"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["threema"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["victorops"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["webhook"].Elem.(*schema.Resource).Schema, "settings")
+		delete(r.TerraformResource.Schema["wecom"].Elem.(*schema.Resource).Schema, "settings")
+	})
+	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
+		r.References["contact_point"] = ujconfig.Reference{
+			TerraformName:     "grafana_contact_point",
+			RefFieldName:      "ContactPointRef",
+			SelectorFieldName: "ContactPointSelector",
+			Extractor:         SelfPackagePath + ".NameExtractor()",
+		}
+	})
+	p.AddResourceConfigurator("grafana_rule_group", func(r *ujconfig.Resource) {
+		r.References["folder_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_folder",
+			RefFieldName:      "FolderRef",
+			SelectorFieldName: "FolderSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+	})
 	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
-		r.References["cloud_stack_slug"] = config.Reference{
+		r.References["cloud_stack_slug"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
@@ -46,7 +82,7 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {
-		r.References["folder"] = config.Reference{
+		r.References["folder"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
@@ -60,7 +96,7 @@ func Configure(p *ujconfig.Provider) {
 		delete(r.TerraformResource.Schema, "http_headers")        // TODO: Make this work!
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
-		r.References["members"] = config.Reference{
+		r.References["members"] = ujconfig.Reference{
 			TerraformName:     "grafana_user",
 			RefFieldName:      "MemberRefs",
 			SelectorFieldName: "MemberSelector",
