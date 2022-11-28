@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -19,26 +18,6 @@ const (
 
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
-	p.AddResourceConfigurator("grafana_contact_point", func(r *ujconfig.Resource) {
-		// TODO: Make maps work!
-		delete(r.TerraformResource.Schema["alertmanager"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["dingding"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["discord"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["email"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["googlechat"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["kafka"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["opsgenie"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["pagerduty"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["pushover"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["sensugo"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["slack"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["teams"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["telegram"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["threema"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["victorops"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["webhook"].Elem.(*schema.Resource).Schema, "settings")
-		delete(r.TerraformResource.Schema["wecom"].Elem.(*schema.Resource).Schema, "settings")
-	})
 	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
 		r.References["contact_point"] = ujconfig.Reference{
 			TerraformName:     "grafana_contact_point",
@@ -93,7 +72,6 @@ func Configure(p *ujconfig.Provider) {
 		delete(r.TerraformResource.Schema, "password")            // Deprecated
 		delete(r.TerraformResource.Schema, "json_data")           // Deprecated
 		delete(r.TerraformResource.Schema, "secure_json_data")    // Deprecated
-		delete(r.TerraformResource.Schema, "http_headers")        // TODO: Make this work!
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
 		r.References["members"] = ujconfig.Reference{

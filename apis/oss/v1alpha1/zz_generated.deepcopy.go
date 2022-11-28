@@ -462,6 +462,11 @@ func (in *DataSourceParameters) DeepCopyInto(out *DataSourceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.HTTPHeadersSecretRef != nil {
+		in, out := &in.HTTPHeadersSecretRef, &out.HTTPHeadersSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.IsDefault != nil {
 		in, out := &in.IsDefault, &out.IsDefault
 		*out = new(bool)

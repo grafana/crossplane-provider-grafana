@@ -52,6 +52,11 @@ func (in *AlertmanagerParameters) DeepCopyInto(out *AlertmanagerParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -535,6 +540,11 @@ func (in *DingdingParameters) DeepCopyInto(out *DingdingParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -588,6 +598,11 @@ func (in *DiscordParameters) DeepCopyInto(out *DiscordParameters) {
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
 		*out = new(string)
+		**out = **in
+	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
 		**out = **in
 	}
 	out.URLSecretRef = in.URLSecretRef
@@ -652,6 +667,11 @@ func (in *EmailParameters) DeepCopyInto(out *EmailParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.SingleEmail != nil {
 		in, out := &in.SingleEmail, &out.SingleEmail
 		*out = new(bool)
@@ -705,6 +725,11 @@ func (in *GooglechatParameters) DeepCopyInto(out *GooglechatParameters) {
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
 		*out = new(string)
+		**out = **in
+	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
 		**out = **in
 	}
 	out.URLSecretRef = in.URLSecretRef
@@ -830,6 +855,11 @@ func (in *KafkaParameters) DeepCopyInto(out *KafkaParameters) {
 		**out = **in
 	}
 	out.RestProxyURLSecretRef = in.RestProxyURLSecretRef
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.Topic != nil {
 		in, out := &in.Topic, &out.Topic
 		*out = new(string)
@@ -1400,6 +1430,11 @@ func (in *OpsgenieParameters) DeepCopyInto(out *OpsgenieParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -1461,6 +1496,11 @@ func (in *PagerdutyParameters) DeepCopyInto(out *PagerdutyParameters) {
 		**out = **in
 	}
 	out.IntegrationKeySecretRef = in.IntegrationKeySecretRef
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.Severity != nil {
 		in, out := &in.Severity, &out.Severity
 		*out = new(string)
@@ -2039,6 +2079,11 @@ func (in *PushoverParameters) DeepCopyInto(out *PushoverParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.Sound != nil {
 		in, out := &in.Sound, &out.Sound
 		*out = new(string)
@@ -2420,6 +2465,11 @@ func (in *SensugoParameters) DeepCopyInto(out *SensugoParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -2500,6 +2550,11 @@ func (in *SlackParameters) DeepCopyInto(out *SlackParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.Text != nil {
 		in, out := &in.Text, &out.Text
 		*out = new(string)
@@ -2575,6 +2630,11 @@ func (in *TeamsParameters) DeepCopyInto(out *TeamsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.Title != nil {
 		in, out := &in.Title, &out.Title
 		*out = new(string)
@@ -2631,6 +2691,11 @@ func (in *TelegramParameters) DeepCopyInto(out *TelegramParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	out.TokenSecretRef = in.TokenSecretRef
 }
 
@@ -2681,6 +2746,11 @@ func (in *ThreemaParameters) DeepCopyInto(out *ThreemaParameters) {
 	if in.RecipientID != nil {
 		in, out := &in.RecipientID, &out.RecipientID
 		*out = new(string)
+		**out = **in
+	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
 		**out = **in
 	}
 }
@@ -2768,6 +2838,11 @@ func (in *VictoropsParameters) DeepCopyInto(out *VictoropsParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -2843,6 +2918,11 @@ func (in *WebhookParameters) DeepCopyInto(out *WebhookParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
+		**out = **in
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -2891,6 +2971,11 @@ func (in *WecomParameters) DeepCopyInto(out *WecomParameters) {
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
 		*out = new(string)
+		**out = **in
+	}
+	if in.SettingsSecretRef != nil {
+		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
+		*out = new(v1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {

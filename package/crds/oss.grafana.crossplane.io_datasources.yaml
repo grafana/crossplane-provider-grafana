@@ -79,6 +79,19 @@ spec:
                       the database to use on the selected data source server. Defaults
                       to “.
                     type: string
+                  httpHeadersSecretRef:
+                    description: Custom HTTP headers
+                    properties:
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - name
+                    - namespace
+                    type: object
                   isDefault:
                     description: Whether to set the data source as default. This should
                       only be `true` to a single data source. Defaults to `false`.

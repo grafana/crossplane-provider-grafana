@@ -35,6 +35,10 @@ type DataSourceParameters struct {
 	// +kubebuilder:validation:Optional
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	// Custom HTTP headers
+	// +kubebuilder:validation:Optional
+	HTTPHeadersSecretRef *v1.SecretReference `json:"httpHeadersSecretRef,omitempty" tf:"-"`
+
 	// Whether to set the data source as default. This should only be `true` to a single data source. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`

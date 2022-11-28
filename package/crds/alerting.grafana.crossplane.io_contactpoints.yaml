@@ -94,6 +94,20 @@ spec:
                           description: Whether to disable sending resolve messages.
                             Defaults to `false`.
                           type: boolean
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         url:
                           description: The URL of the Alertmanager instance.
                           type: string
@@ -116,6 +130,20 @@ spec:
                           description: The format of message to send - either 'link'
                             or 'actionCard'
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         url:
                           description: The DingDing webhook URL.
                           type: string
@@ -140,6 +168,20 @@ spec:
                           description: The templated content of the message. Defaults
                             to “.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         urlSecretRef:
                           description: The discord webhook URL.
                           properties:
@@ -183,6 +225,20 @@ spec:
                           description: The templated content of the email. Defaults
                             to “.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         singleEmail:
                           description: Whether to send a single email CC'ing all addresses,
                             rather than a separate email to each address. Defaults
@@ -208,6 +264,20 @@ spec:
                         message:
                           description: The templated content of the message.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         urlSecretRef:
                           description: The Google Chat webhook URL.
                           properties:
@@ -253,6 +323,20 @@ spec:
                               type: string
                           required:
                           - key
+                          - name
+                          - namespace
+                          type: object
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
                           - name
                           - namespace
                           type: object
@@ -312,6 +396,20 @@ spec:
                             Tags, Details, or both. Supported values are `tags`, `details`,
                             `both`, or empty to use the default behavior of Tags.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         url:
                           description: Allows customization of the OpsGenie API URL.
                           type: string
@@ -352,6 +450,20 @@ spec:
                               type: string
                           required:
                           - key
+                          - name
+                          - namespace
+                          type: object
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
                           - name
                           - namespace
                           type: object
@@ -415,6 +527,20 @@ spec:
                           description: How often, in seconds, the Pushover servers
                             will send the same notification to the user.
                           type: number
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         sound:
                           description: The sound associated with the notification.
                           type: string
@@ -482,6 +608,20 @@ spec:
                         namespace:
                           description: The namespace in which the check resides.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         url:
                           description: The SensuGo URL to send requests to.
                           type: string
@@ -526,6 +666,20 @@ spec:
                           description: Channel, private group, or IM channel (can
                             be an encoded ID or a name) to send messages to.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         text:
                           description: Templated content of the message.
                           type: string
@@ -588,6 +742,20 @@ spec:
                         sectionTitle:
                           description: The templated subtitle for each message section.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         title:
                           description: The templated title of the message.
                           type: string
@@ -626,6 +794,20 @@ spec:
                         message:
                           description: The templated content of the message.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         tokenSecretRef:
                           description: The Telegram bot token.
                           properties:
@@ -679,6 +861,20 @@ spec:
                         recipientId:
                           description: The ID of the recipient of the message.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                       required:
                       - apiSecretSecretRef
                       - gatewayId
@@ -698,6 +894,20 @@ spec:
                           description: The VictorOps alert state - typically either
                             `CRITICAL` or `RECOVERY`.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         url:
                           description: The VictorOps webhook URL.
                           type: string
@@ -769,6 +979,20 @@ spec:
                             request. This can be helpful in limiting the size of the
                             request body. The default is 0, which indicates no limit.
                           type: number
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         url:
                           description: The URL to send webhook requests to.
                           type: string
@@ -787,6 +1011,20 @@ spec:
                         message:
                           description: The templated content of the message to send.
                           type: string
+                        settingsSecretRef:
+                          description: Additional custom properties to attach to the
+                            notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         title:
                           description: The templated title of the message to send.
                           type: string

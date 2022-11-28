@@ -33,6 +33,10 @@ type AlertmanagerParameters struct {
 	// +kubebuilder:validation:Optional
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// The URL of the Alertmanager instance.
 	// +kubebuilder:validation:Required
 	URL *string `json:"url" tf:"url,omitempty"`
@@ -206,6 +210,10 @@ type DingdingParameters struct {
 	// +kubebuilder:validation:Optional
 	MessageType *string `json:"messageType,omitempty" tf:"message_type,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// The DingDing webhook URL.
 	// +kubebuilder:validation:Required
 	URL *string `json:"url" tf:"url,omitempty"`
@@ -230,6 +238,10 @@ type DiscordParameters struct {
 	// The templated content of the message. Defaults to “.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// The discord webhook URL.
 	// +kubebuilder:validation:Required
@@ -260,6 +272,10 @@ type EmailParameters struct {
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	SingleEmail *bool `json:"singleEmail,omitempty" tf:"single_email,omitempty"`
@@ -285,6 +301,10 @@ type GooglechatParameters struct {
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// The Google Chat webhook URL.
 	// +kubebuilder:validation:Required
 	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
@@ -305,6 +325,10 @@ type KafkaParameters struct {
 	// The URL of the Kafka REST proxy to send requests to.
 	// +kubebuilder:validation:Required
 	RestProxyURLSecretRef v1.SecretKeySelector `json:"restProxyUrlSecretRef" tf:"-"`
+
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// The name of the Kafka topic to publish to.
 	// +kubebuilder:validation:Required
@@ -347,6 +371,10 @@ type OpsgenieParameters struct {
 	// +kubebuilder:validation:Optional
 	SendTagsAs *string `json:"sendTagsAs,omitempty" tf:"send_tags_as,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// Allows customization of the OpsGenie API URL.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -379,6 +407,10 @@ type PagerdutyParameters struct {
 	// The PagerDuty API key.
 	// +kubebuilder:validation:Required
 	IntegrationKeySecretRef v1.SecretKeySelector `json:"integrationKeySecretRef" tf:"-"`
+
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// The PagerDuty event severity level. Default is `critical`.
 	// +kubebuilder:validation:Optional
@@ -433,6 +465,10 @@ type PushoverParameters struct {
 	// +kubebuilder:validation:Optional
 	Retry *float64 `json:"retry,omitempty" tf:"retry,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// The sound associated with the notification.
 	// +kubebuilder:validation:Optional
 	Sound *string `json:"sound,omitempty" tf:"sound,omitempty"`
@@ -477,6 +513,10 @@ type SensugoParameters struct {
 	// The namespace in which the check resides.
 	// +kubebuilder:validation:Optional
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// The SensuGo URL to send requests to.
 	// +kubebuilder:validation:Required
@@ -523,6 +563,10 @@ type SlackParameters struct {
 	// +kubebuilder:validation:Optional
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// Templated content of the message.
 	// +kubebuilder:validation:Optional
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`
@@ -564,6 +608,10 @@ type TeamsParameters struct {
 	// +kubebuilder:validation:Optional
 	SectionTitle *string `json:"sectionTitle,omitempty" tf:"section_title,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// The templated title of the message.
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -593,6 +641,10 @@ type TelegramParameters struct {
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// The Telegram bot token.
 	// +kubebuilder:validation:Required
 	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
@@ -621,6 +673,10 @@ type ThreemaParameters struct {
 	// The ID of the recipient of the message.
 	// +kubebuilder:validation:Required
 	RecipientID *string `json:"recipientId" tf:"recipient_id,omitempty"`
+
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 }
 
 type VictoropsObservation struct {
@@ -638,6 +694,10 @@ type VictoropsParameters struct {
 	// The VictorOps alert state - typically either `CRITICAL` or `RECOVERY`.
 	// +kubebuilder:validation:Optional
 	MessageType *string `json:"messageType,omitempty" tf:"message_type,omitempty"`
+
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// The VictorOps webhook URL.
 	// +kubebuilder:validation:Required
@@ -680,6 +740,10 @@ type WebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	MaxAlerts *float64 `json:"maxAlerts,omitempty" tf:"max_alerts,omitempty"`
 
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// The URL to send webhook requests to.
 	// +kubebuilder:validation:Required
 	URL *string `json:"url" tf:"url,omitempty"`
@@ -700,6 +764,10 @@ type WecomParameters struct {
 	// The templated content of the message to send.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// The templated title of the message to send.
 	// +kubebuilder:validation:Optional
