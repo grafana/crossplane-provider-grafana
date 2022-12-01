@@ -68,12 +68,14 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_oncall_schedule":         ReplaceGroupWords("oncall", 1),
 
 	// OSS
-	"grafana_api_key":     ReplaceGroupWords("oss", 0),
-	"grafana_data_source": ReplaceGroupWords("oss", 0),
-	"grafana_dashboard":   ReplaceGroupWords("oss", 0),
-	"grafana_folder":      ReplaceGroupWords("oss", 0),
-	"grafana_team":        ReplaceGroupWords("oss", 0),
-	"grafana_user":        ReplaceGroupWords("oss", 0),
+	"grafana_api_key":              ReplaceGroupWords("oss", 0),
+	"grafana_data_source":          ReplaceGroupWords("oss", 0),
+	"grafana_dashboard":            ReplaceGroupWords("oss", 0),
+	"grafana_dashboard_permission": ReplaceGroupWords("oss", 0),
+	"grafana_folder":               ReplaceGroupWords("oss", 0),
+	"grafana_folder_permission":    ReplaceGroupWords("oss", 0),
+	"grafana_team":                 ReplaceGroupWords("oss", 0),
+	"grafana_user":                 ReplaceGroupWords("oss", 0),
 
 	// Synthetic Monitoring
 	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),

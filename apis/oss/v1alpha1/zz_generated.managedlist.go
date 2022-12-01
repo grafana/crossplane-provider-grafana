@@ -25,6 +25,15 @@ func (l *DashboardList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DashboardPermissionList.
+func (l *DashboardPermissionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this DataSourceList.
 func (l *DataSourceList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -36,6 +45,15 @@ func (l *DataSourceList) GetItems() []resource.Managed {
 
 // GetItems of this FolderList.
 func (l *FolderList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this FolderPermissionList.
+func (l *FolderPermissionList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

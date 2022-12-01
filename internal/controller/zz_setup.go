@@ -25,8 +25,10 @@ import (
 	schedule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/schedule"
 	apikeyoss "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/apikey"
 	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
+	dashboardpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermission"
 	datasource "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/datasource"
 	folder "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folder"
+	folderpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folderpermission"
 	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
@@ -55,8 +57,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		schedule.Setup,
 		apikeyoss.Setup,
 		dashboard.Setup,
+		dashboardpermission.Setup,
 		datasource.Setup,
 		folder.Setup,
+		folderpermission.Setup,
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,

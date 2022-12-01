@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -65,6 +66,23 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
+		}
+	})
+	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
+		r.TerraformResource.Schema["dashboard_id"].Type = schema.TypeString // hack because it seems like upjet doesn't support number references
+		r.References["dashboard_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_dashboard",
+			RefFieldName:      "DashboardRef",
+			SelectorFieldName: "DashboardSelector",
+			Extractor:         SelfPackagePath + ".DashboardIDExtractor()",
+		}
+	})
+	p.AddResourceConfigurator("grafana_folder_permission", func(r *ujconfig.Resource) {
+		r.References["folder_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_folder",
+			RefFieldName:      "FolderRef",
+			SelectorFieldName: "FolderSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
 	})
 	p.AddResourceConfigurator("grafana_data_source", func(r *ujconfig.Resource) {
