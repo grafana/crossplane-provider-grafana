@@ -58,6 +58,9 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_cloud_api_key": ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_stack":   ReplaceGroupWords("cloud", 1),
 
+	// Enterprise
+	"grafana_report": ReplaceGroupWords("enterprise", 0),
+
 	// OnCall
 	"grafana_oncall_escalation":       ReplaceGroupWords("oncall", 1),
 	"grafana_oncall_escalation_chain": ReplaceGroupWords("oncall", 1),

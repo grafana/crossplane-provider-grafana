@@ -16,6 +16,7 @@ import (
 	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/rulegroup"
 	apikey "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/apikey"
 	stack "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stack"
+	report "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/report"
 	escalation "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/escalation"
 	escalationchain "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/escalationchain"
 	integration "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/integration"
@@ -48,6 +49,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rulegroup.Setup,
 		apikey.Setup,
 		stack.Setup,
+		report.Setup,
 		escalation.Setup,
 		escalationchain.Setup,
 		integration.Setup,

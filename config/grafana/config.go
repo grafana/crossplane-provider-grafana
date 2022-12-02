@@ -19,22 +19,6 @@ const (
 
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
-	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
-		r.References["contact_point"] = ujconfig.Reference{
-			TerraformName:     "grafana_contact_point",
-			RefFieldName:      "ContactPointRef",
-			SelectorFieldName: "ContactPointSelector",
-			Extractor:         SelfPackagePath + ".NameExtractor()",
-		}
-	})
-	p.AddResourceConfigurator("grafana_rule_group", func(r *ujconfig.Resource) {
-		r.References["folder_uid"] = ujconfig.Reference{
-			TerraformName:     "grafana_folder",
-			RefFieldName:      "FolderRef",
-			SelectorFieldName: "FolderSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
-		}
-	})
 	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
 		r.References["cloud_stack_slug"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",
@@ -77,6 +61,12 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         SelfPackagePath + ".DashboardIDExtractor()",
 		}
 	})
+	p.AddResourceConfigurator("grafana_data_source", func(r *ujconfig.Resource) {
+		delete(r.TerraformResource.Schema, "basic_auth_password") // Deprecated
+		delete(r.TerraformResource.Schema, "password")            // Deprecated
+		delete(r.TerraformResource.Schema, "json_data")           // Deprecated
+		delete(r.TerraformResource.Schema, "secure_json_data")    // Deprecated
+	})
 	p.AddResourceConfigurator("grafana_folder_permission", func(r *ujconfig.Resource) {
 		r.References["folder_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
@@ -85,11 +75,30 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
 	})
-	p.AddResourceConfigurator("grafana_data_source", func(r *ujconfig.Resource) {
-		delete(r.TerraformResource.Schema, "basic_auth_password") // Deprecated
-		delete(r.TerraformResource.Schema, "password")            // Deprecated
-		delete(r.TerraformResource.Schema, "json_data")           // Deprecated
-		delete(r.TerraformResource.Schema, "secure_json_data")    // Deprecated
+	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
+		r.References["contact_point"] = ujconfig.Reference{
+			TerraformName:     "grafana_contact_point",
+			RefFieldName:      "ContactPointRef",
+			SelectorFieldName: "ContactPointSelector",
+			Extractor:         SelfPackagePath + ".NameExtractor()",
+		}
+	})
+	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
+		r.TerraformResource.Schema["dashboard_id"].Type = schema.TypeString // hack because it seems like upjet doesn't support number references
+		r.References["dashboard_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_dashboard",
+			RefFieldName:      "DashboardRef",
+			SelectorFieldName: "DashboardSelector",
+			Extractor:         SelfPackagePath + ".DashboardIDExtractor()",
+		}
+	})
+	p.AddResourceConfigurator("grafana_rule_group", func(r *ujconfig.Resource) {
+		r.References["folder_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_folder",
+			RefFieldName:      "FolderRef",
+			SelectorFieldName: "FolderSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
 		r.References["members"] = ujconfig.Reference{
