@@ -5,7 +5,7 @@ metadata:
   annotations:
     meta.crossplane.io/maintainer: "Julien Duchesne <julien.duchesne@grafana.com>"
     meta.crossplane.io/source: "github.com/grafana/crossplane-provider-grafana"
-    meta.crossplane.io/license": "Apache-2.0"
+    meta.crossplane.io/license: "Apache-2.0"
     meta.crossplane.io/description: "Crossplane provider generated from https://github.com/grafana/terraform-provider-grafana."
     meta.crossplane.io/readme: |
       # Grafana Provider
