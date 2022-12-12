@@ -65,10 +65,11 @@ spec:
               forProvider:
                 properties:
                   dashboardId:
-                    description: ID of the dashboard to apply permissions to.
-                    type: string
+                    description: 'ID of the dashboard to apply permissions to. Deprecated:
+                      use `dashboard_uid` instead.'
+                    type: number
                   dashboardRef:
-                    description: Reference to a Dashboard in oss to populate dashboardId.
+                    description: Reference to a Dashboard in oss to populate dashboardUid.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -102,7 +103,7 @@ spec:
                     - name
                     type: object
                   dashboardSelector:
-                    description: Selector for a Dashboard in oss to populate dashboardId.
+                    description: Selector for a Dashboard in oss to populate dashboardUid.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the
@@ -140,6 +141,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  dashboardUid:
+                    description: UID of the dashboard to apply permissions to.
+                    type: string
                   permissions:
                     description: The permission items to add/update. Items that are
                       omitted from the list will be removed.

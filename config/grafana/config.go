@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	ujconfig "github.com/upbound/upjet/pkg/config"
 )
 
@@ -53,12 +52,11 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
-		r.TerraformResource.Schema["dashboard_id"].Type = schema.TypeString // hack because it seems like upjet doesn't support number references
-		r.References["dashboard_id"] = ujconfig.Reference{
+		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
 			SelectorFieldName: "DashboardSelector",
-			Extractor:         SelfPackagePath + ".DashboardIDExtractor()",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
 	})
 	p.AddResourceConfigurator("grafana_data_source", func(r *ujconfig.Resource) {
@@ -84,12 +82,11 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
-		r.TerraformResource.Schema["dashboard_id"].Type = schema.TypeString // hack because it seems like upjet doesn't support number references
-		r.References["dashboard_id"] = ujconfig.Reference{
+		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
 			SelectorFieldName: "DashboardSelector",
-			Extractor:         SelfPackagePath + ".DashboardIDExtractor()",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
 	})
 	p.AddResourceConfigurator("grafana_rule_group", func(r *ujconfig.Resource) {

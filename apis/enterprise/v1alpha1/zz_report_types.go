@@ -19,21 +19,25 @@ type ReportObservation struct {
 
 type ReportParameters struct {
 
-	// Dashboard to be sent in the report.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.DashboardIDExtractor()
-	// +crossplane:generate:reference:refFieldName=DashboardRef
-	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
+	// Dashboard to be sent in the report. This field is deprecated, use `dashboard_uid` instead.
 	// +kubebuilder:validation:Optional
-	DashboardID *string `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+	DashboardID *float64 `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
-	// Reference to a Dashboard in oss to populate dashboardId.
+	// Reference to a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
 	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
 
-	// Selector for a Dashboard in oss to populate dashboardId.
+	// Selector for a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
 	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+
+	// Dashboard to be sent in the report.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
+	// +kubebuilder:validation:Optional
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
 	// Whether to include a link to the dashboard in the report. Defaults to `true`.
 	// +kubebuilder:validation:Optional

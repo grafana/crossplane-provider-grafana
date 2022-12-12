@@ -22,21 +22,6 @@ func CloudStackSlugExtractor() reference.ExtractValueFn {
 }
 
 // nolint: golint
-func DashboardIDExtractor() reference.ExtractValueFn {
-	return func(mg xpresource.Managed) string {
-		paved, err := fieldpath.PaveObject(mg)
-		if err != nil {
-			return ""
-		}
-		r, err := paved.GetString("status.atProvider.dashboard_id")
-		if err != nil {
-			return ""
-		}
-		return r
-	}
-}
-
-// nolint: golint
 func NameExtractor() reference.ExtractValueFn {
 	return func(mg xpresource.Managed) string {
 		paved, err := fieldpath.PaveObject(mg)

@@ -410,7 +410,7 @@ func (in *DashboardPermissionParameters) DeepCopyInto(out *DashboardPermissionPa
 	*out = *in
 	if in.DashboardID != nil {
 		in, out := &in.DashboardID, &out.DashboardID
-		*out = new(string)
+		*out = new(float64)
 		**out = **in
 	}
 	if in.DashboardRef != nil {
@@ -422,6 +422,11 @@ func (in *DashboardPermissionParameters) DeepCopyInto(out *DashboardPermissionPa
 		in, out := &in.DashboardSelector, &out.DashboardSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.DashboardUID != nil {
+		in, out := &in.DashboardUID, &out.DashboardUID
+		*out = new(string)
+		**out = **in
 	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions

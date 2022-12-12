@@ -4,13 +4,13 @@
 PROJECT_NAME := provider-grafana
 PROJECT_REPO := github.com/grafana/crossplane-provider-grafana
 
-export TERRAFORM_VERSION := 1.3.5
+export TERRAFORM_VERSION := 1.3.6
 
 export TERRAFORM_PROVIDER_SOURCE := grafana/grafana
 export TERRAFORM_PROVIDER_REPO := https://github.com/grafana/terraform-provider-grafana
-export TERRAFORM_PROVIDER_VERSION := 1.31.1
+export TERRAFORM_PROVIDER_VERSION := 1.32.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-grafana
-export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-grafana_v1.31.1
+export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-grafana_v1.32.0
 export TERRAFORM_DOCS_PATH := docs/resources
 
 PLATFORMS ?= linux_amd64 linux_arm64

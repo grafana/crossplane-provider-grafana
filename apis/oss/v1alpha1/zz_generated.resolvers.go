@@ -74,8 +74,8 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardID),
-		Extract:      grafana.DashboardIDExtractor(),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
+		Extract:      grafana.UIDExtractor(),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
 		To: reference.To{
@@ -84,9 +84,9 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardID")
+		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardUID")
 	}
-	mg.Spec.ForProvider.DashboardID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
 
 	return nil

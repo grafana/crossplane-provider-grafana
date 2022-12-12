@@ -98,7 +98,7 @@ func (in *ReportParameters) DeepCopyInto(out *ReportParameters) {
 	*out = *in
 	if in.DashboardID != nil {
 		in, out := &in.DashboardID, &out.DashboardID
-		*out = new(string)
+		*out = new(float64)
 		**out = **in
 	}
 	if in.DashboardRef != nil {
@@ -110,6 +110,11 @@ func (in *ReportParameters) DeepCopyInto(out *ReportParameters) {
 		in, out := &in.DashboardSelector, &out.DashboardSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.DashboardUID != nil {
+		in, out := &in.DashboardUID, &out.DashboardUID
+		*out = new(string)
+		**out = **in
 	}
 	if in.IncludeDashboardLink != nil {
 		in, out := &in.IncludeDashboardLink, &out.IncludeDashboardLink

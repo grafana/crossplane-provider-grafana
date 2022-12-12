@@ -64,10 +64,11 @@ spec:
               forProvider:
                 properties:
                   dashboardId:
-                    description: Dashboard to be sent in the report.
-                    type: string
+                    description: Dashboard to be sent in the report. This field is
+                      deprecated, use `dashboard_uid` instead.
+                    type: number
                   dashboardRef:
-                    description: Reference to a Dashboard in oss to populate dashboardId.
+                    description: Reference to a Dashboard in oss to populate dashboardUid.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -101,7 +102,7 @@ spec:
                     - name
                     type: object
                   dashboardSelector:
-                    description: Selector for a Dashboard in oss to populate dashboardId.
+                    description: Selector for a Dashboard in oss to populate dashboardUid.
                     properties:
                       matchControllerRef:
                         description: MatchControllerRef ensures an object with the
@@ -139,6 +140,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  dashboardUid:
+                    description: Dashboard to be sent in the report.
+                    type: string
                   includeDashboardLink:
                     description: Whether to include a link to the dashboard in the
                       report. Defaults to `true`.
