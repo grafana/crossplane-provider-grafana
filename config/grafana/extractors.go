@@ -44,15 +44,13 @@ func UIDExtractor() reference.ExtractValueFn {
 			return ""
 		}
 		r, err := paved.GetString("spec.forProvider.uid")
-		if err != nil {
-			return ""
+		if err == nil && r != "" {
+			return r
 		}
 		// UID is optional, so it can be in atProvider if it's not in forProvider
-		if r == "" {
-			r, err = paved.GetString("status.atProvider.uid")
-			if err != nil {
-				return ""
-			}
+		r, err = paved.GetString("status.atProvider.uid")
+		if err != nil {
+			return ""
 		}
 		return r
 	}
