@@ -52,6 +52,7 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
+		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
@@ -82,6 +83,7 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
+		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",

@@ -19,10 +19,6 @@ type ReportObservation struct {
 
 type ReportParameters struct {
 
-	// Dashboard to be sent in the report. This field is deprecated, use `dashboard_uid` instead.
-	// +kubebuilder:validation:Optional
-	DashboardID *float64 `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
-
 	// Reference to a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
 	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`

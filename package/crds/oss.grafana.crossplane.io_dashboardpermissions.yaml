@@ -64,10 +64,6 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  dashboardId:
-                    description: 'ID of the dashboard to apply permissions to. Deprecated:
-                      use `dashboard_uid` instead.'
-                    type: number
                   dashboardRef:
                     description: Reference to a Dashboard in oss to populate dashboardUid.
                     properties:

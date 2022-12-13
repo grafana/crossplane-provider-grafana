@@ -19,10 +19,6 @@ type DashboardPermissionObservation struct {
 
 type DashboardPermissionParameters struct {
 
-	// ID of the dashboard to apply permissions to. Deprecated: use `dashboard_uid` instead.
-	// +kubebuilder:validation:Optional
-	DashboardID *float64 `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
-
 	// Reference to a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
 	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`

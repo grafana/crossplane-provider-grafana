@@ -63,10 +63,6 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  dashboardId:
-                    description: Dashboard to be sent in the report. This field is
-                      deprecated, use `dashboard_uid` instead.
-                    type: number
                   dashboardRef:
                     description: Reference to a Dashboard in oss to populate dashboardUid.
                     properties:
