@@ -1,2 +1,1035 @@
 name: grafana/grafana
-resources: {}
+resources:
+    grafana_alert_notification Resource - terraform-provider-grafana:
+        subCategory: Deprecated
+        description: This resource is used to configure the legacy alerting system which has been replaced by the unified alerting system https://grafana.com/docs/grafana/latest/alerting/ in Grafana 9+. See resources in the Alerting section https://registry.terraform.io/providers/grafana/grafana/latest/docs for info on how to configure alerting with Terraform.
+        name: grafana_alert_notification Resource - terraform-provider-grafana
+        title: grafana_alert_notification Resource - terraform-provider-grafana
+        argumentDocs:
+            disable_resolve_message: (Boolean) Whether to disable sending resolve messages. Defaults to false.
+            frequency: (String) Frequency of alert reminders. Frequency must be set if reminders are enabled. Defaults to ``.
+            id: (String) The ID of this resource.
+            is_default: (Boolean) Is this the default channel for all your alerts. Defaults to false.
+            name: (String) The name of the alert notification channel.
+            secure_settings: (Map of String, Sensitive) Additional secure settings, for full reference lookup Grafana Supported Settings documentation.
+            send_reminder: (Boolean) Whether to send reminders for triggered alerts. Defaults to false.
+            settings: (Map of String) Additional settings, for full reference see Grafana HTTP API documentation.
+            type: (String) The type of the alert notification channel.
+            uid: (String) Unique identifier. If unset, this will be automatically generated.
+        importStatements:
+            - terraform import grafana_alert_notification.alert_notification_name {{alert_notification_id}}
+    grafana_annotation Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/annotations/HTTP API https://grafana.com/docs/grafana/latest/http_api/annotations/
+        name: grafana_annotation Resource - terraform-provider-grafana
+        title: grafana_annotation Resource - terraform-provider-grafana
+        argumentDocs:
+            dashboard_id: (Number) The ID of the dashboard on which to create the annotation.
+            id: (String) The ID of this resource.
+            panel_id: (Number) The ID of the dashboard panel on which to create the annotation.
+            tags: (Set of String) The tags to associate with the annotation.
+            text: (String) The text to associate with the annotation.
+            time: (String) The RFC 3339-formatted time string indicating the annotation's time.
+            time_end: (String) The RFC 3339-formatted time string indicating the annotation's end time.
+        importStatements: []
+    grafana_api_key Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Manages Grafana API Keys. HTTP API https://grafana.com/docs/grafana/latest/http_api/auth/
+        name: grafana_api_key Resource - terraform-provider-grafana
+        title: grafana_api_key Resource - terraform-provider-grafana
+        argumentDocs:
+            cloud_stack_slug: '(String) If set, the API key will be created for the given Cloud stack. This can be used to bootstrap a management API key for a new stack. Note: This requires a cloud token to be configured.'
+            expiration: (String)
+            id: (String) The ID of this resource.
+            key: (String, Sensitive)
+            name: (String)
+            role: (String)
+            seconds_to_live: (Number)
+        importStatements: []
+    grafana_builtin_role_assignment Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: 'Note: This resource is going to be deprecated with Grafana 9.+, please use grafana_role https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/role instead. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
+        name: grafana_builtin_role_assignment Resource - terraform-provider-grafana
+        title: grafana_builtin_role_assignment Resource - terraform-provider-grafana
+        argumentDocs:
+            builtin_role: (String) Organization roles (Viewer, Editor, Admin) or Grafana Admin to assign the roles to.
+            global: (Boolean) States whether the assignment is available across all organizations or not. Defaults to false.
+            id: (String) The ID of this resource.
+            roles: '(Block Set, Min: 1) Fixed or custom roles which provide granular access for specific resources within Grafana. (see below for nested schema)'
+            uid: (String) Unique identifier of the role to assign to builtin_role.
+        importStatements:
+            - terraform import grafana_builtin_role_assignment.builtin_role_name {{builtin_role_name}}
+    grafana_cloud_access_policy Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: Official documentation https://grafana.com/docs/grafana-cloud/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/reference/cloud-api/#create-an-access-policy
+        name: grafana_cloud_access_policy Resource - terraform-provider-grafana
+        title: grafana_cloud_access_policy Resource - terraform-provider-grafana
+        argumentDocs:
+            created_at: (String) Creation date of the access policy.
+            display_name: (String) Display name of the access policy. Defaults to the name.
+            id: (String) The ID of this resource.
+            identifier: (String) The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
+            label_policy: (Block Set) (see below for nested schema)
+            name: (String) Name of the access policy.
+            policy_id: (String) ID of the access policy.
+            realm: '(Block Set, Min: 1) (see below for nested schema)'
+            region: (String) Region where the API is deployed. Region where the API is deployed. Generally where the stack is deployed. Valid values are 'us', 'eu', and 'au'.
+            scopes: (Set of String) Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/authentication-and-permissions/access-policies/#scopes for possible values.
+            selector: (String) The label selector to match in metrics or logs query. Should be in PromQL or LogQL format.
+            type: (String) Whether a policy applies to a Cloud org or a specific stack. Should be one of org or stack.
+            updated_at: (String) Last update date of the access policy.
+        importStatements: []
+    grafana_cloud_access_policy_token Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: Official documentation https://grafana.com/docs/grafana-cloud/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/reference/cloud-api/#create-a-token
+        name: grafana_cloud_access_policy_token Resource - terraform-provider-grafana
+        title: grafana_cloud_access_policy_token Resource - terraform-provider-grafana
+        argumentDocs:
+            access_policy_id: (String) ID of the access policy for which to create a token.
+            created_at: (String) Creation date of the access policy token.
+            display_name: (String) Display name of the access policy token. Defaults to the name.
+            expires_at: (String) Expiration date of the access policy token. Does not expire by default.
+            id: (String) The ID of this resource.
+            name: (String) Name of the access policy token.
+            region: (String) Region of the access policy. Should be set to the same region as the access policy.
+            token: (String, Sensitive)
+            updated_at: (String) Last update date of the access policy token.
+        importStatements: []
+    grafana_cloud_api_key Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: Manages a single API key on the Grafana Cloud portal (on the organization level)
+        name: grafana_cloud_api_key Resource - terraform-provider-grafana
+        title: grafana_cloud_api_key Resource - terraform-provider-grafana
+        argumentDocs:
+            cloud_org_slug: (String) The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
+            id: (String) The ID of this resource.
+            key: (String, Sensitive) The generated API key.
+            name: (String) Name of the API key.
+            role: (String) Role of the API key. Should be one of [Viewer Editor Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key for details.
+        importStatements:
+            - terraform import grafana_cloud_api_key.resource_name "{{org-name}}-{{api_key_name}}"
+    grafana_cloud_plugin_installation Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: Manages Grafana Cloud Plugin Installations. Plugin Catalog https://grafana.com/grafana/plugins/
+        name: grafana_cloud_plugin_installation Resource - terraform-provider-grafana
+        title: grafana_cloud_plugin_installation Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            slug: (String) Slug of the plugin to be installed.
+            stack_slug: (String) The stack id to which the plugin should be installed.
+            version: (String) Version of the plugin to be installed.
+        importStatements:
+            - terraform import grafana_cloud_plugin_installation.plugin_name {{stack_slug}}_{{plugin_slug}}
+    grafana_cloud_stack Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: Official documentation https://grafana.com/docs/grafana-cloud/reference/cloud-api/#stacks/
+        name: grafana_cloud_stack Resource - terraform-provider-grafana
+        title: grafana_cloud_stack Resource - terraform-provider-grafana
+        argumentDocs:
+            alertmanager_name: (String) Name of the Alertmanager instance configured for this stack.
+            alertmanager_status: (String) Status of the Alertmanager instance configured for this stack.
+            alertmanager_url: (String) Base URL of the Alertmanager instance configured for this stack.
+            alertmanager_user_id: (Number) User ID of the Alertmanager instance configured for this stack.
+            description: (String) Description of stack.
+            graphite_name: (String)
+            graphite_status: (String)
+            graphite_url: (String)
+            graphite_user_id: (Number)
+            id: (String) The stack id assigned to this stack by Grafana.
+            logs_name: (String)
+            logs_status: (String)
+            logs_url: (String)
+            logs_user_id: (Number)
+            name: (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+            org_id: (Number) Organization id to assign to this stack.
+            org_name: (String) Organization name to assign to this stack.
+            org_slug: (String) Organization slug to assign to this stack.
+            prometheus_name: (String) Prometheus name for this instance.
+            prometheus_remote_endpoint: (String) Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
+            prometheus_remote_write_endpoint: (String) Use this URL to send prometheus metrics to Grafana cloud
+            prometheus_status: (String) Prometheus status for this instance.
+            prometheus_url: (String) Prometheus url for this instance.
+            prometheus_user_id: (Number) Prometheus user ID. Used for e.g. remote_write.
+            region_slug: |-
+                (String) Region slug to assign to this stack.
+                Changing region will destroy the existing stack and create a new one in the desired region.
+                Available input au (GCP Australia), eu (GCP Belgium), us (GCP US Central), prod-ap-southeast-0 (GCP Singapore), prod-gb-south-0 (GCP UK), prod-ap-south-0 (GCP India), prod-sa-east-0 (GCP Brazil)
+            slug: |-
+                (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+                available at “https://<stack_slug>.grafana.net".
+            status: (String) Status of the stack.
+            traces_name: (String)
+            traces_status: (String)
+            traces_url: (String)
+            traces_user_id: (Number)
+            url: (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+            wait_for_readiness: (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
+            wait_for_readiness_timeout: (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+        importStatements:
+            - terraform import grafana_cloud_stack.stack_name {{stack_id}}
+    grafana_contact_point Resource - terraform-provider-grafana:
+        subCategory: Alerting
+        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/latest/alerting/contact-pointsHTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
+        name: grafana_contact_point Resource - terraform-provider-grafana
+        title: grafana_contact_point Resource - terraform-provider-grafana
+        argumentDocs:
+            addresses: (List of String) The addresses to send emails to.
+            alertmanager: (Block List) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
+            api_key: (String, Sensitive) The OpsGenie API key to use.
+            api_secret: (String, Sensitive) The Threema API key.
+            api_token: (String, Sensitive) The Pushover API token.
+            authorization_credentials: (String, Sensitive) Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+            authorization_scheme: (String) Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
+            auto_close: (Boolean) Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
+            avatar_url: (String) The URL of a custom avatar image to use. Defaults to ``.
+            basic_auth_password: (String, Sensitive) The password component of the basic auth credentials to use.
+            basic_auth_user: (String) The username component of the basic auth credentials to use.
+            chat_id: (String) The chat ID to send messages to.
+            check: (String) The SensuGo check to which the event should be routed.
+            class: (String) The class or type of event, for example ping failure.
+            component: (String) The component being affected by the event.
+            description: (String) A templated high-level description to use for the alert.
+            device: (String) Comma-separated list of devices to which the event is associated.
+            dingding: (Block List) A contact point that sends notifications to DingDing. (see below for nested schema)
+            disable_resolve_message: (Boolean) Whether to disable sending resolve messages. Defaults to false.
+            discord: (Block List) A contact point that sends notifications as Discord messages (see below for nested schema)
+            email: (Block List) A contact point that sends notifications to an email address. (see below for nested schema)
+            endpoint_url: (String) Use this to override the Slack API endpoint URL to send requests to.
+            entity: (String) The entity being monitored.
+            expire: (Number) How many seconds for which the notification will continue to be retried by Pushover.
+            gateway_id: (String) The Threema gateway ID.
+            googlechat: (Block List) A contact point that sends notifications to Google Chat. (see below for nested schema)
+            group: (String) The group to which the provided component belongs to.
+            handler: (String) A custom handler to execute in addition to the check.
+            http_method: (String) The HTTP method to use in the request. Defaults to POST.
+            icon_emoji: (String) The name of a Slack workspace emoji to use as the bot icon.
+            icon_url: (String) A URL of an image to use as the bot icon.
+            id: (String) The ID of this resource.
+            integration_key: (String, Sensitive) The PagerDuty API key.
+            kafka: (Block List) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
+            max_alerts: (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
+            mention_channel: (String) Describes how to ping the slack channel that messages are being sent to. Options are here for an @here ping, channel for @channel, or empty for no ping.
+            mention_groups: (String) Comma-separated list of groups to mention in the message.
+            mention_users: (String) Comma-separated list of users to mention in the message.
+            message: (String) The templated content of the message.
+            message_type: (String) The format of message to send - either 'link' or 'actionCard'
+            name: (String) The name of the contact point.
+            namespace: (String) The namespace in which the check resides.
+            ok_priority: (Number) The priority level of the resolved event.
+            ok_sound: (String) The sound associated with the resolved notification.
+            opsgenie: (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
+            override_priority: (Boolean) Whether to allow the alert priority to be configured via the value of the og_priority annotation on the alert.
+            pagerduty: (Block List) A contact point that sends notifications to PagerDuty. (see below for nested schema)
+            priority: (Number) The priority level of the event.
+            pushover: (Block List) A contact point that sends notifications to Pushover. (see below for nested schema)
+            recipient: (String) Channel, private group, or IM channel (can be an encoded ID or a name) to send messages to.
+            recipient_id: (String) The ID of the recipient of the message.
+            rest_proxy_url: (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
+            retry: (Number) How often, in seconds, the Pushover servers will send the same notification to the user.
+            section_title: (String) The templated subtitle for each message section.
+            send_tags_as: (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
+            sensugo: (Block List) A contact point that sends notifications to SensuGo. (see below for nested schema)
+            settings: (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
+            severity: (String) The PagerDuty event severity level. Default is critical.
+            single_email: (Boolean) Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to false.
+            slack: (Block List) A contact point that sends notifications to Slack. (see below for nested schema)
+            sound: (String) The sound associated with the notification.
+            subject: (String) The templated subject line of the email. Defaults to ``.
+            summary: (String) The templated summary message of the event.
+            teams: (Block List) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
+            telegram: (Block List) A contact point that sends notifications to Telegram. (see below for nested schema)
+            text: (String) Templated content of the message.
+            threema: (Block List) A contact point that sends notifications to Threema. (see below for nested schema)
+            title: (String) Templated title of the message.
+            token: (String, Sensitive) A Slack API token,for sending messages directly without the webhook method.
+            topic: (String) The name of the Kafka topic to publish to.
+            uid: (String) The UID of the contact point.
+            url: (String) The URL of the Alertmanager instance.
+            use_discord_username: (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
+            user_key: (String, Sensitive) The Pushover user key.
+            username: (String) Username for the bot to use.
+            victorops: (Block List) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
+            webhook: '(Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)'
+            wecom: (Block List) A contact point that sends notifications to WeCom. (see below for nested schema)
+        importStatements:
+            - terraform import grafana_contact_point.contact_point_name {{contact_point_name}}
+    grafana_dashboard Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Manages Grafana dashboards. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/http_api/dashboard/
+        name: grafana_dashboard Resource - terraform-provider-grafana
+        title: grafana_dashboard Resource - terraform-provider-grafana
+        argumentDocs:
+            config_json: (String) The complete dashboard model JSON.
+            dashboard_id: (Number) The numeric ID of the dashboard computed by Grafana.
+            folder: (String) The id of the folder to save the dashboard in. This attribute is a string to reflect the type of the folder's id.
+            id: (String) The ID of this resource.
+            message: (String) Set a commit message for the version history.
+            overwrite: (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
+            slug: (String, Deprecated) URL friendly version of the dashboard title. This field is deprecated, please use uid instead.
+            uid: (String) The unique identifier of a dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a dashboard. The uid allows having consistent URLs for accessing dashboards and when syncing dashboards between multiple Grafana installs.
+            url: (String) The full URL of the dashboard.
+            version: (Number) Whenever you save a version of your dashboard, a copy of that version is saved so that previous versions of your dashboard are not lost.
+        importStatements:
+            - terraform import grafana_dashboard.dashboard_name {{dashboard_uid}}
+    grafana_dashboard_permission Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/permissions/dashboard_folder_permissions/HTTP API https://grafana.com/docs/grafana/latest/http_api/dashboard_permissions/
+        name: grafana_dashboard_permission Resource - terraform-provider-grafana
+        title: grafana_dashboard_permission Resource - terraform-provider-grafana
+        argumentDocs:
+            dashboard_id: '(Number, Deprecated) ID of the dashboard to apply permissions to. Deprecated: use dashboard_uid instead.'
+            dashboard_uid: (String) UID of the dashboard to apply permissions to.
+            id: (String) The ID of this resource.
+            permission: (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+            permissions: '(Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)'
+            role: (String) Manage permissions for Viewer or Editor roles.
+            team_id: (Number) ID of the team to manage permissions for. Defaults to 0.
+            user_id: (Number) ID of the user to manage permissions for. Defaults to 0.
+        importStatements:
+            - terraform import grafana_dashboard_permission.dashboard_name {{dashboard_uid}}
+    grafana_data_source Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
+        name: grafana_data_source Resource - terraform-provider-grafana
+        title: grafana_data_source Resource - terraform-provider-grafana
+        argumentDocs:
+            access_key: (String, Sensitive) (CloudWatch, Athena) The access key used to access the data source.
+            access_mode: '(String) The method by which Grafana will access the data source: proxy or direct. Defaults to proxy.'
+            access_token: (String, Sensitive) (Github) The access token used to access the data source.
+            alertmanager_uid: (String) (Prometheus) The name of the Alertmanager datasource to manage alerts via UI
+            assume_role_arn: (String) (CloudWatch, Athena) The ARN of the role to be assumed by Grafana when using the CloudWatch or Athena data source.
+            auth_token: (String, Sensitive) (Sentry) Authorization token.
+            auth_type: (String) (CloudWatch, Athena) The authentication type used to access the data source.
+            authentication_type: '(String) (Stackdriver) The authentication type: jwt or gce.'
+            basic_auth_enabled: (Boolean) Whether to enable basic auth for the data source. Defaults to false.
+            basic_auth_password: (String, Sensitive, Deprecated) Use secure_json_data_encoded.basicAuthPassword instead. Defaults to ``.
+            basic_auth_username: (String) Basic auth username. Defaults to ``.
+            catalog: (String) (Athena) Athena catalog.
+            client_email: (String) (Stackdriver) Service account email address.
+            client_id: (String) (Azure Monitor) The service account client id.
+            client_secret: (String, Sensitive) (Azure Monitor) Client secret for authentication.
+            cloud_name: (String) (Azure Monitor) The cloud name.
+            conn_max_lifetime: (Number) (MySQL, PostgreSQL, and MSSQL) Maximum amount of time in seconds a connection may be reused (Grafana v5.4+).
+            custom_metrics_namespaces: (String) (CloudWatch) A comma-separated list of custom namespaces to be queried by the CloudWatch data source.
+            database: (String) (Athena) Name of the database within the catalog.
+            database_name: (String) (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
+            datasource_uid: (String)
+            default_bucket: (String) (InfluxDB) The default bucket for the data source.
+            default_project: (String) (Stackdriver) The default project for the data source.
+            default_region: (String) (CloudWatch, Athena) The default region for the data source.
+            derived_field: (Block List) (Loki) See https://grafana.com/docs/grafana/latest/datasources/loki/#derived-fields (see below for nested schema)
+            encrypt: '(String) (MSSQL) Connection SSL encryption handling: ''disable'', ''false'' or ''true''.'
+            es_version: (String) (Elasticsearch) Elasticsearch semantic version (Grafana v8.0+).
+            external_id: (String) (CloudWatch, Athena) If you are assuming a role in another account, that has been created with an external ID, specify the external ID here.
+            github_url: (String) (Github) Github URL
+            graphite_version: (String) (Graphite) Graphite version.
+            http_headers: (Map of String, Sensitive) Custom HTTP headers
+            http_method: (String) (Prometheus) HTTP method to use for making requests.
+            id: (String) The ID of this resource.
+            implementation: (String) (Alertmanager) Implementation of Alertmanager. Either 'cortex' or 'prometheus'
+            interval: (String) (Elasticsearch) Index date time format. nil(No Pattern), 'Hourly', 'Daily', 'Weekly', 'Monthly' or 'Yearly'.
+            is_default: (Boolean) Whether to set the data source as default. This should only be true to a single data source. Defaults to false.
+            json_data: (Block List, Deprecated) Use json_data_encoded instead. (see below for nested schema)
+            json_data_encoded: (String) Serialized JSON string containing the json data. This attribute can be used to pass configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
+            log_level_field: (String) (Elasticsearch) Which field should be used to indicate the priority of the log message.
+            log_message_field: (String) (Elasticsearch) Which field should be used as the log message.
+            manage_alerts: (Boolean) (Prometheus) Manage alerts.
+            matcher_regex: (String)
+            max_concurrent_shard_requests: (Number) (Elasticsearch) Maximum number of concurrent shard requests.
+            max_idle_conns: (Number) (MySQL, PostgreSQL and MSSQL) Maximum number of connections in the idle connection pool (Grafana v5.4+).
+            max_lines: (Number) (Loki) Upper limit for the number of log lines returned by Loki
+            max_open_conns: (Number) (MySQL, PostgreSQL and MSSQL) Maximum number of open connections to the database (Grafana v5.4+).
+            name: (String) A unique name for the data source.
+            org_slug: (String) (Sentry) Organization slug.
+            organization: (String) (InfluxDB) An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization.
+            output_location: (String) (Athena) AWS S3 bucket to store execution outputs. If not specified, the default query result location from the Workgroup configuration will be used.
+            password: (String, Sensitive, Deprecated) Use secure_json_data_encoded.password instead. Defaults to ``.
+            postgres_version: (Number) (PostgreSQL) Postgres version as a number (903/904/905/906/1000) meaning v9.3, v9.4, etc.
+            private_key: (String, Sensitive) (Stackdriver) The service account key private_key to use to access the data source.
+            profile: (String) (CloudWatch, Athena) The credentials profile name to use when authentication type is set as 'Credentials file'.
+            query_timeout: (String) (Prometheus) Timeout for queries made to the Prometheus data source in seconds.
+            secret_key: (String, Sensitive) (CloudWatch, Athena) The secret key to use to access the data source.
+            secure_json_data: (Block List, Deprecated) Use secure_json_data_encoded instead. (see below for nested schema)
+            secure_json_data_encoded: (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
+            sigv4_access_key: (String, Sensitive) (Elasticsearch and Prometheus) SigV4 access key. Required when using 'keys' auth provider.
+            sigv4_assume_role_arn: (String) (Elasticsearch and Prometheus) Specifies the ARN of an IAM role to assume.
+            sigv4_auth: (Boolean) (Elasticsearch and Prometheus) Enable usage of SigV4.
+            sigv4_auth_type: '(String) (Elasticsearch and Prometheus) The Sigv4 authentication provider to use: ''default'', ''credentials'' or ''keys'' (AMG: ''workspace-iam-role'').'
+            sigv4_external_id: (String) (Elasticsearch and Prometheus) When assuming a role in another account use this external ID.
+            sigv4_profile: (String) (Elasticsearch and Prometheus) Credentials profile name, leave blank for default.
+            sigv4_region: (String) (Elasticsearch and Prometheus) AWS region to use for Sigv4.
+            sigv4_secret_key: (String, Sensitive) (Elasticsearch and Prometheus) SigV4 secret key. Required when using 'keys' auth provider.
+            ssl_mode: (String) (PostgreSQL) SSLmode. 'disable', 'require', 'verify-ca' or 'verify-full'.
+            subscription_id: (String) (Azure Monitor) The subscription id
+            tenant_id: (String) (Azure Monitor) Service account tenant ID.
+            time_field: (String) (Elasticsearch) Which field that should be used as timestamp.
+            time_interval: (String) (Prometheus, Elasticsearch, InfluxDB, MySQL, PostgreSQL, and MSSQL) Lowest interval/step value that should be used for this data source. Sometimes called "Scrape Interval" in the Grafana UI.
+            timescaledb: (Boolean) (PostgreSQL) Enable usage of TimescaleDB extension.
+            tls_auth: (Boolean) (All) Enable TLS authentication using client cert configured in secure json data.
+            tls_auth_with_ca_cert: (Boolean) (All) Enable TLS authentication using CA cert.
+            tls_ca_cert: (String, Sensitive) (All) CA cert for out going requests.
+            tls_client_cert: (String, Sensitive) (All) TLS Client cert for outgoing requests.
+            tls_client_key: (String, Sensitive) (All) TLS Client key for outgoing requests.
+            tls_configuration_method: (String) (All) SSL Certificate configuration, either by ‘file-path’ or ‘file-content’.
+            tls_skip_verify: (Boolean) (All) Controls whether a client verifies the server’s certificate chain and host name.
+            token_uri: (String) (Stackdriver) The token URI used, provided in the service account key.
+            tracing_datasource_uid: (String) (Cloudwatch) The X-Ray datasource uid to associate to this Cloudwatch datasource.
+            tsdb_resolution: (Number) (OpenTSDB) Resolution.
+            tsdb_version: (Number) (OpenTSDB) Version.
+            type: (String) The data source type. Must be one of the supported data source keywords.
+            uid: (String) Unique identifier. If unset, this will be automatically generated.
+            url: (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
+            username: (String) (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
+            version: (String) (InfluxDB) InfluxQL or Flux.
+            workgroup: (String) (Athena) Workgroup to use.
+            xpack_enabled: (Boolean) (Elasticsearch) Enable X-Pack support.
+        importStatements:
+            - |-
+              terraform import grafana_data_source.by_integer_id {{datasource id}}
+              terraform import grafana_data_source.by_uid {{datasource uid}}
+    grafana_data_source_permission Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: HTTP API https://grafana.com/docs/grafana/latest/http_api/datasource_permissions/
+        name: grafana_data_source_permission Resource - terraform-provider-grafana
+        title: grafana_data_source_permission Resource - terraform-provider-grafana
+        argumentDocs:
+            built_in_role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin. Can only be set from Grafana v9.2.3+. Defaults to ``.'
+            datasource_id: (Number) ID of the datasource to apply permissions to.
+            id: (String) The ID of this resource.
+            permission: '(String) Permission to associate with item. Options: Query or Edit (Edit can only be used with Grafana v9.2.3+).'
+            permissions: '(Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)'
+            team_id: (Number) ID of the team to manage permissions for. Defaults to 0.
+            user_id: (Number) ID of the user to manage permissions for. Defaults to 0.
+        importStatements: []
+    grafana_folder Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/dashboard-folders/HTTP API https://grafana.com/docs/grafana/latest/http_api/folder/
+        name: grafana_folder Resource - terraform-provider-grafana
+        title: grafana_folder Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) Unique internal identifier.
+            title: (String) The title of the folder.
+            uid: (String) Unique identifier.
+            url: (String) The full URL of the folder.
+        importStatements:
+            - |-
+              terraform import grafana_folder.by_integer_id {{folder_id}}
+              terraform import grafana_folder.by_uid {{folder_uid}}
+    grafana_folder_permission Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/permissions/dashboard_folder_permissions/HTTP API https://grafana.com/docs/grafana/latest/http_api/folder_permissions/
+        name: grafana_folder_permission Resource - terraform-provider-grafana
+        title: grafana_folder_permission Resource - terraform-provider-grafana
+        argumentDocs:
+            folder_uid: (String) The UID of the folder.
+            id: (String) The ID of this resource.
+            permission: (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+            permissions: '(Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)'
+            role: (String) Manage permissions for Viewer or Editor roles.
+            team_id: (Number) ID of the team to manage permissions for. Defaults to 0.
+            user_id: (Number) ID of the user to manage permissions for. Defaults to 0.
+        importStatements: []
+    grafana_library_panel Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/panels/panel-library/HTTP API https://grafana.com/docs/grafana/latest/http_api/library_element/
+        name: grafana_library_panel Resource - terraform-provider-grafana
+        title: grafana_library_panel Resource - terraform-provider-grafana
+        argumentDocs:
+            created: (String) Timestamp when the library panel was created.
+            dashboard_ids: (List of Number) Numerical IDs of Grafana dashboards containing the library panel.
+            description: (String) Description of the library panel.
+            folder_id: (Number) ID of the folder where the library panel is stored.
+            folder_name: (String) Name of the folder containing the library panel.
+            folder_uid: (String) Unique ID (UID) of the folder containing the library panel.
+            id: (String) The ID of this resource.
+            model_json: (String) The JSON model for the library panel.
+            name: (String) Name of the library panel.
+            org_id: (Number) The numeric ID of the library panel computed by Grafana.
+            panel_id: (Number) The numeric ID of the library panel computed by Grafana.
+            type: (String) Type of the library panel (eg. text).
+            uid: (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
+            updated: (String) Timestamp when the library panel was last modified.
+            version: (Number) Version of the library panel.
+        importStatements:
+            - terraform import grafana_library_panel.panel_name {{library_panel_slug}}
+    grafana_machine_learning_holiday Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: 'A holiday describes time periods where a time series is expected to behave differently to normal. To use a holiday in a job, use its id in the holidays attribute of a grafana_machine_learning_job: terraform resource "grafana_machine_learning_job" "test_job" { ... holidays = [ grafana_machine_learning_holiday.my_holiday.id ] }'
+        name: grafana_machine_learning_holiday Resource - terraform-provider-grafana
+        title: grafana_machine_learning_holiday Resource - terraform-provider-grafana
+        argumentDocs:
+            custom_periods: (Block List) A list of custom periods for the holiday. (see below for nested schema)
+            description: (String) A description of the holiday.
+            end_time: (String)
+            ical_timezone: (String) The timezone to use for events in the iCal file pointed to by ical_url.
+            ical_url: (String) A URL to an iCal file containing all occurrences of the holiday.
+            id: (String) The ID of the holiday.
+            name: (String) The name of the holiday.
+            start_time: (String)
+        importStatements: []
+    grafana_machine_learning_job Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: A job defines the queries and model parameters for a machine learning task.
+        name: grafana_machine_learning_job Resource - terraform-provider-grafana
+        title: grafana_machine_learning_job Resource - terraform-provider-grafana
+        argumentDocs:
+            datasource_id: (Number) The id of the datasource to query.
+            datasource_type: (String) The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
+            datasource_uid: (String) The uid of the datasource to query.
+            description: (String) A description of the job.
+            holidays: (List of String) A list of holiday IDs or names to take into account when training the model.
+            hyper_params: (Map of String) The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/machine-learning/models/ for the full list of available hyperparameters. Defaults to map[].
+            id: (String) The ID of the job.
+            interval: (Number) The data interval in seconds to train the data on. Defaults to 300.
+            metric: (String) The metric used to query the job results.
+            name: (String) The name of the job.
+            query_params: (Map of String) An object representing the query params to query Grafana with.
+            training_window: (Number) The data interval in seconds to train the data on. Defaults to 7776000.
+        importStatements: []
+    grafana_message_template Resource - terraform-provider-grafana:
+        subCategory: Alerting
+        description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/contact-points/message-templating/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
+        name: grafana_message_template Resource - terraform-provider-grafana
+        title: grafana_message_template Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            name: (String) The name of the message template.
+            template: (String) The content of the message template.
+        importStatements:
+            - terraform import grafana_message_template.message_template_name {{message_template_name}}
+    grafana_mute_timing Resource - terraform-provider-grafana:
+        subCategory: Alerting
+        description: Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/notifications/mute-timings/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
+        name: grafana_mute_timing Resource - terraform-provider-grafana
+        title: grafana_mute_timing Resource - terraform-provider-grafana
+        argumentDocs:
+            days_of_month: (List of String) An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
+            end: (String) The time, in hh:mm format, of when the interval should end exclusively.
+            id: (String) The ID of this resource.
+            intervals: (Block List) The time intervals at which to mute notifications. (see below for nested schema)
+            months: (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
+            name: (String) The name of the mute timing.
+            start: (String) The time, in hh:mm format, of when the interval should begin inclusively.
+            times: (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
+            weekdays: (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
+            years: (List of String) A positive inclusive range of years, e.g. "2030" or "2025:2026".
+        importStatements:
+            - terraform import grafana_mute_timing.mute_timing_name {{mute_timing_name}}
+    grafana_notification_policy Resource - terraform-provider-grafana:
+        subCategory: Alerting
+        description: Sets the global notification policy for Grafana. Note that this resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/notifications/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
+        name: grafana_notification_policy Resource - terraform-provider-grafana
+        title: grafana_notification_policy Resource - terraform-provider-grafana
+        argumentDocs:
+            contact_point: (String) The default contact point to route all unmatched notifications to.
+            continue: (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+            group_by: (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+            group_interval: (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+            group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+            id: (String) The ID of this resource.
+            label: (String) The name of the label to match against.
+            match: (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+            matcher: (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+            mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
+            policy: (Block List) Routing rules for specific label sets. (see below for nested schema)
+            repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+            value: (String) The label value to match against.
+        importStatements:
+            - |-
+              # The policy is a singleton, so the ID is a constant "policy" value.
+              terraform import grafana_notification_policy.notification_policy_name "policy"
+    grafana_oncall_escalation Resource - terraform-provider-grafana:
+        subCategory: OnCall
+        description: Official documentation https://grafana.com/docs/grafana-cloud/oncall/escalation-policies/HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/escalation_policies/
+        name: grafana_oncall_escalation Resource - terraform-provider-grafana
+        title: grafana_oncall_escalation Resource - terraform-provider-grafana
+        argumentDocs:
+            action_to_trigger: (String) The ID of an Action for trigger_action type step.
+            duration: (Number) The duration of delay for wait type step.
+            escalation_chain_id: (String) The ID of the escalation chain.
+            group_to_notify: (String) The ID of a User Group for notify_user_group type step.
+            id: (String) The ID of this resource.
+            important: '(Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group'
+            notify_if_time_from: (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
+            notify_if_time_to: (String) The end of the time interval for notify_if_time_from_to type step in UTC (for example 18:00:00Z).
+            notify_on_call_from_schedule: (String) ID of a Schedule for notify_on_call_from_schedule type step.
+            persons_to_notify: (Set of String) The list of ID's of users for notify_persons type step.
+            persons_to_notify_next_each_time: (Set of String) The list of ID's of users for notify_person_next_each_time type step.
+            position: (Number) The position of the escalation step (starts from 0).
+            type: (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+        importStatements:
+            - terraform import grafana_oncall_escalation.escalation_name {{escalation_id}}
+    grafana_oncall_escalation_chain Resource - terraform-provider-grafana:
+        subCategory: OnCall
+        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/escalation_chains/
+        name: grafana_oncall_escalation_chain Resource - terraform-provider-grafana
+        title: grafana_oncall_escalation_chain Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            name: (String) The name of the escalation chain.
+            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+        importStatements:
+            - terraform import grafana_oncall_escakation_chain.escalation_chain_name {{escalation_chain_id}}
+    grafana_oncall_integration Resource - terraform-provider-grafana:
+        subCategory: OnCall
+        description: Official documentation https://grafana.com/docs/grafana-cloud/oncall/integrations/HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/
+        name: grafana_oncall_integration Resource - terraform-provider-grafana
+        title: grafana_oncall_integration Resource - terraform-provider-grafana
+        argumentDocs:
+            channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
+            default_route: '(Block List, Min: 1, Max: 1) The Default route for all alerts from the given integration (see below for nested schema)'
+            enabled: (Boolean) Enable notification in MS teams. Defaults to true.
+            escalation_chain_id: (String) The ID of the escalation chain.
+            grouping_key: (String) Template for the key by which alerts are grouped.
+            id: (String) The ID of this resource.
+            image_url: (String) Template for Alert image url.
+            link: (String) The link for using in an integrated tool.
+            message: (String) Template for Alert message.
+            msteams: '(Block List, Max: 1) MS teams-specific settings for a route. (see below for nested schema)'
+            name: (String) The name of the service integration.
+            resolve_signal: (String) Template for sending a signal to resolve the Incident.
+            slack: '(Block List, Max: 1) Slack-specific settings for a route. (see below for nested schema)'
+            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            telegram: '(Block List, Max: 1) Telegram-specific settings for a route. (see below for nested schema)'
+            templates: '(Block List, Max: 1) Jinja2 templates for Alert payload. (see below for nested schema)'
+            title: (String) Template for Alert title.
+            type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, heartbeat, demo, manual, stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel, inbound_email.
+        importStatements:
+            - terraform import grafana_oncall_integration.integration_name {{integration_id}}
+    grafana_oncall_on_call_shift Resource - terraform-provider-grafana:
+        subCategory: OnCall
+        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/on_call_shifts/
+        name: grafana_oncall_on_call_shift Resource - terraform-provider-grafana
+        title: grafana_oncall_on_call_shift Resource - terraform-provider-grafana
+        argumentDocs:
+            by_day: (Set of String) This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
+            by_month: (Set of Number) This parameter takes a list of months. Valid values are 1 to 12
+            by_monthday: (Set of Number) This parameter takes a list of days of the month.  Valid values are 1 to 31 or -31 to -1
+            duration: (Number) The duration of the event.
+            frequency: (String) The frequency of the event. Can be daily, weekly, monthly
+            id: (String) The ID of this resource.
+            interval: (Number) The positive integer representing at which intervals the recurrence rule repeats.
+            level: (Number) The priority level. The higher the value, the higher the priority.
+            name: (String) The shift's name.
+            rolling_users: (List of Set of String) The list of lists with on-call users (for rolling_users event type)
+            start: (String) The start time of the on-call shift. This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
+            start_rotation_from_user_index: (Number) The index of the list of users in rolling_users, from which on-call rotation starts.
+            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            time_zone: (String) The shift's timezone.  Overrides schedule's timezone.
+            type: (String) The shift's type. Can be rolling_users, recurrent_event, single_event
+            users: (Set of String) The list of on-call users (for single_event and recurrent_event event type).
+            week_start: (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
+        importStatements:
+            - terraform import grafana_oncall_on_call_shift.on_call_shift_name {{on_call_shift_id}}
+    grafana_oncall_outgoing_webhook Resource - terraform-provider-grafana:
+        subCategory: OnCall
+        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/outgoing_webhooks/
+        name: grafana_oncall_outgoing_webhook Resource - terraform-provider-grafana
+        title: grafana_oncall_outgoing_webhook Resource - terraform-provider-grafana
+        argumentDocs:
+            authorization_header: (String) The auth data of the webhook. Used in Authorization header instead of user/password auth.
+            data: (String) The data of the webhook.
+            forward_whole_payload: (Boolean) Forwards whole payload of the alert to the webhook's url as POST data.
+            id: (String) The ID of this resource.
+            name: (String) The name of the outgoing webhook.
+            password: (String) The auth data of the webhook. Used for Basic authentication
+            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            url: (String) The webhook URL.
+            user: (String) The auth data of the webhook. Used for Basic authentication.
+        importStatements:
+            - terraform import grafana_oncall_outgoing_webhook.outgoing_webhook_name {{outgoing_webhook_id}}
+    grafana_oncall_route Resource - terraform-provider-grafana:
+        subCategory: OnCall
+        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/routes/
+        name: grafana_oncall_route Resource - terraform-provider-grafana
+        title: grafana_oncall_route Resource - terraform-provider-grafana
+        argumentDocs:
+            channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
+            enabled: (Boolean) Enable notification in MS teams. Defaults to true.
+            escalation_chain_id: (String) The ID of the escalation chain.
+            id: (String) The ID of this resource.
+            integration_id: (String) The ID of the integration.
+            msteams: '(Block List, Max: 1) MS teams-specific settings for a route. (see below for nested schema)'
+            position: (Number) The position of the route (starts from 0).
+            routing_regex: (String) Python Regex query. Route is chosen for an alert if there is a match inside the alert payload.
+            slack: '(Block List, Max: 1) Slack-specific settings for a route. (see below for nested schema)'
+            telegram: '(Block List, Max: 1) Telegram-specific settings for a route. (see below for nested schema)'
+        importStatements:
+            - terraform import grafana_oncall_route.route_name {{route_id}}
+    grafana_oncall_schedule Resource - terraform-provider-grafana:
+        subCategory: OnCall
+        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/schedules/
+        name: grafana_oncall_schedule Resource - terraform-provider-grafana
+        title: grafana_oncall_schedule Resource - terraform-provider-grafana
+        argumentDocs:
+            channel_id: (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+            ical_url_overrides: (String) The URL of external iCal calendar which override primary events.
+            ical_url_primary: (String) The URL of the external calendar iCal file.
+            id: (String) The ID of this resource.
+            name: (String) The schedule's name.
+            shifts: (Set of String) The list of ID's of on-call shifts.
+            slack: '(Block List, Max: 1) The Slack-specific settings for a schedule. (see below for nested schema)'
+            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            time_zone: (String) The schedule's time zone.
+            type: (String) The schedule's type.
+            user_group_id: (String) Slack user group id. Members of user group will be updated when on-call users change.
+        importStatements:
+            - terraform import grafana_oncall_schedule.schedule_name {{schedule_id}}
+    grafana_organization Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-organizations/HTTP API https://grafana.com/docs/grafana/latest/http_api/org/
+        name: grafana_organization Resource - terraform-provider-grafana
+        title: grafana_organization Resource - terraform-provider-grafana
+        argumentDocs:
+            admin_user: |-
+                (String) The login name of the configured default admin user for the Grafana
+                installation. If unset, this value defaults to admin, the Grafana default.
+                Grafana adds the default admin user to all organizations automatically upon
+                creation, and this parameter keeps Terraform from removing it from
+                organizations.
+                Defaults to admin.
+            admins: |-
+                (Set of String) A list of email addresses corresponding to users who should be given admin
+                access to the organization. Note: users specified here must already exist in
+                Grafana unless 'create_users' is set to true.
+            create_users: |-
+                (Boolean) Whether or not to create Grafana users specified in the organization's
+                membership if they don't already exist in Grafana. If unspecified, this
+                parameter defaults to true, creating placeholder users with the name, login,
+                and email set to the email of the user, and a random password. Setting this
+                option to false will cause an error to be thrown for any users that do not
+                already exist in Grafana.
+                Defaults to true.
+            editors: |-
+                (Set of String) A list of email addresses corresponding to users who should be given editor
+                access to the organization. Note: users specified here must already exist in
+                Grafana unless 'create_users' is set to true.
+            id: (String) The ID of this resource.
+            name: (String) The display name for the Grafana organization created.
+            org_id: (Number) The organization id assigned to this organization by Grafana.
+            viewers: |-
+                (Set of String) A list of email addresses corresponding to users who should be given viewer
+                access to the organization. Note: users specified here must already exist in
+                Grafana unless 'create_users' is set to true.
+        importStatements:
+            - terraform import grafana_organization.org_name {{org_id}}
+    grafana_organization_preferences Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-organizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/preferences/#get-current-org-prefs
+        name: grafana_organization_preferences Resource - terraform-provider-grafana
+        title: grafana_organization_preferences Resource - terraform-provider-grafana
+        argumentDocs:
+            home_dashboard_id: (Number) The Organization home dashboard ID.
+            home_dashboard_uid: (String) The Organization home dashboard UID.
+            id: (String) The ID of this resource.
+            theme: (String) The Organization theme. Available values are light, dark, or an empty string for the default.
+            timezone: (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
+            week_start: (String) The Organization week start.
+        importStatements: []
+    grafana_playlist Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/playlist/HTTP API https://grafana.com/docs/grafana/latest/http_api/playlist/
+        name: grafana_playlist Resource - terraform-provider-grafana
+        title: grafana_playlist Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            interval: (String)
+            item: '(Block Set, Min: 1) (see below for nested schema)'
+            name: (String) The name of the playlist.
+            order: (Number)
+            org_id: (String)
+            title: (String)
+            type: (String)
+            value: (String)
+        importStatements: []
+    grafana_report Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: 'Note: This resource is available only with Grafana Enterprise 7.+. Official documentation https://grafana.com/docs/grafana/latest/enterprise/reporting/HTTP API https://grafana.com/docs/grafana/latest/http_api/reporting/'
+        name: grafana_report Resource - terraform-provider-grafana
+        title: grafana_report Resource - terraform-provider-grafana
+        argumentDocs:
+            custom_interval: |-
+                (String) Custom interval of the report.
+                Note: This field is only available when frequency is set to custom.
+            dashboard_id: (Number, Deprecated) Dashboard to be sent in the report. This field is deprecated, use dashboard_uid instead.
+            dashboard_uid: (String) Dashboard to be sent in the report.
+            end_time: (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+            frequency: '(String) Frequency of the report. Allowed values: never, once, hourly, daily, weekly, monthly, custom.'
+            from: (String) Start of the time range.
+            id: (String) Generated identifier of the report.
+            include_dashboard_link: (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
+            include_table_csv: (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
+            last_day_of_month: (Boolean) Send the report on the last day of the month Defaults to false.
+            layout: '(String) Layout of the report. Allowed values: simple, grid. Defaults to grid.'
+            message: (String) Message to be sent in the report.
+            name: (String) Name of the report.
+            orientation: '(String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.'
+            recipients: (List of String) List of recipients of the report.
+            reply_to: (String) Reply-to email address of the report.
+            schedule: '(Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)'
+            start_time: (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+            time_range: '(Block List, Max: 1) Time range of the report. (see below for nested schema)'
+            to: (String) End of the time range.
+            workdays_only: (Boolean) Whether to send the report only on work days. Defaults to false.
+        importStatements: []
+    grafana_role Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: 'Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
+        name: grafana_role Resource - terraform-provider-grafana
+        title: grafana_role Resource - terraform-provider-grafana
+        argumentDocs:
+            action: '(String) Specific action users granted with the role will be allowed to perform (for example: users:read)'
+            description: (String) Description of the role.
+            display_name: (String) Display name of the role. Available with Grafana 8.5+.
+            global: (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
+            group: (String) Group of the role. Available with Grafana 8.5+.
+            hidden: (Boolean) Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to false.
+            id: (String) The ID of this resource.
+            name: (String) Name of the role
+            permissions: (Block Set) Specific set of actions granted by the role. (see below for nested schema)
+            scope: '(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.'
+            uid: (String) Unique identifier of the role. Used for assignments.
+            version: (Number) Version of the role. A role is updated only on version increase.
+        importStatements:
+            - terraform import grafana_role.role_name {{uid}}
+    grafana_role_assignment Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: 'Note: This resource is available only with Grafana Enterprise 9.2+.'
+        name: grafana_role_assignment Resource - terraform-provider-grafana
+        title: grafana_role_assignment Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            role_uid: (String) Grafana RBAC role UID.
+            service_accounts: (Set of Number) IDs of service accounts that the role should be assigned to.
+            teams: (Set of Number) IDs of teams that the role should be assigned to.
+            users: (Set of Number) IDs of users that the role should be assigned to.
+        importStatements: []
+    grafana_rule_group Resource - terraform-provider-grafana:
+        subCategory: Alerting
+        description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rulesHTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
+        name: grafana_rule_group Resource - terraform-provider-grafana
+        title: grafana_rule_group Resource - terraform-provider-grafana
+        argumentDocs:
+            annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to map[].
+            condition: (String) The ref_id of the query node in the data field to use as the alert condition.
+            data: '(Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)'
+            datasource_uid: (String) The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+            exec_err_state: (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, and Alerting. Defaults to Alerting.
+            folder_uid: (String) The UID of the folder that the group belongs to.
+            for: (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
+            from: (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+            id: (String) The ID of this resource.
+            interval_seconds: (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+            labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
+            model: (String) Custom JSON data to send to the specified datasource when querying.
+            name: (String) The name of the rule group.
+            no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
+            org_id: (Number) The ID of the org to which the group belongs.
+            query_type: (String) An optional identifier for the type of query being executed. Defaults to ``.
+            ref_id: (String) A unique string to identify this query stage within a rule.
+            relative_time_range: '(Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)'
+            rule: '(Block List, Min: 1) The rules within the group. (see below for nested schema)'
+            to: (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+            uid: (String) The unique identifier of the alert rule.
+        importStatements:
+            - terraform import grafana_rule_group.rule_group_name {{folder_uid}};{{rule_group_name}}
+    grafana_service_account Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
+        name: grafana_service_account Resource - terraform-provider-grafana
+        title: grafana_service_account Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            is_disabled: (Boolean) The disabled status for the service account. Defaults to false.
+            name: (String) The name of the service account.
+            role: (String) The basic role of the service account in the organization.
+        importStatements: []
+    grafana_service_account_permission Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: 'Note: This resource is available from Grafana 9.2.4 onwards. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/#manage-users-and-teams-permissions-for-a-service-account-in-grafana'
+        name: grafana_service_account_permission Resource - terraform-provider-grafana
+        title: grafana_service_account_permission Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            permission: (String) Permission to associate with item. Must be Edit or Admin.
+            permissions: '(Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)'
+            service_account_id: (Number) The id of the service account.
+            team_id: (Number) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
+            user_id: (Number) ID of the user to manage permissions for. Specify either this or team_id. Defaults to 0.
+        importStatements: []
+    grafana_service_account_token Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
+        name: grafana_service_account_token Resource - terraform-provider-grafana
+        title: grafana_service_account_token Resource - terraform-provider-grafana
+        argumentDocs:
+            expiration: (String)
+            has_expired: (Boolean)
+            id: (String) The ID of this resource.
+            key: (String, Sensitive)
+            name: (String)
+            seconds_to_live: (Number)
+            service_account_id: (Number)
+        importStatements: []
+    grafana_synthetic_monitoring_check Resource - terraform-provider-grafana:
+        subCategory: Synthetic Monitoring
+        description: Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/synthetic-monitoring/checks/
+        name: grafana_synthetic_monitoring_check Resource - terraform-provider-grafana
+        title: grafana_synthetic_monitoring_check Resource - terraform-provider-grafana
+        argumentDocs:
+            alert_sensitivity: (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
+            allow_missing: (Boolean) Allow header to be missing from responses. Defaults to false.
+            basic_auth: '(Block Set, Max: 1) Basic auth settings. (see below for nested schema)'
+            basic_metrics_only: (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
+            bearer_token: (String) Token for use with bearer authorization header.
+            body: (String) The body of the HTTP request used in probe.
+            ca_cert: (String) CA certificate in PEM format.
+            cache_busting_query_param_name: (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
+            client_cert: (String) Client certificate in PEM format.
+            client_key: (String, Sensitive) Client key in PEM format.
+            dns: '(Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)'
+            dont_fragment: (Boolean) Set the DF-bit in the IP-header. Only works with ipV4. Defaults to false.
+            enabled: (Boolean) Whether to enable the check. Defaults to true.
+            expect: (String) Response to expect.
+            fail_if_body_matches_regexp: (Set of String) List of regexes. If any match the response body, the check will fail.
+            fail_if_body_not_matches_regexp: (Set of String) List of regexes. If any do not match the response body, the check will fail.
+            fail_if_header_matches_regexp: (Block Set) Check fails if headers match. (see below for nested schema)
+            fail_if_header_not_matches_regexp: (Block Set) Check fails if headers do not match. (see below for nested schema)
+            fail_if_matches_regexp: (Set of String) Fail if value matches regex.
+            fail_if_not_matches_regexp: (Set of String) Fail if value does not match regex.
+            fail_if_not_ssl: (Boolean) Fail if SSL is not present. Defaults to false.
+            fail_if_ssl: (Boolean) Fail if SSL is present. Defaults to false.
+            frequency: (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 120 seconds (120000 ms). Defaults to 60000.
+            header: (String) Header name.
+            headers: (Set of String) The HTTP headers set for the probe.
+            http: '(Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)'
+            id: (String) The ID of the check.
+            insecure_skip_verify: (Boolean) Disable target certificate validation. Defaults to false.
+            ip_version: (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+            job: (String) Name used for job label.
+            labels: (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
+            max_hops: (Number) Maximum TTL for the trace Defaults to 64.
+            max_unknown_hops: (Number) Maximum number of hosts to travers that give no response Defaults to 15.
+            method: (String) Request method. One of GET, CONNECT, DELETE, HEAD, OPTIONS, POST, PUT, TRACE Defaults to GET.
+            no_follow_redirects: (Boolean) Do not follow redirects. Defaults to false.
+            password: (String) Basic auth password.
+            payload_size: (Number) Payload size. Defaults to 0.
+            ping: '(Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)'
+            port: (Number) Port to target. Defaults to 53.
+            probes: (Set of Number) List of probe location IDs where this target will be checked from.
+            protocol: (String) TCP or UDP. Defaults to UDP.
+            proxy_url: (String) Proxy URL.
+            ptr_lookup: (Boolean) Reverse lookup hostnames from IP addresses Defaults to true.
+            query_response: (Block Set) The query sent in the TCP probe and the expected associated response. (see below for nested schema)
+            record_type: (String) One of ANY, A, AAAA, CNAME, MX, NS, PTR, SOA, SRV, TXT. Defaults to A.
+            regexp: (String) Regex that header value should match.
+            send: (String) Data to send.
+            server: (String) DNS server address to target. Defaults to 8.8.8.8.
+            server_name: (String) Used to verify the hostname for the targets.
+            settings: '(Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)'
+            source_ip_address: (String) Source IP address.
+            start_tls: (Boolean) Upgrade TCP connection to TLS. Defaults to false.
+            target: (String) Hostname to ping.
+            tcp: '(Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)'
+            tenant_id: (Number) The tenant ID of the check.
+            timeout: (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
+            tls: (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
+            tls_config: '(Block Set, Max: 1) TLS config. (see below for nested schema)'
+            traceroute: '(Block Set, Max: 1) Settings for traceroute check. The target must be a valid hostname or IP address (see below for nested schema)'
+            username: (String) Basic auth username.
+            valid_http_versions: (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2
+            valid_r_codes: (Set of String) List of valid response codes. Options include NOERROR, BADALG, BADMODE, BADKEY, BADCOOKIE, BADNAME, BADSIG, BADTIME, BADTRUNC, BADVERS, FORMERR, NOTIMP, NOTAUTH, NOTZONE, NXDOMAIN, NXRRSET, REFUSED, SERVFAIL, YXDOMAIN, YXRRSET.
+            valid_status_codes: (Set of Number) Accepted status codes. If unset, defaults to 2xx.
+            validate_additional_rrs: (Block Set) Validate additional matches. (see below for nested schema)
+            validate_answer_rrs: '(Block Set, Max: 1) Validate response answer. (see below for nested schema)'
+            validate_authority_rrs: '(Block Set, Max: 1) Validate response authority. (see below for nested schema)'
+        importStatements:
+            - terraform import grafana_synthetic_monitoring_check.check {{check-id}}
+    grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana:
+        subCategory: Synthetic Monitoring
+        description: Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Official documentation https://grafana.com/docs/grafana-cloud/synthetic-monitoring/installation/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall
+        name: grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana
+        title: grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            logs_instance_id: (Number) The ID of the logs instance to install SM on (stack's logs_user_id attribute).
+            metrics_instance_id: (Number) The ID of the metrics instance to install SM on (stack's prometheus_user_id attribute).
+            metrics_publisher_key: (String, Sensitive) The Cloud API Key with the MetricsPublisher role used to publish metrics to the SM API
+            sm_access_token: (String) Generated token to access the SM API.
+            stack_id: (Number) The ID of the stack to install SM on.
+        importStatements: []
+    grafana_synthetic_monitoring_probe Resource - terraform-provider-grafana:
+        subCategory: Synthetic Monitoring
+        description: Besides the public probes run by Grafana Labs, you can also install your own private probes. These are only accessible to you and only write data to your Grafana Cloud account. Private probes are instances of the open source Grafana Synthetic Monitoring Agent. Official documentation https://grafana.com/docs/grafana-cloud/synthetic-monitoring/private-probes/
+        name: grafana_synthetic_monitoring_probe Resource - terraform-provider-grafana
+        title: grafana_synthetic_monitoring_probe Resource - terraform-provider-grafana
+        argumentDocs:
+            auth_token: (String, Sensitive) The probe authentication token. Your probe must use this to authenticate with Grafana Cloud.
+            id: (String) The ID of the probe.
+            labels: (Map of String) Custom labels to be included with collected metrics and logs.
+            latitude: (Number) Latitude coordinates.
+            longitude: (Number) Longitude coordinates.
+            name: (String) Name of the probe.
+            public: (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
+            region: (String) Region of the probe.
+            tenant_id: (Number) The tenant ID of the probe.
+        importStatements:
+            - |-
+              terraform import grafana_synthetic_monitoring_probe.probe {{probe-id}}
+              terraform import grafana_synthetic_monitoring_probe.probe {{probe-id}}:{{auth_token}}
+    grafana_team Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-users-and-permissions/manage-teams/HTTP API https://grafana.com/docs/grafana/latest/http_api/team/
+        name: grafana_team Resource - terraform-provider-grafana
+        title: grafana_team Resource - terraform-provider-grafana
+        argumentDocs:
+            email: (String) An email address for the team.
+            id: (String) The ID of this resource.
+            ignore_externally_synced_members: |-
+                (Boolean) Ignores team members that have been added to team by Team Sync.
+                Team Sync can be provisioned using grafana_team_external_group resource.
+                Defaults to true.
+            members: |-
+                (Set of String) A set of email addresses corresponding to users who should be given membership
+                to the team. Note: users specified here must already exist in Grafana.
+            name: (String) The display name for the Grafana team created.
+            team_id: (Number) The team id assigned to this team by Grafana.
+        importStatements: []
+    grafana_team_external_group Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: Official documentation https://grafana.com/docs/grafana/latest/enterprise/team-sync/HTTP API https://grafana.com/docs/grafana/latest/http_api/external_group_sync/
+        name: grafana_team_external_group Resource - terraform-provider-grafana
+        title: grafana_team_external_group Resource - terraform-provider-grafana
+        argumentDocs:
+            groups: (Set of String) The team external groups list
+            id: (String) The ID of this resource.
+            team_id: (Number) The Team ID
+        importStatements:
+            - terraform import grafana_team_external_group.main {{team_id}}
+    grafana_team_preferences Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/preferences/HTTP API https://grafana.com/docs/grafana/latest/http_api/team/
+        name: grafana_team_preferences Resource - terraform-provider-grafana
+        title: grafana_team_preferences Resource - terraform-provider-grafana
+        argumentDocs:
+            home_dashboard_id: (Number) The numeric ID of the dashboard to display when a team member logs in.
+            id: (String) The ID of this resource.
+            team_id: (Number) The numeric team ID.
+            theme: (String) The theme for the specified team. Available themes are light, dark, or an empty string for the default theme.
+            timezone: (String) The timezone for the specified team. Available values are utc, browser, or an empty string for the default.
+        importStatements: []
+    grafana_user Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-users-and-permissions/manage-server-users/HTTP API https://grafana.com/docs/grafana/latest/http_api/user/ This resource uses Grafana's admin APIs for creating and updating users which does not currently work with API Tokens. You must use basic auth.
+        name: grafana_user Resource - terraform-provider-grafana
+        title: grafana_user Resource - terraform-provider-grafana
+        argumentDocs:
+            email: (String) The email address of the Grafana user.
+            id: (String) The ID of this resource.
+            is_admin: (Boolean) Whether to make user an admin. Defaults to false.
+            login: (String) The username for the Grafana user.
+            name: (String) The display name for the Grafana user.
+            password: (String, Sensitive) The password for the Grafana user.
+            user_id: (Number) The numerical ID of the Grafana user.
+        importStatements:
+            - terraform import grafana_user.user_name {{user_id}}
