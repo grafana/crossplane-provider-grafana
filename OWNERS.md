@@ -10,5 +10,4 @@ guidelines and responsibilities for the steering committee and maintainers.
 
 ## Maintainers
 
-* Maintainer 1 <maintainer1@acme.org> ([maintainer1](https://github.com/maintainer1))
-* Maintainer 2 <maintainer2@acme.org> ([maintainer1](https://github.com/maintainer2))
+* Julien Duchesne <julien.duchesne@grafana.com> ([julienduchesne](https://github.com/julienduchesne))
