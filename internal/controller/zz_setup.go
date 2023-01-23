@@ -30,6 +30,7 @@ import (
 	datasource "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/datasource"
 	folder "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folder"
 	folderpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folderpermission"
+	organization "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organization"
 	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
@@ -63,6 +64,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		datasource.Setup,
 		folder.Setup,
 		folderpermission.Setup,
+		organization.Setup,
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,

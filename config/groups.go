@@ -79,6 +79,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_folder_permission":    ReplaceGroupWords("oss", 0),
 	"grafana_team":                 ReplaceGroupWords("oss", 0),
 	"grafana_user":                 ReplaceGroupWords("oss", 0),
+	"grafana_organization":         ReplaceGroupWords("oss", 0),
 
 	// Synthetic Monitoring
 	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),
