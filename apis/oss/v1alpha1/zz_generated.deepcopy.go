@@ -309,6 +309,11 @@ func (in *DashboardParameters) DeepCopyInto(out *DashboardParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Overwrite != nil {
 		in, out := &in.Overwrite, &out.Overwrite
 		*out = new(bool)
