@@ -146,6 +146,10 @@ spec:
                   message:
                     description: Set a commit message for the version history.
                     type: string
+                  orgId:
+                    description: The Organization ID. If not set, the Org ID defined
+                      in the provider block will be used.
+                    type: number
                   overwrite:
                     description: Set to true if you want to overwrite existing dashboard
                       with newer version, same dashboard title in folder or same dashboard

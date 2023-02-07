@@ -58,6 +58,10 @@ type DashboardParameters struct {
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +kubebuilder:validation:Optional
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
