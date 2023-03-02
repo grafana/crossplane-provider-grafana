@@ -20,7 +20,7 @@ resources:
             - terraform import grafana_alert_notification.alert_notification_name {{alert_notification_id}}
     grafana_annotation Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/annotations/HTTP API https://grafana.com/docs/grafana/latest/http_api/annotations/
+        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
         name: grafana_annotation Resource - terraform-provider-grafana
         title: grafana_annotation Resource - terraform-provider-grafana
         argumentDocs:
@@ -34,7 +34,7 @@ resources:
         importStatements: []
     grafana_api_key Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Manages Grafana API Keys. HTTP API https://grafana.com/docs/grafana/latest/http_api/auth/
+        description: Manages Grafana API Keys. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/
         name: grafana_api_key Resource - terraform-provider-grafana
         title: grafana_api_key Resource - terraform-provider-grafana
         argumentDocs:
@@ -166,7 +166,7 @@ resources:
             - terraform import grafana_cloud_stack.stack_name {{stack_id}}
     grafana_contact_point Resource - terraform-provider-grafana:
         subCategory: Alerting
-        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/latest/alerting/contact-pointsHTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/contact-points/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
         name: grafana_contact_point Resource - terraform-provider-grafana
         title: grafana_contact_point Resource - terraform-provider-grafana
         argumentDocs:
@@ -252,7 +252,7 @@ resources:
             - terraform import grafana_contact_point.contact_point_name {{contact_point_name}}
     grafana_dashboard Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Manages Grafana dashboards. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/http_api/dashboard/
+        description: Manages Grafana dashboards. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
         name: grafana_dashboard Resource - terraform-provider-grafana
         title: grafana_dashboard Resource - terraform-provider-grafana
         argumentDocs:
@@ -261,7 +261,7 @@ resources:
             folder: (String) The id of the folder to save the dashboard in. This attribute is a string to reflect the type of the folder's id.
             id: (String) The ID of this resource.
             message: (String) Set a commit message for the version history.
-            org_id: (Number) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             overwrite: (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
             slug: (String, Deprecated) URL friendly version of the dashboard title. This field is deprecated, please use uid instead.
             uid: (String) The unique identifier of a dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a dashboard. The uid allows having consistent URLs for accessing dashboards and when syncing dashboards between multiple Grafana installs.
@@ -273,7 +273,7 @@ resources:
               terraform import grafana_dashboard.dashboard_name {{org_id}}:{{dashboard_uid}} # When "org_id" is set on the resource
     grafana_dashboard_permission Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/permissions/dashboard_folder_permissions/HTTP API https://grafana.com/docs/grafana/latest/http_api/dashboard_permissions/
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
         name: grafana_dashboard_permission Resource - terraform-provider-grafana
         title: grafana_dashboard_permission Resource - terraform-provider-grafana
         argumentDocs:
@@ -289,7 +289,7 @@ resources:
             - terraform import grafana_dashboard_permission.dashboard_name {{dashboard_uid}}
     grafana_data_source Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
+        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
         name: grafana_data_source Resource - terraform-provider-grafana
         title: grafana_data_source Resource - terraform-provider-grafana
         argumentDocs:
@@ -389,7 +389,7 @@ resources:
               terraform import grafana_data_source.by_uid {{datasource uid}}
     grafana_data_source_permission Resource - terraform-provider-grafana:
         subCategory: Grafana Enterprise
-        description: HTTP API https://grafana.com/docs/grafana/latest/http_api/datasource_permissions/
+        description: HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
         name: grafana_data_source_permission Resource - terraform-provider-grafana
         title: grafana_data_source_permission Resource - terraform-provider-grafana
         argumentDocs:
@@ -403,7 +403,7 @@ resources:
         importStatements: []
     grafana_folder Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/dashboard-folders/HTTP API https://grafana.com/docs/grafana/latest/http_api/folder/
+        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/manage-dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder/
         name: grafana_folder Resource - terraform-provider-grafana
         title: grafana_folder Resource - terraform-provider-grafana
         argumentDocs:
@@ -417,7 +417,7 @@ resources:
               terraform import grafana_folder.by_uid {{folder_uid}}
     grafana_folder_permission Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/permissions/dashboard_folder_permissions/HTTP API https://grafana.com/docs/grafana/latest/http_api/folder_permissions/
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
         name: grafana_folder_permission Resource - terraform-provider-grafana
         title: grafana_folder_permission Resource - terraform-provider-grafana
         argumentDocs:
@@ -431,7 +431,7 @@ resources:
         importStatements: []
     grafana_library_panel Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/panels/panel-library/HTTP API https://grafana.com/docs/grafana/latest/http_api/library_element/
+        description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/manage-library-panels/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
         name: grafana_library_panel Resource - terraform-provider-grafana
         title: grafana_library_panel Resource - terraform-provider-grafana
         argumentDocs:
@@ -444,7 +444,7 @@ resources:
             id: (String) The ID of this resource.
             model_json: (String) The JSON model for the library panel.
             name: (String) Name of the library panel.
-            org_id: (Number) The numeric ID of the library panel computed by Grafana.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             panel_id: (Number) The numeric ID of the library panel computed by Grafana.
             type: (String) Type of the library panel (eg. text).
             uid: (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
@@ -486,9 +486,29 @@ resources:
             query_params: (Map of String) An object representing the query params to query Grafana with.
             training_window: (Number) The data interval in seconds to train the data on. Defaults to 7776000.
         importStatements: []
+    grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for more details.
+        name: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
+        title: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
+        argumentDocs:
+            algorithm: '(Block Set, Min: 1, Max: 1) The algorithm to use and its configuration. See https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for details. (see below for nested schema)'
+            config: '(Block Set, Max: 1) For DBSCAN only, specify the configuration map (see below for nested schema)'
+            datasource_id: (Number) The id of the datasource to query.
+            datasource_type: (String) The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
+            datasource_uid: (String) The uid of the datasource to query.
+            description: (String) A description of the outlier detector.
+            epsilon: (Number) Specify the epsilon parameter (positive float)
+            id: (String) The ID of the outlier detector.
+            interval: (Number) The data interval in seconds to monitor. Defaults to 300.
+            metric: (String) The metric used to query the outlier detector results.
+            name: (String) The name of the outlier detector.
+            query_params: (Map of String) An object representing the query params to query Grafana with.
+            sensitivity: (Number) Specify the sensitivity of the detector (in range [0,1]).
+        importStatements: []
     grafana_message_template Resource - terraform-provider-grafana:
         subCategory: Alerting
-        description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/contact-points/message-templating/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/next/alerting/manage-notifications/create-message-template/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
         name: grafana_message_template Resource - terraform-provider-grafana
         title: grafana_message_template Resource - terraform-provider-grafana
         argumentDocs:
@@ -499,7 +519,7 @@ resources:
             - terraform import grafana_message_template.message_template_name {{message_template_name}}
     grafana_mute_timing Resource - terraform-provider-grafana:
         subCategory: Alerting
-        description: Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/notifications/mute-timings/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/mute-timings/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
         name: grafana_mute_timing Resource - terraform-provider-grafana
         title: grafana_mute_timing Resource - terraform-provider-grafana
         argumentDocs:
@@ -517,7 +537,7 @@ resources:
             - terraform import grafana_mute_timing.mute_timing_name {{mute_timing_name}}
     grafana_notification_policy Resource - terraform-provider-grafana:
         subCategory: Alerting
-        description: Sets the global notification policy for Grafana. Note that this resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/notifications/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
+        description: Sets the global notification policy for Grafana. Note that this resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/ This resource requires Grafana 9.1.0 or later.
         name: grafana_notification_policy Resource - terraform-provider-grafana
         title: grafana_notification_policy Resource - terraform-provider-grafana
         argumentDocs:
@@ -677,7 +697,7 @@ resources:
             - terraform import grafana_oncall_schedule.schedule_name {{schedule_id}}
     grafana_organization Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-organizations/HTTP API https://grafana.com/docs/grafana/latest/http_api/org/
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/org/
         name: grafana_organization Resource - terraform-provider-grafana
         title: grafana_organization Resource - terraform-provider-grafana
         argumentDocs:
@@ -715,21 +735,21 @@ resources:
             - terraform import grafana_organization.org_name {{org_id}}
     grafana_organization_preferences Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-organizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/preferences/#get-current-org-prefs
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/preferences/#get-current-org-prefs
         name: grafana_organization_preferences Resource - terraform-provider-grafana
         title: grafana_organization_preferences Resource - terraform-provider-grafana
         argumentDocs:
             home_dashboard_id: (Number) The Organization home dashboard ID.
-            home_dashboard_uid: (String) The Organization home dashboard UID.
+            home_dashboard_uid: (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
             id: (String) The ID of this resource.
-            org_id: (Number) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             theme: (String) The Organization theme. Available values are light, dark, or an empty string for the default.
             timezone: (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
             week_start: (String) The Organization week start.
         importStatements: []
     grafana_playlist Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/playlist/HTTP API https://grafana.com/docs/grafana/latest/http_api/playlist/
+        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
         name: grafana_playlist Resource - terraform-provider-grafana
         title: grafana_playlist Resource - terraform-provider-grafana
         argumentDocs:
@@ -745,7 +765,7 @@ resources:
         importStatements: []
     grafana_report Resource - terraform-provider-grafana:
         subCategory: Grafana Enterprise
-        description: 'Note: This resource is available only with Grafana Enterprise 7.+. Official documentation https://grafana.com/docs/grafana/latest/enterprise/reporting/HTTP API https://grafana.com/docs/grafana/latest/http_api/reporting/'
+        description: 'Note: This resource is available only with Grafana Enterprise 7.+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-reports/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/reporting/'
         name: grafana_report Resource - terraform-provider-grafana
         title: grafana_report Resource - terraform-provider-grafana
         argumentDocs:
@@ -807,7 +827,7 @@ resources:
         importStatements: []
     grafana_rule_group Resource - terraform-provider-grafana:
         subCategory: Alerting
-        description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rulesHTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rules/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
         name: grafana_rule_group Resource - terraform-provider-grafana
         title: grafana_rule_group Resource - terraform-provider-grafana
         argumentDocs:
@@ -821,11 +841,12 @@ resources:
             from: (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
             id: (String) The ID of this resource.
             interval_seconds: (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+            is_paused: (Boolean) Sets whether the alert should be paused or not. Defaults to false.
             labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
             model: (String) Custom JSON data to send to the specified datasource when querying.
             name: (String) The name of the rule group.
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
-            org_id: (Number) The ID of the org to which the group belongs.
+            org_id: (String) The ID of the org to which the group belongs.
             query_type: (String) An optional identifier for the type of query being executed. Defaults to ``.
             ref_id: (String) A unique string to identify this query stage within a rule.
             relative_time_range: '(Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)'
@@ -980,7 +1001,7 @@ resources:
               terraform import grafana_synthetic_monitoring_probe.probe {{probe-id}}:{{auth_token}}
     grafana_team Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-users-and-permissions/manage-teams/HTTP API https://grafana.com/docs/grafana/latest/http_api/team/
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/team-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/
         name: grafana_team Resource - terraform-provider-grafana
         title: grafana_team Resource - terraform-provider-grafana
         argumentDocs:
@@ -998,7 +1019,7 @@ resources:
         importStatements: []
     grafana_team_external_group Resource - terraform-provider-grafana:
         subCategory: Grafana Enterprise
-        description: Official documentation https://grafana.com/docs/grafana/latest/enterprise/team-sync/HTTP API https://grafana.com/docs/grafana/latest/http_api/external_group_sync/
+        description: Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/external_group_sync/
         name: grafana_team_external_group Resource - terraform-provider-grafana
         title: grafana_team_external_group Resource - terraform-provider-grafana
         argumentDocs:
@@ -1009,7 +1030,7 @@ resources:
             - terraform import grafana_team_external_group.main {{team_id}}
     grafana_team_preferences Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/preferences/HTTP API https://grafana.com/docs/grafana/latest/http_api/team/
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-preferences/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/
         name: grafana_team_preferences Resource - terraform-provider-grafana
         title: grafana_team_preferences Resource - terraform-provider-grafana
         argumentDocs:
@@ -1021,7 +1042,7 @@ resources:
         importStatements: []
     grafana_user Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/manage-users-and-permissions/manage-server-users/HTTP API https://grafana.com/docs/grafana/latest/http_api/user/ This resource uses Grafana's admin APIs for creating and updating users which does not currently work with API Tokens. You must use basic auth.
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/user/ This resource uses Grafana's admin APIs for creating and updating users which does not currently work with API Tokens. You must use basic auth.
         name: grafana_user Resource - terraform-provider-grafana
         title: grafana_user Resource - terraform-provider-grafana
         argumentDocs:

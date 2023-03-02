@@ -2258,7 +2258,7 @@ func (in *RuleGroupParameters) DeepCopyInto(out *RuleGroupParameters) {
 	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
 	}
 	if in.Rule != nil {
@@ -2372,6 +2372,11 @@ func (in *RuleParameters) DeepCopyInto(out *RuleParameters) {
 	if in.For != nil {
 		in, out := &in.For, &out.For
 		*out = new(string)
+		**out = **in
+	}
+	if in.IsPaused != nil {
+		in, out := &in.IsPaused, &out.IsPaused
+		*out = new(bool)
 		**out = **in
 	}
 	if in.Labels != nil {

@@ -26,7 +26,7 @@ type TeamParameters struct {
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// Ignores team members that have been added to team by [Team Sync](https://grafana.com/docs/grafana/latest/enterprise/team-sync/).
+	// Ignores team members that have been added to team by [Team Sync](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/).
 	// Team Sync can be provisioned using [grafana_team_external_group resource](https://registry.io/providers/grafana/grafana/latest/docs/resources/team_external_group).
 	// Defaults to `true`.
 	// +kubebuilder:validation:Optional

@@ -89,7 +89,7 @@ type RuleGroupParameters struct {
 
 	// The ID of the org to which the group belongs.
 	// +kubebuilder:validation:Required
-	OrgID *float64 `json:"orgId" tf:"org_id,omitempty"`
+	OrgID *string `json:"orgId" tf:"org_id,omitempty"`
 
 	// The rules within the group.
 	// +kubebuilder:validation:Required
@@ -123,6 +123,10 @@ type RuleParameters struct {
 	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
+
+	// Sets whether the alert should be paused or not. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
 
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
