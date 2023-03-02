@@ -149,7 +149,7 @@ spec:
                     type: string
                   orgId:
                     description: The ID of the org to which the group belongs.
-                    type: number
+                    type: string
                   rule:
                     description: The rules within the group.
                     items:
@@ -225,6 +225,10 @@ spec:
                             Before this time has elapsed, the rule is only considered
                             to be Pending. Defaults to `0`.
                           type: string
+                        isPaused:
+                          description: Sets whether the alert should be paused or
+                            not. Defaults to `false`.
+                          type: boolean
                         labels:
                           additionalProperties:
                             type: string

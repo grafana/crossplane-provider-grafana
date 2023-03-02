@@ -311,8 +311,18 @@ func (in *DashboardParameters) DeepCopyInto(out *DashboardParameters) {
 	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
+	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Overwrite != nil {
 		in, out := &in.Overwrite, &out.Overwrite

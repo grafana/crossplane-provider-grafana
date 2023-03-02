@@ -45,6 +45,11 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_organization",
+			RefFieldName:      "OrganizationRef",
+			SelectorFieldName: "OrganizationSelector",
+		}
 		r.References["folder"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
