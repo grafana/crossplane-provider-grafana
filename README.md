@@ -10,7 +10,7 @@ Grafana API.
 Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/grafana/provider-grafana):
 ```
-up ctp provider install grafana/provider-grafana:v0.1.0
+up ctp provider install xpkg.upbound.io/grafana/provider-grafana:v0.3.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -21,7 +21,7 @@ kind: Provider
 metadata:
   name: provider-grafana
 spec:
-  package: grafana/provider-grafana:v0.1.0
+  package: xpkg.upbound.io/grafana/provider-grafana:v0.3.0
 EOF
 ```
 
