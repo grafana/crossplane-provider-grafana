@@ -647,6 +647,11 @@ func (in *DataSourceParameters) DeepCopyInto(out *DataSourceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PasswordSecretRef != nil {
+		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.SecureJSONDataEncodedSecretRef != nil {
 		in, out := &in.SecureJSONDataEncodedSecretRef, &out.SecureJSONDataEncodedSecretRef
 		*out = new(v1.SecretKeySelector)
