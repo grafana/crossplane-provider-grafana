@@ -1,23 +1,5 @@
 name: grafana/grafana
 resources:
-    grafana_alert_notification Resource - terraform-provider-grafana:
-        subCategory: Deprecated
-        description: This resource is used to configure the legacy alerting system which has been replaced by the unified alerting system https://grafana.com/docs/grafana/latest/alerting/ in Grafana 9+. See resources in the Alerting section https://registry.terraform.io/providers/grafana/grafana/latest/docs for info on how to configure alerting with Terraform.
-        name: grafana_alert_notification Resource - terraform-provider-grafana
-        title: grafana_alert_notification Resource - terraform-provider-grafana
-        argumentDocs:
-            disable_resolve_message: (Boolean) Whether to disable sending resolve messages. Defaults to false.
-            frequency: (String) Frequency of alert reminders. Frequency must be set if reminders are enabled. Defaults to ``.
-            id: (String) The ID of this resource.
-            is_default: (Boolean) Is this the default channel for all your alerts. Defaults to false.
-            name: (String) The name of the alert notification channel.
-            secure_settings: (Map of String, Sensitive) Additional secure settings, for full reference lookup Grafana Supported Settings documentation.
-            send_reminder: (Boolean) Whether to send reminders for triggered alerts. Defaults to false.
-            settings: (Map of String) Additional settings, for full reference see Grafana HTTP API documentation.
-            type: (String) The type of the alert notification channel.
-            uid: (String) Unique identifier. If unset, this will be automatically generated.
-        importStatements:
-            - terraform import grafana_alert_notification.alert_notification_name {{alert_notification_id}}
     grafana_annotation Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
         description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
@@ -38,27 +20,15 @@ resources:
         name: grafana_api_key Resource - terraform-provider-grafana
         title: grafana_api_key Resource - terraform-provider-grafana
         argumentDocs:
-            cloud_stack_slug: '(String) If set, the API key will be created for the given Cloud stack. This can be used to bootstrap a management API key for a new stack. Note: This requires a cloud token to be configured.'
+            cloud_stack_slug: '(String, Deprecated) Deprecated: Use the grafana_cloud_stack_api_key resource instead'
             expiration: (String)
             id: (String) The ID of this resource.
             key: (String, Sensitive)
             name: (String)
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             role: (String)
             seconds_to_live: (Number)
         importStatements: []
-    grafana_builtin_role_assignment Resource - terraform-provider-grafana:
-        subCategory: Grafana Enterprise
-        description: 'Note: This resource is going to be deprecated with Grafana 9.+, please use grafana_role https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/role instead. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
-        name: grafana_builtin_role_assignment Resource - terraform-provider-grafana
-        title: grafana_builtin_role_assignment Resource - terraform-provider-grafana
-        argumentDocs:
-            builtin_role: (String) Organization roles (Viewer, Editor, Admin) or Grafana Admin to assign the roles to.
-            global: (Boolean) States whether the assignment is available across all organizations or not. Defaults to false.
-            id: (String) The ID of this resource.
-            roles: '(Block Set, Min: 1) Fixed or custom roles which provide granular access for specific resources within Grafana. (see below for nested schema)'
-            uid: (String) Unique identifier of the role to assign to builtin_role.
-        importStatements:
-            - terraform import grafana_builtin_role_assignment.builtin_role_name {{builtin_role_name}}
     grafana_cloud_access_policy Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: Official documentation https://grafana.com/docs/grafana-cloud/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/reference/cloud-api/#create-an-access-policy
@@ -164,6 +134,20 @@ resources:
             wait_for_readiness_timeout: (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
         importStatements:
             - terraform import grafana_cloud_stack.stack_name {{stack_id}}
+    grafana_cloud_stack_api_key Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/
+        name: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
+        title: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
+        argumentDocs:
+            expiration: (String)
+            id: (String) The ID of this resource.
+            key: (String, Sensitive)
+            name: (String)
+            role: (String)
+            seconds_to_live: (Number)
+            stack_slug: (String)
+        importStatements: []
     grafana_contact_point Resource - terraform-provider-grafana:
         subCategory: Alerting
         description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/contact-points/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
@@ -508,7 +492,7 @@ resources:
         importStatements: []
     grafana_message_template Resource - terraform-provider-grafana:
         subCategory: Alerting
-        description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/next/alerting/manage-notifications/create-message-template/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/template-notifications/create-notification-templates/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
         name: grafana_message_template Resource - terraform-provider-grafana
         title: grafana_message_template Resource - terraform-provider-grafana
         argumentDocs:
@@ -596,8 +580,10 @@ resources:
         name: grafana_oncall_integration Resource - terraform-provider-grafana
         title: grafana_oncall_integration Resource - terraform-provider-grafana
         argumentDocs:
+            acknowledge_signal: (String) Template for sending a signal to acknowledge the Incident.
             channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
             default_route: '(Block List, Min: 1, Max: 1) The Default route for all alerts from the given integration (see below for nested schema)'
+            email: '(Block List, Max: 1) Templates for Email. (see below for nested schema)'
             enabled: (Boolean) Enable notification in MS teams. Defaults to true.
             escalation_chain_id: (String) The ID of the escalation chain.
             grouping_key: (String) Template for the key by which alerts are grouped.
@@ -605,15 +591,20 @@ resources:
             image_url: (String) Template for Alert image url.
             link: (String) The link for using in an integrated tool.
             message: (String) Template for Alert message.
+            microsoft_teams: '(Block List, Max: 1) Templates for Microsoft Teams. (see below for nested schema)'
             msteams: '(Block List, Max: 1) MS teams-specific settings for a route. (see below for nested schema)'
             name: (String) The name of the service integration.
+            phone_call: '(Block List, Max: 1) Templates for Phone Call. (see below for nested schema)'
             resolve_signal: (String) Template for sending a signal to resolve the Incident.
             slack: '(Block List, Max: 1) Slack-specific settings for a route. (see below for nested schema)'
+            sms: '(Block List, Max: 1) Templates for SMS. (see below for nested schema)'
+            source_link: (String) Template for a source link.
             team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
             telegram: '(Block List, Max: 1) Telegram-specific settings for a route. (see below for nested schema)'
             templates: '(Block List, Max: 1) Jinja2 templates for Alert payload. (see below for nested schema)'
             title: (String) Template for Alert title.
             type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, heartbeat, demo, manual, stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel, inbound_email.
+            web: '(Block List, Max: 1) Templates for Web. (see below for nested schema)'
         importStatements:
             - terraform import grafana_oncall_integration.integration_name {{integration_id}}
     grafana_oncall_on_call_shift Resource - terraform-provider-grafana:
@@ -758,7 +749,7 @@ resources:
             item: '(Block Set, Min: 1) (see below for nested schema)'
             name: (String) The name of the playlist.
             order: (Number)
-            org_id: (String)
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             title: (String)
             type: (String)
             value: (String)
@@ -864,6 +855,7 @@ resources:
             id: (String) The ID of this resource.
             is_disabled: (Boolean) The disabled status for the service account. Defaults to false.
             name: (String) The name of the service account.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             role: (String) The basic role of the service account in the organization.
         importStatements: []
     grafana_service_account_permission Resource - terraform-provider-grafana:
@@ -875,7 +867,7 @@ resources:
             id: (String) The ID of this resource.
             permission: (String) Permission to associate with item. Must be Edit or Admin.
             permissions: '(Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)'
-            service_account_id: (Number) The id of the service account.
+            service_account_id: (String) The id of the service account.
             team_id: (Number) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
             user_id: (Number) ID of the user to manage permissions for. Specify either this or team_id. Defaults to 0.
         importStatements: []
@@ -891,7 +883,7 @@ resources:
             key: (String, Sensitive)
             name: (String)
             seconds_to_live: (Number)
-            service_account_id: (Number)
+            service_account_id: (String)
         importStatements: []
     grafana_synthetic_monitoring_check Resource - terraform-provider-grafana:
         subCategory: Synthetic Monitoring
@@ -1006,6 +998,7 @@ resources:
         title: grafana_team Resource - terraform-provider-grafana
         argumentDocs:
             email: (String) An email address for the team.
+            home_dashboard_uid: (String) The UID of the dashboard to display when a team member logs in. Defaults to ``.
             id: (String) The ID of this resource.
             ignore_externally_synced_members: |-
                 (Boolean) Ignores team members that have been added to team by Team Sync.
@@ -1015,7 +1008,10 @@ resources:
                 (Set of String) A set of email addresses corresponding to users who should be given membership
                 to the team. Note: users specified here must already exist in Grafana.
             name: (String) The display name for the Grafana team created.
+            preferences: '(Block List, Max: 1) (see below for nested schema)'
             team_id: (Number) The team id assigned to this team by Grafana.
+            theme: (String) The default theme for this team. Available themes are light, dark, or an empty string for the default theme. Defaults to ``.
+            timezone: (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to ``.
         importStatements: []
     grafana_team_external_group Resource - terraform-provider-grafana:
         subCategory: Grafana Enterprise
@@ -1028,18 +1024,6 @@ resources:
             team_id: (Number) The Team ID
         importStatements:
             - terraform import grafana_team_external_group.main {{team_id}}
-    grafana_team_preferences Resource - terraform-provider-grafana:
-        subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-preferences/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/
-        name: grafana_team_preferences Resource - terraform-provider-grafana
-        title: grafana_team_preferences Resource - terraform-provider-grafana
-        argumentDocs:
-            home_dashboard_id: (Number) The numeric ID of the dashboard to display when a team member logs in.
-            id: (String) The ID of this resource.
-            team_id: (Number) The numeric team ID.
-            theme: (String) The theme for the specified team. Available themes are light, dark, or an empty string for the default theme.
-            timezone: (String) The timezone for the specified team. Available values are utc, browser, or an empty string for the default.
-        importStatements: []
     grafana_user Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
         description: Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/user/ This resource uses Grafana's admin APIs for creating and updating users which does not currently work with API Tokens. You must use basic auth.

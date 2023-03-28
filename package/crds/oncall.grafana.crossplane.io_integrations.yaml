@@ -127,15 +127,97 @@ spec:
                     description: Jinja2 templates for Alert payload.
                     items:
                       properties:
+                        acknowledgeSignal:
+                          description: Template for sending a signal to acknowledge
+                            the Incident.
+                          type: string
+                        email:
+                          description: Templates for Email.
+                          items:
+                            properties:
+                              message:
+                                description: Template for Alert message.
+                                type: string
+                              title:
+                                description: Template for Alert title.
+                                type: string
+                            type: object
+                          type: array
                         groupingKey:
                           description: Template for the key by which alerts are grouped.
                           type: string
+                        microsoftTeams:
+                          description: Templates for Microsoft Teams.
+                          items:
+                            properties:
+                              imageUrl:
+                                description: Template for Alert image url.
+                                type: string
+                              message:
+                                description: Template for Alert message.
+                                type: string
+                              title:
+                                description: Template for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        phoneCall:
+                          description: Templates for Phone Call.
+                          items:
+                            properties:
+                              title:
+                                description: Template for Alert title.
+                                type: string
+                            type: object
+                          type: array
                         resolveSignal:
                           description: Template for sending a signal to resolve the
                             Incident.
                           type: string
                         slack:
                           description: Templates for Slack.
+                          items:
+                            properties:
+                              imageUrl:
+                                description: Template for Alert image url.
+                                type: string
+                              message:
+                                description: Template for Alert message.
+                                type: string
+                              title:
+                                description: Template for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        sms:
+                          description: Templates for SMS.
+                          items:
+                            properties:
+                              title:
+                                description: Template for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        sourceLink:
+                          description: Template for a source link.
+                          type: string
+                        telegram:
+                          description: Templates for Telegram.
+                          items:
+                            properties:
+                              imageUrl:
+                                description: Template for Alert image url.
+                                type: string
+                              message:
+                                description: Template for Alert message.
+                                type: string
+                              title:
+                                description: Template for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        web:
+                          description: Templates for Web.
                           items:
                             properties:
                               imageUrl:
