@@ -71,6 +71,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			"cloud_api_key",
 			"cloud_api_url",
 			"oncall_access_token",
+			"oncall_url",
 			"sm_access_token",
 			"sm_url",
 		} {
