@@ -13,6 +13,24 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type PreferencesObservation struct {
+}
+
+type PreferencesParameters struct {
+
+	// The UID of the dashboard to display when a team member logs in. Defaults to “.
+	// +kubebuilder:validation:Optional
+	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
+
+	// The default theme for this team. Available themes are `light`, `dark`, or an empty string for the default theme. Defaults to “.
+	// +kubebuilder:validation:Optional
+	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
+
+	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default. Defaults to “.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
 type TeamObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
@@ -52,6 +70,9 @@ type TeamParameters struct {
 	// The display name for the Grafana team created.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	Preferences []PreferencesParameters `json:"preferences,omitempty" tf:"preferences,omitempty"`
 }
 
 // TeamSpec defines the desired state of Team

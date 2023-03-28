@@ -36,6 +36,20 @@ type DefaultRouteParameters struct {
 	Telegram []TelegramParameters `json:"telegram,omitempty" tf:"telegram,omitempty"`
 }
 
+type EmailObservation struct {
+}
+
+type EmailParameters struct {
+
+	// Template for Alert message.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// Template for Alert title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
 type IntegrationObservation struct {
 
 	// The Default route for all alerts from the given integration
@@ -71,6 +85,24 @@ type IntegrationParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
+type MicrosoftTeamsObservation struct {
+}
+
+type MicrosoftTeamsParameters struct {
+
+	// Template for Alert image url.
+	// +kubebuilder:validation:Optional
+	ImageURL *string `json:"imageUrl,omitempty" tf:"image_url,omitempty"`
+
+	// Template for Alert message.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// Template for Alert title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
 type MsteamsObservation struct {
 }
 
@@ -83,6 +115,26 @@ type MsteamsParameters struct {
 	// MS teams channel id. Alerts will be directed to this channel in Microsoft teams.
 	// +kubebuilder:validation:Optional
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type PhoneCallObservation struct {
+}
+
+type PhoneCallParameters struct {
+
+	// Template for Alert title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
+type SMSObservation struct {
+}
+
+type SMSParameters struct {
+
+	// Template for Alert title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
 type SlackObservation struct {
@@ -118,23 +170,91 @@ type TemplatesObservation struct {
 
 type TemplatesParameters struct {
 
+	// Template for sending a signal to acknowledge the Incident.
+	// +kubebuilder:validation:Optional
+	AcknowledgeSignal *string `json:"acknowledgeSignal,omitempty" tf:"acknowledge_signal,omitempty"`
+
+	// Templates for Email.
+	// +kubebuilder:validation:Optional
+	Email []EmailParameters `json:"email,omitempty" tf:"email,omitempty"`
+
 	// Template for the key by which alerts are grouped.
 	// +kubebuilder:validation:Optional
 	GroupingKey *string `json:"groupingKey,omitempty" tf:"grouping_key,omitempty"`
+
+	// Templates for Microsoft Teams.
+	// +kubebuilder:validation:Optional
+	MicrosoftTeams []MicrosoftTeamsParameters `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
+
+	// Templates for Phone Call.
+	// +kubebuilder:validation:Optional
+	PhoneCall []PhoneCallParameters `json:"phoneCall,omitempty" tf:"phone_call,omitempty"`
 
 	// Template for sending a signal to resolve the Incident.
 	// +kubebuilder:validation:Optional
 	ResolveSignal *string `json:"resolveSignal,omitempty" tf:"resolve_signal,omitempty"`
 
+	// Templates for SMS.
+	// +kubebuilder:validation:Optional
+	SMS []SMSParameters `json:"sms,omitempty" tf:"sms,omitempty"`
+
 	// Templates for Slack.
 	// +kubebuilder:validation:Optional
 	Slack []TemplatesSlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
+
+	// Template for a source link.
+	// +kubebuilder:validation:Optional
+	SourceLink *string `json:"sourceLink,omitempty" tf:"source_link,omitempty"`
+
+	// Templates for Telegram.
+	// +kubebuilder:validation:Optional
+	Telegram []TemplatesTelegramParameters `json:"telegram,omitempty" tf:"telegram,omitempty"`
+
+	// Templates for Web.
+	// +kubebuilder:validation:Optional
+	Web []WebParameters `json:"web,omitempty" tf:"web,omitempty"`
 }
 
 type TemplatesSlackObservation struct {
 }
 
 type TemplatesSlackParameters struct {
+
+	// Template for Alert image url.
+	// +kubebuilder:validation:Optional
+	ImageURL *string `json:"imageUrl,omitempty" tf:"image_url,omitempty"`
+
+	// Template for Alert message.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// Template for Alert title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
+type TemplatesTelegramObservation struct {
+}
+
+type TemplatesTelegramParameters struct {
+
+	// Template for Alert image url.
+	// +kubebuilder:validation:Optional
+	ImageURL *string `json:"imageUrl,omitempty" tf:"image_url,omitempty"`
+
+	// Template for Alert message.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// Template for Alert title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
+type WebObservation struct {
+}
+
+type WebParameters struct {
 
 	// Template for Alert image url.
 	// +kubebuilder:validation:Optional
