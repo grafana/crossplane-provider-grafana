@@ -137,8 +137,8 @@ spec:
                         type: object
                     type: object
                   cloudStackSlug:
-                    description: 'Deprecated: Use the `grafana_cloud_stack_api_key`
-                      resource instead'
+                    description: 'Deprecated: Use `grafana_cloud_stack_service_account`
+                      and `grafana_cloud_stack_service_account_token` resources instead'
                     type: string
                   name:
                     type: string

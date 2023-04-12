@@ -2923,9 +2923,19 @@ func (in *WebhookParameters) DeepCopyInto(out *WebhookParameters) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.Message != nil {
+		in, out := &in.Message, &out.Message
+		*out = new(string)
+		**out = **in
+	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
 		*out = new(v1.SecretReference)
+		**out = **in
+	}
+	if in.Title != nil {
+		in, out := &in.Title, &out.Title
+		*out = new(string)
 		**out = **in
 	}
 	if in.URL != nil {

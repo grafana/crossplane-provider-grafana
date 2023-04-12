@@ -979,6 +979,9 @@ spec:
                             request. This can be helpful in limiting the size of the
                             request body. The default is 0, which indicates no limit.
                           type: number
+                        message:
+                          description: Custom message. You can use template variables.
+                          type: string
                         settingsSecretRef:
                           description: Additional custom properties to attach to the
                             notifier. Defaults to `map[]`.
@@ -993,6 +996,9 @@ spec:
                           - name
                           - namespace
                           type: object
+                        title:
+                          description: Templated title of the message.
+                          type: string
                         url:
                           description: The URL to send webhook requests to.
                           type: string
