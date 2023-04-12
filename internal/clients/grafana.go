@@ -74,6 +74,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			"oncall_url",
 			"sm_access_token",
 			"sm_url",
+			"org_id",
 		} {
 			if v, ok := creds[k]; ok {
 				ps.Configuration[k] = v
