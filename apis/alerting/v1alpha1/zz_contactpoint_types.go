@@ -740,9 +740,17 @@ type WebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	MaxAlerts *float64 `json:"maxAlerts,omitempty" tf:"max_alerts,omitempty"`
 
+	// Custom message. You can use template variables.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// Templated title of the message.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// The URL to send webhook requests to.
 	// +kubebuilder:validation:Required

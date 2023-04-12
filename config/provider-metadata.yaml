@@ -6,28 +6,15 @@ resources:
         name: grafana_annotation Resource - terraform-provider-grafana
         title: grafana_annotation Resource - terraform-provider-grafana
         argumentDocs:
-            dashboard_id: (Number) The ID of the dashboard on which to create the annotation.
+            dashboard_id: '(Number, Deprecated) The ID of the dashboard on which to create the annotation. Deprecated: Use dashboard_uid instead.'
+            dashboard_uid: (String) The ID of the dashboard on which to create the annotation.
             id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             panel_id: (Number) The ID of the dashboard panel on which to create the annotation.
             tags: (Set of String) The tags to associate with the annotation.
             text: (String) The text to associate with the annotation.
             time: (String) The RFC 3339-formatted time string indicating the annotation's time.
             time_end: (String) The RFC 3339-formatted time string indicating the annotation's end time.
-        importStatements: []
-    grafana_api_key Resource - terraform-provider-grafana:
-        subCategory: Grafana OSS
-        description: Manages Grafana API Keys. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/
-        name: grafana_api_key Resource - terraform-provider-grafana
-        title: grafana_api_key Resource - terraform-provider-grafana
-        argumentDocs:
-            cloud_stack_slug: '(String, Deprecated) Deprecated: Use the grafana_cloud_stack_api_key resource instead'
-            expiration: (String)
-            id: (String) The ID of this resource.
-            key: (String, Sensitive)
-            name: (String)
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            role: (String)
-            seconds_to_live: (Number)
         importStatements: []
     grafana_cloud_access_policy Resource - terraform-provider-grafana:
         subCategory: Cloud
@@ -65,19 +52,6 @@ resources:
             token: (String, Sensitive)
             updated_at: (String) Last update date of the access policy token.
         importStatements: []
-    grafana_cloud_api_key Resource - terraform-provider-grafana:
-        subCategory: Cloud
-        description: Manages a single API key on the Grafana Cloud portal (on the organization level)
-        name: grafana_cloud_api_key Resource - terraform-provider-grafana
-        title: grafana_cloud_api_key Resource - terraform-provider-grafana
-        argumentDocs:
-            cloud_org_slug: (String) The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
-            id: (String) The ID of this resource.
-            key: (String, Sensitive) The generated API key.
-            name: (String) Name of the API key.
-            role: (String) Role of the API key. Should be one of [Viewer Editor Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key for details.
-        importStatements:
-            - terraform import grafana_cloud_api_key.resource_name "{{org-name}}-{{api_key_name}}"
     grafana_cloud_plugin_installation Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: Manages Grafana Cloud Plugin Installations. Plugin Catalog https://grafana.com/grafana/plugins/
@@ -133,7 +107,9 @@ resources:
             wait_for_readiness: (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
             wait_for_readiness_timeout: (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
         importStatements:
-            - terraform import grafana_cloud_stack.stack_name {{stack_id}}
+            - |-
+              terraform import grafana_cloud_stack.stack_name {{stack_id}} // import by numerical ID
+              terraform import grafana_cloud_stack.stack_name {{stack_slug}} // or import by slug
     grafana_cloud_stack_api_key Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/
@@ -146,6 +122,33 @@ resources:
             name: (String)
             role: (String)
             seconds_to_live: (Number)
+            stack_slug: (String)
+        importStatements: []
+    grafana_cloud_stack_service_account Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: 'Note: This resource is available only with Grafana 9.1+. Manages service accounts of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
+        name: grafana_cloud_stack_service_account Resource - terraform-provider-grafana
+        title: grafana_cloud_stack_service_account Resource - terraform-provider-grafana
+        argumentDocs:
+            id: (String) The ID of this resource.
+            is_disabled: (Boolean) The disabled status for the service account. Defaults to false.
+            name: (String) The name of the service account.
+            role: (String) The basic role of the service account in the organization.
+            stack_slug: (String)
+        importStatements: []
+    grafana_cloud_stack_service_account_token Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: 'Note: This resource is available only with Grafana 9.1+. Manages service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
+        name: grafana_cloud_stack_service_account_token Resource - terraform-provider-grafana
+        title: grafana_cloud_stack_service_account_token Resource - terraform-provider-grafana
+        argumentDocs:
+            expiration: (String)
+            has_expired: (Boolean)
+            id: (String) The ID of this resource.
+            key: (String, Sensitive)
+            name: (String)
+            seconds_to_live: (Number)
+            service_account_id: (String)
             stack_slug: (String)
         importStatements: []
     grafana_contact_point Resource - terraform-provider-grafana:
@@ -521,7 +524,7 @@ resources:
             - terraform import grafana_mute_timing.mute_timing_name {{mute_timing_name}}
     grafana_notification_policy Resource - terraform-provider-grafana:
         subCategory: Alerting
-        description: Sets the global notification policy for Grafana. Note that this resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/ This resource requires Grafana 9.1.0 or later.
+        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/ This resource requires Grafana 9.1.0 or later.
         name: grafana_notification_policy Resource - terraform-provider-grafana
         title: grafana_notification_policy Resource - terraform-provider-grafana
         argumentDocs:
@@ -544,7 +547,7 @@ resources:
               terraform import grafana_notification_policy.notification_policy_name "policy"
     grafana_oncall_escalation Resource - terraform-provider-grafana:
         subCategory: OnCall
-        description: Official documentation https://grafana.com/docs/grafana-cloud/oncall/escalation-policies/HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/escalation_policies/
+        description: Official documentation https://grafana.com/docs/oncall/latest/escalation-policies/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/escalation_policies/
         name: grafana_oncall_escalation Resource - terraform-provider-grafana
         title: grafana_oncall_escalation Resource - terraform-provider-grafana
         argumentDocs:
@@ -565,7 +568,7 @@ resources:
             - terraform import grafana_oncall_escalation.escalation_name {{escalation_id}}
     grafana_oncall_escalation_chain Resource - terraform-provider-grafana:
         subCategory: OnCall
-        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/escalation_chains/
+        description: HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/escalation_chains/
         name: grafana_oncall_escalation_chain Resource - terraform-provider-grafana
         title: grafana_oncall_escalation_chain Resource - terraform-provider-grafana
         argumentDocs:
@@ -576,7 +579,7 @@ resources:
             - terraform import grafana_oncall_escakation_chain.escalation_chain_name {{escalation_chain_id}}
     grafana_oncall_integration Resource - terraform-provider-grafana:
         subCategory: OnCall
-        description: Official documentation https://grafana.com/docs/grafana-cloud/oncall/integrations/HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/
+        description: Official documentation https://grafana.com/docs/oncall/latest/integrations/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/
         name: grafana_oncall_integration Resource - terraform-provider-grafana
         title: grafana_oncall_integration Resource - terraform-provider-grafana
         argumentDocs:
@@ -609,7 +612,7 @@ resources:
             - terraform import grafana_oncall_integration.integration_name {{integration_id}}
     grafana_oncall_on_call_shift Resource - terraform-provider-grafana:
         subCategory: OnCall
-        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/on_call_shifts/
+        description: HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/on_call_shifts/
         name: grafana_oncall_on_call_shift Resource - terraform-provider-grafana
         title: grafana_oncall_on_call_shift Resource - terraform-provider-grafana
         argumentDocs:
@@ -634,7 +637,7 @@ resources:
             - terraform import grafana_oncall_on_call_shift.on_call_shift_name {{on_call_shift_id}}
     grafana_oncall_outgoing_webhook Resource - terraform-provider-grafana:
         subCategory: OnCall
-        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/outgoing_webhooks/
+        description: HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/outgoing_webhooks/
         name: grafana_oncall_outgoing_webhook Resource - terraform-provider-grafana
         title: grafana_oncall_outgoing_webhook Resource - terraform-provider-grafana
         argumentDocs:
@@ -651,7 +654,7 @@ resources:
             - terraform import grafana_oncall_outgoing_webhook.outgoing_webhook_name {{outgoing_webhook_id}}
     grafana_oncall_route Resource - terraform-provider-grafana:
         subCategory: OnCall
-        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/routes/
+        description: HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/routes/
         name: grafana_oncall_route Resource - terraform-provider-grafana
         title: grafana_oncall_route Resource - terraform-provider-grafana
         argumentDocs:
@@ -669,7 +672,7 @@ resources:
             - terraform import grafana_oncall_route.route_name {{route_id}}
     grafana_oncall_schedule Resource - terraform-provider-grafana:
         subCategory: OnCall
-        description: HTTP API https://grafana.com/docs/grafana-cloud/oncall/oncall-api-reference/schedules/
+        description: HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/schedules/
         name: grafana_oncall_schedule Resource - terraform-provider-grafana
         title: grafana_oncall_schedule Resource - terraform-provider-grafana
         argumentDocs:
