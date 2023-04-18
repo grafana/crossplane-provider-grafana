@@ -1,5 +1,23 @@
 name: grafana/grafana
 resources:
+    grafana_alert_notification Resource - terraform-provider-grafana:
+        subCategory: Deprecated
+        description: This resource is used to configure the legacy alerting system which has been replaced by the unified alerting system https://grafana.com/docs/grafana/latest/alerting/ in Grafana 9+. See resources in the Alerting section https://registry.terraform.io/providers/grafana/grafana/latest/docs for info on how to configure alerting with Terraform.
+        name: grafana_alert_notification Resource - terraform-provider-grafana
+        title: grafana_alert_notification Resource - terraform-provider-grafana
+        argumentDocs:
+            disable_resolve_message: (Boolean) Whether to disable sending resolve messages. Defaults to false.
+            frequency: (String) Frequency of alert reminders. Frequency must be set if reminders are enabled. Defaults to ``.
+            id: (String) The ID of this resource.
+            is_default: (Boolean) Is this the default channel for all your alerts. Defaults to false.
+            name: (String) The name of the alert notification channel.
+            secure_settings: (Map of String, Sensitive) Additional secure settings, for full reference lookup Grafana Supported Settings documentation.
+            send_reminder: (Boolean) Whether to send reminders for triggered alerts. Defaults to false.
+            settings: (Map of String) Additional settings, for full reference see Grafana HTTP API documentation.
+            type: (String) The type of the alert notification channel.
+            uid: (String) Unique identifier. If unset, this will be automatically generated.
+        importStatements:
+            - terraform import grafana_alert_notification.alert_notification_name {{alert_notification_id}}
     grafana_annotation Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
         description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
@@ -16,6 +34,34 @@ resources:
             time: (String) The RFC 3339-formatted time string indicating the annotation's time.
             time_end: (String) The RFC 3339-formatted time string indicating the annotation's end time.
         importStatements: []
+    grafana_api_key Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: 'Manages Grafana API Keys. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ !> Deprecated: please use grafana_service_account and grafana_service_account_token instead, see Migrate API keys to Grafana service accounts using Terraform https://grafana.com/docs/grafana/latest/administration/api-keys/#migrate-api-keys-to-grafana-service-accounts-using-terraform for more information.'
+        name: grafana_api_key Resource - terraform-provider-grafana
+        title: grafana_api_key Resource - terraform-provider-grafana
+        argumentDocs:
+            cloud_stack_slug: '(String, Deprecated) Deprecated: Use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token resources instead'
+            expiration: (String)
+            id: (String) The ID of this resource.
+            key: (String, Sensitive)
+            name: (String)
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            role: (String)
+            seconds_to_live: (Number)
+        importStatements: []
+    grafana_builtin_role_assignment Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: 'Note: This resource is going to be deprecated with Grafana 9.+, please use grafana_role https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/role instead. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
+        name: grafana_builtin_role_assignment Resource - terraform-provider-grafana
+        title: grafana_builtin_role_assignment Resource - terraform-provider-grafana
+        argumentDocs:
+            builtin_role: (String) Organization roles (Viewer, Editor, Admin) or Grafana Admin to assign the roles to.
+            global: (Boolean) States whether the assignment is available across all organizations or not. Defaults to false.
+            id: (String) The ID of this resource.
+            roles: '(Block Set, Min: 1) Fixed or custom roles which provide granular access for specific resources within Grafana. (see below for nested schema)'
+            uid: (String) Unique identifier of the role to assign to builtin_role.
+        importStatements:
+            - terraform import grafana_builtin_role_assignment.builtin_role_name {{builtin_role_name}}
     grafana_cloud_access_policy Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: Official documentation https://grafana.com/docs/grafana-cloud/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/reference/cloud-api/#create-an-access-policy
@@ -52,6 +98,19 @@ resources:
             token: (String, Sensitive)
             updated_at: (String) Last update date of the access policy token.
         importStatements: []
+    grafana_cloud_api_key Resource - terraform-provider-grafana:
+        subCategory: Cloud
+        description: Manages a single API key on the Grafana Cloud portal (on the organization level)
+        name: grafana_cloud_api_key Resource - terraform-provider-grafana
+        title: grafana_cloud_api_key Resource - terraform-provider-grafana
+        argumentDocs:
+            cloud_org_slug: (String) The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
+            id: (String) The ID of this resource.
+            key: (String, Sensitive) The generated API key.
+            name: (String) Name of the API key.
+            role: (String) Role of the API key. Should be one of [Viewer Editor Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key for details.
+        importStatements:
+            - terraform import grafana_cloud_api_key.resource_name "{{org-name}}-{{api_key_name}}"
     grafana_cloud_plugin_installation Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: Manages Grafana Cloud Plugin Installations. Plugin Catalog https://grafana.com/grafana/plugins/
@@ -112,7 +171,7 @@ resources:
               terraform import grafana_cloud_stack.stack_name {{stack_slug}} // or import by slug
     grafana_cloud_stack_api_key Resource - terraform-provider-grafana:
         subCategory: Cloud
-        description: Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/
+        description: 'Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ !> Deprecated: please use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token instead, see https://grafana.com/docs/grafana/next/administration/api-keys/#migrate-api-keys-to-grafana-service-accounts-using-terraform.'
         name: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
         title: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
         argumentDocs:
@@ -1027,6 +1086,18 @@ resources:
             team_id: (Number) The Team ID
         importStatements:
             - terraform import grafana_team_external_group.main {{team_id}}
+    grafana_team_preferences Resource - terraform-provider-grafana:
+        subCategory: Grafana OSS
+        description: 'Official documentation https://grafana.com/docs/grafana/latest/administration/organization-preferences/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/ !> Deprecated: Use the preferences attribute of the grafana_team resource instead.'
+        name: grafana_team_preferences Resource - terraform-provider-grafana
+        title: grafana_team_preferences Resource - terraform-provider-grafana
+        argumentDocs:
+            home_dashboard_id: (Number) The numeric ID of the dashboard to display when a team member logs in.
+            id: (String) The ID of this resource.
+            team_id: (Number) The numeric team ID.
+            theme: (String) The theme for the specified team. Available themes are light, dark, or an empty string for the default theme.
+            timezone: (String) The timezone for the specified team. Available values are utc, browser, or an empty string for the default.
+        importStatements: []
     grafana_user Resource - terraform-provider-grafana:
         subCategory: Grafana OSS
         description: Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/user/ This resource uses Grafana's admin APIs for creating and updating users which does not currently work with API Tokens. You must use basic auth.
