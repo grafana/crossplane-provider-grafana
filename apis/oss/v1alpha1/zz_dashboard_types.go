@@ -39,7 +39,7 @@ type DashboardParameters struct {
 	// +kubebuilder:validation:Required
 	ConfigJSON *string `json:"configJson" tf:"config_json,omitempty"`
 
-	// The id of the folder to save the dashboard in. This attribute is a string to reflect the type of the folder's id.
+	// The id or UID of the folder to save the dashboard in.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector

@@ -304,7 +304,7 @@ resources:
         argumentDocs:
             config_json: (String) The complete dashboard model JSON.
             dashboard_id: (Number) The numeric ID of the dashboard computed by Grafana.
-            folder: (String) The id of the folder to save the dashboard in. This attribute is a string to reflect the type of the folder's id.
+            folder: (String) The id or UID of the folder to save the dashboard in.
             id: (String) The ID of this resource.
             message: (String) Set a commit message for the version history.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -454,6 +454,7 @@ resources:
         title: grafana_folder Resource - terraform-provider-grafana
         argumentDocs:
             id: (String) Unique internal identifier.
+            prevent_destroy_if_not_empty: (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
             title: (String) The title of the folder.
             uid: (String) Unique identifier.
             url: (String) The full URL of the folder.
@@ -519,6 +520,7 @@ resources:
         name: grafana_machine_learning_job Resource - terraform-provider-grafana
         title: grafana_machine_learning_job Resource - terraform-provider-grafana
         argumentDocs:
+            custom_labels: (Map of String) An object representing the custom labels added on the forecast.
             datasource_id: (Number) The id of the datasource to query.
             datasource_type: (String) The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
             datasource_uid: (String) The uid of the datasource to query.
@@ -1023,16 +1025,17 @@ resources:
             - terraform import grafana_synthetic_monitoring_check.check {{check-id}}
     grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana:
         subCategory: Synthetic Monitoring
-        description: Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Official documentation https://grafana.com/docs/grafana-cloud/synthetic-monitoring/installation/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall
+        description: Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/synthetic-monitoring/installation/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall
         name: grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana
         title: grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana
         argumentDocs:
             id: (String) The ID of this resource.
-            logs_instance_id: (Number) The ID of the logs instance to install SM on (stack's logs_user_id attribute).
-            metrics_instance_id: (Number) The ID of the metrics instance to install SM on (stack's prometheus_user_id attribute).
+            logs_instance_id: '(Number, Deprecated) Deprecated: Not used anymore.'
+            metrics_instance_id: '(Number, Deprecated) Deprecated: Not used anymore.'
             metrics_publisher_key: (String, Sensitive) The Cloud API Key with the MetricsPublisher role used to publish metrics to the SM API
             sm_access_token: (String) Generated token to access the SM API.
-            stack_id: (Number) The ID of the stack to install SM on.
+            stack_id: (String) The ID or slug of the stack to install SM on.
+            stack_sm_api_url: '(String) The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/synthetic-monitoring/private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack''s region, this field is computed automatically and readable.'
         importStatements: []
     grafana_synthetic_monitoring_probe Resource - terraform-provider-grafana:
         subCategory: Synthetic Monitoring

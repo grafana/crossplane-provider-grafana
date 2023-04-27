@@ -63,6 +63,10 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  preventDestroyIfNotEmpty:
+                    description: Prevent deletion of the folder if it is not empty
+                      (contains dashboards or alert rules). Defaults to `false`.
+                    type: boolean
                   title:
                     description: The title of the folder.
                     type: string

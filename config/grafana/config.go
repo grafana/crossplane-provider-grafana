@@ -112,4 +112,13 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         SelfPackagePath + ".UserEmailExtractor()",
 		}
 	})
+	p.AddResourceConfigurator("grafana_synthetic_monitoring_installation", func(r *ujconfig.Resource) {
+		r.References["stack_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack",
+			RefFieldName:      "CloudStackRef",
+			SelectorFieldName: "CloudStackSelector",
+		}
+		delete(r.TerraformResource.Schema, "logs_instance_id")    // Deprecated
+		delete(r.TerraformResource.Schema, "metrics_instance_id") // Deprecated
+	})
 }

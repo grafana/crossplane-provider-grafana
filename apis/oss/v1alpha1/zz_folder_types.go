@@ -22,6 +22,10 @@ type FolderObservation struct {
 
 type FolderParameters struct {
 
+	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
+
 	// The title of the folder.
 	// +kubebuilder:validation:Required
 	Title *string `json:"title" tf:"title,omitempty"`
