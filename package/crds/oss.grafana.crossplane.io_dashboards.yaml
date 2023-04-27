@@ -67,8 +67,8 @@ spec:
                     description: The complete dashboard model JSON.
                     type: string
                   folder:
-                    description: The id of the folder to save the dashboard in. This
-                      attribute is a string to reflect the type of the folder's id.
+                    description: The id or UID of the folder to save the dashboard
+                      in.
                     type: string
                   folderRef:
                     description: Reference to a Folder in oss to populate folder.

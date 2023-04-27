@@ -22,21 +22,28 @@ type InstallationObservation struct {
 
 type InstallationParameters struct {
 
-	// The ID of the logs instance to install SM on (stack's `logs_user_id` attribute).
-	// +kubebuilder:validation:Required
-	LogsInstanceID *float64 `json:"logsInstanceId" tf:"logs_instance_id,omitempty"`
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
-	// The ID of the metrics instance to install SM on (stack's `prometheus_user_id` attribute).
-	// +kubebuilder:validation:Required
-	MetricsInstanceID *float64 `json:"metricsInstanceId" tf:"metrics_instance_id,omitempty"`
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// The Cloud API Key with the `MetricsPublisher` role used to publish metrics to the SM API
 	// +kubebuilder:validation:Required
 	MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
 
-	// The ID of the stack to install SM on.
-	// +kubebuilder:validation:Required
-	StackID *float64 `json:"stackId" tf:"stack_id,omitempty"`
+	// The ID or slug of the stack to install SM on.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
+	// +kubebuilder:validation:Optional
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/synthetic-monitoring/private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
+	// +kubebuilder:validation:Optional
+	StackSmAPIURL *string `json:"stackSmApiUrl,omitempty" tf:"stack_sm_api_url,omitempty"`
 }
 
 // InstallationSpec defines the desired state of Installation
