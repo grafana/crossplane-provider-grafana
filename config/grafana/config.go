@@ -120,5 +120,24 @@ func Configure(p *ujconfig.Provider) {
 		}
 		delete(r.TerraformResource.Schema, "logs_instance_id")    // Deprecated
 		delete(r.TerraformResource.Schema, "metrics_instance_id") // Deprecated
+
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+
+			providerConfig := map[string]string{}
+			if a, ok := attr["sm_access_token"].(string); ok {
+				providerConfig["sm_access_token"] = a
+			}
+			if a, ok := attr["stack_sm_api_url"].(string); ok {
+				providerConfig["sm_url"] = a
+			}
+			marshalled, err := json.Marshal(providerConfig)
+			if err != nil {
+				return nil, err
+			}
+			conn["smCredentials"] = marshalled
+
+			return conn, nil
+		}
 	})
 }
