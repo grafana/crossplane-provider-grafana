@@ -21,7 +21,7 @@ kind: Provider
 metadata:
   name: provider-grafana
 spec:
-  package: xpkg.upbound.io/grafana/provider-grafana:v0.3.0
+  package: xpkg.upbound.io/grafana/provider-grafana:v0.5.1
 EOF
 ```
 
