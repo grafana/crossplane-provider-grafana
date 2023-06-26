@@ -79,6 +79,7 @@ type StackObservation struct {
 
 	TracesStatus *string `json:"tracesStatus,omitempty" tf:"traces_status,omitempty"`
 
+	// Base URL of the Traces instance configured for this stack. To use this in the Tempo data source in Grafana, append `/tempo` to the URL.
 	TracesURL *string `json:"tracesUrl,omitempty" tf:"traces_url,omitempty"`
 
 	TracesUserID *float64 `json:"tracesUserId,omitempty" tf:"traces_user_id,omitempty"`

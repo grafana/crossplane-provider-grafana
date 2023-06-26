@@ -90,6 +90,10 @@ spec:
                     description: Python Regex query. Route is chosen for an alert
                       if there is a match inside the alert payload.
                     type: string
+                  routingType:
+                    description: The type of route. Can be jinja2, regex Defaults
+                      to `regex`.
+                    type: string
                   slack:
                     description: Slack-specific settings for a route.
                     items:

@@ -345,6 +345,9 @@ spec:
                   tracesStatus:
                     type: string
                   tracesUrl:
+                    description: Base URL of the Traces instance configured for this
+                      stack. To use this in the Tempo data source in Grafana, append
+                      `/tempo` to the URL.
                     type: string
                   tracesUserId:
                     type: number

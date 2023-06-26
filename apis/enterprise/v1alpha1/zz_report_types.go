@@ -35,6 +35,10 @@ type ReportParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
+	// Specifies what kind of attachment to generate for the report. Allowed values: `pdf`, `csv`, `image`.
+	// +kubebuilder:validation:Optional
+	Formats []*string `json:"formats,omitempty" tf:"formats,omitempty"`
+
 	// Whether to include a link to the dashboard in the report. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	IncludeDashboardLink *bool `json:"includeDashboardLink,omitempty" tf:"include_dashboard_link,omitempty"`
@@ -54,6 +58,10 @@ type ReportParameters struct {
 	// Name of the report.
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
+
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
 	// +kubebuilder:validation:Optional

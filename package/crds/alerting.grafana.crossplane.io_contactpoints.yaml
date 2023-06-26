@@ -144,6 +144,9 @@ spec:
                           - name
                           - namespace
                           type: object
+                        title:
+                          description: The templated title of the message.
+                          type: string
                         url:
                           description: The DingDing webhook URL.
                           type: string
@@ -425,9 +428,23 @@ spec:
                           description: The class or type of event, for example `ping
                             failure`.
                           type: string
+                        client:
+                          description: The name of the monitoring client that is triggering
+                            this event.
+                          type: string
+                        clientUrl:
+                          description: The URL of the monitoring client that is triggering
+                            this event.
+                          type: string
                         component:
                           description: The component being affected by the event.
                           type: string
+                        details:
+                          additionalProperties:
+                            type: string
+                          description: A set of arbitrary key/value pairs that provide
+                            further detail about the incident.
+                          type: object
                         disableResolveMessage:
                           description: Whether to disable sending resolve messages.
                             Defaults to `false`.
@@ -470,6 +487,9 @@ spec:
                         severity:
                           description: The PagerDuty event severity level. Default
                             is `critical`.
+                          type: string
+                        source:
+                          description: The unique location of the affected system.
                           type: string
                         summary:
                           description: The templated summary message of the event.
@@ -543,6 +563,9 @@ spec:
                           type: object
                         sound:
                           description: The sound associated with the notification.
+                          type: string
+                        title:
+                          description: The templated title of the message.
                           type: string
                         userKeySecretRef:
                           description: The Pushover user key.
@@ -851,6 +874,23 @@ spec:
                           - name
                           - namespace
                           type: object
+                        descriptionSecretRef:
+                          description: The templated description of the message.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         disableResolveMessage:
                           description: Whether to disable sending resolve messages.
                             Defaults to `false`.
@@ -875,10 +915,29 @@ spec:
                           - name
                           - namespace
                           type: object
+                        titleSecretRef:
+                          description: The templated title of the message.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       required:
                       - apiSecretSecretRef
+                      - descriptionSecretRef
                       - gatewayId
                       - recipientId
+                      - titleSecretRef
                       type: object
                     type: array
                   victorops:
@@ -886,6 +945,9 @@ spec:
                       (now known as Splunk OnCall).
                     items:
                       properties:
+                        description:
+                          description: Templated description of the message.
+                          type: string
                         disableResolveMessage:
                           description: Whether to disable sending resolve messages.
                             Defaults to `false`.
@@ -908,6 +970,9 @@ spec:
                           - name
                           - namespace
                           type: object
+                        title:
+                          description: Templated title to display.
+                          type: string
                         url:
                           description: The VictorOps webhook URL.
                           type: string

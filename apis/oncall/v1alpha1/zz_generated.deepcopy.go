@@ -1302,6 +1302,11 @@ func (in *RouteParameters) DeepCopyInto(out *RouteParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RoutingType != nil {
+		in, out := &in.RoutingType, &out.RoutingType
+		*out = new(string)
+		**out = **in
+	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
 		*out = make([]RouteSlackParameters, len(*in))
