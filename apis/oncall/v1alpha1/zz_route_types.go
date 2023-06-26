@@ -53,6 +53,10 @@ type RouteParameters struct {
 	// +kubebuilder:validation:Required
 	RoutingRegex *string `json:"routingRegex" tf:"routing_regex,omitempty"`
 
+	// The type of route. Can be jinja2, regex Defaults to `regex`.
+	// +kubebuilder:validation:Optional
+	RoutingType *string `json:"routingType,omitempty" tf:"routing_type,omitempty"`
+
 	// Slack-specific settings for a route.
 	// +kubebuilder:validation:Optional
 	Slack []RouteSlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`

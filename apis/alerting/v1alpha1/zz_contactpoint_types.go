@@ -214,6 +214,10 @@ type DingdingParameters struct {
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
+	// The templated title of the message.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
 	// The DingDing webhook URL.
 	// +kubebuilder:validation:Required
 	URL *string `json:"url" tf:"url,omitempty"`
@@ -392,9 +396,21 @@ type PagerdutyParameters struct {
 	// +kubebuilder:validation:Optional
 	Class *string `json:"class,omitempty" tf:"class,omitempty"`
 
+	// The name of the monitoring client that is triggering this event.
+	// +kubebuilder:validation:Optional
+	Client *string `json:"client,omitempty" tf:"client,omitempty"`
+
+	// The URL of the monitoring client that is triggering this event.
+	// +kubebuilder:validation:Optional
+	ClientURL *string `json:"clientUrl,omitempty" tf:"client_url,omitempty"`
+
 	// The component being affected by the event.
 	// +kubebuilder:validation:Optional
 	Component *string `json:"component,omitempty" tf:"component,omitempty"`
+
+	// A set of arbitrary key/value pairs that provide further detail about the incident.
+	// +kubebuilder:validation:Optional
+	Details map[string]*string `json:"details,omitempty" tf:"details,omitempty"`
 
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	// +kubebuilder:validation:Optional
@@ -415,6 +431,10 @@ type PagerdutyParameters struct {
 	// The PagerDuty event severity level. Default is `critical`.
 	// +kubebuilder:validation:Optional
 	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+
+	// The unique location of the affected system.
+	// +kubebuilder:validation:Optional
+	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
 	// The templated summary message of the event.
 	// +kubebuilder:validation:Optional
@@ -472,6 +492,10 @@ type PushoverParameters struct {
 	// The sound associated with the notification.
 	// +kubebuilder:validation:Optional
 	Sound *string `json:"sound,omitempty" tf:"sound,omitempty"`
+
+	// The templated title of the message.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// The Pushover user key.
 	// +kubebuilder:validation:Required
@@ -662,6 +686,10 @@ type ThreemaParameters struct {
 	// +kubebuilder:validation:Required
 	APISecretSecretRef v1.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
+	// The templated description of the message.
+	// +kubebuilder:validation:Required
+	DescriptionSecretRef v1.SecretKeySelector `json:"descriptionSecretRef" tf:"-"`
+
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -677,6 +705,10 @@ type ThreemaParameters struct {
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// The templated title of the message.
+	// +kubebuilder:validation:Required
+	TitleSecretRef v1.SecretKeySelector `json:"titleSecretRef" tf:"-"`
 }
 
 type VictoropsObservation struct {
@@ -686,6 +718,10 @@ type VictoropsObservation struct {
 }
 
 type VictoropsParameters struct {
+
+	// Templated description of the message.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	// +kubebuilder:validation:Optional
@@ -698,6 +734,10 @@ type VictoropsParameters struct {
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// Templated title to display.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// The VictorOps webhook URL.
 	// +kubebuilder:validation:Required

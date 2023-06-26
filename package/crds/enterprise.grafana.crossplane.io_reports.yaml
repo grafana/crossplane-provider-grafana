@@ -139,6 +139,12 @@ spec:
                   dashboardUid:
                     description: Dashboard to be sent in the report.
                     type: string
+                  formats:
+                    description: 'Specifies what kind of attachment to generate for
+                      the report. Allowed values: `pdf`, `csv`, `image`.'
+                    items:
+                      type: string
+                    type: array
                   includeDashboardLink:
                     description: Whether to include a link to the dashboard in the
                       report. Defaults to `true`.
@@ -156,6 +162,10 @@ spec:
                     type: string
                   name:
                     description: Name of the report.
+                    type: string
+                  orgId:
+                    description: The Organization ID. If not set, the Org ID defined
+                      in the provider block will be used.
                     type: string
                   orientation:
                     description: 'Orientation of the report. Allowed values: `landscape`,

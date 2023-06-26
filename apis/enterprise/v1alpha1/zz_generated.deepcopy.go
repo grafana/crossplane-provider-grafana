@@ -111,6 +111,17 @@ func (in *ReportParameters) DeepCopyInto(out *ReportParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Formats != nil {
+		in, out := &in.Formats, &out.Formats
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.IncludeDashboardLink != nil {
 		in, out := &in.IncludeDashboardLink, &out.IncludeDashboardLink
 		*out = new(bool)
@@ -133,6 +144,11 @@ func (in *ReportParameters) DeepCopyInto(out *ReportParameters) {
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
 	}
