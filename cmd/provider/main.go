@@ -79,7 +79,7 @@ func main() {
 			Logger:                  log,
 			GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcileRate),
 			PollInterval:            *pollInterval,
-			MaxConcurrentReconciles: 1,
+			MaxConcurrentReconciles: *maxReconcileRate,
 		},
 		Provider: config.GetProvider(),
 		// use the following WorkspaceStoreOption to enable the shared gRPC mode
