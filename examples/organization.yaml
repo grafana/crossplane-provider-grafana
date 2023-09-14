@@ -1,0 +1,15 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  name: my-org
+spec:
+  forProvider:
+    name: my-org
+    createUsers: true
+    adminUser: admin
+    admins:
+    - admin.user
+    editors: []
+    viewers: []
+  providerConfigRef:
+    name: default
