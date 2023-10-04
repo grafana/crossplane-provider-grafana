@@ -19,6 +19,7 @@ const (
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
+		orgIDRef(r)
 		r.References["cloud_stack_slug"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
@@ -45,11 +46,7 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_service_account", func(r *ujconfig.Resource) {
-		r.References["org_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_organization",
-			RefFieldName:      "OrganizationRef",
-			SelectorFieldName: "OrganizationSelector",
-		}
+		orgIDRef(r)
 	})
 	p.AddResourceConfigurator("grafana_service_account_permission", func(r *ujconfig.Resource) {
 		r.References["service_account_id"] = ujconfig.Reference{
@@ -83,11 +80,7 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {
-		r.References["org_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_organization",
-			RefFieldName:      "OrganizationRef",
-			SelectorFieldName: "OrganizationSelector",
-		}
+		orgIDRef(r)
 		r.References["folder"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
@@ -125,6 +118,9 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         SelfPackagePath + ".NameExtractor()",
 		}
 	})
+	p.AddResourceConfigurator("grafana_organization_preferences", func(r *ujconfig.Resource) {
+		orgIDRef(r)
+	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
 		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
 		r.References["dashboard_uid"] = ujconfig.Reference{
@@ -143,6 +139,7 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
+		orgIDRef(r)
 		r.References["members"] = ujconfig.Reference{
 			TerraformName:     "grafana_user",
 			RefFieldName:      "MemberRefs",
@@ -178,4 +175,12 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
+}
+
+func orgIDRef(r *ujconfig.Resource) {
+	r.References["org_id"] = ujconfig.Reference{
+		TerraformName:     "grafana_organization",
+		RefFieldName:      "OrganizationRef",
+		SelectorFieldName: "OrganizationSelector",
+	}
 }
