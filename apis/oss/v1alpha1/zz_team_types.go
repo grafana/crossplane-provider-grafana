@@ -71,8 +71,27 @@ type TeamParameters struct {
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// +kubebuilder:validation:Optional
 	Preferences []PreferencesParameters `json:"preferences,omitempty" tf:"preferences,omitempty"`
+
+	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
+	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
+	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+	// +kubebuilder:validation:Optional
+	TeamSync []TeamSyncParameters `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
+}
+
+type TeamSyncObservation struct {
+}
+
+type TeamSyncParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 }
 
 // TeamSpec defines the desired state of Team

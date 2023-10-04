@@ -20,9 +20,6 @@ type DashboardObservation struct {
 
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// URL friendly version of the dashboard title. This field is deprecated, please use `uid` instead.
-	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
-
 	// The unique identifier of a dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a dashboard. The uid allows having consistent URLs for accessing dashboards and when syncing dashboards between multiple Grafana installs.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 

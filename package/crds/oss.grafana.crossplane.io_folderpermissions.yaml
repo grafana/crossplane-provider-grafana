@@ -140,6 +140,10 @@ spec:
                   folderUid:
                     description: The UID of the folder.
                     type: string
+                  orgId:
+                    description: The Organization ID. If not set, the Org ID defined
+                      in the provider block will be used.
+                    type: string
                   permissions:
                     description: The permission items to add/update. Items that are
                       omitted from the list will be removed.
@@ -156,11 +160,11 @@ spec:
                         teamId:
                           description: ID of the team to manage permissions for. Defaults
                             to `0`.
-                          type: number
+                          type: string
                         userId:
-                          description: ID of the user to manage permissions for. Defaults
-                            to `0`.
-                          type: number
+                          description: ID of the user or service account to manage
+                            permissions for. Defaults to `0`.
+                          type: string
                       required:
                       - permission
                       type: object

@@ -412,10 +412,6 @@ spec:
                     type: number
                   id:
                     type: string
-                  slug:
-                    description: URL friendly version of the dashboard title. This
-                      field is deprecated, please use `uid` instead.
-                    type: string
                   uid:
                     description: The unique identifier of a dashboard. This is used
                       to construct its URL. It's automatically generated if not provided

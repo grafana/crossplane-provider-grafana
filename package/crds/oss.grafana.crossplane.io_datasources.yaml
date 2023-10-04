@@ -107,6 +107,10 @@ spec:
                   name:
                     description: A unique name for the data source.
                     type: string
+                  orgId:
+                    description: The Organization ID. If not set, the Org ID defined
+                      in the provider block will be used.
+                    type: string
                   secureJsonDataEncodedSecretRef:
                     description: Serialized JSON string containing the secure json
                       data. This attribute can be used to pass secure configuration

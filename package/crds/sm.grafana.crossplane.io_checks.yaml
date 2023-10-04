@@ -65,7 +65,7 @@ spec:
                 properties:
                   alertSensitivity:
                     description: Can be set to `none`, `low`, `medium`, or `high`
-                      to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/synthetic-monitoring/synthetic-monitoring-alerting/).
+                      to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/).
                       Defaults to `none`.
                     type: string
                   basicMetricsOnly:

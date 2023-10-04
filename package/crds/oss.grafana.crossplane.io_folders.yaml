@@ -63,6 +63,10 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  orgId:
+                    description: The Organization ID. If not set, the Org ID defined
+                      in the provider block will be used.
+                    type: string
                   preventDestroyIfNotEmpty:
                     description: Prevent deletion of the folder if it is not empty
                       (contains dashboards or alert rules). Defaults to `false`.

@@ -36,7 +36,7 @@ type CheckObservation struct {
 
 type CheckParameters struct {
 
-	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/synthetic-monitoring/synthetic-monitoring-alerting/). Defaults to `none`.
+	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/). Defaults to `none`.
 	// +kubebuilder:validation:Optional
 	AlertSensitivity *string `json:"alertSensitivity,omitempty" tf:"alert_sensitivity,omitempty"`
 
