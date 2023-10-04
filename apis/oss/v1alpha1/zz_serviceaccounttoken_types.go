@@ -13,7 +13,7 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type AccountTokenObservation struct {
+type ServiceAccountTokenObservation struct {
 	Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
 
 	HasExpired *bool `json:"hasExpired,omitempty" tf:"has_expired,omitempty"`
@@ -21,7 +21,7 @@ type AccountTokenObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
-type AccountTokenParameters struct {
+type ServiceAccountTokenParameters struct {
 
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -29,66 +29,66 @@ type AccountTokenParameters struct {
 	// +kubebuilder:validation:Optional
 	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/service/v1alpha1.Account
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
-	// Reference to a Account in service to populate serviceAccountId.
+	// Reference to a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
 	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
 
-	// Selector for a Account in service to populate serviceAccountId.
+	// Selector for a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
 	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
-// AccountTokenSpec defines the desired state of AccountToken
-type AccountTokenSpec struct {
+// ServiceAccountTokenSpec defines the desired state of ServiceAccountToken
+type ServiceAccountTokenSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccountTokenParameters `json:"forProvider"`
+	ForProvider     ServiceAccountTokenParameters `json:"forProvider"`
 }
 
-// AccountTokenStatus defines the observed state of AccountToken.
-type AccountTokenStatus struct {
+// ServiceAccountTokenStatus defines the observed state of ServiceAccountToken.
+type ServiceAccountTokenStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccountTokenObservation `json:"atProvider,omitempty"`
+	AtProvider        ServiceAccountTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// AccountToken is the Schema for the AccountTokens API. <no value>
+// ServiceAccountToken is the Schema for the ServiceAccountTokens API. <no value>
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
-type AccountToken struct {
+type ServiceAccountToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AccountTokenSpec   `json:"spec"`
-	Status            AccountTokenStatus `json:"status,omitempty"`
+	Spec              ServiceAccountTokenSpec   `json:"spec"`
+	Status            ServiceAccountTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// AccountTokenList contains a list of AccountTokens
-type AccountTokenList struct {
+// ServiceAccountTokenList contains a list of ServiceAccountTokens
+type ServiceAccountTokenList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []AccountToken `json:"items"`
+	Items           []ServiceAccountToken `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	AccountToken_Kind             = "AccountToken"
-	AccountToken_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: AccountToken_Kind}.String()
-	AccountToken_KindAPIVersion   = AccountToken_Kind + "." + CRDGroupVersion.String()
-	AccountToken_GroupVersionKind = CRDGroupVersion.WithKind(AccountToken_Kind)
+	ServiceAccountToken_Kind             = "ServiceAccountToken"
+	ServiceAccountToken_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: ServiceAccountToken_Kind}.String()
+	ServiceAccountToken_KindAPIVersion   = ServiceAccountToken_Kind + "." + CRDGroupVersion.String()
+	ServiceAccountToken_GroupVersionKind = CRDGroupVersion.WithKind(ServiceAccountToken_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&AccountToken{}, &AccountTokenList{})
+	SchemeBuilder.Register(&ServiceAccountToken{}, &ServiceAccountTokenList{})
 }

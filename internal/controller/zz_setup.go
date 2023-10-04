@@ -26,7 +26,6 @@ import (
 	outgoingwebhook "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/outgoingwebhook"
 	route "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/route"
 	schedule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/schedule"
-	preferences "github.com/grafana/crossplane-provider-grafana/internal/controller/organization/preferences"
 	apikeyoss "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/apikey"
 	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
 	dashboardpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermission"
@@ -34,12 +33,13 @@ import (
 	folder "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folder"
 	folderpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folderpermission"
 	organization "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organization"
+	organizationpreferences "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organizationpreferences"
+	serviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccount"
+	serviceaccountpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccountpermission"
+	serviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccounttoken"
 	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
-	account "github.com/grafana/crossplane-provider-grafana/internal/controller/service/account"
-	accountpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/service/accountpermission"
-	accounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/service/accounttoken"
 	check "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/check"
 	installation "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/installation"
 	probe "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/probe"
@@ -66,7 +66,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.Setup,
 		route.Setup,
 		schedule.Setup,
-		preferences.Setup,
 		apikeyoss.Setup,
 		dashboard.Setup,
 		dashboardpermission.Setup,
@@ -74,12 +73,13 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		folder.Setup,
 		folderpermission.Setup,
 		organization.Setup,
+		organizationpreferences.Setup,
+		serviceaccount.Setup,
+		serviceaccountpermission.Setup,
+		serviceaccounttoken.Setup,
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,
-		account.Setup,
-		accountpermission.Setup,
-		accounttoken.Setup,
 		check.Setup,
 		installation.Setup,
 		probe.Setup,
