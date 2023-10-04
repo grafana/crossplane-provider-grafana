@@ -19,6 +19,10 @@ type AccountPermissionObservation struct {
 
 type AccountPermissionParameters struct {
 
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	// +kubebuilder:validation:Required
 	Permissions []PermissionsParameters `json:"permissions" tf:"permissions,omitempty"`
@@ -50,11 +54,11 @@ type PermissionsParameters struct {
 
 	// ID of the team to manage permissions for. Specify either this or `user_id`. Defaults to `0`.
 	// +kubebuilder:validation:Optional
-	TeamID *float64 `json:"teamId,omitempty" tf:"team_id,omitempty"`
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// ID of the user to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
+	// ID of the user or service account to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
 	// +kubebuilder:validation:Optional
-	UserID *float64 `json:"userId,omitempty" tf:"user_id,omitempty"`
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 // AccountPermissionSpec defines the desired state of AccountPermission

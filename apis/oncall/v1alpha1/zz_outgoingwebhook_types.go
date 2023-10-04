@@ -21,7 +21,7 @@ type OutgoingWebhookParameters struct {
 
 	// The auth data of the webhook. Used in Authorization header instead of user/password auth.
 	// +kubebuilder:validation:Optional
-	AuthorizationHeader *string `json:"authorizationHeader,omitempty" tf:"authorization_header,omitempty"`
+	AuthorizationHeaderSecretRef *v1.SecretKeySelector `json:"authorizationHeaderSecretRef,omitempty" tf:"-"`
 
 	// The data of the webhook.
 	// +kubebuilder:validation:Optional
@@ -37,7 +37,7 @@ type OutgoingWebhookParameters struct {
 
 	// The auth data of the webhook. Used for Basic authentication
 	// +kubebuilder:validation:Optional
-	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
 	// +kubebuilder:validation:Optional

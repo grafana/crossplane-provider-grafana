@@ -159,6 +159,10 @@ spec:
                   name:
                     description: The display name for the Grafana team created.
                     type: string
+                  orgId:
+                    description: The Organization ID. If not set, the Org ID defined
+                      in the provider block will be used.
+                    type: string
                   preferences:
                     items:
                       properties:
@@ -176,6 +180,18 @@ spec:
                             values are `utc`, `browser`, or an empty string for the
                             default. Defaults to “.
                           type: string
+                      type: object
+                    type: array
+                  teamSync:
+                    description: Sync external auth provider groups with this Grafana
+                      team. Only available in Grafana Enterprise. * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
+                      * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+                    items:
+                      properties:
+                        groups:
+                          items:
+                            type: string
+                          type: array
                       type: object
                     type: array
                 required:

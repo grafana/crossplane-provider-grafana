@@ -21,22 +21,6 @@ type APIKeyObservation struct {
 
 type APIKeyParameters struct {
 
-	// Reference to a Stack in cloud to populate cloudStackSlug.
-	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
-
-	// Selector for a Stack in cloud to populate cloudStackSlug.
-	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
-
-	// Deprecated: Use `grafana_cloud_stack_service_account` and `grafana_cloud_stack_service_account_token` resources instead
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.CloudStackSlugExtractor()
-	// +crossplane:generate:reference:refFieldName=CloudStackRef
-	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
-	// +kubebuilder:validation:Optional
-	CloudStackSlug *string `json:"cloudStackSlug,omitempty" tf:"cloud_stack_slug,omitempty"`
-
 	// +kubebuilder:validation:Required
 	Name *string `json:"name" tf:"name,omitempty"`
 

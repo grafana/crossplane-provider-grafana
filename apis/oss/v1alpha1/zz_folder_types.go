@@ -22,6 +22,10 @@ type FolderObservation struct {
 
 type FolderParameters struct {
 
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`

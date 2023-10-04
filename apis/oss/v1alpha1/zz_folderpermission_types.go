@@ -35,6 +35,10 @@ type FolderPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	// +kubebuilder:validation:Required
 	Permissions []FolderPermissionPermissionsParameters `json:"permissions" tf:"permissions,omitempty"`
@@ -55,11 +59,11 @@ type FolderPermissionPermissionsParameters struct {
 
 	// ID of the team to manage permissions for. Defaults to `0`.
 	// +kubebuilder:validation:Optional
-	TeamID *float64 `json:"teamId,omitempty" tf:"team_id,omitempty"`
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// ID of the user to manage permissions for. Defaults to `0`.
+	// ID of the user or service account to manage permissions for. Defaults to `0`.
 	// +kubebuilder:validation:Optional
-	UserID *float64 `json:"userId,omitempty" tf:"user_id,omitempty"`
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 // FolderPermissionSpec defines the desired state of FolderPermission
