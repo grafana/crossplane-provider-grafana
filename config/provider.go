@@ -38,6 +38,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
+		grafana.ConfigureOrgIDRefs,
 		grafana.Configure,
 	} {
 		configure(pc)

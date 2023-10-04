@@ -438,6 +438,16 @@ func (in *DashboardPermissionParameters) DeepCopyInto(out *DashboardPermissionPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions
 		*out = make([]PermissionsParameters, len(*in))
@@ -652,6 +662,16 @@ func (in *DataSourceParameters) DeepCopyInto(out *DataSourceParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.SecureJSONDataEncodedSecretRef != nil {
 		in, out := &in.SecureJSONDataEncodedSecretRef, &out.SecureJSONDataEncodedSecretRef
 		*out = new(v1.SecretKeySelector)
@@ -815,6 +835,16 @@ func (in *FolderParameters) DeepCopyInto(out *FolderParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PreventDestroyIfNotEmpty != nil {
 		in, out := &in.PreventDestroyIfNotEmpty, &out.PreventDestroyIfNotEmpty
 		*out = new(bool)
@@ -943,6 +973,16 @@ func (in *FolderPermissionParameters) DeepCopyInto(out *FolderPermissionParamete
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Permissions != nil {
 		in, out := &in.Permissions, &out.Permissions
