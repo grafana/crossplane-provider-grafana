@@ -13,16 +13,19 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type APIKeyObservation struct {
-	Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
-
+type PreferencesObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
-type APIKeyParameters struct {
+type PreferencesParameters struct {
 
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// The Organization home dashboard ID.
+	// +kubebuilder:validation:Optional
+	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
+
+	// The Organization home dashboard UID. This is only available in Grafana 9.0+.
+	// +kubebuilder:validation:Optional
+	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
@@ -39,58 +42,64 @@ type APIKeyParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// +kubebuilder:validation:Required
-	Role *string `json:"role" tf:"role,omitempty"`
-
+	// The Organization theme. Available values are `light`, `dark`, or an empty string for the default.
 	// +kubebuilder:validation:Optional
-	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
+
+	// The Organization timezone. Available values are `utc`, `browser`, or an empty string for the default.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
+	// The Organization week start.
+	// +kubebuilder:validation:Optional
+	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
-// APIKeySpec defines the desired state of APIKey
-type APIKeySpec struct {
+// PreferencesSpec defines the desired state of Preferences
+type PreferencesSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     APIKeyParameters `json:"forProvider"`
+	ForProvider     PreferencesParameters `json:"forProvider"`
 }
 
-// APIKeyStatus defines the observed state of APIKey.
-type APIKeyStatus struct {
+// PreferencesStatus defines the observed state of Preferences.
+type PreferencesStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        APIKeyObservation `json:"atProvider,omitempty"`
+	AtProvider        PreferencesObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// APIKey is the Schema for the APIKeys API. <no value>
+// Preferences is the Schema for the Preferencess API. <no value>
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
-type APIKey struct {
+type Preferences struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              APIKeySpec   `json:"spec"`
-	Status            APIKeyStatus `json:"status,omitempty"`
+	Spec              PreferencesSpec   `json:"spec"`
+	Status            PreferencesStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// APIKeyList contains a list of APIKeys
-type APIKeyList struct {
+// PreferencesList contains a list of Preferencess
+type PreferencesList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []APIKey `json:"items"`
+	Items           []Preferences `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	APIKey_Kind             = "APIKey"
-	APIKey_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: APIKey_Kind}.String()
-	APIKey_KindAPIVersion   = APIKey_Kind + "." + CRDGroupVersion.String()
-	APIKey_GroupVersionKind = CRDGroupVersion.WithKind(APIKey_Kind)
+	Preferences_Kind             = "Preferences"
+	Preferences_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Preferences_Kind}.String()
+	Preferences_KindAPIVersion   = Preferences_Kind + "." + CRDGroupVersion.String()
+	Preferences_GroupVersionKind = CRDGroupVersion.WithKind(Preferences_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&APIKey{}, &APIKeyList{})
+	SchemeBuilder.Register(&Preferences{}, &PreferencesList{})
 }

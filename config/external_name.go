@@ -39,6 +39,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"grafana_team":                              config.IdentifierFromProvider,
 	"grafana_user":                              config.IdentifierFromProvider,
 	"grafana_organization":                      config.IdentifierFromProvider,
+	"grafana_organization_preferences":          config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

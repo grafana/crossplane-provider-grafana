@@ -24,6 +24,7 @@ import (
 	outgoingwebhook "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/outgoingwebhook"
 	route "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/route"
 	schedule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/schedule"
+	preferences "github.com/grafana/crossplane-provider-grafana/internal/controller/organization/preferences"
 	apikeyoss "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/apikey"
 	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
 	dashboardpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermission"
@@ -61,6 +62,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.Setup,
 		route.Setup,
 		schedule.Setup,
+		preferences.Setup,
 		apikeyoss.Setup,
 		dashboard.Setup,
 		dashboardpermission.Setup,

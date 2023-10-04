@@ -13,6 +13,32 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// ResolveReferences of this APIKey.
+func (mg *APIKey) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this Dashboard.
 func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -111,6 +137,7 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
+	var rsp reference.ResolutionResponse
 	var mrsp reference.MultiResolutionResponse
 	var err error
 
@@ -129,6 +156,22 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	}
 	mg.Spec.ForProvider.Members = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.MemberRefs = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
 }
