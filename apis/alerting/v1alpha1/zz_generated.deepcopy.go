@@ -2301,6 +2301,16 @@ func (in *RuleGroupParameters) DeepCopyInto(out *RuleGroupParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Rule != nil {
 		in, out := &in.Rule, &out.Rule
 		*out = make([]RuleParameters, len(*in))

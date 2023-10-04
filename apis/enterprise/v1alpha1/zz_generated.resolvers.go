@@ -37,5 +37,21 @@ func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error 
 	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
 
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
 	return nil
 }

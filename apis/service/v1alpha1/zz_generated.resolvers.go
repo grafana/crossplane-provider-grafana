@@ -47,6 +47,22 @@ func (mg *AccountPermission) ResolveReferences(ctx context.Context, c client.Rea
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServiceAccountID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.ServiceAccountRef,

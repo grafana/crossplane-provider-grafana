@@ -16,10 +16,25 @@ const (
 	SelfPackagePath = "github.com/grafana/crossplane-provider-grafana/config/grafana"
 )
 
+// ConfigureOrgIDRefs adds an organization reference to the org_id field for all resources that have the field.
+func ConfigureOrgIDRefs(p *ujconfig.Provider) {
+	for name, resource := range p.Resources {
+		if resource.TerraformResource.Schema["org_id"] == nil {
+			continue
+		}
+		p.AddResourceConfigurator(name, func(r *ujconfig.Resource) {
+			r.References["org_id"] = ujconfig.Reference{
+				TerraformName:     "grafana_organization",
+				RefFieldName:      "OrganizationRef",
+				SelectorFieldName: "OrganizationSelector",
+			}
+		})
+	}
+}
+
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
-		orgIDRef(r)
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 
@@ -76,9 +91,6 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
-	p.AddResourceConfigurator("grafana_service_account", func(r *ujconfig.Resource) {
-		orgIDRef(r)
-	})
 	p.AddResourceConfigurator("grafana_service_account_permission", func(r *ujconfig.Resource) {
 		r.References["service_account_id"] = ujconfig.Reference{
 			TerraformName:     "grafana_service_account",
@@ -111,7 +123,6 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {
-		orgIDRef(r)
 		r.References["folder"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
@@ -126,12 +137,6 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "DashboardSelector",
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
-	})
-	p.AddResourceConfigurator("grafana_data_source", func(r *ujconfig.Resource) {
-		delete(r.TerraformResource.Schema, "basic_auth_password") // Deprecated
-		delete(r.TerraformResource.Schema, "password")            // Deprecated
-		delete(r.TerraformResource.Schema, "json_data")           // Deprecated
-		delete(r.TerraformResource.Schema, "secure_json_data")    // Deprecated
 	})
 	p.AddResourceConfigurator("grafana_folder_permission", func(r *ujconfig.Resource) {
 		r.References["folder_uid"] = ujconfig.Reference{
@@ -148,9 +153,6 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "ContactPointSelector",
 			Extractor:         SelfPackagePath + ".NameExtractor()",
 		}
-	})
-	p.AddResourceConfigurator("grafana_organization_preferences", func(r *ujconfig.Resource) {
-		orgIDRef(r)
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
 		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
@@ -170,7 +172,6 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
-		orgIDRef(r)
 		r.References["members"] = ujconfig.Reference{
 			TerraformName:     "grafana_user",
 			RefFieldName:      "MemberRefs",
@@ -184,8 +185,6 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
 		}
-		delete(r.TerraformResource.Schema, "logs_instance_id")    // Deprecated
-		delete(r.TerraformResource.Schema, "metrics_instance_id") // Deprecated
 
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
@@ -206,12 +205,4 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
-}
-
-func orgIDRef(r *ujconfig.Resource) {
-	r.References["org_id"] = ujconfig.Reference{
-		TerraformName:     "grafana_organization",
-		RefFieldName:      "OrganizationRef",
-		SelectorFieldName: "OrganizationSelector",
-	}
 }
