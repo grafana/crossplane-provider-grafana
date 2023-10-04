@@ -106,7 +106,6 @@ linters:
   enable:
     - megacheck
     - govet
-    - gocyclo
     - gocritic
     - interfacer
     - goconst
