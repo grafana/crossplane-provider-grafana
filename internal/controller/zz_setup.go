@@ -34,6 +34,9 @@ import (
 	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
+	account "github.com/grafana/crossplane-provider-grafana/internal/controller/service/account"
+	accountpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/service/accountpermission"
+	accounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/service/accounttoken"
 	check "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/check"
 	installation "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/installation"
 	probe "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/probe"
@@ -68,6 +71,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,
+		account.Setup,
+		accountpermission.Setup,
+		accounttoken.Setup,
 		check.Setup,
 		installation.Setup,
 		probe.Setup,

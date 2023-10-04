@@ -31,7 +31,45 @@ func Configure(p *ujconfig.Provider) {
 			instanceConfig := map[string]string{}
 			if a, ok := attr["cloud_stack_slug"].(string); ok {
 				instanceConfig["url"] = fmt.Sprintf("https://%s.grafana.net", a)
+			} // TODO: set URL from client
+			if a, ok := attr["key"].(string); ok {
+				instanceConfig["auth"] = a
 			}
+			marshalled, err := json.Marshal(instanceConfig)
+			if err != nil {
+				return nil, err
+			}
+			conn["instanceCredentials"] = marshalled
+
+			return conn, nil
+		}
+	})
+	p.AddResourceConfigurator("grafana_service_account", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_organization",
+			RefFieldName:      "OrganizationRef",
+			SelectorFieldName: "OrganizationSelector",
+		}
+	})
+	p.AddResourceConfigurator("grafana_service_account_permission", func(r *ujconfig.Resource) {
+		r.References["service_account_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_service_account",
+			RefFieldName:      "ServiceAccountRef",
+			SelectorFieldName: "ServiceAccountSelector",
+		}
+	})
+	p.AddResourceConfigurator("grafana_service_account_token", func(r *ujconfig.Resource) {
+		r.References["service_account_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_service_account",
+			RefFieldName:      "ServiceAccountRef",
+			SelectorFieldName: "ServiceAccountSelector",
+		}
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+
+			instanceConfig := map[string]string{}
+			// TODO: set URL from client
+			// instanceConfig["url"] = fmt.Sprintf("https://%s.grafana.net", a)
 			if a, ok := attr["key"].(string); ok {
 				instanceConfig["auth"] = a
 			}
