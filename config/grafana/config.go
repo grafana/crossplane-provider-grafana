@@ -20,17 +20,48 @@ const (
 func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
 		orgIDRef(r)
-		r.References["cloud_stack_slug"] = ujconfig.Reference{
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+
+			instanceConfig := map[string]string{}
+			// TODO: set URL from client
+			if a, ok := attr["key"].(string); ok {
+				instanceConfig["auth"] = a
+			}
+			marshalled, err := json.Marshal(instanceConfig)
+			if err != nil {
+				return nil, err
+			}
+			conn["instanceCredentials"] = marshalled
+
+			return conn, nil
+		}
+	})
+	p.AddResourceConfigurator("grafana_cloud_stack_service_account", func(r *ujconfig.Resource) {
+		r.References["stack_slug"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
 			Extractor:         SelfPackagePath + ".CloudStackSlugExtractor()",
 		}
+	})
+	p.AddResourceConfigurator("grafana_cloud_stack_service_account_token", func(r *ujconfig.Resource) {
+		r.References["stack_slug"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack",
+			RefFieldName:      "CloudStackRef",
+			SelectorFieldName: "CloudStackSelector",
+			Extractor:         SelfPackagePath + ".CloudStackSlugExtractor()",
+		}
+		r.References["service_account_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack_service_account",
+			RefFieldName:      "ServiceAccountRef",
+			SelectorFieldName: "ServiceAccountSelector",
+		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 
 			instanceConfig := map[string]string{}
-			if a, ok := attr["cloud_stack_slug"].(string); ok {
+			if a, ok := attr["stack_slug"].(string); ok {
 				instanceConfig["url"] = fmt.Sprintf("https://%s.grafana.net", a)
 			} // TODO: set URL from client
 			if a, ok := attr["key"].(string); ok {

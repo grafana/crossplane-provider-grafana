@@ -15,6 +15,8 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"grafana_service_account_token":             config.IdentifierFromProvider,
 	"grafana_cloud_api_key":                     config.IdentifierFromProvider,
 	"grafana_cloud_stack":                       config.IdentifierFromProvider,
+	"grafana_cloud_stack_service_account":       config.IdentifierFromProvider,
+	"grafana_cloud_stack_service_account_token": config.IdentifierFromProvider,
 	"grafana_contact_point":                     config.IdentifierFromProvider,
 	"grafana_dashboard_permission":              config.IdentifierFromProvider,
 	"grafana_dashboard":                         config.IdentifierFromProvider,
