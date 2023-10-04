@@ -531,6 +531,302 @@ func (tr *Organization) GetTerraformSchemaVersion() int {
 	return 0
 }
 
+// GetTerraformResourceType returns Terraform resource type for this OrganizationPreferences
+func (mg *OrganizationPreferences) GetTerraformResourceType() string {
+	return "grafana_organization_preferences"
+}
+
+// GetConnectionDetailsMapping for this OrganizationPreferences
+func (tr *OrganizationPreferences) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this OrganizationPreferences
+func (tr *OrganizationPreferences) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this OrganizationPreferences
+func (tr *OrganizationPreferences) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this OrganizationPreferences
+func (tr *OrganizationPreferences) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this OrganizationPreferences
+func (tr *OrganizationPreferences) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this OrganizationPreferences
+func (tr *OrganizationPreferences) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this OrganizationPreferences using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *OrganizationPreferences) LateInitialize(attrs []byte) (bool, error) {
+	params := &OrganizationPreferencesParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *OrganizationPreferences) GetTerraformSchemaVersion() int {
+	return 0
+}
+
+// GetTerraformResourceType returns Terraform resource type for this ServiceAccount
+func (mg *ServiceAccount) GetTerraformResourceType() string {
+	return "grafana_service_account"
+}
+
+// GetConnectionDetailsMapping for this ServiceAccount
+func (tr *ServiceAccount) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this ServiceAccount
+func (tr *ServiceAccount) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this ServiceAccount
+func (tr *ServiceAccount) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this ServiceAccount
+func (tr *ServiceAccount) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this ServiceAccount
+func (tr *ServiceAccount) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this ServiceAccount
+func (tr *ServiceAccount) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this ServiceAccount using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *ServiceAccount) LateInitialize(attrs []byte) (bool, error) {
+	params := &ServiceAccountParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *ServiceAccount) GetTerraformSchemaVersion() int {
+	return 0
+}
+
+// GetTerraformResourceType returns Terraform resource type for this ServiceAccountPermission
+func (mg *ServiceAccountPermission) GetTerraformResourceType() string {
+	return "grafana_service_account_permission"
+}
+
+// GetConnectionDetailsMapping for this ServiceAccountPermission
+func (tr *ServiceAccountPermission) GetConnectionDetailsMapping() map[string]string {
+	return nil
+}
+
+// GetObservation of this ServiceAccountPermission
+func (tr *ServiceAccountPermission) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this ServiceAccountPermission
+func (tr *ServiceAccountPermission) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this ServiceAccountPermission
+func (tr *ServiceAccountPermission) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this ServiceAccountPermission
+func (tr *ServiceAccountPermission) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this ServiceAccountPermission
+func (tr *ServiceAccountPermission) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this ServiceAccountPermission using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *ServiceAccountPermission) LateInitialize(attrs []byte) (bool, error) {
+	params := &ServiceAccountPermissionParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *ServiceAccountPermission) GetTerraformSchemaVersion() int {
+	return 0
+}
+
+// GetTerraformResourceType returns Terraform resource type for this ServiceAccountToken
+func (mg *ServiceAccountToken) GetTerraformResourceType() string {
+	return "grafana_service_account_token"
+}
+
+// GetConnectionDetailsMapping for this ServiceAccountToken
+func (tr *ServiceAccountToken) GetConnectionDetailsMapping() map[string]string {
+	return map[string]string{"key": "status.atProvider.key"}
+}
+
+// GetObservation of this ServiceAccountToken
+func (tr *ServiceAccountToken) GetObservation() (map[string]any, error) {
+	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(o, &base)
+}
+
+// SetObservation for this ServiceAccountToken
+func (tr *ServiceAccountToken) SetObservation(obs map[string]any) error {
+	p, err := json.TFParser.Marshal(obs)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
+}
+
+// GetID returns ID of underlying Terraform resource of this ServiceAccountToken
+func (tr *ServiceAccountToken) GetID() string {
+	if tr.Status.AtProvider.ID == nil {
+		return ""
+	}
+	return *tr.Status.AtProvider.ID
+}
+
+// GetParameters of this ServiceAccountToken
+func (tr *ServiceAccountToken) GetParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
+// SetParameters for this ServiceAccountToken
+func (tr *ServiceAccountToken) SetParameters(params map[string]any) error {
+	p, err := json.TFParser.Marshal(params)
+	if err != nil {
+		return err
+	}
+	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// LateInitialize this ServiceAccountToken using its observed tfState.
+// returns True if there are any spec changes for the resource.
+func (tr *ServiceAccountToken) LateInitialize(attrs []byte) (bool, error) {
+	params := &ServiceAccountTokenParameters{}
+	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
+		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
+	}
+	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+
+	li := resource.NewGenericLateInitializer(opts...)
+	return li.LateInitialize(&tr.Spec.ForProvider, params)
+}
+
+// GetTerraformSchemaVersion returns the associated Terraform schema version
+func (tr *ServiceAccountToken) GetTerraformSchemaVersion() int {
+	return 0
+}
+
 // GetTerraformResourceType returns Terraform resource type for this Team
 func (mg *Team) GetTerraformResourceType() string {
 	return "grafana_team"

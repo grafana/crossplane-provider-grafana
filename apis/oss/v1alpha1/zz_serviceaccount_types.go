@@ -13,19 +13,19 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
-type PreferencesObservation struct {
+type ServiceAccountObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
-type PreferencesParameters struct {
+type ServiceAccountParameters struct {
 
-	// The Organization home dashboard ID.
+	// The disabled status for the service account. Defaults to `false`.
 	// +kubebuilder:validation:Optional
-	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
+	IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
 
-	// The Organization home dashboard UID. This is only available in Grafana 9.0+.
-	// +kubebuilder:validation:Optional
-	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
+	// The name of the service account.
+	// +kubebuilder:validation:Required
+	Name *string `json:"name" tf:"name,omitempty"`
 
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
@@ -42,64 +42,56 @@ type PreferencesParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// The Organization theme. Available values are `light`, `dark`, or an empty string for the default.
+	// The basic role of the service account in the organization.
 	// +kubebuilder:validation:Optional
-	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
-
-	// The Organization timezone. Available values are `utc`, `browser`, or an empty string for the default.
-	// +kubebuilder:validation:Optional
-	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
-
-	// The Organization week start.
-	// +kubebuilder:validation:Optional
-	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
-// PreferencesSpec defines the desired state of Preferences
-type PreferencesSpec struct {
+// ServiceAccountSpec defines the desired state of ServiceAccount
+type ServiceAccountSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     PreferencesParameters `json:"forProvider"`
+	ForProvider     ServiceAccountParameters `json:"forProvider"`
 }
 
-// PreferencesStatus defines the observed state of Preferences.
-type PreferencesStatus struct {
+// ServiceAccountStatus defines the observed state of ServiceAccount.
+type ServiceAccountStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        PreferencesObservation `json:"atProvider,omitempty"`
+	AtProvider        ServiceAccountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// Preferences is the Schema for the Preferencess API. <no value>
+// ServiceAccount is the Schema for the ServiceAccounts API. <no value>
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
-type Preferences struct {
+type ServiceAccount struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              PreferencesSpec   `json:"spec"`
-	Status            PreferencesStatus `json:"status,omitempty"`
+	Spec              ServiceAccountSpec   `json:"spec"`
+	Status            ServiceAccountStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// PreferencesList contains a list of Preferencess
-type PreferencesList struct {
+// ServiceAccountList contains a list of ServiceAccounts
+type ServiceAccountList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Preferences `json:"items"`
+	Items           []ServiceAccount `json:"items"`
 }
 
 // Repository type metadata.
 var (
-	Preferences_Kind             = "Preferences"
-	Preferences_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: Preferences_Kind}.String()
-	Preferences_KindAPIVersion   = Preferences_Kind + "." + CRDGroupVersion.String()
-	Preferences_GroupVersionKind = CRDGroupVersion.WithKind(Preferences_Kind)
+	ServiceAccount_Kind             = "ServiceAccount"
+	ServiceAccount_GroupKind        = schema.GroupKind{Group: CRDGroup, Kind: ServiceAccount_Kind}.String()
+	ServiceAccount_KindAPIVersion   = ServiceAccount_Kind + "." + CRDGroupVersion.String()
+	ServiceAccount_GroupVersionKind = CRDGroupVersion.WithKind(ServiceAccount_Kind)
 )
 
 func init() {
-	SchemeBuilder.Register(&Preferences{}, &PreferencesList{})
+	SchemeBuilder.Register(&ServiceAccount{}, &ServiceAccountList{})
 }

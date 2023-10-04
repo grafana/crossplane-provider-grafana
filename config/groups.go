@@ -55,8 +55,10 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_rule_group":          ReplaceGroupWords("alerting", 0),
 
 	// Cloud
-	"grafana_cloud_api_key": ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack":   ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_api_key":                     ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack":                       ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack_service_account":       ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack_service_account_token": ReplaceGroupWords("cloud", 1),
 
 	// Enterprise
 	"grafana_report": ReplaceGroupWords("enterprise", 0),
@@ -71,15 +73,19 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_oncall_schedule":         ReplaceGroupWords("oncall", 1),
 
 	// OSS
-	"grafana_api_key":              ReplaceGroupWords("oss", 0),
-	"grafana_data_source":          ReplaceGroupWords("oss", 0),
-	"grafana_dashboard":            ReplaceGroupWords("oss", 0),
-	"grafana_dashboard_permission": ReplaceGroupWords("oss", 0),
-	"grafana_folder":               ReplaceGroupWords("oss", 0),
-	"grafana_folder_permission":    ReplaceGroupWords("oss", 0),
-	"grafana_team":                 ReplaceGroupWords("oss", 0),
-	"grafana_user":                 ReplaceGroupWords("oss", 0),
-	"grafana_organization":         ReplaceGroupWords("oss", 0),
+	"grafana_api_key":                    ReplaceGroupWords("oss", 0),
+	"grafana_data_source":                ReplaceGroupWords("oss", 0),
+	"grafana_dashboard":                  ReplaceGroupWords("oss", 0),
+	"grafana_dashboard_permission":       ReplaceGroupWords("oss", 0),
+	"grafana_folder":                     ReplaceGroupWords("oss", 0),
+	"grafana_folder_permission":          ReplaceGroupWords("oss", 0),
+	"grafana_service_account":            ReplaceGroupWords("oss", 0),
+	"grafana_service_account_permission": ReplaceGroupWords("oss", 0),
+	"grafana_service_account_token":      ReplaceGroupWords("oss", 0),
+	"grafana_team":                       ReplaceGroupWords("oss", 0),
+	"grafana_user":                       ReplaceGroupWords("oss", 0),
+	"grafana_organization":               ReplaceGroupWords("oss", 0),
+	"grafana_organization_preferences":   ReplaceGroupWords("oss", 0),
 
 	// Synthetic Monitoring
 	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),

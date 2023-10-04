@@ -5,18 +5,18 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.8.0
   creationTimestamp: null
-  name: accountpermissions.service.grafana.crossplane.io
+  name: organizationpreferences.oss.grafana.crossplane.io
 spec:
-  group: service.grafana.crossplane.io
+  group: oss.grafana.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - grafana
-    kind: AccountPermission
-    listKind: AccountPermissionList
-    plural: accountpermissions
-    singular: accountpermission
+    kind: OrganizationPreferences
+    listKind: OrganizationPreferencesList
+    plural: organizationpreferences
+    singular: organizationpreferences
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -35,8 +35,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AccountPermission is the Schema for the AccountPermissions API.
-          <no value>
+        description: OrganizationPreferences is the Schema for the OrganizationPreferencess
+          API. <no value>
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -51,7 +51,8 @@ spec:
           metadata:
             type: object
           spec:
-            description: AccountPermissionSpec defines the desired state of AccountPermission
+            description: OrganizationPreferencesSpec defines the desired state of
+              OrganizationPreferences
             properties:
               deletionPolicy:
                 default: Delete
@@ -64,6 +65,13 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  homeDashboardId:
+                    description: The Organization home dashboard ID.
+                    type: number
+                  homeDashboardUid:
+                    description: The Organization home dashboard UID. This is only
+                      available in Grafana 9.0+.
+                    type: string
                   orgId:
                     description: The Organization ID. If not set, the Org ID defined
                       in the provider block will be used.
@@ -141,106 +149,17 @@ spec:
                             type: string
                         type: object
                     type: object
-                  permissions:
-                    description: The permission items to add/update. Items that are
-                      omitted from the list will be removed.
-                    items:
-                      properties:
-                        permission:
-                          description: Permission to associate with item. Must be
-                            `Edit` or `Admin`.
-                          type: string
-                        teamId:
-                          description: ID of the team to manage permissions for. Specify
-                            either this or `user_id`. Defaults to `0`.
-                          type: string
-                        userId:
-                          description: ID of the user or service account to manage
-                            permissions for. Specify either this or `team_id`. Defaults
-                            to `0`.
-                          type: string
-                      required:
-                      - permission
-                      type: object
-                    type: array
-                  serviceAccountId:
-                    description: The id of the service account.
+                  theme:
+                    description: The Organization theme. Available values are `light`,
+                      `dark`, or an empty string for the default.
                     type: string
-                  serviceAccountRef:
-                    description: Reference to a Account in service to populate serviceAccountId.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: Resolution specifies whether resolution of
-                              this reference is required. The default is 'Required',
-                              which means the reconcile will fail if the reference
-                              cannot be resolved. 'Optional' means this reference
-                              will be a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: Resolve specifies when this reference should
-                              be resolved. The default is 'IfNotPresent', which will
-                              attempt to resolve the reference only when the corresponding
-                              field is not present. Use 'Always' to resolve the reference
-                              on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  serviceAccountSelector:
-                    description: Selector for a Account in service to populate serviceAccountId.
-                    properties:
-                      matchControllerRef:
-                        description: MatchControllerRef ensures an object with the
-                          same controller reference as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: Resolution specifies whether resolution of
-                              this reference is required. The default is 'Required',
-                              which means the reconcile will fail if the reference
-                              cannot be resolved. 'Optional' means this reference
-                              will be a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: Resolve specifies when this reference should
-                              be resolved. The default is 'IfNotPresent', which will
-                              attempt to resolve the reference only when the corresponding
-                              field is not present. Use 'Always' to resolve the reference
-                              on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                required:
-                - permissions
+                  timezone:
+                    description: The Organization timezone. Available values are `utc`,
+                      `browser`, or an empty string for the default.
+                    type: string
+                  weekStart:
+                    description: The Organization week start.
+                    type: string
                 type: object
               providerConfigRef:
                 default:
@@ -414,7 +333,8 @@ spec:
             - forProvider
             type: object
           status:
-            description: AccountPermissionStatus defines the observed state of AccountPermission.
+            description: OrganizationPreferencesStatus defines the observed state
+              of OrganizationPreferences.
             properties:
               atProvider:
                 properties:
