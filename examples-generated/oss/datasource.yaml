@@ -1,0 +1,23 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DataSource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/datasource
+  labels:
+    testing.upbound.io/example-name: arbitrary-data
+  name: arbitrary-data
+spec:
+  forProvider:
+    jsonDataEncoded: |-
+      ${jsonencode({
+          "tokenUri"           = "https://oauth2.googleapis.com/token"
+          "authenticationType" = "jwt"
+          "defaultProject"     = "default-project"
+          "clientEmail"        = "client-email@default-project.iam.gserviceaccount.com"
+        })}
+    name: sd-arbitrary-data
+    secureJsonDataEncodedSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    type: stackdriver

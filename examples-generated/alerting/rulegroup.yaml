@@ -1,0 +1,100 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: RuleGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/rulegroup
+  labels:
+    testing.upbound.io/example-name: my_alert_rule
+  name: my-alert-rule
+spec:
+  forProvider:
+    folderSelector:
+      matchLabels:
+        testing.upbound.io/example-name: rule_folder
+    intervalSeconds: 240
+    name: My Rule Group
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    rule:
+    - annotations:
+        a: b
+        c: d
+      condition: B
+      data:
+      - datasourceUid: PD8C576611E62080A
+        model: |-
+          ${jsonencode({
+                  hide          = false
+                  intervalMs    = 1000
+                  maxDataPoints = 43200
+                  refId         = "A"
+                })}
+        queryType: ""
+        refId: A
+        relativeTimeRange:
+        - from: 600
+          to: 0
+      - datasourceUid: "-100"
+        model: |
+          {
+              "conditions": [
+                  {
+                  "evaluator": {
+                      "params": [
+                      3
+                      ],
+                      "type": "gt"
+                  },
+                  "operator": {
+                      "type": "and"
+                  },
+                  "query": {
+                      "params": [
+                      "A"
+                      ]
+                  },
+                  "reducer": {
+                      "params": [],
+                      "type": "last"
+                  },
+                  "type": "query"
+                  }
+              ],
+              "datasource": {
+                  "type": "__expr__",
+                  "uid": "-100"
+              },
+              "hide": false,
+              "intervalMs": 1000,
+              "maxDataPoints": 43200,
+              "refId": "B",
+              "type": "classic_conditions"
+          }
+        queryType: ""
+        refId: B
+        relativeTimeRange:
+        - from: 0
+          to: 0
+      execErrState: Alerting
+      for: 2m
+      isPaused: false
+      labels:
+        e: f
+        g: h
+      name: My Alert Rule 1
+      noDataState: NoData
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/rulegroup
+  labels:
+    testing.upbound.io/example-name: rule_folder
+  name: rule-folder
+spec:
+  forProvider:
+    title: My Alert Rule Folder

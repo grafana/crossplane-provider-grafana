@@ -1,0 +1,45 @@
+apiVersion: sm.grafana.crossplane.io/v1alpha1
+kind: Installation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_stack
+  name: sm-stack
+spec:
+  forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sm_stack
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: APIKey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: metrics_publish
+  name: metrics-publish
+spec:
+  forProvider:
+    cloudOrgSlug: <org-slug>
+    name: MetricsPublisherForSM
+    role: MetricsPublisher
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: Stack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_stack
+  name: sm-stack
+spec:
+  forProvider:
+    name: <stack-name>
+    regionSlug: us
+    slug: <stack-slug>
