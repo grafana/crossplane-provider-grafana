@@ -142,17 +142,16 @@ spec:
                     type: array
                 type: object
               initProvider:
-                description: THIS IS AN ALPHA FIELD. Do not use it in production.
-                  It is not honored unless the relevant Crossplane feature flag is
-                  enabled, and may be changed or removed without notice. InitProvider
-                  holds the same fields as ForProvider, with the exception of Identifier
-                  and other resource reference fields. The fields that are in InitProvider
-                  are merged into ForProvider when the resource is created. The same
-                  fields are also added to the terraform ignore_changes hook, to avoid
-                  updating them after creation. This is useful for fields that are
-                  required on creation, but we do not desire to update them after
-                  creation, for example because of an external controller is managing
-                  them, like an autoscaler.
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
                 properties:
                   escalationChainId:
                     description: (String) The ID of the escalation chain. The ID of
@@ -390,22 +389,22 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: escalationChainId is a required parameter
+            - message: spec.forProvider.escalationChainId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.escalationChainId)
-                || has(self.initProvider.escalationChainId)'
-            - message: integrationId is a required parameter
+                || (has(self.initProvider) && has(self.initProvider.escalationChainId))'
+            - message: spec.forProvider.integrationId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.integrationId)
-                || has(self.initProvider.integrationId)'
-            - message: position is a required parameter
+                || (has(self.initProvider) && has(self.initProvider.integrationId))'
+            - message: spec.forProvider.position is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.position)
-                || has(self.initProvider.position)'
-            - message: routingRegex is a required parameter
+                || (has(self.initProvider) && has(self.initProvider.position))'
+            - message: spec.forProvider.routingRegex is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.routingRegex)
-                || has(self.initProvider.routingRegex)'
+                || (has(self.initProvider) && has(self.initProvider.routingRegex))'
           status:
             description: RouteStatus defines the observed state of Route.
             properties:

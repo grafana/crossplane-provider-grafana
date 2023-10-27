@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -798,9 +802,8 @@ type PolicyPolicyPolicyPolicyParameters struct {
 type NotificationPolicySpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     NotificationPolicyParameters `json:"forProvider"`
-	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
-	// unless the relevant Crossplane feature flag is enabled, and may be
-	// changed or removed without notice.
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
 	// of Identifier and other resource reference fields. The fields that are
 	// in InitProvider are merged into ForProvider when the resource is created.
@@ -830,7 +833,7 @@ type NotificationPolicyStatus struct {
 type NotificationPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupBy) || has(self.initProvider.groupBy)",message="groupBy is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupBy) || (has(self.initProvider) && has(self.initProvider.groupBy))",message="spec.forProvider.groupBy is a required parameter"
 	Spec   NotificationPolicySpec   `json:"spec"`
 	Status NotificationPolicyStatus `json:"status,omitempty"`
 }

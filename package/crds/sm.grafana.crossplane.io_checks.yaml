@@ -624,17 +624,16 @@ spec:
                     type: number
                 type: object
               initProvider:
-                description: THIS IS AN ALPHA FIELD. Do not use it in production.
-                  It is not honored unless the relevant Crossplane feature flag is
-                  enabled, and may be changed or removed without notice. InitProvider
-                  holds the same fields as ForProvider, with the exception of Identifier
-                  and other resource reference fields. The fields that are in InitProvider
-                  are merged into ForProvider when the resource is created. The same
-                  fields are also added to the terraform ignore_changes hook, to avoid
-                  updating them after creation. This is useful for fields that are
-                  required on creation, but we do not desire to update them after
-                  creation, for example because of an external controller is managing
-                  them, like an autoscaler.
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
                 properties:
                   alertSensitivity:
                     description: (String) Can be set to none, low, medium, or high
@@ -1312,22 +1311,22 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: job is a required parameter
+            - message: spec.forProvider.job is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.job)
-                || has(self.initProvider.job)'
-            - message: probes is a required parameter
+                || (has(self.initProvider) && has(self.initProvider.job))'
+            - message: spec.forProvider.probes is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.probes)
-                || has(self.initProvider.probes)'
-            - message: settings is a required parameter
+                || (has(self.initProvider) && has(self.initProvider.probes))'
+            - message: spec.forProvider.settings is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.settings)
-                || has(self.initProvider.settings)'
-            - message: target is a required parameter
+                || (has(self.initProvider) && has(self.initProvider.settings))'
+            - message: spec.forProvider.target is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.target)
-                || has(self.initProvider.target)'
+                || (has(self.initProvider) && has(self.initProvider.target))'
           status:
             description: CheckStatus defines the observed state of Check.
             properties:
