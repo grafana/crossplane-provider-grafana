@@ -13,8 +13,29 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type DashboardPermissionInitParameters struct {
+
+	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// The permission items to add/update. Items that are omitted from the list will be removed.
+	Permissions []PermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
+}
+
 type DashboardPermissionObservation struct {
+
+	// (String) UID of the dashboard to apply permissions to.
+	// UID of the dashboard to apply permissions to.
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// The permission items to add/update. Items that are omitted from the list will be removed.
+	Permissions []PermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
 }
 
 type DashboardPermissionParameters struct {
@@ -27,6 +48,7 @@ type DashboardPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
+	// (String) UID of the dashboard to apply permissions to.
 	// UID of the dashboard to apply permissions to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
@@ -35,6 +57,7 @@ type DashboardPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
@@ -50,28 +73,68 @@ type DashboardPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
+	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
-	// +kubebuilder:validation:Required
-	Permissions []PermissionsParameters `json:"permissions" tf:"permissions,omitempty"`
+	// +kubebuilder:validation:Optional
+	Permissions []PermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
+}
+
+type PermissionsInitParameters struct {
+
+	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+
+	// (String) Manage permissions for Viewer or Editor roles.
+	// Manage permissions for `Viewer` or `Editor` roles.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (String) ID of the team to manage permissions for. Defaults to 0.
+	// ID of the team to manage permissions for. Defaults to `0`.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Defaults to `0`.
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type PermissionsObservation struct {
+
+	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+
+	// (String) Manage permissions for Viewer or Editor roles.
+	// Manage permissions for `Viewer` or `Editor` roles.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (String) ID of the team to manage permissions for. Defaults to 0.
+	// ID of the team to manage permissions for. Defaults to `0`.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Defaults to `0`.
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type PermissionsParameters struct {
 
+	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
 	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Permission *string `json:"permission" tf:"permission,omitempty"`
 
+	// (String) Manage permissions for Viewer or Editor roles.
 	// Manage permissions for `Viewer` or `Editor` roles.
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (String) ID of the team to manage permissions for. Defaults to 0.
 	// ID of the team to manage permissions for. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
+	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
@@ -81,6 +144,18 @@ type PermissionsParameters struct {
 type DashboardPermissionSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     DashboardPermissionParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider DashboardPermissionInitParameters `json:"initProvider,omitempty"`
 }
 
 // DashboardPermissionStatus defines the observed state of DashboardPermission.
@@ -91,7 +166,7 @@ type DashboardPermissionStatus struct {
 
 // +kubebuilder:object:root=true
 
-// DashboardPermission is the Schema for the DashboardPermissions API. <no value>
+// DashboardPermission is the Schema for the DashboardPermissions API. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -101,8 +176,9 @@ type DashboardPermissionStatus struct {
 type DashboardPermission struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              DashboardPermissionSpec   `json:"spec"`
-	Status            DashboardPermissionStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permissions) || has(self.initProvider.permissions)",message="permissions is a required parameter"
+	Spec   DashboardPermissionSpec   `json:"spec"`
+	Status DashboardPermissionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

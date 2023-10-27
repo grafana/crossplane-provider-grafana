@@ -13,37 +13,137 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type PreferencesInitParameters struct {
+
+	// (String) The UID of the dashboard to display when a team member logs in. Defaults to “.
+	// The UID of the dashboard to display when a team member logs in. Defaults to “.
+	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
+
+	// (String) The default theme for this team. Available themes are light, dark, or an empty string for the default theme. Defaults to “.
+	// The default theme for this team. Available themes are `light`, `dark`, or an empty string for the default theme. Defaults to “.
+	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
+
+	// (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to “.
+	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default. Defaults to “.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
 type PreferencesObservation struct {
+
+	// (String) The UID of the dashboard to display when a team member logs in. Defaults to “.
+	// The UID of the dashboard to display when a team member logs in. Defaults to “.
+	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
+
+	// (String) The default theme for this team. Available themes are light, dark, or an empty string for the default theme. Defaults to “.
+	// The default theme for this team. Available themes are `light`, `dark`, or an empty string for the default theme. Defaults to “.
+	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
+
+	// (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to “.
+	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default. Defaults to “.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type PreferencesParameters struct {
 
+	// (String) The UID of the dashboard to display when a team member logs in. Defaults to “.
 	// The UID of the dashboard to display when a team member logs in. Defaults to “.
 	// +kubebuilder:validation:Optional
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
+	// (String) The default theme for this team. Available themes are light, dark, or an empty string for the default theme. Defaults to “.
 	// The default theme for this team. Available themes are `light`, `dark`, or an empty string for the default theme. Defaults to “.
 	// +kubebuilder:validation:Optional
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
+	// (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to “.
 	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default. Defaults to “.
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
+type TeamInitParameters struct {
+
+	// (String) An email address for the team.
+	// An email address for the team.
+	Email *string `json:"email,omitempty" tf:"email,omitempty"`
+
+	// (Boolean) Ignores team members that have been added to team by Team Sync.
+	// Team Sync can be provisioned using grafana_team_external_group resource.
+	// Defaults to true.
+	// Ignores team members that have been added to team by [Team Sync](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/).
+	// Team Sync can be provisioned using [grafana_team_external_group resource](https://registry.io/providers/grafana/grafana/latest/docs/resources/team_external_group).
+	// Defaults to `true`.
+	IgnoreExternallySyncedMembers *bool `json:"ignoreExternallySyncedMembers,omitempty" tf:"ignore_externally_synced_members,omitempty"`
+
+	// (String) The display name for the Grafana team created.
+	// The display name for the Grafana team created.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	Preferences []PreferencesInitParameters `json:"preferences,omitempty" tf:"preferences,omitempty"`
+
+	// (Block List, Max: 1) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
+	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
+	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
+	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+	TeamSync []TeamSyncInitParameters `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
+}
+
 type TeamObservation struct {
+
+	// (String) An email address for the team.
+	// An email address for the team.
+	Email *string `json:"email,omitempty" tf:"email,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Boolean) Ignores team members that have been added to team by Team Sync.
+	// Team Sync can be provisioned using grafana_team_external_group resource.
+	// Defaults to true.
+	// Ignores team members that have been added to team by [Team Sync](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/).
+	// Team Sync can be provisioned using [grafana_team_external_group resource](https://registry.io/providers/grafana/grafana/latest/docs/resources/team_external_group).
+	// Defaults to `true`.
+	IgnoreExternallySyncedMembers *bool `json:"ignoreExternallySyncedMembers,omitempty" tf:"ignore_externally_synced_members,omitempty"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership
+	// to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership
+	// to the team. Note: users specified here must already exist in Grafana.
+	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
+
+	// (String) The display name for the Grafana team created.
+	// The display name for the Grafana team created.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (Block List, Max: 1) (see below for nested schema)
+	Preferences []PreferencesObservation `json:"preferences,omitempty" tf:"preferences,omitempty"`
+
+	// (Number) The team id assigned to this team by Grafana.
 	// The team id assigned to this team by Grafana.
 	TeamID *float64 `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// (Block List, Max: 1) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
+	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
+	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
+	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+	TeamSync []TeamSyncObservation `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
 }
 
 type TeamParameters struct {
 
+	// (String) An email address for the team.
 	// An email address for the team.
 	// +kubebuilder:validation:Optional
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
+	// (Boolean) Ignores team members that have been added to team by Team Sync.
+	// Team Sync can be provisioned using grafana_team_external_group resource.
+	// Defaults to true.
 	// Ignores team members that have been added to team by [Team Sync](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/).
 	// Team Sync can be provisioned using [grafana_team_external_group resource](https://registry.io/providers/grafana/grafana/latest/docs/resources/team_external_group).
 	// Defaults to `true`.
@@ -58,6 +158,8 @@ type TeamParameters struct {
 	// +kubebuilder:validation:Optional
 	MemberSelector *v1.Selector `json:"memberSelector,omitempty" tf:"-"`
 
+	// (Set of String) A set of email addresses corresponding to users who should be given membership
+	// to the team. Note: users specified here must already exist in Grafana.
 	// A set of email addresses corresponding to users who should be given membership
 	// to the team. Note: users specified here must already exist in Grafana.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
@@ -67,10 +169,12 @@ type TeamParameters struct {
 	// +kubebuilder:validation:Optional
 	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
 
+	// (String) The display name for the Grafana team created.
 	// The display name for the Grafana team created.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
@@ -86,9 +190,11 @@ type TeamParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
+	// (Block List, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Preferences []PreferencesParameters `json:"preferences,omitempty" tf:"preferences,omitempty"`
 
+	// (Block List, Max: 1) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
 	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
@@ -96,11 +202,21 @@ type TeamParameters struct {
 	TeamSync []TeamSyncParameters `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
 }
 
+type TeamSyncInitParameters struct {
+
+	// (Set of String)
+	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
+}
+
 type TeamSyncObservation struct {
+
+	// (Set of String)
+	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 }
 
 type TeamSyncParameters struct {
 
+	// (Set of String)
 	// +kubebuilder:validation:Optional
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 }
@@ -109,6 +225,18 @@ type TeamSyncParameters struct {
 type TeamSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     TeamParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider TeamInitParameters `json:"initProvider,omitempty"`
 }
 
 // TeamStatus defines the observed state of Team.
@@ -119,7 +247,7 @@ type TeamStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Team is the Schema for the Teams API. <no value>
+// Team is the Schema for the Teams API. Official documentation https://grafana.com/docs/grafana/latest/administration/team-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -129,8 +257,9 @@ type TeamStatus struct {
 type Team struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              TeamSpec   `json:"spec"`
-	Status            TeamStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   TeamSpec   `json:"spec"`
+	Status TeamStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

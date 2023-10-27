@@ -30,6 +30,7 @@ func GetProvider() *ujconfig.Provider {
 		ujconfig.WithShortName("grafana"),
 		ujconfig.WithRootGroup("grafana.crossplane.io"),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			GroupKindOverrides(),
 			KindOverrides(),

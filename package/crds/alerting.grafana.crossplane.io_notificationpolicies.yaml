@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.13.0
   name: notificationpolicies.alerting.grafana.crossplane.io
 spec:
   group: alerting.grafana.crossplane.io
@@ -36,7 +35,11 @@ spec:
     schema:
       openAPIV3Schema:
         description: NotificationPolicy is the Schema for the NotificationPolicys
-          API. <no value>
+          API. Sets the global notification policy for Grafana. !> This resource manages
+          the entire notification policy tree, and will overwrite any existing policies.
+          Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/HTTP
+          API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+          This resource requires Grafana 9.1.0 or later.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -55,9 +58,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -65,7 +72,8 @@ spec:
               forProvider:
                 properties:
                   contactPoint:
-                    description: The default contact point to route all unmatched
+                    description: (String) The default contact point to route all unmatched
+                      notifications to. The default contact point to route all unmatched
                       notifications to.
                     type: string
                   contactPointRef:
@@ -144,230 +152,318 @@ spec:
                         type: object
                     type: object
                   groupBy:
-                    description: A list of alert labels to group alerts into notifications
-                      by. Use the special label `...` to group alerts by all labels,
-                      effectively disabling grouping.
+                    description: (List of String) A list of alert labels to group
+                      alerts into notifications by. Use the special label ... to group
+                      alerts by all labels, effectively disabling grouping. A list
+                      of alert labels to group alerts into notifications by. Use the
+                      special label `...` to group alerts by all labels, effectively
+                      disabling grouping.
                     items:
                       type: string
                     type: array
                   groupInterval:
-                    description: Minimum time interval between two notifications for
-                      the same group. Default is 5 minutes.
+                    description: (String) Minimum time interval between two notifications
+                      for the same group. Default is 5 minutes. Minimum time interval
+                      between two notifications for the same group. Default is 5 minutes.
                     type: string
                   groupWait:
-                    description: Time to wait to buffer alerts of the same group before
-                      sending a notification. Default is 30 seconds.
+                    description: (String) Time to wait to buffer alerts of the same
+                      group before sending a notification. Default is 30 seconds.
+                      Time to wait to buffer alerts of the same group before sending
+                      a notification. Default is 30 seconds.
                     type: string
                   policy:
-                    description: Routing rules for specific label sets.
+                    description: (Block List) Routing rules for specific label sets.
+                      (see below for nested schema) Routing rules for specific label
+                      sets.
                     items:
                       properties:
                         contactPoint:
-                          description: The contact point to route notifications that
-                            match this rule to.
+                          description: (String) The default contact point to route
+                            all unmatched notifications to. The contact point to route
+                            notifications that match this rule to.
                           type: string
                         continue:
-                          description: Whether to continue matching subsequent rules
-                            if an alert matches the current rule. Otherwise, the rule
-                            will be 'consumed' by the first policy to match it.
+                          description: (Boolean) Whether to continue matching subsequent
+                            rules if an alert matches the current rule. Otherwise,
+                            the rule will be 'consumed' by the first policy to match
+                            it. Whether to continue matching subsequent rules if an
+                            alert matches the current rule. Otherwise, the rule will
+                            be 'consumed' by the first policy to match it.
                           type: boolean
                         groupBy:
-                          description: A list of alert labels to group alerts into
+                          description: (List of String) A list of alert labels to
+                            group alerts into notifications by. Use the special label
+                            ... to group alerts by all labels, effectively disabling
+                            grouping. A list of alert labels to group alerts into
                             notifications by. Use the special label `...` to group
                             alerts by all labels, effectively disabling grouping.
                           items:
                             type: string
                           type: array
                         groupInterval:
-                          description: Minimum time interval between two notifications
-                            for the same group. Default is 5 minutes.
+                          description: (String) Minimum time interval between two
+                            notifications for the same group. Default is 5 minutes.
+                            Minimum time interval between two notifications for the
+                            same group. Default is 5 minutes.
                           type: string
                         groupWait:
-                          description: Time to wait to buffer alerts of the same group
+                          description: (String) Time to wait to buffer alerts of the
+                            same group before sending a notification. Default is 30
+                            seconds. Time to wait to buffer alerts of the same group
                             before sending a notification. Default is 30 seconds.
                           type: string
                         matcher:
-                          description: Describes which labels this rule should match.
-                            When multiple matchers are supplied, an alert must match
-                            ALL matchers to be accepted by this policy. When no matchers
-                            are supplied, the rule will match all alert instances.
+                          description: (Block List) Describes which labels this rule
+                            should match. When multiple matchers are supplied, an
+                            alert must match ALL matchers to be accepted by this policy.
+                            When no matchers are supplied, the rule will match all
+                            alert instances. (see below for nested schema) Describes
+                            which labels this rule should match. When multiple matchers
+                            are supplied, an alert must match ALL matchers to be accepted
+                            by this policy. When no matchers are supplied, the rule
+                            will match all alert instances.
                           items:
                             properties:
                               label:
-                                description: The name of the label to match against.
+                                description: (String) The name of the label to match
+                                  against. The name of the label to match against.
                                 type: string
                               match:
-                                description: The operator to apply when matching values
-                                  of the given label. Allowed operators are `=` for
-                                  equality, `!=` for negated equality, `=~` for regex
-                                  equality, and `!~` for negated regex equality.
+                                description: (String) The operator to apply when matching
+                                  values of the given label. Allowed operators are
+                                  = for equality, != for negated equality, =~ for
+                                  regex equality, and !~ for negated regex equality.
+                                  The operator to apply when matching values of the
+                                  given label. Allowed operators are `=` for equality,
+                                  `!=` for negated equality, `=~` for regex equality,
+                                  and `!~` for negated regex equality.
                                 type: string
                               value:
-                                description: The label value to match against.
+                                description: (String) The label value to match against.
+                                  The label value to match against.
                                 type: string
-                            required:
-                            - label
-                            - match
-                            - value
                             type: object
                           type: array
                         muteTimings:
-                          description: A list of mute timing names to apply to alerts
-                            that match this policy.
+                          description: (List of String) A list of mute timing names
+                            to apply to alerts that match this policy. A list of mute
+                            timing names to apply to alerts that match this policy.
                           items:
                             type: string
                           type: array
                         policy:
-                          description: Routing rules for specific label sets.
+                          description: (Block List) Routing rules for specific label
+                            sets. (see below for nested schema) Routing rules for
+                            specific label sets.
                           items:
                             properties:
                               contactPoint:
-                                description: The contact point to route notifications
-                                  that match this rule to.
+                                description: (String) The default contact point to
+                                  route all unmatched notifications to. The contact
+                                  point to route notifications that match this rule
+                                  to.
                                 type: string
                               continue:
-                                description: Whether to continue matching subsequent
-                                  rules if an alert matches the current rule. Otherwise,
-                                  the rule will be 'consumed' by the first policy
-                                  to match it.
+                                description: (Boolean) Whether to continue matching
+                                  subsequent rules if an alert matches the current
+                                  rule. Otherwise, the rule will be 'consumed' by
+                                  the first policy to match it. Whether to continue
+                                  matching subsequent rules if an alert matches the
+                                  current rule. Otherwise, the rule will be 'consumed'
+                                  by the first policy to match it.
                                 type: boolean
                               groupBy:
-                                description: A list of alert labels to group alerts
-                                  into notifications by. Use the special label `...`
-                                  to group alerts by all labels, effectively disabling
-                                  grouping.
+                                description: (List of String) A list of alert labels
+                                  to group alerts into notifications by. Use the special
+                                  label ... to group alerts by all labels, effectively
+                                  disabling grouping. A list of alert labels to group
+                                  alerts into notifications by. Use the special label
+                                  `...` to group alerts by all labels, effectively
+                                  disabling grouping.
                                 items:
                                   type: string
                                 type: array
                               groupInterval:
-                                description: Minimum time interval between two notifications
+                                description: (String) Minimum time interval between
+                                  two notifications for the same group. Default is
+                                  5 minutes. Minimum time interval between two notifications
                                   for the same group. Default is 5 minutes.
                                 type: string
                               groupWait:
-                                description: Time to wait to buffer alerts of the
-                                  same group before sending a notification. Default
-                                  is 30 seconds.
+                                description: (String) Time to wait to buffer alerts
+                                  of the same group before sending a notification.
+                                  Default is 30 seconds. Time to wait to buffer alerts
+                                  of the same group before sending a notification.
+                                  Default is 30 seconds.
                                 type: string
                               matcher:
-                                description: Describes which labels this rule should
-                                  match. When multiple matchers are supplied, an alert
-                                  must match ALL matchers to be accepted by this policy.
-                                  When no matchers are supplied, the rule will match
-                                  all alert instances.
+                                description: (Block List) Describes which labels this
+                                  rule should match. When multiple matchers are supplied,
+                                  an alert must match ALL matchers to be accepted
+                                  by this policy. When no matchers are supplied, the
+                                  rule will match all alert instances. (see below
+                                  for nested schema) Describes which labels this rule
+                                  should match. When multiple matchers are supplied,
+                                  an alert must match ALL matchers to be accepted
+                                  by this policy. When no matchers are supplied, the
+                                  rule will match all alert instances.
                                 items:
                                   properties:
                                     label:
-                                      description: The name of the label to match
-                                        against.
+                                      description: (String) The name of the label
+                                        to match against. The name of the label to
+                                        match against.
                                       type: string
                                     match:
-                                      description: The operator to apply when matching
-                                        values of the given label. Allowed operators
-                                        are `=` for equality, `!=` for negated equality,
-                                        `=~` for regex equality, and `!~` for negated
-                                        regex equality.
+                                      description: (String) The operator to apply
+                                        when matching values of the given label. Allowed
+                                        operators are = for equality, != for negated
+                                        equality, =~ for regex equality, and !~ for
+                                        negated regex equality. The operator to apply
+                                        when matching values of the given label. Allowed
+                                        operators are `=` for equality, `!=` for negated
+                                        equality, `=~` for regex equality, and `!~`
+                                        for negated regex equality.
                                       type: string
                                     value:
-                                      description: The label value to match against.
+                                      description: (String) The label value to match
+                                        against. The label value to match against.
                                       type: string
-                                  required:
-                                  - label
-                                  - match
-                                  - value
                                   type: object
                                 type: array
                               muteTimings:
-                                description: A list of mute timing names to apply
-                                  to alerts that match this policy.
+                                description: (List of String) A list of mute timing
+                                  names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that
+                                  match this policy.
                                 items:
                                   type: string
                                 type: array
                               policy:
-                                description: Routing rules for specific label sets.
+                                description: (Block List) Routing rules for specific
+                                  label sets. (see below for nested schema) Routing
+                                  rules for specific label sets.
                                 items:
                                   properties:
                                     contactPoint:
-                                      description: The contact point to route notifications
-                                        that match this rule to.
+                                      description: (String) The default contact point
+                                        to route all unmatched notifications to. The
+                                        contact point to route notifications that
+                                        match this rule to.
                                       type: string
                                     continue:
-                                      description: Whether to continue matching subsequent
-                                        rules if an alert matches the current rule.
-                                        Otherwise, the rule will be 'consumed' by
-                                        the first policy to match it.
+                                      description: (Boolean) Whether to continue matching
+                                        subsequent rules if an alert matches the current
+                                        rule. Otherwise, the rule will be 'consumed'
+                                        by the first policy to match it. Whether to
+                                        continue matching subsequent rules if an alert
+                                        matches the current rule. Otherwise, the rule
+                                        will be 'consumed' by the first policy to
+                                        match it.
                                       type: boolean
                                     groupBy:
-                                      description: A list of alert labels to group
-                                        alerts into notifications by. Use the special
-                                        label `...` to group alerts by all labels,
-                                        effectively disabling grouping.
+                                      description: (List of String) A list of alert
+                                        labels to group alerts into notifications
+                                        by. Use the special label ... to group alerts
+                                        by all labels, effectively disabling grouping.
+                                        A list of alert labels to group alerts into
+                                        notifications by. Use the special label `...`
+                                        to group alerts by all labels, effectively
+                                        disabling grouping.
                                       items:
                                         type: string
                                       type: array
                                     groupInterval:
-                                      description: Minimum time interval between two
-                                        notifications for the same group. Default
-                                        is 5 minutes.
+                                      description: (String) Minimum time interval
+                                        between two notifications for the same group.
+                                        Default is 5 minutes. Minimum time interval
+                                        between two notifications for the same group.
+                                        Default is 5 minutes.
                                       type: string
                                     groupWait:
-                                      description: Time to wait to buffer alerts of
-                                        the same group before sending a notification.
-                                        Default is 30 seconds.
+                                      description: (String) Time to wait to buffer
+                                        alerts of the same group before sending a
+                                        notification. Default is 30 seconds. Time
+                                        to wait to buffer alerts of the same group
+                                        before sending a notification. Default is
+                                        30 seconds.
                                       type: string
                                     matcher:
-                                      description: Describes which labels this rule
-                                        should match. When multiple matchers are supplied,
-                                        an alert must match ALL matchers to be accepted
-                                        by this policy. When no matchers are supplied,
-                                        the rule will match all alert instances.
+                                      description: (Block List) Describes which labels
+                                        this rule should match. When multiple matchers
+                                        are supplied, an alert must match ALL matchers
+                                        to be accepted by this policy. When no matchers
+                                        are supplied, the rule will match all alert
+                                        instances. (see below for nested schema) Describes
+                                        which labels this rule should match. When
+                                        multiple matchers are supplied, an alert must
+                                        match ALL matchers to be accepted by this
+                                        policy. When no matchers are supplied, the
+                                        rule will match all alert instances.
                                       items:
                                         properties:
                                           label:
-                                            description: The name of the label to
-                                              match against.
+                                            description: (String) The name of the
+                                              label to match against. The name of
+                                              the label to match against.
                                             type: string
                                           match:
-                                            description: The operator to apply when
-                                              matching values of the given label.
-                                              Allowed operators are `=` for equality,
-                                              `!=` for negated equality, `=~` for
-                                              regex equality, and `!~` for negated
-                                              regex equality.
+                                            description: (String) The operator to
+                                              apply when matching values of the given
+                                              label. Allowed operators are = for equality,
+                                              != for negated equality, =~ for regex
+                                              equality, and !~ for negated regex equality.
+                                              The operator to apply when matching
+                                              values of the given label. Allowed operators
+                                              are `=` for equality, `!=` for negated
+                                              equality, `=~` for regex equality, and
+                                              `!~` for negated regex equality.
                                             type: string
                                           value:
-                                            description: The label value to match
-                                              against.
+                                            description: (String) The label value
+                                              to match against. The label value to
+                                              match against.
                                             type: string
-                                        required:
-                                        - label
-                                        - match
-                                        - value
                                         type: object
                                       type: array
                                     muteTimings:
-                                      description: A list of mute timing names to
+                                      description: (List of String) A list of mute
+                                        timing names to apply to alerts that match
+                                        this policy. A list of mute timing names to
                                         apply to alerts that match this policy.
                                       items:
                                         type: string
                                       type: array
                                     policy:
-                                      description: Routing rules for specific label
-                                        sets.
+                                      description: (Block List) Routing rules for
+                                        specific label sets. (see below for nested
+                                        schema) Routing rules for specific label sets.
                                       items:
                                         properties:
                                           contactPoint:
-                                            description: The contact point to route
-                                              notifications that match this rule to.
+                                            description: (String) The default contact
+                                              point to route all unmatched notifications
+                                              to. The contact point to route notifications
+                                              that match this rule to.
                                             type: string
                                           continue:
-                                            description: Whether to continue matching
-                                              subsequent rules if an alert matches
-                                              the current rule. Otherwise, the rule
-                                              will be 'consumed' by the first policy
-                                              to match it.
+                                            description: (Boolean) Whether to continue
+                                              matching subsequent rules if an alert
+                                              matches the current rule. Otherwise,
+                                              the rule will be 'consumed' by the first
+                                              policy to match it. Whether to continue
+                                              matching subsequent rules if an alert
+                                              matches the current rule. Otherwise,
+                                              the rule will be 'consumed' by the first
+                                              policy to match it.
                                             type: boolean
                                           groupBy:
-                                            description: A list of alert labels to
+                                            description: (List of String) A list of
+                                              alert labels to group alerts into notifications
+                                              by. Use the special label ... to group
+                                              alerts by all labels, effectively disabling
+                                              grouping. A list of alert labels to
                                               group alerts into notifications by.
                                               Use the special label `...` to group
                                               alerts by all labels, effectively disabling
@@ -376,140 +472,581 @@ spec:
                                               type: string
                                             type: array
                                           groupInterval:
-                                            description: Minimum time interval between
-                                              two notifications for the same group.
-                                              Default is 5 minutes.
+                                            description: (String) Minimum time interval
+                                              between two notifications for the same
+                                              group. Default is 5 minutes. Minimum
+                                              time interval between two notifications
+                                              for the same group. Default is 5 minutes.
                                             type: string
                                           groupWait:
-                                            description: Time to wait to buffer alerts
+                                            description: (String) Time to wait to
+                                              buffer alerts of the same group before
+                                              sending a notification. Default is 30
+                                              seconds. Time to wait to buffer alerts
                                               of the same group before sending a notification.
                                               Default is 30 seconds.
                                             type: string
                                           matcher:
-                                            description: Describes which labels this
-                                              rule should match. When multiple matchers
-                                              are supplied, an alert must match ALL
-                                              matchers to be accepted by this policy.
-                                              When no matchers are supplied, the rule
-                                              will match all alert instances.
+                                            description: (Block List) Describes which
+                                              labels this rule should match. When
+                                              multiple matchers are supplied, an alert
+                                              must match ALL matchers to be accepted
+                                              by this policy. When no matchers are
+                                              supplied, the rule will match all alert
+                                              instances. (see below for nested schema)
+                                              Describes which labels this rule should
+                                              match. When multiple matchers are supplied,
+                                              an alert must match ALL matchers to
+                                              be accepted by this policy. When no
+                                              matchers are supplied, the rule will
+                                              match all alert instances.
                                             items:
                                               properties:
                                                 label:
-                                                  description: The name of the label
-                                                    to match against.
+                                                  description: (String) The name of
+                                                    the label to match against. The
+                                                    name of the label to match against.
                                                   type: string
                                                 match:
-                                                  description: The operator to apply
-                                                    when matching values of the given
-                                                    label. Allowed operators are `=`
-                                                    for equality, `!=` for negated
-                                                    equality, `=~` for regex equality,
-                                                    and `!~` for negated regex equality.
+                                                  description: (String) The operator
+                                                    to apply when matching values
+                                                    of the given label. Allowed operators
+                                                    are = for equality, != for negated
+                                                    equality, =~ for regex equality,
+                                                    and !~ for negated regex equality.
+                                                    The operator to apply when matching
+                                                    values of the given label. Allowed
+                                                    operators are `=` for equality,
+                                                    `!=` for negated equality, `=~`
+                                                    for regex equality, and `!~` for
+                                                    negated regex equality.
                                                   type: string
                                                 value:
-                                                  description: The label value to
-                                                    match against.
+                                                  description: (String) The label
+                                                    value to match against. The label
+                                                    value to match against.
                                                   type: string
-                                              required:
-                                              - label
-                                              - match
-                                              - value
                                               type: object
                                             type: array
                                           muteTimings:
-                                            description: A list of mute timing names
-                                              to apply to alerts that match this policy.
+                                            description: (List of String) A list of
+                                              mute timing names to apply to alerts
+                                              that match this policy. A list of mute
+                                              timing names to apply to alerts that
+                                              match this policy.
                                             items:
                                               type: string
                                             type: array
                                           repeatInterval:
-                                            description: Minimum time interval for
-                                              re-sending a notification if an alert
-                                              is still firing. Default is 4 hours.
+                                            description: sending a notification if
+                                              an alert is still firing. Default is
+                                              4 hours. Minimum time interval for re-sending
+                                              a notification if an alert is still
+                                              firing. Default is 4 hours.
                                             type: string
-                                        required:
-                                        - contactPoint
-                                        - groupBy
                                         type: object
                                       type: array
                                     repeatInterval:
-                                      description: Minimum time interval for re-sending
-                                        a notification if an alert is still firing.
-                                        Default is 4 hours.
+                                      description: sending a notification if an alert
+                                        is still firing. Default is 4 hours. Minimum
+                                        time interval for re-sending a notification
+                                        if an alert is still firing. Default is 4
+                                        hours.
                                       type: string
-                                  required:
-                                  - contactPoint
-                                  - groupBy
                                   type: object
                                 type: array
                               repeatInterval:
-                                description: Minimum time interval for re-sending
-                                  a notification if an alert is still firing. Default
-                                  is 4 hours.
+                                description: sending a notification if an alert is
+                                  still firing. Default is 4 hours. Minimum time interval
+                                  for re-sending a notification if an alert is still
+                                  firing. Default is 4 hours.
                                 type: string
-                            required:
-                            - contactPoint
-                            - groupBy
                             type: object
                           type: array
                         repeatInterval:
-                          description: Minimum time interval for re-sending a notification
-                            if an alert is still firing. Default is 4 hours.
+                          description: sending a notification if an alert is still
+                            firing. Default is 4 hours. Minimum time interval for
+                            re-sending a notification if an alert is still firing.
+                            Default is 4 hours.
                           type: string
-                      required:
-                      - contactPoint
-                      - groupBy
                       type: object
                     type: array
                   repeatInterval:
-                    description: Minimum time interval for re-sending a notification
+                    description: sending a notification if an alert is still firing.
+                      Default is 4 hours. Minimum time interval for re-sending a notification
                       if an alert is still firing. Default is 4 hours.
                     type: string
-                required:
-                - groupBy
                 type: object
+              initProvider:
+                description: THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. InitProvider
+                  holds the same fields as ForProvider, with the exception of Identifier
+                  and other resource reference fields. The fields that are in InitProvider
+                  are merged into ForProvider when the resource is created. The same
+                  fields are also added to the terraform ignore_changes hook, to avoid
+                  updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after
+                  creation, for example because of an external controller is managing
+                  them, like an autoscaler.
+                properties:
+                  groupBy:
+                    description: (List of String) A list of alert labels to group
+                      alerts into notifications by. Use the special label ... to group
+                      alerts by all labels, effectively disabling grouping. A list
+                      of alert labels to group alerts into notifications by. Use the
+                      special label `...` to group alerts by all labels, effectively
+                      disabling grouping.
+                    items:
+                      type: string
+                    type: array
+                  groupInterval:
+                    description: (String) Minimum time interval between two notifications
+                      for the same group. Default is 5 minutes. Minimum time interval
+                      between two notifications for the same group. Default is 5 minutes.
+                    type: string
+                  groupWait:
+                    description: (String) Time to wait to buffer alerts of the same
+                      group before sending a notification. Default is 30 seconds.
+                      Time to wait to buffer alerts of the same group before sending
+                      a notification. Default is 30 seconds.
+                    type: string
+                  policy:
+                    description: (Block List) Routing rules for specific label sets.
+                      (see below for nested schema) Routing rules for specific label
+                      sets.
+                    items:
+                      properties:
+                        contactPoint:
+                          description: (String) The default contact point to route
+                            all unmatched notifications to. The contact point to route
+                            notifications that match this rule to.
+                          type: string
+                        continue:
+                          description: (Boolean) Whether to continue matching subsequent
+                            rules if an alert matches the current rule. Otherwise,
+                            the rule will be 'consumed' by the first policy to match
+                            it. Whether to continue matching subsequent rules if an
+                            alert matches the current rule. Otherwise, the rule will
+                            be 'consumed' by the first policy to match it.
+                          type: boolean
+                        groupBy:
+                          description: (List of String) A list of alert labels to
+                            group alerts into notifications by. Use the special label
+                            ... to group alerts by all labels, effectively disabling
+                            grouping. A list of alert labels to group alerts into
+                            notifications by. Use the special label `...` to group
+                            alerts by all labels, effectively disabling grouping.
+                          items:
+                            type: string
+                          type: array
+                        groupInterval:
+                          description: (String) Minimum time interval between two
+                            notifications for the same group. Default is 5 minutes.
+                            Minimum time interval between two notifications for the
+                            same group. Default is 5 minutes.
+                          type: string
+                        groupWait:
+                          description: (String) Time to wait to buffer alerts of the
+                            same group before sending a notification. Default is 30
+                            seconds. Time to wait to buffer alerts of the same group
+                            before sending a notification. Default is 30 seconds.
+                          type: string
+                        matcher:
+                          description: (Block List) Describes which labels this rule
+                            should match. When multiple matchers are supplied, an
+                            alert must match ALL matchers to be accepted by this policy.
+                            When no matchers are supplied, the rule will match all
+                            alert instances. (see below for nested schema) Describes
+                            which labels this rule should match. When multiple matchers
+                            are supplied, an alert must match ALL matchers to be accepted
+                            by this policy. When no matchers are supplied, the rule
+                            will match all alert instances.
+                          items:
+                            properties:
+                              label:
+                                description: (String) The name of the label to match
+                                  against. The name of the label to match against.
+                                type: string
+                              match:
+                                description: (String) The operator to apply when matching
+                                  values of the given label. Allowed operators are
+                                  = for equality, != for negated equality, =~ for
+                                  regex equality, and !~ for negated regex equality.
+                                  The operator to apply when matching values of the
+                                  given label. Allowed operators are `=` for equality,
+                                  `!=` for negated equality, `=~` for regex equality,
+                                  and `!~` for negated regex equality.
+                                type: string
+                              value:
+                                description: (String) The label value to match against.
+                                  The label value to match against.
+                                type: string
+                            type: object
+                          type: array
+                        muteTimings:
+                          description: (List of String) A list of mute timing names
+                            to apply to alerts that match this policy. A list of mute
+                            timing names to apply to alerts that match this policy.
+                          items:
+                            type: string
+                          type: array
+                        policy:
+                          description: (Block List) Routing rules for specific label
+                            sets. (see below for nested schema) Routing rules for
+                            specific label sets.
+                          items:
+                            properties:
+                              contactPoint:
+                                description: (String) The default contact point to
+                                  route all unmatched notifications to. The contact
+                                  point to route notifications that match this rule
+                                  to.
+                                type: string
+                              continue:
+                                description: (Boolean) Whether to continue matching
+                                  subsequent rules if an alert matches the current
+                                  rule. Otherwise, the rule will be 'consumed' by
+                                  the first policy to match it. Whether to continue
+                                  matching subsequent rules if an alert matches the
+                                  current rule. Otherwise, the rule will be 'consumed'
+                                  by the first policy to match it.
+                                type: boolean
+                              groupBy:
+                                description: (List of String) A list of alert labels
+                                  to group alerts into notifications by. Use the special
+                                  label ... to group alerts by all labels, effectively
+                                  disabling grouping. A list of alert labels to group
+                                  alerts into notifications by. Use the special label
+                                  `...` to group alerts by all labels, effectively
+                                  disabling grouping.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: (String) Minimum time interval between
+                                  two notifications for the same group. Default is
+                                  5 minutes. Minimum time interval between two notifications
+                                  for the same group. Default is 5 minutes.
+                                type: string
+                              groupWait:
+                                description: (String) Time to wait to buffer alerts
+                                  of the same group before sending a notification.
+                                  Default is 30 seconds. Time to wait to buffer alerts
+                                  of the same group before sending a notification.
+                                  Default is 30 seconds.
+                                type: string
+                              matcher:
+                                description: (Block List) Describes which labels this
+                                  rule should match. When multiple matchers are supplied,
+                                  an alert must match ALL matchers to be accepted
+                                  by this policy. When no matchers are supplied, the
+                                  rule will match all alert instances. (see below
+                                  for nested schema) Describes which labels this rule
+                                  should match. When multiple matchers are supplied,
+                                  an alert must match ALL matchers to be accepted
+                                  by this policy. When no matchers are supplied, the
+                                  rule will match all alert instances.
+                                items:
+                                  properties:
+                                    label:
+                                      description: (String) The name of the label
+                                        to match against. The name of the label to
+                                        match against.
+                                      type: string
+                                    match:
+                                      description: (String) The operator to apply
+                                        when matching values of the given label. Allowed
+                                        operators are = for equality, != for negated
+                                        equality, =~ for regex equality, and !~ for
+                                        negated regex equality. The operator to apply
+                                        when matching values of the given label. Allowed
+                                        operators are `=` for equality, `!=` for negated
+                                        equality, `=~` for regex equality, and `!~`
+                                        for negated regex equality.
+                                      type: string
+                                    value:
+                                      description: (String) The label value to match
+                                        against. The label value to match against.
+                                      type: string
+                                  type: object
+                                type: array
+                              muteTimings:
+                                description: (List of String) A list of mute timing
+                                  names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that
+                                  match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              policy:
+                                description: (Block List) Routing rules for specific
+                                  label sets. (see below for nested schema) Routing
+                                  rules for specific label sets.
+                                items:
+                                  properties:
+                                    contactPoint:
+                                      description: (String) The default contact point
+                                        to route all unmatched notifications to. The
+                                        contact point to route notifications that
+                                        match this rule to.
+                                      type: string
+                                    continue:
+                                      description: (Boolean) Whether to continue matching
+                                        subsequent rules if an alert matches the current
+                                        rule. Otherwise, the rule will be 'consumed'
+                                        by the first policy to match it. Whether to
+                                        continue matching subsequent rules if an alert
+                                        matches the current rule. Otherwise, the rule
+                                        will be 'consumed' by the first policy to
+                                        match it.
+                                      type: boolean
+                                    groupBy:
+                                      description: (List of String) A list of alert
+                                        labels to group alerts into notifications
+                                        by. Use the special label ... to group alerts
+                                        by all labels, effectively disabling grouping.
+                                        A list of alert labels to group alerts into
+                                        notifications by. Use the special label `...`
+                                        to group alerts by all labels, effectively
+                                        disabling grouping.
+                                      items:
+                                        type: string
+                                      type: array
+                                    groupInterval:
+                                      description: (String) Minimum time interval
+                                        between two notifications for the same group.
+                                        Default is 5 minutes. Minimum time interval
+                                        between two notifications for the same group.
+                                        Default is 5 minutes.
+                                      type: string
+                                    groupWait:
+                                      description: (String) Time to wait to buffer
+                                        alerts of the same group before sending a
+                                        notification. Default is 30 seconds. Time
+                                        to wait to buffer alerts of the same group
+                                        before sending a notification. Default is
+                                        30 seconds.
+                                      type: string
+                                    matcher:
+                                      description: (Block List) Describes which labels
+                                        this rule should match. When multiple matchers
+                                        are supplied, an alert must match ALL matchers
+                                        to be accepted by this policy. When no matchers
+                                        are supplied, the rule will match all alert
+                                        instances. (see below for nested schema) Describes
+                                        which labels this rule should match. When
+                                        multiple matchers are supplied, an alert must
+                                        match ALL matchers to be accepted by this
+                                        policy. When no matchers are supplied, the
+                                        rule will match all alert instances.
+                                      items:
+                                        properties:
+                                          label:
+                                            description: (String) The name of the
+                                              label to match against. The name of
+                                              the label to match against.
+                                            type: string
+                                          match:
+                                            description: (String) The operator to
+                                              apply when matching values of the given
+                                              label. Allowed operators are = for equality,
+                                              != for negated equality, =~ for regex
+                                              equality, and !~ for negated regex equality.
+                                              The operator to apply when matching
+                                              values of the given label. Allowed operators
+                                              are `=` for equality, `!=` for negated
+                                              equality, `=~` for regex equality, and
+                                              `!~` for negated regex equality.
+                                            type: string
+                                          value:
+                                            description: (String) The label value
+                                              to match against. The label value to
+                                              match against.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    muteTimings:
+                                      description: (List of String) A list of mute
+                                        timing names to apply to alerts that match
+                                        this policy. A list of mute timing names to
+                                        apply to alerts that match this policy.
+                                      items:
+                                        type: string
+                                      type: array
+                                    policy:
+                                      description: (Block List) Routing rules for
+                                        specific label sets. (see below for nested
+                                        schema) Routing rules for specific label sets.
+                                      items:
+                                        properties:
+                                          contactPoint:
+                                            description: (String) The default contact
+                                              point to route all unmatched notifications
+                                              to. The contact point to route notifications
+                                              that match this rule to.
+                                            type: string
+                                          continue:
+                                            description: (Boolean) Whether to continue
+                                              matching subsequent rules if an alert
+                                              matches the current rule. Otherwise,
+                                              the rule will be 'consumed' by the first
+                                              policy to match it. Whether to continue
+                                              matching subsequent rules if an alert
+                                              matches the current rule. Otherwise,
+                                              the rule will be 'consumed' by the first
+                                              policy to match it.
+                                            type: boolean
+                                          groupBy:
+                                            description: (List of String) A list of
+                                              alert labels to group alerts into notifications
+                                              by. Use the special label ... to group
+                                              alerts by all labels, effectively disabling
+                                              grouping. A list of alert labels to
+                                              group alerts into notifications by.
+                                              Use the special label `...` to group
+                                              alerts by all labels, effectively disabling
+                                              grouping.
+                                            items:
+                                              type: string
+                                            type: array
+                                          groupInterval:
+                                            description: (String) Minimum time interval
+                                              between two notifications for the same
+                                              group. Default is 5 minutes. Minimum
+                                              time interval between two notifications
+                                              for the same group. Default is 5 minutes.
+                                            type: string
+                                          groupWait:
+                                            description: (String) Time to wait to
+                                              buffer alerts of the same group before
+                                              sending a notification. Default is 30
+                                              seconds. Time to wait to buffer alerts
+                                              of the same group before sending a notification.
+                                              Default is 30 seconds.
+                                            type: string
+                                          matcher:
+                                            description: (Block List) Describes which
+                                              labels this rule should match. When
+                                              multiple matchers are supplied, an alert
+                                              must match ALL matchers to be accepted
+                                              by this policy. When no matchers are
+                                              supplied, the rule will match all alert
+                                              instances. (see below for nested schema)
+                                              Describes which labels this rule should
+                                              match. When multiple matchers are supplied,
+                                              an alert must match ALL matchers to
+                                              be accepted by this policy. When no
+                                              matchers are supplied, the rule will
+                                              match all alert instances.
+                                            items:
+                                              properties:
+                                                label:
+                                                  description: (String) The name of
+                                                    the label to match against. The
+                                                    name of the label to match against.
+                                                  type: string
+                                                match:
+                                                  description: (String) The operator
+                                                    to apply when matching values
+                                                    of the given label. Allowed operators
+                                                    are = for equality, != for negated
+                                                    equality, =~ for regex equality,
+                                                    and !~ for negated regex equality.
+                                                    The operator to apply when matching
+                                                    values of the given label. Allowed
+                                                    operators are `=` for equality,
+                                                    `!=` for negated equality, `=~`
+                                                    for regex equality, and `!~` for
+                                                    negated regex equality.
+                                                  type: string
+                                                value:
+                                                  description: (String) The label
+                                                    value to match against. The label
+                                                    value to match against.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          muteTimings:
+                                            description: (List of String) A list of
+                                              mute timing names to apply to alerts
+                                              that match this policy. A list of mute
+                                              timing names to apply to alerts that
+                                              match this policy.
+                                            items:
+                                              type: string
+                                            type: array
+                                          repeatInterval:
+                                            description: sending a notification if
+                                              an alert is still firing. Default is
+                                              4 hours. Minimum time interval for re-sending
+                                              a notification if an alert is still
+                                              firing. Default is 4 hours.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    repeatInterval:
+                                      description: sending a notification if an alert
+                                        is still firing. Default is 4 hours. Minimum
+                                        time interval for re-sending a notification
+                                        if an alert is still firing. Default is 4
+                                        hours.
+                                      type: string
+                                  type: object
+                                type: array
+                              repeatInterval:
+                                description: sending a notification if an alert is
+                                  still firing. Default is 4 hours. Minimum time interval
+                                  for re-sending a notification if an alert is still
+                                  firing. Default is 4 hours.
+                                type: string
+                            type: object
+                          type: array
+                        repeatInterval:
+                          description: sending a notification if an alert is still
+                            firing. Default is 4 hours. Minimum time interval for
+                            re-sending a notification if an alert is still firing.
+                            Default is 4 hours.
+                          type: string
+                      type: object
+                    type: array
+                  repeatInterval:
+                    description: sending a notification if an alert is still firing.
+                      Default is 4 hours. Minimum time interval for re-sending a notification
+                      if an alert is still firing. Default is 4 hours.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
                 description: ProviderConfigReference specifies how the provider that
                   will be used to create, observe, update, and delete this managed
                   resource should be configured.
-                properties:
-                  name:
-                    description: Name of the referenced object.
-                    type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
-                required:
-                - name
-                type: object
-              providerRef:
-                description: 'ProviderReference specifies the provider that will be
-                  used to create, observe, update, and delete this managed resource.
-                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -639,12 +1176,448 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: groupBy is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.groupBy)
+                || has(self.initProvider.groupBy)'
           status:
             description: NotificationPolicyStatus defines the observed state of NotificationPolicy.
             properties:
               atProvider:
                 properties:
+                  contactPoint:
+                    description: (String) The default contact point to route all unmatched
+                      notifications to. The default contact point to route all unmatched
+                      notifications to.
+                    type: string
+                  groupBy:
+                    description: (List of String) A list of alert labels to group
+                      alerts into notifications by. Use the special label ... to group
+                      alerts by all labels, effectively disabling grouping. A list
+                      of alert labels to group alerts into notifications by. Use the
+                      special label `...` to group alerts by all labels, effectively
+                      disabling grouping.
+                    items:
+                      type: string
+                    type: array
+                  groupInterval:
+                    description: (String) Minimum time interval between two notifications
+                      for the same group. Default is 5 minutes. Minimum time interval
+                      between two notifications for the same group. Default is 5 minutes.
+                    type: string
+                  groupWait:
+                    description: (String) Time to wait to buffer alerts of the same
+                      group before sending a notification. Default is 30 seconds.
+                      Time to wait to buffer alerts of the same group before sending
+                      a notification. Default is 30 seconds.
+                    type: string
                   id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  policy:
+                    description: (Block List) Routing rules for specific label sets.
+                      (see below for nested schema) Routing rules for specific label
+                      sets.
+                    items:
+                      properties:
+                        contactPoint:
+                          description: (String) The default contact point to route
+                            all unmatched notifications to. The contact point to route
+                            notifications that match this rule to.
+                          type: string
+                        continue:
+                          description: (Boolean) Whether to continue matching subsequent
+                            rules if an alert matches the current rule. Otherwise,
+                            the rule will be 'consumed' by the first policy to match
+                            it. Whether to continue matching subsequent rules if an
+                            alert matches the current rule. Otherwise, the rule will
+                            be 'consumed' by the first policy to match it.
+                          type: boolean
+                        groupBy:
+                          description: (List of String) A list of alert labels to
+                            group alerts into notifications by. Use the special label
+                            ... to group alerts by all labels, effectively disabling
+                            grouping. A list of alert labels to group alerts into
+                            notifications by. Use the special label `...` to group
+                            alerts by all labels, effectively disabling grouping.
+                          items:
+                            type: string
+                          type: array
+                        groupInterval:
+                          description: (String) Minimum time interval between two
+                            notifications for the same group. Default is 5 minutes.
+                            Minimum time interval between two notifications for the
+                            same group. Default is 5 minutes.
+                          type: string
+                        groupWait:
+                          description: (String) Time to wait to buffer alerts of the
+                            same group before sending a notification. Default is 30
+                            seconds. Time to wait to buffer alerts of the same group
+                            before sending a notification. Default is 30 seconds.
+                          type: string
+                        matcher:
+                          description: (Block List) Describes which labels this rule
+                            should match. When multiple matchers are supplied, an
+                            alert must match ALL matchers to be accepted by this policy.
+                            When no matchers are supplied, the rule will match all
+                            alert instances. (see below for nested schema) Describes
+                            which labels this rule should match. When multiple matchers
+                            are supplied, an alert must match ALL matchers to be accepted
+                            by this policy. When no matchers are supplied, the rule
+                            will match all alert instances.
+                          items:
+                            properties:
+                              label:
+                                description: (String) The name of the label to match
+                                  against. The name of the label to match against.
+                                type: string
+                              match:
+                                description: (String) The operator to apply when matching
+                                  values of the given label. Allowed operators are
+                                  = for equality, != for negated equality, =~ for
+                                  regex equality, and !~ for negated regex equality.
+                                  The operator to apply when matching values of the
+                                  given label. Allowed operators are `=` for equality,
+                                  `!=` for negated equality, `=~` for regex equality,
+                                  and `!~` for negated regex equality.
+                                type: string
+                              value:
+                                description: (String) The label value to match against.
+                                  The label value to match against.
+                                type: string
+                            type: object
+                          type: array
+                        muteTimings:
+                          description: (List of String) A list of mute timing names
+                            to apply to alerts that match this policy. A list of mute
+                            timing names to apply to alerts that match this policy.
+                          items:
+                            type: string
+                          type: array
+                        policy:
+                          description: (Block List) Routing rules for specific label
+                            sets. (see below for nested schema) Routing rules for
+                            specific label sets.
+                          items:
+                            properties:
+                              contactPoint:
+                                description: (String) The default contact point to
+                                  route all unmatched notifications to. The contact
+                                  point to route notifications that match this rule
+                                  to.
+                                type: string
+                              continue:
+                                description: (Boolean) Whether to continue matching
+                                  subsequent rules if an alert matches the current
+                                  rule. Otherwise, the rule will be 'consumed' by
+                                  the first policy to match it. Whether to continue
+                                  matching subsequent rules if an alert matches the
+                                  current rule. Otherwise, the rule will be 'consumed'
+                                  by the first policy to match it.
+                                type: boolean
+                              groupBy:
+                                description: (List of String) A list of alert labels
+                                  to group alerts into notifications by. Use the special
+                                  label ... to group alerts by all labels, effectively
+                                  disabling grouping. A list of alert labels to group
+                                  alerts into notifications by. Use the special label
+                                  `...` to group alerts by all labels, effectively
+                                  disabling grouping.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: (String) Minimum time interval between
+                                  two notifications for the same group. Default is
+                                  5 minutes. Minimum time interval between two notifications
+                                  for the same group. Default is 5 minutes.
+                                type: string
+                              groupWait:
+                                description: (String) Time to wait to buffer alerts
+                                  of the same group before sending a notification.
+                                  Default is 30 seconds. Time to wait to buffer alerts
+                                  of the same group before sending a notification.
+                                  Default is 30 seconds.
+                                type: string
+                              matcher:
+                                description: (Block List) Describes which labels this
+                                  rule should match. When multiple matchers are supplied,
+                                  an alert must match ALL matchers to be accepted
+                                  by this policy. When no matchers are supplied, the
+                                  rule will match all alert instances. (see below
+                                  for nested schema) Describes which labels this rule
+                                  should match. When multiple matchers are supplied,
+                                  an alert must match ALL matchers to be accepted
+                                  by this policy. When no matchers are supplied, the
+                                  rule will match all alert instances.
+                                items:
+                                  properties:
+                                    label:
+                                      description: (String) The name of the label
+                                        to match against. The name of the label to
+                                        match against.
+                                      type: string
+                                    match:
+                                      description: (String) The operator to apply
+                                        when matching values of the given label. Allowed
+                                        operators are = for equality, != for negated
+                                        equality, =~ for regex equality, and !~ for
+                                        negated regex equality. The operator to apply
+                                        when matching values of the given label. Allowed
+                                        operators are `=` for equality, `!=` for negated
+                                        equality, `=~` for regex equality, and `!~`
+                                        for negated regex equality.
+                                      type: string
+                                    value:
+                                      description: (String) The label value to match
+                                        against. The label value to match against.
+                                      type: string
+                                  type: object
+                                type: array
+                              muteTimings:
+                                description: (List of String) A list of mute timing
+                                  names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that
+                                  match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              policy:
+                                description: (Block List) Routing rules for specific
+                                  label sets. (see below for nested schema) Routing
+                                  rules for specific label sets.
+                                items:
+                                  properties:
+                                    contactPoint:
+                                      description: (String) The default contact point
+                                        to route all unmatched notifications to. The
+                                        contact point to route notifications that
+                                        match this rule to.
+                                      type: string
+                                    continue:
+                                      description: (Boolean) Whether to continue matching
+                                        subsequent rules if an alert matches the current
+                                        rule. Otherwise, the rule will be 'consumed'
+                                        by the first policy to match it. Whether to
+                                        continue matching subsequent rules if an alert
+                                        matches the current rule. Otherwise, the rule
+                                        will be 'consumed' by the first policy to
+                                        match it.
+                                      type: boolean
+                                    groupBy:
+                                      description: (List of String) A list of alert
+                                        labels to group alerts into notifications
+                                        by. Use the special label ... to group alerts
+                                        by all labels, effectively disabling grouping.
+                                        A list of alert labels to group alerts into
+                                        notifications by. Use the special label `...`
+                                        to group alerts by all labels, effectively
+                                        disabling grouping.
+                                      items:
+                                        type: string
+                                      type: array
+                                    groupInterval:
+                                      description: (String) Minimum time interval
+                                        between two notifications for the same group.
+                                        Default is 5 minutes. Minimum time interval
+                                        between two notifications for the same group.
+                                        Default is 5 minutes.
+                                      type: string
+                                    groupWait:
+                                      description: (String) Time to wait to buffer
+                                        alerts of the same group before sending a
+                                        notification. Default is 30 seconds. Time
+                                        to wait to buffer alerts of the same group
+                                        before sending a notification. Default is
+                                        30 seconds.
+                                      type: string
+                                    matcher:
+                                      description: (Block List) Describes which labels
+                                        this rule should match. When multiple matchers
+                                        are supplied, an alert must match ALL matchers
+                                        to be accepted by this policy. When no matchers
+                                        are supplied, the rule will match all alert
+                                        instances. (see below for nested schema) Describes
+                                        which labels this rule should match. When
+                                        multiple matchers are supplied, an alert must
+                                        match ALL matchers to be accepted by this
+                                        policy. When no matchers are supplied, the
+                                        rule will match all alert instances.
+                                      items:
+                                        properties:
+                                          label:
+                                            description: (String) The name of the
+                                              label to match against. The name of
+                                              the label to match against.
+                                            type: string
+                                          match:
+                                            description: (String) The operator to
+                                              apply when matching values of the given
+                                              label. Allowed operators are = for equality,
+                                              != for negated equality, =~ for regex
+                                              equality, and !~ for negated regex equality.
+                                              The operator to apply when matching
+                                              values of the given label. Allowed operators
+                                              are `=` for equality, `!=` for negated
+                                              equality, `=~` for regex equality, and
+                                              `!~` for negated regex equality.
+                                            type: string
+                                          value:
+                                            description: (String) The label value
+                                              to match against. The label value to
+                                              match against.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    muteTimings:
+                                      description: (List of String) A list of mute
+                                        timing names to apply to alerts that match
+                                        this policy. A list of mute timing names to
+                                        apply to alerts that match this policy.
+                                      items:
+                                        type: string
+                                      type: array
+                                    policy:
+                                      description: (Block List) Routing rules for
+                                        specific label sets. (see below for nested
+                                        schema) Routing rules for specific label sets.
+                                      items:
+                                        properties:
+                                          contactPoint:
+                                            description: (String) The default contact
+                                              point to route all unmatched notifications
+                                              to. The contact point to route notifications
+                                              that match this rule to.
+                                            type: string
+                                          continue:
+                                            description: (Boolean) Whether to continue
+                                              matching subsequent rules if an alert
+                                              matches the current rule. Otherwise,
+                                              the rule will be 'consumed' by the first
+                                              policy to match it. Whether to continue
+                                              matching subsequent rules if an alert
+                                              matches the current rule. Otherwise,
+                                              the rule will be 'consumed' by the first
+                                              policy to match it.
+                                            type: boolean
+                                          groupBy:
+                                            description: (List of String) A list of
+                                              alert labels to group alerts into notifications
+                                              by. Use the special label ... to group
+                                              alerts by all labels, effectively disabling
+                                              grouping. A list of alert labels to
+                                              group alerts into notifications by.
+                                              Use the special label `...` to group
+                                              alerts by all labels, effectively disabling
+                                              grouping.
+                                            items:
+                                              type: string
+                                            type: array
+                                          groupInterval:
+                                            description: (String) Minimum time interval
+                                              between two notifications for the same
+                                              group. Default is 5 minutes. Minimum
+                                              time interval between two notifications
+                                              for the same group. Default is 5 minutes.
+                                            type: string
+                                          groupWait:
+                                            description: (String) Time to wait to
+                                              buffer alerts of the same group before
+                                              sending a notification. Default is 30
+                                              seconds. Time to wait to buffer alerts
+                                              of the same group before sending a notification.
+                                              Default is 30 seconds.
+                                            type: string
+                                          matcher:
+                                            description: (Block List) Describes which
+                                              labels this rule should match. When
+                                              multiple matchers are supplied, an alert
+                                              must match ALL matchers to be accepted
+                                              by this policy. When no matchers are
+                                              supplied, the rule will match all alert
+                                              instances. (see below for nested schema)
+                                              Describes which labels this rule should
+                                              match. When multiple matchers are supplied,
+                                              an alert must match ALL matchers to
+                                              be accepted by this policy. When no
+                                              matchers are supplied, the rule will
+                                              match all alert instances.
+                                            items:
+                                              properties:
+                                                label:
+                                                  description: (String) The name of
+                                                    the label to match against. The
+                                                    name of the label to match against.
+                                                  type: string
+                                                match:
+                                                  description: (String) The operator
+                                                    to apply when matching values
+                                                    of the given label. Allowed operators
+                                                    are = for equality, != for negated
+                                                    equality, =~ for regex equality,
+                                                    and !~ for negated regex equality.
+                                                    The operator to apply when matching
+                                                    values of the given label. Allowed
+                                                    operators are `=` for equality,
+                                                    `!=` for negated equality, `=~`
+                                                    for regex equality, and `!~` for
+                                                    negated regex equality.
+                                                  type: string
+                                                value:
+                                                  description: (String) The label
+                                                    value to match against. The label
+                                                    value to match against.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          muteTimings:
+                                            description: (List of String) A list of
+                                              mute timing names to apply to alerts
+                                              that match this policy. A list of mute
+                                              timing names to apply to alerts that
+                                              match this policy.
+                                            items:
+                                              type: string
+                                            type: array
+                                          repeatInterval:
+                                            description: sending a notification if
+                                              an alert is still firing. Default is
+                                              4 hours. Minimum time interval for re-sending
+                                              a notification if an alert is still
+                                              firing. Default is 4 hours.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    repeatInterval:
+                                      description: sending a notification if an alert
+                                        is still firing. Default is 4 hours. Minimum
+                                        time interval for re-sending a notification
+                                        if an alert is still firing. Default is 4
+                                        hours.
+                                      type: string
+                                  type: object
+                                type: array
+                              repeatInterval:
+                                description: sending a notification if an alert is
+                                  still firing. Default is 4 hours. Minimum time interval
+                                  for re-sending a notification if an alert is still
+                                  firing. Default is 4 hours.
+                                type: string
+                            type: object
+                          type: array
+                        repeatInterval:
+                          description: sending a notification if an alert is still
+                            firing. Default is 4 hours. Minimum time interval for
+                            re-sending a notification if an alert is still firing.
+                            Default is 4 hours.
+                          type: string
+                      type: object
+                    type: array
+                  repeatInterval:
+                    description: sending a notification if an alert is still firing.
+                      Default is 4 hours. Minimum time interval for re-sending a notification
+                      if an alert is still firing. Default is 4 hours.
                     type: string
                 type: object
               conditions:
@@ -680,6 +1653,9 @@ spec:
                   - type
                   type: object
                 type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
             type: object
         required:
         - spec
@@ -688,9 +1664,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

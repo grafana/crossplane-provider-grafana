@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.13.0
   name: apikeys.cloud.grafana.crossplane.io
 spec:
   group: cloud.grafana.crossplane.io
@@ -35,7 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: APIKey is the Schema for the APIKeys API. <no value>
+        description: APIKey is the Schema for the APIKeys API. Manages a single API
+          key on the Grafana Cloud portal (on the organization level)
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -54,9 +54,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -64,64 +68,81 @@ spec:
               forProvider:
                 properties:
                   cloudOrgSlug:
-                    description: The slug of the organization to create the API key
+                    description: (String) The slug of the organization to create the
+                      API key in. This is the same slug as the organization name in
+                      the URL. The slug of the organization to create the API key
                       in. This is the same slug as the organization name in the URL.
                     type: string
                   name:
-                    description: Name of the API key.
+                    description: (String) Name of the API key. Name of the API key.
                     type: string
                   role:
-                    description: Role of the API key. Should be one of [Viewer Editor
-                      Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key
+                    description: cloud/api/#create-api-key for details. Role of the
+                      API key. Should be one of [Viewer Editor Admin MetricsPublisher
+                      PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key
                       for details.
                     type: string
-                required:
-                - cloudOrgSlug
-                - name
-                - role
                 type: object
+              initProvider:
+                description: THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. InitProvider
+                  holds the same fields as ForProvider, with the exception of Identifier
+                  and other resource reference fields. The fields that are in InitProvider
+                  are merged into ForProvider when the resource is created. The same
+                  fields are also added to the terraform ignore_changes hook, to avoid
+                  updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after
+                  creation, for example because of an external controller is managing
+                  them, like an autoscaler.
+                properties:
+                  cloudOrgSlug:
+                    description: (String) The slug of the organization to create the
+                      API key in. This is the same slug as the organization name in
+                      the URL. The slug of the organization to create the API key
+                      in. This is the same slug as the organization name in the URL.
+                    type: string
+                  name:
+                    description: (String) Name of the API key. Name of the API key.
+                    type: string
+                  role:
+                    description: cloud/api/#create-api-key for details. Role of the
+                      API key. Should be one of [Viewer Editor Admin MetricsPublisher
+                      PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key
+                      for details.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
                 description: ProviderConfigReference specifies how the provider that
                   will be used to create, observe, update, and delete this managed
                   resource should be configured.
-                properties:
-                  name:
-                    description: Name of the referenced object.
-                    type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
-                required:
-                - name
-                type: object
-              providerRef:
-                description: 'ProviderReference specifies the provider that will be
-                  used to create, observe, update, and delete this managed resource.
-                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -251,12 +272,41 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: cloudOrgSlug is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.cloudOrgSlug)
+                || has(self.initProvider.cloudOrgSlug)'
+            - message: name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || has(self.initProvider.name)'
+            - message: role is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.role)
+                || has(self.initProvider.role)'
           status:
             description: APIKeyStatus defines the observed state of APIKey.
             properties:
               atProvider:
                 properties:
+                  cloudOrgSlug:
+                    description: (String) The slug of the organization to create the
+                      API key in. This is the same slug as the organization name in
+                      the URL. The slug of the organization to create the API key
+                      in. This is the same slug as the organization name in the URL.
+                    type: string
                   id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: (String) Name of the API key. Name of the API key.
+                    type: string
+                  role:
+                    description: cloud/api/#create-api-key for details. Role of the
+                      API key. Should be one of [Viewer Editor Admin MetricsPublisher
+                      PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key
+                      for details.
                     type: string
                 type: object
               conditions:
@@ -292,6 +342,9 @@ spec:
                   - type
                   type: object
                 type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
             type: object
         required:
         - spec
@@ -300,9 +353,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

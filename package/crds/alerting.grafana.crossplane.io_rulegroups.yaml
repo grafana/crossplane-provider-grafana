@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.13.0
   name: rulegroups.alerting.grafana.crossplane.io
 spec:
   group: alerting.grafana.crossplane.io
@@ -35,7 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: RuleGroup is the Schema for the RuleGroups API. <no value>
+        description: RuleGroup is the Schema for the RuleGroups API. Manages Grafana
+          Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rules/HTTP
+          API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules
+          This resource requires Grafana 9.1.0 or later.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -54,9 +56,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -137,18 +143,23 @@ spec:
                         type: object
                     type: object
                   folderUid:
-                    description: The UID of the folder that the group belongs to.
+                    description: (String) The UID of the folder that the group belongs
+                      to. The UID of the folder that the group belongs to.
                     type: string
                   intervalSeconds:
-                    description: The interval, in seconds, at which all rules in the
-                      group are evaluated. If a group contains many rules, the rules
-                      are evaluated sequentially.
+                    description: (Number) The interval, in seconds, at which all rules
+                      in the group are evaluated. If a group contains many rules,
+                      the rules are evaluated sequentially. The interval, in seconds,
+                      at which all rules in the group are evaluated. If a group contains
+                      many rules, the rules are evaluated sequentially.
                     type: number
                   name:
-                    description: The name of the rule group.
+                    description: (String) The name of the rule group. The name of
+                      the rule group.
                     type: string
                   orgId:
-                    description: The ID of the org to which the group belongs.
+                    description: (String) The ID of the org to which the group belongs.
+                      The ID of the org to which the group belongs.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -224,152 +235,304 @@ spec:
                         type: object
                     type: object
                   rule:
-                    description: The rules within the group.
+                    description: '(Block List, Min: 1) The rules within the group.
+                      (see below for nested schema) The rules within the group.'
                     items:
                       properties:
                         annotations:
                           additionalProperties:
                             type: string
-                          description: Key-value pairs of metadata to attach to the
-                            alert rule that may add user-defined context, but cannot
-                            be used for matching, grouping, or routing. Defaults to
-                            `map[]`.
+                          description: value pairs of metadata to attach to the alert
+                            rule that may add user-defined context, but cannot be
+                            used for matching, grouping, or routing. Defaults to map[].
+                            Key-value pairs of metadata to attach to the alert rule
+                            that may add user-defined context, but cannot be used
+                            for matching, grouping, or routing. Defaults to `map[]`.
                           type: object
                         condition:
-                          description: The `ref_id` of the query node in the `data`
-                            field to use as the alert condition.
+                          description: (String) The ref_id of the query node in the
+                            data field to use as the alert condition. The `ref_id`
+                            of the query node in the `data` field to use as the alert
+                            condition.
                           type: string
                         data:
-                          description: A sequence of stages that describe the contents
-                            of the rule.
+                          description: '(Block List, Min: 1) A sequence of stages
+                            that describe the contents of the rule. (see below for
+                            nested schema) A sequence of stages that describe the
+                            contents of the rule.'
                           items:
                             properties:
                               datasourceUid:
-                                description: The UID of the datasource being queried,
-                                  or "-100" if this stage is an expression stage.
+                                description: 100" if this stage is an expression stage.
+                                  The UID of the datasource being queried, or "-100"
+                                  if this stage is an expression stage.
                                 type: string
                               model:
-                                description: Custom JSON data to send to the specified
-                                  datasource when querying.
+                                description: (String) Custom JSON data to send to
+                                  the specified datasource when querying. Custom JSON
+                                  data to send to the specified datasource when querying.
                                 type: string
                               queryType:
-                                description: An optional identifier for the type of
-                                  query being executed. Defaults to “.
+                                description: (String) An optional identifier for the
+                                  type of query being executed. Defaults to “. An
+                                  optional identifier for the type of query being
+                                  executed. Defaults to “.
                                 type: string
                               refId:
-                                description: A unique string to identify this query
-                                  stage within a rule.
+                                description: (String) A unique string to identify
+                                  this query stage within a rule. A unique string
+                                  to identify this query stage within a rule.
                                 type: string
                               relativeTimeRange:
-                                description: The time range, relative to when the
-                                  query is executed, across which to query.
+                                description: '(Block List, Min: 1, Max: 1) The time
+                                  range, relative to when the query is executed, across
+                                  which to query. (see below for nested schema) The
+                                  time range, relative to when the query is executed,
+                                  across which to query.'
                                 items:
                                   properties:
                                     from:
-                                      description: The number of seconds in the past,
-                                        relative to when the rule is evaluated, at
-                                        which the time range begins.
+                                      description: (Number) The number of seconds
+                                        in the past, relative to when the rule is
+                                        evaluated, at which the time range begins.
+                                        The number of seconds in the past, relative
+                                        to when the rule is evaluated, at which the
+                                        time range begins.
                                       type: number
                                     to:
-                                      description: The number of seconds in the past,
-                                        relative to when the rule is evaluated, at
-                                        which the time range ends.
+                                      description: (Number) The number of seconds
+                                        in the past, relative to when the rule is
+                                        evaluated, at which the time range ends. The
+                                        number of seconds in the past, relative to
+                                        when the rule is evaluated, at which the time
+                                        range ends.
                                       type: number
-                                  required:
-                                  - from
-                                  - to
                                   type: object
                                 type: array
-                            required:
-                            - datasourceUid
-                            - model
-                            - refId
-                            - relativeTimeRange
                             type: object
                           type: array
                         execErrState:
-                          description: Describes what state to enter when the rule's
-                            query is invalid and the rule cannot be executed. Options
-                            are OK, Error, and Alerting. Defaults to `Alerting`.
+                          description: (String) Describes what state to enter when
+                            the rule's query is invalid and the rule cannot be executed.
+                            Options are OK, Error, and Alerting. Defaults to Alerting.
+                            Describes what state to enter when the rule's query is
+                            invalid and the rule cannot be executed. Options are OK,
+                            Error, and Alerting. Defaults to `Alerting`.
                           type: string
                         for:
-                          description: The amount of time for which the rule must
-                            be breached for the rule to be considered to be Firing.
+                          description: (String) The amount of time for which the rule
+                            must be breached for the rule to be considered to be Firing.
                             Before this time has elapsed, the rule is only considered
-                            to be Pending. Defaults to `0`.
+                            to be Pending. Defaults to 0. The amount of time for which
+                            the rule must be breached for the rule to be considered
+                            to be Firing. Before this time has elapsed, the rule is
+                            only considered to be Pending. Defaults to `0`.
                           type: string
                         isPaused:
-                          description: Sets whether the alert should be paused or
-                            not. Defaults to `false`.
+                          description: (Boolean) Sets whether the alert should be
+                            paused or not. Defaults to false. Sets whether the alert
+                            should be paused or not. Defaults to `false`.
                           type: boolean
                         labels:
                           additionalProperties:
                             type: string
-                          description: Key-value pairs to attach to the alert rule
+                          description: value pairs to attach to the alert rule that
+                            can be used in matching, grouping, and routing. Defaults
+                            to map[]. Key-value pairs to attach to the alert rule
                             that can be used in matching, grouping, and routing. Defaults
                             to `map[]`.
                           type: object
                         name:
-                          description: The name of the alert rule.
+                          description: (String) The name of the rule group. The name
+                            of the alert rule.
                           type: string
                         noDataState:
-                          description: Describes what state to enter when the rule's
-                            query returns No Data. Options are OK, NoData, and Alerting.
-                            Defaults to `NoData`.
+                          description: (String) Describes what state to enter when
+                            the rule's query returns No Data. Options are OK, NoData,
+                            and Alerting. Defaults to NoData. Describes what state
+                            to enter when the rule's query returns No Data. Options
+                            are OK, NoData, and Alerting. Defaults to `NoData`.
                           type: string
-                      required:
-                      - condition
-                      - data
-                      - name
                       type: object
                     type: array
-                required:
-                - intervalSeconds
-                - name
-                - rule
                 type: object
+              initProvider:
+                description: THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. InitProvider
+                  holds the same fields as ForProvider, with the exception of Identifier
+                  and other resource reference fields. The fields that are in InitProvider
+                  are merged into ForProvider when the resource is created. The same
+                  fields are also added to the terraform ignore_changes hook, to avoid
+                  updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after
+                  creation, for example because of an external controller is managing
+                  them, like an autoscaler.
+                properties:
+                  intervalSeconds:
+                    description: (Number) The interval, in seconds, at which all rules
+                      in the group are evaluated. If a group contains many rules,
+                      the rules are evaluated sequentially. The interval, in seconds,
+                      at which all rules in the group are evaluated. If a group contains
+                      many rules, the rules are evaluated sequentially.
+                    type: number
+                  name:
+                    description: (String) The name of the rule group. The name of
+                      the rule group.
+                    type: string
+                  rule:
+                    description: '(Block List, Min: 1) The rules within the group.
+                      (see below for nested schema) The rules within the group.'
+                    items:
+                      properties:
+                        annotations:
+                          additionalProperties:
+                            type: string
+                          description: value pairs of metadata to attach to the alert
+                            rule that may add user-defined context, but cannot be
+                            used for matching, grouping, or routing. Defaults to map[].
+                            Key-value pairs of metadata to attach to the alert rule
+                            that may add user-defined context, but cannot be used
+                            for matching, grouping, or routing. Defaults to `map[]`.
+                          type: object
+                        condition:
+                          description: (String) The ref_id of the query node in the
+                            data field to use as the alert condition. The `ref_id`
+                            of the query node in the `data` field to use as the alert
+                            condition.
+                          type: string
+                        data:
+                          description: '(Block List, Min: 1) A sequence of stages
+                            that describe the contents of the rule. (see below for
+                            nested schema) A sequence of stages that describe the
+                            contents of the rule.'
+                          items:
+                            properties:
+                              datasourceUid:
+                                description: 100" if this stage is an expression stage.
+                                  The UID of the datasource being queried, or "-100"
+                                  if this stage is an expression stage.
+                                type: string
+                              model:
+                                description: (String) Custom JSON data to send to
+                                  the specified datasource when querying. Custom JSON
+                                  data to send to the specified datasource when querying.
+                                type: string
+                              queryType:
+                                description: (String) An optional identifier for the
+                                  type of query being executed. Defaults to “. An
+                                  optional identifier for the type of query being
+                                  executed. Defaults to “.
+                                type: string
+                              refId:
+                                description: (String) A unique string to identify
+                                  this query stage within a rule. A unique string
+                                  to identify this query stage within a rule.
+                                type: string
+                              relativeTimeRange:
+                                description: '(Block List, Min: 1, Max: 1) The time
+                                  range, relative to when the query is executed, across
+                                  which to query. (see below for nested schema) The
+                                  time range, relative to when the query is executed,
+                                  across which to query.'
+                                items:
+                                  properties:
+                                    from:
+                                      description: (Number) The number of seconds
+                                        in the past, relative to when the rule is
+                                        evaluated, at which the time range begins.
+                                        The number of seconds in the past, relative
+                                        to when the rule is evaluated, at which the
+                                        time range begins.
+                                      type: number
+                                    to:
+                                      description: (Number) The number of seconds
+                                        in the past, relative to when the rule is
+                                        evaluated, at which the time range ends. The
+                                        number of seconds in the past, relative to
+                                        when the rule is evaluated, at which the time
+                                        range ends.
+                                      type: number
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        execErrState:
+                          description: (String) Describes what state to enter when
+                            the rule's query is invalid and the rule cannot be executed.
+                            Options are OK, Error, and Alerting. Defaults to Alerting.
+                            Describes what state to enter when the rule's query is
+                            invalid and the rule cannot be executed. Options are OK,
+                            Error, and Alerting. Defaults to `Alerting`.
+                          type: string
+                        for:
+                          description: (String) The amount of time for which the rule
+                            must be breached for the rule to be considered to be Firing.
+                            Before this time has elapsed, the rule is only considered
+                            to be Pending. Defaults to 0. The amount of time for which
+                            the rule must be breached for the rule to be considered
+                            to be Firing. Before this time has elapsed, the rule is
+                            only considered to be Pending. Defaults to `0`.
+                          type: string
+                        isPaused:
+                          description: (Boolean) Sets whether the alert should be
+                            paused or not. Defaults to false. Sets whether the alert
+                            should be paused or not. Defaults to `false`.
+                          type: boolean
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: value pairs to attach to the alert rule that
+                            can be used in matching, grouping, and routing. Defaults
+                            to map[]. Key-value pairs to attach to the alert rule
+                            that can be used in matching, grouping, and routing. Defaults
+                            to `map[]`.
+                          type: object
+                        name:
+                          description: (String) The name of the rule group. The name
+                            of the alert rule.
+                          type: string
+                        noDataState:
+                          description: (String) Describes what state to enter when
+                            the rule's query returns No Data. Options are OK, NoData,
+                            and Alerting. Defaults to NoData. Describes what state
+                            to enter when the rule's query returns No Data. Options
+                            are OK, NoData, and Alerting. Defaults to `NoData`.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
                 description: ProviderConfigReference specifies how the provider that
                   will be used to create, observe, update, and delete this managed
                   resource should be configured.
-                properties:
-                  name:
-                    description: Name of the referenced object.
-                    type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
-                required:
-                - name
-                type: object
-              providerRef:
-                description: 'ProviderReference specifies the provider that will be
-                  used to create, observe, update, and delete this managed resource.
-                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -499,19 +662,168 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: intervalSeconds is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.intervalSeconds)
+                || has(self.initProvider.intervalSeconds)'
+            - message: name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || has(self.initProvider.name)'
+            - message: rule is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.rule)
+                || has(self.initProvider.rule)'
           status:
             description: RuleGroupStatus defines the observed state of RuleGroup.
             properties:
               atProvider:
                 properties:
+                  folderUid:
+                    description: (String) The UID of the folder that the group belongs
+                      to. The UID of the folder that the group belongs to.
+                    type: string
                   id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  intervalSeconds:
+                    description: (Number) The interval, in seconds, at which all rules
+                      in the group are evaluated. If a group contains many rules,
+                      the rules are evaluated sequentially. The interval, in seconds,
+                      at which all rules in the group are evaluated. If a group contains
+                      many rules, the rules are evaluated sequentially.
+                    type: number
+                  name:
+                    description: (String) The name of the rule group. The name of
+                      the rule group.
+                    type: string
+                  orgId:
+                    description: (String) The ID of the org to which the group belongs.
+                      The ID of the org to which the group belongs.
                     type: string
                   rule:
-                    description: The rules within the group.
+                    description: '(Block List, Min: 1) The rules within the group.
+                      (see below for nested schema) The rules within the group.'
                     items:
                       properties:
+                        annotations:
+                          additionalProperties:
+                            type: string
+                          description: value pairs of metadata to attach to the alert
+                            rule that may add user-defined context, but cannot be
+                            used for matching, grouping, or routing. Defaults to map[].
+                            Key-value pairs of metadata to attach to the alert rule
+                            that may add user-defined context, but cannot be used
+                            for matching, grouping, or routing. Defaults to `map[]`.
+                          type: object
+                        condition:
+                          description: (String) The ref_id of the query node in the
+                            data field to use as the alert condition. The `ref_id`
+                            of the query node in the `data` field to use as the alert
+                            condition.
+                          type: string
+                        data:
+                          description: '(Block List, Min: 1) A sequence of stages
+                            that describe the contents of the rule. (see below for
+                            nested schema) A sequence of stages that describe the
+                            contents of the rule.'
+                          items:
+                            properties:
+                              datasourceUid:
+                                description: 100" if this stage is an expression stage.
+                                  The UID of the datasource being queried, or "-100"
+                                  if this stage is an expression stage.
+                                type: string
+                              model:
+                                description: (String) Custom JSON data to send to
+                                  the specified datasource when querying. Custom JSON
+                                  data to send to the specified datasource when querying.
+                                type: string
+                              queryType:
+                                description: (String) An optional identifier for the
+                                  type of query being executed. Defaults to “. An
+                                  optional identifier for the type of query being
+                                  executed. Defaults to “.
+                                type: string
+                              refId:
+                                description: (String) A unique string to identify
+                                  this query stage within a rule. A unique string
+                                  to identify this query stage within a rule.
+                                type: string
+                              relativeTimeRange:
+                                description: '(Block List, Min: 1, Max: 1) The time
+                                  range, relative to when the query is executed, across
+                                  which to query. (see below for nested schema) The
+                                  time range, relative to when the query is executed,
+                                  across which to query.'
+                                items:
+                                  properties:
+                                    from:
+                                      description: (Number) The number of seconds
+                                        in the past, relative to when the rule is
+                                        evaluated, at which the time range begins.
+                                        The number of seconds in the past, relative
+                                        to when the rule is evaluated, at which the
+                                        time range begins.
+                                      type: number
+                                    to:
+                                      description: (Number) The number of seconds
+                                        in the past, relative to when the rule is
+                                        evaluated, at which the time range ends. The
+                                        number of seconds in the past, relative to
+                                        when the rule is evaluated, at which the time
+                                        range ends.
+                                      type: number
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        execErrState:
+                          description: (String) Describes what state to enter when
+                            the rule's query is invalid and the rule cannot be executed.
+                            Options are OK, Error, and Alerting. Defaults to Alerting.
+                            Describes what state to enter when the rule's query is
+                            invalid and the rule cannot be executed. Options are OK,
+                            Error, and Alerting. Defaults to `Alerting`.
+                          type: string
+                        for:
+                          description: (String) The amount of time for which the rule
+                            must be breached for the rule to be considered to be Firing.
+                            Before this time has elapsed, the rule is only considered
+                            to be Pending. Defaults to 0. The amount of time for which
+                            the rule must be breached for the rule to be considered
+                            to be Firing. Before this time has elapsed, the rule is
+                            only considered to be Pending. Defaults to `0`.
+                          type: string
+                        isPaused:
+                          description: (Boolean) Sets whether the alert should be
+                            paused or not. Defaults to false. Sets whether the alert
+                            should be paused or not. Defaults to `false`.
+                          type: boolean
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: value pairs to attach to the alert rule that
+                            can be used in matching, grouping, and routing. Defaults
+                            to map[]. Key-value pairs to attach to the alert rule
+                            that can be used in matching, grouping, and routing. Defaults
+                            to `map[]`.
+                          type: object
+                        name:
+                          description: (String) The name of the rule group. The name
+                            of the alert rule.
+                          type: string
+                        noDataState:
+                          description: (String) Describes what state to enter when
+                            the rule's query returns No Data. Options are OK, NoData,
+                            and Alerting. Defaults to NoData. Describes what state
+                            to enter when the rule's query returns No Data. Options
+                            are OK, NoData, and Alerting. Defaults to `NoData`.
+                          type: string
                         uid:
-                          description: The unique identifier of the alert rule.
+                          description: (String) The unique identifier of the alert
+                            rule. The unique identifier of the alert rule.
                           type: string
                       type: object
                     type: array
@@ -549,6 +861,9 @@ spec:
                   - type
                   type: object
                 type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
             type: object
         required:
         - spec
@@ -557,9 +872,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

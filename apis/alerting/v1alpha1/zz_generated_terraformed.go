@@ -69,6 +69,16 @@ func (tr *ContactPoint) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this ContactPoint
+func (tr *ContactPoint) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this ContactPoint using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *ContactPoint) LateInitialize(attrs []byte) (bool, error) {
@@ -141,6 +151,16 @@ func (tr *MessageTemplate) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this MessageTemplate
+func (tr *MessageTemplate) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this MessageTemplate using its observed tfState.
@@ -217,6 +237,16 @@ func (tr *MuteTiming) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this MuteTiming
+func (tr *MuteTiming) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this MuteTiming using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *MuteTiming) LateInitialize(attrs []byte) (bool, error) {
@@ -291,6 +321,16 @@ func (tr *NotificationPolicy) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this NotificationPolicy
+func (tr *NotificationPolicy) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this NotificationPolicy using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *NotificationPolicy) LateInitialize(attrs []byte) (bool, error) {
@@ -363,6 +403,16 @@ func (tr *RuleGroup) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this RuleGroup
+func (tr *RuleGroup) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this RuleGroup using its observed tfState.

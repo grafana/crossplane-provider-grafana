@@ -13,12 +13,37 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type StackServiceAccountTokenInitParameters struct {
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Number)
+	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+}
+
 type StackServiceAccountTokenObservation struct {
+
+	// (String)
 	Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
 
+	// (Boolean)
 	HasExpired *bool `json:"hasExpired,omitempty" tf:"has_expired,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Number)
+	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+
+	// (String)
+	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+
+	// (String)
+	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 }
 
 type StackServiceAccountTokenParameters struct {
@@ -31,12 +56,15 @@ type StackServiceAccountTokenParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Number)
 	// +kubebuilder:validation:Optional
 	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 
+	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.StackServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
@@ -51,6 +79,7 @@ type StackServiceAccountTokenParameters struct {
 	// +kubebuilder:validation:Optional
 	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
+	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.CloudStackSlugExtractor()
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
@@ -63,6 +92,18 @@ type StackServiceAccountTokenParameters struct {
 type StackServiceAccountTokenSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     StackServiceAccountTokenParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider StackServiceAccountTokenInitParameters `json:"initProvider,omitempty"`
 }
 
 // StackServiceAccountTokenStatus defines the observed state of StackServiceAccountToken.
@@ -73,7 +114,7 @@ type StackServiceAccountTokenStatus struct {
 
 // +kubebuilder:object:root=true
 
-// StackServiceAccountToken is the Schema for the StackServiceAccountTokens API. <no value>
+// StackServiceAccountToken is the Schema for the StackServiceAccountTokens API. Note: This resource is available only with Grafana 9.1+. Manages service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -83,8 +124,9 @@ type StackServiceAccountTokenStatus struct {
 type StackServiceAccountToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              StackServiceAccountTokenSpec   `json:"spec"`
-	Status            StackServiceAccountTokenStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	Spec   StackServiceAccountTokenSpec   `json:"spec"`
+	Status StackServiceAccountTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

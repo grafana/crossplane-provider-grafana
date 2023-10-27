@@ -13,429 +13,1202 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type BasicAuthInitParameters struct {
+
+	// (String) Basic auth password.
+	// Basic auth password.
+	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+
+	// (String) Basic auth username.
+	// Basic auth username.
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
 type BasicAuthObservation struct {
+
+	// (String) Basic auth password.
+	// Basic auth password.
+	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+
+	// (String) Basic auth username.
+	// Basic auth username.
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type BasicAuthParameters struct {
 
+	// (String) Basic auth password.
 	// Basic auth password.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Password *string `json:"password" tf:"password,omitempty"`
 
+	// (String) Basic auth username.
 	// Basic auth username.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Username *string `json:"username" tf:"username,omitempty"`
 }
 
+type CheckInitParameters struct {
+
+	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
+	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/). Defaults to `none`.
+	AlertSensitivity *string `json:"alertSensitivity,omitempty" tf:"alert_sensitivity,omitempty"`
+
+	// (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
+	// Metrics are reduced by default. Set this to `false` if you'd like to publish all metrics. We maintain a [full list of metrics](https://github.com/grafana/synthetic-monitoring-agent/tree/main/internal/scraper/testdata) collected for each. Defaults to `true`.
+	BasicMetricsOnly *bool `json:"basicMetricsOnly,omitempty" tf:"basic_metrics_only,omitempty"`
+
+	// (Boolean) Whether to enable the check. Defaults to true.
+	// Whether to enable the check. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 120 seconds (120000 ms). Defaults to 60000.
+	// How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 120 seconds (120000 ms). Defaults to `60000`.
+	Frequency *float64 `json:"frequency,omitempty" tf:"frequency,omitempty"`
+
+	// (String) Name used for job label.
+	// Name used for job label.
+	Job *string `json:"job,omitempty" tf:"job,omitempty"`
+
+	// specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
+	// Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (Set of Number) List of probe location IDs where this target will be checked from.
+	// List of probe location IDs where this target will be checked from.
+	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
+
+	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
+	// Check settings. Should contain exactly one nested block.
+	Settings []SettingsInitParameters `json:"settings,omitempty" tf:"settings,omitempty"`
+
+	// (String) Hostname to ping.
+	// Hostname to ping.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
+	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to `3000`.
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
 type CheckObservation struct {
+
+	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
+	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/). Defaults to `none`.
+	AlertSensitivity *string `json:"alertSensitivity,omitempty" tf:"alert_sensitivity,omitempty"`
+
+	// (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
+	// Metrics are reduced by default. Set this to `false` if you'd like to publish all metrics. We maintain a [full list of metrics](https://github.com/grafana/synthetic-monitoring-agent/tree/main/internal/scraper/testdata) collected for each. Defaults to `true`.
+	BasicMetricsOnly *bool `json:"basicMetricsOnly,omitempty" tf:"basic_metrics_only,omitempty"`
+
+	// (Boolean) Whether to enable the check. Defaults to true.
+	// Whether to enable the check. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 120 seconds (120000 ms). Defaults to 60000.
+	// How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 120 seconds (120000 ms). Defaults to `60000`.
+	Frequency *float64 `json:"frequency,omitempty" tf:"frequency,omitempty"`
+
+	// (String) The ID of the check.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) Name used for job label.
+	// Name used for job label.
+	Job *string `json:"job,omitempty" tf:"job,omitempty"`
+
+	// specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
+	// Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (Set of Number) List of probe location IDs where this target will be checked from.
+	// List of probe location IDs where this target will be checked from.
+	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
+
+	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
+	// Check settings. Should contain exactly one nested block.
+	Settings []SettingsObservation `json:"settings,omitempty" tf:"settings,omitempty"`
+
+	// (String) Hostname to ping.
+	// Hostname to ping.
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// (Number) The tenant ID of the check.
 	// The tenant ID of the check.
 	TenantID *float64 `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+
+	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
+	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to `3000`.
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }
 
 type CheckParameters struct {
 
+	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
 	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/). Defaults to `none`.
 	// +kubebuilder:validation:Optional
 	AlertSensitivity *string `json:"alertSensitivity,omitempty" tf:"alert_sensitivity,omitempty"`
 
+	// (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
 	// Metrics are reduced by default. Set this to `false` if you'd like to publish all metrics. We maintain a [full list of metrics](https://github.com/grafana/synthetic-monitoring-agent/tree/main/internal/scraper/testdata) collected for each. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	BasicMetricsOnly *bool `json:"basicMetricsOnly,omitempty" tf:"basic_metrics_only,omitempty"`
 
+	// (Boolean) Whether to enable the check. Defaults to true.
 	// Whether to enable the check. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 120 seconds (120000 ms). Defaults to 60000.
 	// How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 120 seconds (120000 ms). Defaults to `60000`.
 	// +kubebuilder:validation:Optional
 	Frequency *float64 `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
+	// (String) Name used for job label.
 	// Name used for job label.
-	// +kubebuilder:validation:Required
-	Job *string `json:"job" tf:"job,omitempty"`
+	// +kubebuilder:validation:Optional
+	Job *string `json:"job,omitempty" tf:"job,omitempty"`
 
+	// specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
 	// Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
 	// +kubebuilder:validation:Optional
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (Set of Number) List of probe location IDs where this target will be checked from.
 	// List of probe location IDs where this target will be checked from.
-	// +kubebuilder:validation:Required
-	Probes []*float64 `json:"probes" tf:"probes,omitempty"`
+	// +kubebuilder:validation:Optional
+	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
 
+	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
 	// Check settings. Should contain exactly one nested block.
-	// +kubebuilder:validation:Required
-	Settings []SettingsParameters `json:"settings" tf:"settings,omitempty"`
+	// +kubebuilder:validation:Optional
+	Settings []SettingsParameters `json:"settings,omitempty" tf:"settings,omitempty"`
 
+	// (String) Hostname to ping.
 	// Hostname to ping.
-	// +kubebuilder:validation:Required
-	Target *string `json:"target" tf:"target,omitempty"`
+	// +kubebuilder:validation:Optional
+	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
+	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
 	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to `3000`.
 	// +kubebuilder:validation:Optional
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }
 
+type DNSInitParameters struct {
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (Number) Port to target. Defaults to 53.
+	// Port to target. Defaults to `53`.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// (String) TCP or UDP. Defaults to UDP.
+	// `TCP` or `UDP`. Defaults to `UDP`.
+	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
+
+	// (String) One of ANY, A, AAAA, CNAME, MX, NS, PTR, SOA, SRV, TXT. Defaults to A.
+	// One of `ANY`, `A`, `AAAA`, `CNAME`, `MX`, `NS`, `PTR`, `SOA`, `SRV`, `TXT`. Defaults to `A`.
+	RecordType *string `json:"recordType,omitempty" tf:"record_type,omitempty"`
+
+	// (String) DNS server address to target. Defaults to 8.8.8.8.
+	// DNS server address to target. Defaults to `8.8.8.8`.
+	Server *string `json:"server,omitempty" tf:"server,omitempty"`
+
+	// (String) Source IP address.
+	// Source IP address.
+	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
+
+	// (Set of String) List of valid response codes. Options include NOERROR, BADALG, BADMODE, BADKEY, BADCOOKIE, BADNAME, BADSIG, BADTIME, BADTRUNC, BADVERS, FORMERR, NOTIMP, NOTAUTH, NOTZONE, NXDOMAIN, NXRRSET, REFUSED, SERVFAIL, YXDOMAIN, YXRRSET.
+	// List of valid response codes. Options include `NOERROR`, `BADALG`, `BADMODE`, `BADKEY`, `BADCOOKIE`, `BADNAME`, `BADSIG`, `BADTIME`, `BADTRUNC`, `BADVERS`, `FORMERR`, `NOTIMP`, `NOTAUTH`, `NOTZONE`, `NXDOMAIN`, `NXRRSET`, `REFUSED`, `SERVFAIL`, `YXDOMAIN`, `YXRRSET`.
+	ValidRCodes []*string `json:"validRCodes,omitempty" tf:"valid_r_codes,omitempty"`
+
+	// (Block Set) Validate additional matches. (see below for nested schema)
+	// Validate additional matches.
+	ValidateAdditionalRrs []ValidateAdditionalRrsInitParameters `json:"validateAdditionalRrs,omitempty" tf:"validate_additional_rrs,omitempty"`
+
+	// (Block Set, Max: 1) Validate response answer. (see below for nested schema)
+	// Validate response answer.
+	ValidateAnswerRrs []ValidateAnswerRrsInitParameters `json:"validateAnswerRrs,omitempty" tf:"validate_answer_rrs,omitempty"`
+
+	// (Block Set, Max: 1) Validate response authority. (see below for nested schema)
+	// Validate response authority.
+	ValidateAuthorityRrs []ValidateAuthorityRrsInitParameters `json:"validateAuthorityRrs,omitempty" tf:"validate_authority_rrs,omitempty"`
+}
+
 type DNSObservation struct {
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (Number) Port to target. Defaults to 53.
+	// Port to target. Defaults to `53`.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// (String) TCP or UDP. Defaults to UDP.
+	// `TCP` or `UDP`. Defaults to `UDP`.
+	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
+
+	// (String) One of ANY, A, AAAA, CNAME, MX, NS, PTR, SOA, SRV, TXT. Defaults to A.
+	// One of `ANY`, `A`, `AAAA`, `CNAME`, `MX`, `NS`, `PTR`, `SOA`, `SRV`, `TXT`. Defaults to `A`.
+	RecordType *string `json:"recordType,omitempty" tf:"record_type,omitempty"`
+
+	// (String) DNS server address to target. Defaults to 8.8.8.8.
+	// DNS server address to target. Defaults to `8.8.8.8`.
+	Server *string `json:"server,omitempty" tf:"server,omitempty"`
+
+	// (String) Source IP address.
+	// Source IP address.
+	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
+
+	// (Set of String) List of valid response codes. Options include NOERROR, BADALG, BADMODE, BADKEY, BADCOOKIE, BADNAME, BADSIG, BADTIME, BADTRUNC, BADVERS, FORMERR, NOTIMP, NOTAUTH, NOTZONE, NXDOMAIN, NXRRSET, REFUSED, SERVFAIL, YXDOMAIN, YXRRSET.
+	// List of valid response codes. Options include `NOERROR`, `BADALG`, `BADMODE`, `BADKEY`, `BADCOOKIE`, `BADNAME`, `BADSIG`, `BADTIME`, `BADTRUNC`, `BADVERS`, `FORMERR`, `NOTIMP`, `NOTAUTH`, `NOTZONE`, `NXDOMAIN`, `NXRRSET`, `REFUSED`, `SERVFAIL`, `YXDOMAIN`, `YXRRSET`.
+	ValidRCodes []*string `json:"validRCodes,omitempty" tf:"valid_r_codes,omitempty"`
+
+	// (Block Set) Validate additional matches. (see below for nested schema)
+	// Validate additional matches.
+	ValidateAdditionalRrs []ValidateAdditionalRrsObservation `json:"validateAdditionalRrs,omitempty" tf:"validate_additional_rrs,omitempty"`
+
+	// (Block Set, Max: 1) Validate response answer. (see below for nested schema)
+	// Validate response answer.
+	ValidateAnswerRrs []ValidateAnswerRrsObservation `json:"validateAnswerRrs,omitempty" tf:"validate_answer_rrs,omitempty"`
+
+	// (Block Set, Max: 1) Validate response authority. (see below for nested schema)
+	// Validate response authority.
+	ValidateAuthorityRrs []ValidateAuthorityRrsObservation `json:"validateAuthorityRrs,omitempty" tf:"validate_authority_rrs,omitempty"`
 }
 
 type DNSParameters struct {
 
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
 	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
 	// +kubebuilder:validation:Optional
 	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 
+	// (Number) Port to target. Defaults to 53.
 	// Port to target. Defaults to `53`.
 	// +kubebuilder:validation:Optional
 	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
 
+	// (String) TCP or UDP. Defaults to UDP.
 	// `TCP` or `UDP`. Defaults to `UDP`.
 	// +kubebuilder:validation:Optional
 	Protocol *string `json:"protocol,omitempty" tf:"protocol,omitempty"`
 
+	// (String) One of ANY, A, AAAA, CNAME, MX, NS, PTR, SOA, SRV, TXT. Defaults to A.
 	// One of `ANY`, `A`, `AAAA`, `CNAME`, `MX`, `NS`, `PTR`, `SOA`, `SRV`, `TXT`. Defaults to `A`.
 	// +kubebuilder:validation:Optional
 	RecordType *string `json:"recordType,omitempty" tf:"record_type,omitempty"`
 
+	// (String) DNS server address to target. Defaults to 8.8.8.8.
 	// DNS server address to target. Defaults to `8.8.8.8`.
 	// +kubebuilder:validation:Optional
 	Server *string `json:"server,omitempty" tf:"server,omitempty"`
 
+	// (String) Source IP address.
 	// Source IP address.
 	// +kubebuilder:validation:Optional
 	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
 
+	// (Set of String) List of valid response codes. Options include NOERROR, BADALG, BADMODE, BADKEY, BADCOOKIE, BADNAME, BADSIG, BADTIME, BADTRUNC, BADVERS, FORMERR, NOTIMP, NOTAUTH, NOTZONE, NXDOMAIN, NXRRSET, REFUSED, SERVFAIL, YXDOMAIN, YXRRSET.
 	// List of valid response codes. Options include `NOERROR`, `BADALG`, `BADMODE`, `BADKEY`, `BADCOOKIE`, `BADNAME`, `BADSIG`, `BADTIME`, `BADTRUNC`, `BADVERS`, `FORMERR`, `NOTIMP`, `NOTAUTH`, `NOTZONE`, `NXDOMAIN`, `NXRRSET`, `REFUSED`, `SERVFAIL`, `YXDOMAIN`, `YXRRSET`.
 	// +kubebuilder:validation:Optional
 	ValidRCodes []*string `json:"validRCodes,omitempty" tf:"valid_r_codes,omitempty"`
 
+	// (Block Set) Validate additional matches. (see below for nested schema)
 	// Validate additional matches.
 	// +kubebuilder:validation:Optional
 	ValidateAdditionalRrs []ValidateAdditionalRrsParameters `json:"validateAdditionalRrs,omitempty" tf:"validate_additional_rrs,omitempty"`
 
+	// (Block Set, Max: 1) Validate response answer. (see below for nested schema)
 	// Validate response answer.
 	// +kubebuilder:validation:Optional
 	ValidateAnswerRrs []ValidateAnswerRrsParameters `json:"validateAnswerRrs,omitempty" tf:"validate_answer_rrs,omitempty"`
 
+	// (Block Set, Max: 1) Validate response authority. (see below for nested schema)
 	// Validate response authority.
 	// +kubebuilder:validation:Optional
 	ValidateAuthorityRrs []ValidateAuthorityRrsParameters `json:"validateAuthorityRrs,omitempty" tf:"validate_authority_rrs,omitempty"`
 }
 
+type FailIfHeaderMatchesRegexpInitParameters struct {
+
+	// (Boolean) Allow header to be missing from responses. Defaults to false.
+	// Allow header to be missing from responses. Defaults to `false`.
+	AllowMissing *bool `json:"allowMissing,omitempty" tf:"allow_missing,omitempty"`
+
+	// (String) Header name.
+	// Header name.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// (String) Regex that header value should match.
+	// Regex that header value should match.
+	Regexp *string `json:"regexp,omitempty" tf:"regexp,omitempty"`
+}
+
 type FailIfHeaderMatchesRegexpObservation struct {
+
+	// (Boolean) Allow header to be missing from responses. Defaults to false.
+	// Allow header to be missing from responses. Defaults to `false`.
+	AllowMissing *bool `json:"allowMissing,omitempty" tf:"allow_missing,omitempty"`
+
+	// (String) Header name.
+	// Header name.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// (String) Regex that header value should match.
+	// Regex that header value should match.
+	Regexp *string `json:"regexp,omitempty" tf:"regexp,omitempty"`
 }
 
 type FailIfHeaderMatchesRegexpParameters struct {
 
+	// (Boolean) Allow header to be missing from responses. Defaults to false.
 	// Allow header to be missing from responses. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	AllowMissing *bool `json:"allowMissing,omitempty" tf:"allow_missing,omitempty"`
 
+	// (String) Header name.
 	// Header name.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Header *string `json:"header" tf:"header,omitempty"`
 
+	// (String) Regex that header value should match.
 	// Regex that header value should match.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Regexp *string `json:"regexp" tf:"regexp,omitempty"`
 }
 
+type FailIfHeaderNotMatchesRegexpInitParameters struct {
+
+	// (Boolean) Allow header to be missing from responses. Defaults to false.
+	// Allow header to be missing from responses. Defaults to `false`.
+	AllowMissing *bool `json:"allowMissing,omitempty" tf:"allow_missing,omitempty"`
+
+	// (String) Header name.
+	// Header name.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// (String) Regex that header value should match.
+	// Regex that header value should match.
+	Regexp *string `json:"regexp,omitempty" tf:"regexp,omitempty"`
+}
+
 type FailIfHeaderNotMatchesRegexpObservation struct {
+
+	// (Boolean) Allow header to be missing from responses. Defaults to false.
+	// Allow header to be missing from responses. Defaults to `false`.
+	AllowMissing *bool `json:"allowMissing,omitempty" tf:"allow_missing,omitempty"`
+
+	// (String) Header name.
+	// Header name.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// (String) Regex that header value should match.
+	// Regex that header value should match.
+	Regexp *string `json:"regexp,omitempty" tf:"regexp,omitempty"`
 }
 
 type FailIfHeaderNotMatchesRegexpParameters struct {
 
+	// (Boolean) Allow header to be missing from responses. Defaults to false.
 	// Allow header to be missing from responses. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	AllowMissing *bool `json:"allowMissing,omitempty" tf:"allow_missing,omitempty"`
 
+	// (String) Header name.
 	// Header name.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Header *string `json:"header" tf:"header,omitempty"`
 
+	// (String) Regex that header value should match.
 	// Regex that header value should match.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Regexp *string `json:"regexp" tf:"regexp,omitempty"`
 }
 
+type HTTPInitParameters struct {
+
+	// (Block Set, Max: 1) Basic auth settings. (see below for nested schema)
+	// Basic auth settings.
+	BasicAuth []BasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+
+	// (String) Token for use with bearer authorization header.
+	// Token for use with bearer authorization header.
+	BearerToken *string `json:"bearerToken,omitempty" tf:"bearer_token,omitempty"`
+
+	// (String) The body of the HTTP request used in probe.
+	// The body of the HTTP request used in probe.
+	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
+	// The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
+	CacheBustingQueryParamName *string `json:"cacheBustingQueryParamName,omitempty" tf:"cache_busting_query_param_name,omitempty"`
+
+	// (Set of String) List of regexes. If any match the response body, the check will fail.
+	// List of regexes. If any match the response body, the check will fail.
+	FailIfBodyMatchesRegexp []*string `json:"failIfBodyMatchesRegexp,omitempty" tf:"fail_if_body_matches_regexp,omitempty"`
+
+	// (Set of String) List of regexes. If any do not match the response body, the check will fail.
+	// List of regexes. If any do not match the response body, the check will fail.
+	FailIfBodyNotMatchesRegexp []*string `json:"failIfBodyNotMatchesRegexp,omitempty" tf:"fail_if_body_not_matches_regexp,omitempty"`
+
+	// (Block Set) Check fails if headers match. (see below for nested schema)
+	// Check fails if headers match.
+	FailIfHeaderMatchesRegexp []FailIfHeaderMatchesRegexpInitParameters `json:"failIfHeaderMatchesRegexp,omitempty" tf:"fail_if_header_matches_regexp,omitempty"`
+
+	// (Block Set) Check fails if headers do not match. (see below for nested schema)
+	// Check fails if headers do not match.
+	FailIfHeaderNotMatchesRegexp []FailIfHeaderNotMatchesRegexpInitParameters `json:"failIfHeaderNotMatchesRegexp,omitempty" tf:"fail_if_header_not_matches_regexp,omitempty"`
+
+	// (Boolean) Fail if SSL is not present. Defaults to false.
+	// Fail if SSL is not present. Defaults to `false`.
+	FailIfNotSSL *bool `json:"failIfNotSsl,omitempty" tf:"fail_if_not_ssl,omitempty"`
+
+	// (Boolean) Fail if SSL is present. Defaults to false.
+	// Fail if SSL is present. Defaults to `false`.
+	FailIfSSL *bool `json:"failIfSsl,omitempty" tf:"fail_if_ssl,omitempty"`
+
+	// (Set of String) The HTTP headers set for the probe.
+	// The HTTP headers set for the probe.
+	Headers []*string `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (String) Request method. One of GET, CONNECT, DELETE, HEAD, OPTIONS, POST, PUT, TRACE Defaults to GET.
+	// Request method. One of `GET`, `CONNECT`, `DELETE`, `HEAD`, `OPTIONS`, `POST`, `PUT`, `TRACE` Defaults to `GET`.
+	Method *string `json:"method,omitempty" tf:"method,omitempty"`
+
+	// (Boolean) Do not follow redirects. Defaults to false.
+	// Do not follow redirects. Defaults to `false`.
+	NoFollowRedirects *bool `json:"noFollowRedirects,omitempty" tf:"no_follow_redirects,omitempty"`
+
+	// (String) Proxy URL.
+	// Proxy URL.
+	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
+
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
+	// TLS config.
+	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
+	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2
+	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2`
+	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
+
+	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
+	// Accepted status codes. If unset, defaults to 2xx.
+	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
+}
+
 type HTTPObservation struct {
+
+	// (Block Set, Max: 1) Basic auth settings. (see below for nested schema)
+	// Basic auth settings.
+	BasicAuth []BasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
+
+	// (String) Token for use with bearer authorization header.
+	// Token for use with bearer authorization header.
+	BearerToken *string `json:"bearerToken,omitempty" tf:"bearer_token,omitempty"`
+
+	// (String) The body of the HTTP request used in probe.
+	// The body of the HTTP request used in probe.
+	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
+	// The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
+	CacheBustingQueryParamName *string `json:"cacheBustingQueryParamName,omitempty" tf:"cache_busting_query_param_name,omitempty"`
+
+	// (Set of String) List of regexes. If any match the response body, the check will fail.
+	// List of regexes. If any match the response body, the check will fail.
+	FailIfBodyMatchesRegexp []*string `json:"failIfBodyMatchesRegexp,omitempty" tf:"fail_if_body_matches_regexp,omitempty"`
+
+	// (Set of String) List of regexes. If any do not match the response body, the check will fail.
+	// List of regexes. If any do not match the response body, the check will fail.
+	FailIfBodyNotMatchesRegexp []*string `json:"failIfBodyNotMatchesRegexp,omitempty" tf:"fail_if_body_not_matches_regexp,omitempty"`
+
+	// (Block Set) Check fails if headers match. (see below for nested schema)
+	// Check fails if headers match.
+	FailIfHeaderMatchesRegexp []FailIfHeaderMatchesRegexpObservation `json:"failIfHeaderMatchesRegexp,omitempty" tf:"fail_if_header_matches_regexp,omitempty"`
+
+	// (Block Set) Check fails if headers do not match. (see below for nested schema)
+	// Check fails if headers do not match.
+	FailIfHeaderNotMatchesRegexp []FailIfHeaderNotMatchesRegexpObservation `json:"failIfHeaderNotMatchesRegexp,omitempty" tf:"fail_if_header_not_matches_regexp,omitempty"`
+
+	// (Boolean) Fail if SSL is not present. Defaults to false.
+	// Fail if SSL is not present. Defaults to `false`.
+	FailIfNotSSL *bool `json:"failIfNotSsl,omitempty" tf:"fail_if_not_ssl,omitempty"`
+
+	// (Boolean) Fail if SSL is present. Defaults to false.
+	// Fail if SSL is present. Defaults to `false`.
+	FailIfSSL *bool `json:"failIfSsl,omitempty" tf:"fail_if_ssl,omitempty"`
+
+	// (Set of String) The HTTP headers set for the probe.
+	// The HTTP headers set for the probe.
+	Headers []*string `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (String) Request method. One of GET, CONNECT, DELETE, HEAD, OPTIONS, POST, PUT, TRACE Defaults to GET.
+	// Request method. One of `GET`, `CONNECT`, `DELETE`, `HEAD`, `OPTIONS`, `POST`, `PUT`, `TRACE` Defaults to `GET`.
+	Method *string `json:"method,omitempty" tf:"method,omitempty"`
+
+	// (Boolean) Do not follow redirects. Defaults to false.
+	// Do not follow redirects. Defaults to `false`.
+	NoFollowRedirects *bool `json:"noFollowRedirects,omitempty" tf:"no_follow_redirects,omitempty"`
+
+	// (String) Proxy URL.
+	// Proxy URL.
+	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
+
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
+	// TLS config.
+	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
+	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2
+	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2`
+	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
+
+	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
+	// Accepted status codes. If unset, defaults to 2xx.
+	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
 }
 
 type HTTPParameters struct {
 
+	// (Block Set, Max: 1) Basic auth settings. (see below for nested schema)
 	// Basic auth settings.
 	// +kubebuilder:validation:Optional
 	BasicAuth []BasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
+	// (String) Token for use with bearer authorization header.
 	// Token for use with bearer authorization header.
 	// +kubebuilder:validation:Optional
 	BearerToken *string `json:"bearerToken,omitempty" tf:"bearer_token,omitempty"`
 
+	// (String) The body of the HTTP request used in probe.
 	// The body of the HTTP request used in probe.
 	// +kubebuilder:validation:Optional
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
+	// (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
 	// The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
 	// +kubebuilder:validation:Optional
 	CacheBustingQueryParamName *string `json:"cacheBustingQueryParamName,omitempty" tf:"cache_busting_query_param_name,omitempty"`
 
+	// (Set of String) List of regexes. If any match the response body, the check will fail.
 	// List of regexes. If any match the response body, the check will fail.
 	// +kubebuilder:validation:Optional
 	FailIfBodyMatchesRegexp []*string `json:"failIfBodyMatchesRegexp,omitempty" tf:"fail_if_body_matches_regexp,omitempty"`
 
+	// (Set of String) List of regexes. If any do not match the response body, the check will fail.
 	// List of regexes. If any do not match the response body, the check will fail.
 	// +kubebuilder:validation:Optional
 	FailIfBodyNotMatchesRegexp []*string `json:"failIfBodyNotMatchesRegexp,omitempty" tf:"fail_if_body_not_matches_regexp,omitempty"`
 
+	// (Block Set) Check fails if headers match. (see below for nested schema)
 	// Check fails if headers match.
 	// +kubebuilder:validation:Optional
 	FailIfHeaderMatchesRegexp []FailIfHeaderMatchesRegexpParameters `json:"failIfHeaderMatchesRegexp,omitempty" tf:"fail_if_header_matches_regexp,omitempty"`
 
+	// (Block Set) Check fails if headers do not match. (see below for nested schema)
 	// Check fails if headers do not match.
 	// +kubebuilder:validation:Optional
 	FailIfHeaderNotMatchesRegexp []FailIfHeaderNotMatchesRegexpParameters `json:"failIfHeaderNotMatchesRegexp,omitempty" tf:"fail_if_header_not_matches_regexp,omitempty"`
 
+	// (Boolean) Fail if SSL is not present. Defaults to false.
 	// Fail if SSL is not present. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	FailIfNotSSL *bool `json:"failIfNotSsl,omitempty" tf:"fail_if_not_ssl,omitempty"`
 
+	// (Boolean) Fail if SSL is present. Defaults to false.
 	// Fail if SSL is present. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	FailIfSSL *bool `json:"failIfSsl,omitempty" tf:"fail_if_ssl,omitempty"`
 
+	// (Set of String) The HTTP headers set for the probe.
 	// The HTTP headers set for the probe.
 	// +kubebuilder:validation:Optional
 	Headers []*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
 	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
 	// +kubebuilder:validation:Optional
 	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 
+	// (String) Request method. One of GET, CONNECT, DELETE, HEAD, OPTIONS, POST, PUT, TRACE Defaults to GET.
 	// Request method. One of `GET`, `CONNECT`, `DELETE`, `HEAD`, `OPTIONS`, `POST`, `PUT`, `TRACE` Defaults to `GET`.
 	// +kubebuilder:validation:Optional
 	Method *string `json:"method,omitempty" tf:"method,omitempty"`
 
+	// (Boolean) Do not follow redirects. Defaults to false.
 	// Do not follow redirects. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	NoFollowRedirects *bool `json:"noFollowRedirects,omitempty" tf:"no_follow_redirects,omitempty"`
 
+	// (String) Proxy URL.
 	// Proxy URL.
 	// +kubebuilder:validation:Optional
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
 
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.
 	// +kubebuilder:validation:Optional
 	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
+	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2
 	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2`
 	// +kubebuilder:validation:Optional
 	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
 
+	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
 	// Accepted status codes. If unset, defaults to 2xx.
 	// +kubebuilder:validation:Optional
 	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
 }
 
+type PingInitParameters struct {
+
+	// bit in the IP-header. Only works with ipV4. Defaults to false.
+	// Set the DF-bit in the IP-header. Only works with ipV4. Defaults to `false`.
+	DontFragment *bool `json:"dontFragment,omitempty" tf:"dont_fragment,omitempty"`
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (Number) Payload size. Defaults to 0.
+	// Payload size. Defaults to `0`.
+	PayloadSize *float64 `json:"payloadSize,omitempty" tf:"payload_size,omitempty"`
+
+	// (String) Source IP address.
+	// Source IP address.
+	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
+}
+
 type PingObservation struct {
+
+	// bit in the IP-header. Only works with ipV4. Defaults to false.
+	// Set the DF-bit in the IP-header. Only works with ipV4. Defaults to `false`.
+	DontFragment *bool `json:"dontFragment,omitempty" tf:"dont_fragment,omitempty"`
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (Number) Payload size. Defaults to 0.
+	// Payload size. Defaults to `0`.
+	PayloadSize *float64 `json:"payloadSize,omitempty" tf:"payload_size,omitempty"`
+
+	// (String) Source IP address.
+	// Source IP address.
+	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
 }
 
 type PingParameters struct {
 
+	// bit in the IP-header. Only works with ipV4. Defaults to false.
 	// Set the DF-bit in the IP-header. Only works with ipV4. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	DontFragment *bool `json:"dontFragment,omitempty" tf:"dont_fragment,omitempty"`
 
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
 	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
 	// +kubebuilder:validation:Optional
 	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 
+	// (Number) Payload size. Defaults to 0.
 	// Payload size. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	PayloadSize *float64 `json:"payloadSize,omitempty" tf:"payload_size,omitempty"`
 
+	// (String) Source IP address.
 	// Source IP address.
 	// +kubebuilder:validation:Optional
 	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
 }
 
+type QueryResponseInitParameters struct {
+
+	// (String) Response to expect.
+	// Response to expect.
+	Expect *string `json:"expect,omitempty" tf:"expect,omitempty"`
+
+	// (String) Data to send.
+	// Data to send.
+	Send *string `json:"send,omitempty" tf:"send,omitempty"`
+
+	// (Boolean) Upgrade TCP connection to TLS. Defaults to false.
+	// Upgrade TCP connection to TLS. Defaults to `false`.
+	StartTLS *bool `json:"startTls,omitempty" tf:"start_tls,omitempty"`
+}
+
 type QueryResponseObservation struct {
+
+	// (String) Response to expect.
+	// Response to expect.
+	Expect *string `json:"expect,omitempty" tf:"expect,omitempty"`
+
+	// (String) Data to send.
+	// Data to send.
+	Send *string `json:"send,omitempty" tf:"send,omitempty"`
+
+	// (Boolean) Upgrade TCP connection to TLS. Defaults to false.
+	// Upgrade TCP connection to TLS. Defaults to `false`.
+	StartTLS *bool `json:"startTls,omitempty" tf:"start_tls,omitempty"`
 }
 
 type QueryResponseParameters struct {
 
+	// (String) Response to expect.
 	// Response to expect.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Expect *string `json:"expect" tf:"expect,omitempty"`
 
+	// (String) Data to send.
 	// Data to send.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Send *string `json:"send" tf:"send,omitempty"`
 
+	// (Boolean) Upgrade TCP connection to TLS. Defaults to false.
 	// Upgrade TCP connection to TLS. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	StartTLS *bool `json:"startTls,omitempty" tf:"start_tls,omitempty"`
 }
 
+type SettingsInitParameters struct {
+
+	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
+	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).
+	DNS []DNSInitParameters `json:"dns,omitempty" tf:"dns,omitempty"`
+
+	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
+	// Settings for HTTP check. The target must be a URL (http or https).
+	HTTP []HTTPInitParameters `json:"http,omitempty" tf:"http,omitempty"`
+
+	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
+	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
+	Ping []PingInitParameters `json:"ping,omitempty" tf:"ping,omitempty"`
+
+	// (Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
+	// Settings for TCP check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
+	TCP []TCPInitParameters `json:"tcp,omitempty" tf:"tcp,omitempty"`
+
+	// (Block Set, Max: 1) Settings for traceroute check. The target must be a valid hostname or IP address (see below for nested schema)
+	// Settings for traceroute check. The target must be a valid hostname or IP address
+	Traceroute []TracerouteInitParameters `json:"traceroute,omitempty" tf:"traceroute,omitempty"`
+}
+
 type SettingsObservation struct {
+
+	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
+	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).
+	DNS []DNSObservation `json:"dns,omitempty" tf:"dns,omitempty"`
+
+	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
+	// Settings for HTTP check. The target must be a URL (http or https).
+	HTTP []HTTPObservation `json:"http,omitempty" tf:"http,omitempty"`
+
+	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
+	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
+	Ping []PingObservation `json:"ping,omitempty" tf:"ping,omitempty"`
+
+	// (Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
+	// Settings for TCP check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
+	TCP []TCPObservation `json:"tcp,omitempty" tf:"tcp,omitempty"`
+
+	// (Block Set, Max: 1) Settings for traceroute check. The target must be a valid hostname or IP address (see below for nested schema)
+	// Settings for traceroute check. The target must be a valid hostname or IP address
+	Traceroute []TracerouteObservation `json:"traceroute,omitempty" tf:"traceroute,omitempty"`
 }
 
 type SettingsParameters struct {
 
+	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
 	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).
 	// +kubebuilder:validation:Optional
 	DNS []DNSParameters `json:"dns,omitempty" tf:"dns,omitempty"`
 
+	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
 	// Settings for HTTP check. The target must be a URL (http or https).
 	// +kubebuilder:validation:Optional
 	HTTP []HTTPParameters `json:"http,omitempty" tf:"http,omitempty"`
 
+	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
 	// +kubebuilder:validation:Optional
 	Ping []PingParameters `json:"ping,omitempty" tf:"ping,omitempty"`
 
+	// (Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for TCP check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
 	// +kubebuilder:validation:Optional
 	TCP []TCPParameters `json:"tcp,omitempty" tf:"tcp,omitempty"`
 
+	// (Block Set, Max: 1) Settings for traceroute check. The target must be a valid hostname or IP address (see below for nested schema)
 	// Settings for traceroute check. The target must be a valid hostname or IP address
 	// +kubebuilder:validation:Optional
 	Traceroute []TracerouteParameters `json:"traceroute,omitempty" tf:"traceroute,omitempty"`
 }
 
+type TCPInitParameters struct {
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (Block Set) The query sent in the TCP probe and the expected associated response. (see below for nested schema)
+	// The query sent in the TCP probe and the expected associated response.
+	QueryResponse []QueryResponseInitParameters `json:"queryResponse,omitempty" tf:"query_response,omitempty"`
+
+	// (String) Source IP address.
+	// Source IP address.
+	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
+
+	// (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
+	// Whether or not TLS is used when the connection is initiated. Defaults to `false`.
+	TLS *bool `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
+	// TLS config.
+	TLSConfig []TCPTLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+}
+
 type TCPObservation struct {
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (Block Set) The query sent in the TCP probe and the expected associated response. (see below for nested schema)
+	// The query sent in the TCP probe and the expected associated response.
+	QueryResponse []QueryResponseObservation `json:"queryResponse,omitempty" tf:"query_response,omitempty"`
+
+	// (String) Source IP address.
+	// Source IP address.
+	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
+
+	// (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
+	// Whether or not TLS is used when the connection is initiated. Defaults to `false`.
+	TLS *bool `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
+	// TLS config.
+	TLSConfig []TCPTLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 }
 
 type TCPParameters struct {
 
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
 	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
 	// +kubebuilder:validation:Optional
 	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
 
+	// (Block Set) The query sent in the TCP probe and the expected associated response. (see below for nested schema)
 	// The query sent in the TCP probe and the expected associated response.
 	// +kubebuilder:validation:Optional
 	QueryResponse []QueryResponseParameters `json:"queryResponse,omitempty" tf:"query_response,omitempty"`
 
+	// (String) Source IP address.
 	// Source IP address.
 	// +kubebuilder:validation:Optional
 	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
 
+	// (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
 	// Whether or not TLS is used when the connection is initiated. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	TLS *bool `json:"tls,omitempty" tf:"tls,omitempty"`
 
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.
 	// +kubebuilder:validation:Optional
 	TLSConfig []TCPTLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 }
 
+type TCPTLSConfigInitParameters struct {
+
+	// (String) CA certificate in PEM format.
+	// CA certificate in PEM format.
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) Client certificate in PEM format.
+	// Client certificate in PEM format.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (Boolean) Disable target certificate validation. Defaults to false.
+	// Disable target certificate validation. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String) Used to verify the hostname for the targets.
+	// Used to verify the hostname for the targets.
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
+}
+
 type TCPTLSConfigObservation struct {
+
+	// (String) CA certificate in PEM format.
+	// CA certificate in PEM format.
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) Client certificate in PEM format.
+	// Client certificate in PEM format.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (Boolean) Disable target certificate validation. Defaults to false.
+	// Disable target certificate validation. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String) Used to verify the hostname for the targets.
+	// Used to verify the hostname for the targets.
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
 }
 
 type TCPTLSConfigParameters struct {
 
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format.
 	// +kubebuilder:validation:Optional
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
 	// +kubebuilder:validation:Optional
 	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
+	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 
+	// (String) Used to verify the hostname for the targets.
 	// Used to verify the hostname for the targets.
 	// +kubebuilder:validation:Optional
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
+}
+
+type TLSConfigInitParameters struct {
+
+	// (String) CA certificate in PEM format.
+	// CA certificate in PEM format.
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) Client certificate in PEM format.
+	// Client certificate in PEM format.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (Boolean) Disable target certificate validation. Defaults to false.
+	// Disable target certificate validation. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String) Used to verify the hostname for the targets.
+	// Used to verify the hostname for the targets.
 	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
 }
 
 type TLSConfigObservation struct {
+
+	// (String) CA certificate in PEM format.
+	// CA certificate in PEM format.
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) Client certificate in PEM format.
+	// Client certificate in PEM format.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (Boolean) Disable target certificate validation. Defaults to false.
+	// Disable target certificate validation. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String) Used to verify the hostname for the targets.
+	// Used to verify the hostname for the targets.
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
 }
 
 type TLSConfigParameters struct {
 
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format.
 	// +kubebuilder:validation:Optional
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
 	// +kubebuilder:validation:Optional
 	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
+	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
 
+	// (String) Used to verify the hostname for the targets.
 	// Used to verify the hostname for the targets.
 	// +kubebuilder:validation:Optional
 	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
 }
 
+type TracerouteInitParameters struct {
+
+	// (Number) Maximum TTL for the trace Defaults to 64.
+	// Maximum TTL for the trace Defaults to `64`.
+	MaxHops *float64 `json:"maxHops,omitempty" tf:"max_hops,omitempty"`
+
+	// (Number) Maximum number of hosts to travers that give no response Defaults to 15.
+	// Maximum number of hosts to travers that give no response Defaults to `15`.
+	MaxUnknownHops *float64 `json:"maxUnknownHops,omitempty" tf:"max_unknown_hops,omitempty"`
+
+	// (Boolean) Reverse lookup hostnames from IP addresses Defaults to true.
+	// Reverse lookup hostnames from IP addresses Defaults to `true`.
+	PtrLookup *bool `json:"ptrLookup,omitempty" tf:"ptr_lookup,omitempty"`
+}
+
 type TracerouteObservation struct {
+
+	// (Number) Maximum TTL for the trace Defaults to 64.
+	// Maximum TTL for the trace Defaults to `64`.
+	MaxHops *float64 `json:"maxHops,omitempty" tf:"max_hops,omitempty"`
+
+	// (Number) Maximum number of hosts to travers that give no response Defaults to 15.
+	// Maximum number of hosts to travers that give no response Defaults to `15`.
+	MaxUnknownHops *float64 `json:"maxUnknownHops,omitempty" tf:"max_unknown_hops,omitempty"`
+
+	// (Boolean) Reverse lookup hostnames from IP addresses Defaults to true.
+	// Reverse lookup hostnames from IP addresses Defaults to `true`.
+	PtrLookup *bool `json:"ptrLookup,omitempty" tf:"ptr_lookup,omitempty"`
 }
 
 type TracerouteParameters struct {
 
+	// (Number) Maximum TTL for the trace Defaults to 64.
 	// Maximum TTL for the trace Defaults to `64`.
 	// +kubebuilder:validation:Optional
 	MaxHops *float64 `json:"maxHops,omitempty" tf:"max_hops,omitempty"`
 
+	// (Number) Maximum number of hosts to travers that give no response Defaults to 15.
 	// Maximum number of hosts to travers that give no response Defaults to `15`.
 	// +kubebuilder:validation:Optional
 	MaxUnknownHops *float64 `json:"maxUnknownHops,omitempty" tf:"max_unknown_hops,omitempty"`
 
+	// (Boolean) Reverse lookup hostnames from IP addresses Defaults to true.
 	// Reverse lookup hostnames from IP addresses Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	PtrLookup *bool `json:"ptrLookup,omitempty" tf:"ptr_lookup,omitempty"`
 }
 
+type ValidateAdditionalRrsInitParameters struct {
+
+	// (Set of String) Fail if value matches regex.
+	// Fail if value matches regex.
+	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
+
+	// (Set of String) Fail if value does not match regex.
+	// Fail if value does not match regex.
+	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
+}
+
 type ValidateAdditionalRrsObservation struct {
+
+	// (Set of String) Fail if value matches regex.
+	// Fail if value matches regex.
+	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
+
+	// (Set of String) Fail if value does not match regex.
+	// Fail if value does not match regex.
+	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
 type ValidateAdditionalRrsParameters struct {
 
+	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
 	// +kubebuilder:validation:Optional
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
+	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
 	// +kubebuilder:validation:Optional
+	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
+}
+
+type ValidateAnswerRrsInitParameters struct {
+
+	// (Set of String) Fail if value matches regex.
+	// Fail if value matches regex.
+	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
+
+	// (Set of String) Fail if value does not match regex.
+	// Fail if value does not match regex.
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
 type ValidateAnswerRrsObservation struct {
+
+	// (Set of String) Fail if value matches regex.
+	// Fail if value matches regex.
+	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
+
+	// (Set of String) Fail if value does not match regex.
+	// Fail if value does not match regex.
+	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
 type ValidateAnswerRrsParameters struct {
 
+	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
 	// +kubebuilder:validation:Optional
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
+	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
 	// +kubebuilder:validation:Optional
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
+type ValidateAuthorityRrsInitParameters struct {
+
+	// (Set of String) Fail if value matches regex.
+	// Fail if value matches regex.
+	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
+
+	// (Set of String) Fail if value does not match regex.
+	// Fail if value does not match regex.
+	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
+}
+
 type ValidateAuthorityRrsObservation struct {
+
+	// (Set of String) Fail if value matches regex.
+	// Fail if value matches regex.
+	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
+
+	// (Set of String) Fail if value does not match regex.
+	// Fail if value does not match regex.
+	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
 type ValidateAuthorityRrsParameters struct {
 
+	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
 	// +kubebuilder:validation:Optional
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
+	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
 	// +kubebuilder:validation:Optional
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
@@ -445,6 +1218,18 @@ type ValidateAuthorityRrsParameters struct {
 type CheckSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     CheckParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider CheckInitParameters `json:"initProvider,omitempty"`
 }
 
 // CheckStatus defines the observed state of Check.
@@ -455,7 +1240,7 @@ type CheckStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Check is the Schema for the Checks API. <no value>
+// Check is the Schema for the Checks API. Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/checks/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -465,8 +1250,12 @@ type CheckStatus struct {
 type Check struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              CheckSpec   `json:"spec"`
-	Status            CheckStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.job) || has(self.initProvider.job)",message="job is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.probes) || has(self.initProvider.probes)",message="probes is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.settings) || has(self.initProvider.settings)",message="settings is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.target) || has(self.initProvider.target)",message="target is a required parameter"
+	Spec   CheckSpec   `json:"spec"`
+	Status CheckStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

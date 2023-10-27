@@ -13,17 +13,47 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type APIKeyInitParameters struct {
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String)
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (Number)
+	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+}
+
 type APIKeyObservation struct {
+
+	// (String)
 	Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String)
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (String)
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (Number)
+	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 }
 
 type APIKeyParameters struct {
 
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
@@ -39,9 +69,11 @@ type APIKeyParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// +kubebuilder:validation:Required
-	Role *string `json:"role" tf:"role,omitempty"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
+	// (Number)
 	// +kubebuilder:validation:Optional
 	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 }
@@ -50,6 +82,18 @@ type APIKeyParameters struct {
 type APIKeySpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     APIKeyParameters `json:"forProvider"`
+	// THIS IS AN ALPHA FIELD. Do not use it in production. It is not honored
+	// unless the relevant Crossplane feature flag is enabled, and may be
+	// changed or removed without notice.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider APIKeyInitParameters `json:"initProvider,omitempty"`
 }
 
 // APIKeyStatus defines the observed state of APIKey.
@@ -60,7 +104,7 @@ type APIKeyStatus struct {
 
 // +kubebuilder:object:root=true
 
-// APIKey is the Schema for the APIKeys API. <no value>
+// APIKey is the Schema for the APIKeys API. Manages Grafana API Keys. HTTP API https://grafana.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -70,8 +114,10 @@ type APIKeyStatus struct {
 type APIKey struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              APIKeySpec   `json:"spec"`
-	Status            APIKeyStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || has(self.initProvider.name)",message="name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || has(self.initProvider.role)",message="role is a required parameter"
+	Spec   APIKeySpec   `json:"spec"`
+	Status APIKeyStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

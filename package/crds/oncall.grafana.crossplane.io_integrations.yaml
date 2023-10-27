@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.13.0
   name: integrations.oncall.grafana.crossplane.io
 spec:
   group: oncall.grafana.crossplane.io
@@ -35,7 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Integration is the Schema for the Integrations API. <no value>
+        description: Integration is the Schema for the Integrations API. Official
+          documentation https://grafana.com/docs/oncall/latest/integrations/HTTP API
+          https://grafana.com/docs/oncall/latest/oncall-api-reference/
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -54,9 +55,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -64,230 +69,511 @@ spec:
               forProvider:
                 properties:
                   defaultRoute:
-                    description: The Default route for all alerts from the given integration
+                    description: '(Block List, Min: 1, Max: 1) The Default route for
+                      all alerts from the given integration (see below for nested
+                      schema) The Default route for all alerts from the given integration'
                     items:
                       properties:
                         escalationChainId:
-                          description: The ID of the escalation chain.
+                          description: (String) The ID of the escalation chain. The
+                            ID of the escalation chain.
                           type: string
                         msteams:
-                          description: MS teams-specific settings for a route.
+                          description: specific settings for a route. (see below for
+                            nested schema) MS teams-specific settings for a route.
                           items:
                             properties:
                               enabled:
-                                description: Enable notification in MS teams. Defaults
-                                  to `true`.
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in MS teams.
+                                  Defaults to `true`.
                                 type: boolean
                               id:
-                                description: MS teams channel id. Alerts will be directed
-                                  to this channel in Microsoft teams.
+                                description: (String) The ID of this resource. MS
+                                  teams channel id. Alerts will be directed to this
+                                  channel in Microsoft teams.
                                 type: string
                             type: object
                           type: array
                         slack:
-                          description: Slack-specific settings for a route.
+                          description: specific settings for a route. (see below for
+                            nested schema) Slack-specific settings for a route.
                           items:
                             properties:
                               channelId:
-                                description: Slack channel id. Alerts will be directed
-                                  to this channel in Slack.
+                                description: (String) Slack channel id. Alerts will
+                                  be directed to this channel in Slack. Slack channel
+                                  id. Alerts will be directed to this channel in Slack.
                                 type: string
                               enabled:
-                                description: Enable notification in Slack. Defaults
-                                  to `true`.
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in Slack.
+                                  Defaults to `true`.
                                 type: boolean
                             type: object
                           type: array
                         telegram:
-                          description: Telegram-specific settings for a route.
+                          description: specific settings for a route. (see below for
+                            nested schema) Telegram-specific settings for a route.
                           items:
                             properties:
                               enabled:
-                                description: Enable notification in Telegram. Defaults
-                                  to `true`.
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in Telegram.
+                                  Defaults to `true`.
                                 type: boolean
                               id:
-                                description: Telegram channel id. Alerts will be directed
-                                  to this channel in Telegram.
+                                description: (String) The ID of this resource. Telegram
+                                  channel id. Alerts will be directed to this channel
+                                  in Telegram.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   name:
-                    description: The name of the service integration.
+                    description: (String) The name of the service integration. The
+                      name of the service integration.
                     type: string
                   teamId:
-                    description: The ID of the OnCall team. To get one, create a team
-                      in Grafana, and navigate to the OnCall plugin (to sync the team
-                      with OnCall). You can then get the ID using the `grafana_oncall_team`
+                    description: (String) The ID of the OnCall team. To get one, create
+                      a team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the grafana_oncall_team
+                      datasource. The ID of the OnCall team. To get one, create a
+                      team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the `grafana_oncall_team`
                       datasource.
                     type: string
                   templates:
-                    description: Jinja2 templates for Alert payload.
+                    description: '(Block List, Max: 1) Jinja2 templates for Alert
+                      payload. (see below for nested schema) Jinja2 templates for
+                      Alert payload.'
                     items:
                       properties:
                         acknowledgeSignal:
-                          description: Template for sending a signal to acknowledge
+                          description: (String) Template for sending a signal to acknowledge
+                            the Incident. Template for sending a signal to acknowledge
                             the Incident.
                           type: string
                         email:
-                          description: Templates for Email.
+                          description: '(Block List, Max: 1) Templates for Email.
+                            (see below for nested schema) Templates for Email.'
                           items:
                             properties:
                               message:
-                                description: Template for Alert message.
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
                                 type: string
                               title:
-                                description: Template for Alert title.
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
                                 type: string
                             type: object
                           type: array
                         groupingKey:
-                          description: Template for the key by which alerts are grouped.
+                          description: (String) Template for the key by which alerts
+                            are grouped. Template for the key by which alerts are
+                            grouped.
                           type: string
                         microsoftTeams:
-                          description: Templates for Microsoft Teams.
+                          description: '(Block List, Max: 1) Templates for Microsoft
+                            Teams. (see below for nested schema) Templates for Microsoft
+                            Teams.'
                           items:
                             properties:
                               imageUrl:
-                                description: Template for Alert image url.
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
                                 type: string
                               message:
-                                description: Template for Alert message.
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
                                 type: string
                               title:
-                                description: Template for Alert title.
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
                                 type: string
                             type: object
                           type: array
                         phoneCall:
-                          description: Templates for Phone Call.
+                          description: '(Block List, Max: 1) Templates for Phone Call.
+                            (see below for nested schema) Templates for Phone Call.'
                           items:
                             properties:
                               title:
-                                description: Template for Alert title.
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
                                 type: string
                             type: object
                           type: array
                         resolveSignal:
-                          description: Template for sending a signal to resolve the
-                            Incident.
+                          description: (String) Template for sending a signal to resolve
+                            the Incident. Template for sending a signal to resolve
+                            the Incident.
                           type: string
                         slack:
-                          description: Templates for Slack.
+                          description: specific settings for a route. (see below for
+                            nested schema) Templates for Slack.
                           items:
                             properties:
                               imageUrl:
-                                description: Template for Alert image url.
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
                                 type: string
                               message:
-                                description: Template for Alert message.
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
                                 type: string
                               title:
-                                description: Template for Alert title.
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
                                 type: string
                             type: object
                           type: array
                         sms:
-                          description: Templates for SMS.
+                          description: '(Block List, Max: 1) Templates for SMS. (see
+                            below for nested schema) Templates for SMS.'
                           items:
                             properties:
                               title:
-                                description: Template for Alert title.
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
                                 type: string
                             type: object
                           type: array
                         sourceLink:
-                          description: Template for a source link.
+                          description: (String) Template for a source link. Template
+                            for a source link.
                           type: string
                         telegram:
-                          description: Templates for Telegram.
+                          description: specific settings for a route. (see below for
+                            nested schema) Templates for Telegram.
                           items:
                             properties:
                               imageUrl:
-                                description: Template for Alert image url.
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
                                 type: string
                               message:
-                                description: Template for Alert message.
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
                                 type: string
                               title:
-                                description: Template for Alert title.
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
                                 type: string
                             type: object
                           type: array
                         web:
-                          description: Templates for Web.
+                          description: '(Block List, Max: 1) Templates for Web. (see
+                            below for nested schema) Templates for Web.'
                           items:
                             properties:
                               imageUrl:
-                                description: Template for Alert image url.
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
                                 type: string
                               message:
-                                description: Template for Alert message.
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
                                 type: string
                               title:
-                                description: Template for Alert title.
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
                                 type: string
                             type: object
                           type: array
                       type: object
                     type: array
                   type:
-                    description: The type of integration. Can be grafana, grafana_alerting,
-                      webhook, alertmanager, kapacitor, fabric, newrelic, datadog,
-                      pagerduty, pingdom, elastalert, amazon_sns, curler, sentry,
-                      formatted_webhook, heartbeat, demo, manual, stackdriver, uptimerobot,
-                      sentry_platform, zabbix, prtg, slack_channel, inbound_email,
-                      direct_paging.
+                    description: (String) The type of integration. Can be grafana,
+                      grafana_alerting, webhook, alertmanager, kapacitor, fabric,
+                      newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
+                      curler, sentry, formatted_webhook, heartbeat, demo, manual,
+                      stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
+                      inbound_email, direct_paging. The type of integration. Can be
+                      grafana, grafana_alerting, webhook, alertmanager, kapacitor,
+                      fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
+                      curler, sentry, formatted_webhook, heartbeat, demo, manual,
+                      stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
+                      inbound_email, direct_paging.
                     type: string
-                required:
-                - defaultRoute
-                - name
-                - type
                 type: object
+              initProvider:
+                description: THIS IS AN ALPHA FIELD. Do not use it in production.
+                  It is not honored unless the relevant Crossplane feature flag is
+                  enabled, and may be changed or removed without notice. InitProvider
+                  holds the same fields as ForProvider, with the exception of Identifier
+                  and other resource reference fields. The fields that are in InitProvider
+                  are merged into ForProvider when the resource is created. The same
+                  fields are also added to the terraform ignore_changes hook, to avoid
+                  updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after
+                  creation, for example because of an external controller is managing
+                  them, like an autoscaler.
+                properties:
+                  defaultRoute:
+                    description: '(Block List, Min: 1, Max: 1) The Default route for
+                      all alerts from the given integration (see below for nested
+                      schema) The Default route for all alerts from the given integration'
+                    items:
+                      properties:
+                        escalationChainId:
+                          description: (String) The ID of the escalation chain. The
+                            ID of the escalation chain.
+                          type: string
+                        msteams:
+                          description: specific settings for a route. (see below for
+                            nested schema) MS teams-specific settings for a route.
+                          items:
+                            properties:
+                              enabled:
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in MS teams.
+                                  Defaults to `true`.
+                                type: boolean
+                              id:
+                                description: (String) The ID of this resource. MS
+                                  teams channel id. Alerts will be directed to this
+                                  channel in Microsoft teams.
+                                type: string
+                            type: object
+                          type: array
+                        slack:
+                          description: specific settings for a route. (see below for
+                            nested schema) Slack-specific settings for a route.
+                          items:
+                            properties:
+                              channelId:
+                                description: (String) Slack channel id. Alerts will
+                                  be directed to this channel in Slack. Slack channel
+                                  id. Alerts will be directed to this channel in Slack.
+                                type: string
+                              enabled:
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in Slack.
+                                  Defaults to `true`.
+                                type: boolean
+                            type: object
+                          type: array
+                        telegram:
+                          description: specific settings for a route. (see below for
+                            nested schema) Telegram-specific settings for a route.
+                          items:
+                            properties:
+                              enabled:
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in Telegram.
+                                  Defaults to `true`.
+                                type: boolean
+                              id:
+                                description: (String) The ID of this resource. Telegram
+                                  channel id. Alerts will be directed to this channel
+                                  in Telegram.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  name:
+                    description: (String) The name of the service integration. The
+                      name of the service integration.
+                    type: string
+                  teamId:
+                    description: (String) The ID of the OnCall team. To get one, create
+                      a team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the grafana_oncall_team
+                      datasource. The ID of the OnCall team. To get one, create a
+                      team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the `grafana_oncall_team`
+                      datasource.
+                    type: string
+                  templates:
+                    description: '(Block List, Max: 1) Jinja2 templates for Alert
+                      payload. (see below for nested schema) Jinja2 templates for
+                      Alert payload.'
+                    items:
+                      properties:
+                        acknowledgeSignal:
+                          description: (String) Template for sending a signal to acknowledge
+                            the Incident. Template for sending a signal to acknowledge
+                            the Incident.
+                          type: string
+                        email:
+                          description: '(Block List, Max: 1) Templates for Email.
+                            (see below for nested schema) Templates for Email.'
+                          items:
+                            properties:
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        groupingKey:
+                          description: (String) Template for the key by which alerts
+                            are grouped. Template for the key by which alerts are
+                            grouped.
+                          type: string
+                        microsoftTeams:
+                          description: '(Block List, Max: 1) Templates for Microsoft
+                            Teams. (see below for nested schema) Templates for Microsoft
+                            Teams.'
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        phoneCall:
+                          description: '(Block List, Max: 1) Templates for Phone Call.
+                            (see below for nested schema) Templates for Phone Call.'
+                          items:
+                            properties:
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        resolveSignal:
+                          description: (String) Template for sending a signal to resolve
+                            the Incident. Template for sending a signal to resolve
+                            the Incident.
+                          type: string
+                        slack:
+                          description: specific settings for a route. (see below for
+                            nested schema) Templates for Slack.
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        sms:
+                          description: '(Block List, Max: 1) Templates for SMS. (see
+                            below for nested schema) Templates for SMS.'
+                          items:
+                            properties:
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        sourceLink:
+                          description: (String) Template for a source link. Template
+                            for a source link.
+                          type: string
+                        telegram:
+                          description: specific settings for a route. (see below for
+                            nested schema) Templates for Telegram.
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        web:
+                          description: '(Block List, Max: 1) Templates for Web. (see
+                            below for nested schema) Templates for Web.'
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  type:
+                    description: (String) The type of integration. Can be grafana,
+                      grafana_alerting, webhook, alertmanager, kapacitor, fabric,
+                      newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
+                      curler, sentry, formatted_webhook, heartbeat, demo, manual,
+                      stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
+                      inbound_email, direct_paging. The type of integration. Can be
+                      grafana, grafana_alerting, webhook, alertmanager, kapacitor,
+                      fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
+                      curler, sentry, formatted_webhook, heartbeat, demo, manual,
+                      stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
+                      inbound_email, direct_paging.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
                 description: ProviderConfigReference specifies how the provider that
                   will be used to create, observe, update, and delete this managed
                   resource should be configured.
-                properties:
-                  name:
-                    description: Name of the referenced object.
-                    type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
-                required:
-                - name
-                type: object
-              providerRef:
-                description: 'ProviderReference specifies the provider that will be
-                  used to create, observe, update, and delete this managed resource.
-                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -417,23 +703,263 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: defaultRoute is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.defaultRoute)
+                || has(self.initProvider.defaultRoute)'
+            - message: name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || has(self.initProvider.name)'
+            - message: type is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
+                || has(self.initProvider.type)'
           status:
             description: IntegrationStatus defines the observed state of Integration.
             properties:
               atProvider:
                 properties:
                   defaultRoute:
-                    description: The Default route for all alerts from the given integration
+                    description: '(Block List, Min: 1, Max: 1) The Default route for
+                      all alerts from the given integration (see below for nested
+                      schema) The Default route for all alerts from the given integration'
                     items:
                       properties:
-                        id:
+                        escalationChainId:
+                          description: (String) The ID of the escalation chain. The
+                            ID of the escalation chain.
                           type: string
+                        id:
+                          description: (String) The ID of this resource.
+                          type: string
+                        msteams:
+                          description: specific settings for a route. (see below for
+                            nested schema) MS teams-specific settings for a route.
+                          items:
+                            properties:
+                              enabled:
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in MS teams.
+                                  Defaults to `true`.
+                                type: boolean
+                              id:
+                                description: (String) The ID of this resource. MS
+                                  teams channel id. Alerts will be directed to this
+                                  channel in Microsoft teams.
+                                type: string
+                            type: object
+                          type: array
+                        slack:
+                          description: specific settings for a route. (see below for
+                            nested schema) Slack-specific settings for a route.
+                          items:
+                            properties:
+                              channelId:
+                                description: (String) Slack channel id. Alerts will
+                                  be directed to this channel in Slack. Slack channel
+                                  id. Alerts will be directed to this channel in Slack.
+                                type: string
+                              enabled:
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in Slack.
+                                  Defaults to `true`.
+                                type: boolean
+                            type: object
+                          type: array
+                        telegram:
+                          description: specific settings for a route. (see below for
+                            nested schema) Telegram-specific settings for a route.
+                          items:
+                            properties:
+                              enabled:
+                                description: (Boolean) Enable notification in MS teams.
+                                  Defaults to true. Enable notification in Telegram.
+                                  Defaults to `true`.
+                                type: boolean
+                              id:
+                                description: (String) The ID of this resource. Telegram
+                                  channel id. Alerts will be directed to this channel
+                                  in Telegram.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   link:
-                    description: The link for using in an integrated tool.
+                    description: (String) The link for using in an integrated tool.
+                      The link for using in an integrated tool.
+                    type: string
+                  name:
+                    description: (String) The name of the service integration. The
+                      name of the service integration.
+                    type: string
+                  teamId:
+                    description: (String) The ID of the OnCall team. To get one, create
+                      a team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the grafana_oncall_team
+                      datasource. The ID of the OnCall team. To get one, create a
+                      team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the `grafana_oncall_team`
+                      datasource.
+                    type: string
+                  templates:
+                    description: '(Block List, Max: 1) Jinja2 templates for Alert
+                      payload. (see below for nested schema) Jinja2 templates for
+                      Alert payload.'
+                    items:
+                      properties:
+                        acknowledgeSignal:
+                          description: (String) Template for sending a signal to acknowledge
+                            the Incident. Template for sending a signal to acknowledge
+                            the Incident.
+                          type: string
+                        email:
+                          description: '(Block List, Max: 1) Templates for Email.
+                            (see below for nested schema) Templates for Email.'
+                          items:
+                            properties:
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        groupingKey:
+                          description: (String) Template for the key by which alerts
+                            are grouped. Template for the key by which alerts are
+                            grouped.
+                          type: string
+                        microsoftTeams:
+                          description: '(Block List, Max: 1) Templates for Microsoft
+                            Teams. (see below for nested schema) Templates for Microsoft
+                            Teams.'
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        phoneCall:
+                          description: '(Block List, Max: 1) Templates for Phone Call.
+                            (see below for nested schema) Templates for Phone Call.'
+                          items:
+                            properties:
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        resolveSignal:
+                          description: (String) Template for sending a signal to resolve
+                            the Incident. Template for sending a signal to resolve
+                            the Incident.
+                          type: string
+                        slack:
+                          description: specific settings for a route. (see below for
+                            nested schema) Templates for Slack.
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        sms:
+                          description: '(Block List, Max: 1) Templates for SMS. (see
+                            below for nested schema) Templates for SMS.'
+                          items:
+                            properties:
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        sourceLink:
+                          description: (String) Template for a source link. Template
+                            for a source link.
+                          type: string
+                        telegram:
+                          description: specific settings for a route. (see below for
+                            nested schema) Templates for Telegram.
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                        web:
+                          description: '(Block List, Max: 1) Templates for Web. (see
+                            below for nested schema) Templates for Web.'
+                          items:
+                            properties:
+                              imageUrl:
+                                description: (String) Template for Alert image url.
+                                  Template for Alert image url.
+                                type: string
+                              message:
+                                description: (String) Template for Alert message.
+                                  Template for Alert message.
+                                type: string
+                              title:
+                                description: (String) Template for Alert title. Template
+                                  for Alert title.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  type:
+                    description: (String) The type of integration. Can be grafana,
+                      grafana_alerting, webhook, alertmanager, kapacitor, fabric,
+                      newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
+                      curler, sentry, formatted_webhook, heartbeat, demo, manual,
+                      stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
+                      inbound_email, direct_paging. The type of integration. Can be
+                      grafana, grafana_alerting, webhook, alertmanager, kapacitor,
+                      fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
+                      curler, sentry, formatted_webhook, heartbeat, demo, manual,
+                      stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
+                      inbound_email, direct_paging.
                     type: string
                 type: object
               conditions:
@@ -469,6 +995,9 @@ spec:
                   - type
                   type: object
                 type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
             type: object
         required:
         - spec
@@ -477,9 +1006,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

@@ -69,6 +69,16 @@ func (tr *APIKey) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this APIKey
+func (tr *APIKey) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this APIKey using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *APIKey) LateInitialize(attrs []byte) (bool, error) {
@@ -141,6 +151,16 @@ func (tr *Stack) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this Stack
+func (tr *Stack) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this Stack using its observed tfState.
@@ -217,6 +237,16 @@ func (tr *StackServiceAccount) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
+// GetInitParameters of this StackServiceAccount
+func (tr *StackServiceAccount) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
+}
+
 // LateInitialize this StackServiceAccount using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *StackServiceAccount) LateInitialize(attrs []byte) (bool, error) {
@@ -289,6 +319,16 @@ func (tr *StackServiceAccountToken) SetParameters(params map[string]any) error {
 		return err
 	}
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
+}
+
+// GetInitParameters of this StackServiceAccountToken
+func (tr *StackServiceAccountToken) GetInitParameters() (map[string]any, error) {
+	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
+	if err != nil {
+		return nil, err
+	}
+	base := map[string]any{}
+	return base, json.TFParser.Unmarshal(p, &base)
 }
 
 // LateInitialize this StackServiceAccountToken using its observed tfState.
