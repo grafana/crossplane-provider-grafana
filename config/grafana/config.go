@@ -127,6 +127,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
