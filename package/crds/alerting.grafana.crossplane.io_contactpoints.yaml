@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.13.0
   name: contactpoints.alerting.grafana.crossplane.io
 spec:
   group: alerting.grafana.crossplane.io
@@ -35,7 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ContactPoint is the Schema for the ContactPoints API. <no value>
+        description: ContactPoint is the Schema for the ContactPoints API. Manages
+          Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/contact-points/HTTP
+          API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points
+          This resource requires Grafana 9.1.0 or later.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -54,9 +56,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -64,13 +70,16 @@ spec:
               forProvider:
                 properties:
                   alertmanager:
-                    description: A contact point that sends notifications to other
-                      Alertmanager instances.
+                    description: (Block List) A contact point that sends notifications
+                      to other Alertmanager instances. (see below for nested schema)
+                      A contact point that sends notifications to other Alertmanager
+                      instances.
                     items:
                       properties:
                         basicAuthPasswordSecretRef:
-                          description: The password component of the basic auth credentials
-                            to use.
+                          description: (String, Sensitive) The password component
+                            of the basic auth credentials to use. The password component
+                            of the basic auth credentials to use.
                           properties:
                             key:
                               description: The key to select.
@@ -87,16 +96,20 @@ spec:
                           - namespace
                           type: object
                         basicAuthUser:
-                          description: The username component of the basic auth credentials
-                            to use.
+                          description: (String) The username component of the basic
+                            auth credentials to use. The username component of the
+                            basic auth credentials to use.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -109,30 +122,35 @@ spec:
                           - namespace
                           type: object
                         url:
-                          description: The URL of the Alertmanager instance.
+                          description: (String) The URL of the Alertmanager instance.
+                            The URL of the Alertmanager instance.
                           type: string
-                      required:
-                      - url
                       type: object
                     type: array
                   dingding:
-                    description: A contact point that sends notifications to DingDing.
+                    description: (Block List) A contact point that sends notifications
+                      to DingDing. (see below for nested schema) A contact point that
+                      sends notifications to DingDing.
                     items:
                       properties:
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated content of the message.
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
                           type: string
                         messageType:
-                          description: The format of message to send - either 'link'
-                            or 'actionCard'
+                          description: either 'link' or 'actionCard' The format of
+                            message to send - either 'link' or 'actionCard'
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -145,35 +163,40 @@ spec:
                           - namespace
                           type: object
                         title:
-                          description: The templated title of the message.
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
                           type: string
                         url:
-                          description: The DingDing webhook URL.
+                          description: (String) The URL of the Alertmanager instance.
+                            The DingDing webhook URL.
                           type: string
-                      required:
-                      - url
                       type: object
                     type: array
                   discord:
-                    description: A contact point that sends notifications as Discord
-                      messages
+                    description: (Block List) A contact point that sends notifications
+                      as Discord messages (see below for nested schema) A contact
+                      point that sends notifications as Discord messages
                     items:
                       properties:
                         avatarUrl:
-                          description: The URL of a custom avatar image to use. Defaults
-                            to “.
+                          description: (String) The URL of a custom avatar image to
+                            use. Defaults to “. The URL of a custom avatar image to
+                            use. Defaults to “.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated content of the message. Defaults
-                            to “.
+                          description: (String) The templated content of the message.
+                            The templated content of the message. Defaults to “.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -186,7 +209,8 @@ spec:
                           - namespace
                           type: object
                         urlSecretRef:
-                          description: The discord webhook URL.
+                          description: (String) The URL of the Alertmanager instance.
+                            The discord webhook URL.
                           properties:
                             key:
                               description: The key to select.
@@ -203,34 +227,41 @@ spec:
                           - namespace
                           type: object
                         useDiscordUsername:
-                          description: Whether to use the bot account's plain username
-                            instead of "Grafana." Defaults to `false`.
+                          description: (Boolean) Whether to use the bot account's
+                            plain username instead of "Grafana." Defaults to false.
+                            Whether to use the bot account's plain username instead
+                            of "Grafana." Defaults to `false`.
                           type: boolean
                       required:
                       - urlSecretRef
                       type: object
                     type: array
                   email:
-                    description: A contact point that sends notifications to an email
-                      address.
+                    description: (Block List) A contact point that sends notifications
+                      to an email address. (see below for nested schema) A contact
+                      point that sends notifications to an email address.
                     items:
                       properties:
                         addresses:
-                          description: The addresses to send emails to.
+                          description: (List of String) The addresses to send emails
+                            to. The addresses to send emails to.
                           items:
                             type: string
                           type: array
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated content of the email. Defaults
-                            to “.
+                          description: (String) The templated content of the message.
+                            The templated content of the email. Defaults to “.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -243,33 +274,39 @@ spec:
                           - namespace
                           type: object
                         singleEmail:
-                          description: Whether to send a single email CC'ing all addresses,
-                            rather than a separate email to each address. Defaults
-                            to `false`.
+                          description: (Boolean) Whether to send a single email CC'ing
+                            all addresses, rather than a separate email to each address.
+                            Defaults to false. Whether to send a single email CC'ing
+                            all addresses, rather than a separate email to each address.
+                            Defaults to `false`.
                           type: boolean
                         subject:
-                          description: The templated subject line of the email. Defaults
-                            to “.
+                          description: (String) The templated subject line of the
+                            email. Defaults to “. The templated subject line of the
+                            email. Defaults to “.
                           type: string
-                      required:
-                      - addresses
                       type: object
                     type: array
                   googlechat:
-                    description: A contact point that sends notifications to Google
-                      Chat.
+                    description: (Block List) A contact point that sends notifications
+                      to Google Chat. (see below for nested schema) A contact point
+                      that sends notifications to Google Chat.
                     items:
                       properties:
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated content of the message.
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -282,7 +319,8 @@ spec:
                           - namespace
                           type: object
                         urlSecretRef:
-                          description: The Google Chat webhook URL.
+                          description: (String) The URL of the Alertmanager instance.
+                            The Google Chat webhook URL.
                           properties:
                             key:
                               description: The key to select.
@@ -303,17 +341,20 @@ spec:
                       type: object
                     type: array
                   kafka:
-                    description: A contact point that publishes notifications to Apache
-                      Kafka topics.
+                    description: (Block List) A contact point that publishes notifications
+                      to Apache Kafka topics. (see below for nested schema) A contact
+                      point that publishes notifications to Apache Kafka topics.
                     items:
                       properties:
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         restProxyUrlSecretRef:
-                          description: The URL of the Kafka REST proxy to send requests
-                            to.
+                          description: (String, Sensitive) The URL of the Kafka REST
+                            proxy to send requests to. The URL of the Kafka REST proxy
+                            to send requests to.
                           properties:
                             key:
                               description: The key to select.
@@ -330,8 +371,10 @@ spec:
                           - namespace
                           type: object
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -344,22 +387,26 @@ spec:
                           - namespace
                           type: object
                         topic:
-                          description: The name of the Kafka topic to publish to.
+                          description: (String) The name of the Kafka topic to publish
+                            to. The name of the Kafka topic to publish to.
                           type: string
                       required:
                       - restProxyUrlSecretRef
-                      - topic
                       type: object
                     type: array
                   name:
-                    description: The name of the contact point.
+                    description: (String) The name of the contact point. The name
+                      of the contact point.
                     type: string
                   opsgenie:
-                    description: A contact point that sends notifications to OpsGenie.
+                    description: (Block List) A contact point that sends notifications
+                      to OpsGenie. (see below for nested schema) A contact point that
+                      sends notifications to OpsGenie.
                     items:
                       properties:
                         apiKeySecretRef:
-                          description: The OpsGenie API key to use.
+                          description: (String, Sensitive) The OpsGenie API key to
+                            use. The OpsGenie API key to use.
                           properties:
                             key:
                               description: The key to select.
@@ -376,32 +423,43 @@ spec:
                           - namespace
                           type: object
                         autoClose:
-                          description: Whether to auto-close alerts in OpsGenie when
-                            they resolve in the Alertmanager.
+                          description: close alerts in OpsGenie when they resolve
+                            in the Alertmanager. Whether to auto-close alerts in OpsGenie
+                            when they resolve in the Alertmanager.
                           type: boolean
                         description:
-                          description: A templated high-level description to use for
-                            the alert.
+                          description: level description to use for the alert. A templated
+                            high-level description to use for the alert.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated content of the message.
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
                           type: string
                         overridePriority:
-                          description: Whether to allow the alert priority to be configured
-                            via the value of the `og_priority` annotation on the alert.
+                          description: (Boolean) Whether to allow the alert priority
+                            to be configured via the value of the og_priority annotation
+                            on the alert. Whether to allow the alert priority to be
+                            configured via the value of the `og_priority` annotation
+                            on the alert.
                           type: boolean
                         sendTagsAs:
-                          description: Whether to send annotations to OpsGenie as
-                            Tags, Details, or both. Supported values are `tags`, `details`,
+                          description: (String) Whether to send annotations to OpsGenie
+                            as Tags, Details, or both. Supported values are tags,
+                            details, both, or empty to use the default behavior of
+                            Tags. Whether to send annotations to OpsGenie as Tags,
+                            Details, or both. Supported values are `tags`, `details`,
                             `both`, or empty to use the default behavior of Tags.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -414,47 +472,59 @@ spec:
                           - namespace
                           type: object
                         url:
-                          description: Allows customization of the OpsGenie API URL.
+                          description: (String) The URL of the Alertmanager instance.
+                            Allows customization of the OpsGenie API URL.
                           type: string
                       required:
                       - apiKeySecretRef
                       type: object
                     type: array
                   pagerduty:
-                    description: A contact point that sends notifications to PagerDuty.
+                    description: (Block List) A contact point that sends notifications
+                      to PagerDuty. (see below for nested schema) A contact point
+                      that sends notifications to PagerDuty.
                     items:
                       properties:
                         class:
-                          description: The class or type of event, for example `ping
-                            failure`.
+                          description: (String) The class or type of event, for example
+                            ping failure. The class or type of event, for example
+                            `ping failure`.
                           type: string
                         client:
-                          description: The name of the monitoring client that is triggering
-                            this event.
+                          description: (String) The name of the monitoring client
+                            that is triggering this event. The name of the monitoring
+                            client that is triggering this event.
                           type: string
                         clientUrl:
-                          description: The URL of the monitoring client that is triggering
-                            this event.
+                          description: (String) The URL of the monitoring client that
+                            is triggering this event. The URL of the monitoring client
+                            that is triggering this event.
                           type: string
                         component:
-                          description: The component being affected by the event.
+                          description: (String) The component being affected by the
+                            event. The component being affected by the event.
                           type: string
                         details:
                           additionalProperties:
                             type: string
-                          description: A set of arbitrary key/value pairs that provide
-                            further detail about the incident.
+                          description: (Map of String) A set of arbitrary key/value
+                            pairs that provide further detail about the incident.
+                            A set of arbitrary key/value pairs that provide further
+                            detail about the incident.
                           type: object
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         group:
-                          description: The group to which the provided component belongs
-                            to.
+                          description: (String) The group to which the provided component
+                            belongs to. The group to which the provided component
+                            belongs to.
                           type: string
                         integrationKeySecretRef:
-                          description: The PagerDuty API key.
+                          description: (String, Sensitive) The PagerDuty API key.
+                            The PagerDuty API key.
                           properties:
                             key:
                               description: The key to select.
@@ -471,8 +541,10 @@ spec:
                           - namespace
                           type: object
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -485,25 +557,31 @@ spec:
                           - namespace
                           type: object
                         severity:
-                          description: The PagerDuty event severity level. Default
-                            is `critical`.
+                          description: (String) The PagerDuty event severity level.
+                            Default is critical. The PagerDuty event severity level.
+                            Default is `critical`.
                           type: string
                         source:
-                          description: The unique location of the affected system.
+                          description: (String) The unique location of the affected
+                            system. The unique location of the affected system.
                           type: string
                         summary:
-                          description: The templated summary message of the event.
+                          description: (String) The templated summary message of the
+                            event. The templated summary message of the event.
                           type: string
                       required:
                       - integrationKeySecretRef
                       type: object
                     type: array
                   pushover:
-                    description: A contact point that sends notifications to Pushover.
+                    description: (Block List) A contact point that sends notifications
+                      to Pushover. (see below for nested schema) A contact point that
+                      sends notifications to Pushover.
                     items:
                       properties:
                         apiTokenSecretRef:
-                          description: The Pushover API token.
+                          description: (String, Sensitive) The Pushover API token.
+                            The Pushover API token.
                           properties:
                             key:
                               description: The key to select.
@@ -520,36 +598,48 @@ spec:
                           - namespace
                           type: object
                         device:
-                          description: Comma-separated list of devices to which the
-                            event is associated.
+                          description: separated list of devices to which the event
+                            is associated. Comma-separated list of devices to which
+                            the event is associated.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         expire:
-                          description: How many seconds for which the notification
-                            will continue to be retried by Pushover.
+                          description: (Number) How many seconds for which the notification
+                            will continue to be retried by Pushover. How many seconds
+                            for which the notification will continue to be retried
+                            by Pushover.
                           type: number
                         message:
-                          description: The templated notification message content.
+                          description: (String) The templated content of the message.
+                            The templated notification message content.
                           type: string
                         okPriority:
-                          description: The priority level of the resolved event.
+                          description: (Number) The priority level of the resolved
+                            event. The priority level of the resolved event.
                           type: number
                         okSound:
-                          description: The sound associated with the resolved notification.
+                          description: (String) The sound associated with the resolved
+                            notification. The sound associated with the resolved notification.
                           type: string
                         priority:
-                          description: The priority level of the event.
+                          description: (Number) The priority level of the event. The
+                            priority level of the event.
                           type: number
                         retry:
-                          description: How often, in seconds, the Pushover servers
-                            will send the same notification to the user.
+                          description: (Number) How often, in seconds, the Pushover
+                            servers will send the same notification to the user. How
+                            often, in seconds, the Pushover servers will send the
+                            same notification to the user.
                           type: number
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -562,13 +652,16 @@ spec:
                           - namespace
                           type: object
                         sound:
-                          description: The sound associated with the notification.
+                          description: (String) The sound associated with the notification.
+                            The sound associated with the notification.
                           type: string
                         title:
-                          description: The templated title of the message.
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
                           type: string
                         userKeySecretRef:
-                          description: The Pushover user key.
+                          description: (String, Sensitive) The Pushover user key.
+                            The Pushover user key.
                           properties:
                             key:
                               description: The key to select.
@@ -590,11 +683,14 @@ spec:
                       type: object
                     type: array
                   sensugo:
-                    description: A contact point that sends notifications to SensuGo.
+                    description: (Block List) A contact point that sends notifications
+                      to SensuGo. (see below for nested schema) A contact point that
+                      sends notifications to SensuGo.
                     items:
                       properties:
                         apiKeySecretRef:
-                          description: The SensuGo API key.
+                          description: (String, Sensitive) The OpsGenie API key to
+                            use. The SensuGo API key.
                           properties:
                             key:
                               description: The key to select.
@@ -611,29 +707,37 @@ spec:
                           - namespace
                           type: object
                         check:
-                          description: The SensuGo check to which the event should
-                            be routed.
+                          description: (String) The SensuGo check to which the event
+                            should be routed. The SensuGo check to which the event
+                            should be routed.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         entity:
-                          description: The entity being monitored.
+                          description: (String) The entity being monitored. The entity
+                            being monitored.
                           type: string
                         handler:
-                          description: A custom handler to execute in addition to
-                            the check.
+                          description: (String) A custom handler to execute in addition
+                            to the check. A custom handler to execute in addition
+                            to the check.
                           type: string
                         message:
-                          description: Templated message content describing the alert.
+                          description: (String) The templated content of the message.
+                            Templated message content describing the alert.
                           type: string
                         namespace:
-                          description: The namespace in which the check resides.
+                          description: (String) The namespace in which the check resides.
+                            The namespace in which the check resides.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -646,52 +750,66 @@ spec:
                           - namespace
                           type: object
                         url:
-                          description: The SensuGo URL to send requests to.
+                          description: (String) The URL of the Alertmanager instance.
+                            The SensuGo URL to send requests to.
                           type: string
                       required:
                       - apiKeySecretRef
-                      - url
                       type: object
                     type: array
                   slack:
-                    description: A contact point that sends notifications to Slack.
+                    description: (Block List) A contact point that sends notifications
+                      to Slack. (see below for nested schema) A contact point that
+                      sends notifications to Slack.
                     items:
                       properties:
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         endpointUrl:
-                          description: Use this to override the Slack API endpoint
-                            URL to send requests to.
+                          description: (String) Use this to override the Slack API
+                            endpoint URL to send requests to. Use this to override
+                            the Slack API endpoint URL to send requests to.
                           type: string
                         iconEmoji:
-                          description: The name of a Slack workspace emoji to use
-                            as the bot icon.
+                          description: (String) The name of a Slack workspace emoji
+                            to use as the bot icon. The name of a Slack workspace
+                            emoji to use as the bot icon.
                           type: string
                         iconUrl:
-                          description: A URL of an image to use as the bot icon.
+                          description: (String) A URL of an image to use as the bot
+                            icon. A URL of an image to use as the bot icon.
                           type: string
                         mentionChannel:
-                          description: Describes how to ping the slack channel that
-                            messages are being sent to. Options are `here` for an
-                            @here ping, `channel` for @channel, or empty for no ping.
+                          description: (String) Describes how to ping the slack channel
+                            that messages are being sent to. Options are here for
+                            an @here ping, channel for @channel, or empty for no ping.
+                            Describes how to ping the slack channel that messages
+                            are being sent to. Options are `here` for an @here ping,
+                            `channel` for @channel, or empty for no ping.
                           type: string
                         mentionGroups:
-                          description: Comma-separated list of groups to mention in
+                          description: separated list of groups to mention in the
+                            message. Comma-separated list of groups to mention in
                             the message.
                           type: string
                         mentionUsers:
-                          description: Comma-separated list of users to mention in
-                            the message.
+                          description: separated list of users to mention in the message.
+                            Comma-separated list of users to mention in the message.
                           type: string
                         recipient:
-                          description: Channel, private group, or IM channel (can
-                            be an encoded ID or a name) to send messages to.
+                          description: (String) Channel, private group, or IM channel
+                            (can be an encoded ID or a name) to send messages to.
+                            Channel, private group, or IM channel (can be an encoded
+                            ID or a name) to send messages to.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -704,14 +822,18 @@ spec:
                           - namespace
                           type: object
                         text:
-                          description: Templated content of the message.
+                          description: (String) Templated content of the message.
+                            Templated content of the message.
                           type: string
                         title:
-                          description: Templated title of the message.
+                          description: (String) The templated title of the message.
+                            Templated title of the message.
                           type: string
                         tokenSecretRef:
-                          description: A Slack API token,for sending messages directly
-                            without the webhook method.
+                          description: (String, Sensitive) A Slack API token,for sending
+                            messages directly without the webhook method. A Slack
+                            API token,for sending messages directly without the webhook
+                            method.
                           properties:
                             key:
                               description: The key to select.
@@ -728,8 +850,9 @@ spec:
                           - namespace
                           type: object
                         urlSecretRef:
-                          description: A Slack webhook URL,for sending messages via
-                            the webhook method.
+                          description: (String) The URL of the Alertmanager instance.
+                            A Slack webhook URL,for sending messages via the webhook
+                            method.
                           properties:
                             key:
                               description: The key to select.
@@ -746,28 +869,35 @@ spec:
                           - namespace
                           type: object
                         username:
-                          description: Username for the bot to use.
+                          description: (String) Username for the bot to use. Username
+                            for the bot to use.
                           type: string
                       type: object
                     type: array
                   teams:
-                    description: A contact point that sends notifications to Microsoft
-                      Teams.
+                    description: (Block List) A contact point that sends notifications
+                      to Microsoft Teams. (see below for nested schema) A contact
+                      point that sends notifications to Microsoft Teams.
                     items:
                       properties:
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated message content to send.
+                          description: (String) The templated content of the message.
+                            The templated message content to send.
                           type: string
                         sectionTitle:
-                          description: The templated subtitle for each message section.
+                          description: (String) The templated subtitle for each message
+                            section. The templated subtitle for each message section.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -780,10 +910,12 @@ spec:
                           - namespace
                           type: object
                         title:
-                          description: The templated title of the message.
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
                           type: string
                         urlSecretRef:
-                          description: A Teams webhook URL.
+                          description: (String) The URL of the Alertmanager instance.
+                            A Teams webhook URL.
                           properties:
                             key:
                               description: The key to select.
@@ -804,22 +936,29 @@ spec:
                       type: object
                     type: array
                   telegram:
-                    description: A contact point that sends notifications to Telegram.
+                    description: (Block List) A contact point that sends notifications
+                      to Telegram. (see below for nested schema) A contact point that
+                      sends notifications to Telegram.
                     items:
                       properties:
                         chatId:
-                          description: The chat ID to send messages to.
+                          description: (String) The chat ID to send messages to. The
+                            chat ID to send messages to.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated content of the message.
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -832,7 +971,9 @@ spec:
                           - namespace
                           type: object
                         tokenSecretRef:
-                          description: The Telegram bot token.
+                          description: (String, Sensitive) A Slack API token,for sending
+                            messages directly without the webhook method. The Telegram
+                            bot token.
                           properties:
                             key:
                               description: The key to select.
@@ -849,16 +990,18 @@ spec:
                           - namespace
                           type: object
                       required:
-                      - chatId
                       - tokenSecretRef
                       type: object
                     type: array
                   threema:
-                    description: A contact point that sends notifications to Threema.
+                    description: (Block List) A contact point that sends notifications
+                      to Threema. (see below for nested schema) A contact point that
+                      sends notifications to Threema.
                     items:
                       properties:
                         apiSecretSecretRef:
-                          description: The Threema API key.
+                          description: (String, Sensitive) The Threema API key. The
+                            Threema API key.
                           properties:
                             key:
                               description: The key to select.
@@ -875,7 +1018,8 @@ spec:
                           - namespace
                           type: object
                         descriptionSecretRef:
-                          description: The templated description of the message.
+                          description: level description to use for the alert. The
+                            templated description of the message.
                           properties:
                             key:
                               description: The key to select.
@@ -892,18 +1036,23 @@ spec:
                           - namespace
                           type: object
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         gatewayId:
-                          description: The Threema gateway ID.
+                          description: (String) The Threema gateway ID. The Threema
+                            gateway ID.
                           type: string
                         recipientId:
-                          description: The ID of the recipient of the message.
+                          description: (String) The ID of the recipient of the message.
+                            The ID of the recipient of the message.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -916,7 +1065,8 @@ spec:
                           - namespace
                           type: object
                         titleSecretRef:
-                          description: The templated title of the message.
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
                           properties:
                             key:
                               description: The key to select.
@@ -935,30 +1085,34 @@ spec:
                       required:
                       - apiSecretSecretRef
                       - descriptionSecretRef
-                      - gatewayId
-                      - recipientId
                       - titleSecretRef
                       type: object
                     type: array
                   victorops:
-                    description: A contact point that sends notifications to VictorOps
+                    description: (Block List) A contact point that sends notifications
+                      to VictorOps (now known as Splunk OnCall). (see below for nested
+                      schema) A contact point that sends notifications to VictorOps
                       (now known as Splunk OnCall).
                     items:
                       properties:
                         description:
-                          description: Templated description of the message.
+                          description: level description to use for the alert. Templated
+                            description of the message.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         messageType:
-                          description: The VictorOps alert state - typically either
-                            `CRITICAL` or `RECOVERY`.
+                          description: either 'link' or 'actionCard' The VictorOps
+                            alert state - typically either `CRITICAL` or `RECOVERY`.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -971,24 +1125,30 @@ spec:
                           - namespace
                           type: object
                         title:
-                          description: Templated title to display.
+                          description: (String) The templated title of the message.
+                            Templated title to display.
                           type: string
                         url:
-                          description: The VictorOps webhook URL.
+                          description: (String) The URL of the Alertmanager instance.
+                            The VictorOps webhook URL.
                           type: string
-                      required:
-                      - url
                       type: object
                     type: array
                   webhook:
-                    description: 'A contact point that sends notifications to an arbitrary
-                      webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config'
+                    description: '(Block List) A contact point that sends notifications
+                      to an arbitrary webhook, using the Prometheus webhook format
+                      defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
+                      (see below for nested schema) A contact point that sends notifications
+                      to an arbitrary webhook, using the Prometheus webhook format
+                      defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config'
                     items:
                       properties:
                         authorizationCredentialsSecretRef:
-                          description: Allows a custom authorization scheme - attaches
-                            an auth header with this value. Do not use in conjunction
-                            with basic auth parameters.
+                          description: attaches an auth header with this value. Do
+                            not use in conjunction with basic auth parameters. Allows
+                            a custom authorization scheme - attaches an auth header
+                            with this value. Do not use in conjunction with basic
+                            auth parameters.
                           properties:
                             key:
                               description: The key to select.
@@ -1005,13 +1165,17 @@ spec:
                           - namespace
                           type: object
                         authorizationScheme:
-                          description: Allows a custom authorization scheme - attaches
-                            an auth header with this name. Do not use in conjunction
-                            with basic auth parameters.
+                          description: attaches an auth header with this name. Do
+                            not use in conjunction with basic auth parameters. Allows
+                            a custom authorization scheme - attaches an auth header
+                            with this name. Do not use in conjunction with basic auth
+                            parameters.
                           type: string
                         basicAuthPasswordSecretRef:
-                          description: The username to use in basic auth headers attached
-                            to the request. If omitted, basic auth will not be used.
+                          description: (String, Sensitive) The password component
+                            of the basic auth credentials to use. The username to
+                            use in basic auth headers attached to the request. If
+                            omitted, basic auth will not be used.
                           properties:
                             key:
                               description: The key to select.
@@ -1028,28 +1192,38 @@ spec:
                           - namespace
                           type: object
                         basicAuthUser:
-                          description: The username to use in basic auth headers attached
-                            to the request. If omitted, basic auth will not be used.
+                          description: (String) The username component of the basic
+                            auth credentials to use. The username to use in basic
+                            auth headers attached to the request. If omitted, basic
+                            auth will not be used.
                           type: string
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         httpMethod:
-                          description: The HTTP method to use in the request. Defaults
-                            to `POST`.
+                          description: (String) The HTTP method to use in the request.
+                            Defaults to POST. The HTTP method to use in the request.
+                            Defaults to `POST`.
                           type: string
                         maxAlerts:
-                          description: The maximum number of alerts to send in a single
+                          description: (Number) The maximum number of alerts to send
+                            in a single request. This can be helpful in limiting the
+                            size of the request body. The default is 0, which indicates
+                            no limit. The maximum number of alerts to send in a single
                             request. This can be helpful in limiting the size of the
                             request body. The default is 0, which indicates no limit.
                           type: number
                         message:
-                          description: Custom message. You can use template variables.
+                          description: (String) The templated content of the message.
+                            Custom message. You can use template variables.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -1062,29 +1236,35 @@ spec:
                           - namespace
                           type: object
                         title:
-                          description: Templated title of the message.
+                          description: (String) The templated title of the message.
+                            Templated title of the message.
                           type: string
                         url:
-                          description: The URL to send webhook requests to.
+                          description: (String) The URL of the Alertmanager instance.
+                            The URL to send webhook requests to.
                           type: string
-                      required:
-                      - url
                       type: object
                     type: array
                   wecom:
-                    description: A contact point that sends notifications to WeCom.
+                    description: (Block List) A contact point that sends notifications
+                      to WeCom. (see below for nested schema) A contact point that
+                      sends notifications to WeCom.
                     items:
                       properties:
                         disableResolveMessage:
-                          description: Whether to disable sending resolve messages.
-                            Defaults to `false`.
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
                           type: boolean
                         message:
-                          description: The templated content of the message to send.
+                          description: (String) The templated content of the message.
+                            The templated content of the message to send.
                           type: string
                         settingsSecretRef:
-                          description: Additional custom properties to attach to the
-                            notifier. Defaults to `map[]`.
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
                           properties:
                             name:
                               description: Name of the secret.
@@ -1097,10 +1277,12 @@ spec:
                           - namespace
                           type: object
                         title:
-                          description: The templated title of the message to send.
+                          description: (String) The templated title of the message.
+                            The templated title of the message to send.
                           type: string
                         urlSecretRef:
-                          description: The WeCom webhook URL.
+                          description: (String) The URL of the Alertmanager instance.
+                            The WeCom webhook URL.
                           properties:
                             key:
                               description: The key to select.
@@ -1120,51 +1302,634 @@ spec:
                       - urlSecretRef
                       type: object
                     type: array
-                required:
-                - name
                 type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  alertmanager:
+                    description: (Block List) A contact point that sends notifications
+                      to other Alertmanager instances. (see below for nested schema)
+                      A contact point that sends notifications to other Alertmanager
+                      instances.
+                    items:
+                      properties:
+                        basicAuthUser:
+                          description: (String) The username component of the basic
+                            auth credentials to use. The username component of the
+                            basic auth credentials to use.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The URL of the Alertmanager instance.
+                          type: string
+                      type: object
+                    type: array
+                  dingding:
+                    description: (Block List) A contact point that sends notifications
+                      to DingDing. (see below for nested schema) A contact point that
+                      sends notifications to DingDing.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
+                        messageType:
+                          description: either 'link' or 'actionCard' The format of
+                            message to send - either 'link' or 'actionCard'
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The DingDing webhook URL.
+                          type: string
+                      type: object
+                    type: array
+                  discord:
+                    description: (Block List) A contact point that sends notifications
+                      as Discord messages (see below for nested schema) A contact
+                      point that sends notifications as Discord messages
+                    items:
+                      properties:
+                        avatarUrl:
+                          description: (String) The URL of a custom avatar image to
+                            use. Defaults to “. The URL of a custom avatar image to
+                            use. Defaults to “.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message. Defaults to “.
+                          type: string
+                        useDiscordUsername:
+                          description: (Boolean) Whether to use the bot account's
+                            plain username instead of "Grafana." Defaults to false.
+                            Whether to use the bot account's plain username instead
+                            of "Grafana." Defaults to `false`.
+                          type: boolean
+                      type: object
+                    type: array
+                  email:
+                    description: (Block List) A contact point that sends notifications
+                      to an email address. (see below for nested schema) A contact
+                      point that sends notifications to an email address.
+                    items:
+                      properties:
+                        addresses:
+                          description: (List of String) The addresses to send emails
+                            to. The addresses to send emails to.
+                          items:
+                            type: string
+                          type: array
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the email. Defaults to “.
+                          type: string
+                        singleEmail:
+                          description: (Boolean) Whether to send a single email CC'ing
+                            all addresses, rather than a separate email to each address.
+                            Defaults to false. Whether to send a single email CC'ing
+                            all addresses, rather than a separate email to each address.
+                            Defaults to `false`.
+                          type: boolean
+                        subject:
+                          description: (String) The templated subject line of the
+                            email. Defaults to “. The templated subject line of the
+                            email. Defaults to “.
+                          type: string
+                      type: object
+                    type: array
+                  googlechat:
+                    description: (Block List) A contact point that sends notifications
+                      to Google Chat. (see below for nested schema) A contact point
+                      that sends notifications to Google Chat.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
+                      type: object
+                    type: array
+                  kafka:
+                    description: (Block List) A contact point that publishes notifications
+                      to Apache Kafka topics. (see below for nested schema) A contact
+                      point that publishes notifications to Apache Kafka topics.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        topic:
+                          description: (String) The name of the Kafka topic to publish
+                            to. The name of the Kafka topic to publish to.
+                          type: string
+                      type: object
+                    type: array
+                  name:
+                    description: (String) The name of the contact point. The name
+                      of the contact point.
+                    type: string
+                  opsgenie:
+                    description: (Block List) A contact point that sends notifications
+                      to OpsGenie. (see below for nested schema) A contact point that
+                      sends notifications to OpsGenie.
+                    items:
+                      properties:
+                        autoClose:
+                          description: close alerts in OpsGenie when they resolve
+                            in the Alertmanager. Whether to auto-close alerts in OpsGenie
+                            when they resolve in the Alertmanager.
+                          type: boolean
+                        description:
+                          description: level description to use for the alert. A templated
+                            high-level description to use for the alert.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
+                        overridePriority:
+                          description: (Boolean) Whether to allow the alert priority
+                            to be configured via the value of the og_priority annotation
+                            on the alert. Whether to allow the alert priority to be
+                            configured via the value of the `og_priority` annotation
+                            on the alert.
+                          type: boolean
+                        sendTagsAs:
+                          description: (String) Whether to send annotations to OpsGenie
+                            as Tags, Details, or both. Supported values are tags,
+                            details, both, or empty to use the default behavior of
+                            Tags. Whether to send annotations to OpsGenie as Tags,
+                            Details, or both. Supported values are `tags`, `details`,
+                            `both`, or empty to use the default behavior of Tags.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            Allows customization of the OpsGenie API URL.
+                          type: string
+                      type: object
+                    type: array
+                  pagerduty:
+                    description: (Block List) A contact point that sends notifications
+                      to PagerDuty. (see below for nested schema) A contact point
+                      that sends notifications to PagerDuty.
+                    items:
+                      properties:
+                        class:
+                          description: (String) The class or type of event, for example
+                            ping failure. The class or type of event, for example
+                            `ping failure`.
+                          type: string
+                        client:
+                          description: (String) The name of the monitoring client
+                            that is triggering this event. The name of the monitoring
+                            client that is triggering this event.
+                          type: string
+                        clientUrl:
+                          description: (String) The URL of the monitoring client that
+                            is triggering this event. The URL of the monitoring client
+                            that is triggering this event.
+                          type: string
+                        component:
+                          description: (String) The component being affected by the
+                            event. The component being affected by the event.
+                          type: string
+                        details:
+                          additionalProperties:
+                            type: string
+                          description: (Map of String) A set of arbitrary key/value
+                            pairs that provide further detail about the incident.
+                            A set of arbitrary key/value pairs that provide further
+                            detail about the incident.
+                          type: object
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        group:
+                          description: (String) The group to which the provided component
+                            belongs to. The group to which the provided component
+                            belongs to.
+                          type: string
+                        severity:
+                          description: (String) The PagerDuty event severity level.
+                            Default is critical. The PagerDuty event severity level.
+                            Default is `critical`.
+                          type: string
+                        source:
+                          description: (String) The unique location of the affected
+                            system. The unique location of the affected system.
+                          type: string
+                        summary:
+                          description: (String) The templated summary message of the
+                            event. The templated summary message of the event.
+                          type: string
+                      type: object
+                    type: array
+                  pushover:
+                    description: (Block List) A contact point that sends notifications
+                      to Pushover. (see below for nested schema) A contact point that
+                      sends notifications to Pushover.
+                    items:
+                      properties:
+                        device:
+                          description: separated list of devices to which the event
+                            is associated. Comma-separated list of devices to which
+                            the event is associated.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        expire:
+                          description: (Number) How many seconds for which the notification
+                            will continue to be retried by Pushover. How many seconds
+                            for which the notification will continue to be retried
+                            by Pushover.
+                          type: number
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated notification message content.
+                          type: string
+                        okPriority:
+                          description: (Number) The priority level of the resolved
+                            event. The priority level of the resolved event.
+                          type: number
+                        okSound:
+                          description: (String) The sound associated with the resolved
+                            notification. The sound associated with the resolved notification.
+                          type: string
+                        priority:
+                          description: (Number) The priority level of the event. The
+                            priority level of the event.
+                          type: number
+                        retry:
+                          description: (Number) How often, in seconds, the Pushover
+                            servers will send the same notification to the user. How
+                            often, in seconds, the Pushover servers will send the
+                            same notification to the user.
+                          type: number
+                        sound:
+                          description: (String) The sound associated with the notification.
+                            The sound associated with the notification.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
+                          type: string
+                      type: object
+                    type: array
+                  sensugo:
+                    description: (Block List) A contact point that sends notifications
+                      to SensuGo. (see below for nested schema) A contact point that
+                      sends notifications to SensuGo.
+                    items:
+                      properties:
+                        check:
+                          description: (String) The SensuGo check to which the event
+                            should be routed. The SensuGo check to which the event
+                            should be routed.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        entity:
+                          description: (String) The entity being monitored. The entity
+                            being monitored.
+                          type: string
+                        handler:
+                          description: (String) A custom handler to execute in addition
+                            to the check. A custom handler to execute in addition
+                            to the check.
+                          type: string
+                        message:
+                          description: (String) The templated content of the message.
+                            Templated message content describing the alert.
+                          type: string
+                        namespace:
+                          description: (String) The namespace in which the check resides.
+                            The namespace in which the check resides.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The SensuGo URL to send requests to.
+                          type: string
+                      type: object
+                    type: array
+                  slack:
+                    description: (Block List) A contact point that sends notifications
+                      to Slack. (see below for nested schema) A contact point that
+                      sends notifications to Slack.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        endpointUrl:
+                          description: (String) Use this to override the Slack API
+                            endpoint URL to send requests to. Use this to override
+                            the Slack API endpoint URL to send requests to.
+                          type: string
+                        iconEmoji:
+                          description: (String) The name of a Slack workspace emoji
+                            to use as the bot icon. The name of a Slack workspace
+                            emoji to use as the bot icon.
+                          type: string
+                        iconUrl:
+                          description: (String) A URL of an image to use as the bot
+                            icon. A URL of an image to use as the bot icon.
+                          type: string
+                        mentionChannel:
+                          description: (String) Describes how to ping the slack channel
+                            that messages are being sent to. Options are here for
+                            an @here ping, channel for @channel, or empty for no ping.
+                            Describes how to ping the slack channel that messages
+                            are being sent to. Options are `here` for an @here ping,
+                            `channel` for @channel, or empty for no ping.
+                          type: string
+                        mentionGroups:
+                          description: separated list of groups to mention in the
+                            message. Comma-separated list of groups to mention in
+                            the message.
+                          type: string
+                        mentionUsers:
+                          description: separated list of users to mention in the message.
+                            Comma-separated list of users to mention in the message.
+                          type: string
+                        recipient:
+                          description: (String) Channel, private group, or IM channel
+                            (can be an encoded ID or a name) to send messages to.
+                            Channel, private group, or IM channel (can be an encoded
+                            ID or a name) to send messages to.
+                          type: string
+                        text:
+                          description: (String) Templated content of the message.
+                            Templated content of the message.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            Templated title of the message.
+                          type: string
+                        username:
+                          description: (String) Username for the bot to use. Username
+                            for the bot to use.
+                          type: string
+                      type: object
+                    type: array
+                  teams:
+                    description: (Block List) A contact point that sends notifications
+                      to Microsoft Teams. (see below for nested schema) A contact
+                      point that sends notifications to Microsoft Teams.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated message content to send.
+                          type: string
+                        sectionTitle:
+                          description: (String) The templated subtitle for each message
+                            section. The templated subtitle for each message section.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
+                          type: string
+                      type: object
+                    type: array
+                  telegram:
+                    description: (Block List) A contact point that sends notifications
+                      to Telegram. (see below for nested schema) A contact point that
+                      sends notifications to Telegram.
+                    items:
+                      properties:
+                        chatId:
+                          description: (String) The chat ID to send messages to. The
+                            chat ID to send messages to.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
+                      type: object
+                    type: array
+                  threema:
+                    description: (Block List) A contact point that sends notifications
+                      to Threema. (see below for nested schema) A contact point that
+                      sends notifications to Threema.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        gatewayId:
+                          description: (String) The Threema gateway ID. The Threema
+                            gateway ID.
+                          type: string
+                        recipientId:
+                          description: (String) The ID of the recipient of the message.
+                            The ID of the recipient of the message.
+                          type: string
+                      type: object
+                    type: array
+                  victorops:
+                    description: (Block List) A contact point that sends notifications
+                      to VictorOps (now known as Splunk OnCall). (see below for nested
+                      schema) A contact point that sends notifications to VictorOps
+                      (now known as Splunk OnCall).
+                    items:
+                      properties:
+                        description:
+                          description: level description to use for the alert. Templated
+                            description of the message.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        messageType:
+                          description: either 'link' or 'actionCard' The VictorOps
+                            alert state - typically either `CRITICAL` or `RECOVERY`.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            Templated title to display.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The VictorOps webhook URL.
+                          type: string
+                      type: object
+                    type: array
+                  webhook:
+                    description: '(Block List) A contact point that sends notifications
+                      to an arbitrary webhook, using the Prometheus webhook format
+                      defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
+                      (see below for nested schema) A contact point that sends notifications
+                      to an arbitrary webhook, using the Prometheus webhook format
+                      defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config'
+                    items:
+                      properties:
+                        authorizationScheme:
+                          description: attaches an auth header with this name. Do
+                            not use in conjunction with basic auth parameters. Allows
+                            a custom authorization scheme - attaches an auth header
+                            with this name. Do not use in conjunction with basic auth
+                            parameters.
+                          type: string
+                        basicAuthUser:
+                          description: (String) The username component of the basic
+                            auth credentials to use. The username to use in basic
+                            auth headers attached to the request. If omitted, basic
+                            auth will not be used.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        httpMethod:
+                          description: (String) The HTTP method to use in the request.
+                            Defaults to POST. The HTTP method to use in the request.
+                            Defaults to `POST`.
+                          type: string
+                        maxAlerts:
+                          description: (Number) The maximum number of alerts to send
+                            in a single request. This can be helpful in limiting the
+                            size of the request body. The default is 0, which indicates
+                            no limit. The maximum number of alerts to send in a single
+                            request. This can be helpful in limiting the size of the
+                            request body. The default is 0, which indicates no limit.
+                          type: number
+                        message:
+                          description: (String) The templated content of the message.
+                            Custom message. You can use template variables.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            Templated title of the message.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The URL to send webhook requests to.
+                          type: string
+                      type: object
+                    type: array
+                  wecom:
+                    description: (Block List) A contact point that sends notifications
+                      to WeCom. (see below for nested schema) A contact point that
+                      sends notifications to WeCom.
+                    items:
+                      properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message to send.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message to send.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
                 description: ProviderConfigReference specifies how the provider that
                   will be used to create, observe, update, and delete this managed
                   resource should be configured.
-                properties:
-                  name:
-                    description: Name of the referenced object.
-                    type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
-                required:
-                - name
-                type: object
-              providerRef:
-                description: 'ProviderReference specifies the provider that will be
-                  used to create, observe, update, and delete this managed resource.
-                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -1294,171 +2059,667 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
           status:
             description: ContactPointStatus defines the observed state of ContactPoint.
             properties:
               atProvider:
                 properties:
                   alertmanager:
-                    description: A contact point that sends notifications to other
-                      Alertmanager instances.
+                    description: (Block List) A contact point that sends notifications
+                      to other Alertmanager instances. (see below for nested schema)
+                      A contact point that sends notifications to other Alertmanager
+                      instances.
                     items:
                       properties:
+                        basicAuthUser:
+                          description: (String) The username component of the basic
+                            auth credentials to use. The username component of the
+                            basic auth credentials to use.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The URL of the Alertmanager instance.
                           type: string
                       type: object
                     type: array
                   dingding:
-                    description: A contact point that sends notifications to DingDing.
+                    description: (Block List) A contact point that sends notifications
+                      to DingDing. (see below for nested schema) A contact point that
+                      sends notifications to DingDing.
                     items:
                       properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
+                        messageType:
+                          description: either 'link' or 'actionCard' The format of
+                            message to send - either 'link' or 'actionCard'
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The DingDing webhook URL.
                           type: string
                       type: object
                     type: array
                   discord:
-                    description: A contact point that sends notifications as Discord
-                      messages
+                    description: (Block List) A contact point that sends notifications
+                      as Discord messages (see below for nested schema) A contact
+                      point that sends notifications as Discord messages
                     items:
                       properties:
-                        uid:
-                          description: The UID of the contact point.
+                        avatarUrl:
+                          description: (String) The URL of a custom avatar image to
+                            use. Defaults to “. The URL of a custom avatar image to
+                            use. Defaults to “.
                           type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message. Defaults to “.
+                          type: string
+                        uid:
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        useDiscordUsername:
+                          description: (Boolean) Whether to use the bot account's
+                            plain username instead of "Grafana." Defaults to false.
+                            Whether to use the bot account's plain username instead
+                            of "Grafana." Defaults to `false`.
+                          type: boolean
                       type: object
                     type: array
                   email:
-                    description: A contact point that sends notifications to an email
-                      address.
+                    description: (Block List) A contact point that sends notifications
+                      to an email address. (see below for nested schema) A contact
+                      point that sends notifications to an email address.
                     items:
                       properties:
+                        addresses:
+                          description: (List of String) The addresses to send emails
+                            to. The addresses to send emails to.
+                          items:
+                            type: string
+                          type: array
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the email. Defaults to “.
+                          type: string
+                        singleEmail:
+                          description: (Boolean) Whether to send a single email CC'ing
+                            all addresses, rather than a separate email to each address.
+                            Defaults to false. Whether to send a single email CC'ing
+                            all addresses, rather than a separate email to each address.
+                            Defaults to `false`.
+                          type: boolean
+                        subject:
+                          description: (String) The templated subject line of the
+                            email. Defaults to “. The templated subject line of the
+                            email. Defaults to “.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
                   googlechat:
-                    description: A contact point that sends notifications to Google
-                      Chat.
+                    description: (Block List) A contact point that sends notifications
+                      to Google Chat. (see below for nested schema) A contact point
+                      that sends notifications to Google Chat.
                     items:
                       properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
                   id:
+                    description: (String) The ID of this resource.
                     type: string
                   kafka:
-                    description: A contact point that publishes notifications to Apache
-                      Kafka topics.
+                    description: (Block List) A contact point that publishes notifications
+                      to Apache Kafka topics. (see below for nested schema) A contact
+                      point that publishes notifications to Apache Kafka topics.
                     items:
                       properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        topic:
+                          description: (String) The name of the Kafka topic to publish
+                            to. The name of the Kafka topic to publish to.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
+                  name:
+                    description: (String) The name of the contact point. The name
+                      of the contact point.
+                    type: string
                   opsgenie:
-                    description: A contact point that sends notifications to OpsGenie.
+                    description: (Block List) A contact point that sends notifications
+                      to OpsGenie. (see below for nested schema) A contact point that
+                      sends notifications to OpsGenie.
                     items:
                       properties:
+                        autoClose:
+                          description: close alerts in OpsGenie when they resolve
+                            in the Alertmanager. Whether to auto-close alerts in OpsGenie
+                            when they resolve in the Alertmanager.
+                          type: boolean
+                        description:
+                          description: level description to use for the alert. A templated
+                            high-level description to use for the alert.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
+                        overridePriority:
+                          description: (Boolean) Whether to allow the alert priority
+                            to be configured via the value of the og_priority annotation
+                            on the alert. Whether to allow the alert priority to be
+                            configured via the value of the `og_priority` annotation
+                            on the alert.
+                          type: boolean
+                        sendTagsAs:
+                          description: (String) Whether to send annotations to OpsGenie
+                            as Tags, Details, or both. Supported values are tags,
+                            details, both, or empty to use the default behavior of
+                            Tags. Whether to send annotations to OpsGenie as Tags,
+                            Details, or both. Supported values are `tags`, `details`,
+                            `both`, or empty to use the default behavior of Tags.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            Allows customization of the OpsGenie API URL.
                           type: string
                       type: object
                     type: array
                   pagerduty:
-                    description: A contact point that sends notifications to PagerDuty.
+                    description: (Block List) A contact point that sends notifications
+                      to PagerDuty. (see below for nested schema) A contact point
+                      that sends notifications to PagerDuty.
                     items:
                       properties:
+                        class:
+                          description: (String) The class or type of event, for example
+                            ping failure. The class or type of event, for example
+                            `ping failure`.
+                          type: string
+                        client:
+                          description: (String) The name of the monitoring client
+                            that is triggering this event. The name of the monitoring
+                            client that is triggering this event.
+                          type: string
+                        clientUrl:
+                          description: (String) The URL of the monitoring client that
+                            is triggering this event. The URL of the monitoring client
+                            that is triggering this event.
+                          type: string
+                        component:
+                          description: (String) The component being affected by the
+                            event. The component being affected by the event.
+                          type: string
+                        details:
+                          additionalProperties:
+                            type: string
+                          description: (Map of String) A set of arbitrary key/value
+                            pairs that provide further detail about the incident.
+                            A set of arbitrary key/value pairs that provide further
+                            detail about the incident.
+                          type: object
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        group:
+                          description: (String) The group to which the provided component
+                            belongs to. The group to which the provided component
+                            belongs to.
+                          type: string
+                        severity:
+                          description: (String) The PagerDuty event severity level.
+                            Default is critical. The PagerDuty event severity level.
+                            Default is `critical`.
+                          type: string
+                        source:
+                          description: (String) The unique location of the affected
+                            system. The unique location of the affected system.
+                          type: string
+                        summary:
+                          description: (String) The templated summary message of the
+                            event. The templated summary message of the event.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
                   pushover:
-                    description: A contact point that sends notifications to Pushover.
+                    description: (Block List) A contact point that sends notifications
+                      to Pushover. (see below for nested schema) A contact point that
+                      sends notifications to Pushover.
                     items:
                       properties:
+                        device:
+                          description: separated list of devices to which the event
+                            is associated. Comma-separated list of devices to which
+                            the event is associated.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        expire:
+                          description: (Number) How many seconds for which the notification
+                            will continue to be retried by Pushover. How many seconds
+                            for which the notification will continue to be retried
+                            by Pushover.
+                          type: number
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated notification message content.
+                          type: string
+                        okPriority:
+                          description: (Number) The priority level of the resolved
+                            event. The priority level of the resolved event.
+                          type: number
+                        okSound:
+                          description: (String) The sound associated with the resolved
+                            notification. The sound associated with the resolved notification.
+                          type: string
+                        priority:
+                          description: (Number) The priority level of the event. The
+                            priority level of the event.
+                          type: number
+                        retry:
+                          description: (Number) How often, in seconds, the Pushover
+                            servers will send the same notification to the user. How
+                            often, in seconds, the Pushover servers will send the
+                            same notification to the user.
+                          type: number
+                        sound:
+                          description: (String) The sound associated with the notification.
+                            The sound associated with the notification.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
                   sensugo:
-                    description: A contact point that sends notifications to SensuGo.
+                    description: (Block List) A contact point that sends notifications
+                      to SensuGo. (see below for nested schema) A contact point that
+                      sends notifications to SensuGo.
                     items:
                       properties:
+                        check:
+                          description: (String) The SensuGo check to which the event
+                            should be routed. The SensuGo check to which the event
+                            should be routed.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        entity:
+                          description: (String) The entity being monitored. The entity
+                            being monitored.
+                          type: string
+                        handler:
+                          description: (String) A custom handler to execute in addition
+                            to the check. A custom handler to execute in addition
+                            to the check.
+                          type: string
+                        message:
+                          description: (String) The templated content of the message.
+                            Templated message content describing the alert.
+                          type: string
+                        namespace:
+                          description: (String) The namespace in which the check resides.
+                            The namespace in which the check resides.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The SensuGo URL to send requests to.
                           type: string
                       type: object
                     type: array
                   slack:
-                    description: A contact point that sends notifications to Slack.
+                    description: (Block List) A contact point that sends notifications
+                      to Slack. (see below for nested schema) A contact point that
+                      sends notifications to Slack.
                     items:
                       properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        endpointUrl:
+                          description: (String) Use this to override the Slack API
+                            endpoint URL to send requests to. Use this to override
+                            the Slack API endpoint URL to send requests to.
+                          type: string
+                        iconEmoji:
+                          description: (String) The name of a Slack workspace emoji
+                            to use as the bot icon. The name of a Slack workspace
+                            emoji to use as the bot icon.
+                          type: string
+                        iconUrl:
+                          description: (String) A URL of an image to use as the bot
+                            icon. A URL of an image to use as the bot icon.
+                          type: string
+                        mentionChannel:
+                          description: (String) Describes how to ping the slack channel
+                            that messages are being sent to. Options are here for
+                            an @here ping, channel for @channel, or empty for no ping.
+                            Describes how to ping the slack channel that messages
+                            are being sent to. Options are `here` for an @here ping,
+                            `channel` for @channel, or empty for no ping.
+                          type: string
+                        mentionGroups:
+                          description: separated list of groups to mention in the
+                            message. Comma-separated list of groups to mention in
+                            the message.
+                          type: string
+                        mentionUsers:
+                          description: separated list of users to mention in the message.
+                            Comma-separated list of users to mention in the message.
+                          type: string
+                        recipient:
+                          description: (String) Channel, private group, or IM channel
+                            (can be an encoded ID or a name) to send messages to.
+                            Channel, private group, or IM channel (can be an encoded
+                            ID or a name) to send messages to.
+                          type: string
+                        text:
+                          description: (String) Templated content of the message.
+                            Templated content of the message.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            Templated title of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        username:
+                          description: (String) Username for the bot to use. Username
+                            for the bot to use.
                           type: string
                       type: object
                     type: array
                   teams:
-                    description: A contact point that sends notifications to Microsoft
-                      Teams.
+                    description: (Block List) A contact point that sends notifications
+                      to Microsoft Teams. (see below for nested schema) A contact
+                      point that sends notifications to Microsoft Teams.
                     items:
                       properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated message content to send.
+                          type: string
+                        sectionTitle:
+                          description: (String) The templated subtitle for each message
+                            section. The templated subtitle for each message section.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
                   telegram:
-                    description: A contact point that sends notifications to Telegram.
+                    description: (Block List) A contact point that sends notifications
+                      to Telegram. (see below for nested schema) A contact point that
+                      sends notifications to Telegram.
                     items:
                       properties:
+                        chatId:
+                          description: (String) The chat ID to send messages to. The
+                            chat ID to send messages to.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
                   threema:
-                    description: A contact point that sends notifications to Threema.
+                    description: (Block List) A contact point that sends notifications
+                      to Threema. (see below for nested schema) A contact point that
+                      sends notifications to Threema.
                     items:
                       properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        gatewayId:
+                          description: (String) The Threema gateway ID. The Threema
+                            gateway ID.
+                          type: string
+                        recipientId:
+                          description: (String) The ID of the recipient of the message.
+                            The ID of the recipient of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
                   victorops:
-                    description: A contact point that sends notifications to VictorOps
+                    description: (Block List) A contact point that sends notifications
+                      to VictorOps (now known as Splunk OnCall). (see below for nested
+                      schema) A contact point that sends notifications to VictorOps
                       (now known as Splunk OnCall).
                     items:
                       properties:
+                        description:
+                          description: level description to use for the alert. Templated
+                            description of the message.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        messageType:
+                          description: either 'link' or 'actionCard' The VictorOps
+                            alert state - typically either `CRITICAL` or `RECOVERY`.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            Templated title to display.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The VictorOps webhook URL.
                           type: string
                       type: object
                     type: array
                   webhook:
-                    description: 'A contact point that sends notifications to an arbitrary
-                      webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config'
+                    description: '(Block List) A contact point that sends notifications
+                      to an arbitrary webhook, using the Prometheus webhook format
+                      defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
+                      (see below for nested schema) A contact point that sends notifications
+                      to an arbitrary webhook, using the Prometheus webhook format
+                      defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config'
                     items:
                       properties:
+                        authorizationScheme:
+                          description: attaches an auth header with this name. Do
+                            not use in conjunction with basic auth parameters. Allows
+                            a custom authorization scheme - attaches an auth header
+                            with this name. Do not use in conjunction with basic auth
+                            parameters.
+                          type: string
+                        basicAuthUser:
+                          description: (String) The username component of the basic
+                            auth credentials to use. The username to use in basic
+                            auth headers attached to the request. If omitted, basic
+                            auth will not be used.
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        httpMethod:
+                          description: (String) The HTTP method to use in the request.
+                            Defaults to POST. The HTTP method to use in the request.
+                            Defaults to `POST`.
+                          type: string
+                        maxAlerts:
+                          description: (Number) The maximum number of alerts to send
+                            in a single request. This can be helpful in limiting the
+                            size of the request body. The default is 0, which indicates
+                            no limit. The maximum number of alerts to send in a single
+                            request. This can be helpful in limiting the size of the
+                            request body. The default is 0, which indicates no limit.
+                          type: number
+                        message:
+                          description: (String) The templated content of the message.
+                            Custom message. You can use template variables.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            Templated title of the message.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
+                          type: string
+                        url:
+                          description: (String) The URL of the Alertmanager instance.
+                            The URL to send webhook requests to.
                           type: string
                       type: object
                     type: array
                   wecom:
-                    description: A contact point that sends notifications to WeCom.
+                    description: (Block List) A contact point that sends notifications
+                      to WeCom. (see below for nested schema) A contact point that
+                      sends notifications to WeCom.
                     items:
                       properties:
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        message:
+                          description: (String) The templated content of the message.
+                            The templated content of the message to send.
+                          type: string
+                        title:
+                          description: (String) The templated title of the message.
+                            The templated title of the message to send.
+                          type: string
                         uid:
-                          description: The UID of the contact point.
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array
@@ -1496,6 +2757,9 @@ spec:
                   - type
                   type: object
                 type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
             type: object
         required:
         - spec
@@ -1504,9 +2768,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []

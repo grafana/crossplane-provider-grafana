@@ -1,0 +1,18 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/user
+  labels:
+    testing.upbound.io/example-name: staff
+  name: staff
+spec:
+  forProvider:
+    email: staff.name@example.com
+    isAdmin: false
+    login: staff
+    name: Staff Name
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

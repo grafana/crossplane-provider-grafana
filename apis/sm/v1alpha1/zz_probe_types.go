@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,44 +17,115 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ProbeInitParameters struct {
+
+	// (Map of String) Custom labels to be included with collected metrics and logs.
+	// Custom labels to be included with collected metrics and logs.
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (Number) Latitude coordinates.
+	// Latitude coordinates.
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// (Number) Longitude coordinates.
+	// Longitude coordinates.
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	// (String) Name of the probe.
+	// Name of the probe.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
+	// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
+	Public *bool `json:"public,omitempty" tf:"public,omitempty"`
+
+	// (String) Region of the probe.
+	// Region of the probe.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+}
+
 type ProbeObservation struct {
+
+	// (String) The ID of the probe.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Map of String) Custom labels to be included with collected metrics and logs.
+	// Custom labels to be included with collected metrics and logs.
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (Number) Latitude coordinates.
+	// Latitude coordinates.
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
+
+	// (Number) Longitude coordinates.
+	// Longitude coordinates.
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
+
+	// (String) Name of the probe.
+	// Name of the probe.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
+	// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
+	Public *bool `json:"public,omitempty" tf:"public,omitempty"`
+
+	// (String) Region of the probe.
+	// Region of the probe.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+	// (Number) The tenant ID of the probe.
 	// The tenant ID of the probe.
 	TenantID *float64 `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 }
 
 type ProbeParameters struct {
 
+	// (Map of String) Custom labels to be included with collected metrics and logs.
 	// Custom labels to be included with collected metrics and logs.
 	// +kubebuilder:validation:Optional
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (Number) Latitude coordinates.
 	// Latitude coordinates.
-	// +kubebuilder:validation:Required
-	Latitude *float64 `json:"latitude" tf:"latitude,omitempty"`
+	// +kubebuilder:validation:Optional
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
+	// (Number) Longitude coordinates.
 	// Longitude coordinates.
-	// +kubebuilder:validation:Required
-	Longitude *float64 `json:"longitude" tf:"longitude,omitempty"`
+	// +kubebuilder:validation:Optional
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
+	// (String) Name of the probe.
 	// Name of the probe.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
 	// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Public *bool `json:"public,omitempty" tf:"public,omitempty"`
 
+	// (String) Region of the probe.
 	// Region of the probe.
-	// +kubebuilder:validation:Required
-	Region *string `json:"region" tf:"region,omitempty"`
+	// +kubebuilder:validation:Optional
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 // ProbeSpec defines the desired state of Probe
 type ProbeSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ProbeParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ProbeInitParameters `json:"initProvider,omitempty"`
 }
 
 // ProbeStatus defines the observed state of Probe.
@@ -61,7 +136,7 @@ type ProbeStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Probe is the Schema for the Probes API. <no value>
+// Probe is the Schema for the Probes API. Besides the public probes run by Grafana Labs, you can also install your own private probes. These are only accessible to you and only write data to your Grafana Cloud account. Private probes are instances of the open source Grafana Synthetic Monitoring Agent. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/private-probes/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -71,8 +146,12 @@ type ProbeStatus struct {
 type Probe struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ProbeSpec   `json:"spec"`
-	Status            ProbeStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.latitude) || (has(self.initProvider) && has(self.initProvider.latitude))",message="spec.forProvider.latitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.longitude) || (has(self.initProvider) && has(self.initProvider.longitude))",message="spec.forProvider.longitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
+	Spec   ProbeSpec   `json:"spec"`
+	Status ProbeStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

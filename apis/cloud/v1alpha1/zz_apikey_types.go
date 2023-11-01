@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,29 +17,72 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type APIKeyInitParameters struct {
+
+	// (String) The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
+	// The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
+	CloudOrgSlug *string `json:"cloudOrgSlug,omitempty" tf:"cloud_org_slug,omitempty"`
+
+	// (String) Name of the API key.
+	// Name of the API key.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// cloud/api/#create-api-key for details.
+	// Role of the API key. Should be one of [Viewer Editor Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key for details.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+}
+
 type APIKeyObservation struct {
+
+	// (String) The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
+	// The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
+	CloudOrgSlug *string `json:"cloudOrgSlug,omitempty" tf:"cloud_org_slug,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Name of the API key.
+	// Name of the API key.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// cloud/api/#create-api-key for details.
+	// Role of the API key. Should be one of [Viewer Editor Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key for details.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
 type APIKeyParameters struct {
 
+	// (String) The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
 	// The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
-	// +kubebuilder:validation:Required
-	CloudOrgSlug *string `json:"cloudOrgSlug" tf:"cloud_org_slug,omitempty"`
+	// +kubebuilder:validation:Optional
+	CloudOrgSlug *string `json:"cloudOrgSlug,omitempty" tf:"cloud_org_slug,omitempty"`
 
+	// (String) Name of the API key.
 	// Name of the API key.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// cloud/api/#create-api-key for details.
 	// Role of the API key. Should be one of [Viewer Editor Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key for details.
-	// +kubebuilder:validation:Required
-	Role *string `json:"role" tf:"role,omitempty"`
+	// +kubebuilder:validation:Optional
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
 // APIKeySpec defines the desired state of APIKey
 type APIKeySpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     APIKeyParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider APIKeyInitParameters `json:"initProvider,omitempty"`
 }
 
 // APIKeyStatus defines the observed state of APIKey.
@@ -46,7 +93,7 @@ type APIKeyStatus struct {
 
 // +kubebuilder:object:root=true
 
-// APIKey is the Schema for the APIKeys API. <no value>
+// APIKey is the Schema for the APIKeys API. Manages a single API key on the Grafana Cloud portal (on the organization level)
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -56,8 +103,11 @@ type APIKeyStatus struct {
 type APIKey struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              APIKeySpec   `json:"spec"`
-	Status            APIKeyStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudOrgSlug) || (has(self.initProvider) && has(self.initProvider.cloudOrgSlug))",message="spec.forProvider.cloudOrgSlug is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
+	Spec   APIKeySpec   `json:"spec"`
+	Status APIKeyStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

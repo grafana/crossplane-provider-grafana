@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,12 +17,34 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ServiceAccountPermissionInitParameters struct {
+
+	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// The permission items to add/update. Items that are omitted from the list will be removed.
+	Permissions []ServiceAccountPermissionPermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
+}
+
 type ServiceAccountPermissionObservation struct {
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// The permission items to add/update. Items that are omitted from the list will be removed.
+	Permissions []ServiceAccountPermissionPermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
+
+	// (String) The id of the service account.
+	// The id of the service account.
+	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 }
 
 type ServiceAccountPermissionParameters struct {
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
@@ -34,10 +60,12 @@ type ServiceAccountPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
+	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
-	// +kubebuilder:validation:Required
-	Permissions []ServiceAccountPermissionPermissionsParameters `json:"permissions" tf:"permissions,omitempty"`
+	// +kubebuilder:validation:Optional
+	Permissions []ServiceAccountPermissionPermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
+	// (String) The id of the service account.
 	// The id of the service account.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
@@ -54,19 +82,49 @@ type ServiceAccountPermissionParameters struct {
 	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
+type ServiceAccountPermissionPermissionsInitParameters struct {
+
+	// (String) Permission to associate with item. Must be Edit or Admin.
+	// Permission to associate with item. Must be `Edit` or `Admin`.
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+
+	// (String) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
+	// ID of the team to manage permissions for. Specify either this or `user_id`. Defaults to `0`.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// (String) ID of the user or service account to manage permissions for. Specify either this or team_id. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+}
+
 type ServiceAccountPermissionPermissionsObservation struct {
+
+	// (String) Permission to associate with item. Must be Edit or Admin.
+	// Permission to associate with item. Must be `Edit` or `Admin`.
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+
+	// (String) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
+	// ID of the team to manage permissions for. Specify either this or `user_id`. Defaults to `0`.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// (String) ID of the user or service account to manage permissions for. Specify either this or team_id. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type ServiceAccountPermissionPermissionsParameters struct {
 
+	// (String) Permission to associate with item. Must be Edit or Admin.
 	// Permission to associate with item. Must be `Edit` or `Admin`.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	Permission *string `json:"permission" tf:"permission,omitempty"`
 
+	// (String) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
 	// ID of the team to manage permissions for. Specify either this or `user_id`. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
+	// (String) ID of the user or service account to manage permissions for. Specify either this or team_id. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
@@ -76,6 +134,17 @@ type ServiceAccountPermissionPermissionsParameters struct {
 type ServiceAccountPermissionSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     ServiceAccountPermissionParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider ServiceAccountPermissionInitParameters `json:"initProvider,omitempty"`
 }
 
 // ServiceAccountPermissionStatus defines the observed state of ServiceAccountPermission.
@@ -86,7 +155,7 @@ type ServiceAccountPermissionStatus struct {
 
 // +kubebuilder:object:root=true
 
-// ServiceAccountPermission is the Schema for the ServiceAccountPermissions API. <no value>
+// ServiceAccountPermission is the Schema for the ServiceAccountPermissions API. Note: This resource is available from Grafana 9.2.4 onwards. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/#manage-users-and-teams-permissions-for-a-service-account-in-grafana
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -96,8 +165,9 @@ type ServiceAccountPermissionStatus struct {
 type ServiceAccountPermission struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              ServiceAccountPermissionSpec   `json:"spec"`
-	Status            ServiceAccountPermissionStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permissions) || (has(self.initProvider) && has(self.initProvider.permissions))",message="spec.forProvider.permissions is a required parameter"
+	Spec   ServiceAccountPermissionSpec   `json:"spec"`
+	Status ServiceAccountPermissionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

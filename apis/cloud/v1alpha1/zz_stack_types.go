@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,105 +17,203 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type StackInitParameters struct {
+
+	// (String) Description of stack.
+	// Description of stack.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+	// Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+	RegionSlug *string `json:"regionSlug,omitempty" tf:"region_slug,omitempty"`
+
+	// (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+	// available at “https://<stack_slug>.grafana.net".
+	// Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+	// available at “https://<stack_slug>.grafana.net".
+	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
+
+	// (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+	// Custom URL for the Grafana instance. Must have a CNAME setup to point to `.grafana.net` before creating the stack
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
+	// Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
+	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
+
+	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+	// How long to wait for readiness (if enabled). Defaults to `5m0s`.
+	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
+}
+
 type StackObservation struct {
 
+	// (String) Name of the Alertmanager instance configured for this stack.
 	// Name of the Alertmanager instance configured for this stack.
 	AlertmanagerName *string `json:"alertmanagerName,omitempty" tf:"alertmanager_name,omitempty"`
 
+	// (String) Status of the Alertmanager instance configured for this stack.
 	// Status of the Alertmanager instance configured for this stack.
 	AlertmanagerStatus *string `json:"alertmanagerStatus,omitempty" tf:"alertmanager_status,omitempty"`
 
+	// (String) Base URL of the Alertmanager instance configured for this stack.
 	// Base URL of the Alertmanager instance configured for this stack.
 	AlertmanagerURL *string `json:"alertmanagerUrl,omitempty" tf:"alertmanager_url,omitempty"`
 
+	// (Number) User ID of the Alertmanager instance configured for this stack.
 	// User ID of the Alertmanager instance configured for this stack.
 	AlertmanagerUserID *float64 `json:"alertmanagerUserId,omitempty" tf:"alertmanager_user_id,omitempty"`
 
+	// (String) Description of stack.
+	// Description of stack.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String)
 	GraphiteName *string `json:"graphiteName,omitempty" tf:"graphite_name,omitempty"`
 
+	// (String)
 	GraphiteStatus *string `json:"graphiteStatus,omitempty" tf:"graphite_status,omitempty"`
 
+	// (String)
 	GraphiteURL *string `json:"graphiteUrl,omitempty" tf:"graphite_url,omitempty"`
 
+	// (Number)
 	GraphiteUserID *float64 `json:"graphiteUserId,omitempty" tf:"graphite_user_id,omitempty"`
 
+	// (String) The stack id assigned to this stack by Grafana.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String)
 	LogsName *string `json:"logsName,omitempty" tf:"logs_name,omitempty"`
 
+	// (String)
 	LogsStatus *string `json:"logsStatus,omitempty" tf:"logs_status,omitempty"`
 
+	// (String)
 	LogsURL *string `json:"logsUrl,omitempty" tf:"logs_url,omitempty"`
 
+	// (Number)
 	LogsUserID *float64 `json:"logsUserId,omitempty" tf:"logs_user_id,omitempty"`
 
+	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Number) Organization id to assign to this stack.
 	// Organization id to assign to this stack.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
+	// (String) Organization name to assign to this stack.
 	// Organization name to assign to this stack.
 	OrgName *string `json:"orgName,omitempty" tf:"org_name,omitempty"`
 
+	// (String) Organization slug to assign to this stack.
 	// Organization slug to assign to this stack.
 	OrgSlug *string `json:"orgSlug,omitempty" tf:"org_slug,omitempty"`
 
+	// (String) Prometheus name for this instance.
 	// Prometheus name for this instance.
 	PrometheusName *string `json:"prometheusName,omitempty" tf:"prometheus_name,omitempty"`
 
+	// (String) Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
 	// Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
 	PrometheusRemoteEndpoint *string `json:"prometheusRemoteEndpoint,omitempty" tf:"prometheus_remote_endpoint,omitempty"`
 
+	// (String) Use this URL to send prometheus metrics to Grafana cloud
 	// Use this URL to send prometheus metrics to Grafana cloud
 	PrometheusRemoteWriteEndpoint *string `json:"prometheusRemoteWriteEndpoint,omitempty" tf:"prometheus_remote_write_endpoint,omitempty"`
 
+	// (String) Prometheus status for this instance.
 	// Prometheus status for this instance.
 	PrometheusStatus *string `json:"prometheusStatus,omitempty" tf:"prometheus_status,omitempty"`
 
+	// (String) Prometheus url for this instance.
 	// Prometheus url for this instance.
 	PrometheusURL *string `json:"prometheusUrl,omitempty" tf:"prometheus_url,omitempty"`
 
+	// (Number) Prometheus user ID. Used for e.g. remote_write.
 	// Prometheus user ID. Used for e.g. remote_write.
 	PrometheusUserID *float64 `json:"prometheusUserId,omitempty" tf:"prometheus_user_id,omitempty"`
 
+	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+	// Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+	RegionSlug *string `json:"regionSlug,omitempty" tf:"region_slug,omitempty"`
+
+	// (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+	// available at “https://<stack_slug>.grafana.net".
+	// Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+	// available at “https://<stack_slug>.grafana.net".
+	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
+
+	// (String) Status of the stack.
 	// Status of the stack.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// (String)
 	TracesName *string `json:"tracesName,omitempty" tf:"traces_name,omitempty"`
 
+	// (String)
 	TracesStatus *string `json:"tracesStatus,omitempty" tf:"traces_status,omitempty"`
 
+	// (String) Base URL of the Traces instance configured for this stack. To use this in the Tempo data source in Grafana, append /tempo to the URL.
 	// Base URL of the Traces instance configured for this stack. To use this in the Tempo data source in Grafana, append `/tempo` to the URL.
 	TracesURL *string `json:"tracesUrl,omitempty" tf:"traces_url,omitempty"`
 
+	// (Number)
 	TracesUserID *float64 `json:"tracesUserId,omitempty" tf:"traces_user_id,omitempty"`
+
+	// (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+	// Custom URL for the Grafana instance. Must have a CNAME setup to point to `.grafana.net` before creating the stack
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
+	// Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
+	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
+
+	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+	// How long to wait for readiness (if enabled). Defaults to `5m0s`.
+	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
 }
 
 type StackParameters struct {
 
+	// (String) Description of stack.
 	// Description of stack.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
 	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	// Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	// +kubebuilder:validation:Optional
 	RegionSlug *string `json:"regionSlug,omitempty" tf:"region_slug,omitempty"`
 
+	// (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+	// available at “https://<stack_slug>.grafana.net".
 	// Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
 	// available at “https://<stack_slug>.grafana.net".
-	// +kubebuilder:validation:Required
-	Slug *string `json:"slug" tf:"slug,omitempty"`
+	// +kubebuilder:validation:Optional
+	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
+	// (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
 	// Custom URL for the Grafana instance. Must have a CNAME setup to point to `.grafana.net` before creating the stack
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
 	// Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
 
+	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
 	// How long to wait for readiness (if enabled). Defaults to `5m0s`.
 	// +kubebuilder:validation:Optional
 	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
@@ -121,6 +223,17 @@ type StackParameters struct {
 type StackSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     StackParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider StackInitParameters `json:"initProvider,omitempty"`
 }
 
 // StackStatus defines the observed state of Stack.
@@ -131,7 +244,7 @@ type StackStatus struct {
 
 // +kubebuilder:object:root=true
 
-// Stack is the Schema for the Stacks API. <no value>
+// Stack is the Schema for the Stacks API. Official documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#stacks/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -141,8 +254,10 @@ type StackStatus struct {
 type Stack struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              StackSpec   `json:"spec"`
-	Status            StackStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.slug) || (has(self.initProvider) && has(self.initProvider.slug))",message="spec.forProvider.slug is a required parameter"
+	Spec   StackSpec   `json:"spec"`
+	Status StackStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

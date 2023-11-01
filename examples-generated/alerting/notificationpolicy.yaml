@@ -1,0 +1,83 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: NotificationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/notificationpolicy
+  labels:
+    testing.upbound.io/example-name: my_notification_policy
+  name: my-notification-policy
+spec:
+  forProvider:
+    contactPointSelector:
+      matchLabels:
+        testing.upbound.io/example-name: a_contact_point
+    groupBy:
+    - '...'
+    groupInterval: 6m
+    groupWait: 45s
+    policy:
+    - contactPoint: My Contact Point
+      continue: true
+      groupBy:
+      - alertname
+      groupInterval: 6m
+      groupWait: 45s
+      matcher:
+      - label: mylabel
+        match: =
+        value: myvalue
+      muteTimings:
+      - ${grafana_mute_timing.a_mute_timing.name}
+      policy:
+      - contactPoint: My Contact Point
+        groupBy:
+        - '...'
+        matcher:
+        - label: sublabel
+          match: =
+          value: subvalue
+      repeatInterval: 3h
+    - contactPoint: My Contact Point
+      groupBy:
+      - '...'
+      matcher:
+      - label: anotherlabel
+        match: =~
+        value: another value.*
+    repeatInterval: 3h
+
+---
+
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: ContactPoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/notificationpolicy
+  labels:
+    testing.upbound.io/example-name: a_contact_point
+  name: a-contact-point
+spec:
+  forProvider:
+    email:
+    - addresses:
+      - one@company.org
+      - two@company.org
+      message: '{{ len .Alerts.Firing }} firing.'
+    name: A Contact Point
+
+---
+
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: MuteTiming
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/notificationpolicy
+  labels:
+    testing.upbound.io/example-name: a_mute_timing
+  name: a-mute-timing
+spec:
+  forProvider:
+    intervals:
+    - weekdays:
+      - monday
+    name: Some Mute Timing

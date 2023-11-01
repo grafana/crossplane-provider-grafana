@@ -1,0 +1,16 @@
+apiVersion: sm.grafana.crossplane.io/v1alpha1
+kind: Probe
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/probe
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    labels:
+      type: mountain
+    latitude: 27.98606
+    longitude: 86.92262
+    name: Mount Everest
+    region: APAC

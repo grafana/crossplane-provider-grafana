@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 The Crossplane Authors <https://crossplane.io>
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /*
 Copyright 2022 Upbound Inc.
 */
@@ -13,40 +17,101 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type OutgoingWebhookInitParameters struct {
+
+	// (String) The data of the webhook.
+	// The data of the webhook.
+	Data *string `json:"data,omitempty" tf:"data,omitempty"`
+
+	// (Boolean) Forwards whole payload of the alert to the webhook's url as POST data.
+	// Forwards whole payload of the alert to the webhook's url as POST data.
+	ForwardWholePayload *bool `json:"forwardWholePayload,omitempty" tf:"forward_whole_payload,omitempty"`
+
+	// (String) The name of the outgoing webhook.
+	// The name of the outgoing webhook.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// (String) The webhook URL.
+	// The webhook URL.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// (String) The auth data of the webhook. Used for Basic authentication.
+	// The auth data of the webhook. Used for Basic authentication.
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
+}
+
 type OutgoingWebhookObservation struct {
+
+	// (String) The data of the webhook.
+	// The data of the webhook.
+	Data *string `json:"data,omitempty" tf:"data,omitempty"`
+
+	// (Boolean) Forwards whole payload of the alert to the webhook's url as POST data.
+	// Forwards whole payload of the alert to the webhook's url as POST data.
+	ForwardWholePayload *bool `json:"forwardWholePayload,omitempty" tf:"forward_whole_payload,omitempty"`
+
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the outgoing webhook.
+	// The name of the outgoing webhook.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// (String) The webhook URL.
+	// The webhook URL.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// (String) The auth data of the webhook. Used for Basic authentication.
+	// The auth data of the webhook. Used for Basic authentication.
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
 
 type OutgoingWebhookParameters struct {
 
+	// (String, Sensitive) The auth data of the webhook. Used in Authorization header instead of user/password auth.
 	// The auth data of the webhook. Used in Authorization header instead of user/password auth.
 	// +kubebuilder:validation:Optional
 	AuthorizationHeaderSecretRef *v1.SecretKeySelector `json:"authorizationHeaderSecretRef,omitempty" tf:"-"`
 
+	// (String) The data of the webhook.
 	// The data of the webhook.
 	// +kubebuilder:validation:Optional
 	Data *string `json:"data,omitempty" tf:"data,omitempty"`
 
+	// (Boolean) Forwards whole payload of the alert to the webhook's url as POST data.
 	// Forwards whole payload of the alert to the webhook's url as POST data.
 	// +kubebuilder:validation:Optional
 	ForwardWholePayload *bool `json:"forwardWholePayload,omitempty" tf:"forward_whole_payload,omitempty"`
 
+	// (String) The name of the outgoing webhook.
 	// The name of the outgoing webhook.
-	// +kubebuilder:validation:Required
-	Name *string `json:"name" tf:"name,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String, Sensitive) The auth data of the webhook. Used for Basic authentication
 	// The auth data of the webhook. Used for Basic authentication
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
+	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
 	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
+	// (String) The webhook URL.
 	// The webhook URL.
-	// +kubebuilder:validation:Required
-	URL *string `json:"url" tf:"url,omitempty"`
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// (String) The auth data of the webhook. Used for Basic authentication.
 	// The auth data of the webhook. Used for Basic authentication.
 	// +kubebuilder:validation:Optional
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
@@ -56,6 +121,17 @@ type OutgoingWebhookParameters struct {
 type OutgoingWebhookSpec struct {
 	v1.ResourceSpec `json:",inline"`
 	ForProvider     OutgoingWebhookParameters `json:"forProvider"`
+	// THIS IS A BETA FIELD. It will be honored
+	// unless the Management Policies feature flag is disabled.
+	// InitProvider holds the same fields as ForProvider, with the exception
+	// of Identifier and other resource reference fields. The fields that are
+	// in InitProvider are merged into ForProvider when the resource is created.
+	// The same fields are also added to the terraform ignore_changes hook, to
+	// avoid updating them after creation. This is useful for fields that are
+	// required on creation, but we do not desire to update them after creation,
+	// for example because of an external controller is managing them, like an
+	// autoscaler.
+	InitProvider OutgoingWebhookInitParameters `json:"initProvider,omitempty"`
 }
 
 // OutgoingWebhookStatus defines the observed state of OutgoingWebhook.
@@ -66,7 +142,7 @@ type OutgoingWebhookStatus struct {
 
 // +kubebuilder:object:root=true
 
-// OutgoingWebhook is the Schema for the OutgoingWebhooks API. <no value>
+// OutgoingWebhook is the Schema for the OutgoingWebhooks API. HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/outgoing_webhooks/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -76,8 +152,10 @@ type OutgoingWebhookStatus struct {
 type OutgoingWebhook struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              OutgoingWebhookSpec   `json:"spec"`
-	Status            OutgoingWebhookStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.url) || (has(self.initProvider) && has(self.initProvider.url))",message="spec.forProvider.url is a required parameter"
+	Spec   OutgoingWebhookSpec   `json:"spec"`
+	Status OutgoingWebhookStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -3,8 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.8.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.13.0
   name: schedules.oncall.grafana.crossplane.io
 spec:
   group: oncall.grafana.crossplane.io
@@ -35,7 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Schedule is the Schema for the Schedules API. <no value>
+        description: Schedule is the Schema for the Schedules API. HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/schedules/
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -54,9 +53,13 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: DeletionPolicy specifies what will happen to the underlying
+                description: 'DeletionPolicy specifies what will happen to the underlying
                   external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource.
+                  or "Orphan" the external resource. This field is planned to be deprecated
+                  in favor of the ManagementPolicies field in a future release. Currently,
+                  both could be set independently and non-default values would be
+                  honored if the feature flag is enabled. See the design doc for more
+                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
                 enum:
                 - Orphan
                 - Delete
@@ -64,92 +67,150 @@ spec:
               forProvider:
                 properties:
                   icalUrlOverrides:
-                    description: The URL of external iCal calendar which override
-                      primary events.
+                    description: (String) The URL of external iCal calendar which
+                      override primary events. The URL of external iCal calendar which
+                      override primary events.
                     type: string
                   icalUrlPrimary:
-                    description: The URL of the external calendar iCal file.
+                    description: (String) The URL of the external calendar iCal file.
+                      The URL of the external calendar iCal file.
                     type: string
                   name:
-                    description: The schedule's name.
+                    description: (String) The schedule's name. The schedule's name.
                     type: string
                   shifts:
-                    description: The list of ID's of on-call shifts.
+                    description: call shifts. The list of ID's of on-call shifts.
                     items:
                       type: string
                     type: array
                   slack:
-                    description: The Slack-specific settings for a schedule.
+                    description: specific settings for a schedule. (see below for
+                      nested schema) The Slack-specific settings for a schedule.
                     items:
                       properties:
                         channelId:
-                          description: Slack channel id. Reminder about schedule shifts
-                            will be directed to this channel in Slack.
+                          description: (String) Slack channel id. Reminder about schedule
+                            shifts will be directed to this channel in Slack. Slack
+                            channel id. Reminder about schedule shifts will be directed
+                            to this channel in Slack.
                           type: string
                         userGroupId:
-                          description: Slack user group id. Members of user group
-                            will be updated when on-call users change.
+                          description: call users change. Slack user group id. Members
+                            of user group will be updated when on-call users change.
                           type: string
                       type: object
                     type: array
                   teamId:
-                    description: The ID of the OnCall team. To get one, create a team
-                      in Grafana, and navigate to the OnCall plugin (to sync the team
-                      with OnCall). You can then get the ID using the `grafana_oncall_team`
+                    description: (String) The ID of the OnCall team. To get one, create
+                      a team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the grafana_oncall_team
+                      datasource. The ID of the OnCall team. To get one, create a
+                      team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the `grafana_oncall_team`
                       datasource.
                     type: string
                   timeZone:
-                    description: The schedule's time zone.
+                    description: (String) The schedule's time zone. The schedule's
+                      time zone.
                     type: string
                   type:
-                    description: The schedule's type.
+                    description: (String) The schedule's type. The schedule's type.
                     type: string
-                required:
-                - name
-                - type
                 type: object
+              initProvider:
+                description: THIS IS A BETA FIELD. It will be honored unless the Management
+                  Policies feature flag is disabled. InitProvider holds the same fields
+                  as ForProvider, with the exception of Identifier and other resource
+                  reference fields. The fields that are in InitProvider are merged
+                  into ForProvider when the resource is created. The same fields are
+                  also added to the terraform ignore_changes hook, to avoid updating
+                  them after creation. This is useful for fields that are required
+                  on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them,
+                  like an autoscaler.
+                properties:
+                  icalUrlOverrides:
+                    description: (String) The URL of external iCal calendar which
+                      override primary events. The URL of external iCal calendar which
+                      override primary events.
+                    type: string
+                  icalUrlPrimary:
+                    description: (String) The URL of the external calendar iCal file.
+                      The URL of the external calendar iCal file.
+                    type: string
+                  name:
+                    description: (String) The schedule's name. The schedule's name.
+                    type: string
+                  shifts:
+                    description: call shifts. The list of ID's of on-call shifts.
+                    items:
+                      type: string
+                    type: array
+                  slack:
+                    description: specific settings for a schedule. (see below for
+                      nested schema) The Slack-specific settings for a schedule.
+                    items:
+                      properties:
+                        channelId:
+                          description: (String) Slack channel id. Reminder about schedule
+                            shifts will be directed to this channel in Slack. Slack
+                            channel id. Reminder about schedule shifts will be directed
+                            to this channel in Slack.
+                          type: string
+                        userGroupId:
+                          description: call users change. Slack user group id. Members
+                            of user group will be updated when on-call users change.
+                          type: string
+                      type: object
+                    type: array
+                  teamId:
+                    description: (String) The ID of the OnCall team. To get one, create
+                      a team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the grafana_oncall_team
+                      datasource. The ID of the OnCall team. To get one, create a
+                      team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the `grafana_oncall_team`
+                      datasource.
+                    type: string
+                  timeZone:
+                    description: (String) The schedule's time zone. The schedule's
+                      time zone.
+                    type: string
+                  type:
+                    description: (String) The schedule's type. The schedule's type.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: 'THIS IS A BETA FIELD. It is on by default but can be
+                  opted out through a Crossplane feature flag. ManagementPolicies
+                  specify the array of actions Crossplane is allowed to take on the
+                  managed and external resources. This field is planned to replace
+                  the DeletionPolicy field in a future release. Currently, both could
+                  be set independently and non-default values would be honored if
+                  the feature flag is enabled. If both are custom, the DeletionPolicy
+                  field will be ignored. See the design doc for more information:
+                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                items:
+                  description: A ManagementAction represents an action that the Crossplane
+                    controllers can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
               providerConfigRef:
                 default:
                   name: default
                 description: ProviderConfigReference specifies how the provider that
                   will be used to create, observe, update, and delete this managed
                   resource should be configured.
-                properties:
-                  name:
-                    description: Name of the referenced object.
-                    type: string
-                  policy:
-                    description: Policies for referencing.
-                    properties:
-                      resolution:
-                        default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
-                        enum:
-                        - Required
-                        - Optional
-                        type: string
-                      resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
-                        enum:
-                        - Always
-                        - IfNotPresent
-                        type: string
-                    type: object
-                required:
-                - name
-                type: object
-              providerRef:
-                description: 'ProviderReference specifies the provider that will be
-                  used to create, observe, update, and delete this managed resource.
-                  Deprecated: Please use ProviderConfigReference, i.e. `providerConfigRef`'
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -279,12 +340,72 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.type is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
+                || (has(self.initProvider) && has(self.initProvider.type))'
           status:
             description: ScheduleStatus defines the observed state of Schedule.
             properties:
               atProvider:
                 properties:
+                  icalUrlOverrides:
+                    description: (String) The URL of external iCal calendar which
+                      override primary events. The URL of external iCal calendar which
+                      override primary events.
+                    type: string
+                  icalUrlPrimary:
+                    description: (String) The URL of the external calendar iCal file.
+                      The URL of the external calendar iCal file.
+                    type: string
                   id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: (String) The schedule's name. The schedule's name.
+                    type: string
+                  shifts:
+                    description: call shifts. The list of ID's of on-call shifts.
+                    items:
+                      type: string
+                    type: array
+                  slack:
+                    description: specific settings for a schedule. (see below for
+                      nested schema) The Slack-specific settings for a schedule.
+                    items:
+                      properties:
+                        channelId:
+                          description: (String) Slack channel id. Reminder about schedule
+                            shifts will be directed to this channel in Slack. Slack
+                            channel id. Reminder about schedule shifts will be directed
+                            to this channel in Slack.
+                          type: string
+                        userGroupId:
+                          description: call users change. Slack user group id. Members
+                            of user group will be updated when on-call users change.
+                          type: string
+                      type: object
+                    type: array
+                  teamId:
+                    description: (String) The ID of the OnCall team. To get one, create
+                      a team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the grafana_oncall_team
+                      datasource. The ID of the OnCall team. To get one, create a
+                      team in Grafana, and navigate to the OnCall plugin (to sync
+                      the team with OnCall). You can then get the ID using the `grafana_oncall_team`
+                      datasource.
+                    type: string
+                  timeZone:
+                    description: (String) The schedule's time zone. The schedule's
+                      time zone.
+                    type: string
+                  type:
+                    description: (String) The schedule's type. The schedule's type.
                     type: string
                 type: object
               conditions:
@@ -320,6 +441,9 @@ spec:
                   - type
                   type: object
                 type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
             type: object
         required:
         - spec
@@ -328,9 +452,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: []
-  storedVersions: []
