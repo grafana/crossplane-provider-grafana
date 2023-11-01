@@ -48,7 +48,7 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Folder),
-		Extract:      reference.ExternalName(),
+		Extract:      grafana.UIDExtractor(),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
