@@ -19,6 +19,7 @@ const (
 // ConfigureOrgIDRefs adds an organization reference to the org_id field for all resources that have the field.
 func ConfigureOrgIDRefs(p *ujconfig.Provider) {
 	for name, resource := range p.Resources {
+		resource.UseAsync = false
 		if resource.TerraformResource.Schema["org_id"] == nil {
 			continue
 		}
