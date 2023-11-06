@@ -57,6 +57,9 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
+	p.AddResourceConfigurator("grafana_cloud_stack", func(r *ujconfig.Resource) {
+		r.UseAsync = true
+	})
 	p.AddResourceConfigurator("grafana_cloud_stack_service_account", func(r *ujconfig.Resource) {
 		r.References["stack_slug"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",
