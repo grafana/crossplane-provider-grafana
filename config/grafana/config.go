@@ -19,7 +19,6 @@ const (
 // ConfigureOrgIDRefs adds an organization reference to the org_id field for all resources that have the field.
 func ConfigureOrgIDRefs(p *ujconfig.Provider) {
 	for name, resource := range p.Resources {
-		resource.UseAsync = false
 		if resource.TerraformResource.Schema["org_id"] == nil {
 			continue
 		}
@@ -35,6 +34,11 @@ func ConfigureOrgIDRefs(p *ujconfig.Provider) {
 
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
+	// configures all resources to be synced without async callbacks, the Grafana API is synchronous
+	for _, resource := range p.Resources {
+		resource.UseAsync = false
+	}
+
 	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
