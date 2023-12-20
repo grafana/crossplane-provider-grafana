@@ -390,6 +390,13 @@ spec:
                                 description: (Boolean) Do not follow redirects. Defaults
                                   to false. Do not follow redirects. Defaults to `false`.
                                 type: boolean
+                              proxyConnectHeaders:
+                                description: (Set of String) The HTTP headers sent
+                                  to the proxy URL The HTTP headers sent to the proxy
+                                  URL
+                                items:
+                                  type: string
+                                type: array
                               proxyUrl:
                                 description: (String) Proxy URL. Proxy URL.
                                 type: string
@@ -438,9 +445,9 @@ spec:
                                 type: array
                               validHttpVersions:
                                 description: (Set of String) List of valid HTTP versions.
-                                  Options include HTTP/1.0, HTTP/1.1, HTTP/2 List
+                                  Options include HTTP/1.0, HTTP/1.1, HTTP/2.0 List
                                   of valid HTTP versions. Options include `HTTP/1.0`,
-                                  `HTTP/1.1`, `HTTP/2`
+                                  `HTTP/1.1`, `HTTP/2.0`
                                 items:
                                   type: string
                                 type: array
@@ -450,6 +457,175 @@ spec:
                                   If unset, defaults to 2xx.
                                 items:
                                   type: number
+                                type: array
+                            type: object
+                          type: array
+                        multihttp:
+                          description: '(Block Set, Max: 1) Settings for MultiHTTP
+                            check. The target must be a URL (http or https) (see below
+                            for nested schema) Settings for MultiHTTP check. The target
+                            must be a URL (http or https)'
+                          items:
+                            properties:
+                              entries:
+                                description: (Block List) (see below for nested schema)
+                                items:
+                                  properties:
+                                    assertions:
+                                      description: (Block List) Assertions to make
+                                        on the request response (see below for nested
+                                        schema) Assertions to make on the request
+                                        response
+                                      items:
+                                        properties:
+                                          condition:
+                                            description: '(String) The condition of
+                                              the assertion: NOT_CONTAINS, EQUALS,
+                                              STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+                                              The condition of the assertion: NOT_CONTAINS,
+                                              EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF,
+                                              CONTAINS'
+                                            type: string
+                                          expression:
+                                            description: (String) The expression of
+                                              the assertion. Should start with $.
+                                              The expression of the assertion. Should
+                                              start with $.
+                                            type: string
+                                          subject:
+                                            description: '(String) The subject of
+                                              the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE,
+                                              RESPONSE_BODY The subject of the assertion:
+                                              RESPONSE_HEADERS, HTTP_STATUS_CODE,
+                                              RESPONSE_BODY'
+                                            type: string
+                                          type:
+                                            description: '(String) The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION'
+                                            type: string
+                                          value:
+                                            description: (String) The value of the
+                                              assertion The value of the assertion
+                                            type: string
+                                        type: object
+                                      type: array
+                                    request:
+                                      description: '(Block Set, Max: 1) An individual
+                                        MultiHTTP request (see below for nested schema)
+                                        An individual MultiHTTP request'
+                                      items:
+                                        properties:
+                                          body:
+                                            description: (String) The body of the
+                                              HTTP request used in probe. The body
+                                              of the HTTP request used in probe.
+                                            items:
+                                              properties:
+                                                contentEncoding:
+                                                  description: (String) The content
+                                                    encoding of the body The content
+                                                    encoding of the body
+                                                  type: string
+                                                contentType:
+                                                  description: (String) The content
+                                                    type of the body The content type
+                                                    of the body
+                                                  type: string
+                                                payload:
+                                                  description: (String) The body payload
+                                                    The body payload
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          headers:
+                                            description: (Set of String) The HTTP
+                                              headers set for the probe. The headers
+                                              to send with the request
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: (String) Name of the
+                                                    header to send Name of the header
+                                                    to send
+                                                  type: string
+                                                value:
+                                                  description: (String) The value
+                                                    of the assertion Value of the
+                                                    header to send
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          method:
+                                            description: (String) Request method.
+                                              One of GET, CONNECT, DELETE, HEAD, OPTIONS,
+                                              POST, PUT, TRACE Defaults to GET. The
+                                              HTTP method to use
+                                            type: string
+                                          queryFields:
+                                            description: (Block Set) Query fields
+                                              to send with the request (see below
+                                              for nested schema) Query fields to send
+                                              with the request
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: (String) Name of the
+                                                    header to send Name of the query
+                                                    field to send
+                                                  type: string
+                                                value:
+                                                  description: (String) The value
+                                                    of the assertion Value of the
+                                                    query field to send
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          url:
+                                            description: (String) The URL for the
+                                              request The URL for the request
+                                            type: string
+                                        type: object
+                                      type: array
+                                    variables:
+                                      description: (Block List) Variables to extract
+                                        from the request response (see below for nested
+                                        schema) Variables to extract from the request
+                                        response
+                                      items:
+                                        properties:
+                                          attribute:
+                                            description: (String) The attribute to
+                                              use when finding the variable value.
+                                              Only used when type is CSS_SELECTOR
+                                              The attribute to use when finding the
+                                              variable value. Only used when type
+                                              is CSS_SELECTOR
+                                            type: string
+                                          expression:
+                                            description: (String) The expression of
+                                              the assertion. Should start with $.
+                                              The expression to when finding the variable.
+                                              Should start with $. Only use when type
+                                              is JSON_PATH or REGEX
+                                            type: string
+                                          name:
+                                            description: (String) Name of the header
+                                              to send The name of the variable to
+                                              extract
+                                            type: string
+                                          type:
+                                            description: '(String) The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION The method of finding
+                                              the variable value to extract. JSON_PATH,
+                                              REGEX, CSS_SELECTOR'
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
                                 type: array
                             type: object
                           type: array
@@ -953,6 +1129,13 @@ spec:
                                 description: (Boolean) Do not follow redirects. Defaults
                                   to false. Do not follow redirects. Defaults to `false`.
                                 type: boolean
+                              proxyConnectHeaders:
+                                description: (Set of String) The HTTP headers sent
+                                  to the proxy URL The HTTP headers sent to the proxy
+                                  URL
+                                items:
+                                  type: string
+                                type: array
                               proxyUrl:
                                 description: (String) Proxy URL. Proxy URL.
                                 type: string
@@ -983,9 +1166,9 @@ spec:
                                 type: array
                               validHttpVersions:
                                 description: (Set of String) List of valid HTTP versions.
-                                  Options include HTTP/1.0, HTTP/1.1, HTTP/2 List
+                                  Options include HTTP/1.0, HTTP/1.1, HTTP/2.0 List
                                   of valid HTTP versions. Options include `HTTP/1.0`,
-                                  `HTTP/1.1`, `HTTP/2`
+                                  `HTTP/1.1`, `HTTP/2.0`
                                 items:
                                   type: string
                                 type: array
@@ -995,6 +1178,175 @@ spec:
                                   If unset, defaults to 2xx.
                                 items:
                                   type: number
+                                type: array
+                            type: object
+                          type: array
+                        multihttp:
+                          description: '(Block Set, Max: 1) Settings for MultiHTTP
+                            check. The target must be a URL (http or https) (see below
+                            for nested schema) Settings for MultiHTTP check. The target
+                            must be a URL (http or https)'
+                          items:
+                            properties:
+                              entries:
+                                description: (Block List) (see below for nested schema)
+                                items:
+                                  properties:
+                                    assertions:
+                                      description: (Block List) Assertions to make
+                                        on the request response (see below for nested
+                                        schema) Assertions to make on the request
+                                        response
+                                      items:
+                                        properties:
+                                          condition:
+                                            description: '(String) The condition of
+                                              the assertion: NOT_CONTAINS, EQUALS,
+                                              STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+                                              The condition of the assertion: NOT_CONTAINS,
+                                              EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF,
+                                              CONTAINS'
+                                            type: string
+                                          expression:
+                                            description: (String) The expression of
+                                              the assertion. Should start with $.
+                                              The expression of the assertion. Should
+                                              start with $.
+                                            type: string
+                                          subject:
+                                            description: '(String) The subject of
+                                              the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE,
+                                              RESPONSE_BODY The subject of the assertion:
+                                              RESPONSE_HEADERS, HTTP_STATUS_CODE,
+                                              RESPONSE_BODY'
+                                            type: string
+                                          type:
+                                            description: '(String) The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION'
+                                            type: string
+                                          value:
+                                            description: (String) The value of the
+                                              assertion The value of the assertion
+                                            type: string
+                                        type: object
+                                      type: array
+                                    request:
+                                      description: '(Block Set, Max: 1) An individual
+                                        MultiHTTP request (see below for nested schema)
+                                        An individual MultiHTTP request'
+                                      items:
+                                        properties:
+                                          body:
+                                            description: (String) The body of the
+                                              HTTP request used in probe. The body
+                                              of the HTTP request used in probe.
+                                            items:
+                                              properties:
+                                                contentEncoding:
+                                                  description: (String) The content
+                                                    encoding of the body The content
+                                                    encoding of the body
+                                                  type: string
+                                                contentType:
+                                                  description: (String) The content
+                                                    type of the body The content type
+                                                    of the body
+                                                  type: string
+                                                payload:
+                                                  description: (String) The body payload
+                                                    The body payload
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          headers:
+                                            description: (Set of String) The HTTP
+                                              headers set for the probe. The headers
+                                              to send with the request
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: (String) Name of the
+                                                    header to send Name of the header
+                                                    to send
+                                                  type: string
+                                                value:
+                                                  description: (String) The value
+                                                    of the assertion Value of the
+                                                    header to send
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          method:
+                                            description: (String) Request method.
+                                              One of GET, CONNECT, DELETE, HEAD, OPTIONS,
+                                              POST, PUT, TRACE Defaults to GET. The
+                                              HTTP method to use
+                                            type: string
+                                          queryFields:
+                                            description: (Block Set) Query fields
+                                              to send with the request (see below
+                                              for nested schema) Query fields to send
+                                              with the request
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: (String) Name of the
+                                                    header to send Name of the query
+                                                    field to send
+                                                  type: string
+                                                value:
+                                                  description: (String) The value
+                                                    of the assertion Value of the
+                                                    query field to send
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          url:
+                                            description: (String) The URL for the
+                                              request The URL for the request
+                                            type: string
+                                        type: object
+                                      type: array
+                                    variables:
+                                      description: (Block List) Variables to extract
+                                        from the request response (see below for nested
+                                        schema) Variables to extract from the request
+                                        response
+                                      items:
+                                        properties:
+                                          attribute:
+                                            description: (String) The attribute to
+                                              use when finding the variable value.
+                                              Only used when type is CSS_SELECTOR
+                                              The attribute to use when finding the
+                                              variable value. Only used when type
+                                              is CSS_SELECTOR
+                                            type: string
+                                          expression:
+                                            description: (String) The expression of
+                                              the assertion. Should start with $.
+                                              The expression to when finding the variable.
+                                              Should start with $. Only use when type
+                                              is JSON_PATH or REGEX
+                                            type: string
+                                          name:
+                                            description: (String) Name of the header
+                                              to send The name of the variable to
+                                              extract
+                                            type: string
+                                          type:
+                                            description: '(String) The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION The method of finding
+                                              the variable value to extract. JSON_PATH,
+                                              REGEX, CSS_SELECTOR'
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
                                 type: array
                             type: object
                           type: array
@@ -1653,6 +2005,13 @@ spec:
                                 description: (Boolean) Do not follow redirects. Defaults
                                   to false. Do not follow redirects. Defaults to `false`.
                                 type: boolean
+                              proxyConnectHeaders:
+                                description: (Set of String) The HTTP headers sent
+                                  to the proxy URL The HTTP headers sent to the proxy
+                                  URL
+                                items:
+                                  type: string
+                                type: array
                               proxyUrl:
                                 description: (String) Proxy URL. Proxy URL.
                                 type: string
@@ -1683,9 +2042,9 @@ spec:
                                 type: array
                               validHttpVersions:
                                 description: (Set of String) List of valid HTTP versions.
-                                  Options include HTTP/1.0, HTTP/1.1, HTTP/2 List
+                                  Options include HTTP/1.0, HTTP/1.1, HTTP/2.0 List
                                   of valid HTTP versions. Options include `HTTP/1.0`,
-                                  `HTTP/1.1`, `HTTP/2`
+                                  `HTTP/1.1`, `HTTP/2.0`
                                 items:
                                   type: string
                                 type: array
@@ -1695,6 +2054,175 @@ spec:
                                   If unset, defaults to 2xx.
                                 items:
                                   type: number
+                                type: array
+                            type: object
+                          type: array
+                        multihttp:
+                          description: '(Block Set, Max: 1) Settings for MultiHTTP
+                            check. The target must be a URL (http or https) (see below
+                            for nested schema) Settings for MultiHTTP check. The target
+                            must be a URL (http or https)'
+                          items:
+                            properties:
+                              entries:
+                                description: (Block List) (see below for nested schema)
+                                items:
+                                  properties:
+                                    assertions:
+                                      description: (Block List) Assertions to make
+                                        on the request response (see below for nested
+                                        schema) Assertions to make on the request
+                                        response
+                                      items:
+                                        properties:
+                                          condition:
+                                            description: '(String) The condition of
+                                              the assertion: NOT_CONTAINS, EQUALS,
+                                              STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+                                              The condition of the assertion: NOT_CONTAINS,
+                                              EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF,
+                                              CONTAINS'
+                                            type: string
+                                          expression:
+                                            description: (String) The expression of
+                                              the assertion. Should start with $.
+                                              The expression of the assertion. Should
+                                              start with $.
+                                            type: string
+                                          subject:
+                                            description: '(String) The subject of
+                                              the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE,
+                                              RESPONSE_BODY The subject of the assertion:
+                                              RESPONSE_HEADERS, HTTP_STATUS_CODE,
+                                              RESPONSE_BODY'
+                                            type: string
+                                          type:
+                                            description: '(String) The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION'
+                                            type: string
+                                          value:
+                                            description: (String) The value of the
+                                              assertion The value of the assertion
+                                            type: string
+                                        type: object
+                                      type: array
+                                    request:
+                                      description: '(Block Set, Max: 1) An individual
+                                        MultiHTTP request (see below for nested schema)
+                                        An individual MultiHTTP request'
+                                      items:
+                                        properties:
+                                          body:
+                                            description: (String) The body of the
+                                              HTTP request used in probe. The body
+                                              of the HTTP request used in probe.
+                                            items:
+                                              properties:
+                                                contentEncoding:
+                                                  description: (String) The content
+                                                    encoding of the body The content
+                                                    encoding of the body
+                                                  type: string
+                                                contentType:
+                                                  description: (String) The content
+                                                    type of the body The content type
+                                                    of the body
+                                                  type: string
+                                                payload:
+                                                  description: (String) The body payload
+                                                    The body payload
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          headers:
+                                            description: (Set of String) The HTTP
+                                              headers set for the probe. The headers
+                                              to send with the request
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: (String) Name of the
+                                                    header to send Name of the header
+                                                    to send
+                                                  type: string
+                                                value:
+                                                  description: (String) The value
+                                                    of the assertion Value of the
+                                                    header to send
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          method:
+                                            description: (String) Request method.
+                                              One of GET, CONNECT, DELETE, HEAD, OPTIONS,
+                                              POST, PUT, TRACE Defaults to GET. The
+                                              HTTP method to use
+                                            type: string
+                                          queryFields:
+                                            description: (Block Set) Query fields
+                                              to send with the request (see below
+                                              for nested schema) Query fields to send
+                                              with the request
+                                            items:
+                                              properties:
+                                                name:
+                                                  description: (String) Name of the
+                                                    header to send Name of the query
+                                                    field to send
+                                                  type: string
+                                                value:
+                                                  description: (String) The value
+                                                    of the assertion Value of the
+                                                    query field to send
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          url:
+                                            description: (String) The URL for the
+                                              request The URL for the request
+                                            type: string
+                                        type: object
+                                      type: array
+                                    variables:
+                                      description: (Block List) Variables to extract
+                                        from the request response (see below for nested
+                                        schema) Variables to extract from the request
+                                        response
+                                      items:
+                                        properties:
+                                          attribute:
+                                            description: (String) The attribute to
+                                              use when finding the variable value.
+                                              Only used when type is CSS_SELECTOR
+                                              The attribute to use when finding the
+                                              variable value. Only used when type
+                                              is CSS_SELECTOR
+                                            type: string
+                                          expression:
+                                            description: (String) The expression of
+                                              the assertion. Should start with $.
+                                              The expression to when finding the variable.
+                                              Should start with $. Only use when type
+                                              is JSON_PATH or REGEX
+                                            type: string
+                                          name:
+                                            description: (String) Name of the header
+                                              to send The name of the variable to
+                                              extract
+                                            type: string
+                                          type:
+                                            description: '(String) The type of assertion
+                                              to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION,
+                                              REGEX_ASSERTION The method of finding
+                                              the variable value to extract. JSON_PATH,
+                                              REGEX, CSS_SELECTOR'
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
                                 type: array
                             type: object
                           type: array

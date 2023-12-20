@@ -19,7 +19,7 @@ import (
 
 type ServiceAccountPermissionInitParameters struct {
 
-	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	Permissions []ServiceAccountPermissionPermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
 }
@@ -33,7 +33,7 @@ type ServiceAccountPermissionObservation struct {
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	Permissions []ServiceAccountPermissionPermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
@@ -60,7 +60,7 @@ type ServiceAccountPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	// +kubebuilder:validation:Optional
 	Permissions []ServiceAccountPermissionPermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
@@ -155,7 +155,7 @@ type ServiceAccountPermissionStatus struct {
 
 // +kubebuilder:object:root=true
 
-// ServiceAccountPermission is the Schema for the ServiceAccountPermissions API. Note: This resource is available from Grafana 9.2.4 onwards. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/#manage-users-and-teams-permissions-for-a-service-account-in-grafana
+// ServiceAccountPermission is the Schema for the ServiceAccountPermissions API. Manages the entire set of permissions for a service account. Permissions that aren't specified when applying this resource will be removed. Note: This resource is available from Grafana 9.2.4 onwards. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/#manage-users-and-teams-permissions-for-a-service-account-in-grafana
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -165,9 +165,8 @@ type ServiceAccountPermissionStatus struct {
 type ServiceAccountPermission struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permissions) || (has(self.initProvider) && has(self.initProvider.permissions))",message="spec.forProvider.permissions is a required parameter"
-	Spec   ServiceAccountPermissionSpec   `json:"spec"`
-	Status ServiceAccountPermissionStatus `json:"status,omitempty"`
+	Spec              ServiceAccountPermissionSpec   `json:"spec"`
+	Status            ServiceAccountPermissionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

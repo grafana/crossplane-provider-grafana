@@ -121,6 +121,18 @@ spec:
                     description: (String) The display name for the Grafana organization
                       created. The display name for the Grafana organization created.
                     type: string
+                  usersWithoutAccess:
+                    description: '(Set of String) A list of email addresses corresponding
+                      to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless
+                      ''create_users'' is set to true. This feature is only available
+                      in Grafana 10.2+. A list of email addresses corresponding to
+                      users who should be given none access to the organization. Note:
+                      users specified here must already exist in Grafana, unless ''create_users''
+                      is set to true. This feature is only available in Grafana 10.2+.'
+                    items:
+                      type: string
+                    type: array
                   viewers:
                     description: '(Set of String) A list of email addresses corresponding
                       to users who should be given viewer access to the organization.
@@ -195,6 +207,18 @@ spec:
                     description: (String) The display name for the Grafana organization
                       created. The display name for the Grafana organization created.
                     type: string
+                  usersWithoutAccess:
+                    description: '(Set of String) A list of email addresses corresponding
+                      to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless
+                      ''create_users'' is set to true. This feature is only available
+                      in Grafana 10.2+. A list of email addresses corresponding to
+                      users who should be given none access to the organization. Note:
+                      users specified here must already exist in Grafana, unless ''create_users''
+                      is set to true. This feature is only available in Grafana 10.2+.'
+                    items:
+                      type: string
+                    type: array
                   viewers:
                     description: '(Set of String) A list of email addresses corresponding
                       to users who should be given viewer access to the organization.
@@ -435,6 +459,18 @@ spec:
                       by Grafana. The organization id assigned to this organization
                       by Grafana.
                     type: number
+                  usersWithoutAccess:
+                    description: '(Set of String) A list of email addresses corresponding
+                      to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless
+                      ''create_users'' is set to true. This feature is only available
+                      in Grafana 10.2+. A list of email addresses corresponding to
+                      users who should be given none access to the organization. Note:
+                      users specified here must already exist in Grafana, unless ''create_users''
+                      is set to true. This feature is only available in Grafana 10.2+.'
+                    items:
+                      type: string
+                    type: array
                   viewers:
                     description: '(Set of String) A list of email addresses corresponding
                       to users who should be given viewer access to the organization.

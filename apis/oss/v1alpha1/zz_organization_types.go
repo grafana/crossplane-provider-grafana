@@ -63,6 +63,14 @@ type OrganizationInitParameters struct {
 	// The display name for the Grafana organization created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	UsersWithoutAccess []*string `json:"usersWithoutAccess,omitempty" tf:"users_without_access,omitempty"`
+
 	// (Set of String) A list of email addresses corresponding to users who should be given viewer
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
@@ -125,6 +133,14 @@ type OrganizationObservation struct {
 	// The organization id assigned to this organization by Grafana.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	UsersWithoutAccess []*string `json:"usersWithoutAccess,omitempty" tf:"users_without_access,omitempty"`
+
 	// (Set of String) A list of email addresses corresponding to users who should be given viewer
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
@@ -184,6 +200,15 @@ type OrganizationParameters struct {
 	// The display name for the Grafana organization created.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// +kubebuilder:validation:Optional
+	UsersWithoutAccess []*string `json:"usersWithoutAccess,omitempty" tf:"users_without_access,omitempty"`
 
 	// (Set of String) A list of email addresses corresponding to users who should be given viewer
 	// access to the organization. Note: users specified here must already exist in

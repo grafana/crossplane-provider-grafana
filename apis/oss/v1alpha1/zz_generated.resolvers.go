@@ -172,6 +172,22 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ParentFolderUID),
+		Extract:      grafana.UIDExtractor(),
+		Reference:    mg.Spec.ForProvider.FolderRef,
+		Selector:     mg.Spec.ForProvider.FolderSelector,
+		To: reference.To{
+			List:    &FolderList{},
+			Managed: &Folder{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ParentFolderUID")
+	}
+	mg.Spec.ForProvider.ParentFolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
+
 	return nil
 }
 

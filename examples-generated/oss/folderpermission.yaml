@@ -60,3 +60,8 @@ metadata:
 spec:
   forProvider:
     email: user.name@example.com
+    login: user.name
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

@@ -70,8 +70,9 @@ spec:
               forProvider:
                 properties:
                   homeDashboardId:
-                    description: (Number) The Organization home dashboard ID. The
-                      Organization home dashboard ID.
+                    description: '(Number, Deprecated) The Organization home dashboard
+                      ID. Deprecated: Use home_dashboard_uid instead. The Organization
+                      home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.'
                     type: number
                   homeDashboardUid:
                     description: (String) The Organization home dashboard UID. This
@@ -159,9 +160,9 @@ spec:
                     type: object
                   theme:
                     description: (String) The Organization theme. Available values
-                      are light, dark, or an empty string for the default. The Organization
-                      theme. Available values are `light`, `dark`, or an empty string
-                      for the default.
+                      are light, dark, system, or an empty string for the default.
+                      The Organization theme. Available values are `light`, `dark`,
+                      `system`, or an empty string for the default.
                     type: string
                   timezone:
                     description: (String) The Organization timezone. Available values
@@ -187,8 +188,9 @@ spec:
                   like an autoscaler.
                 properties:
                   homeDashboardId:
-                    description: (Number) The Organization home dashboard ID. The
-                      Organization home dashboard ID.
+                    description: '(Number, Deprecated) The Organization home dashboard
+                      ID. Deprecated: Use home_dashboard_uid instead. The Organization
+                      home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.'
                     type: number
                   homeDashboardUid:
                     description: (String) The Organization home dashboard UID. This
@@ -197,9 +199,9 @@ spec:
                     type: string
                   theme:
                     description: (String) The Organization theme. Available values
-                      are light, dark, or an empty string for the default. The Organization
-                      theme. Available values are `light`, `dark`, or an empty string
-                      for the default.
+                      are light, dark, system, or an empty string for the default.
+                      The Organization theme. Available values are `light`, `dark`,
+                      `system`, or an empty string for the default.
                     type: string
                   timezone:
                     description: (String) The Organization timezone. Available values
@@ -379,8 +381,9 @@ spec:
               atProvider:
                 properties:
                   homeDashboardId:
-                    description: (Number) The Organization home dashboard ID. The
-                      Organization home dashboard ID.
+                    description: '(Number, Deprecated) The Organization home dashboard
+                      ID. Deprecated: Use home_dashboard_uid instead. The Organization
+                      home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.'
                     type: number
                   homeDashboardUid:
                     description: (String) The Organization home dashboard UID. This
@@ -398,9 +401,9 @@ spec:
                     type: string
                   theme:
                     description: (String) The Organization theme. Available values
-                      are light, dark, or an empty string for the default. The Organization
-                      theme. Available values are `light`, `dark`, or an empty string
-                      for the default.
+                      are light, dark, system, or an empty string for the default.
+                      The Organization theme. Available values are `light`, `dark`,
+                      `system`, or an empty string for the default.
                     type: string
                   timezone:
                     description: (String) The Organization timezone. Available values

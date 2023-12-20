@@ -85,6 +85,13 @@ spec:
                           items:
                             type: string
                           type: array
+                        location:
+                          description: (String) Provides the time zone for the time
+                            interval. Must be a location in the IANA time zone database,
+                            e.g "America/New_York" Provides the time zone for the
+                            time interval. Must be a location in the IANA time zone
+                            database, e.g "America/New_York"
+                          type: string
                         months:
                           description: (List of String) An inclusive range of months,
                             either numerical or full calendar month, e.g. "1:3", "december",
@@ -164,6 +171,13 @@ spec:
                           items:
                             type: string
                           type: array
+                        location:
+                          description: (String) Provides the time zone for the time
+                            interval. Must be a location in the IANA time zone database,
+                            e.g "America/New_York" Provides the time zone for the
+                            time interval. Must be a location in the IANA time zone
+                            database, e.g "America/New_York"
+                          type: string
                         months:
                           description: (List of String) An inclusive range of months,
                             either numerical or full calendar month, e.g. "1:3", "december",
@@ -404,6 +418,13 @@ spec:
                           items:
                             type: string
                           type: array
+                        location:
+                          description: (String) Provides the time zone for the time
+                            interval. Must be a location in the IANA time zone database,
+                            e.g "America/New_York" Provides the time zone for the
+                            time interval. Must be a location in the IANA time zone
+                            database, e.g "America/New_York"
+                          type: string
                         months:
                           description: (List of String) An inclusive range of months,
                             either numerical or full calendar month, e.g. "1:3", "december",

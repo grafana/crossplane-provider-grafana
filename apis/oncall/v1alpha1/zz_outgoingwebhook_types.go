@@ -23,9 +23,25 @@ type OutgoingWebhookInitParameters struct {
 	// The data of the webhook.
 	Data *string `json:"data,omitempty" tf:"data,omitempty"`
 
-	// (Boolean) Forwards whole payload of the alert to the webhook's url as POST data.
-	// Forwards whole payload of the alert to the webhook's url as POST data.
+	// (Boolean) Toggle to send the entire webhook payload instead of using the values in the Data field.
+	// Toggle to send the entire webhook payload instead of using the values in the Data field.
 	ForwardWholePayload *bool `json:"forwardWholePayload,omitempty" tf:"forward_whole_payload,omitempty"`
+
+	// (String) The HTTP method used in the request made by the outgoing webhook. Defaults to POST.
+	// The HTTP method used in the request made by the outgoing webhook. Defaults to `POST`.
+	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (String) Headers to add to the outgoing webhook request.
+	// Headers to add to the outgoing webhook request.
+	Headers *string `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (List of String) Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	// Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
+
+	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
+	// Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+	IsWebhookEnabled *bool `json:"isWebhookEnabled,omitempty" tf:"is_webhook_enabled,omitempty"`
 
 	// (String) The name of the outgoing webhook.
 	// The name of the outgoing webhook.
@@ -35,12 +51,20 @@ type OutgoingWebhookInitParameters struct {
 	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
+	// (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
+	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
+	TriggerTemplate *string `json:"triggerTemplate,omitempty" tf:"trigger_template,omitempty"`
+
+	// (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
+	// The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+	TriggerType *string `json:"triggerType,omitempty" tf:"trigger_type,omitempty"`
+
 	// (String) The webhook URL.
 	// The webhook URL.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String) The auth data of the webhook. Used for Basic authentication.
-	// The auth data of the webhook. Used for Basic authentication.
+	// (String) Username to use when making the outgoing webhook request.
+	// Username to use when making the outgoing webhook request.
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
 
@@ -50,12 +74,28 @@ type OutgoingWebhookObservation struct {
 	// The data of the webhook.
 	Data *string `json:"data,omitempty" tf:"data,omitempty"`
 
-	// (Boolean) Forwards whole payload of the alert to the webhook's url as POST data.
-	// Forwards whole payload of the alert to the webhook's url as POST data.
+	// (Boolean) Toggle to send the entire webhook payload instead of using the values in the Data field.
+	// Toggle to send the entire webhook payload instead of using the values in the Data field.
 	ForwardWholePayload *bool `json:"forwardWholePayload,omitempty" tf:"forward_whole_payload,omitempty"`
+
+	// (String) The HTTP method used in the request made by the outgoing webhook. Defaults to POST.
+	// The HTTP method used in the request made by the outgoing webhook. Defaults to `POST`.
+	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (String) Headers to add to the outgoing webhook request.
+	// Headers to add to the outgoing webhook request.
+	Headers *string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (List of String) Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	// Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
+
+	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
+	// Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+	IsWebhookEnabled *bool `json:"isWebhookEnabled,omitempty" tf:"is_webhook_enabled,omitempty"`
 
 	// (String) The name of the outgoing webhook.
 	// The name of the outgoing webhook.
@@ -65,12 +105,20 @@ type OutgoingWebhookObservation struct {
 	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
+	// (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
+	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
+	TriggerTemplate *string `json:"triggerTemplate,omitempty" tf:"trigger_template,omitempty"`
+
+	// (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
+	// The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+	TriggerType *string `json:"triggerType,omitempty" tf:"trigger_type,omitempty"`
+
 	// (String) The webhook URL.
 	// The webhook URL.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String) The auth data of the webhook. Used for Basic authentication.
-	// The auth data of the webhook. Used for Basic authentication.
+	// (String) Username to use when making the outgoing webhook request.
+	// Username to use when making the outgoing webhook request.
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
 
@@ -86,10 +134,30 @@ type OutgoingWebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	Data *string `json:"data,omitempty" tf:"data,omitempty"`
 
-	// (Boolean) Forwards whole payload of the alert to the webhook's url as POST data.
-	// Forwards whole payload of the alert to the webhook's url as POST data.
+	// (Boolean) Toggle to send the entire webhook payload instead of using the values in the Data field.
+	// Toggle to send the entire webhook payload instead of using the values in the Data field.
 	// +kubebuilder:validation:Optional
 	ForwardWholePayload *bool `json:"forwardWholePayload,omitempty" tf:"forward_whole_payload,omitempty"`
+
+	// (String) The HTTP method used in the request made by the outgoing webhook. Defaults to POST.
+	// The HTTP method used in the request made by the outgoing webhook. Defaults to `POST`.
+	// +kubebuilder:validation:Optional
+	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (String) Headers to add to the outgoing webhook request.
+	// Headers to add to the outgoing webhook request.
+	// +kubebuilder:validation:Optional
+	Headers *string `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (List of String) Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	// Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	// +kubebuilder:validation:Optional
+	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
+
+	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
+	// Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+	// +kubebuilder:validation:Optional
+	IsWebhookEnabled *bool `json:"isWebhookEnabled,omitempty" tf:"is_webhook_enabled,omitempty"`
 
 	// (String) The name of the outgoing webhook.
 	// The name of the outgoing webhook.
@@ -106,13 +174,23 @@ type OutgoingWebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
+	// (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
+	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
+	// +kubebuilder:validation:Optional
+	TriggerTemplate *string `json:"triggerTemplate,omitempty" tf:"trigger_template,omitempty"`
+
+	// (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
+	// The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+	// +kubebuilder:validation:Optional
+	TriggerType *string `json:"triggerType,omitempty" tf:"trigger_type,omitempty"`
+
 	// (String) The webhook URL.
 	// The webhook URL.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String) The auth data of the webhook. Used for Basic authentication.
-	// The auth data of the webhook. Used for Basic authentication.
+	// (String) Username to use when making the outgoing webhook request.
+	// Username to use when making the outgoing webhook request.
 	// +kubebuilder:validation:Optional
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }

@@ -31,7 +31,11 @@ metadata:
   name: metrics
 spec:
   forProvider:
-    configJson: ${file("grafana-dashboard.json")}
+    configJson: |-
+      ${jsonencode({
+          "title" : "My Dashboard",
+          "uid" : "my-dashboard-uid"
+        })}
 
 ---
 
@@ -60,3 +64,8 @@ metadata:
 spec:
   forProvider:
     email: user.name@example.com
+    login: user.name
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

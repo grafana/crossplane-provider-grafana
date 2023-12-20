@@ -147,6 +147,14 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
 	})
+	p.AddResourceConfigurator("grafana_folder", func(r *ujconfig.Resource) {
+		r.References["parent_folder_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_folder",
+			RefFieldName:      "FolderRef",
+			SelectorFieldName: "FolderSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+	})
 	p.AddResourceConfigurator("grafana_folder_permission", func(r *ujconfig.Resource) {
 		r.References["folder_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",

@@ -69,6 +69,9 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   folderRef:
                     description: Reference to a Folder in oss to populate folderUid.
                     properties:
@@ -158,8 +161,10 @@ spec:
                       the rule group.
                     type: string
                   orgId:
-                    description: (String) The ID of the org to which the group belongs.
-                      The ID of the org to which the group belongs.
+                    description: (String) The Organization ID. If not set, the Org
+                      ID defined in the provider block will be used. The Organization
+                      ID. If not set, the Org ID defined in the provider block will
+                      be used.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -368,6 +373,9 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   intervalSeconds:
                     description: (Number) The interval, in seconds, at which all rules
                       in the group are evaluated. If a group contains many rules,
@@ -679,6 +687,9 @@ spec:
             properties:
               atProvider:
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   folderUid:
                     description: (String) The UID of the folder that the group belongs
                       to. The UID of the folder that the group belongs to.
@@ -698,8 +709,10 @@ spec:
                       the rule group.
                     type: string
                   orgId:
-                    description: (String) The ID of the org to which the group belongs.
-                      The ID of the org to which the group belongs.
+                    description: (String) The Organization ID. If not set, the Org
+                      ID defined in the provider block will be used. The Organization
+                      ID. If not set, the Org ID defined in the provider block will
+                      be used.
                     type: string
                   rule:
                     description: '(Block List, Min: 1) The rules within the group.
