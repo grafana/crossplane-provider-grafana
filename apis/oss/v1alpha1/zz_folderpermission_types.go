@@ -92,14 +92,6 @@ type FolderPermissionPermissionsInitParameters struct {
 	// (String) Manage permissions for Viewer or Editor roles.
 	// Manage permissions for `Viewer` or `Editor` roles.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
-
-	// (String) ID of the team to manage permissions for. Defaults to 0.
-	// ID of the team to manage permissions for. Defaults to `0`.
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
-
-	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type FolderPermissionPermissionsObservation struct {
@@ -135,13 +127,35 @@ type FolderPermissionPermissionsParameters struct {
 
 	// (String) ID of the team to manage permissions for. Defaults to 0.
 	// ID of the team to manage permissions for. Defaults to `0`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Team
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
+	// Reference to a Team in oss to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a User in oss to populate userId.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate userId.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // FolderPermissionSpec defines the desired state of FolderPermission

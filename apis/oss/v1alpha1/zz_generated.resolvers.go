@@ -120,6 +120,43 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].TeamID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].TeamRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].TeamSelector,
+			To: reference.To{
+				List:    &TeamList{},
+				Managed: &Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].TeamID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].UserID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].UserRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].UserSelector,
+			To: reference.To{
+				List:    &UserList{},
+				Managed: &User{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].UserID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
+
+	}
+
 	return nil
 }
 
@@ -214,6 +251,43 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].TeamID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].TeamRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].TeamSelector,
+			To: reference.To{
+				List:    &TeamList{},
+				Managed: &Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].TeamID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].UserID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].UserRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].UserSelector,
+			To: reference.To{
+				List:    &UserList{},
+				Managed: &User{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].UserID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
+
+	}
+
 	return nil
 }
 
@@ -292,6 +366,42 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].TeamID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].TeamRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].TeamSelector,
+			To: reference.To{
+				List:    &TeamList{},
+				Managed: &Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].TeamID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].UserID),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].UserRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].UserSelector,
+			To: reference.To{
+				List:    &UserList{},
+				Managed: &User{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].UserID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServiceAccountID),
 		Extract:      reference.ExternalName(),
