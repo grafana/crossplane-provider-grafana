@@ -105,6 +105,16 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "ServiceAccountRef",
 			SelectorFieldName: "ServiceAccountSelector",
 		}
+		r.References["permissions.team_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}
+		r.References["permissions.user_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_user",
+			RefFieldName:      "UserRef",
+			SelectorFieldName: "UserSelector",
+		}
 	})
 	p.AddResourceConfigurator("grafana_service_account_token", func(r *ujconfig.Resource) {
 		r.References["service_account_id"] = ujconfig.Reference{
@@ -146,6 +156,16 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "DashboardSelector",
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
+		r.References["permissions.team_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}
+		r.References["permissions.user_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_user",
+			RefFieldName:      "UserRef",
+			SelectorFieldName: "UserSelector",
+		}
 	})
 	p.AddResourceConfigurator("grafana_folder", func(r *ujconfig.Resource) {
 		r.References["parent_folder_uid"] = ujconfig.Reference{
@@ -161,6 +181,16 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+		r.References["permissions.team_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}
+		r.References["permissions.user_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_user",
+			RefFieldName:      "UserRef",
+			SelectorFieldName: "UserSelector",
 		}
 	})
 	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {

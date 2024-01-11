@@ -15,9 +15,13 @@ spec:
     - permission: Edit
       role: Editor
     - permission: View
-      teamId: ${grafana_team.team.id}
+      teamSelector:
+        matchLabels:
+          testing.upbound.io/example-name: team
     - permission: Admin
-      userId: ${grafana_user.user.id}
+      userSelector:
+        matchLabels:
+          testing.upbound.io/example-name: user
 
 ---
 
