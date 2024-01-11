@@ -198,6 +198,8 @@ spec:
                             grouping. A list of alert labels to group alerts into
                             notifications by. Use the special label `...` to group
                             alerts by all labels, effectively disabling grouping.
+                            Required for root policy only. If empty, the parent grouping
+                            is used.
                           items:
                             type: string
                           type: array
@@ -214,7 +216,7 @@ spec:
                             before sending a notification. Default is 30 seconds.
                           type: string
                         matcher:
-                          description: (Block List) Describes which labels this rule
+                          description: (Block Set) Describes which labels this rule
                             should match. When multiple matchers are supplied, an
                             alert must match ALL matchers to be accepted by this policy.
                             When no matchers are supplied, the rule will match all
@@ -280,7 +282,8 @@ spec:
                                   disabling grouping. A list of alert labels to group
                                   alerts into notifications by. Use the special label
                                   `...` to group alerts by all labels, effectively
-                                  disabling grouping.
+                                  disabling grouping. Required for root policy only.
+                                  If empty, the parent grouping is used.
                                 items:
                                   type: string
                                 type: array
@@ -298,7 +301,7 @@ spec:
                                   Default is 30 seconds.
                                 type: string
                               matcher:
-                                description: (Block List) Describes which labels this
+                                description: (Block Set) Describes which labels this
                                   rule should match. When multiple matchers are supplied,
                                   an alert must match ALL matchers to be accepted
                                   by this policy. When no matchers are supplied, the
@@ -370,7 +373,8 @@ spec:
                                         A list of alert labels to group alerts into
                                         notifications by. Use the special label `...`
                                         to group alerts by all labels, effectively
-                                        disabling grouping.
+                                        disabling grouping. Required for root policy
+                                        only. If empty, the parent grouping is used.
                                       items:
                                         type: string
                                       type: array
@@ -390,7 +394,7 @@ spec:
                                         30 seconds.
                                       type: string
                                     matcher:
-                                      description: (Block List) Describes which labels
+                                      description: (Block Set) Describes which labels
                                         this rule should match. When multiple matchers
                                         are supplied, an alert must match ALL matchers
                                         to be accepted by this policy. When no matchers
@@ -467,7 +471,8 @@ spec:
                                               group alerts into notifications by.
                                               Use the special label `...` to group
                                               alerts by all labels, effectively disabling
-                                              grouping.
+                                              grouping. Required for root policy only.
+                                              If empty, the parent grouping is used.
                                             items:
                                               type: string
                                             type: array
@@ -487,7 +492,7 @@ spec:
                                               Default is 30 seconds.
                                             type: string
                                           matcher:
-                                            description: (Block List) Describes which
+                                            description: (Block Set) Describes which
                                               labels this rule should match. When
                                               multiple matchers are supplied, an alert
                                               must match ALL matchers to be accepted
@@ -636,6 +641,8 @@ spec:
                             grouping. A list of alert labels to group alerts into
                             notifications by. Use the special label `...` to group
                             alerts by all labels, effectively disabling grouping.
+                            Required for root policy only. If empty, the parent grouping
+                            is used.
                           items:
                             type: string
                           type: array
@@ -652,7 +659,7 @@ spec:
                             before sending a notification. Default is 30 seconds.
                           type: string
                         matcher:
-                          description: (Block List) Describes which labels this rule
+                          description: (Block Set) Describes which labels this rule
                             should match. When multiple matchers are supplied, an
                             alert must match ALL matchers to be accepted by this policy.
                             When no matchers are supplied, the rule will match all
@@ -718,7 +725,8 @@ spec:
                                   disabling grouping. A list of alert labels to group
                                   alerts into notifications by. Use the special label
                                   `...` to group alerts by all labels, effectively
-                                  disabling grouping.
+                                  disabling grouping. Required for root policy only.
+                                  If empty, the parent grouping is used.
                                 items:
                                   type: string
                                 type: array
@@ -736,7 +744,7 @@ spec:
                                   Default is 30 seconds.
                                 type: string
                               matcher:
-                                description: (Block List) Describes which labels this
+                                description: (Block Set) Describes which labels this
                                   rule should match. When multiple matchers are supplied,
                                   an alert must match ALL matchers to be accepted
                                   by this policy. When no matchers are supplied, the
@@ -808,7 +816,8 @@ spec:
                                         A list of alert labels to group alerts into
                                         notifications by. Use the special label `...`
                                         to group alerts by all labels, effectively
-                                        disabling grouping.
+                                        disabling grouping. Required for root policy
+                                        only. If empty, the parent grouping is used.
                                       items:
                                         type: string
                                       type: array
@@ -828,7 +837,7 @@ spec:
                                         30 seconds.
                                       type: string
                                     matcher:
-                                      description: (Block List) Describes which labels
+                                      description: (Block Set) Describes which labels
                                         this rule should match. When multiple matchers
                                         are supplied, an alert must match ALL matchers
                                         to be accepted by this policy. When no matchers
@@ -905,7 +914,8 @@ spec:
                                               group alerts into notifications by.
                                               Use the special label `...` to group
                                               alerts by all labels, effectively disabling
-                                              grouping.
+                                              grouping. Required for root policy only.
+                                              If empty, the parent grouping is used.
                                             items:
                                               type: string
                                             type: array
@@ -925,7 +935,7 @@ spec:
                                               Default is 30 seconds.
                                             type: string
                                           matcher:
-                                            description: (Block List) Describes which
+                                            description: (Block Set) Describes which
                                               labels this rule should match. When
                                               multiple matchers are supplied, an alert
                                               must match ALL matchers to be accepted
@@ -1240,6 +1250,8 @@ spec:
                             grouping. A list of alert labels to group alerts into
                             notifications by. Use the special label `...` to group
                             alerts by all labels, effectively disabling grouping.
+                            Required for root policy only. If empty, the parent grouping
+                            is used.
                           items:
                             type: string
                           type: array
@@ -1256,7 +1268,7 @@ spec:
                             before sending a notification. Default is 30 seconds.
                           type: string
                         matcher:
-                          description: (Block List) Describes which labels this rule
+                          description: (Block Set) Describes which labels this rule
                             should match. When multiple matchers are supplied, an
                             alert must match ALL matchers to be accepted by this policy.
                             When no matchers are supplied, the rule will match all
@@ -1322,7 +1334,8 @@ spec:
                                   disabling grouping. A list of alert labels to group
                                   alerts into notifications by. Use the special label
                                   `...` to group alerts by all labels, effectively
-                                  disabling grouping.
+                                  disabling grouping. Required for root policy only.
+                                  If empty, the parent grouping is used.
                                 items:
                                   type: string
                                 type: array
@@ -1340,7 +1353,7 @@ spec:
                                   Default is 30 seconds.
                                 type: string
                               matcher:
-                                description: (Block List) Describes which labels this
+                                description: (Block Set) Describes which labels this
                                   rule should match. When multiple matchers are supplied,
                                   an alert must match ALL matchers to be accepted
                                   by this policy. When no matchers are supplied, the
@@ -1412,7 +1425,8 @@ spec:
                                         A list of alert labels to group alerts into
                                         notifications by. Use the special label `...`
                                         to group alerts by all labels, effectively
-                                        disabling grouping.
+                                        disabling grouping. Required for root policy
+                                        only. If empty, the parent grouping is used.
                                       items:
                                         type: string
                                       type: array
@@ -1432,7 +1446,7 @@ spec:
                                         30 seconds.
                                       type: string
                                     matcher:
-                                      description: (Block List) Describes which labels
+                                      description: (Block Set) Describes which labels
                                         this rule should match. When multiple matchers
                                         are supplied, an alert must match ALL matchers
                                         to be accepted by this policy. When no matchers
@@ -1509,7 +1523,8 @@ spec:
                                               group alerts into notifications by.
                                               Use the special label `...` to group
                                               alerts by all labels, effectively disabling
-                                              grouping.
+                                              grouping. Required for root policy only.
+                                              If empty, the parent grouping is used.
                                             items:
                                               type: string
                                             type: array
@@ -1529,7 +1544,7 @@ spec:
                                               Default is 30 seconds.
                                             type: string
                                           matcher:
-                                            description: (Block List) Describes which
+                                            description: (Block Set) Describes which
                                               labels this rule should match. When
                                               multiple matchers are supplied, an alert
                                               must match ALL matchers to be accepted

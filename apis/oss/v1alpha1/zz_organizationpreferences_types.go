@@ -19,16 +19,16 @@ import (
 
 type OrganizationPreferencesInitParameters struct {
 
-	// (Number) The Organization home dashboard ID.
-	// The Organization home dashboard ID.
+	// (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
+	// The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
 	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
 
 	// (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
 	// The Organization home dashboard UID. This is only available in Grafana 9.0+.
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
-	// (String) The Organization theme. Available values are light, dark, or an empty string for the default.
-	// The Organization theme. Available values are `light`, `dark`, or an empty string for the default.
+	// (String) The Organization theme. Available values are light, dark, system, or an empty string for the default.
+	// The Organization theme. Available values are `light`, `dark`, `system`, or an empty string for the default.
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
 	// (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
@@ -42,8 +42,8 @@ type OrganizationPreferencesInitParameters struct {
 
 type OrganizationPreferencesObservation struct {
 
-	// (Number) The Organization home dashboard ID.
-	// The Organization home dashboard ID.
+	// (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
+	// The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
 	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
 
 	// (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
@@ -57,8 +57,8 @@ type OrganizationPreferencesObservation struct {
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) The Organization theme. Available values are light, dark, or an empty string for the default.
-	// The Organization theme. Available values are `light`, `dark`, or an empty string for the default.
+	// (String) The Organization theme. Available values are light, dark, system, or an empty string for the default.
+	// The Organization theme. Available values are `light`, `dark`, `system`, or an empty string for the default.
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
 	// (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
@@ -72,8 +72,8 @@ type OrganizationPreferencesObservation struct {
 
 type OrganizationPreferencesParameters struct {
 
-	// (Number) The Organization home dashboard ID.
-	// The Organization home dashboard ID.
+	// (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
+	// The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
 	// +kubebuilder:validation:Optional
 	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
 
@@ -98,8 +98,8 @@ type OrganizationPreferencesParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) The Organization theme. Available values are light, dark, or an empty string for the default.
-	// The Organization theme. Available values are `light`, `dark`, or an empty string for the default.
+	// (String) The Organization theme. Available values are light, dark, system, or an empty string for the default.
+	// The Organization theme. Available values are `light`, `dark`, `system`, or an empty string for the default.
 	// +kubebuilder:validation:Optional
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 

@@ -128,6 +128,9 @@ type RelativeTimeRangeParameters struct {
 
 type RuleGroupInitParameters struct {
 
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+
 	// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
 	// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
 	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
@@ -142,6 +145,9 @@ type RuleGroupInitParameters struct {
 }
 
 type RuleGroupObservation struct {
+
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// (String) The UID of the folder that the group belongs to.
 	// The UID of the folder that the group belongs to.
@@ -158,8 +164,8 @@ type RuleGroupObservation struct {
 	// The name of the rule group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The ID of the org to which the group belongs.
-	// The ID of the org to which the group belongs.
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// (Block List, Min: 1) The rules within the group. (see below for nested schema)
@@ -168,6 +174,10 @@ type RuleGroupObservation struct {
 }
 
 type RuleGroupParameters struct {
+
+	// Defaults to false. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
@@ -196,8 +206,8 @@ type RuleGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The ID of the org to which the group belongs.
-	// The ID of the org to which the group belongs.
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector

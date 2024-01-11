@@ -146,8 +146,9 @@ spec:
                     type: string
                   templates:
                     description: '(Block List, Max: 1) Jinja2 templates for Alert
-                      payload. (see below for nested schema) Jinja2 templates for
-                      Alert payload.'
+                      payload. An empty templates block will be ignored. (see below
+                      for nested schema) Jinja2 templates for Alert payload. An empty
+                      templates block will be ignored.'
                     items:
                       properties:
                         acknowledgeSignal:
@@ -291,12 +292,12 @@ spec:
                       newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
                       curler, sentry, formatted_webhook, heartbeat, demo, manual,
                       stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
-                      inbound_email, direct_paging. The type of integration. Can be
-                      grafana, grafana_alerting, webhook, alertmanager, kapacitor,
+                      inbound_email, direct_paging, jira. The type of integration.
+                      Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor,
                       fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
                       curler, sentry, formatted_webhook, heartbeat, demo, manual,
                       stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
-                      inbound_email, direct_paging.
+                      inbound_email, direct_paging, jira.
                     type: string
                 type: object
               initProvider:
@@ -389,8 +390,9 @@ spec:
                     type: string
                   templates:
                     description: '(Block List, Max: 1) Jinja2 templates for Alert
-                      payload. (see below for nested schema) Jinja2 templates for
-                      Alert payload.'
+                      payload. An empty templates block will be ignored. (see below
+                      for nested schema) Jinja2 templates for Alert payload. An empty
+                      templates block will be ignored.'
                     items:
                       properties:
                         acknowledgeSignal:
@@ -534,12 +536,12 @@ spec:
                       newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
                       curler, sentry, formatted_webhook, heartbeat, demo, manual,
                       stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
-                      inbound_email, direct_paging. The type of integration. Can be
-                      grafana, grafana_alerting, webhook, alertmanager, kapacitor,
+                      inbound_email, direct_paging, jira. The type of integration.
+                      Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor,
                       fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
                       curler, sentry, formatted_webhook, heartbeat, demo, manual,
                       stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
-                      inbound_email, direct_paging.
+                      inbound_email, direct_paging, jira.
                     type: string
                 type: object
               managementPolicies:
@@ -808,8 +810,9 @@ spec:
                     type: string
                   templates:
                     description: '(Block List, Max: 1) Jinja2 templates for Alert
-                      payload. (see below for nested schema) Jinja2 templates for
-                      Alert payload.'
+                      payload. An empty templates block will be ignored. (see below
+                      for nested schema) Jinja2 templates for Alert payload. An empty
+                      templates block will be ignored.'
                     items:
                       properties:
                         acknowledgeSignal:
@@ -953,12 +956,12 @@ spec:
                       newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
                       curler, sentry, formatted_webhook, heartbeat, demo, manual,
                       stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
-                      inbound_email, direct_paging. The type of integration. Can be
-                      grafana, grafana_alerting, webhook, alertmanager, kapacitor,
+                      inbound_email, direct_paging, jira. The type of integration.
+                      Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor,
                       fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns,
                       curler, sentry, formatted_webhook, heartbeat, demo, manual,
                       stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel,
-                      inbound_email, direct_paging.
+                      inbound_email, direct_paging, jira.
                     type: string
                 type: object
               conditions:

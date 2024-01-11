@@ -105,9 +105,17 @@ type ContactPointInitParameters struct {
 	// A contact point that publishes notifications to Apache Kafka topics.
 	Kafka []KafkaInitParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
 
+	// (Block List) A contact point that sends notifications to LINE.me. (see below for nested schema)
+	// A contact point that sends notifications to LINE.me.
+	Line []LineInitParameters `json:"line,omitempty" tf:"line,omitempty"`
+
 	// (String) The name of the contact point.
 	// The name of the contact point.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Call. (see below for nested schema)
+	// A contact point that sends notifications to Grafana On-Call.
+	Oncall []OncallInitParameters `json:"oncall,omitempty" tf:"oncall,omitempty"`
 
 	// (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
 	// A contact point that sends notifications to OpsGenie.
@@ -144,6 +152,10 @@ type ContactPointInitParameters struct {
 	// (Block List) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
 	// A contact point that sends notifications to VictorOps (now known as Splunk OnCall).
 	Victorops []VictoropsInitParameters `json:"victorops,omitempty" tf:"victorops,omitempty"`
+
+	// (Block List) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
+	// A contact point that sends notifications to Cisco Webex.
+	Webex []WebexInitParameters `json:"webex,omitempty" tf:"webex,omitempty"`
 
 	// (Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
 	// A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
@@ -183,9 +195,17 @@ type ContactPointObservation struct {
 	// A contact point that publishes notifications to Apache Kafka topics.
 	Kafka []KafkaObservation `json:"kafka,omitempty" tf:"kafka,omitempty"`
 
+	// (Block List) A contact point that sends notifications to LINE.me. (see below for nested schema)
+	// A contact point that sends notifications to LINE.me.
+	Line []LineObservation `json:"line,omitempty" tf:"line,omitempty"`
+
 	// (String) The name of the contact point.
 	// The name of the contact point.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Call. (see below for nested schema)
+	// A contact point that sends notifications to Grafana On-Call.
+	Oncall []OncallObservation `json:"oncall,omitempty" tf:"oncall,omitempty"`
 
 	// (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
 	// A contact point that sends notifications to OpsGenie.
@@ -222,6 +242,10 @@ type ContactPointObservation struct {
 	// (Block List) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
 	// A contact point that sends notifications to VictorOps (now known as Splunk OnCall).
 	Victorops []VictoropsObservation `json:"victorops,omitempty" tf:"victorops,omitempty"`
+
+	// (Block List) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
+	// A contact point that sends notifications to Cisco Webex.
+	Webex []WebexObservation `json:"webex,omitempty" tf:"webex,omitempty"`
 
 	// (Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
 	// A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
@@ -264,10 +288,20 @@ type ContactPointParameters struct {
 	// +kubebuilder:validation:Optional
 	Kafka []KafkaParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
 
+	// (Block List) A contact point that sends notifications to LINE.me. (see below for nested schema)
+	// A contact point that sends notifications to LINE.me.
+	// +kubebuilder:validation:Optional
+	Line []LineParameters `json:"line,omitempty" tf:"line,omitempty"`
+
 	// (String) The name of the contact point.
 	// The name of the contact point.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// Call. (see below for nested schema)
+	// A contact point that sends notifications to Grafana On-Call.
+	// +kubebuilder:validation:Optional
+	Oncall []OncallParameters `json:"oncall,omitempty" tf:"oncall,omitempty"`
 
 	// (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
 	// A contact point that sends notifications to OpsGenie.
@@ -313,6 +347,11 @@ type ContactPointParameters struct {
 	// A contact point that sends notifications to VictorOps (now known as Splunk OnCall).
 	// +kubebuilder:validation:Optional
 	Victorops []VictoropsParameters `json:"victorops,omitempty" tf:"victorops,omitempty"`
+
+	// (Block List) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
+	// A contact point that sends notifications to Cisco Webex.
+	// +kubebuilder:validation:Optional
+	Webex []WebexParameters `json:"webex,omitempty" tf:"webex,omitempty"`
 
 	// (Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
 	// A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
@@ -422,6 +461,10 @@ type DiscordInitParameters struct {
 	// The templated content of the message. Defaults to “.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (String) The templated title of the message.
+	// The templated content of the title.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
 	// (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
 	// Whether to use the bot account's plain username instead of "Grafana." Defaults to `false`.
 	UseDiscordUsername *bool `json:"useDiscordUsername,omitempty" tf:"use_discord_username,omitempty"`
@@ -440,6 +483,10 @@ type DiscordObservation struct {
 	// (String) The templated content of the message.
 	// The templated content of the message. Defaults to “.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The templated title of the message.
+	// The templated content of the title.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
@@ -471,6 +518,11 @@ type DiscordParameters struct {
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String) The templated title of the message.
+	// The templated content of the title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// (String) The URL of the Alertmanager instance.
 	// The discord webhook URL.
@@ -575,6 +627,10 @@ type GooglechatInitParameters struct {
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The templated title of the message.
+	// The templated content of the title.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
 type GooglechatObservation struct {
@@ -586,6 +642,10 @@ type GooglechatObservation struct {
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The templated title of the message.
+	// The templated content of the title.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
@@ -609,6 +669,11 @@ type GooglechatParameters struct {
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
+	// (String) The templated title of the message.
+	// The templated content of the title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
 	// (String) The URL of the Alertmanager instance.
 	// The Google Chat webhook URL.
 	// +kubebuilder:validation:Required
@@ -617,6 +682,22 @@ type GooglechatParameters struct {
 
 type KafkaInitParameters struct {
 
+	// (String) The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to v2.
+	// The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to `v2`.
+	APIVersion *string `json:"apiVersion,omitempty" tf:"api_version,omitempty"`
+
+	// (String) The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
+	// The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// (String) The templated description of the Kafka message.
+	// The templated description of the Kafka message.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) The templated details to include with the message.
+	// The templated details to include with the message.
+	Details *string `json:"details,omitempty" tf:"details,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -624,9 +705,29 @@ type KafkaInitParameters struct {
 	// (String) The name of the Kafka topic to publish to.
 	// The name of the Kafka topic to publish to.
 	Topic *string `json:"topic,omitempty" tf:"topic,omitempty"`
+
+	// (String) The user name to use when making a call to the Kafka REST Proxy
+	// The user name to use when making a call to the Kafka REST Proxy
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type KafkaObservation struct {
+
+	// (String) The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to v2.
+	// The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to `v2`.
+	APIVersion *string `json:"apiVersion,omitempty" tf:"api_version,omitempty"`
+
+	// (String) The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
+	// The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// (String) The templated description of the Kafka message.
+	// The templated description of the Kafka message.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) The templated details to include with the message.
+	// The templated details to include with the message.
+	Details *string `json:"details,omitempty" tf:"details,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
@@ -639,14 +740,43 @@ type KafkaObservation struct {
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The user name to use when making a call to the Kafka REST Proxy
+	// The user name to use when making a call to the Kafka REST Proxy
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type KafkaParameters struct {
+
+	// (String) The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to v2.
+	// The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to `v2`.
+	// +kubebuilder:validation:Optional
+	APIVersion *string `json:"apiVersion,omitempty" tf:"api_version,omitempty"`
+
+	// (String) The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
+	// The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
+	// +kubebuilder:validation:Optional
+	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
+
+	// (String) The templated description of the Kafka message.
+	// The templated description of the Kafka message.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String) The templated details to include with the message.
+	// The templated details to include with the message.
+	// +kubebuilder:validation:Optional
+	Details *string `json:"details,omitempty" tf:"details,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+	// The password to use when making a call to the Kafka REST Proxy
+	// +kubebuilder:validation:Optional
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
 	// The URL of the Kafka REST proxy to send requests to.
@@ -662,6 +792,205 @@ type KafkaParameters struct {
 	// The name of the Kafka topic to publish to.
 	// +kubebuilder:validation:Optional
 	Topic *string `json:"topic" tf:"topic,omitempty"`
+
+	// (String) The user name to use when making a call to the Kafka REST Proxy
+	// The user name to use when making a call to the Kafka REST Proxy
+	// +kubebuilder:validation:Optional
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
+type LineInitParameters struct {
+
+	// (String) The templated description of the Kafka message.
+	// The templated description of the message.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The templated title of the message.
+	// The templated title of the message.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
+type LineObservation struct {
+
+	// (String) The templated description of the Kafka message.
+	// The templated description of the message.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The templated title of the message.
+	// The templated title of the message.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The UID of the contact point.
+	// The UID of the contact point.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type LineParameters struct {
+
+	// (String) The templated description of the Kafka message.
+	// The templated description of the message.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String) The templated title of the message.
+	// The templated title of the message.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String, Sensitive) The bearer token used to authorize the client.
+	// The bearer token used to authorize the client.
+	// +kubebuilder:validation:Required
+	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+}
+
+type OncallInitParameters struct {
+
+	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
+	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
+	AuthorizationScheme *string `json:"authorizationScheme,omitempty" tf:"authorization_scheme,omitempty"`
+
+	// (String) The username component of the basic auth credentials to use.
+	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+	BasicAuthUser *string `json:"basicAuthUser,omitempty" tf:"basic_auth_user,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The HTTP method to use in the request. Defaults to POST.
+	// The HTTP method to use in the request. Defaults to `POST`.
+	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
+	// The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
+	MaxAlerts *float64 `json:"maxAlerts,omitempty" tf:"max_alerts,omitempty"`
+
+	// (String) The templated content of the message.
+	// Custom message. You can use template variables.
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The templated title of the message.
+	// Templated title of the message.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The URL to send webhook requests to.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type OncallObservation struct {
+
+	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
+	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
+	AuthorizationScheme *string `json:"authorizationScheme,omitempty" tf:"authorization_scheme,omitempty"`
+
+	// (String) The username component of the basic auth credentials to use.
+	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+	BasicAuthUser *string `json:"basicAuthUser,omitempty" tf:"basic_auth_user,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The HTTP method to use in the request. Defaults to POST.
+	// The HTTP method to use in the request. Defaults to `POST`.
+	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
+	// The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
+	MaxAlerts *float64 `json:"maxAlerts,omitempty" tf:"max_alerts,omitempty"`
+
+	// (String) The templated content of the message.
+	// Custom message. You can use template variables.
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The templated title of the message.
+	// Templated title of the message.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The UID of the contact point.
+	// The UID of the contact point.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The URL to send webhook requests to.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type OncallParameters struct {
+
+	// attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+	// Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+	// +kubebuilder:validation:Optional
+	AuthorizationCredentialsSecretRef *v1.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
+
+	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
+	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
+	// +kubebuilder:validation:Optional
+	AuthorizationScheme *string `json:"authorizationScheme,omitempty" tf:"authorization_scheme,omitempty"`
+
+	// (String, Sensitive) The password component of the basic auth credentials to use.
+	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+	// +kubebuilder:validation:Optional
+	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+
+	// (String) The username component of the basic auth credentials to use.
+	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+	// +kubebuilder:validation:Optional
+	BasicAuthUser *string `json:"basicAuthUser,omitempty" tf:"basic_auth_user,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The HTTP method to use in the request. Defaults to POST.
+	// The HTTP method to use in the request. Defaults to `POST`.
+	// +kubebuilder:validation:Optional
+	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
+	// The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
+	// +kubebuilder:validation:Optional
+	MaxAlerts *float64 `json:"maxAlerts,omitempty" tf:"max_alerts,omitempty"`
+
+	// (String) The templated content of the message.
+	// Custom message. You can use template variables.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String) The templated title of the message.
+	// Templated title of the message.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The URL to send webhook requests to.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
 }
 
 type OpsgenieInitParameters struct {
@@ -670,7 +999,7 @@ type OpsgenieInitParameters struct {
 	// Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
 	AutoClose *bool `json:"autoClose,omitempty" tf:"auto_close,omitempty"`
 
-	// level description to use for the alert.
+	// (String) The templated description of the Kafka message.
 	// A templated high-level description to use for the alert.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -685,6 +1014,10 @@ type OpsgenieInitParameters struct {
 	// (Boolean) Whether to allow the alert priority to be configured via the value of the og_priority annotation on the alert.
 	// Whether to allow the alert priority to be configured via the value of the `og_priority` annotation on the alert.
 	OverridePriority *bool `json:"overridePriority,omitempty" tf:"override_priority,omitempty"`
+
+	// (Block List) Teams, users, escalations and schedules that the alert will be routed to send notifications. If the API Key belongs to a team integration, this field will be overwritten with the owner team. This feature is available from Grafana 10.3+. (see below for nested schema)
+	// Teams, users, escalations and schedules that the alert will be routed to send notifications. If the API Key belongs to a team integration, this field will be overwritten with the owner team. This feature is available from Grafana 10.3+.
+	Responders []RespondersInitParameters `json:"responders,omitempty" tf:"responders,omitempty"`
 
 	// (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
 	// Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are `tags`, `details`, `both`, or empty to use the default behavior of Tags.
@@ -701,7 +1034,7 @@ type OpsgenieObservation struct {
 	// Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
 	AutoClose *bool `json:"autoClose,omitempty" tf:"auto_close,omitempty"`
 
-	// level description to use for the alert.
+	// (String) The templated description of the Kafka message.
 	// A templated high-level description to use for the alert.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -716,6 +1049,10 @@ type OpsgenieObservation struct {
 	// (Boolean) Whether to allow the alert priority to be configured via the value of the og_priority annotation on the alert.
 	// Whether to allow the alert priority to be configured via the value of the `og_priority` annotation on the alert.
 	OverridePriority *bool `json:"overridePriority,omitempty" tf:"override_priority,omitempty"`
+
+	// (Block List) Teams, users, escalations and schedules that the alert will be routed to send notifications. If the API Key belongs to a team integration, this field will be overwritten with the owner team. This feature is available from Grafana 10.3+. (see below for nested schema)
+	// Teams, users, escalations and schedules that the alert will be routed to send notifications. If the API Key belongs to a team integration, this field will be overwritten with the owner team. This feature is available from Grafana 10.3+.
+	Responders []RespondersObservation `json:"responders,omitempty" tf:"responders,omitempty"`
 
 	// (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
 	// Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are `tags`, `details`, `both`, or empty to use the default behavior of Tags.
@@ -742,7 +1079,7 @@ type OpsgenieParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoClose *bool `json:"autoClose,omitempty" tf:"auto_close,omitempty"`
 
-	// level description to use for the alert.
+	// (String) The templated description of the Kafka message.
 	// A templated high-level description to use for the alert.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -761,6 +1098,11 @@ type OpsgenieParameters struct {
 	// Whether to allow the alert priority to be configured via the value of the `og_priority` annotation on the alert.
 	// +kubebuilder:validation:Optional
 	OverridePriority *bool `json:"overridePriority,omitempty" tf:"override_priority,omitempty"`
+
+	// (Block List) Teams, users, escalations and schedules that the alert will be routed to send notifications. If the API Key belongs to a team integration, this field will be overwritten with the owner team. This feature is available from Grafana 10.3+. (see below for nested schema)
+	// Teams, users, escalations and schedules that the alert will be routed to send notifications. If the API Key belongs to a team integration, this field will be overwritten with the owner team. This feature is available from Grafana 10.3+.
+	// +kubebuilder:validation:Optional
+	Responders []RespondersParameters `json:"responders,omitempty" tf:"responders,omitempty"`
 
 	// (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
 	// Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are `tags`, `details`, `both`, or empty to use the default behavior of Tags.
@@ -796,7 +1138,7 @@ type PagerdutyInitParameters struct {
 	// The component being affected by the event.
 	Component *string `json:"component,omitempty" tf:"component,omitempty"`
 
-	// (Map of String) A set of arbitrary key/value pairs that provide further detail about the incident.
+	// (String) The templated details to include with the message.
 	// A set of arbitrary key/value pairs that provide further detail about the incident.
 	Details map[string]*string `json:"details,omitempty" tf:"details,omitempty"`
 
@@ -839,7 +1181,7 @@ type PagerdutyObservation struct {
 	// The component being affected by the event.
 	Component *string `json:"component,omitempty" tf:"component,omitempty"`
 
-	// (Map of String) A set of arbitrary key/value pairs that provide further detail about the incident.
+	// (String) The templated details to include with the message.
 	// A set of arbitrary key/value pairs that provide further detail about the incident.
 	Details map[string]*string `json:"details,omitempty" tf:"details,omitempty"`
 
@@ -890,7 +1232,7 @@ type PagerdutyParameters struct {
 	// +kubebuilder:validation:Optional
 	Component *string `json:"component,omitempty" tf:"component,omitempty"`
 
-	// (Map of String) A set of arbitrary key/value pairs that provide further detail about the incident.
+	// (String) The templated details to include with the message.
 	// A set of arbitrary key/value pairs that provide further detail about the incident.
 	// +kubebuilder:validation:Optional
 	Details map[string]*string `json:"details,omitempty" tf:"details,omitempty"`
@@ -972,6 +1314,10 @@ type PushoverInitParameters struct {
 	// (String) The templated title of the message.
 	// The templated title of the message.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (Boolean) Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
+	// Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
+	UploadImage *bool `json:"uploadImage,omitempty" tf:"upload_image,omitempty"`
 }
 
 type PushoverObservation struct {
@@ -1019,6 +1365,10 @@ type PushoverObservation struct {
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (Boolean) Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
+	// Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
+	UploadImage *bool `json:"uploadImage,omitempty" tf:"upload_image,omitempty"`
 }
 
 type PushoverParameters struct {
@@ -1083,10 +1433,76 @@ type PushoverParameters struct {
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
+	// (Boolean) Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
+	// Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
+	// +kubebuilder:validation:Optional
+	UploadImage *bool `json:"uploadImage,omitempty" tf:"upload_image,omitempty"`
+
 	// (String, Sensitive) The Pushover user key.
 	// The Pushover user key.
 	// +kubebuilder:validation:Required
 	UserKeySecretRef v1.SecretKeySelector `json:"userKeySecretRef" tf:"-"`
+}
+
+type RespondersInitParameters struct {
+
+	// (String) The ID of this resource.
+	// ID of the responder. Must be specified if name and username are empty.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the contact point.
+	// Name of the responder. Must be specified if username and id are empty.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Type of the responder. Supported: team, teams, user, escalation, schedule or a template that is expanded to one of these values.
+	// Type of the responder. Supported: team, teams, user, escalation, schedule or a template that is expanded to one of these values.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The user name to use when making a call to the Kafka REST Proxy
+	// User name of the responder. Must be specified if name and id are empty.
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
+type RespondersObservation struct {
+
+	// (String) The ID of this resource.
+	// ID of the responder. Must be specified if name and username are empty.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the contact point.
+	// Name of the responder. Must be specified if username and id are empty.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Type of the responder. Supported: team, teams, user, escalation, schedule or a template that is expanded to one of these values.
+	// Type of the responder. Supported: team, teams, user, escalation, schedule or a template that is expanded to one of these values.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The user name to use when making a call to the Kafka REST Proxy
+	// User name of the responder. Must be specified if name and id are empty.
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
+type RespondersParameters struct {
+
+	// (String) The ID of this resource.
+	// ID of the responder. Must be specified if name and username are empty.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) The name of the contact point.
+	// Name of the responder. Must be specified if username and id are empty.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) Type of the responder. Supported: team, teams, user, escalation, schedule or a template that is expanded to one of these values.
+	// Type of the responder. Supported: team, teams, user, escalation, schedule or a template that is expanded to one of these values.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+
+	// (String) The user name to use when making a call to the Kafka REST Proxy
+	// User name of the responder. Must be specified if name and id are empty.
+	// +kubebuilder:validation:Optional
+	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
 type SensugoInitParameters struct {
@@ -1245,7 +1661,7 @@ type SlackInitParameters struct {
 	// Templated title of the message.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-	// (String) Username for the bot to use.
+	// (String) The user name to use when making a call to the Kafka REST Proxy
 	// Username for the bot to use.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
@@ -1296,7 +1712,7 @@ type SlackObservation struct {
 	// The UID of the contact point.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) Username for the bot to use.
+	// (String) The user name to use when making a call to the Kafka REST Proxy
 	// Username for the bot to use.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
@@ -1358,7 +1774,7 @@ type SlackParameters struct {
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-	// (String, Sensitive) A Slack API token,for sending messages directly without the webhook method.
+	// (String, Sensitive) The bearer token used to authorize the client.
 	// A Slack API token,for sending messages directly without the webhook method.
 	// +kubebuilder:validation:Optional
 	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
@@ -1368,7 +1784,7 @@ type SlackParameters struct {
 	// +kubebuilder:validation:Optional
 	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
-	// (String) Username for the bot to use.
+	// (String) The user name to use when making a call to the Kafka REST Proxy
 	// Username for the bot to use.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -1455,13 +1871,29 @@ type TelegramInitParameters struct {
 	// The chat ID to send messages to.
 	ChatID *string `json:"chatId,omitempty" tf:"chat_id,omitempty"`
 
+	// (Boolean) When set users will receive a notification with no sound.
+	// When set users will receive a notification with no sound.
+	DisableNotifications *bool `json:"disableNotifications,omitempty" tf:"disable_notifications,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// (Boolean) When set it disables link previews for links in the message.
+	// When set it disables link previews for links in the message.
+	DisableWebPagePreview *bool `json:"disableWebPagePreview,omitempty" tf:"disable_web_page_preview,omitempty"`
+
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
+	// Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// (Boolean) When set it protects the contents of the message from forwarding and saving.
+	// When set it protects the contents of the message from forwarding and saving.
+	ProtectContent *bool `json:"protectContent,omitempty" tf:"protect_content,omitempty"`
 }
 
 type TelegramObservation struct {
@@ -1470,13 +1902,29 @@ type TelegramObservation struct {
 	// The chat ID to send messages to.
 	ChatID *string `json:"chatId,omitempty" tf:"chat_id,omitempty"`
 
+	// (Boolean) When set users will receive a notification with no sound.
+	// When set users will receive a notification with no sound.
+	DisableNotifications *bool `json:"disableNotifications,omitempty" tf:"disable_notifications,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// (Boolean) When set it disables link previews for links in the message.
+	// When set it disables link previews for links in the message.
+	DisableWebPagePreview *bool `json:"disableWebPagePreview,omitempty" tf:"disable_web_page_preview,omitempty"`
+
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
+	// Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// (Boolean) When set it protects the contents of the message from forwarding and saving.
+	// When set it protects the contents of the message from forwarding and saving.
+	ProtectContent *bool `json:"protectContent,omitempty" tf:"protect_content,omitempty"`
 
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
@@ -1490,22 +1938,42 @@ type TelegramParameters struct {
 	// +kubebuilder:validation:Optional
 	ChatID *string `json:"chatId" tf:"chat_id,omitempty"`
 
+	// (Boolean) When set users will receive a notification with no sound.
+	// When set users will receive a notification with no sound.
+	// +kubebuilder:validation:Optional
+	DisableNotifications *bool `json:"disableNotifications,omitempty" tf:"disable_notifications,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (Boolean) When set it disables link previews for links in the message.
+	// When set it disables link previews for links in the message.
+	// +kubebuilder:validation:Optional
+	DisableWebPagePreview *bool `json:"disableWebPagePreview,omitempty" tf:"disable_web_page_preview,omitempty"`
 
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
+	// Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
+	// +kubebuilder:validation:Optional
+	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
+
+	// (Boolean) When set it protects the contents of the message from forwarding and saving.
+	// When set it protects the contents of the message from forwarding and saving.
+	// +kubebuilder:validation:Optional
+	ProtectContent *bool `json:"protectContent,omitempty" tf:"protect_content,omitempty"`
+
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
-	// (String, Sensitive) A Slack API token,for sending messages directly without the webhook method.
+	// (String, Sensitive) The bearer token used to authorize the client.
 	// The Telegram bot token.
 	// +kubebuilder:validation:Required
 	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
@@ -1513,6 +1981,10 @@ type TelegramParameters struct {
 
 type ThreemaInitParameters struct {
 
+	// (String) The templated description of the Kafka message.
+	// The templated description of the message.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -1524,10 +1996,18 @@ type ThreemaInitParameters struct {
 	// (String) The ID of the recipient of the message.
 	// The ID of the recipient of the message.
 	RecipientID *string `json:"recipientId,omitempty" tf:"recipient_id,omitempty"`
+
+	// (String) The templated title of the message.
+	// The templated title of the message.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
 type ThreemaObservation struct {
 
+	// (String) The templated description of the Kafka message.
+	// The templated description of the message.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -1539,6 +2019,10 @@ type ThreemaObservation struct {
 	// (String) The ID of the recipient of the message.
 	// The ID of the recipient of the message.
 	RecipientID *string `json:"recipientId,omitempty" tf:"recipient_id,omitempty"`
+
+	// (String) The templated title of the message.
+	// The templated title of the message.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
@@ -1552,10 +2036,10 @@ type ThreemaParameters struct {
 	// +kubebuilder:validation:Required
 	APISecretSecretRef v1.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
-	// level description to use for the alert.
+	// (String) The templated description of the Kafka message.
 	// The templated description of the message.
-	// +kubebuilder:validation:Required
-	DescriptionSecretRef v1.SecretKeySelector `json:"descriptionSecretRef" tf:"-"`
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
@@ -1579,13 +2063,13 @@ type ThreemaParameters struct {
 
 	// (String) The templated title of the message.
 	// The templated title of the message.
-	// +kubebuilder:validation:Required
-	TitleSecretRef v1.SecretKeySelector `json:"titleSecretRef" tf:"-"`
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
 type VictoropsInitParameters struct {
 
-	// level description to use for the alert.
+	// (String) The templated description of the Kafka message.
 	// Templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -1608,7 +2092,7 @@ type VictoropsInitParameters struct {
 
 type VictoropsObservation struct {
 
-	// level description to use for the alert.
+	// (String) The templated description of the Kafka message.
 	// Templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -1635,7 +2119,7 @@ type VictoropsObservation struct {
 
 type VictoropsParameters struct {
 
-	// level description to use for the alert.
+	// (String) The templated description of the Kafka message.
 	// Templated description of the message.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -1664,6 +2148,81 @@ type VictoropsParameters struct {
 	// The VictorOps webhook URL.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url" tf:"url,omitempty"`
+}
+
+type WebexInitParameters struct {
+
+	// (String) The URL to send webhook requests to.
+	// The URL to send webhook requests to.
+	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The templated content of the message.
+	// The templated title of the message to send.
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) ID of the Webex Teams room where to send the messages.
+	// ID of the Webex Teams room where to send the messages.
+	RoomID *string `json:"roomId,omitempty" tf:"room_id,omitempty"`
+}
+
+type WebexObservation struct {
+
+	// (String) The URL to send webhook requests to.
+	// The URL to send webhook requests to.
+	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The templated content of the message.
+	// The templated title of the message to send.
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) ID of the Webex Teams room where to send the messages.
+	// ID of the Webex Teams room where to send the messages.
+	RoomID *string `json:"roomId,omitempty" tf:"room_id,omitempty"`
+
+	// (String) The UID of the contact point.
+	// The UID of the contact point.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type WebexParameters struct {
+
+	// (String) The URL to send webhook requests to.
+	// The URL to send webhook requests to.
+	// +kubebuilder:validation:Optional
+	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The templated content of the message.
+	// The templated title of the message to send.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) ID of the Webex Teams room where to send the messages.
+	// ID of the Webex Teams room where to send the messages.
+	// +kubebuilder:validation:Optional
+	RoomID *string `json:"roomId,omitempty" tf:"room_id,omitempty"`
+
+	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The bearer token used to authorize the client.
+	// The bearer token used to authorize the client.
+	// +kubebuilder:validation:Optional
+	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
 }
 
 type WebhookInitParameters struct {
@@ -1800,6 +2359,14 @@ type WebhookParameters struct {
 
 type WecomInitParameters struct {
 
+	// (String) Agent ID added to the request payload when using APIAPP.
+	// Agent ID added to the request payload when using APIAPP.
+	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
+
+	// (String) Corp ID used to get token when using APIAPP.
+	// Corp ID used to get token when using APIAPP.
+	CorpID *string `json:"corpId,omitempty" tf:"corp_id,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -1808,13 +2375,29 @@ type WecomInitParameters struct {
 	// The templated content of the message to send.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (String) The type of them message. Supported: markdown, text. Default: text.
+	// The type of them message. Supported: markdown, text. Default: text.
+	MsgType *string `json:"msgType,omitempty" tf:"msg_type,omitempty"`
+
 	// (String) The templated title of the message.
 	// The templated title of the message to send.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
+	// The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
+	ToUser *string `json:"toUser,omitempty" tf:"to_user,omitempty"`
 }
 
 type WecomObservation struct {
 
+	// (String) Agent ID added to the request payload when using APIAPP.
+	// Agent ID added to the request payload when using APIAPP.
+	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
+
+	// (String) Corp ID used to get token when using APIAPP.
+	// Corp ID used to get token when using APIAPP.
+	CorpID *string `json:"corpId,omitempty" tf:"corp_id,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -1823,9 +2406,17 @@ type WecomObservation struct {
 	// The templated content of the message to send.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (String) The type of them message. Supported: markdown, text. Default: text.
+	// The type of them message. Supported: markdown, text. Default: text.
+	MsgType *string `json:"msgType,omitempty" tf:"msg_type,omitempty"`
+
 	// (String) The templated title of the message.
 	// The templated title of the message to send.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
+	// The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
+	ToUser *string `json:"toUser,omitempty" tf:"to_user,omitempty"`
 
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
@@ -1834,6 +2425,16 @@ type WecomObservation struct {
 
 type WecomParameters struct {
 
+	// (String) Agent ID added to the request payload when using APIAPP.
+	// Agent ID added to the request payload when using APIAPP.
+	// +kubebuilder:validation:Optional
+	AgentID *string `json:"agentId,omitempty" tf:"agent_id,omitempty"`
+
+	// (String) Corp ID used to get token when using APIAPP.
+	// Corp ID used to get token when using APIAPP.
+	// +kubebuilder:validation:Optional
+	CorpID *string `json:"corpId,omitempty" tf:"corp_id,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	// +kubebuilder:validation:Optional
@@ -1843,6 +2444,16 @@ type WecomParameters struct {
 	// The templated content of the message to send.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The type of them message. Supported: markdown, text. Default: text.
+	// The type of them message. Supported: markdown, text. Default: text.
+	// +kubebuilder:validation:Optional
+	MsgType *string `json:"msgType,omitempty" tf:"msg_type,omitempty"`
+
+	// (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+	// The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+	// +kubebuilder:validation:Optional
+	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
@@ -1854,10 +2465,15 @@ type WecomParameters struct {
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
+	// (String) The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
+	// The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
+	// +kubebuilder:validation:Optional
+	ToUser *string `json:"toUser,omitempty" tf:"to_user,omitempty"`
+
 	// (String) The URL of the Alertmanager instance.
-	// The WeCom webhook URL.
-	// +kubebuilder:validation:Required
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	// The WeCom webhook URL. Required if using GroupRobot.
+	// +kubebuilder:validation:Optional
+	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 // ContactPointSpec defines the desired state of ContactPoint

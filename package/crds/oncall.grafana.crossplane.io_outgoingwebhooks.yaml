@@ -92,9 +92,36 @@ spec:
                       webhook.
                     type: string
                   forwardWholePayload:
-                    description: (Boolean) Forwards whole payload of the alert to
-                      the webhook's url as POST data. Forwards whole payload of the
-                      alert to the webhook's url as POST data.
+                    description: (Boolean) Toggle to send the entire webhook payload
+                      instead of using the values in the Data field. Toggle to send
+                      the entire webhook payload instead of using the values in the
+                      Data field.
+                    type: boolean
+                  headers:
+                    description: (String) Headers to add to the outgoing webhook request.
+                      Headers to add to the outgoing webhook request.
+                    type: string
+                  httpMethod:
+                    description: (String) The HTTP method used in the request made
+                      by the outgoing webhook. Defaults to POST. The HTTP method used
+                      in the request made by the outgoing webhook. Defaults to `POST`.
+                    type: string
+                  integrationFilter:
+                    description: (List of String) Restricts the outgoing webhook to
+                      only trigger if the event came from a selected integration.
+                      If no integrations are selected the outgoing webhook will trigger
+                      for any integration. Restricts the outgoing webhook to only
+                      trigger if the event came from a selected integration. If no
+                      integrations are selected the outgoing webhook will trigger
+                      for any integration.
+                    items:
+                      type: string
+                    type: array
+                  isWebhookEnabled:
+                    description: (Boolean) Controls whether the outgoing webhook will
+                      trigger or is ignored. The default is true. Controls whether
+                      the outgoing webhook will trigger or is ignored. The default
+                      is `true`.
                     type: boolean
                   name:
                     description: (String) The name of the outgoing webhook. The name
@@ -128,13 +155,29 @@ spec:
                       the team with OnCall). You can then get the ID using the `grafana_oncall_team`
                       datasource.
                     type: string
+                  triggerTemplate:
+                    description: (String) A template used to dynamically determine
+                      whether the webhook should execute based on the content of the
+                      payload. A template used to dynamically determine whether the
+                      webhook should execute based on the content of the payload.
+                    type: string
+                  triggerType:
+                    description: '(String) The type of event that will cause this
+                      outgoing webhook to execute. The types of triggers are: escalation,
+                      alert group created, acknowledge, resolve, silence, unsilence,
+                      unresolve, unacknowledge. Defaults to escalation. The type of
+                      event that will cause this outgoing webhook to execute. The
+                      types of triggers are: `escalation`, `alert group created`,
+                      `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`,
+                      `unacknowledge`. Defaults to `escalation`.'
+                    type: string
                   url:
                     description: (String) The webhook URL. The webhook URL.
                     type: string
                   user:
-                    description: (String) The auth data of the webhook. Used for Basic
-                      authentication. The auth data of the webhook. Used for Basic
-                      authentication.
+                    description: (String) Username to use when making the outgoing
+                      webhook request. Username to use when making the outgoing webhook
+                      request.
                     type: string
                 type: object
               initProvider:
@@ -154,9 +197,36 @@ spec:
                       webhook.
                     type: string
                   forwardWholePayload:
-                    description: (Boolean) Forwards whole payload of the alert to
-                      the webhook's url as POST data. Forwards whole payload of the
-                      alert to the webhook's url as POST data.
+                    description: (Boolean) Toggle to send the entire webhook payload
+                      instead of using the values in the Data field. Toggle to send
+                      the entire webhook payload instead of using the values in the
+                      Data field.
+                    type: boolean
+                  headers:
+                    description: (String) Headers to add to the outgoing webhook request.
+                      Headers to add to the outgoing webhook request.
+                    type: string
+                  httpMethod:
+                    description: (String) The HTTP method used in the request made
+                      by the outgoing webhook. Defaults to POST. The HTTP method used
+                      in the request made by the outgoing webhook. Defaults to `POST`.
+                    type: string
+                  integrationFilter:
+                    description: (List of String) Restricts the outgoing webhook to
+                      only trigger if the event came from a selected integration.
+                      If no integrations are selected the outgoing webhook will trigger
+                      for any integration. Restricts the outgoing webhook to only
+                      trigger if the event came from a selected integration. If no
+                      integrations are selected the outgoing webhook will trigger
+                      for any integration.
+                    items:
+                      type: string
+                    type: array
+                  isWebhookEnabled:
+                    description: (Boolean) Controls whether the outgoing webhook will
+                      trigger or is ignored. The default is true. Controls whether
+                      the outgoing webhook will trigger or is ignored. The default
+                      is `true`.
                     type: boolean
                   name:
                     description: (String) The name of the outgoing webhook. The name
@@ -171,13 +241,29 @@ spec:
                       the team with OnCall). You can then get the ID using the `grafana_oncall_team`
                       datasource.
                     type: string
+                  triggerTemplate:
+                    description: (String) A template used to dynamically determine
+                      whether the webhook should execute based on the content of the
+                      payload. A template used to dynamically determine whether the
+                      webhook should execute based on the content of the payload.
+                    type: string
+                  triggerType:
+                    description: '(String) The type of event that will cause this
+                      outgoing webhook to execute. The types of triggers are: escalation,
+                      alert group created, acknowledge, resolve, silence, unsilence,
+                      unresolve, unacknowledge. Defaults to escalation. The type of
+                      event that will cause this outgoing webhook to execute. The
+                      types of triggers are: `escalation`, `alert group created`,
+                      `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`,
+                      `unacknowledge`. Defaults to `escalation`.'
+                    type: string
                   url:
                     description: (String) The webhook URL. The webhook URL.
                     type: string
                   user:
-                    description: (String) The auth data of the webhook. Used for Basic
-                      authentication. The auth data of the webhook. Used for Basic
-                      authentication.
+                    description: (String) Username to use when making the outgoing
+                      webhook request. Username to use when making the outgoing webhook
+                      request.
                     type: string
                 type: object
               managementPolicies:
@@ -359,13 +445,40 @@ spec:
                       webhook.
                     type: string
                   forwardWholePayload:
-                    description: (Boolean) Forwards whole payload of the alert to
-                      the webhook's url as POST data. Forwards whole payload of the
-                      alert to the webhook's url as POST data.
+                    description: (Boolean) Toggle to send the entire webhook payload
+                      instead of using the values in the Data field. Toggle to send
+                      the entire webhook payload instead of using the values in the
+                      Data field.
                     type: boolean
+                  headers:
+                    description: (String) Headers to add to the outgoing webhook request.
+                      Headers to add to the outgoing webhook request.
+                    type: string
+                  httpMethod:
+                    description: (String) The HTTP method used in the request made
+                      by the outgoing webhook. Defaults to POST. The HTTP method used
+                      in the request made by the outgoing webhook. Defaults to `POST`.
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  integrationFilter:
+                    description: (List of String) Restricts the outgoing webhook to
+                      only trigger if the event came from a selected integration.
+                      If no integrations are selected the outgoing webhook will trigger
+                      for any integration. Restricts the outgoing webhook to only
+                      trigger if the event came from a selected integration. If no
+                      integrations are selected the outgoing webhook will trigger
+                      for any integration.
+                    items:
+                      type: string
+                    type: array
+                  isWebhookEnabled:
+                    description: (Boolean) Controls whether the outgoing webhook will
+                      trigger or is ignored. The default is true. Controls whether
+                      the outgoing webhook will trigger or is ignored. The default
+                      is `true`.
+                    type: boolean
                   name:
                     description: (String) The name of the outgoing webhook. The name
                       of the outgoing webhook.
@@ -379,13 +492,29 @@ spec:
                       the team with OnCall). You can then get the ID using the `grafana_oncall_team`
                       datasource.
                     type: string
+                  triggerTemplate:
+                    description: (String) A template used to dynamically determine
+                      whether the webhook should execute based on the content of the
+                      payload. A template used to dynamically determine whether the
+                      webhook should execute based on the content of the payload.
+                    type: string
+                  triggerType:
+                    description: '(String) The type of event that will cause this
+                      outgoing webhook to execute. The types of triggers are: escalation,
+                      alert group created, acknowledge, resolve, silence, unsilence,
+                      unresolve, unacknowledge. Defaults to escalation. The type of
+                      event that will cause this outgoing webhook to execute. The
+                      types of triggers are: `escalation`, `alert group created`,
+                      `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`,
+                      `unacknowledge`. Defaults to `escalation`.'
+                    type: string
                   url:
                     description: (String) The webhook URL. The webhook URL.
                     type: string
                   user:
-                    description: (String) The auth data of the webhook. Used for Basic
-                      authentication. The auth data of the webhook. Used for Basic
-                      authentication.
+                    description: (String) Username to use when making the outgoing
+                      webhook request. Username to use when making the outgoing webhook
+                      request.
                     type: string
                 type: object
               conditions:

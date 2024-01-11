@@ -23,6 +23,10 @@ type IntervalsInitParameters struct {
 	// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
 	DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
 
+	// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+	// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+
 	// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
 	// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
 	Months []*string `json:"months,omitempty" tf:"months,omitempty"`
@@ -45,6 +49,10 @@ type IntervalsObservation struct {
 	// 31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
 	// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
 	DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
+
+	// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+	// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
 	// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
 	// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
@@ -69,6 +77,11 @@ type IntervalsParameters struct {
 	// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
 	// +kubebuilder:validation:Optional
 	DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
+
+	// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+	// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+	// +kubebuilder:validation:Optional
+	Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
 	// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
 	// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".

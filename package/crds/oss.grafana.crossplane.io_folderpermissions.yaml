@@ -35,8 +35,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: FolderPermission is the Schema for the FolderPermissions API.
-          Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP
-          API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+          Manages the entire set of permissions for a folder. Permissions that aren't
+          specified when applying this resource will be removed.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -224,10 +224,10 @@ spec:
                         type: object
                     type: object
                   permissions:
-                    description: '(Block Set, Min: 1) The permission items to add/update.
-                      Items that are omitted from the list will be removed. (see below
-                      for nested schema) The permission items to add/update. Items
-                      that are omitted from the list will be removed.'
+                    description: (Block Set) The permission items to add/update. Items
+                      that are omitted from the list will be removed. (see below for
+                      nested schema) The permission items to add/update. Items that
+                      are omitted from the list will be removed.
                     items:
                       properties:
                         permission:
@@ -266,10 +266,10 @@ spec:
                   like an autoscaler.
                 properties:
                   permissions:
-                    description: '(Block Set, Min: 1) The permission items to add/update.
-                      Items that are omitted from the list will be removed. (see below
-                      for nested schema) The permission items to add/update. Items
-                      that are omitted from the list will be removed.'
+                    description: (Block Set) The permission items to add/update. Items
+                      that are omitted from the list will be removed. (see below for
+                      nested schema) The permission items to add/update. Items that
+                      are omitted from the list will be removed.
                     items:
                       properties:
                         permission:
@@ -455,11 +455,6 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.permissions is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.permissions)
-                || (has(self.initProvider) && has(self.initProvider.permissions))'
           status:
             description: FolderPermissionStatus defines the observed state of FolderPermission.
             properties:
@@ -478,10 +473,10 @@ spec:
                       be used.
                     type: string
                   permissions:
-                    description: '(Block Set, Min: 1) The permission items to add/update.
-                      Items that are omitted from the list will be removed. (see below
-                      for nested schema) The permission items to add/update. Items
-                      that are omitted from the list will be removed.'
+                    description: (Block Set) The permission items to add/update. Items
+                      that are omitted from the list will be removed. (see below for
+                      nested schema) The permission items to add/update. Items that
+                      are omitted from the list will be removed.
                     items:
                       properties:
                         permission:

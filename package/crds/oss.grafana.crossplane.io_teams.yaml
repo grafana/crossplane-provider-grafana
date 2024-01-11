@@ -262,10 +262,11 @@ spec:
                           type: string
                         theme:
                           description: (String) The default theme for this team. Available
-                            themes are light, dark, or an empty string for the default
-                            theme. Defaults to “. The default theme for this team.
-                            Available themes are `light`, `dark`, or an empty string
-                            for the default theme. Defaults to “.
+                            themes are light, dark, system, or an empty string for
+                            the default theme. Defaults to “. The default theme for
+                            this team. Available themes are `light`, `dark`, `system`,
+                            or an empty string for the default theme. Defaults to
+                            “.
                           type: string
                         timezone:
                           description: (String) The default timezone for this team.
@@ -333,10 +334,11 @@ spec:
                           type: string
                         theme:
                           description: (String) The default theme for this team. Available
-                            themes are light, dark, or an empty string for the default
-                            theme. Defaults to “. The default theme for this team.
-                            Available themes are `light`, `dark`, or an empty string
-                            for the default theme. Defaults to “.
+                            themes are light, dark, system, or an empty string for
+                            the default theme. Defaults to “. The default theme for
+                            this team. Available themes are `light`, `dark`, `system`,
+                            or an empty string for the default theme. Defaults to
+                            “.
                           type: string
                         timezone:
                           description: (String) The default timezone for this team.
@@ -581,10 +583,11 @@ spec:
                           type: string
                         theme:
                           description: (String) The default theme for this team. Available
-                            themes are light, dark, or an empty string for the default
-                            theme. Defaults to “. The default theme for this team.
-                            Available themes are `light`, `dark`, or an empty string
-                            for the default theme. Defaults to “.
+                            themes are light, dark, system, or an empty string for
+                            the default theme. Defaults to “. The default theme for
+                            this team. Available themes are `light`, `dark`, `system`,
+                            or an empty string for the default theme. Defaults to
+                            “.
                           type: string
                         timezone:
                           description: (String) The default timezone for this team.

@@ -174,7 +174,7 @@ type PolicyInitParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -185,7 +185,7 @@ type PolicyInitParameters struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []MatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -261,7 +261,7 @@ type PolicyObservation struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -272,7 +272,7 @@ type PolicyObservation struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []MatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -302,9 +302,9 @@ type PolicyParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy" tf:"group_by,omitempty"`
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
 	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -316,7 +316,7 @@ type PolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	// +kubebuilder:validation:Optional
 	Matcher []MatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
@@ -348,7 +348,7 @@ type PolicyPolicyInitParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -359,7 +359,7 @@ type PolicyPolicyInitParameters struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -435,7 +435,7 @@ type PolicyPolicyObservation struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -446,7 +446,7 @@ type PolicyPolicyObservation struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -476,9 +476,9 @@ type PolicyPolicyParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy" tf:"group_by,omitempty"`
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
 	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -490,7 +490,7 @@ type PolicyPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	// +kubebuilder:validation:Optional
 	Matcher []PolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
@@ -522,7 +522,7 @@ type PolicyPolicyPolicyInitParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -533,7 +533,7 @@ type PolicyPolicyPolicyInitParameters struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -609,7 +609,7 @@ type PolicyPolicyPolicyObservation struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -620,7 +620,7 @@ type PolicyPolicyPolicyObservation struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -650,9 +650,9 @@ type PolicyPolicyPolicyParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy" tf:"group_by,omitempty"`
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
 	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -664,7 +664,7 @@ type PolicyPolicyPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	// +kubebuilder:validation:Optional
 	Matcher []PolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
@@ -696,7 +696,7 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -707,7 +707,7 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -731,7 +731,7 @@ type PolicyPolicyPolicyPolicyObservation struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
 	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
@@ -742,7 +742,7 @@ type PolicyPolicyPolicyPolicyObservation struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
@@ -768,7 +768,7 @@ type PolicyPolicyPolicyPolicyParameters struct {
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
 	// +kubebuilder:validation:Optional
 	GroupBy []*string `json:"groupBy" tf:"group_by,omitempty"`
 
@@ -782,7 +782,7 @@ type PolicyPolicyPolicyPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (Block List) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	// +kubebuilder:validation:Optional
 	Matcher []PolicyPolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`

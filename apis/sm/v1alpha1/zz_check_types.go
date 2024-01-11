@@ -17,6 +17,80 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AssertionsInitParameters struct {
+
+	// (String) The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+	// The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// (String) The expression of the assertion. Should start with $.
+	// The expression of the assertion. Should start with $.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) The subject of the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE, RESPONSE_BODY
+	// The subject of the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE, RESPONSE_BODY
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+
+	// (String) The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	// The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The value of the assertion
+	// The value of the assertion
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type AssertionsObservation struct {
+
+	// (String) The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+	// The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// (String) The expression of the assertion. Should start with $.
+	// The expression of the assertion. Should start with $.
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) The subject of the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE, RESPONSE_BODY
+	// The subject of the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE, RESPONSE_BODY
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+
+	// (String) The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	// The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String) The value of the assertion
+	// The value of the assertion
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type AssertionsParameters struct {
+
+	// (String) The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+	// The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS
+	// +kubebuilder:validation:Optional
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+
+	// (String) The expression of the assertion. Should start with $.
+	// The expression of the assertion. Should start with $.
+	// +kubebuilder:validation:Optional
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) The subject of the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE, RESPONSE_BODY
+	// The subject of the assertion: RESPONSE_HEADERS, HTTP_STATUS_CODE, RESPONSE_BODY
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+
+	// (String) The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	// The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
+
+	// (String) The value of the assertion
+	// The value of the assertion
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
 type BasicAuthInitParameters struct {
 
 	// (String) Basic auth password.
@@ -50,6 +124,54 @@ type BasicAuthParameters struct {
 	// Basic auth username.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username" tf:"username,omitempty"`
+}
+
+type BodyInitParameters struct {
+
+	// (String) The content encoding of the body
+	// The content encoding of the body
+	ContentEncoding *string `json:"contentEncoding,omitempty" tf:"content_encoding,omitempty"`
+
+	// (String) The content type of the body
+	// The content type of the body
+	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
+
+	// (String) The body payload
+	// The body payload
+	Payload *string `json:"payload,omitempty" tf:"payload,omitempty"`
+}
+
+type BodyObservation struct {
+
+	// (String) The content encoding of the body
+	// The content encoding of the body
+	ContentEncoding *string `json:"contentEncoding,omitempty" tf:"content_encoding,omitempty"`
+
+	// (String) The content type of the body
+	// The content type of the body
+	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
+
+	// (String) The body payload
+	// The body payload
+	Payload *string `json:"payload,omitempty" tf:"payload,omitempty"`
+}
+
+type BodyParameters struct {
+
+	// (String) The content encoding of the body
+	// The content encoding of the body
+	// +kubebuilder:validation:Optional
+	ContentEncoding *string `json:"contentEncoding,omitempty" tf:"content_encoding,omitempty"`
+
+	// (String) The content type of the body
+	// The content type of the body
+	// +kubebuilder:validation:Optional
+	ContentType *string `json:"contentType,omitempty" tf:"content_type,omitempty"`
+
+	// (String) The body payload
+	// The body payload
+	// +kubebuilder:validation:Optional
+	Payload *string `json:"payload,omitempty" tf:"payload,omitempty"`
 }
 
 type CheckInitParameters struct {
@@ -337,6 +459,54 @@ type DNSParameters struct {
 	ValidateAuthorityRrs []ValidateAuthorityRrsParameters `json:"validateAuthorityRrs,omitempty" tf:"validate_authority_rrs,omitempty"`
 }
 
+type EntriesInitParameters struct {
+
+	// (Block List) Assertions to make on the request response (see below for nested schema)
+	// Assertions to make on the request response
+	Assertions []AssertionsInitParameters `json:"assertions,omitempty" tf:"assertions,omitempty"`
+
+	// (Block Set, Max: 1) An individual MultiHTTP request (see below for nested schema)
+	// An individual MultiHTTP request
+	Request []RequestInitParameters `json:"request,omitempty" tf:"request,omitempty"`
+
+	// (Block List) Variables to extract from the request response (see below for nested schema)
+	// Variables to extract from the request response
+	Variables []VariablesInitParameters `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EntriesObservation struct {
+
+	// (Block List) Assertions to make on the request response (see below for nested schema)
+	// Assertions to make on the request response
+	Assertions []AssertionsObservation `json:"assertions,omitempty" tf:"assertions,omitempty"`
+
+	// (Block Set, Max: 1) An individual MultiHTTP request (see below for nested schema)
+	// An individual MultiHTTP request
+	Request []RequestObservation `json:"request,omitempty" tf:"request,omitempty"`
+
+	// (Block List) Variables to extract from the request response (see below for nested schema)
+	// Variables to extract from the request response
+	Variables []VariablesObservation `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
+type EntriesParameters struct {
+
+	// (Block List) Assertions to make on the request response (see below for nested schema)
+	// Assertions to make on the request response
+	// +kubebuilder:validation:Optional
+	Assertions []AssertionsParameters `json:"assertions,omitempty" tf:"assertions,omitempty"`
+
+	// (Block Set, Max: 1) An individual MultiHTTP request (see below for nested schema)
+	// An individual MultiHTTP request
+	// +kubebuilder:validation:Optional
+	Request []RequestParameters `json:"request,omitempty" tf:"request,omitempty"`
+
+	// (Block List) Variables to extract from the request response (see below for nested schema)
+	// Variables to extract from the request response
+	// +kubebuilder:validation:Optional
+	Variables []VariablesParameters `json:"variables,omitempty" tf:"variables,omitempty"`
+}
+
 type FailIfHeaderMatchesRegexpInitParameters struct {
 
 	// (Boolean) Allow header to be missing from responses. Defaults to false.
@@ -491,6 +661,10 @@ type HTTPInitParameters struct {
 	// Do not follow redirects. Defaults to `false`.
 	NoFollowRedirects *bool `json:"noFollowRedirects,omitempty" tf:"no_follow_redirects,omitempty"`
 
+	// (Set of String) The HTTP headers sent to the proxy URL
+	// The HTTP headers sent to the proxy URL
+	ProxyConnectHeaders []*string `json:"proxyConnectHeaders,omitempty" tf:"proxy_connect_headers,omitempty"`
+
 	// (String) Proxy URL.
 	// Proxy URL.
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
@@ -499,8 +673,8 @@ type HTTPInitParameters struct {
 	// TLS config.
 	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
-	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2
-	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2`
+	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
+	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
 	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
 
 	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
@@ -566,6 +740,10 @@ type HTTPObservation struct {
 	// Do not follow redirects. Defaults to `false`.
 	NoFollowRedirects *bool `json:"noFollowRedirects,omitempty" tf:"no_follow_redirects,omitempty"`
 
+	// (Set of String) The HTTP headers sent to the proxy URL
+	// The HTTP headers sent to the proxy URL
+	ProxyConnectHeaders []*string `json:"proxyConnectHeaders,omitempty" tf:"proxy_connect_headers,omitempty"`
+
 	// (String) Proxy URL.
 	// Proxy URL.
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
@@ -574,8 +752,8 @@ type HTTPObservation struct {
 	// TLS config.
 	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
-	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2
-	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2`
+	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
+	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
 	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
 
 	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
@@ -655,6 +833,11 @@ type HTTPParameters struct {
 	// +kubebuilder:validation:Optional
 	NoFollowRedirects *bool `json:"noFollowRedirects,omitempty" tf:"no_follow_redirects,omitempty"`
 
+	// (Set of String) The HTTP headers sent to the proxy URL
+	// The HTTP headers sent to the proxy URL
+	// +kubebuilder:validation:Optional
+	ProxyConnectHeaders []*string `json:"proxyConnectHeaders,omitempty" tf:"proxy_connect_headers,omitempty"`
+
 	// (String) Proxy URL.
 	// Proxy URL.
 	// +kubebuilder:validation:Optional
@@ -665,8 +848,8 @@ type HTTPParameters struct {
 	// +kubebuilder:validation:Optional
 	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
-	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2
-	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2`
+	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
+	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
 	// +kubebuilder:validation:Optional
 	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
 
@@ -674,6 +857,60 @@ type HTTPParameters struct {
 	// Accepted status codes. If unset, defaults to 2xx.
 	// +kubebuilder:validation:Optional
 	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
+}
+
+type HeadersInitParameters struct {
+
+	// (String) Name of the header to send
+	// Name of the header to send
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The value of the assertion
+	// Value of the header to send
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type HeadersObservation struct {
+
+	// (String) Name of the header to send
+	// Name of the header to send
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The value of the assertion
+	// Value of the header to send
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type HeadersParameters struct {
+
+	// (String) Name of the header to send
+	// Name of the header to send
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) The value of the assertion
+	// Value of the header to send
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type MultihttpInitParameters struct {
+
+	// (Block List) (see below for nested schema)
+	Entries []EntriesInitParameters `json:"entries,omitempty" tf:"entries,omitempty"`
+}
+
+type MultihttpObservation struct {
+
+	// (Block List) (see below for nested schema)
+	Entries []EntriesObservation `json:"entries,omitempty" tf:"entries,omitempty"`
+}
+
+type MultihttpParameters struct {
+
+	// (Block List) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	Entries []EntriesParameters `json:"entries,omitempty" tf:"entries,omitempty"`
 }
 
 type PingInitParameters struct {
@@ -737,6 +974,41 @@ type PingParameters struct {
 	SourceIPAddress *string `json:"sourceIpAddress,omitempty" tf:"source_ip_address,omitempty"`
 }
 
+type QueryFieldsInitParameters struct {
+
+	// (String) Name of the header to send
+	// Name of the query field to send
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The value of the assertion
+	// Value of the query field to send
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type QueryFieldsObservation struct {
+
+	// (String) Name of the header to send
+	// Name of the query field to send
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The value of the assertion
+	// Value of the query field to send
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type QueryFieldsParameters struct {
+
+	// (String) Name of the header to send
+	// Name of the query field to send
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+
+	// (String) The value of the assertion
+	// Value of the query field to send
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
+}
+
 type QueryResponseInitParameters struct {
 
 	// (String) Response to expect.
@@ -785,6 +1057,80 @@ type QueryResponseParameters struct {
 	StartTLS *bool `json:"startTls,omitempty" tf:"start_tls,omitempty"`
 }
 
+type RequestInitParameters struct {
+
+	// (String) The body of the HTTP request used in probe.
+	// The body of the HTTP request used in probe.
+	Body []BodyInitParameters `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Set of String) The HTTP headers set for the probe.
+	// The headers to send with the request
+	Headers []HeadersInitParameters `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (String) Request method. One of GET, CONNECT, DELETE, HEAD, OPTIONS, POST, PUT, TRACE Defaults to GET.
+	// The HTTP method to use
+	Method *string `json:"method,omitempty" tf:"method,omitempty"`
+
+	// (Block Set) Query fields to send with the request (see below for nested schema)
+	// Query fields to send with the request
+	QueryFields []QueryFieldsInitParameters `json:"queryFields,omitempty" tf:"query_fields,omitempty"`
+
+	// (String) The URL for the request
+	// The URL for the request
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type RequestObservation struct {
+
+	// (String) The body of the HTTP request used in probe.
+	// The body of the HTTP request used in probe.
+	Body []BodyObservation `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Set of String) The HTTP headers set for the probe.
+	// The headers to send with the request
+	Headers []HeadersObservation `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (String) Request method. One of GET, CONNECT, DELETE, HEAD, OPTIONS, POST, PUT, TRACE Defaults to GET.
+	// The HTTP method to use
+	Method *string `json:"method,omitempty" tf:"method,omitempty"`
+
+	// (Block Set) Query fields to send with the request (see below for nested schema)
+	// Query fields to send with the request
+	QueryFields []QueryFieldsObservation `json:"queryFields,omitempty" tf:"query_fields,omitempty"`
+
+	// (String) The URL for the request
+	// The URL for the request
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type RequestParameters struct {
+
+	// (String) The body of the HTTP request used in probe.
+	// The body of the HTTP request used in probe.
+	// +kubebuilder:validation:Optional
+	Body []BodyParameters `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Set of String) The HTTP headers set for the probe.
+	// The headers to send with the request
+	// +kubebuilder:validation:Optional
+	Headers []HeadersParameters `json:"headers,omitempty" tf:"headers,omitempty"`
+
+	// (String) Request method. One of GET, CONNECT, DELETE, HEAD, OPTIONS, POST, PUT, TRACE Defaults to GET.
+	// The HTTP method to use
+	// +kubebuilder:validation:Optional
+	Method *string `json:"method" tf:"method,omitempty"`
+
+	// (Block Set) Query fields to send with the request (see below for nested schema)
+	// Query fields to send with the request
+	// +kubebuilder:validation:Optional
+	QueryFields []QueryFieldsParameters `json:"queryFields,omitempty" tf:"query_fields,omitempty"`
+
+	// (String) The URL for the request
+	// The URL for the request
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url" tf:"url,omitempty"`
+}
+
 type SettingsInitParameters struct {
 
 	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
@@ -794,6 +1140,10 @@ type SettingsInitParameters struct {
 	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
 	// Settings for HTTP check. The target must be a URL (http or https).
 	HTTP []HTTPInitParameters `json:"http,omitempty" tf:"http,omitempty"`
+
+	// (Block Set, Max: 1) Settings for MultiHTTP check. The target must be a URL (http or https) (see below for nested schema)
+	// Settings for MultiHTTP check. The target must be a URL (http or https)
+	Multihttp []MultihttpInitParameters `json:"multihttp,omitempty" tf:"multihttp,omitempty"`
 
 	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
@@ -817,6 +1167,10 @@ type SettingsObservation struct {
 	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
 	// Settings for HTTP check. The target must be a URL (http or https).
 	HTTP []HTTPObservation `json:"http,omitempty" tf:"http,omitempty"`
+
+	// (Block Set, Max: 1) Settings for MultiHTTP check. The target must be a URL (http or https) (see below for nested schema)
+	// Settings for MultiHTTP check. The target must be a URL (http or https)
+	Multihttp []MultihttpObservation `json:"multihttp,omitempty" tf:"multihttp,omitempty"`
 
 	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
@@ -842,6 +1196,11 @@ type SettingsParameters struct {
 	// Settings for HTTP check. The target must be a URL (http or https).
 	// +kubebuilder:validation:Optional
 	HTTP []HTTPParameters `json:"http,omitempty" tf:"http,omitempty"`
+
+	// (Block Set, Max: 1) Settings for MultiHTTP check. The target must be a URL (http or https) (see below for nested schema)
+	// Settings for MultiHTTP check. The target must be a URL (http or https)
+	// +kubebuilder:validation:Optional
+	Multihttp []MultihttpParameters `json:"multihttp,omitempty" tf:"multihttp,omitempty"`
 
 	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
@@ -1216,6 +1575,67 @@ type ValidateAuthorityRrsParameters struct {
 	// Fail if value does not match regex.
 	// +kubebuilder:validation:Optional
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
+}
+
+type VariablesInitParameters struct {
+
+	// (String) The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
+	// The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+
+	// (String) The expression of the assertion. Should start with $.
+	// The expression to when finding the variable. Should start with $. Only use when type is JSON_PATH or REGEX
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) Name of the header to send
+	// The name of the variable to extract
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	// The method of finding the variable value to extract. JSON_PATH, REGEX, CSS_SELECTOR
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type VariablesObservation struct {
+
+	// (String) The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
+	// The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+
+	// (String) The expression of the assertion. Should start with $.
+	// The expression to when finding the variable. Should start with $. Only use when type is JSON_PATH or REGEX
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) Name of the header to send
+	// The name of the variable to extract
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	// The method of finding the variable value to extract. JSON_PATH, REGEX, CSS_SELECTOR
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+}
+
+type VariablesParameters struct {
+
+	// (String) The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
+	// The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
+	// +kubebuilder:validation:Optional
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+
+	// (String) The expression of the assertion. Should start with $.
+	// The expression to when finding the variable. Should start with $. Only use when type is JSON_PATH or REGEX
+	// +kubebuilder:validation:Optional
+	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+
+	// (String) Name of the header to send
+	// The name of the variable to extract
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The type of assertion to make: TEXT, JSON_PATH_VALUE, JSON_PATH_ASSERTION, REGEX_ASSERTION
+	// The method of finding the variable value to extract. JSON_PATH, REGEX, CSS_SELECTOR
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
 
 // CheckSpec defines the desired state of Check

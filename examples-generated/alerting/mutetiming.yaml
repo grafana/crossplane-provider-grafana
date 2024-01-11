@@ -12,6 +12,7 @@ spec:
     - daysOfMonth:
       - "1:7"
       - "-1"
+      location: America/New_York
       months:
       - "1:3"
       - december

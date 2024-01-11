@@ -23,8 +23,8 @@ type PreferencesInitParameters struct {
 	// The UID of the dashboard to display when a team member logs in. Defaults to “.
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
-	// (String) The default theme for this team. Available themes are light, dark, or an empty string for the default theme. Defaults to “.
-	// The default theme for this team. Available themes are `light`, `dark`, or an empty string for the default theme. Defaults to “.
+	// (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme. Defaults to “.
+	// The default theme for this team. Available themes are `light`, `dark`, `system`, or an empty string for the default theme. Defaults to “.
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
 	// (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to “.
@@ -38,8 +38,8 @@ type PreferencesObservation struct {
 	// The UID of the dashboard to display when a team member logs in. Defaults to “.
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
-	// (String) The default theme for this team. Available themes are light, dark, or an empty string for the default theme. Defaults to “.
-	// The default theme for this team. Available themes are `light`, `dark`, or an empty string for the default theme. Defaults to “.
+	// (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme. Defaults to “.
+	// The default theme for this team. Available themes are `light`, `dark`, `system`, or an empty string for the default theme. Defaults to “.
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
 	// (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to “.
@@ -54,8 +54,8 @@ type PreferencesParameters struct {
 	// +kubebuilder:validation:Optional
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
-	// (String) The default theme for this team. Available themes are light, dark, or an empty string for the default theme. Defaults to “.
-	// The default theme for this team. Available themes are `light`, `dark`, or an empty string for the default theme. Defaults to “.
+	// (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme. Defaults to “.
+	// The default theme for this team. Available themes are `light`, `dark`, `system`, or an empty string for the default theme. Defaults to “.
 	// +kubebuilder:validation:Optional
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 

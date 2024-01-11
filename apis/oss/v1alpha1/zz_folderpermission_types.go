@@ -19,7 +19,7 @@ import (
 
 type FolderPermissionInitParameters struct {
 
-	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	Permissions []FolderPermissionPermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
 }
@@ -37,7 +37,7 @@ type FolderPermissionObservation struct {
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	Permissions []FolderPermissionPermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
 }
@@ -77,7 +77,7 @@ type FolderPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (Block Set, Min: 1) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	// +kubebuilder:validation:Optional
 	Permissions []FolderPermissionPermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
@@ -169,7 +169,7 @@ type FolderPermissionStatus struct {
 
 // +kubebuilder:object:root=true
 
-// FolderPermission is the Schema for the FolderPermissions API. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+// FolderPermission is the Schema for the FolderPermissions API. Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -179,9 +179,8 @@ type FolderPermissionStatus struct {
 type FolderPermission struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permissions) || (has(self.initProvider) && has(self.initProvider.permissions))",message="spec.forProvider.permissions is a required parameter"
-	Spec   FolderPermissionSpec   `json:"spec"`
-	Status FolderPermissionStatus `json:"status,omitempty"`
+	Spec              FolderPermissionSpec   `json:"spec"`
+	Status            FolderPermissionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

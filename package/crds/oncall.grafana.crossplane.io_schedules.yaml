@@ -66,6 +66,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  enableWebOverrides:
+                    description: (Boolean) Enable overrides via web UI (it will ignore
+                      ical_url_overrides). Enable overrides via web UI (it will ignore
+                      ical_url_overrides).
+                    type: boolean
                   icalUrlOverrides:
                     description: (String) The URL of external iCal calendar which
                       override primary events. The URL of external iCal calendar which
@@ -129,6 +134,11 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
+                  enableWebOverrides:
+                    description: (Boolean) Enable overrides via web UI (it will ignore
+                      ical_url_overrides). Enable overrides via web UI (it will ignore
+                      ical_url_overrides).
+                    type: boolean
                   icalUrlOverrides:
                     description: (String) The URL of external iCal calendar which
                       override primary events. The URL of external iCal calendar which
@@ -354,6 +364,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  enableWebOverrides:
+                    description: (Boolean) Enable overrides via web UI (it will ignore
+                      ical_url_overrides). Enable overrides via web UI (it will ignore
+                      ical_url_overrides).
+                    type: boolean
                   icalUrlOverrides:
                     description: (String) The URL of external iCal calendar which
                       override primary events. The URL of external iCal calendar which

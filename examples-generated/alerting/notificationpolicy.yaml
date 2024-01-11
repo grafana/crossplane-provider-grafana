@@ -18,14 +18,18 @@ spec:
     policy:
     - contactPoint: My Contact Point
       continue: true
-      groupBy:
-      - alertname
       groupInterval: 6m
       groupWait: 45s
       matcher:
       - label: mylabel
         match: =
         value: myvalue
+      - label: alertname
+        match: =
+        value: CPU Usage
+      - label: Name
+        match: =~
+        value: host.*|host-b.*
       muteTimings:
       - ${grafana_mute_timing.a_mute_timing.name}
       policy:
