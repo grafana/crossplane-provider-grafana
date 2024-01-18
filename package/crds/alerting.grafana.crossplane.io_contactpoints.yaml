@@ -70,7 +70,7 @@ spec:
               forProvider:
                 properties:
                   alertmanager:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to other Alertmanager instances. (see below for nested schema)
                       A contact point that sends notifications to other Alertmanager
                       instances.
@@ -128,7 +128,7 @@ spec:
                       type: object
                     type: array
                   dingding:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to DingDing. (see below for nested schema) A contact point that
                       sends notifications to DingDing.
                     items:
@@ -173,7 +173,7 @@ spec:
                       type: object
                     type: array
                   discord:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       as Discord messages (see below for nested schema) A contact
                       point that sends notifications as Discord messages
                     items:
@@ -241,7 +241,7 @@ spec:
                       type: object
                     type: array
                   email:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to an email address. (see below for nested schema) A contact
                       point that sends notifications to an email address.
                     items:
@@ -292,7 +292,7 @@ spec:
                       type: object
                     type: array
                   googlechat:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Google Chat. (see below for nested schema) A contact point
                       that sends notifications to Google Chat.
                     items:
@@ -349,7 +349,7 @@ spec:
                       type: object
                     type: array
                   kafka:
-                    description: (Block List) A contact point that publishes notifications
+                    description: (Block Set) A contact point that publishes notifications
                       to Apache Kafka topics. (see below for nested schema) A contact
                       point that publishes notifications to Apache Kafka topics.
                     items:
@@ -449,7 +449,7 @@ spec:
                       type: object
                     type: array
                   line:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to LINE.me. (see below for nested schema) A contact point that
                       sends notifications to LINE.me.
                     items:
@@ -618,7 +618,7 @@ spec:
                       type: object
                     type: array
                   opsgenie:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to OpsGenie. (see below for nested schema) A contact point that
                       sends notifications to OpsGenie.
                     items:
@@ -739,7 +739,7 @@ spec:
                       type: object
                     type: array
                   pagerduty:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to PagerDuty. (see below for nested schema) A contact point
                       that sends notifications to PagerDuty.
                     items:
@@ -832,7 +832,7 @@ spec:
                       type: object
                     type: array
                   pushover:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Pushover. (see below for nested schema) A contact point that
                       sends notifications to Pushover.
                     items:
@@ -948,7 +948,7 @@ spec:
                       type: object
                     type: array
                   sensugo:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to SensuGo. (see below for nested schema) A contact point that
                       sends notifications to SensuGo.
                     items:
@@ -1023,7 +1023,7 @@ spec:
                       type: object
                     type: array
                   slack:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Slack. (see below for nested schema) A contact point that
                       sends notifications to Slack.
                     items:
@@ -1139,7 +1139,7 @@ spec:
                       type: object
                     type: array
                   teams:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Microsoft Teams. (see below for nested schema) A contact
                       point that sends notifications to Microsoft Teams.
                     items:
@@ -1200,7 +1200,7 @@ spec:
                       type: object
                     type: array
                   telegram:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Telegram. (see below for nested schema) A contact point that
                       sends notifications to Telegram.
                     items:
@@ -1280,7 +1280,7 @@ spec:
                       type: object
                     type: array
                   threema:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Threema. (see below for nested schema) A contact point that
                       sends notifications to Threema.
                     items:
@@ -1345,7 +1345,7 @@ spec:
                       type: object
                     type: array
                   victorops:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to VictorOps (now known as Splunk OnCall). (see below for nested
                       schema) A contact point that sends notifications to VictorOps
                       (now known as Splunk OnCall).
@@ -1391,7 +1391,7 @@ spec:
                       type: object
                     type: array
                   webex:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Cisco Webex. (see below for nested schema) A contact point
                       that sends notifications to Cisco Webex.
                     items:
@@ -1452,7 +1452,7 @@ spec:
                       type: object
                     type: array
                   webhook:
-                    description: '(Block List) A contact point that sends notifications
+                    description: '(Block Set) A contact point that sends notifications
                       to an arbitrary webhook, using the Prometheus webhook format
                       defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
                       (see below for nested schema) A contact point that sends notifications
@@ -1563,7 +1563,7 @@ spec:
                       type: object
                     type: array
                   wecom:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to WeCom. (see below for nested schema) A contact point that
                       sends notifications to WeCom.
                     items:
@@ -1673,7 +1673,7 @@ spec:
                   like an autoscaler.
                 properties:
                   alertmanager:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to other Alertmanager instances. (see below for nested schema)
                       A contact point that sends notifications to other Alertmanager
                       instances.
@@ -1696,7 +1696,7 @@ spec:
                       type: object
                     type: array
                   dingding:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to DingDing. (see below for nested schema) A contact point that
                       sends notifications to DingDing.
                     items:
@@ -1725,7 +1725,7 @@ spec:
                       type: object
                     type: array
                   discord:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       as Discord messages (see below for nested schema) A contact
                       point that sends notifications as Discord messages
                     items:
@@ -1757,7 +1757,7 @@ spec:
                       type: object
                     type: array
                   email:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to an email address. (see below for nested schema) A contact
                       point that sends notifications to an email address.
                     items:
@@ -1792,7 +1792,7 @@ spec:
                       type: object
                     type: array
                   googlechat:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Google Chat. (see below for nested schema) A contact point
                       that sends notifications to Google Chat.
                     items:
@@ -1813,7 +1813,7 @@ spec:
                       type: object
                     type: array
                   kafka:
-                    description: (Block List) A contact point that publishes notifications
+                    description: (Block Set) A contact point that publishes notifications
                       to Apache Kafka topics. (see below for nested schema) A contact
                       point that publishes notifications to Apache Kafka topics.
                     items:
@@ -1857,7 +1857,7 @@ spec:
                       type: object
                     type: array
                   line:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to LINE.me. (see below for nested schema) A contact point that
                       sends notifications to LINE.me.
                     items:
@@ -1932,7 +1932,7 @@ spec:
                       type: object
                     type: array
                   opsgenie:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to OpsGenie. (see below for nested schema) A contact point that
                       sends notifications to OpsGenie.
                     items:
@@ -2017,7 +2017,7 @@ spec:
                       type: object
                     type: array
                   pagerduty:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to PagerDuty. (see below for nested schema) A contact point
                       that sends notifications to PagerDuty.
                     items:
@@ -2074,7 +2074,7 @@ spec:
                       type: object
                     type: array
                   pushover:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Pushover. (see below for nested schema) A contact point that
                       sends notifications to Pushover.
                     items:
@@ -2135,7 +2135,7 @@ spec:
                       type: object
                     type: array
                   sensugo:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to SensuGo. (see below for nested schema) A contact point that
                       sends notifications to SensuGo.
                     items:
@@ -2174,7 +2174,7 @@ spec:
                       type: object
                     type: array
                   slack:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Slack. (see below for nested schema) A contact point that
                       sends notifications to Slack.
                     items:
@@ -2236,7 +2236,7 @@ spec:
                       type: object
                     type: array
                   teams:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Microsoft Teams. (see below for nested schema) A contact
                       point that sends notifications to Microsoft Teams.
                     items:
@@ -2261,7 +2261,7 @@ spec:
                       type: object
                     type: array
                   telegram:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Telegram. (see below for nested schema) A contact point that
                       sends notifications to Telegram.
                     items:
@@ -2305,7 +2305,7 @@ spec:
                       type: object
                     type: array
                   threema:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Threema. (see below for nested schema) A contact point that
                       sends notifications to Threema.
                     items:
@@ -2334,7 +2334,7 @@ spec:
                       type: object
                     type: array
                   victorops:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to VictorOps (now known as Splunk OnCall). (see below for nested
                       schema) A contact point that sends notifications to VictorOps
                       (now known as Splunk OnCall).
@@ -2364,7 +2364,7 @@ spec:
                       type: object
                     type: array
                   webex:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Cisco Webex. (see below for nested schema) A contact point
                       that sends notifications to Cisco Webex.
                     items:
@@ -2390,7 +2390,7 @@ spec:
                       type: object
                     type: array
                   webhook:
-                    description: '(Block List) A contact point that sends notifications
+                    description: '(Block Set) A contact point that sends notifications
                       to an arbitrary webhook, using the Prometheus webhook format
                       defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
                       (see below for nested schema) A contact point that sends notifications
@@ -2444,7 +2444,7 @@ spec:
                       type: object
                     type: array
                   wecom:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to WeCom. (see below for nested schema) A contact point that
                       sends notifications to WeCom.
                     items:
@@ -2657,7 +2657,7 @@ spec:
               atProvider:
                 properties:
                   alertmanager:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to other Alertmanager instances. (see below for nested schema)
                       A contact point that sends notifications to other Alertmanager
                       instances.
@@ -2684,7 +2684,7 @@ spec:
                       type: object
                     type: array
                   dingding:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to DingDing. (see below for nested schema) A contact point that
                       sends notifications to DingDing.
                     items:
@@ -2717,7 +2717,7 @@ spec:
                       type: object
                     type: array
                   discord:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       as Discord messages (see below for nested schema) A contact
                       point that sends notifications as Discord messages
                     items:
@@ -2753,7 +2753,7 @@ spec:
                       type: object
                     type: array
                   email:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to an email address. (see below for nested schema) A contact
                       point that sends notifications to an email address.
                     items:
@@ -2792,7 +2792,7 @@ spec:
                       type: object
                     type: array
                   googlechat:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Google Chat. (see below for nested schema) A contact point
                       that sends notifications to Google Chat.
                     items:
@@ -2820,7 +2820,7 @@ spec:
                     description: (String) The ID of this resource.
                     type: string
                   kafka:
-                    description: (Block List) A contact point that publishes notifications
+                    description: (Block Set) A contact point that publishes notifications
                       to Apache Kafka topics. (see below for nested schema) A contact
                       point that publishes notifications to Apache Kafka topics.
                     items:
@@ -2868,7 +2868,7 @@ spec:
                       type: object
                     type: array
                   line:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to LINE.me. (see below for nested schema) A contact point that
                       sends notifications to LINE.me.
                     items:
@@ -2951,7 +2951,7 @@ spec:
                       type: object
                     type: array
                   opsgenie:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to OpsGenie. (see below for nested schema) A contact point that
                       sends notifications to OpsGenie.
                     items:
@@ -3040,7 +3040,7 @@ spec:
                       type: object
                     type: array
                   pagerduty:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to PagerDuty. (see below for nested schema) A contact point
                       that sends notifications to PagerDuty.
                     items:
@@ -3101,7 +3101,7 @@ spec:
                       type: object
                     type: array
                   pushover:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Pushover. (see below for nested schema) A contact point that
                       sends notifications to Pushover.
                     items:
@@ -3166,7 +3166,7 @@ spec:
                       type: object
                     type: array
                   sensugo:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to SensuGo. (see below for nested schema) A contact point that
                       sends notifications to SensuGo.
                     items:
@@ -3209,7 +3209,7 @@ spec:
                       type: object
                     type: array
                   slack:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Slack. (see below for nested schema) A contact point that
                       sends notifications to Slack.
                     items:
@@ -3275,7 +3275,7 @@ spec:
                       type: object
                     type: array
                   teams:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Microsoft Teams. (see below for nested schema) A contact
                       point that sends notifications to Microsoft Teams.
                     items:
@@ -3304,7 +3304,7 @@ spec:
                       type: object
                     type: array
                   telegram:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Telegram. (see below for nested schema) A contact point that
                       sends notifications to Telegram.
                     items:
@@ -3352,7 +3352,7 @@ spec:
                       type: object
                     type: array
                   threema:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Threema. (see below for nested schema) A contact point that
                       sends notifications to Threema.
                     items:
@@ -3385,7 +3385,7 @@ spec:
                       type: object
                     type: array
                   victorops:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to VictorOps (now known as Splunk OnCall). (see below for nested
                       schema) A contact point that sends notifications to VictorOps
                       (now known as Splunk OnCall).
@@ -3419,7 +3419,7 @@ spec:
                       type: object
                     type: array
                   webex:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to Cisco Webex. (see below for nested schema) A contact point
                       that sends notifications to Cisco Webex.
                     items:
@@ -3449,7 +3449,7 @@ spec:
                       type: object
                     type: array
                   webhook:
-                    description: '(Block List) A contact point that sends notifications
+                    description: '(Block Set) A contact point that sends notifications
                       to an arbitrary webhook, using the Prometheus webhook format
                       defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
                       (see below for nested schema) A contact point that sends notifications
@@ -3507,7 +3507,7 @@ spec:
                       type: object
                     type: array
                   wecom:
-                    description: (Block List) A contact point that sends notifications
+                    description: (Block Set) A contact point that sends notifications
                       to WeCom. (see below for nested schema) A contact point that
                       sends notifications to WeCom.
                     items:

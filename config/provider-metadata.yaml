@@ -344,7 +344,7 @@ resources:
         argumentDocs:
             addresses: (List of String) The addresses to send emails to.
             agent_id: (String) Agent ID added to the request payload when using APIAPP.
-            alertmanager: (Block List) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
+            alertmanager: (Block Set) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
             api_key: (String, Sensitive) The OpsGenie API key to use.
             api_secret: (String, Sensitive) The Threema API key.
             api_token: (String, Sensitive) The Pushover API token.
@@ -367,17 +367,17 @@ resources:
             description: (String) The templated description of the Kafka message.
             details: (String) The templated details to include with the message.
             device: (String) Comma-separated list of devices to which the event is associated.
-            dingding: (Block List) A contact point that sends notifications to DingDing. (see below for nested schema)
+            dingding: (Block Set) A contact point that sends notifications to DingDing. (see below for nested schema)
             disable_notifications: (Boolean) When set users will receive a notification with no sound.
             disable_resolve_message: (Boolean) Whether to disable sending resolve messages. Defaults to false.
             disable_web_page_preview: (Boolean) When set it disables link previews for links in the message.
-            discord: (Block List) A contact point that sends notifications as Discord messages (see below for nested schema)
-            email: (Block List) A contact point that sends notifications to an email address. (see below for nested schema)
+            discord: (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
+            email: (Block Set) A contact point that sends notifications to an email address. (see below for nested schema)
             endpoint_url: (String) Use this to override the Slack API endpoint URL to send requests to.
             entity: (String) The entity being monitored.
             expire: (Number) How many seconds for which the notification will continue to be retried by Pushover.
             gateway_id: (String) The Threema gateway ID.
-            googlechat: (Block List) A contact point that sends notifications to Google Chat. (see below for nested schema)
+            googlechat: (Block Set) A contact point that sends notifications to Google Chat. (see below for nested schema)
             group: (String) The group to which the provided component belongs to.
             handler: (String) A custom handler to execute in addition to the check.
             http_method: (String) The HTTP method to use in the request. Defaults to POST.
@@ -385,8 +385,8 @@ resources:
             icon_url: (String) A URL of an image to use as the bot icon.
             id: (String) The ID of this resource.
             integration_key: (String, Sensitive) The PagerDuty API key.
-            kafka: (Block List) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
-            line: (Block List) A contact point that sends notifications to LINE.me. (see below for nested schema)
+            kafka: (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
+            line: (Block Set) A contact point that sends notifications to LINE.me. (see below for nested schema)
             max_alerts: (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
             mention_channel: (String) Describes how to ping the slack channel that messages are being sent to. Options are here for an @here ping, channel for @channel, or empty for no ping.
             mention_groups: (String) Comma-separated list of groups to mention in the message.
@@ -398,15 +398,15 @@ resources:
             namespace: (String) The namespace in which the check resides.
             ok_priority: (Number) The priority level of the resolved event.
             ok_sound: (String) The sound associated with the resolved notification.
-            oncall: (Block List) A contact point that sends notifications to Grafana On-Call. (see below for nested schema)
-            opsgenie: (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
+            oncall: (Block Set) A contact point that sends notifications to Grafana On-Call. (see below for nested schema)
+            opsgenie: (Block Set) A contact point that sends notifications to OpsGenie. (see below for nested schema)
             override_priority: (Boolean) Whether to allow the alert priority to be configured via the value of the og_priority annotation on the alert.
-            pagerduty: (Block List) A contact point that sends notifications to PagerDuty. (see below for nested schema)
+            pagerduty: (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
             parse_mode: '(String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.'
             password: (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
             priority: (Number) The priority level of the event.
             protect_content: (Boolean) When set it protects the contents of the message from forwarding and saving.
-            pushover: (Block List) A contact point that sends notifications to Pushover. (see below for nested schema)
+            pushover: (Block Set) A contact point that sends notifications to Pushover. (see below for nested schema)
             recipient: (String) Channel, private group, or IM channel (can be an encoded ID or a name) to send messages to.
             recipient_id: (String) The ID of the recipient of the message.
             responders: (Block List) Teams, users, escalations and schedules that the alert will be routed to send notifications. If the API Key belongs to a team integration, this field will be overwritten with the owner team. This feature is available from Grafana 10.3+. (see below for nested schema)
@@ -416,19 +416,19 @@ resources:
             secret: (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
             section_title: (String) The templated subtitle for each message section.
             send_tags_as: (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
-            sensugo: (Block List) A contact point that sends notifications to SensuGo. (see below for nested schema)
+            sensugo: (Block Set) A contact point that sends notifications to SensuGo. (see below for nested schema)
             settings: (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
             severity: (String) The PagerDuty event severity level. Default is critical.
             single_email: (Boolean) Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to false.
-            slack: (Block List) A contact point that sends notifications to Slack. (see below for nested schema)
+            slack: (Block Set) A contact point that sends notifications to Slack. (see below for nested schema)
             sound: (String) The sound associated with the notification.
             source: (String) The unique location of the affected system.
             subject: (String) The templated subject line of the email. Defaults to ``.
             summary: (String) The templated summary message of the event.
-            teams: (Block List) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
-            telegram: (Block List) A contact point that sends notifications to Telegram. (see below for nested schema)
+            teams: (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
+            telegram: (Block Set) A contact point that sends notifications to Telegram. (see below for nested schema)
             text: (String) Templated content of the message.
-            threema: (Block List) A contact point that sends notifications to Threema. (see below for nested schema)
+            threema: (Block Set) A contact point that sends notifications to Threema. (see below for nested schema)
             title: (String) The templated title of the message.
             to_user: '(String) The ID of user that should receive the message. Multiple entries should be separated by ''|''. Default: @all.'
             token: (String, Sensitive) The bearer token used to authorize the client.
@@ -440,10 +440,10 @@ resources:
             use_discord_username: (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
             user_key: (String, Sensitive) The Pushover user key.
             username: (String) The user name to use when making a call to the Kafka REST Proxy
-            victorops: (Block List) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
-            webex: (Block List) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
-            webhook: '(Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)'
-            wecom: (Block List) A contact point that sends notifications to WeCom. (see below for nested schema)
+            victorops: (Block Set) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
+            webex: (Block Set) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
+            webhook: '(Block Set) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)'
+            wecom: (Block Set) A contact point that sends notifications to WeCom. (see below for nested schema)
         importStatements:
             - terraform import grafana_contact_point.contact_point_name {{contact_point_name}}
     grafana_dashboard:
