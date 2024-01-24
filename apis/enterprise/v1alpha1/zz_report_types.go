@@ -17,7 +17,46 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type DashboardsInitParameters struct {
+
+	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
+	// Time range of the report.
+	TimeRange []TimeRangeInitParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
+
+	// (String) Dashboard uid.
+	// Dashboard uid.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type DashboardsObservation struct {
+
+	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
+	// Time range of the report.
+	TimeRange []TimeRangeObservation `json:"timeRange,omitempty" tf:"time_range,omitempty"`
+
+	// (String) Dashboard uid.
+	// Dashboard uid.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type DashboardsParameters struct {
+
+	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
+	// Time range of the report.
+	// +kubebuilder:validation:Optional
+	TimeRange []TimeRangeParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
+
+	// (String) Dashboard uid.
+	// Dashboard uid.
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid" tf:"uid,omitempty"`
+}
+
 type ReportInitParameters struct {
+
+	// (Block List) List of dashboards to render into the report (see below for nested schema)
+	// List of dashboards to render into the report
+	Dashboards []DashboardsInitParameters `json:"dashboards,omitempty" tf:"dashboards,omitempty"`
 
 	// (Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.
 	// Specifies what kind of attachment to generate for the report. Allowed values: `pdf`, `csv`, `image`.
@@ -59,16 +98,20 @@ type ReportInitParameters struct {
 	// Schedule of the report.
 	Schedule []ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (Block List, Max: 1) Time range of the report. (see below for nested schema)
+	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
 	// Time range of the report.
-	TimeRange []TimeRangeInitParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
+	TimeRange []ReportTimeRangeInitParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
 }
 
 type ReportObservation struct {
 
-	// (String) Dashboard to be sent in the report.
+	// (String, Deprecated) Dashboard to be sent in the report.
 	// Dashboard to be sent in the report.
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+
+	// (Block List) List of dashboards to render into the report (see below for nested schema)
+	// List of dashboards to render into the report
+	Dashboards []DashboardsObservation `json:"dashboards,omitempty" tf:"dashboards,omitempty"`
 
 	// (Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.
 	// Specifies what kind of attachment to generate for the report. Allowed values: `pdf`, `csv`, `image`.
@@ -117,9 +160,9 @@ type ReportObservation struct {
 	// Schedule of the report.
 	Schedule []ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (Block List, Max: 1) Time range of the report. (see below for nested schema)
+	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
 	// Time range of the report.
-	TimeRange []TimeRangeObservation `json:"timeRange,omitempty" tf:"time_range,omitempty"`
+	TimeRange []ReportTimeRangeObservation `json:"timeRange,omitempty" tf:"time_range,omitempty"`
 }
 
 type ReportParameters struct {
@@ -132,7 +175,7 @@ type ReportParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
-	// (String) Dashboard to be sent in the report.
+	// (String, Deprecated) Dashboard to be sent in the report.
 	// Dashboard to be sent in the report.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
@@ -140,6 +183,11 @@ type ReportParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
 	// +kubebuilder:validation:Optional
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+
+	// (Block List) List of dashboards to render into the report (see below for nested schema)
+	// List of dashboards to render into the report
+	// +kubebuilder:validation:Optional
+	Dashboards []DashboardsParameters `json:"dashboards,omitempty" tf:"dashboards,omitempty"`
 
 	// (Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.
 	// Specifies what kind of attachment to generate for the report. Allowed values: `pdf`, `csv`, `image`.
@@ -207,10 +255,45 @@ type ReportParameters struct {
 	// +kubebuilder:validation:Optional
 	Schedule []ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (Block List, Max: 1) Time range of the report. (see below for nested schema)
+	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
 	// Time range of the report.
 	// +kubebuilder:validation:Optional
-	TimeRange []TimeRangeParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
+	TimeRange []ReportTimeRangeParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
+}
+
+type ReportTimeRangeInitParameters struct {
+
+	// (String) Start of the time range.
+	// Start of the time range.
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (String) End of the time range.
+	// End of the time range.
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type ReportTimeRangeObservation struct {
+
+	// (String) Start of the time range.
+	// Start of the time range.
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (String) End of the time range.
+	// End of the time range.
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type ReportTimeRangeParameters struct {
+
+	// (String) Start of the time range.
+	// Start of the time range.
+	// +kubebuilder:validation:Optional
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (String) End of the time range.
+	// End of the time range.
+	// +kubebuilder:validation:Optional
+	To *string `json:"to,omitempty" tf:"to,omitempty"`
 }
 
 type ScheduleInitParameters struct {

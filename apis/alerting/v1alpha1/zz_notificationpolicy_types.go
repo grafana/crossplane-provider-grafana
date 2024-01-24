@@ -67,6 +67,9 @@ type MatcherParameters struct {
 
 type NotificationPolicyInitParameters struct {
 
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
 	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
@@ -93,6 +96,9 @@ type NotificationPolicyObservation struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The default contact point to route all unmatched notifications to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
 	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
@@ -136,6 +142,10 @@ type NotificationPolicyParameters struct {
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
 	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+
+	// Defaults to false. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
 	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.

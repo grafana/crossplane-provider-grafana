@@ -142,9 +142,36 @@ spec:
                         type: object
                     type: object
                   dashboardUid:
-                    description: (String) Dashboard to be sent in the report. Dashboard
-                      to be sent in the report.
+                    description: (String, Deprecated) Dashboard to be sent in the
+                      report. Dashboard to be sent in the report.
                     type: string
+                  dashboards:
+                    description: (Block List) List of dashboards to render into the
+                      report (see below for nested schema) List of dashboards to render
+                      into the report
+                    items:
+                      properties:
+                        timeRange:
+                          description: '(Block List, Max: 1, Deprecated) Time range
+                            of the report. (see below for nested schema) Time range
+                            of the report.'
+                          items:
+                            properties:
+                              from:
+                                description: (String) Start of the time range. Start
+                                  of the time range.
+                                type: string
+                              to:
+                                description: (String) End of the time range. End of
+                                  the time range.
+                                type: string
+                            type: object
+                          type: array
+                        uid:
+                          description: (String) Dashboard uid. Dashboard uid.
+                          type: string
+                      type: object
+                    type: array
                   formats:
                     description: '(Set of String) Specifies what kind of attachment
                       to generate for the report. Allowed values: pdf, csv, image.
@@ -316,8 +343,8 @@ spec:
                       type: object
                     type: array
                   timeRange:
-                    description: '(Block List, Max: 1) Time range of the report. (see
-                      below for nested schema) Time range of the report.'
+                    description: '(Block List, Max: 1, Deprecated) Time range of the
+                      report. (see below for nested schema) Time range of the report.'
                     items:
                       properties:
                         from:
@@ -343,6 +370,33 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
+                  dashboards:
+                    description: (Block List) List of dashboards to render into the
+                      report (see below for nested schema) List of dashboards to render
+                      into the report
+                    items:
+                      properties:
+                        timeRange:
+                          description: '(Block List, Max: 1, Deprecated) Time range
+                            of the report. (see below for nested schema) Time range
+                            of the report.'
+                          items:
+                            properties:
+                              from:
+                                description: (String) Start of the time range. Start
+                                  of the time range.
+                                type: string
+                              to:
+                                description: (String) End of the time range. End of
+                                  the time range.
+                                type: string
+                            type: object
+                          type: array
+                        uid:
+                          description: (String) Dashboard uid. Dashboard uid.
+                          type: string
+                      type: object
+                    type: array
                   formats:
                     description: '(Set of String) Specifies what kind of attachment
                       to generate for the report. Allowed values: pdf, csv, image.
@@ -435,8 +489,8 @@ spec:
                       type: object
                     type: array
                   timeRange:
-                    description: '(Block List, Max: 1) Time range of the report. (see
-                      below for nested schema) Time range of the report.'
+                    description: '(Block List, Max: 1, Deprecated) Time range of the
+                      report. (see below for nested schema) Time range of the report.'
                     items:
                       properties:
                         from:
@@ -629,9 +683,36 @@ spec:
               atProvider:
                 properties:
                   dashboardUid:
-                    description: (String) Dashboard to be sent in the report. Dashboard
-                      to be sent in the report.
+                    description: (String, Deprecated) Dashboard to be sent in the
+                      report. Dashboard to be sent in the report.
                     type: string
+                  dashboards:
+                    description: (Block List) List of dashboards to render into the
+                      report (see below for nested schema) List of dashboards to render
+                      into the report
+                    items:
+                      properties:
+                        timeRange:
+                          description: '(Block List, Max: 1, Deprecated) Time range
+                            of the report. (see below for nested schema) Time range
+                            of the report.'
+                          items:
+                            properties:
+                              from:
+                                description: (String) Start of the time range. Start
+                                  of the time range.
+                                type: string
+                              to:
+                                description: (String) End of the time range. End of
+                                  the time range.
+                                type: string
+                            type: object
+                          type: array
+                        uid:
+                          description: (String) Dashboard uid. Dashboard uid.
+                          type: string
+                      type: object
+                    type: array
                   formats:
                     description: '(Set of String) Specifies what kind of attachment
                       to generate for the report. Allowed values: pdf, csv, image.
@@ -733,8 +814,8 @@ spec:
                       type: object
                     type: array
                   timeRange:
-                    description: '(Block List, Max: 1) Time range of the report. (see
-                      below for nested schema) Time range of the report.'
+                    description: '(Block List, Max: 1, Deprecated) Time range of the
+                      report. (see below for nested schema) Time range of the report.'
                     items:
                       properties:
                         from:

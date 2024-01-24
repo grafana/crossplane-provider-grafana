@@ -19,6 +19,9 @@ import (
 
 type MessageTemplateInitParameters struct {
 
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+
 	// (String) The name of the message template.
 	// The name of the message template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -29,6 +32,9 @@ type MessageTemplateInitParameters struct {
 }
 
 type MessageTemplateObservation struct {
+
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -47,6 +53,10 @@ type MessageTemplateObservation struct {
 }
 
 type MessageTemplateParameters struct {
+
+	// Defaults to false. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// (String) The name of the message template.
 	// The name of the message template.

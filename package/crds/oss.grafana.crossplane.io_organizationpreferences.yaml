@@ -171,8 +171,11 @@ spec:
                       string for the default.
                     type: string
                   weekStart:
-                    description: (String) The Organization week start. The Organization
-                      week start.
+                    description: (String) The Organization week start day. Available
+                      values are sunday, monday, saturday, or an empty string for
+                      the default. Defaults to “. The Organization week start day.
+                      Available values are `sunday`, `monday`, `saturday`, or an empty
+                      string for the default. Defaults to “.
                     type: string
                 type: object
               initProvider:
@@ -210,8 +213,11 @@ spec:
                       string for the default.
                     type: string
                   weekStart:
-                    description: (String) The Organization week start. The Organization
-                      week start.
+                    description: (String) The Organization week start day. Available
+                      values are sunday, monday, saturday, or an empty string for
+                      the default. Defaults to “. The Organization week start day.
+                      Available values are `sunday`, `monday`, `saturday`, or an empty
+                      string for the default. Defaults to “.
                     type: string
                 type: object
               managementPolicies:
@@ -412,8 +418,11 @@ spec:
                       string for the default.
                     type: string
                   weekStart:
-                    description: (String) The Organization week start. The Organization
-                      week start.
+                    description: (String) The Organization week start day. Available
+                      values are sunday, monday, saturday, or an empty string for
+                      the default. Defaults to “. The Organization week start day.
+                      Available values are `sunday`, `monday`, `saturday`, or an empty
+                      string for the default. Defaults to “.
                     type: string
                 type: object
               conditions:

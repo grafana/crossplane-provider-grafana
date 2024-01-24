@@ -69,6 +69,9 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   name:
                     description: (String) The name of the message template. The name
                       of the message template.
@@ -169,6 +172,9 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   name:
                     description: (String) The name of the message template. The name
                       of the message template.
@@ -352,6 +358,9 @@ spec:
             properties:
               atProvider:
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   id:
                     description: (String) The ID of this resource.
                     type: string
