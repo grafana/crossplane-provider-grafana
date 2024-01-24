@@ -151,6 +151,9 @@ spec:
                             type: string
                         type: object
                     type: object
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   groupBy:
                     description: (List of String) A list of alert labels to group
                       alerts into notifications by. Use the special label ... to group
@@ -1277,6 +1280,9 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   groupBy:
                     description: (List of String) A list of alert labels to group
                       alerts into notifications by. Use the special label ... to group
@@ -1828,6 +1834,9 @@ spec:
                       notifications to. The default contact point to route all unmatched
                       notifications to.
                     type: string
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   groupBy:
                     description: (List of String) A list of alert labels to group
                       alerts into notifications by. Use the special label ... to group

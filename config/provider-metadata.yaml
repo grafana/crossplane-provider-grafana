@@ -342,6 +342,7 @@ resources:
                   "name": "My Contact Point"
                 }
         argumentDocs:
+            access_key: (String, Sensitive) AWS access key ID used to authenticate with Amazon SNS.
             addresses: (List of String) The addresses to send emails to.
             agent_id: (String) Agent ID added to the request payload when using APIAPP.
             alertmanager: (Block Set) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
@@ -350,12 +351,15 @@ resources:
             api_token: (String, Sensitive) The Pushover API token.
             api_url: (String) The URL to send webhook requests to.
             api_version: '(String) The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to v2.'
+            assume_role_arn: (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
+            auth_provider: (String) The authentication provider to use. Valid values are default, arn and keys. Default is default. Defaults to default.
             authorization_credentials: (String, Sensitive) Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
             authorization_scheme: (String) Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
             auto_close: (Boolean) Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
             avatar_url: (String) The URL of a custom avatar image to use. Defaults to ``.
             basic_auth_password: (String, Sensitive) The password component of the basic auth credentials to use.
             basic_auth_user: (String) The username component of the basic auth credentials to use.
+            body: (String)
             chat_id: (String) The chat ID to send messages to.
             check: (String) The SensuGo check to which the event should be routed.
             class: (String) The class or type of event, for example ping failure.
@@ -376,6 +380,7 @@ resources:
             endpoint_url: (String) Use this to override the Slack API endpoint URL to send requests to.
             entity: (String) The entity being monitored.
             expire: (Number) How many seconds for which the notification will continue to be retried by Pushover.
+            external_id: (String) The external ID to use when assuming the role.
             gateway_id: (String) The Threema gateway ID.
             googlechat: (Block Set) A contact point that sends notifications to Google Chat. (see below for nested schema)
             group: (String) The group to which the provided component belongs to.
@@ -392,6 +397,7 @@ resources:
             mention_groups: (String) Comma-separated list of groups to mention in the message.
             mention_users: (String) Comma-separated list of users to mention in the message.
             message: (String) The templated content of the message.
+            message_format: (String) The format of the message to send. Valid values are text, body and json. Default is text. Defaults to text.
             message_type: (String) The format of message to send - either 'link' or 'actionCard'
             msg_type: '(String) The type of them message. Supported: markdown, text. Default: text.'
             name: (String) The name of the contact point.
@@ -400,6 +406,7 @@ resources:
             ok_sound: (String) The sound associated with the resolved notification.
             oncall: (Block Set) A contact point that sends notifications to Grafana On-Call. (see below for nested schema)
             opsgenie: (Block Set) A contact point that sends notifications to OpsGenie. (see below for nested schema)
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             override_priority: (Boolean) Whether to allow the alert priority to be configured via the value of the og_priority annotation on the alert.
             pagerduty: (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
             parse_mode: '(String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.'
@@ -414,6 +421,7 @@ resources:
             retry: (Number) How often, in seconds, the Pushover servers will send the same notification to the user.
             room_id: (String) ID of the Webex Teams room where to send the messages.
             secret: (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+            secret_key: (String, Sensitive) AWS secret access key used to authenticate with Amazon SNS.
             section_title: (String) The templated subtitle for each message section.
             send_tags_as: (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
             sensugo: (Block Set) A contact point that sends notifications to SensuGo. (see below for nested schema)
@@ -421,6 +429,7 @@ resources:
             severity: (String) The PagerDuty event severity level. Default is critical.
             single_email: (Boolean) Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to false.
             slack: (Block Set) A contact point that sends notifications to Slack. (see below for nested schema)
+            sns: (Block Set) A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana. (see below for nested schema)
             sound: (String) The sound associated with the notification.
             source: (String) The unique location of the affected system.
             subject: (String) The templated subject line of the email. Defaults to ``.
@@ -962,6 +971,7 @@ resources:
                   "template": "{{define \"My Reusable Template\" }}\n template content\n{{ end }}"
                 }
         argumentDocs:
+            disable_provenance: (Boolean) Allow modifying the message template from other sources than Terraform or the Grafana API. Defaults to false.
             id: (String) The ID of this resource.
             name: (String) The name of the message template.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -1010,10 +1020,11 @@ resources:
             days_of_month: (List of String) An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
             end: (String) The time, in hh:mm format, of when the interval should end exclusively.
             id: (String) The ID of this resource.
-            intervals: (Block List) The time intervals at which to mute notifications. (see below for nested schema)
+            intervals: (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
             location: (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
             months: (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
             name: (String) The name of the mute timing.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             start: (String) The time, in hh:mm format, of when the interval should begin inclusively.
             times: (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
             weekdays: (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
@@ -1126,6 +1137,7 @@ resources:
         argumentDocs:
             contact_point: (String) The default contact point to route all unmatched notifications to.
             continue: (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+            disable_provenance: (Boolean) Allow modifying the notification policy from other sources than Terraform or the Grafana API. Defaults to false.
             group_by: (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
             group_interval: (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
             group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
@@ -1582,7 +1594,7 @@ resources:
                 {
                   "theme": "light",
                   "timezone": "utc",
-                  "week_start": "Tuesday"
+                  "week_start": "sunday"
                 }
         argumentDocs:
             home_dashboard_id: '(Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.'
@@ -1591,7 +1603,7 @@ resources:
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             theme: (String) The Organization theme. Available values are light, dark, system, or an empty string for the default.
             timezone: (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
-            week_start: (String) The Organization week start.
+            week_start: (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.
         importStatements: []
     grafana_playlist:
         subCategory: Grafana OSS
@@ -1663,7 +1675,8 @@ resources:
                 (String) Custom interval of the report.
                 Note: This field is only available when frequency is set to custom.
             dashboard_id: (Number, Deprecated) Dashboard to be sent in the report. This field is deprecated, use dashboard_uid instead.
-            dashboard_uid: (String) Dashboard to be sent in the report.
+            dashboard_uid: (String, Deprecated) Dashboard to be sent in the report.
+            dashboards: (Block List) List of dashboards to render into the report (see below for nested schema)
             end_time: (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
             formats: '(Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.'
             frequency: '(String) Frequency of the report. Allowed values: never, once, hourly, daily, weekly, monthly, custom.'
@@ -1681,8 +1694,9 @@ resources:
             reply_to: (String) Reply-to email address of the report.
             schedule: '(Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)'
             start_time: (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
-            time_range: '(Block List, Max: 1) Time range of the report. (see below for nested schema)'
+            time_range: '(Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)'
             to: (String) End of the time range.
+            uid: (String) Dashboard uid.
             workdays_only: (Boolean) Whether to send the report only on work days. Defaults to false.
         importStatements: []
     grafana_role:
@@ -2700,6 +2714,7 @@ resources:
             team_sync: '(Block List, Max: 1) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.'
             theme: (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme. Defaults to ``.
             timezone: (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to ``.
+            week_start: (String) The default week start day for this team. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.
         importStatements:
             - |-
               terraform import grafana_team.team_name {{team_id}} # To use the default provider org

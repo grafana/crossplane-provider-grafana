@@ -10,4 +10,4 @@ spec:
   forProvider:
     theme: light
     timezone: utc
-    weekStart: Tuesday
+    weekStart: sunday

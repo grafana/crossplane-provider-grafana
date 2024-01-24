@@ -738,6 +738,85 @@ spec:
                       - apiKeySecretRef
                       type: object
                     type: array
+                  orgId:
+                    description: (String) The Organization ID. If not set, the Org
+                      ID defined in the provider block will be used. The Organization
+                      ID. If not set, the Org ID defined in the provider block will
+                      be used.
+                    type: string
+                  organizationRef:
+                    description: Reference to a Organization in oss to populate orgId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  organizationSelector:
+                    description: Selector for a Organization in oss to populate orgId.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   pagerduty:
                     description: (Block Set) A contact point that sends notifications
                       to PagerDuty. (see below for nested schema) A contact point
@@ -1135,6 +1214,109 @@ spec:
                         username:
                           description: (String) The user name to use when making a
                             call to the Kafka REST Proxy Username for the bot to use.
+                          type: string
+                      type: object
+                    type: array
+                  sns:
+                    description: (Block Set) A contact point that sends notifications
+                      to Amazon SNS. Requires Amazon Managed Grafana. (see below for
+                      nested schema) A contact point that sends notifications to Amazon
+                      SNS. Requires Amazon Managed Grafana.
+                    items:
+                      properties:
+                        accessKeySecretRef:
+                          description: (String, Sensitive) AWS access key ID used
+                            to authenticate with Amazon SNS. AWS access key ID used
+                            to authenticate with Amazon SNS.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        assumeRoleArn:
+                          description: (String) The Amazon Resource Name (ARN) of
+                            the role to assume to send notifications to Amazon SNS.
+                            The Amazon Resource Name (ARN) of the role to assume to
+                            send notifications to Amazon SNS.
+                          type: string
+                        authProvider:
+                          description: (String) The authentication provider to use.
+                            Valid values are default, arn and keys. Default is default.
+                            Defaults to default. The authentication provider to use.
+                            Valid values are `default`, `arn` and `keys`. Default
+                            is `default`. Defaults to `default`.
+                          type: string
+                        body:
+                          description: (String)
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        externalId:
+                          description: (String) The external ID to use when assuming
+                            the role. The external ID to use when assuming the role.
+                          type: string
+                        messageFormat:
+                          description: (String) The format of the message to send.
+                            Valid values are text, body and json. Default is text.
+                            Defaults to text. The format of the message to send. Valid
+                            values are `text`, `body` and `json`. Default is `text`.
+                            Defaults to `text`.
+                          type: string
+                        secretKeySecretRef:
+                          description: (String, Sensitive) AWS secret access key used
+                            to authenticate with Amazon SNS. AWS secret access key
+                            used to authenticate with Amazon SNS.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        settingsSecretRef:
+                          description: (Map of String, Sensitive) Additional custom
+                            properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier.
+                            Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
+                        subject:
+                          description: (String) The templated subject line of the
+                            email. Defaults to “.
+                          type: string
+                        topic:
+                          description: (String) The name of the Kafka topic to publish
+                            to. The Amazon SNS topic to send notifications to.
                           type: string
                       type: object
                     type: array
@@ -2235,6 +2417,55 @@ spec:
                           type: string
                       type: object
                     type: array
+                  sns:
+                    description: (Block Set) A contact point that sends notifications
+                      to Amazon SNS. Requires Amazon Managed Grafana. (see below for
+                      nested schema) A contact point that sends notifications to Amazon
+                      SNS. Requires Amazon Managed Grafana.
+                    items:
+                      properties:
+                        assumeRoleArn:
+                          description: (String) The Amazon Resource Name (ARN) of
+                            the role to assume to send notifications to Amazon SNS.
+                            The Amazon Resource Name (ARN) of the role to assume to
+                            send notifications to Amazon SNS.
+                          type: string
+                        authProvider:
+                          description: (String) The authentication provider to use.
+                            Valid values are default, arn and keys. Default is default.
+                            Defaults to default. The authentication provider to use.
+                            Valid values are `default`, `arn` and `keys`. Default
+                            is `default`. Defaults to `default`.
+                          type: string
+                        body:
+                          description: (String)
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        externalId:
+                          description: (String) The external ID to use when assuming
+                            the role. The external ID to use when assuming the role.
+                          type: string
+                        messageFormat:
+                          description: (String) The format of the message to send.
+                            Valid values are text, body and json. Default is text.
+                            Defaults to text. The format of the message to send. Valid
+                            values are `text`, `body` and `json`. Default is `text`.
+                            Defaults to `text`.
+                          type: string
+                        subject:
+                          description: (String) The templated subject line of the
+                            email. Defaults to “.
+                          type: string
+                        topic:
+                          description: (String) The name of the Kafka topic to publish
+                            to. The Amazon SNS topic to send notifications to.
+                          type: string
+                      type: object
+                    type: array
                   teams:
                     description: (Block Set) A contact point that sends notifications
                       to Microsoft Teams. (see below for nested schema) A contact
@@ -3039,6 +3270,12 @@ spec:
                           type: string
                       type: object
                     type: array
+                  orgId:
+                    description: (String) The Organization ID. If not set, the Org
+                      ID defined in the provider block will be used. The Organization
+                      ID. If not set, the Org ID defined in the provider block will
+                      be used.
+                    type: string
                   pagerduty:
                     description: (Block Set) A contact point that sends notifications
                       to PagerDuty. (see below for nested schema) A contact point
@@ -3271,6 +3508,59 @@ spec:
                         username:
                           description: (String) The user name to use when making a
                             call to the Kafka REST Proxy Username for the bot to use.
+                          type: string
+                      type: object
+                    type: array
+                  sns:
+                    description: (Block Set) A contact point that sends notifications
+                      to Amazon SNS. Requires Amazon Managed Grafana. (see below for
+                      nested schema) A contact point that sends notifications to Amazon
+                      SNS. Requires Amazon Managed Grafana.
+                    items:
+                      properties:
+                        assumeRoleArn:
+                          description: (String) The Amazon Resource Name (ARN) of
+                            the role to assume to send notifications to Amazon SNS.
+                            The Amazon Resource Name (ARN) of the role to assume to
+                            send notifications to Amazon SNS.
+                          type: string
+                        authProvider:
+                          description: (String) The authentication provider to use.
+                            Valid values are default, arn and keys. Default is default.
+                            Defaults to default. The authentication provider to use.
+                            Valid values are `default`, `arn` and `keys`. Default
+                            is `default`. Defaults to `default`.
+                          type: string
+                        body:
+                          description: (String)
+                          type: string
+                        disableResolveMessage:
+                          description: (Boolean) Whether to disable sending resolve
+                            messages. Defaults to false. Whether to disable sending
+                            resolve messages. Defaults to `false`.
+                          type: boolean
+                        externalId:
+                          description: (String) The external ID to use when assuming
+                            the role. The external ID to use when assuming the role.
+                          type: string
+                        messageFormat:
+                          description: (String) The format of the message to send.
+                            Valid values are text, body and json. Default is text.
+                            Defaults to text. The format of the message to send. Valid
+                            values are `text`, `body` and `json`. Default is `text`.
+                            Defaults to `text`.
+                          type: string
+                        subject:
+                          description: (String) The templated subject line of the
+                            email. Defaults to “.
+                          type: string
+                        topic:
+                          description: (String) The name of the Kafka topic to publish
+                            to. The Amazon SNS topic to send notifications to.
+                          type: string
+                        uid:
+                          description: (String) The UID of the contact point. The
+                            UID of the contact point.
                           type: string
                       type: object
                     type: array

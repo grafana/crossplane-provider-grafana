@@ -30,6 +30,10 @@ type PreferencesInitParameters struct {
 	// (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to “.
 	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default. Defaults to “.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
+	// (String) The default week start day for this team. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
+	// The default week start day for this team. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.
+	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type PreferencesObservation struct {
@@ -45,6 +49,10 @@ type PreferencesObservation struct {
 	// (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to “.
 	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default. Defaults to “.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
+	// (String) The default week start day for this team. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
+	// The default week start day for this team. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.
+	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type PreferencesParameters struct {
@@ -63,6 +71,11 @@ type PreferencesParameters struct {
 	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default. Defaults to “.
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+
+	// (String) The default week start day for this team. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
+	// The default week start day for this team. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.
+	// +kubebuilder:validation:Optional
+	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type TeamInitParameters struct {

@@ -106,8 +106,8 @@ type IntervalsParameters struct {
 
 type MuteTimingInitParameters struct {
 
-	// (Block List) The time intervals at which to mute notifications. (see below for nested schema)
-	// The time intervals at which to mute notifications.
+	// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
+	// The time intervals at which to mute notifications. Use an empty block to mute all the time.
 	Intervals []IntervalsInitParameters `json:"intervals,omitempty" tf:"intervals,omitempty"`
 
 	// (String) The name of the mute timing.
@@ -120,19 +120,23 @@ type MuteTimingObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List) The time intervals at which to mute notifications. (see below for nested schema)
-	// The time intervals at which to mute notifications.
+	// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
+	// The time intervals at which to mute notifications. Use an empty block to mute all the time.
 	Intervals []IntervalsObservation `json:"intervals,omitempty" tf:"intervals,omitempty"`
 
 	// (String) The name of the mute timing.
 	// The name of the mute timing.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 }
 
 type MuteTimingParameters struct {
 
-	// (Block List) The time intervals at which to mute notifications. (see below for nested schema)
-	// The time intervals at which to mute notifications.
+	// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
+	// The time intervals at which to mute notifications. Use an empty block to mute all the time.
 	// +kubebuilder:validation:Optional
 	Intervals []IntervalsParameters `json:"intervals,omitempty" tf:"intervals,omitempty"`
 
@@ -140,6 +144,22 @@ type MuteTimingParameters struct {
 	// The name of the mute timing.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 }
 
 type TimesInitParameters struct {

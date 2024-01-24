@@ -137,6 +137,10 @@ type ContactPointInitParameters struct {
 	// A contact point that sends notifications to Slack.
 	Slack []SlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 
+	// (Block Set) A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana. (see below for nested schema)
+	// A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana.
+	Sns []SnsInitParameters `json:"sns,omitempty" tf:"sns,omitempty"`
+
 	// (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
 	// A contact point that sends notifications to Microsoft Teams.
 	Teams []TeamsInitParameters `json:"teams,omitempty" tf:"teams,omitempty"`
@@ -211,6 +215,10 @@ type ContactPointObservation struct {
 	// A contact point that sends notifications to OpsGenie.
 	Opsgenie []OpsgenieObservation `json:"opsgenie,omitempty" tf:"opsgenie,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
 	Pagerduty []PagerdutyObservation `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
@@ -226,6 +234,10 @@ type ContactPointObservation struct {
 	// (Block Set) A contact point that sends notifications to Slack. (see below for nested schema)
 	// A contact point that sends notifications to Slack.
 	Slack []SlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
+
+	// (Block Set) A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana. (see below for nested schema)
+	// A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana.
+	Sns []SnsObservation `json:"sns,omitempty" tf:"sns,omitempty"`
 
 	// (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
 	// A contact point that sends notifications to Microsoft Teams.
@@ -308,6 +320,22 @@ type ContactPointParameters struct {
 	// +kubebuilder:validation:Optional
 	Opsgenie []OpsgenieParameters `json:"opsgenie,omitempty" tf:"opsgenie,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
 	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
 	// +kubebuilder:validation:Optional
@@ -327,6 +355,11 @@ type ContactPointParameters struct {
 	// A contact point that sends notifications to Slack.
 	// +kubebuilder:validation:Optional
 	Slack []SlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
+
+	// (Block Set) A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana. (see below for nested schema)
+	// A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana.
+	// +kubebuilder:validation:Optional
+	Sns []SnsParameters `json:"sns,omitempty" tf:"sns,omitempty"`
 
 	// (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
 	// A contact point that sends notifications to Microsoft Teams.
@@ -1788,6 +1821,132 @@ type SlackParameters struct {
 	// Username for the bot to use.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
+}
+
+type SnsInitParameters struct {
+
+	// (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
+	// The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty" tf:"assume_role_arn,omitempty"`
+
+	// (String) The authentication provider to use. Valid values are default, arn and keys. Default is default. Defaults to default.
+	// The authentication provider to use. Valid values are `default`, `arn` and `keys`. Default is `default`. Defaults to `default`.
+	AuthProvider *string `json:"authProvider,omitempty" tf:"auth_provider,omitempty"`
+
+	// (String)
+	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The external ID to use when assuming the role.
+	// The external ID to use when assuming the role.
+	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
+
+	// (String) The format of the message to send. Valid values are text, body and json. Default is text. Defaults to text.
+	// The format of the message to send. Valid values are `text`, `body` and `json`. Default is `text`. Defaults to `text`.
+	MessageFormat *string `json:"messageFormat,omitempty" tf:"message_format,omitempty"`
+
+	// (String) The templated subject line of the email. Defaults to “.
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+
+	// (String) The name of the Kafka topic to publish to.
+	// The Amazon SNS topic to send notifications to.
+	Topic *string `json:"topic,omitempty" tf:"topic,omitempty"`
+}
+
+type SnsObservation struct {
+
+	// (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
+	// The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty" tf:"assume_role_arn,omitempty"`
+
+	// (String) The authentication provider to use. Valid values are default, arn and keys. Default is default. Defaults to default.
+	// The authentication provider to use. Valid values are `default`, `arn` and `keys`. Default is `default`. Defaults to `default`.
+	AuthProvider *string `json:"authProvider,omitempty" tf:"auth_provider,omitempty"`
+
+	// (String)
+	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The external ID to use when assuming the role.
+	// The external ID to use when assuming the role.
+	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
+
+	// (String) The format of the message to send. Valid values are text, body and json. Default is text. Defaults to text.
+	// The format of the message to send. Valid values are `text`, `body` and `json`. Default is `text`. Defaults to `text`.
+	MessageFormat *string `json:"messageFormat,omitempty" tf:"message_format,omitempty"`
+
+	// (String) The templated subject line of the email. Defaults to “.
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+
+	// (String) The name of the Kafka topic to publish to.
+	// The Amazon SNS topic to send notifications to.
+	Topic *string `json:"topic,omitempty" tf:"topic,omitempty"`
+
+	// (String) The UID of the contact point.
+	// The UID of the contact point.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+}
+
+type SnsParameters struct {
+
+	// (String, Sensitive) AWS access key ID used to authenticate with Amazon SNS.
+	// AWS access key ID used to authenticate with Amazon SNS.
+	// +kubebuilder:validation:Optional
+	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
+
+	// (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
+	// The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
+	// +kubebuilder:validation:Optional
+	AssumeRoleArn *string `json:"assumeRoleArn,omitempty" tf:"assume_role_arn,omitempty"`
+
+	// (String) The authentication provider to use. Valid values are default, arn and keys. Default is default. Defaults to default.
+	// The authentication provider to use. Valid values are `default`, `arn` and `keys`. Default is `default`. Defaults to `default`.
+	// +kubebuilder:validation:Optional
+	AuthProvider *string `json:"authProvider,omitempty" tf:"auth_provider,omitempty"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String) The external ID to use when assuming the role.
+	// The external ID to use when assuming the role.
+	// +kubebuilder:validation:Optional
+	ExternalID *string `json:"externalId,omitempty" tf:"external_id,omitempty"`
+
+	// (String) The format of the message to send. Valid values are text, body and json. Default is text. Defaults to text.
+	// The format of the message to send. Valid values are `text`, `body` and `json`. Default is `text`. Defaults to `text`.
+	// +kubebuilder:validation:Optional
+	MessageFormat *string `json:"messageFormat,omitempty" tf:"message_format,omitempty"`
+
+	// (String, Sensitive) AWS secret access key used to authenticate with Amazon SNS.
+	// AWS secret access key used to authenticate with Amazon SNS.
+	// +kubebuilder:validation:Optional
+	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
+
+	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String) The templated subject line of the email. Defaults to “.
+	// +kubebuilder:validation:Optional
+	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
+
+	// (String) The name of the Kafka topic to publish to.
+	// The Amazon SNS topic to send notifications to.
+	// +kubebuilder:validation:Optional
+	Topic *string `json:"topic" tf:"topic,omitempty"`
 }
 
 type TeamsInitParameters struct {
