@@ -16,7 +16,9 @@ spec:
     groupInterval: 6m
     groupWait: 45s
     policy:
-    - contactPoint: My Contact Point
+    - contactPointSelector:
+        matchLabels:
+          testing.upbound.io/example-name: a_contact_point
       continue: true
       groupInterval: 6m
       groupWait: 45s
@@ -30,10 +32,12 @@ spec:
       - label: Name
         match: =~
         value: host.*|host-b.*
-      muteTimings:
-      - ${grafana_mute_timing.a_mute_timing.name}
+      muteTimingRef:
+      - name: a_mute_timing
       policy:
-      - contactPoint: My Contact Point
+      - contactPointSelector:
+          matchLabels:
+            testing.upbound.io/example-name: a_contact_point
         groupBy:
         - '...'
         matcher:
@@ -41,7 +45,9 @@ spec:
           match: =
           value: subvalue
       repeatInterval: 3h
-    - contactPoint: My Contact Point
+    - contactPointSelector:
+        matchLabels:
+          testing.upbound.io/example-name: a_contact_point
       groupBy:
       - '...'
       matcher:

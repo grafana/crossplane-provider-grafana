@@ -81,31 +81,31 @@ type AlertmanagerParameters struct {
 
 type ContactPointInitParameters struct {
 
-	// (Block List) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
 	// A contact point that sends notifications to other Alertmanager instances.
 	Alertmanager []AlertmanagerInitParameters `json:"alertmanager,omitempty" tf:"alertmanager,omitempty"`
 
-	// (Block List) A contact point that sends notifications to DingDing. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to DingDing. (see below for nested schema)
 	// A contact point that sends notifications to DingDing.
 	Dingding []DingdingInitParameters `json:"dingding,omitempty" tf:"dingding,omitempty"`
 
-	// (Block List) A contact point that sends notifications as Discord messages (see below for nested schema)
+	// (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
 	// A contact point that sends notifications as Discord messages
 	Discord []DiscordInitParameters `json:"discord,omitempty" tf:"discord,omitempty"`
 
-	// (Block List) A contact point that sends notifications to an email address. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to an email address. (see below for nested schema)
 	// A contact point that sends notifications to an email address.
 	Email []EmailInitParameters `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Google Chat. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Google Chat. (see below for nested schema)
 	// A contact point that sends notifications to Google Chat.
 	Googlechat []GooglechatInitParameters `json:"googlechat,omitempty" tf:"googlechat,omitempty"`
 
-	// (Block List) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
+	// (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
 	// A contact point that publishes notifications to Apache Kafka topics.
 	Kafka []KafkaInitParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
 
-	// (Block List) A contact point that sends notifications to LINE.me. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to LINE.me. (see below for nested schema)
 	// A contact point that sends notifications to LINE.me.
 	Line []LineInitParameters `json:"line,omitempty" tf:"line,omitempty"`
 
@@ -117,85 +117,85 @@ type ContactPointInitParameters struct {
 	// A contact point that sends notifications to Grafana On-Call.
 	Oncall []OncallInitParameters `json:"oncall,omitempty" tf:"oncall,omitempty"`
 
-	// (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to OpsGenie. (see below for nested schema)
 	// A contact point that sends notifications to OpsGenie.
 	Opsgenie []OpsgenieInitParameters `json:"opsgenie,omitempty" tf:"opsgenie,omitempty"`
 
-	// (Block List) A contact point that sends notifications to PagerDuty. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
 	Pagerduty []PagerdutyInitParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Pushover. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Pushover. (see below for nested schema)
 	// A contact point that sends notifications to Pushover.
 	Pushover []PushoverInitParameters `json:"pushover,omitempty" tf:"pushover,omitempty"`
 
-	// (Block List) A contact point that sends notifications to SensuGo. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to SensuGo. (see below for nested schema)
 	// A contact point that sends notifications to SensuGo.
 	Sensugo []SensugoInitParameters `json:"sensugo,omitempty" tf:"sensugo,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Slack. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Slack. (see below for nested schema)
 	// A contact point that sends notifications to Slack.
 	Slack []SlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
 	// A contact point that sends notifications to Microsoft Teams.
 	Teams []TeamsInitParameters `json:"teams,omitempty" tf:"teams,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Telegram. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Telegram. (see below for nested schema)
 	// A contact point that sends notifications to Telegram.
 	Telegram []TelegramInitParameters `json:"telegram,omitempty" tf:"telegram,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Threema. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Threema. (see below for nested schema)
 	// A contact point that sends notifications to Threema.
 	Threema []ThreemaInitParameters `json:"threema,omitempty" tf:"threema,omitempty"`
 
-	// (Block List) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
 	// A contact point that sends notifications to VictorOps (now known as Splunk OnCall).
 	Victorops []VictoropsInitParameters `json:"victorops,omitempty" tf:"victorops,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
 	// A contact point that sends notifications to Cisco Webex.
 	Webex []WebexInitParameters `json:"webex,omitempty" tf:"webex,omitempty"`
 
-	// (Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
 	// A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
 	Webhook []WebhookInitParameters `json:"webhook,omitempty" tf:"webhook,omitempty"`
 
-	// (Block List) A contact point that sends notifications to WeCom. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to WeCom. (see below for nested schema)
 	// A contact point that sends notifications to WeCom.
 	Wecom []WecomInitParameters `json:"wecom,omitempty" tf:"wecom,omitempty"`
 }
 
 type ContactPointObservation struct {
 
-	// (Block List) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
 	// A contact point that sends notifications to other Alertmanager instances.
 	Alertmanager []AlertmanagerObservation `json:"alertmanager,omitempty" tf:"alertmanager,omitempty"`
 
-	// (Block List) A contact point that sends notifications to DingDing. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to DingDing. (see below for nested schema)
 	// A contact point that sends notifications to DingDing.
 	Dingding []DingdingObservation `json:"dingding,omitempty" tf:"dingding,omitempty"`
 
-	// (Block List) A contact point that sends notifications as Discord messages (see below for nested schema)
+	// (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
 	// A contact point that sends notifications as Discord messages
 	Discord []DiscordObservation `json:"discord,omitempty" tf:"discord,omitempty"`
 
-	// (Block List) A contact point that sends notifications to an email address. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to an email address. (see below for nested schema)
 	// A contact point that sends notifications to an email address.
 	Email []EmailObservation `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Google Chat. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Google Chat. (see below for nested schema)
 	// A contact point that sends notifications to Google Chat.
 	Googlechat []GooglechatObservation `json:"googlechat,omitempty" tf:"googlechat,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
+	// (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
 	// A contact point that publishes notifications to Apache Kafka topics.
 	Kafka []KafkaObservation `json:"kafka,omitempty" tf:"kafka,omitempty"`
 
-	// (Block List) A contact point that sends notifications to LINE.me. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to LINE.me. (see below for nested schema)
 	// A contact point that sends notifications to LINE.me.
 	Line []LineObservation `json:"line,omitempty" tf:"line,omitempty"`
 
@@ -207,88 +207,88 @@ type ContactPointObservation struct {
 	// A contact point that sends notifications to Grafana On-Call.
 	Oncall []OncallObservation `json:"oncall,omitempty" tf:"oncall,omitempty"`
 
-	// (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to OpsGenie. (see below for nested schema)
 	// A contact point that sends notifications to OpsGenie.
 	Opsgenie []OpsgenieObservation `json:"opsgenie,omitempty" tf:"opsgenie,omitempty"`
 
-	// (Block List) A contact point that sends notifications to PagerDuty. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
 	Pagerduty []PagerdutyObservation `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Pushover. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Pushover. (see below for nested schema)
 	// A contact point that sends notifications to Pushover.
 	Pushover []PushoverObservation `json:"pushover,omitempty" tf:"pushover,omitempty"`
 
-	// (Block List) A contact point that sends notifications to SensuGo. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to SensuGo. (see below for nested schema)
 	// A contact point that sends notifications to SensuGo.
 	Sensugo []SensugoObservation `json:"sensugo,omitempty" tf:"sensugo,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Slack. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Slack. (see below for nested schema)
 	// A contact point that sends notifications to Slack.
 	Slack []SlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
 	// A contact point that sends notifications to Microsoft Teams.
 	Teams []TeamsObservation `json:"teams,omitempty" tf:"teams,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Telegram. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Telegram. (see below for nested schema)
 	// A contact point that sends notifications to Telegram.
 	Telegram []TelegramObservation `json:"telegram,omitempty" tf:"telegram,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Threema. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Threema. (see below for nested schema)
 	// A contact point that sends notifications to Threema.
 	Threema []ThreemaObservation `json:"threema,omitempty" tf:"threema,omitempty"`
 
-	// (Block List) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
 	// A contact point that sends notifications to VictorOps (now known as Splunk OnCall).
 	Victorops []VictoropsObservation `json:"victorops,omitempty" tf:"victorops,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
 	// A contact point that sends notifications to Cisco Webex.
 	Webex []WebexObservation `json:"webex,omitempty" tf:"webex,omitempty"`
 
-	// (Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
 	// A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
 	Webhook []WebhookObservation `json:"webhook,omitempty" tf:"webhook,omitempty"`
 
-	// (Block List) A contact point that sends notifications to WeCom. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to WeCom. (see below for nested schema)
 	// A contact point that sends notifications to WeCom.
 	Wecom []WecomObservation `json:"wecom,omitempty" tf:"wecom,omitempty"`
 }
 
 type ContactPointParameters struct {
 
-	// (Block List) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to other Alertmanager instances. (see below for nested schema)
 	// A contact point that sends notifications to other Alertmanager instances.
 	// +kubebuilder:validation:Optional
 	Alertmanager []AlertmanagerParameters `json:"alertmanager,omitempty" tf:"alertmanager,omitempty"`
 
-	// (Block List) A contact point that sends notifications to DingDing. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to DingDing. (see below for nested schema)
 	// A contact point that sends notifications to DingDing.
 	// +kubebuilder:validation:Optional
 	Dingding []DingdingParameters `json:"dingding,omitempty" tf:"dingding,omitempty"`
 
-	// (Block List) A contact point that sends notifications as Discord messages (see below for nested schema)
+	// (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
 	// A contact point that sends notifications as Discord messages
 	// +kubebuilder:validation:Optional
 	Discord []DiscordParameters `json:"discord,omitempty" tf:"discord,omitempty"`
 
-	// (Block List) A contact point that sends notifications to an email address. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to an email address. (see below for nested schema)
 	// A contact point that sends notifications to an email address.
 	// +kubebuilder:validation:Optional
 	Email []EmailParameters `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Google Chat. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Google Chat. (see below for nested schema)
 	// A contact point that sends notifications to Google Chat.
 	// +kubebuilder:validation:Optional
 	Googlechat []GooglechatParameters `json:"googlechat,omitempty" tf:"googlechat,omitempty"`
 
-	// (Block List) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
+	// (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
 	// A contact point that publishes notifications to Apache Kafka topics.
 	// +kubebuilder:validation:Optional
 	Kafka []KafkaParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
 
-	// (Block List) A contact point that sends notifications to LINE.me. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to LINE.me. (see below for nested schema)
 	// A contact point that sends notifications to LINE.me.
 	// +kubebuilder:validation:Optional
 	Line []LineParameters `json:"line,omitempty" tf:"line,omitempty"`
@@ -303,62 +303,62 @@ type ContactPointParameters struct {
 	// +kubebuilder:validation:Optional
 	Oncall []OncallParameters `json:"oncall,omitempty" tf:"oncall,omitempty"`
 
-	// (Block List) A contact point that sends notifications to OpsGenie. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to OpsGenie. (see below for nested schema)
 	// A contact point that sends notifications to OpsGenie.
 	// +kubebuilder:validation:Optional
 	Opsgenie []OpsgenieParameters `json:"opsgenie,omitempty" tf:"opsgenie,omitempty"`
 
-	// (Block List) A contact point that sends notifications to PagerDuty. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
 	// +kubebuilder:validation:Optional
 	Pagerduty []PagerdutyParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Pushover. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Pushover. (see below for nested schema)
 	// A contact point that sends notifications to Pushover.
 	// +kubebuilder:validation:Optional
 	Pushover []PushoverParameters `json:"pushover,omitempty" tf:"pushover,omitempty"`
 
-	// (Block List) A contact point that sends notifications to SensuGo. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to SensuGo. (see below for nested schema)
 	// A contact point that sends notifications to SensuGo.
 	// +kubebuilder:validation:Optional
 	Sensugo []SensugoParameters `json:"sensugo,omitempty" tf:"sensugo,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Slack. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Slack. (see below for nested schema)
 	// A contact point that sends notifications to Slack.
 	// +kubebuilder:validation:Optional
 	Slack []SlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
 	// A contact point that sends notifications to Microsoft Teams.
 	// +kubebuilder:validation:Optional
 	Teams []TeamsParameters `json:"teams,omitempty" tf:"teams,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Telegram. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Telegram. (see below for nested schema)
 	// A contact point that sends notifications to Telegram.
 	// +kubebuilder:validation:Optional
 	Telegram []TelegramParameters `json:"telegram,omitempty" tf:"telegram,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Threema. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Threema. (see below for nested schema)
 	// A contact point that sends notifications to Threema.
 	// +kubebuilder:validation:Optional
 	Threema []ThreemaParameters `json:"threema,omitempty" tf:"threema,omitempty"`
 
-	// (Block List) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
 	// A contact point that sends notifications to VictorOps (now known as Splunk OnCall).
 	// +kubebuilder:validation:Optional
 	Victorops []VictoropsParameters `json:"victorops,omitempty" tf:"victorops,omitempty"`
 
-	// (Block List) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
 	// A contact point that sends notifications to Cisco Webex.
 	// +kubebuilder:validation:Optional
 	Webex []WebexParameters `json:"webex,omitempty" tf:"webex,omitempty"`
 
-	// (Block List) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)
 	// A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
 	// +kubebuilder:validation:Optional
 	Webhook []WebhookParameters `json:"webhook,omitempty" tf:"webhook,omitempty"`
 
-	// (Block List) A contact point that sends notifications to WeCom. (see below for nested schema)
+	// (Block Set) A contact point that sends notifications to WeCom. (see below for nested schema)
 	// A contact point that sends notifications to WeCom.
 	// +kubebuilder:validation:Optional
 	Wecom []WecomParameters `json:"wecom,omitempty" tf:"wecom,omitempty"`

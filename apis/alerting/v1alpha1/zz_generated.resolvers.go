@@ -45,6 +45,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
+	var mrsp reference.MultiResolutionResponse
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
@@ -62,6 +63,175 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	}
 	mg.Spec.ForProvider.ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ContactPointRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].ContactPoint),
+			Extract:      grafana.NameExtractor(),
+			Reference:    mg.Spec.ForProvider.Policy[i3].ContactPointRef,
+			Selector:     mg.Spec.ForProvider.Policy[i3].ContactPointSelector,
+			To: reference.To{
+				List:    &ContactPointList{},
+				Managed: &ContactPoint{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].ContactPoint")
+		}
+		mg.Spec.ForProvider.Policy[i3].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Policy[i3].ContactPointRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].MuteTimings),
+			Extract:       grafana.NameExtractor(),
+			References:    mg.Spec.ForProvider.Policy[i3].MuteTimingRef,
+			Selector:      mg.Spec.ForProvider.Policy[i3].MuteTimingSelector,
+			To: reference.To{
+				List:    &MuteTimingList{},
+				Managed: &MuteTiming{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].MuteTimings")
+		}
+		mg.Spec.ForProvider.Policy[i3].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Policy[i3].MuteTimingRef = mrsp.ResolvedReferences
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
+			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint),
+				Extract:      grafana.NameExtractor(),
+				Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointRef,
+				Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointSelector,
+				To: reference.To{
+					List:    &ContactPointList{},
+					Managed: &ContactPoint{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint")
+			}
+			mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointRef = rsp.ResolvedReference
+
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
+			mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings),
+				Extract:       grafana.NameExtractor(),
+				References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingRef,
+				Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingSelector,
+				To: reference.To{
+					List:    &MuteTimingList{},
+					Managed: &MuteTiming{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings")
+			}
+			mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
+			mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingRef = mrsp.ResolvedReferences
+
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
+			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
+				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint),
+					Extract:      grafana.NameExtractor(),
+					Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef,
+					Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointSelector,
+					To: reference.To{
+						List:    &ContactPointList{},
+						Managed: &ContactPoint{},
+					},
+				})
+				if err != nil {
+					return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint")
+				}
+				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
+				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef = rsp.ResolvedReference
+
+			}
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
+			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
+				mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+					CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings),
+					Extract:       grafana.NameExtractor(),
+					References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef,
+					Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingSelector,
+					To: reference.To{
+						List:    &MuteTimingList{},
+						Managed: &MuteTiming{},
+					},
+				})
+				if err != nil {
+					return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings")
+				}
+				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
+				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef = mrsp.ResolvedReferences
+
+			}
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
+			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
+				for i6 := 0; i6 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
+					rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+						CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint),
+						Extract:      grafana.NameExtractor(),
+						Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef,
+						Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointSelector,
+						To: reference.To{
+							List:    &ContactPointList{},
+							Managed: &ContactPoint{},
+						},
+					})
+					if err != nil {
+						return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint")
+					}
+					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
+					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef = rsp.ResolvedReference
+
+				}
+			}
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
+			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
+				for i6 := 0; i6 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
+					mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+						CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings),
+						Extract:       grafana.NameExtractor(),
+						References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef,
+						Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingSelector,
+						To: reference.To{
+							List:    &MuteTimingList{},
+							Managed: &MuteTiming{},
+						},
+					})
+					if err != nil {
+						return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings")
+					}
+					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
+					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef = mrsp.ResolvedReferences
+
+				}
+			}
+		}
+	}
 
 	return nil
 }

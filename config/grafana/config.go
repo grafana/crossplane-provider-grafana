@@ -39,6 +39,31 @@ func Configure(p *ujconfig.Provider) {
 		resource.UseAsync = false
 	}
 
+	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
+		contactPointRef := ujconfig.Reference{
+			TerraformName:     "grafana_contact_point",
+			RefFieldName:      "ContactPointRef",
+			SelectorFieldName: "ContactPointSelector",
+			Extractor:         SelfPackagePath + ".NameExtractor()",
+		}
+		r.References["contact_point"] = contactPointRef
+		r.References["policy.contact_point"] = contactPointRef
+		r.References["policy.policy.contact_point"] = contactPointRef
+		r.References["policy.policy.policy.contact_point"] = contactPointRef
+		r.References["policy.policy.policy.policy.contact_point"] = contactPointRef
+
+		muteTimingRef := ujconfig.Reference{
+			TerraformName:     "grafana_mute_timing",
+			RefFieldName:      "MuteTimingRef",
+			SelectorFieldName: "MuteTimingSelector",
+			Extractor:         SelfPackagePath + ".NameExtractor()",
+		}
+		r.References["policy.mute_timings"] = muteTimingRef
+		r.References["policy.policy.mute_timings"] = muteTimingRef
+		r.References["policy.policy.policy.mute_timings"] = muteTimingRef
+		r.References["policy.policy.policy.policy.mute_timings"] = muteTimingRef
+
+	})
 	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
