@@ -373,6 +373,7 @@ resources:
             device: (String) Comma-separated list of devices to which the event is associated.
             dingding: (Block Set) A contact point that sends notifications to DingDing. (see below for nested schema)
             disable_notifications: (Boolean) When set users will receive a notification with no sound.
+            disable_provenance: (Boolean) Allow modifying the contact point from other sources than Terraform or the Grafana API. Defaults to false.
             disable_resolve_message: (Boolean) Whether to disable sending resolve messages. Defaults to false.
             disable_web_page_preview: (Boolean) When set it disables link previews for links in the message.
             discord: (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
@@ -1146,6 +1147,7 @@ resources:
             match: (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
             matcher: (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
             mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             policy: (Block List) Routing rules for specific label sets. (see below for nested schema)
             repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
             value: (String) The label value to match against.

@@ -162,6 +162,11 @@ func (in *ContactPointInitParameters) DeepCopyInto(out *ContactPointInitParamete
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DisableProvenance != nil {
+		in, out := &in.DisableProvenance, &out.DisableProvenance
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Discord != nil {
 		in, out := &in.Discord, &out.Discord
 		*out = make([]DiscordInitParameters, len(*in))
@@ -361,6 +366,11 @@ func (in *ContactPointObservation) DeepCopyInto(out *ContactPointObservation) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.DisableProvenance != nil {
+		in, out := &in.DisableProvenance, &out.DisableProvenance
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Discord != nil {
 		in, out := &in.Discord, &out.Discord
 		*out = make([]DiscordObservation, len(*in))
@@ -537,6 +547,11 @@ func (in *ContactPointParameters) DeepCopyInto(out *ContactPointParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.DisableProvenance != nil {
+		in, out := &in.DisableProvenance, &out.DisableProvenance
+		*out = new(bool)
+		**out = **in
 	}
 	if in.Discord != nil {
 		in, out := &in.Discord, &out.Discord
@@ -2504,6 +2519,11 @@ func (in *NotificationPolicyObservation) DeepCopyInto(out *NotificationPolicyObs
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Policy != nil {
 		in, out := &in.Policy, &out.Policy
 		*out = make([]PolicyObservation, len(*in))
@@ -2571,6 +2591,21 @@ func (in *NotificationPolicyParameters) DeepCopyInto(out *NotificationPolicyPara
 		in, out := &in.GroupWait, &out.GroupWait
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(string)
+		**out = **in
+	}
+	if in.OrganizationRef != nil {
+		in, out := &in.OrganizationRef, &out.OrganizationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationSelector != nil {
+		in, out := &in.OrganizationSelector, &out.OrganizationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Policy != nil {
 		in, out := &in.Policy, &out.Policy

@@ -172,6 +172,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   discord:
                     description: (Block Set) A contact point that sends notifications
                       as Discord messages (see below for nested schema) A contact
@@ -1906,6 +1909,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   discord:
                     description: (Block Set) A contact point that sends notifications
                       as Discord messages (see below for nested schema) A contact
@@ -2947,6 +2953,9 @@ spec:
                           type: string
                       type: object
                     type: array
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   discord:
                     description: (Block Set) A contact point that sends notifications
                       as Discord messages (see below for nested schema) A contact

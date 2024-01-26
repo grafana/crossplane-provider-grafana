@@ -89,6 +89,9 @@ type ContactPointInitParameters struct {
 	// A contact point that sends notifications to DingDing.
 	Dingding []DingdingInitParameters `json:"dingding,omitempty" tf:"dingding,omitempty"`
 
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+
 	// (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
 	// A contact point that sends notifications as Discord messages
 	Discord []DiscordInitParameters `json:"discord,omitempty" tf:"discord,omitempty"`
@@ -179,6 +182,9 @@ type ContactPointObservation struct {
 	// (Block Set) A contact point that sends notifications to DingDing. (see below for nested schema)
 	// A contact point that sends notifications to DingDing.
 	Dingding []DingdingObservation `json:"dingding,omitempty" tf:"dingding,omitempty"`
+
+	// Defaults to false. Defaults to `false`.
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
 	// A contact point that sends notifications as Discord messages
@@ -279,6 +285,10 @@ type ContactPointParameters struct {
 	// A contact point that sends notifications to DingDing.
 	// +kubebuilder:validation:Optional
 	Dingding []DingdingParameters `json:"dingding,omitempty" tf:"dingding,omitempty"`
+
+	// Defaults to false. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
 	// A contact point that sends notifications as Discord messages
