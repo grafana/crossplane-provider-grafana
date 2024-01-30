@@ -115,6 +115,10 @@ type NotificationPolicyObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
 	Policy []PolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
@@ -161,6 +165,22 @@ type NotificationPolicyParameters struct {
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	// +kubebuilder:validation:Optional
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
