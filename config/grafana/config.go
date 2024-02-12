@@ -172,6 +172,7 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "FolderSelector",
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
+		r.InitializerFns = append(r.InitializerFns, createDashboardConfigInitializer)
 	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
 		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
