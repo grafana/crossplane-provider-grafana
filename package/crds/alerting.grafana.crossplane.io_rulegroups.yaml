@@ -254,6 +254,7 @@ spec:
                             that may add user-defined context, but cannot be used
                             for matching, grouping, or routing. Defaults to `map[]`.
                           type: object
+                          x-kubernetes-map-type: granular
                         condition:
                           description: (String) The ref_id of the query node in the
                             data field to use as the alert condition. The `ref_id`
@@ -347,6 +348,7 @@ spec:
                             that can be used in matching, grouping, and routing. Defaults
                             to `map[]`.
                           type: object
+                          x-kubernetes-map-type: granular
                         name:
                           description: (String) The name of the rule group. The name
                             of the alert rule.
@@ -376,6 +378,83 @@ spec:
                   disableProvenance:
                     description: Defaults to false. Defaults to `false`.
                     type: boolean
+                  folderRef:
+                    description: Reference to a Folder in oss to populate folderUid.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  folderSelector:
+                    description: Selector for a Folder in oss to populate folderUid.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  folderUid:
+                    description: (String) The UID of the folder that the group belongs
+                      to. The UID of the folder that the group belongs to.
+                    type: string
                   intervalSeconds:
                     description: (Number) The interval, in seconds, at which all rules
                       in the group are evaluated. If a group contains many rules,
@@ -387,6 +466,85 @@ spec:
                     description: (String) The name of the rule group. The name of
                       the rule group.
                     type: string
+                  orgId:
+                    description: (String) The Organization ID. If not set, the Org
+                      ID defined in the provider block will be used. The Organization
+                      ID. If not set, the Org ID defined in the provider block will
+                      be used.
+                    type: string
+                  organizationRef:
+                    description: Reference to a Organization in oss to populate orgId.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  organizationSelector:
+                    description: Selector for a Organization in oss to populate orgId.
+                    properties:
+                      matchControllerRef:
+                        description: MatchControllerRef ensures an object with the
+                          same controller reference as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: Resolution specifies whether resolution of
+                              this reference is required. The default is 'Required',
+                              which means the reconcile will fail if the reference
+                              cannot be resolved. 'Optional' means this reference
+                              will be a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: Resolve specifies when this reference should
+                              be resolved. The default is 'IfNotPresent', which will
+                              attempt to resolve the reference only when the corresponding
+                              field is not present. Use 'Always' to resolve the reference
+                              on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   rule:
                     description: '(Block List, Min: 1) The rules within the group.
                       (see below for nested schema) The rules within the group.'
@@ -402,6 +560,7 @@ spec:
                             that may add user-defined context, but cannot be used
                             for matching, grouping, or routing. Defaults to `map[]`.
                           type: object
+                          x-kubernetes-map-type: granular
                         condition:
                           description: (String) The ref_id of the query node in the
                             data field to use as the alert condition. The `ref_id`
@@ -495,6 +654,7 @@ spec:
                             that can be used in matching, grouping, and routing. Defaults
                             to `map[]`.
                           type: object
+                          x-kubernetes-map-type: granular
                         name:
                           description: (String) The name of the rule group. The name
                             of the alert rule.
@@ -729,6 +889,7 @@ spec:
                             that may add user-defined context, but cannot be used
                             for matching, grouping, or routing. Defaults to `map[]`.
                           type: object
+                          x-kubernetes-map-type: granular
                         condition:
                           description: (String) The ref_id of the query node in the
                             data field to use as the alert condition. The `ref_id`
@@ -822,6 +983,7 @@ spec:
                             that can be used in matching, grouping, and routing. Defaults
                             to `map[]`.
                           type: object
+                          x-kubernetes-map-type: granular
                         name:
                           description: (String) The name of the rule group. The name
                             of the alert rule.

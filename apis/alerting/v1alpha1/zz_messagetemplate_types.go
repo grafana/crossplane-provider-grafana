@@ -26,6 +26,21 @@ type MessageTemplateInitParameters struct {
 	// The name of the message template.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
 	// (String) The content of the message template.
 	// The content of the message template.
 	Template *string `json:"template,omitempty" tf:"template,omitempty"`
@@ -109,13 +124,14 @@ type MessageTemplateStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // MessageTemplate is the Schema for the MessageTemplates API. Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/template-notifications/create-notification-templates/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type MessageTemplate struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -36,6 +36,22 @@ func (mg *StackServiceAccount) ResolveReferences(ctx context.Context, c client.R
 	mg.Spec.ForProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
 
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
+		Extract:      grafana.CloudStackSlugExtractor(),
+		Reference:    mg.Spec.InitProvider.CloudStackRef,
+		Selector:     mg.Spec.InitProvider.CloudStackSelector,
+		To: reference.To{
+			List:    &StackList{},
+			Managed: &Stack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.StackSlug")
+	}
+	mg.Spec.InitProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
+
 	return nil
 }
 
@@ -77,6 +93,38 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	}
 	mg.Spec.ForProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServiceAccountID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.ServiceAccountRef,
+		Selector:     mg.Spec.InitProvider.ServiceAccountSelector,
+		To: reference.To{
+			List:    &StackServiceAccountList{},
+			Managed: &StackServiceAccount{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ServiceAccountID")
+	}
+	mg.Spec.InitProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServiceAccountRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
+		Extract:      grafana.CloudStackSlugExtractor(),
+		Reference:    mg.Spec.InitProvider.CloudStackRef,
+		Selector:     mg.Spec.InitProvider.CloudStackSelector,
+		To: reference.To{
+			List:    &StackList{},
+			Managed: &Stack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.StackSlug")
+	}
+	mg.Spec.InitProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
 
 	return nil
 }

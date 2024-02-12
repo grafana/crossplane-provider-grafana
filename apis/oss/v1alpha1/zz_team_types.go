@@ -92,9 +92,43 @@ type TeamInitParameters struct {
 	// Defaults to `true`.
 	IgnoreExternallySyncedMembers *bool `json:"ignoreExternallySyncedMembers,omitempty" tf:"ignore_externally_synced_members,omitempty"`
 
+	// References to User in oss to populate members.
+	// +kubebuilder:validation:Optional
+	MemberRefs []v1.Reference `json:"memberRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate members.
+	// +kubebuilder:validation:Optional
+	MemberSelector *v1.Selector `json:"memberSelector,omitempty" tf:"-"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership
+	// to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership
+	// to the team. Note: users specified here must already exist in Grafana.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UserEmailExtractor()
+	// +crossplane:generate:reference:refFieldName=MemberRefs
+	// +crossplane:generate:reference:selectorFieldName=MemberSelector
+	// +listType=set
+	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
+
 	// (String) The display name for the Grafana team created.
 	// The display name for the Grafana team created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List, Max: 1) (see below for nested schema)
 	Preferences []PreferencesInitParameters `json:"preferences,omitempty" tf:"preferences,omitempty"`
@@ -127,6 +161,7 @@ type TeamObservation struct {
 	// to the team. Note: users specified here must already exist in Grafana.
 	// A set of email addresses corresponding to users who should be given membership
 	// to the team. Note: users specified here must already exist in Grafana.
+	// +listType=set
 	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
 
 	// (String) The display name for the Grafana team created.
@@ -184,6 +219,7 @@ type TeamParameters struct {
 	// +crossplane:generate:reference:refFieldName=MemberRefs
 	// +crossplane:generate:reference:selectorFieldName=MemberSelector
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
 
 	// (String) The display name for the Grafana team created.
@@ -222,12 +258,14 @@ type TeamParameters struct {
 type TeamSyncInitParameters struct {
 
 	// (Set of String)
+	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 }
 
 type TeamSyncObservation struct {
 
 	// (Set of String)
+	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 }
 
@@ -235,6 +273,7 @@ type TeamSyncParameters struct {
 
 	// (Set of String)
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
 }
 
@@ -262,13 +301,14 @@ type TeamStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Team is the Schema for the Teams API. Official documentation https://grafana.com/docs/grafana/latest/administration/team-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type Team struct {
 	metav1.TypeMeta   `json:",inline"`

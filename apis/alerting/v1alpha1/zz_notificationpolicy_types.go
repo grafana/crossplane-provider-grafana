@@ -67,6 +67,22 @@ type MatcherParameters struct {
 
 type NotificationPolicyInitParameters struct {
 
+	// (String) The default contact point to route all unmatched notifications to.
+	// The default contact point to route all unmatched notifications to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=ContactPointRef
+	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Reference to a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+
+	// Selector for a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+
 	// Defaults to false. Defaults to `false`.
 	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
@@ -81,6 +97,21 @@ type NotificationPolicyInitParameters struct {
 	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
@@ -195,6 +226,22 @@ type NotificationPolicyParameters struct {
 
 type PolicyInitParameters struct {
 
+	// (String) The default contact point to route all unmatched notifications to.
+	// The contact point to route notifications that match this rule to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=ContactPointRef
+	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Reference to a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+
+	// Selector for a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
@@ -214,6 +261,22 @@ type PolicyInitParameters struct {
 	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []MatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+
+	// References to MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+
+	// Selector for a list of MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=MuteTimingRef
+	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
@@ -385,6 +448,22 @@ type PolicyParameters struct {
 
 type PolicyPolicyInitParameters struct {
 
+	// (String) The default contact point to route all unmatched notifications to.
+	// The contact point to route notifications that match this rule to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=ContactPointRef
+	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Reference to a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+
+	// Selector for a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
@@ -404,6 +483,22 @@ type PolicyPolicyInitParameters struct {
 	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+
+	// References to MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+
+	// Selector for a list of MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=MuteTimingRef
+	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
@@ -575,6 +670,22 @@ type PolicyPolicyParameters struct {
 
 type PolicyPolicyPolicyInitParameters struct {
 
+	// (String) The default contact point to route all unmatched notifications to.
+	// The contact point to route notifications that match this rule to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=ContactPointRef
+	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Reference to a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+
+	// Selector for a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
@@ -594,6 +705,22 @@ type PolicyPolicyPolicyInitParameters struct {
 	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+
+	// References to MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+
+	// Selector for a list of MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=MuteTimingRef
+	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
@@ -765,6 +892,22 @@ type PolicyPolicyPolicyParameters struct {
 
 type PolicyPolicyPolicyPolicyInitParameters struct {
 
+	// (String) The default contact point to route all unmatched notifications to.
+	// The contact point to route notifications that match this rule to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=ContactPointRef
+	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Reference to a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+
+	// Selector for a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
@@ -784,6 +927,22 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+
+	// References to MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+
+	// Selector for a list of MuteTiming in alerting to populate muteTimings.
+	// +kubebuilder:validation:Optional
+	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.NameExtractor()
+	// +crossplane:generate:reference:refFieldName=MuteTimingRef
+	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// sending a notification if an alert is still firing. Default is 4 hours.
 	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
@@ -916,13 +1075,14 @@ type NotificationPolicyStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // NotificationPolicy is the Schema for the NotificationPolicys API. Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/ This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type NotificationPolicy struct {
 	metav1.TypeMeta   `json:",inline"`

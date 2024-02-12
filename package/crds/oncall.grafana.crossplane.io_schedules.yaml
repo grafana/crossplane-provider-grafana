@@ -88,6 +88,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   slack:
                     description: specific settings for a schedule. (see below for
                       nested schema) The Slack-specific settings for a schedule.
@@ -156,6 +157,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   slack:
                     description: specific settings for a schedule. (see below for
                       nested schema) The Slack-specific settings for a schedule.
@@ -389,6 +391,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   slack:
                     description: specific settings for a schedule. (see below for
                       nested schema) The Slack-specific settings for a schedule.

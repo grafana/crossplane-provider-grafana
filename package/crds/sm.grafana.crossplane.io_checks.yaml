@@ -116,6 +116,7 @@ spec:
                       labels, to the outgoing metrics. The names and values of the
                       labels cannot be empty, and the maximum length is 32 bytes.
                     type: object
+                    x-kubernetes-map-type: granular
                   probes:
                     description: (Set of Number) List of probe location IDs where
                       this target will be checked from. List of probe location IDs
@@ -123,6 +124,7 @@ spec:
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   settings:
                     description: '(Block Set, Min: 1, Max: 1) Check settings. Should
                       contain exactly one nested block. (see below for nested schema)
@@ -186,6 +188,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               validateAdditionalRrs:
                                 description: (Block Set) Validate additional matches.
                                   (see below for nested schema) Validate additional
@@ -198,6 +201,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -205,6 +209,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                               validateAnswerRrs:
@@ -219,6 +224,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -226,6 +232,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                               validateAuthorityRrs:
@@ -240,6 +247,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -247,6 +255,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                             type: object
@@ -300,6 +309,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               failIfBodyNotMatchesRegexp:
                                 description: (Set of String) List of regexes. If any
                                   do not match the response body, the check will fail.
@@ -308,6 +318,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               failIfHeaderMatchesRegexp:
                                 description: (Block Set) Check fails if headers match.
                                   (see below for nested schema) Check fails if headers
@@ -367,6 +378,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               ipVersion:
                                 description: (String) Options are V4, V6, Any. Specifies
                                   whether the corresponding check will be performed
@@ -397,6 +409,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               proxyUrl:
                                 description: (String) Proxy URL. Proxy URL.
                                 type: string
@@ -451,6 +464,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               validStatusCodes:
                                 description: (Set of Number) Accepted status codes.
                                   If unset, defaults to 2xx. Accepted status codes.
@@ -458,6 +472,7 @@ spec:
                                 items:
                                   type: number
                                 type: array
+                                x-kubernetes-list-type: set
                             type: object
                           type: array
                         multihttp:
@@ -855,6 +870,7 @@ spec:
                       labels, to the outgoing metrics. The names and values of the
                       labels cannot be empty, and the maximum length is 32 bytes.
                     type: object
+                    x-kubernetes-map-type: granular
                   probes:
                     description: (Set of Number) List of probe location IDs where
                       this target will be checked from. List of probe location IDs
@@ -862,6 +878,7 @@ spec:
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   settings:
                     description: '(Block Set, Min: 1, Max: 1) Check settings. Should
                       contain exactly one nested block. (see below for nested schema)
@@ -925,6 +942,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               validateAdditionalRrs:
                                 description: (Block Set) Validate additional matches.
                                   (see below for nested schema) Validate additional
@@ -937,6 +955,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -944,6 +963,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                               validateAnswerRrs:
@@ -958,6 +978,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -965,6 +986,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                               validateAuthorityRrs:
@@ -979,6 +1001,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -986,6 +1009,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                             type: object
@@ -1039,6 +1063,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               failIfBodyNotMatchesRegexp:
                                 description: (Set of String) List of regexes. If any
                                   do not match the response body, the check will fail.
@@ -1047,6 +1072,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               failIfHeaderMatchesRegexp:
                                 description: (Block Set) Check fails if headers match.
                                   (see below for nested schema) Check fails if headers
@@ -1106,6 +1132,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               ipVersion:
                                 description: (String) Options are V4, V6, Any. Specifies
                                   whether the corresponding check will be performed
@@ -1136,6 +1163,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               proxyUrl:
                                 description: (String) Proxy URL. Proxy URL.
                                 type: string
@@ -1172,6 +1200,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               validStatusCodes:
                                 description: (Set of Number) Accepted status codes.
                                   If unset, defaults to 2xx. Accepted status codes.
@@ -1179,6 +1208,7 @@ spec:
                                 items:
                                   type: number
                                 type: array
+                                x-kubernetes-list-type: set
                             type: object
                           type: array
                         multihttp:
@@ -1731,6 +1761,7 @@ spec:
                       labels, to the outgoing metrics. The names and values of the
                       labels cannot be empty, and the maximum length is 32 bytes.
                     type: object
+                    x-kubernetes-map-type: granular
                   probes:
                     description: (Set of Number) List of probe location IDs where
                       this target will be checked from. List of probe location IDs
@@ -1738,6 +1769,7 @@ spec:
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   settings:
                     description: '(Block Set, Min: 1, Max: 1) Check settings. Should
                       contain exactly one nested block. (see below for nested schema)
@@ -1801,6 +1833,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               validateAdditionalRrs:
                                 description: (Block Set) Validate additional matches.
                                   (see below for nested schema) Validate additional
@@ -1813,6 +1846,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -1820,6 +1854,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                               validateAnswerRrs:
@@ -1834,6 +1869,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -1841,6 +1877,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                               validateAuthorityRrs:
@@ -1855,6 +1892,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                     failIfNotMatchesRegexp:
                                       description: (Set of String) Fail if value does
                                         not match regex. Fail if value does not match
@@ -1862,6 +1900,7 @@ spec:
                                       items:
                                         type: string
                                       type: array
+                                      x-kubernetes-list-type: set
                                   type: object
                                 type: array
                             type: object
@@ -1915,6 +1954,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               failIfBodyNotMatchesRegexp:
                                 description: (Set of String) List of regexes. If any
                                   do not match the response body, the check will fail.
@@ -1923,6 +1963,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               failIfHeaderMatchesRegexp:
                                 description: (Block Set) Check fails if headers match.
                                   (see below for nested schema) Check fails if headers
@@ -1982,6 +2023,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               ipVersion:
                                 description: (String) Options are V4, V6, Any. Specifies
                                   whether the corresponding check will be performed
@@ -2012,6 +2054,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               proxyUrl:
                                 description: (String) Proxy URL. Proxy URL.
                                 type: string
@@ -2048,6 +2091,7 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                                x-kubernetes-list-type: set
                               validStatusCodes:
                                 description: (Set of Number) Accepted status codes.
                                   If unset, defaults to 2xx. Accepted status codes.
@@ -2055,6 +2099,7 @@ spec:
                                 items:
                                   type: number
                                 type: array
+                                x-kubernetes-list-type: set
                             type: object
                           type: array
                         multihttp:

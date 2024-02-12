@@ -53,10 +53,12 @@ type EscalationInitParameters struct {
 
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
+	// +listType=set
 	PersonsToNotify []*string `json:"personsToNotify,omitempty" tf:"persons_to_notify,omitempty"`
 
 	// (Set of String) The list of ID's of users for notify_person_next_each_time type step.
 	// The list of ID's of users for notify_person_next_each_time type step.
+	// +listType=set
 	PersonsToNotifyNextEachTime []*string `json:"personsToNotifyNextEachTime,omitempty" tf:"persons_to_notify_next_each_time,omitempty"`
 
 	// (Number) The position of the escalation step (starts from 0).
@@ -107,10 +109,12 @@ type EscalationObservation struct {
 
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
+	// +listType=set
 	PersonsToNotify []*string `json:"personsToNotify,omitempty" tf:"persons_to_notify,omitempty"`
 
 	// (Set of String) The list of ID's of users for notify_person_next_each_time type step.
 	// The list of ID's of users for notify_person_next_each_time type step.
+	// +listType=set
 	PersonsToNotifyNextEachTime []*string `json:"personsToNotifyNextEachTime,omitempty" tf:"persons_to_notify_next_each_time,omitempty"`
 
 	// (Number) The position of the escalation step (starts from 0).
@@ -167,11 +171,13 @@ type EscalationParameters struct {
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	PersonsToNotify []*string `json:"personsToNotify,omitempty" tf:"persons_to_notify,omitempty"`
 
 	// (Set of String) The list of ID's of users for notify_person_next_each_time type step.
 	// The list of ID's of users for notify_person_next_each_time type step.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	PersonsToNotifyNextEachTime []*string `json:"personsToNotifyNextEachTime,omitempty" tf:"persons_to_notify_next_each_time,omitempty"`
 
 	// (Number) The position of the escalation step (starts from 0).
@@ -209,13 +215,14 @@ type EscalationStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Escalation is the Schema for the Escalations API. Official documentation https://grafana.com/docs/oncall/latest/escalation-chains-and-routes/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/escalation_policies/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type Escalation struct {
 	metav1.TypeMeta   `json:",inline"`

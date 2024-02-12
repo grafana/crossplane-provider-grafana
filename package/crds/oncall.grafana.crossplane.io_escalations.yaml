@@ -116,6 +116,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   personsToNotifyNextEachTime:
                     description: (Set of String) The list of ID's of users for notify_person_next_each_time
                       type step. The list of ID's of users for notify_person_next_each_time
@@ -123,6 +124,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   position:
                     description: (Number) The position of the escalation step (starts
                       from 0). The position of the escalation step (starts from 0).
@@ -197,6 +199,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   personsToNotifyNextEachTime:
                     description: (Set of String) The list of ID's of users for notify_person_next_each_time
                       type step. The list of ID's of users for notify_person_next_each_time
@@ -204,6 +207,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   position:
                     description: (Number) The position of the escalation step (starts
                       from 0). The position of the escalation step (starts from 0).
@@ -443,6 +447,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   personsToNotifyNextEachTime:
                     description: (Set of String) The list of ID's of users for notify_person_next_each_time
                       type step. The list of ID's of users for notify_person_next_each_time
@@ -450,6 +455,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   position:
                     description: (Number) The position of the escalation step (starts
                       from 0). The position of the escalation step (starts from 0).

@@ -33,6 +33,7 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given admin
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
+	// +listType=set
 	Admins []*string `json:"admins,omitempty" tf:"admins,omitempty"`
 
 	// (Boolean) Whether or not to create Grafana users specified in the organization's
@@ -57,6 +58,7 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given editor
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
+	// +listType=set
 	Editors []*string `json:"editors,omitempty" tf:"editors,omitempty"`
 
 	// (String) The display name for the Grafana organization created.
@@ -69,6 +71,7 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given none access to the organization.
 	// Note: users specified here must already exist in Grafana, unless 'create_users' is
 	// set to true. This feature is only available in Grafana 10.2+.
+	// +listType=set
 	UsersWithoutAccess []*string `json:"usersWithoutAccess,omitempty" tf:"users_without_access,omitempty"`
 
 	// (Set of String) A list of email addresses corresponding to users who should be given viewer
@@ -77,6 +80,7 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given viewer
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
+	// +listType=set
 	Viewers []*string `json:"viewers,omitempty" tf:"viewers,omitempty"`
 }
 
@@ -96,6 +100,7 @@ type OrganizationObservation struct {
 	// A list of email addresses corresponding to users who should be given admin
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
+	// +listType=set
 	Admins []*string `json:"admins,omitempty" tf:"admins,omitempty"`
 
 	// (Boolean) Whether or not to create Grafana users specified in the organization's
@@ -120,6 +125,7 @@ type OrganizationObservation struct {
 	// A list of email addresses corresponding to users who should be given editor
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
+	// +listType=set
 	Editors []*string `json:"editors,omitempty" tf:"editors,omitempty"`
 
 	// (String) The ID of this resource.
@@ -139,6 +145,7 @@ type OrganizationObservation struct {
 	// A list of email addresses corresponding to users who should be given none access to the organization.
 	// Note: users specified here must already exist in Grafana, unless 'create_users' is
 	// set to true. This feature is only available in Grafana 10.2+.
+	// +listType=set
 	UsersWithoutAccess []*string `json:"usersWithoutAccess,omitempty" tf:"users_without_access,omitempty"`
 
 	// (Set of String) A list of email addresses corresponding to users who should be given viewer
@@ -147,6 +154,7 @@ type OrganizationObservation struct {
 	// A list of email addresses corresponding to users who should be given viewer
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
+	// +listType=set
 	Viewers []*string `json:"viewers,omitempty" tf:"viewers,omitempty"`
 }
 
@@ -168,6 +176,7 @@ type OrganizationParameters struct {
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Admins []*string `json:"admins,omitempty" tf:"admins,omitempty"`
 
 	// (Boolean) Whether or not to create Grafana users specified in the organization's
@@ -194,6 +203,7 @@ type OrganizationParameters struct {
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Editors []*string `json:"editors,omitempty" tf:"editors,omitempty"`
 
 	// (String) The display name for the Grafana organization created.
@@ -208,6 +218,7 @@ type OrganizationParameters struct {
 	// Note: users specified here must already exist in Grafana, unless 'create_users' is
 	// set to true. This feature is only available in Grafana 10.2+.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	UsersWithoutAccess []*string `json:"usersWithoutAccess,omitempty" tf:"users_without_access,omitempty"`
 
 	// (Set of String) A list of email addresses corresponding to users who should be given viewer
@@ -217,6 +228,7 @@ type OrganizationParameters struct {
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Viewers []*string `json:"viewers,omitempty" tf:"viewers,omitempty"`
 }
 
@@ -244,13 +256,14 @@ type OrganizationStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Organization is the Schema for the Organizations API. Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/org/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type Organization struct {
 	metav1.TypeMeta   `json:",inline"`

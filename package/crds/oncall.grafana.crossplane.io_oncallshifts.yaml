@@ -75,6 +75,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   byMonth:
                     description: (Set of Number) This parameter takes a list of months.
                       Valid values are 1 to 12 This parameter takes a list of months.
@@ -82,12 +83,14 @@ spec:
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   byMonthday:
                     description: 31 to -1 This parameter takes a list of days of the
                       month.  Valid values are 1 to 31 or -31 to -1
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   duration:
                     description: (Number) The duration of the event. The duration
                       of the event.
@@ -153,6 +156,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   weekStart:
                     description: (String) Start day of the week in iCal format. Can
                       be MO, TU, WE, TH, FR, SA, SU Start day of the week in iCal
@@ -179,6 +183,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   byMonth:
                     description: (Set of Number) This parameter takes a list of months.
                       Valid values are 1 to 12 This parameter takes a list of months.
@@ -186,12 +191,14 @@ spec:
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   byMonthday:
                     description: 31 to -1 This parameter takes a list of days of the
                       month.  Valid values are 1 to 31 or -31 to -1
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   duration:
                     description: (Number) The duration of the event. The duration
                       of the event.
@@ -257,6 +264,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   weekStart:
                     description: (String) Start day of the week in iCal format. Can
                       be MO, TU, WE, TH, FR, SA, SU Start day of the week in iCal
@@ -453,6 +461,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   byMonth:
                     description: (Set of Number) This parameter takes a list of months.
                       Valid values are 1 to 12 This parameter takes a list of months.
@@ -460,12 +469,14 @@ spec:
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   byMonthday:
                     description: 31 to -1 This parameter takes a list of days of the
                       month.  Valid values are 1 to 31 or -31 to -1
                     items:
                       type: number
                     type: array
+                    x-kubernetes-list-type: set
                   duration:
                     description: (Number) The duration of the event. The duration
                       of the event.
@@ -534,6 +545,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   weekStart:
                     description: (String) Start day of the week in iCal format. Can
                       be MO, TU, WE, TH, FR, SA, SU Start day of the week in iCal

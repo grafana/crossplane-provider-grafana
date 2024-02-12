@@ -54,12 +54,29 @@ type DashboardsParameters struct {
 
 type ReportInitParameters struct {
 
+	// Reference to a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+
+	// (String, Deprecated) Dashboard to be sent in the report.
+	// Dashboard to be sent in the report.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+
 	// (Block List) List of dashboards to render into the report (see below for nested schema)
 	// List of dashboards to render into the report
 	Dashboards []DashboardsInitParameters `json:"dashboards,omitempty" tf:"dashboards,omitempty"`
 
 	// (Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.
 	// Specifies what kind of attachment to generate for the report. Allowed values: `pdf`, `csv`, `image`.
+	// +listType=set
 	Formats []*string `json:"formats,omitempty" tf:"formats,omitempty"`
 
 	// (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
@@ -81,6 +98,21 @@ type ReportInitParameters struct {
 	// (String) Name of the report.
 	// Name of the report.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.
 	// Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
@@ -115,6 +147,7 @@ type ReportObservation struct {
 
 	// (Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.
 	// Specifies what kind of attachment to generate for the report. Allowed values: `pdf`, `csv`, `image`.
+	// +listType=set
 	Formats []*string `json:"formats,omitempty" tf:"formats,omitempty"`
 
 	// (String) Generated identifier of the report.
@@ -192,6 +225,7 @@ type ReportParameters struct {
 	// (Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.
 	// Specifies what kind of attachment to generate for the report. Allowed values: `pdf`, `csv`, `image`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Formats []*string `json:"formats,omitempty" tf:"formats,omitempty"`
 
 	// (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
@@ -448,13 +482,14 @@ type ReportStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Report is the Schema for the Reports API. Note: This resource is available only with Grafana Enterprise 7.+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-reports/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type Report struct {
 	metav1.TypeMeta   `json:",inline"`

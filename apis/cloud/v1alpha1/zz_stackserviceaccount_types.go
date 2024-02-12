@@ -19,6 +19,14 @@ import (
 
 type StackServiceAccountInitParameters struct {
 
+	// Reference to a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (Boolean) The disabled status for the service account. Defaults to false.
 	// The disabled status for the service account. Defaults to `false`.
 	IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
@@ -30,6 +38,13 @@ type StackServiceAccountInitParameters struct {
 	// (String) The basic role of the service account in the organization.
 	// The basic role of the service account in the organization.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (String)
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.CloudStackSlugExtractor()
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
+	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 }
 
 type StackServiceAccountObservation struct {
@@ -111,13 +126,14 @@ type StackServiceAccountStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // StackServiceAccount is the Schema for the StackServiceAccounts API. Note: This resource is available only with Grafana 9.1+. Manages service accounts of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type StackServiceAccount struct {
 	metav1.TypeMeta   `json:",inline"`

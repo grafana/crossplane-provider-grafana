@@ -21,14 +21,17 @@ type OnCallShiftInitParameters struct {
 
 	// (Set of String) This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
+	// +listType=set
 	ByDay []*string `json:"byDay,omitempty" tf:"by_day,omitempty"`
 
 	// (Set of Number) This parameter takes a list of months. Valid values are 1 to 12
 	// This parameter takes a list of months. Valid values are 1 to 12
+	// +listType=set
 	ByMonth []*float64 `json:"byMonth,omitempty" tf:"by_month,omitempty"`
 
 	// 31 to -1
 	// This parameter takes a list of days of the month.  Valid values are 1 to 31 or -31 to -1
+	// +listType=set
 	ByMonthday []*float64 `json:"byMonthday,omitempty" tf:"by_monthday,omitempty"`
 
 	// (Number) The duration of the event.
@@ -77,6 +80,7 @@ type OnCallShiftInitParameters struct {
 
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 
 	// (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
@@ -88,14 +92,17 @@ type OnCallShiftObservation struct {
 
 	// (Set of String) This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
+	// +listType=set
 	ByDay []*string `json:"byDay,omitempty" tf:"by_day,omitempty"`
 
 	// (Set of Number) This parameter takes a list of months. Valid values are 1 to 12
 	// This parameter takes a list of months. Valid values are 1 to 12
+	// +listType=set
 	ByMonth []*float64 `json:"byMonth,omitempty" tf:"by_month,omitempty"`
 
 	// 31 to -1
 	// This parameter takes a list of days of the month.  Valid values are 1 to 31 or -31 to -1
+	// +listType=set
 	ByMonthday []*float64 `json:"byMonthday,omitempty" tf:"by_monthday,omitempty"`
 
 	// (Number) The duration of the event.
@@ -147,6 +154,7 @@ type OnCallShiftObservation struct {
 
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 
 	// (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
@@ -159,16 +167,19 @@ type OnCallShiftParameters struct {
 	// (Set of String) This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ByDay []*string `json:"byDay,omitempty" tf:"by_day,omitempty"`
 
 	// (Set of Number) This parameter takes a list of months. Valid values are 1 to 12
 	// This parameter takes a list of months. Valid values are 1 to 12
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ByMonth []*float64 `json:"byMonth,omitempty" tf:"by_month,omitempty"`
 
 	// 31 to -1
 	// This parameter takes a list of days of the month.  Valid values are 1 to 31 or -31 to -1
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ByMonthday []*float64 `json:"byMonthday,omitempty" tf:"by_monthday,omitempty"`
 
 	// (Number) The duration of the event.
@@ -229,6 +240,7 @@ type OnCallShiftParameters struct {
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
 
 	// (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
@@ -261,13 +273,14 @@ type OnCallShiftStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // OnCallShift is the Schema for the OnCallShifts API. HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/on_call_shifts/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type OnCallShift struct {
 	metav1.TypeMeta   `json:",inline"`
