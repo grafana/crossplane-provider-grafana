@@ -124,6 +124,21 @@ type ContactPointInitParameters struct {
 	// A contact point that sends notifications to OpsGenie.
 	Opsgenie []OpsgenieInitParameters `json:"opsgenie,omitempty" tf:"opsgenie,omitempty"`
 
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
 	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
 	Pagerduty []PagerdutyInitParameters `json:"pagerduty,omitempty" tf:"pagerduty,omitempty"`
@@ -1183,6 +1198,7 @@ type PagerdutyInitParameters struct {
 
 	// (String) The templated details to include with the message.
 	// A set of arbitrary key/value pairs that provide further detail about the incident.
+	// +mapType=granular
 	Details map[string]*string `json:"details,omitempty" tf:"details,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
@@ -1226,6 +1242,7 @@ type PagerdutyObservation struct {
 
 	// (String) The templated details to include with the message.
 	// A set of arbitrary key/value pairs that provide further detail about the incident.
+	// +mapType=granular
 	Details map[string]*string `json:"details,omitempty" tf:"details,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
@@ -1278,6 +1295,7 @@ type PagerdutyParameters struct {
 	// (String) The templated details to include with the message.
 	// A set of arbitrary key/value pairs that provide further detail about the incident.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Details map[string]*string `json:"details,omitempty" tf:"details,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
@@ -2669,13 +2687,14 @@ type ContactPointStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // ContactPoint is the Schema for the ContactPoints API. Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/contact-points/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type ContactPoint struct {
 	metav1.TypeMeta   `json:",inline"`

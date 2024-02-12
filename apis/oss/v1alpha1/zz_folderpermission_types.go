@@ -19,6 +19,37 @@ import (
 
 type FolderPermissionInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+
+	// (String) The UID of the folder.
+	// The UID of the folder.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
 	Permissions []FolderPermissionPermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
@@ -92,6 +123,36 @@ type FolderPermissionPermissionsInitParameters struct {
 	// (String) Manage permissions for Viewer or Editor roles.
 	// Manage permissions for `Viewer` or `Editor` roles.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+
+	// (String) ID of the team to manage permissions for. Defaults to 0.
+	// ID of the team to manage permissions for. Defaults to `0`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Team
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oss to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+
+	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Defaults to `0`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
+	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a User in oss to populate userId.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate userId.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type FolderPermissionPermissionsObservation struct {
@@ -182,13 +243,14 @@ type FolderPermissionStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // FolderPermission is the Schema for the FolderPermissions API. Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type FolderPermission struct {
 	metav1.TypeMeta   `json:",inline"`

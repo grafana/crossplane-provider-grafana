@@ -131,6 +131,22 @@ type RuleGroupInitParameters struct {
 	// Defaults to false. Defaults to `false`.
 	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+
+	// (String) The UID of the folder that the group belongs to.
+	// The UID of the folder that the group belongs to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
 	// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
 	// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
 	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
@@ -138,6 +154,21 @@ type RuleGroupInitParameters struct {
 	// (String) The name of the rule group.
 	// The name of the rule group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1) The rules within the group. (see below for nested schema)
 	// The rules within the group.
@@ -232,6 +263,7 @@ type RuleInitParameters struct {
 
 	// value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to map[].
 	// Key-value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to `map[]`.
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (String) The ref_id of the query node in the data field to use as the alert condition.
@@ -256,6 +288,7 @@ type RuleInitParameters struct {
 
 	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The name of the rule group.
@@ -271,6 +304,7 @@ type RuleObservation struct {
 
 	// value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to map[].
 	// Key-value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to `map[]`.
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (String) The ref_id of the query node in the data field to use as the alert condition.
@@ -295,6 +329,7 @@ type RuleObservation struct {
 
 	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The name of the rule group.
@@ -315,6 +350,7 @@ type RuleParameters struct {
 	// value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to map[].
 	// Key-value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
 	// (String) The ref_id of the query node in the data field to use as the alert condition.
@@ -345,6 +381,7 @@ type RuleParameters struct {
 	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The name of the rule group.
@@ -382,13 +419,14 @@ type RuleGroupStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // RuleGroup is the Schema for the RuleGroups API. Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rules/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type RuleGroup struct {
 	metav1.TypeMeta   `json:",inline"`

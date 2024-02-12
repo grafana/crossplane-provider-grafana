@@ -90,6 +90,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   createUsers:
                     description: (Boolean) Whether or not to create Grafana users
                       specified in the organization's membership if they don't already
@@ -117,6 +118,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   name:
                     description: (String) The display name for the Grafana organization
                       created. The display name for the Grafana organization created.
@@ -133,6 +135,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   viewers:
                     description: '(Set of String) A list of email addresses corresponding
                       to users who should be given viewer access to the organization.
@@ -144,6 +147,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -176,6 +180,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   createUsers:
                     description: (Boolean) Whether or not to create Grafana users
                       specified in the organization's membership if they don't already
@@ -203,6 +208,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   name:
                     description: (String) The display name for the Grafana organization
                       created. The display name for the Grafana organization created.
@@ -219,6 +225,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   viewers:
                     description: '(Set of String) A list of email addresses corresponding
                       to users who should be given viewer access to the organization.
@@ -230,6 +237,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               managementPolicies:
                 default:
@@ -420,6 +428,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   createUsers:
                     description: (Boolean) Whether or not to create Grafana users
                       specified in the organization's membership if they don't already
@@ -447,6 +456,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -471,6 +481,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                   viewers:
                     description: '(Set of String) A list of email addresses corresponding
                       to users who should be given viewer access to the organization.
@@ -482,6 +493,7 @@ spec:
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: set
                 type: object
               conditions:
                 description: Conditions of the resource.

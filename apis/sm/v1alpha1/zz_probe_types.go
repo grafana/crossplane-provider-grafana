@@ -21,6 +21,7 @@ type ProbeInitParameters struct {
 
 	// (Map of String) Custom labels to be included with collected metrics and logs.
 	// Custom labels to be included with collected metrics and logs.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Number) Latitude coordinates.
@@ -51,6 +52,7 @@ type ProbeObservation struct {
 
 	// (Map of String) Custom labels to be included with collected metrics and logs.
 	// Custom labels to be included with collected metrics and logs.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Number) Latitude coordinates.
@@ -83,6 +85,7 @@ type ProbeParameters struct {
 	// (Map of String) Custom labels to be included with collected metrics and logs.
 	// Custom labels to be included with collected metrics and logs.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Number) Latitude coordinates.
@@ -135,13 +138,14 @@ type ProbeStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Probe is the Schema for the Probes API. Besides the public probes run by Grafana Labs, you can also install your own private probes. These are only accessible to you and only write data to your Grafana Cloud account. Private probes are instances of the open source Grafana Synthetic Monitoring Agent. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/private-probes/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type Probe struct {
 	metav1.TypeMeta   `json:",inline"`

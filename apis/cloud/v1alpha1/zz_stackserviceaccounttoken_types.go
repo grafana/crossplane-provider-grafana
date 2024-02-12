@@ -19,11 +19,40 @@ import (
 
 type StackServiceAccountTokenInitParameters struct {
 
+	// Reference to a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (String)
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Number)
 	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+
+	// (String)
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.StackServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
+	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+
+	// Reference to a StackServiceAccount in cloud to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+
+	// Selector for a StackServiceAccount in cloud to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+
+	// (String)
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.CloudStackSlugExtractor()
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
+	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 }
 
 type StackServiceAccountTokenObservation struct {
@@ -116,13 +145,14 @@ type StackServiceAccountTokenStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // StackServiceAccountToken is the Schema for the StackServiceAccountTokens API. Note: This resource is available only with Grafana 9.1+. Manages service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type StackServiceAccountToken struct {
 	metav1.TypeMeta   `json:",inline"`

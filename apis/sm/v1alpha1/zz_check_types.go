@@ -198,10 +198,12 @@ type CheckInitParameters struct {
 
 	// specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
 	// Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Set of Number) List of probe location IDs where this target will be checked from.
 	// List of probe location IDs where this target will be checked from.
+	// +listType=set
 	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
 
 	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
@@ -244,10 +246,12 @@ type CheckObservation struct {
 
 	// specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
 	// Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Set of Number) List of probe location IDs where this target will be checked from.
 	// List of probe location IDs where this target will be checked from.
+	// +listType=set
 	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
 
 	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
@@ -297,11 +301,13 @@ type CheckParameters struct {
 	// specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
 	// Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
 	// +kubebuilder:validation:Optional
+	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (Set of Number) List of probe location IDs where this target will be checked from.
 	// List of probe location IDs where this target will be checked from.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
 
 	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
@@ -348,6 +354,7 @@ type DNSInitParameters struct {
 
 	// (Set of String) List of valid response codes. Options include NOERROR, BADALG, BADMODE, BADKEY, BADCOOKIE, BADNAME, BADSIG, BADTIME, BADTRUNC, BADVERS, FORMERR, NOTIMP, NOTAUTH, NOTZONE, NXDOMAIN, NXRRSET, REFUSED, SERVFAIL, YXDOMAIN, YXRRSET.
 	// List of valid response codes. Options include `NOERROR`, `BADALG`, `BADMODE`, `BADKEY`, `BADCOOKIE`, `BADNAME`, `BADSIG`, `BADTIME`, `BADTRUNC`, `BADVERS`, `FORMERR`, `NOTIMP`, `NOTAUTH`, `NOTZONE`, `NXDOMAIN`, `NXRRSET`, `REFUSED`, `SERVFAIL`, `YXDOMAIN`, `YXRRSET`.
+	// +listType=set
 	ValidRCodes []*string `json:"validRCodes,omitempty" tf:"valid_r_codes,omitempty"`
 
 	// (Block Set) Validate additional matches. (see below for nested schema)
@@ -391,6 +398,7 @@ type DNSObservation struct {
 
 	// (Set of String) List of valid response codes. Options include NOERROR, BADALG, BADMODE, BADKEY, BADCOOKIE, BADNAME, BADSIG, BADTIME, BADTRUNC, BADVERS, FORMERR, NOTIMP, NOTAUTH, NOTZONE, NXDOMAIN, NXRRSET, REFUSED, SERVFAIL, YXDOMAIN, YXRRSET.
 	// List of valid response codes. Options include `NOERROR`, `BADALG`, `BADMODE`, `BADKEY`, `BADCOOKIE`, `BADNAME`, `BADSIG`, `BADTIME`, `BADTRUNC`, `BADVERS`, `FORMERR`, `NOTIMP`, `NOTAUTH`, `NOTZONE`, `NXDOMAIN`, `NXRRSET`, `REFUSED`, `SERVFAIL`, `YXDOMAIN`, `YXRRSET`.
+	// +listType=set
 	ValidRCodes []*string `json:"validRCodes,omitempty" tf:"valid_r_codes,omitempty"`
 
 	// (Block Set) Validate additional matches. (see below for nested schema)
@@ -441,6 +449,7 @@ type DNSParameters struct {
 	// (Set of String) List of valid response codes. Options include NOERROR, BADALG, BADMODE, BADKEY, BADCOOKIE, BADNAME, BADSIG, BADTIME, BADTRUNC, BADVERS, FORMERR, NOTIMP, NOTAUTH, NOTZONE, NXDOMAIN, NXRRSET, REFUSED, SERVFAIL, YXDOMAIN, YXRRSET.
 	// List of valid response codes. Options include `NOERROR`, `BADALG`, `BADMODE`, `BADKEY`, `BADCOOKIE`, `BADNAME`, `BADSIG`, `BADTIME`, `BADTRUNC`, `BADVERS`, `FORMERR`, `NOTIMP`, `NOTAUTH`, `NOTZONE`, `NXDOMAIN`, `NXRRSET`, `REFUSED`, `SERVFAIL`, `YXDOMAIN`, `YXRRSET`.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ValidRCodes []*string `json:"validRCodes,omitempty" tf:"valid_r_codes,omitempty"`
 
 	// (Block Set) Validate additional matches. (see below for nested schema)
@@ -623,10 +632,12 @@ type HTTPInitParameters struct {
 
 	// (Set of String) List of regexes. If any match the response body, the check will fail.
 	// List of regexes. If any match the response body, the check will fail.
+	// +listType=set
 	FailIfBodyMatchesRegexp []*string `json:"failIfBodyMatchesRegexp,omitempty" tf:"fail_if_body_matches_regexp,omitempty"`
 
 	// (Set of String) List of regexes. If any do not match the response body, the check will fail.
 	// List of regexes. If any do not match the response body, the check will fail.
+	// +listType=set
 	FailIfBodyNotMatchesRegexp []*string `json:"failIfBodyNotMatchesRegexp,omitempty" tf:"fail_if_body_not_matches_regexp,omitempty"`
 
 	// (Block Set) Check fails if headers match. (see below for nested schema)
@@ -647,6 +658,7 @@ type HTTPInitParameters struct {
 
 	// (Set of String) The HTTP headers set for the probe.
 	// The HTTP headers set for the probe.
+	// +listType=set
 	Headers []*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
@@ -663,6 +675,7 @@ type HTTPInitParameters struct {
 
 	// (Set of String) The HTTP headers sent to the proxy URL
 	// The HTTP headers sent to the proxy URL
+	// +listType=set
 	ProxyConnectHeaders []*string `json:"proxyConnectHeaders,omitempty" tf:"proxy_connect_headers,omitempty"`
 
 	// (String) Proxy URL.
@@ -675,10 +688,12 @@ type HTTPInitParameters struct {
 
 	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
 	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
+	// +listType=set
 	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
 
 	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
 	// Accepted status codes. If unset, defaults to 2xx.
+	// +listType=set
 	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
 }
 
@@ -702,10 +717,12 @@ type HTTPObservation struct {
 
 	// (Set of String) List of regexes. If any match the response body, the check will fail.
 	// List of regexes. If any match the response body, the check will fail.
+	// +listType=set
 	FailIfBodyMatchesRegexp []*string `json:"failIfBodyMatchesRegexp,omitempty" tf:"fail_if_body_matches_regexp,omitempty"`
 
 	// (Set of String) List of regexes. If any do not match the response body, the check will fail.
 	// List of regexes. If any do not match the response body, the check will fail.
+	// +listType=set
 	FailIfBodyNotMatchesRegexp []*string `json:"failIfBodyNotMatchesRegexp,omitempty" tf:"fail_if_body_not_matches_regexp,omitempty"`
 
 	// (Block Set) Check fails if headers match. (see below for nested schema)
@@ -726,6 +743,7 @@ type HTTPObservation struct {
 
 	// (Set of String) The HTTP headers set for the probe.
 	// The HTTP headers set for the probe.
+	// +listType=set
 	Headers []*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
@@ -742,6 +760,7 @@ type HTTPObservation struct {
 
 	// (Set of String) The HTTP headers sent to the proxy URL
 	// The HTTP headers sent to the proxy URL
+	// +listType=set
 	ProxyConnectHeaders []*string `json:"proxyConnectHeaders,omitempty" tf:"proxy_connect_headers,omitempty"`
 
 	// (String) Proxy URL.
@@ -754,10 +773,12 @@ type HTTPObservation struct {
 
 	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
 	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
+	// +listType=set
 	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
 
 	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
 	// Accepted status codes. If unset, defaults to 2xx.
+	// +listType=set
 	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
 }
 
@@ -786,11 +807,13 @@ type HTTPParameters struct {
 	// (Set of String) List of regexes. If any match the response body, the check will fail.
 	// List of regexes. If any match the response body, the check will fail.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfBodyMatchesRegexp []*string `json:"failIfBodyMatchesRegexp,omitempty" tf:"fail_if_body_matches_regexp,omitempty"`
 
 	// (Set of String) List of regexes. If any do not match the response body, the check will fail.
 	// List of regexes. If any do not match the response body, the check will fail.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfBodyNotMatchesRegexp []*string `json:"failIfBodyNotMatchesRegexp,omitempty" tf:"fail_if_body_not_matches_regexp,omitempty"`
 
 	// (Block Set) Check fails if headers match. (see below for nested schema)
@@ -816,6 +839,7 @@ type HTTPParameters struct {
 	// (Set of String) The HTTP headers set for the probe.
 	// The HTTP headers set for the probe.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	Headers []*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
@@ -836,6 +860,7 @@ type HTTPParameters struct {
 	// (Set of String) The HTTP headers sent to the proxy URL
 	// The HTTP headers sent to the proxy URL
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ProxyConnectHeaders []*string `json:"proxyConnectHeaders,omitempty" tf:"proxy_connect_headers,omitempty"`
 
 	// (String) Proxy URL.
@@ -851,11 +876,13 @@ type HTTPParameters struct {
 	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
 	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ValidHTTPVersions []*string `json:"validHttpVersions,omitempty" tf:"valid_http_versions,omitempty"`
 
 	// (Set of Number) Accepted status codes. If unset, defaults to 2xx.
 	// Accepted status codes. If unset, defaults to 2xx.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
 }
 
@@ -1476,10 +1503,12 @@ type ValidateAdditionalRrsInitParameters struct {
 
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1487,10 +1516,12 @@ type ValidateAdditionalRrsObservation struct {
 
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1499,11 +1530,13 @@ type ValidateAdditionalRrsParameters struct {
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1511,10 +1544,12 @@ type ValidateAnswerRrsInitParameters struct {
 
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1522,10 +1557,12 @@ type ValidateAnswerRrsObservation struct {
 
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1534,11 +1571,13 @@ type ValidateAnswerRrsParameters struct {
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1546,10 +1585,12 @@ type ValidateAuthorityRrsInitParameters struct {
 
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1557,10 +1598,12 @@ type ValidateAuthorityRrsObservation struct {
 
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1569,11 +1612,13 @@ type ValidateAuthorityRrsParameters struct {
 	// (Set of String) Fail if value matches regex.
 	// Fail if value matches regex.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfMatchesRegexp []*string `json:"failIfMatchesRegexp,omitempty" tf:"fail_if_matches_regexp,omitempty"`
 
 	// (Set of String) Fail if value does not match regex.
 	// Fail if value does not match regex.
 	// +kubebuilder:validation:Optional
+	// +listType=set
 	FailIfNotMatchesRegexp []*string `json:"failIfNotMatchesRegexp,omitempty" tf:"fail_if_not_matches_regexp,omitempty"`
 }
 
@@ -1662,13 +1707,14 @@ type CheckStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Check is the Schema for the Checks API. Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/checks/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
 type Check struct {
 	metav1.TypeMeta   `json:",inline"`
