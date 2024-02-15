@@ -29,12 +29,12 @@ func (i *dashboardConfigInitializer) Initialize(ctx context.Context, mg resource
 	if err != nil {
 		return err
 	}
-	v, err := paved.GetString("spec.forProvider.configJSON")
+	v, err := paved.GetString("spec.forProvider.configJson")
 	if err != nil {
-		return fmt.Errorf("could not get configJSON: %w", err)
+		return fmt.Errorf("could not get configJson: %w", err)
 	}
-	if err := paved.SetString("spec.forProvider.configJSON", replaceInterpolation(v)); err != nil {
-		return fmt.Errorf("could not set configJSON: %w", err)
+	if err := paved.SetString("spec.forProvider.configJson", replaceInterpolation(v)); err != nil {
+		return fmt.Errorf("could not set configJson: %w", err)
 	}
 	pavedByte, err := paved.MarshalJSON()
 	if err != nil {
