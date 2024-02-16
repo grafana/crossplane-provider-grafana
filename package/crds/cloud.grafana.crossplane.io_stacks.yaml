@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.13.0
+    controller-gen.kubebuilder.io/version: v0.14.0
   name: stacks.cloud.grafana.crossplane.io
 spec:
   group: cloud.grafana.crossplane.io
@@ -38,14 +38,19 @@ spec:
           https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#stacks/
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
@@ -54,13 +59,14 @@ spec:
             properties:
               deletionPolicy:
                 default: Delete
-                description: 'DeletionPolicy specifies what will happen to the underlying
-                  external when this managed resource is deleted - either "Delete"
-                  or "Orphan" the external resource. This field is planned to be deprecated
-                  in favor of the ManagementPolicies field in a future release. Currently,
-                  both could be set independently and non-default values would be
-                  honored if the feature flag is enabled. See the design doc for more
-                  information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223'
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
                 enum:
                 - Orphan
                 - Delete
@@ -68,119 +74,112 @@ spec:
               forProvider:
                 properties:
                   description:
-                    description: (String) Description of stack. Description of stack.
+                    description: |-
+                      (String) Description of stack.
+                      Description of stack.
                     type: string
                   name:
-                    description: (String) Name of stack. Conventionally matches the
-                      url of the instance (e.g. “<stack_slug>.grafana.net”). Name
-                      of stack. Conventionally matches the url of the instance (e.g.
-                      “<stack_slug>.grafana.net”).
+                    description: |-
+                      (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+                      Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
                     type: string
                   regionSlug:
-                    description: 'cloud/developer-resources/api-reference/cloud-api/#list-regions.
-                      Region slug to assign to this stack. Changing region will destroy
-                      the existing stack and create a new one in the desired region.
-                      Use the region list API to get the list of available regions:
-                      https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.'
+                    description: |-
+                      cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                      Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
                     type: string
                   slug:
-                    description: (String) Subdomain that the Grafana instance will
-                      be available at (i.e. setting slug to “<stack_slug>” will make
-                      the instance available at “https://<stack_slug>.grafana.net".
-                      Subdomain that the Grafana instance will be available at (i.e.
-                      setting slug to “<stack_slug>” will make the instance available
-                      at “https://<stack_slug>.grafana.net".
+                    description: |-
+                      (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+                      available at “https://<stack_slug>.grafana.net".
+                      Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+                      available at “https://<stack_slug>.grafana.net".
                     type: string
                   url:
-                    description: (String) Custom URL for the Grafana instance. Must
-                      have a CNAME setup to point to .grafana.net before creating
-                      the stack Custom URL for the Grafana instance. Must have a CNAME
-                      setup to point to `.grafana.net` before creating the stack
+                    description: |-
+                      (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+                      Custom URL for the Grafana instance. Must have a CNAME setup to point to `.grafana.net` before creating the stack
                     type: string
                   waitForReadiness:
-                    description: (Boolean) Whether to wait for readiness of the stack
-                      after creating it. The check is a HEAD request to the stack
-                      URL (Grafana instance). Defaults to true. Whether to wait for
-                      readiness of the stack after creating it. The check is a HEAD
-                      request to the stack URL (Grafana instance). Defaults to `true`.
+                    description: |-
+                      (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
+                      Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
                     type: boolean
                   waitForReadinessTimeout:
-                    description: (String) How long to wait for readiness (if enabled).
-                      Defaults to 5m0s. How long to wait for readiness (if enabled).
-                      Defaults to `5m0s`.
+                    description: |-
+                      (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+                      How long to wait for readiness (if enabled). Defaults to `5m0s`.
                     type: string
                 type: object
               initProvider:
-                description: THIS IS A BETA FIELD. It will be honored unless the Management
-                  Policies feature flag is disabled. InitProvider holds the same fields
-                  as ForProvider, with the exception of Identifier and other resource
-                  reference fields. The fields that are in InitProvider are merged
-                  into ForProvider when the resource is created. The same fields are
-                  also added to the terraform ignore_changes hook, to avoid updating
-                  them after creation. This is useful for fields that are required
-                  on creation, but we do not desire to update them after creation,
-                  for example because of an external controller is managing them,
-                  like an autoscaler.
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
                 properties:
                   description:
-                    description: (String) Description of stack. Description of stack.
+                    description: |-
+                      (String) Description of stack.
+                      Description of stack.
                     type: string
                   name:
-                    description: (String) Name of stack. Conventionally matches the
-                      url of the instance (e.g. “<stack_slug>.grafana.net”). Name
-                      of stack. Conventionally matches the url of the instance (e.g.
-                      “<stack_slug>.grafana.net”).
+                    description: |-
+                      (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+                      Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
                     type: string
                   regionSlug:
-                    description: 'cloud/developer-resources/api-reference/cloud-api/#list-regions.
-                      Region slug to assign to this stack. Changing region will destroy
-                      the existing stack and create a new one in the desired region.
-                      Use the region list API to get the list of available regions:
-                      https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.'
+                    description: |-
+                      cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                      Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
                     type: string
                   slug:
-                    description: (String) Subdomain that the Grafana instance will
-                      be available at (i.e. setting slug to “<stack_slug>” will make
-                      the instance available at “https://<stack_slug>.grafana.net".
-                      Subdomain that the Grafana instance will be available at (i.e.
-                      setting slug to “<stack_slug>” will make the instance available
-                      at “https://<stack_slug>.grafana.net".
+                    description: |-
+                      (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+                      available at “https://<stack_slug>.grafana.net".
+                      Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+                      available at “https://<stack_slug>.grafana.net".
                     type: string
                   url:
-                    description: (String) Custom URL for the Grafana instance. Must
-                      have a CNAME setup to point to .grafana.net before creating
-                      the stack Custom URL for the Grafana instance. Must have a CNAME
-                      setup to point to `.grafana.net` before creating the stack
+                    description: |-
+                      (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+                      Custom URL for the Grafana instance. Must have a CNAME setup to point to `.grafana.net` before creating the stack
                     type: string
                   waitForReadiness:
-                    description: (Boolean) Whether to wait for readiness of the stack
-                      after creating it. The check is a HEAD request to the stack
-                      URL (Grafana instance). Defaults to true. Whether to wait for
-                      readiness of the stack after creating it. The check is a HEAD
-                      request to the stack URL (Grafana instance). Defaults to `true`.
+                    description: |-
+                      (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
+                      Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
                     type: boolean
                   waitForReadinessTimeout:
-                    description: (String) How long to wait for readiness (if enabled).
-                      Defaults to 5m0s. How long to wait for readiness (if enabled).
-                      Defaults to `5m0s`.
+                    description: |-
+                      (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+                      How long to wait for readiness (if enabled). Defaults to `5m0s`.
                     type: string
                 type: object
               managementPolicies:
                 default:
                 - '*'
-                description: 'THIS IS A BETA FIELD. It is on by default but can be
-                  opted out through a Crossplane feature flag. ManagementPolicies
-                  specify the array of actions Crossplane is allowed to take on the
-                  managed and external resources. This field is planned to replace
-                  the DeletionPolicy field in a future release. Currently, both could
-                  be set independently and non-default values would be honored if
-                  the feature flag is enabled. If both are custom, the DeletionPolicy
-                  field will be ignored. See the design doc for more information:
-                  https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
-                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
                 items:
-                  description: A ManagementAction represents an action that the Crossplane
-                    controllers can take on an external resource.
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
                   enum:
                   - Observe
                   - Create
@@ -193,9 +192,10 @@ spec:
               providerConfigRef:
                 default:
                   name: default
-                description: ProviderConfigReference specifies how the provider that
-                  will be used to create, observe, update, and delete this managed
-                  resource should be configured.
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
                 properties:
                   name:
                     description: Name of the referenced object.
@@ -205,21 +205,21 @@ spec:
                     properties:
                       resolution:
                         default: Required
-                        description: Resolution specifies whether resolution of this
-                          reference is required. The default is 'Required', which
-                          means the reconcile will fail if the reference cannot be
-                          resolved. 'Optional' means this reference will be a no-op
-                          if it cannot be resolved.
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
                         enum:
                         - Required
                         - Optional
                         type: string
                       resolve:
-                        description: Resolve specifies when this reference should
-                          be resolved. The default is 'IfNotPresent', which will attempt
-                          to resolve the reference only when the corresponding field
-                          is not present. Use 'Always' to resolve the reference on
-                          every reconcile.
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
                         enum:
                         - Always
                         - IfNotPresent
@@ -229,17 +229,19 @@ spec:
                 - name
                 type: object
               publishConnectionDetailsTo:
-                description: PublishConnectionDetailsTo specifies the connection secret
-                  config which contains a name, metadata and a reference to secret
-                  store config to which any connection details for this managed resource
-                  should be written. Connection details frequently include the endpoint,
-                  username, and password required to connect to the managed resource.
+                description: |-
+                  PublishConnectionDetailsTo specifies the connection secret config which
+                  contains a name, metadata and a reference to secret store config to
+                  which any connection details for this managed resource should be written.
+                  Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
                 properties:
                   configRef:
                     default:
                       name: default
-                    description: SecretStoreConfigRef specifies which secret store
-                      config should be used for this ConnectionSecret.
+                    description: |-
+                      SecretStoreConfigRef specifies which secret store config should be used
+                      for this ConnectionSecret.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -249,21 +251,21 @@ spec:
                         properties:
                           resolution:
                             default: Required
-                            description: Resolution specifies whether resolution of
-                              this reference is required. The default is 'Required',
-                              which means the reconcile will fail if the reference
-                              cannot be resolved. 'Optional' means this reference
-                              will be a no-op if it cannot be resolved.
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
                             enum:
                             - Required
                             - Optional
                             type: string
                           resolve:
-                            description: Resolve specifies when this reference should
-                              be resolved. The default is 'IfNotPresent', which will
-                              attempt to resolve the reference only when the corresponding
-                              field is not present. Use 'Always' to resolve the reference
-                              on every reconcile.
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
                             enum:
                             - Always
                             - IfNotPresent
@@ -278,21 +280,22 @@ spec:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Annotations are the annotations to be added to
-                          connection secret. - For Kubernetes secrets, this will be
-                          used as "metadata.annotations". - It is up to Secret Store
-                          implementation for others store types.
+                        description: |-
+                          Annotations are the annotations to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.annotations".
+                          - It is up to Secret Store implementation for others store types.
                         type: object
                       labels:
                         additionalProperties:
                           type: string
-                        description: Labels are the labels/tags to be added to connection
-                          secret. - For Kubernetes secrets, this will be used as "metadata.labels".
-                          - It is up to Secret Store implementation for others store
-                          types.
+                        description: |-
+                          Labels are the labels/tags to be added to connection secret.
+                          - For Kubernetes secrets, this will be used as "metadata.labels".
+                          - It is up to Secret Store implementation for others store types.
                         type: object
                       type:
-                        description: Type is the SecretType for the connection secret.
+                        description: |-
+                          Type is the SecretType for the connection secret.
                           - Only valid for Kubernetes Secret Stores.
                         type: string
                     type: object
@@ -303,14 +306,15 @@ spec:
                 - name
                 type: object
               writeConnectionSecretToRef:
-                description: WriteConnectionSecretToReference specifies the namespace
-                  and name of a Secret to which any connection details for this managed
-                  resource should be written. Connection details frequently include
-                  the endpoint, username, and password required to connect to the
-                  managed resource. This field is planned to be replaced in a future
-                  release in favor of PublishConnectionDetailsTo. Currently, both
-                  could be set independently and connection details would be published
-                  to both without affecting each other.
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                  This field is planned to be replaced in a future release in favor of
+                  PublishConnectionDetailsTo. Currently, both could be set independently
+                  and connection details would be published to both without affecting
+                  each other.
                 properties:
                   name:
                     description: Name of the secret.
@@ -340,27 +344,29 @@ spec:
               atProvider:
                 properties:
                   alertmanagerName:
-                    description: (String) Name of the Alertmanager instance configured
-                      for this stack. Name of the Alertmanager instance configured
-                      for this stack.
+                    description: |-
+                      (String) Name of the Alertmanager instance configured for this stack.
+                      Name of the Alertmanager instance configured for this stack.
                     type: string
                   alertmanagerStatus:
-                    description: (String) Status of the Alertmanager instance configured
-                      for this stack. Status of the Alertmanager instance configured
-                      for this stack.
+                    description: |-
+                      (String) Status of the Alertmanager instance configured for this stack.
+                      Status of the Alertmanager instance configured for this stack.
                     type: string
                   alertmanagerUrl:
-                    description: (String) Base URL of the Alertmanager instance configured
-                      for this stack. Base URL of the Alertmanager instance configured
-                      for this stack.
+                    description: |-
+                      (String) Base URL of the Alertmanager instance configured for this stack.
+                      Base URL of the Alertmanager instance configured for this stack.
                     type: string
                   alertmanagerUserId:
-                    description: (Number) User ID of the Alertmanager instance configured
-                      for this stack. User ID of the Alertmanager instance configured
-                      for this stack.
+                    description: |-
+                      (Number) User ID of the Alertmanager instance configured for this stack.
+                      User ID of the Alertmanager instance configured for this stack.
                     type: number
                   description:
-                    description: (String) Description of stack. Description of stack.
+                    description: |-
+                      (String) Description of stack.
+                      Description of stack.
                     type: string
                   graphiteName:
                     description: (String)
@@ -390,66 +396,71 @@ spec:
                     description: (Number)
                     type: number
                   name:
-                    description: (String) Name of stack. Conventionally matches the
-                      url of the instance (e.g. “<stack_slug>.grafana.net”). Name
-                      of stack. Conventionally matches the url of the instance (e.g.
-                      “<stack_slug>.grafana.net”).
+                    description: |-
+                      (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+                      Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
                     type: string
                   orgId:
-                    description: (Number) Organization id to assign to this stack.
+                    description: |-
+                      (Number) Organization id to assign to this stack.
                       Organization id to assign to this stack.
                     type: number
                   orgName:
-                    description: (String) Organization name to assign to this stack.
+                    description: |-
+                      (String) Organization name to assign to this stack.
                       Organization name to assign to this stack.
                     type: string
                   orgSlug:
-                    description: (String) Organization slug to assign to this stack.
+                    description: |-
+                      (String) Organization slug to assign to this stack.
                       Organization slug to assign to this stack.
                     type: string
                   prometheusName:
-                    description: (String) Prometheus name for this instance. Prometheus
-                      name for this instance.
+                    description: |-
+                      (String) Prometheus name for this instance.
+                      Prometheus name for this instance.
                     type: string
                   prometheusRemoteEndpoint:
-                    description: (String) Use this URL to query hosted metrics data
-                      e.g. Prometheus data source in Grafana Use this URL to query
-                      hosted metrics data e.g. Prometheus data source in Grafana
+                    description: |-
+                      (String) Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
+                      Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
                     type: string
                   prometheusRemoteWriteEndpoint:
-                    description: (String) Use this URL to send prometheus metrics
-                      to Grafana cloud Use this URL to send prometheus metrics to
-                      Grafana cloud
+                    description: |-
+                      (String) Use this URL to send prometheus metrics to Grafana cloud
+                      Use this URL to send prometheus metrics to Grafana cloud
                     type: string
                   prometheusStatus:
-                    description: (String) Prometheus status for this instance. Prometheus
-                      status for this instance.
+                    description: |-
+                      (String) Prometheus status for this instance.
+                      Prometheus status for this instance.
                     type: string
                   prometheusUrl:
-                    description: (String) Prometheus url for this instance. Prometheus
-                      url for this instance.
+                    description: |-
+                      (String) Prometheus url for this instance.
+                      Prometheus url for this instance.
                     type: string
                   prometheusUserId:
-                    description: (Number) Prometheus user ID. Used for e.g. remote_write.
+                    description: |-
+                      (Number) Prometheus user ID. Used for e.g. remote_write.
                       Prometheus user ID. Used for e.g. remote_write.
                     type: number
                   regionSlug:
-                    description: 'cloud/developer-resources/api-reference/cloud-api/#list-regions.
-                      Region slug to assign to this stack. Changing region will destroy
-                      the existing stack and create a new one in the desired region.
-                      Use the region list API to get the list of available regions:
-                      https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.'
+                    description: |-
+                      cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                      Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
                     type: string
                   slug:
-                    description: (String) Subdomain that the Grafana instance will
-                      be available at (i.e. setting slug to “<stack_slug>” will make
-                      the instance available at “https://<stack_slug>.grafana.net".
-                      Subdomain that the Grafana instance will be available at (i.e.
-                      setting slug to “<stack_slug>” will make the instance available
-                      at “https://<stack_slug>.grafana.net".
+                    description: |-
+                      (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+                      available at “https://<stack_slug>.grafana.net".
+                      Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
+                      available at “https://<stack_slug>.grafana.net".
                     type: string
                   status:
-                    description: (String) Status of the stack. Status of the stack.
+                    description: |-
+                      (String) Status of the stack.
+                      Status of the stack.
                     type: string
                   tracesName:
                     description: (String)
@@ -458,32 +469,27 @@ spec:
                     description: (String)
                     type: string
                   tracesUrl:
-                    description: (String) Base URL of the Traces instance configured
-                      for this stack. To use this in the Tempo data source in Grafana,
-                      append /tempo to the URL. Base URL of the Traces instance configured
-                      for this stack. To use this in the Tempo data source in Grafana,
-                      append `/tempo` to the URL.
+                    description: |-
+                      (String) Base URL of the Traces instance configured for this stack. To use this in the Tempo data source in Grafana, append /tempo to the URL.
+                      Base URL of the Traces instance configured for this stack. To use this in the Tempo data source in Grafana, append `/tempo` to the URL.
                     type: string
                   tracesUserId:
                     description: (Number)
                     type: number
                   url:
-                    description: (String) Custom URL for the Grafana instance. Must
-                      have a CNAME setup to point to .grafana.net before creating
-                      the stack Custom URL for the Grafana instance. Must have a CNAME
-                      setup to point to `.grafana.net` before creating the stack
+                    description: |-
+                      (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+                      Custom URL for the Grafana instance. Must have a CNAME setup to point to `.grafana.net` before creating the stack
                     type: string
                   waitForReadiness:
-                    description: (Boolean) Whether to wait for readiness of the stack
-                      after creating it. The check is a HEAD request to the stack
-                      URL (Grafana instance). Defaults to true. Whether to wait for
-                      readiness of the stack after creating it. The check is a HEAD
-                      request to the stack URL (Grafana instance). Defaults to `true`.
+                    description: |-
+                      (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
+                      Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
                     type: boolean
                   waitForReadinessTimeout:
-                    description: (String) How long to wait for readiness (if enabled).
-                      Defaults to 5m0s. How long to wait for readiness (if enabled).
-                      Defaults to `5m0s`.
+                    description: |-
+                      (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+                      How long to wait for readiness (if enabled). Defaults to `5m0s`.
                     type: string
                 type: object
               conditions:
@@ -492,13 +498,15 @@ spec:
                   description: A Condition that may apply to a resource.
                   properties:
                     lastTransitionTime:
-                      description: LastTransitionTime is the last time this condition
-                        transitioned from one status to another.
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
                       format: date-time
                       type: string
                     message:
-                      description: A Message containing details about this condition's
-                        last transition from one status to another, if any.
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
                       type: string
                     reason:
                       description: A Reason for this condition's last transition from
@@ -509,8 +517,9 @@ spec:
                         False, or Unknown?
                       type: string
                     type:
-                      description: Type of this condition. At most one of each condition
-                        type may apply to a resource at any point in time.
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
                       type: string
                   required:
                   - lastTransitionTime
