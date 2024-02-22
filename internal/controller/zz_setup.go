@@ -26,6 +26,9 @@ import (
 	role "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/role"
 	roleassignment "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignment"
 	teamexternalgroup "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/teamexternalgroup"
+	holiday "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/holiday"
+	job "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/job"
+	outlierdetector "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/outlierdetector"
 	escalation "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/escalation"
 	escalationchain "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/escalationchain"
 	integration "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/integration"
@@ -52,6 +55,7 @@ import (
 	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
+	slo "github.com/grafana/crossplane-provider-grafana/internal/controller/slo/slo"
 	check "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/check"
 	installation "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/installation"
 	probe "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/probe"
@@ -78,6 +82,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		role.Setup,
 		roleassignment.Setup,
 		teamexternalgroup.Setup,
+		holiday.Setup,
+		job.Setup,
+		outlierdetector.Setup,
 		escalation.Setup,
 		escalationchain.Setup,
 		integration.Setup,
@@ -104,6 +111,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,
+		slo.Setup,
 		check.Setup,
 		installation.Setup,
 		probe.Setup,
