@@ -11,6 +11,9 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *Annotation) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *APIKey) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -18,6 +21,9 @@ func (tr *Dashboard) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *DashboardPermission) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *DashboardPublic) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *DataSource) Hub() {}
@@ -29,10 +35,16 @@ func (tr *Folder) Hub() {}
 func (tr *FolderPermission) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *LibraryPanel) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Organization) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *OrganizationPreferences) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Playlist) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccount) Hub() {}
@@ -42,6 +54,9 @@ func (tr *ServiceAccountPermission) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccountToken) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SsoSettings) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Team) Hub() {}

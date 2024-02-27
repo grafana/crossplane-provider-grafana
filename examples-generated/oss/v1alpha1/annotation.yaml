@@ -1,0 +1,11 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Annotation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/annotation
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    text: basic text
