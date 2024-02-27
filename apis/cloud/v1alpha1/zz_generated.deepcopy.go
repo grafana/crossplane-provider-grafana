@@ -237,6 +237,22 @@ func (in *StackInitParameters) DeepCopyInto(out *StackInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Labels != nil {
+		in, out := &in.Labels, &out.Labels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -364,6 +380,22 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.Labels != nil {
+		in, out := &in.Labels, &out.Labels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.LogsName != nil {
 		in, out := &in.LogsName, &out.LogsName
 		*out = new(string)
@@ -402,6 +434,31 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 	if in.OrgSlug != nil {
 		in, out := &in.OrgSlug, &out.OrgSlug
 		*out = new(string)
+		**out = **in
+	}
+	if in.OtlpURL != nil {
+		in, out := &in.OtlpURL, &out.OtlpURL
+		*out = new(string)
+		**out = **in
+	}
+	if in.ProfilesName != nil {
+		in, out := &in.ProfilesName, &out.ProfilesName
+		*out = new(string)
+		**out = **in
+	}
+	if in.ProfilesStatus != nil {
+		in, out := &in.ProfilesStatus, &out.ProfilesStatus
+		*out = new(string)
+		**out = **in
+	}
+	if in.ProfilesURL != nil {
+		in, out := &in.ProfilesURL, &out.ProfilesURL
+		*out = new(string)
+		**out = **in
+	}
+	if in.ProfilesUserID != nil {
+		in, out := &in.ProfilesUserID, &out.ProfilesUserID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.PrometheusName != nil {
@@ -503,6 +560,22 @@ func (in *StackParameters) DeepCopyInto(out *StackParameters) {
 		in, out := &in.Description, &out.Description
 		*out = new(string)
 		**out = **in
+	}
+	if in.Labels != nil {
+		in, out := &in.Labels, &out.Labels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name

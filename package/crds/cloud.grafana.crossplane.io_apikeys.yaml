@@ -34,8 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: APIKey is the Schema for the APIKeys API. Manages a single API
-          key on the Grafana Cloud portal (on the organization level)
+        description: APIKey is the Schema for the APIKeys API. This resource is deprecated
+          and will be removed in a future release. Please use grafanacloudaccess_policy
+          instead. Manages a single API key on the Grafana Cloud portal (on the organization
+          level)
         properties:
           apiVersion:
             description: |-

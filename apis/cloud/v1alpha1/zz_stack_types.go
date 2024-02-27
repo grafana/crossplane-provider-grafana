@@ -23,6 +23,11 @@ type StackInitParameters struct {
 	// Description of stack.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.
+	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
 	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
 	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -87,6 +92,11 @@ type StackObservation struct {
 	// (String) The stack id assigned to this stack by Grafana.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.
+	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
 	// (String)
 	LogsName *string `json:"logsName,omitempty" tf:"logs_name,omitempty"`
 
@@ -114,6 +124,22 @@ type StackObservation struct {
 	// (String) Organization slug to assign to this stack.
 	// Organization slug to assign to this stack.
 	OrgSlug *string `json:"orgSlug,omitempty" tf:"org_slug,omitempty"`
+
+	// cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
+	// Base URL of the OTLP instance configured for this stack. See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
+	OtlpURL *string `json:"otlpUrl,omitempty" tf:"otlp_url,omitempty"`
+
+	// (String)
+	ProfilesName *string `json:"profilesName,omitempty" tf:"profiles_name,omitempty"`
+
+	// (String)
+	ProfilesStatus *string `json:"profilesStatus,omitempty" tf:"profiles_status,omitempty"`
+
+	// (String)
+	ProfilesURL *string `json:"profilesUrl,omitempty" tf:"profiles_url,omitempty"`
+
+	// (Number)
+	ProfilesUserID *float64 `json:"profilesUserId,omitempty" tf:"profiles_user_id,omitempty"`
 
 	// (String) Prometheus name for this instance.
 	// Prometheus name for this instance.
@@ -185,6 +211,12 @@ type StackParameters struct {
 	// Description of stack.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.
+	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
 	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).

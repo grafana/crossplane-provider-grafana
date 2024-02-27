@@ -159,6 +159,14 @@ spec:
                       List of dashboards to render into the report
                     items:
                       properties:
+                        reportVariables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Add report variables to the dashboard. Values should be separated by commas.
+                            Add report variables to the dashboard. Values should be separated by commas.
+                          type: object
+                          x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
                             (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
@@ -328,8 +336,8 @@ spec:
                           type: string
                         endTime:
                           description: |-
-                            (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
-                            End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+                            01-02T15:04:05 format if you want to set a custom timezone
+                            End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
                           type: string
                         frequency:
                           description: |-
@@ -343,8 +351,13 @@ spec:
                           type: boolean
                         startTime:
                           description: |-
-                            (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
-                            Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+                            01-02T15:04:05 format if you want to set a custom timezone
+                            Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
+                          type: string
+                        timezone:
+                          description: |-
+                            (String) Set the report time zone. Defaults to GMT.
+                            Set the report time zone. Defaults to `GMT`.
                           type: string
                         workdaysOnly:
                           description: |-
@@ -470,6 +483,14 @@ spec:
                       List of dashboards to render into the report
                     items:
                       properties:
+                        reportVariables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Add report variables to the dashboard. Values should be separated by commas.
+                            Add report variables to the dashboard. Values should be separated by commas.
+                          type: object
+                          x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
                             (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
@@ -639,8 +660,8 @@ spec:
                           type: string
                         endTime:
                           description: |-
-                            (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
-                            End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+                            01-02T15:04:05 format if you want to set a custom timezone
+                            End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
                           type: string
                         frequency:
                           description: |-
@@ -654,8 +675,13 @@ spec:
                           type: boolean
                         startTime:
                           description: |-
-                            (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
-                            Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+                            01-02T15:04:05 format if you want to set a custom timezone
+                            Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
+                          type: string
+                        timezone:
+                          description: |-
+                            (String) Set the report time zone. Defaults to GMT.
+                            Set the report time zone. Defaults to `GMT`.
                           type: string
                         workdaysOnly:
                           description: |-
@@ -879,6 +905,14 @@ spec:
                       List of dashboards to render into the report
                     items:
                       properties:
+                        reportVariables:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Add report variables to the dashboard. Values should be separated by commas.
+                            Add report variables to the dashboard. Values should be separated by commas.
+                          type: object
+                          x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
                             (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
@@ -977,8 +1011,8 @@ spec:
                           type: string
                         endTime:
                           description: |-
-                            (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
-                            End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+                            01-02T15:04:05 format if you want to set a custom timezone
+                            End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
                           type: string
                         frequency:
                           description: |-
@@ -992,8 +1026,13 @@ spec:
                           type: boolean
                         startTime:
                           description: |-
-                            (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
-                            Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+                            01-02T15:04:05 format if you want to set a custom timezone
+                            Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
+                          type: string
+                        timezone:
+                          description: |-
+                            (String) Set the report time zone. Defaults to GMT.
+                            Set the report time zone. Defaults to `GMT`.
                           type: string
                         workdaysOnly:
                           description: |-
