@@ -61,7 +61,11 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_cloud_stack_service_account_token": ReplaceGroupWords("cloud", 1),
 
 	// Enterprise
-	"grafana_report": ReplaceGroupWords("enterprise", 0),
+	"grafana_data_source_permission": ReplaceGroupWords("enterprise", 0),
+	"grafana_report":                 ReplaceGroupWords("enterprise", 0),
+	"grafana_role":                   ReplaceGroupWords("enterprise", 0),
+	"grafana_role_assignment":        ReplaceGroupWords("enterprise", 0),
+	"grafana_team_external_group":    ReplaceGroupWords("enterprise", 0),
 
 	// OnCall
 	"grafana_oncall_escalation":       ReplaceGroupWords("oncall", 1),

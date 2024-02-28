@@ -1,0 +1,22 @@
+apiVersion: enterprise.grafana.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: super_user
+  name: super-user
+spec:
+  forProvider:
+    description: My Super User description
+    global: true
+    name: Super User
+    permissions:
+    - action: org.users:add
+      scope: users:*
+    - action: org.users:write
+      scope: users:*
+    - action: org.users:read
+      scope: users:*
+    uid: superuseruid
+    version: 1

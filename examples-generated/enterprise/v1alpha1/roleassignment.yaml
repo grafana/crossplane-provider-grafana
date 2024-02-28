@@ -1,0 +1,87 @@
+apiVersion: enterprise.grafana.crossplane.io/v1alpha1
+kind: RoleAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    roleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_role
+    serviceAccountRefs:
+    - name: test_sa
+    teamRefs:
+    - name: test_team
+    userRefs:
+    - name: test_user
+
+---
+
+apiVersion: enterprise.grafana.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: test_role
+  name: test-role
+spec:
+  forProvider:
+    global: true
+    name: Test Role
+    permissions:
+    - action: org.users:add
+      scope: users:*
+    uid: testrole
+    version: 1
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: ServiceAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: test_sa
+  name: test-sa
+spec:
+  forProvider:
+    name: terraform_test_sa
+    role: Viewer
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: test_team
+  name: test-team
+spec:
+  forProvider:
+    name: terraform_test_team
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/roleassignment
+  labels:
+    testing.upbound.io/example-name: test_user
+  name: test-user
+spec:
+  forProvider:
+    email: terraform_user@test.com
+    login: terraform_user@test.com
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

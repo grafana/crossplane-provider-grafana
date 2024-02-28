@@ -18,7 +18,11 @@ import (
 	stack "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stack"
 	stackserviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccount"
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccounttoken"
+	datasourcepermission "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/datasourcepermission"
 	report "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/report"
+	role "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/role"
+	roleassignment "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignment"
+	teamexternalgroup "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/teamexternalgroup"
 	escalation "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/escalation"
 	escalationchain "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/escalationchain"
 	integration "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/integration"
@@ -58,7 +62,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		stack.Setup,
 		stackserviceaccount.Setup,
 		stackserviceaccounttoken.Setup,
+		datasourcepermission.Setup,
 		report.Setup,
+		role.Setup,
+		roleassignment.Setup,
+		teamexternalgroup.Setup,
 		escalation.Setup,
 		escalationchain.Setup,
 		integration.Setup,

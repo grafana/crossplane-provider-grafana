@@ -193,6 +193,23 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "UserSelector",
 		}
 	})
+	p.AddResourceConfigurator("grafana_data_source_permission", func(r *ujconfig.Resource) {
+		r.References["datasource_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_data_source",
+			RefFieldName:      "DataSourceRef",
+			SelectorFieldName: "DataSourceSelector",
+		}
+		r.References["permissions.team_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}
+		r.References["permissions.user_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_user",
+			RefFieldName:      "UserRef",
+			SelectorFieldName: "UserSelector",
+		}
+	})
 	p.AddResourceConfigurator("grafana_folder", func(r *ujconfig.Resource) {
 		r.References["parent_folder_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
@@ -236,6 +253,29 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
 	})
+	p.AddResourceConfigurator("grafana_role_assignment", func(r *ujconfig.Resource) {
+		r.References["role_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_role",
+			RefFieldName:      "RoleRef",
+			SelectorFieldName: "RoleSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+		r.References["service_accounts"] = ujconfig.Reference{
+			TerraformName:     "grafana_service_account",
+			RefFieldName:      "ServiceAccountRefs",
+			SelectorFieldName: "ServiceAccountSelector",
+		}
+		r.References["teams"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRefs",
+			SelectorFieldName: "TeamSelector",
+		}
+		r.References["users"] = ujconfig.Reference{
+			TerraformName:     "grafana_user",
+			RefFieldName:      "UserRefs",
+			SelectorFieldName: "UserSelector",
+		}
+	})
 	p.AddResourceConfigurator("grafana_rule_group", func(r *ujconfig.Resource) {
 		r.References["folder_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
@@ -250,6 +290,13 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "MemberRefs",
 			SelectorFieldName: "MemberSelector",
 			Extractor:         SelfPackagePath + ".UserEmailExtractor()",
+		}
+	})
+	p.AddResourceConfigurator("grafana_team_external_group", func(r *ujconfig.Resource) {
+		r.References["team_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
 		}
 	})
 	p.AddResourceConfigurator("grafana_synthetic_monitoring_installation", func(r *ujconfig.Resource) {
