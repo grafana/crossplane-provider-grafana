@@ -11,22 +11,11 @@ spec:
     cloudStackSelector:
       matchLabels:
         testing.upbound.io/example-name: sm_stack
-
----
-
-apiVersion: cloud.grafana.crossplane.io/v1alpha1
-kind: APIKey
-metadata:
-  annotations:
-    meta.upbound.io/example-id: sm/v1alpha1/installation
-  labels:
-    testing.upbound.io/example-name: metrics_publish
-  name: metrics-publish
-spec:
-  forProvider:
-    cloudOrgSlug: <org-slug>
-    name: MetricsPublisherForSM
-    role: MetricsPublisher
+    metricsPublisherKeySecretRef:
+      key: attribute.token
+      name: example-cloud-access-policy-token
+      namespace: upbound-system
+    provider: ${grafana.cloud}
 
 ---
 
@@ -40,6 +29,7 @@ metadata:
   name: sm-stack
 spec:
   forProvider:
-    name: <stack-name>
-    regionSlug: us
-    slug: <stack-slug>
+    name: ${var.stack_slug}
+    provider: ${grafana.cloud}
+    regionSlug: ${var.cloud_region}
+    slug: ${var.stack_slug}

@@ -157,7 +157,7 @@ resources:
         importStatements: []
     grafana_cloud_api_key:
         subCategory: Cloud
-        description: Manages a single API key on the Grafana Cloud portal (on the organization level)
+        description: This resource is deprecated and will be removed in a future release. Please use grafanacloudaccess_policy instead. Manages a single API key on the Grafana Cloud portal (on the organization level)
         name: grafana_cloud_api_key
         title: grafana_cloud_api_key Resource - terraform-provider-grafana
         examples:
@@ -221,6 +221,7 @@ resources:
             graphite_url: (String)
             graphite_user_id: (Number)
             id: (String) The stack id assigned to this stack by Grafana.
+            labels: '(Map of String) A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.'
             logs_name: (String)
             logs_status: (String)
             logs_url: (String)
@@ -229,6 +230,11 @@ resources:
             org_id: (Number) Organization id to assign to this stack.
             org_name: (String) Organization name to assign to this stack.
             org_slug: (String) Organization slug to assign to this stack.
+            otlp_url: (String) Base URL of the OTLP instance configured for this stack. See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
+            profiles_name: (String)
+            profiles_status: (String)
+            profiles_url: (String)
+            profiles_user_id: (Number)
             prometheus_name: (String) Prometheus name for this instance.
             prometheus_remote_endpoint: (String) Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
             prometheus_remote_write_endpoint: (String) Use this URL to send prometheus metrics to Grafana cloud
@@ -1157,7 +1163,7 @@ resources:
               terraform import grafana_notification_policy.notification_policy_name "policy"
     grafana_oncall_escalation:
         subCategory: OnCall
-        description: Official documentation https://grafana.com/docs/oncall/latest/escalation-chains-and-routes/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/escalation_policies/
+        description: Official documentation https://grafana.com/docs/oncall/latest/configure/escalation-chains-and-routes/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/escalation_policies/
         name: grafana_oncall_escalation
         title: grafana_oncall_escalation Resource - terraform-provider-grafana
         examples:
@@ -1357,6 +1363,7 @@ resources:
                   ],
                   "duration": "${60 * 60 * 12}",
                   "frequency": "weekly",
+                  "interval": 1,
                   "name": "EMEA Weekday Shift",
                   "rolling_users": "${[for k in flatten([\n    local.teams_map_of_user_id.emea,\n  ]) : [k]]}",
                   "start": "2022-02-28T03:00:00",
@@ -1369,7 +1376,7 @@ resources:
             by_month: (Set of Number) This parameter takes a list of months. Valid values are 1 to 12
             by_monthday: (Set of Number) This parameter takes a list of days of the month.  Valid values are 1 to 31 or -31 to -1
             duration: (Number) The duration of the event.
-            frequency: (String) The frequency of the event. Can be daily, weekly, monthly
+            frequency: (String) The frequency of the event. Can be hourly, daily, weekly, monthly
             id: (String) The ID of this resource.
             interval: (Number) The positive integer representing at which intervals the recurrence rule repeats.
             level: (Number) The priority level. The higher the value, the higher the priority.
@@ -1669,7 +1676,7 @@ resources:
               dependencies:
                 grafana_dashboard.test: |-
                     {
-                      "config_json": "{\n  \"title\": \"Dashboard for report\",\n  \"uid\": \"report\"\n}\n",
+                      "config_json": "{\n  \"uid\": \"report-dashboard\",\n  \"title\": \"report-dashboard\"\n}\n",
                       "message": "inital commit."
                     }
         argumentDocs:
@@ -1679,7 +1686,7 @@ resources:
             dashboard_id: (Number, Deprecated) Dashboard to be sent in the report. This field is deprecated, use dashboard_uid instead.
             dashboard_uid: (String, Deprecated) Dashboard to be sent in the report.
             dashboards: (Block List) List of dashboards to render into the report (see below for nested schema)
-            end_time: (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+            end_time: (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
             formats: '(Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.'
             frequency: '(String) Frequency of the report. Allowed values: never, once, hourly, daily, weekly, monthly, custom.'
             from: (String) Start of the time range.
@@ -1694,9 +1701,11 @@ resources:
             orientation: '(String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.'
             recipients: (List of String) List of recipients of the report.
             reply_to: (String) Reply-to email address of the report.
+            report_variables: (Map of String) Add report variables to the dashboard. Values should be separated by commas.
             schedule: '(Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)'
-            start_time: (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+            start_time: (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
             time_range: '(Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)'
+            timezone: (String) Set the report time zone. Defaults to GMT.
             to: (String) End of the time range.
             uid: (String) Dashboard uid.
             workdays_only: (Boolean) Whether to send the report only on work days. Defaults to false.
@@ -2193,6 +2202,68 @@ resources:
             value: (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
             window: (String) A Prometheus-parsable time duration string like 24h, 60m. This is the time window the objective is measured over.
         importStatements: []
+    grafana_sso_settings:
+        subCategory: Grafana OSS
+        description: Manages Grafana SSO Settings for OAuth2. SAML support will be added soon. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+        name: grafana_sso_settings
+        title: grafana_sso_settings Resource - terraform-provider-grafana
+        examples:
+            - name: github_sso_settings
+              manifest: |-
+                {
+                  "oauth2_settings": [
+                    {
+                      "allowed_organizations": "organization1,organization2",
+                      "client_id": "github_client_id",
+                      "client_secret": "github_client_secret",
+                      "team_ids": "12,50,123"
+                    }
+                  ],
+                  "provider_name": "github"
+                }
+        argumentDocs:
+            allow_assign_grafana_admin: (Boolean) If enabled, it will automatically sync the Grafana server administrator role.
+            allow_sign_up: (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+            allowed_domains: (String) List of comma- or space-separated domains. The user should belong to at least one domain to log in.
+            allowed_groups: (String) List of comma- or space-separated groups. The user should be a member of at least one group to log in. For Generic OAuth, if you configure allowed_groups, you must also configure groups_attribute_path.
+            allowed_organizations: (String) List of comma- or space-separated organizations. The user should be a member of at least one organization to log in.
+            api_url: (String) The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+            auth_style: (String) It determines how client_id and client_secret are sent to Oauth2 provider. Possible values are AutoDetect, InParams, InHeader. Default is AutoDetect.
+            auth_url: (String) The authorization endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+            auto_login: (Boolean) Log in automatically, skipping the login screen.
+            client_id: (String) The client Id of your OAuth2 app.
+            client_secret: (String, Sensitive) The client secret of your OAuth2 app.
+            custom: (Map of String) Custom fields to configure for OAuth2 such as the force_use_graph_api field.
+            define_allowed_groups: (Boolean) Define allowed groups.
+            define_allowed_teams_ids: (Boolean) Define allowed teams ids.
+            email_attribute_name: (String) Name of the key to use for user email lookup within the attributes map of OAuth2 ID token. Only applicable to Generic OAuth.
+            email_attribute_path: (String) JMESPath expression to use for user email lookup from the user information. Only applicable to Generic OAuth.
+            empty_scopes: (Boolean) If enabled, no scopes will be sent to the OAuth2 provider.
+            enabled: (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+            groups_attribute_path: (String) JMESPath expression to use for user group lookup. If you configure allowed_groups, you must also configure groups_attribute_path.
+            id: (String) The ID of this resource.
+            id_token_attribute_name: (String) The name of the key used to extract the ID token from the returned OAuth2 token. Only applicable to Generic OAuth.
+            login_attribute_path: (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
+            name: (String) Helpful if you use more than one identity providers or SSO protocols.
+            name_attribute_path: (String) JMESPath expression to use for user name lookup from the user ID token. This name will be used as the user’s display name. Only applicable to Generic OAuth.
+            oauth2_settings: '(Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)'
+            provider_name: '(String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.'
+            role_attribute_path: (String) JMESPath expression to use for Grafana role lookup.
+            role_attribute_strict: (Boolean) If enabled, denies user login if the Grafana role cannot be extracted using Role attribute path.
+            scopes: (String) List of comma- or space-separated OAuth2 scopes.
+            signout_redirect_url: (String) The URL to redirect the user to after signing out from Grafana.
+            skip_org_role_sync: (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+            team_ids: (String) String list of Team Ids. If set, the user must be a member of one of the given teams to log in. If you configure team_ids, you must also configure teams_url and team_ids_attribute_path.
+            team_ids_attribute_path: (String) The JMESPath expression to use for Grafana Team Id lookup within the results returned by the teams_url endpoint. Only applicable to Generic OAuth.
+            teams_url: (String) The URL used to query for Team Ids. If not set, the default value is /teams. If you configure teams_url, you must also configure team_ids_attribute_path. Only applicable to Generic OAuth.
+            tls_client_ca: (String) The path to the trusted certificate authority list. Is not applicable on Grafana Cloud.
+            tls_client_cert: (String) The path to the certificate. Is not applicable on Grafana Cloud.
+            tls_client_key: (String) The path to the key. Is not applicable on Grafana Cloud.
+            tls_skip_verify_insecure: (Boolean) If enabled, the client accepts any certificate presented by the server and any host name in that certificate. You should only use this for testing, because this mode leaves SSL/TLS susceptible to man-in-the-middle attacks.
+            token_url: (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+            use_pkce: (Boolean) If enabled, Grafana will use Proof Key for Code Exchange (PKCE) with the OAuth2 Authorization Code Grant.
+            use_refresh_token: (Boolean) If enabled, Grafana will fetch a new access token using the refresh token provided by the OAuth2 provider.
+        importStatements: []
     grafana_synthetic_monitoring_check:
         subCategory: Synthetic Monitoring
         description: Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/checks/
@@ -2619,26 +2690,48 @@ resources:
             - name: sm_stack
               manifest: |-
                 {
+                  "metrics_publisher_key": "${grafana_cloud_access_policy_token.sm_metrics_publish.token}",
+                  "provider": "${grafana.cloud}",
                   "stack_id": "${grafana_cloud_stack.sm_stack.id}"
                 }
               references:
+                metrics_publisher_key: grafana_cloud_access_policy_token.sm_metrics_publish.token
+                provider: grafana.cloud
                 stack_id: grafana_cloud_stack.sm_stack.id
               dependencies:
-                grafana_cloud_api_key.metrics_publish: |-
+                grafana_cloud_access_policy.sm_metrics_publish: |-
                     {
-                      "cloud_org_slug": "\u003corg-slug\u003e",
-                      "name": "MetricsPublisherForSM",
-                      "role": "MetricsPublisher"
+                      "name": "metric-publisher-for-sm",
+                      "provider": "${grafana.cloud}",
+                      "realm": [
+                        {
+                          "identifier": "${grafana_cloud_stack.sm_stack.id}",
+                          "type": "stack"
+                        }
+                      ],
+                      "region": "${var.cloud_region}",
+                      "scopes": [
+                        "metrics:write",
+                        "stacks:read"
+                      ]
+                    }
+                grafana_cloud_access_policy_token.sm_metrics_publish: |-
+                    {
+                      "access_policy_id": "${grafana_cloud_access_policy.sm_metrics_publish.policy_id}",
+                      "name": "metric-publisher-for-sm",
+                      "provider": "${grafana.cloud}",
+                      "region": "${var.cloud_region}"
                     }
                 grafana_cloud_stack.sm_stack: |-
                     {
-                      "name": "\u003cstack-name\u003e",
-                      "region_slug": "us",
-                      "slug": "\u003cstack-slug\u003e"
+                      "name": "${var.stack_slug}",
+                      "provider": "${grafana.cloud}",
+                      "region_slug": "${var.cloud_region}",
+                      "slug": "${var.stack_slug}"
                     }
         argumentDocs:
             id: (String) The ID of this resource.
-            metrics_publisher_key: (String, Sensitive) The Cloud API Key with the MetricsPublisher role used to publish metrics to the SM API
+            metrics_publisher_key: '(String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.'
             sm_access_token: (String) Generated token to access the SM API.
             stack_id: (String) The ID or slug of the stack to install SM on.
             stack_sm_api_url: '(String) The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack''s region, this field is computed automatically and readable.'

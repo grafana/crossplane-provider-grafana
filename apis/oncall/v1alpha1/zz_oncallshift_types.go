@@ -38,8 +38,8 @@ type OnCallShiftInitParameters struct {
 	// The duration of the event.
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (String) The frequency of the event. Can be daily, weekly, monthly
-	// The frequency of the event. Can be daily, weekly, monthly
+	// (String) The frequency of the event. Can be hourly, daily, weekly, monthly
+	// The frequency of the event. Can be hourly, daily, weekly, monthly
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
 	// (Number) The positive integer representing at which intervals the recurrence rule repeats.
@@ -109,8 +109,8 @@ type OnCallShiftObservation struct {
 	// The duration of the event.
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (String) The frequency of the event. Can be daily, weekly, monthly
-	// The frequency of the event. Can be daily, weekly, monthly
+	// (String) The frequency of the event. Can be hourly, daily, weekly, monthly
+	// The frequency of the event. Can be hourly, daily, weekly, monthly
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
 	// (String) The ID of this resource.
@@ -187,8 +187,8 @@ type OnCallShiftParameters struct {
 	// +kubebuilder:validation:Optional
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (String) The frequency of the event. Can be daily, weekly, monthly
-	// The frequency of the event. Can be daily, weekly, monthly
+	// (String) The frequency of the event. Can be hourly, daily, weekly, monthly
+	// The frequency of the event. Can be hourly, daily, weekly, monthly
 	// +kubebuilder:validation:Optional
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 

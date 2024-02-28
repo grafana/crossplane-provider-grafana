@@ -95,7 +95,7 @@ type APIKeyStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// APIKey is the Schema for the APIKeys API. Manages a single API key on the Grafana Cloud portal (on the organization level)
+// APIKey is the Schema for the APIKeys API. This resource is deprecated and will be removed in a future release. Please use grafanacloudaccess_policy instead. Manages a single API key on the Grafana Cloud portal (on the organization level)
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -67,8 +67,8 @@ type InstallationParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
-	// (String, Sensitive) The Cloud API Key with the MetricsPublisher role used to publish metrics to the SM API
-	// The Cloud API Key with the `MetricsPublisher` role used to publish metrics to the SM API
+	// (String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.
+	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) with the following scopes: `stacks:read`, `metrics:write`, `logs:write`, `traces:write`. This is used to publish metrics and logs to Grafana Cloud stack.
 	// +kubebuilder:validation:Optional
 	MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
 

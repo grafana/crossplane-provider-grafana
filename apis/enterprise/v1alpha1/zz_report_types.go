@@ -19,6 +19,11 @@ import (
 
 type DashboardsInitParameters struct {
 
+	// (Map of String) Add report variables to the dashboard. Values should be separated by commas.
+	// Add report variables to the dashboard. Values should be separated by commas.
+	// +mapType=granular
+	ReportVariables map[string]*string `json:"reportVariables,omitempty" tf:"report_variables,omitempty"`
+
 	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
 	// Time range of the report.
 	TimeRange []TimeRangeInitParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
@@ -30,6 +35,11 @@ type DashboardsInitParameters struct {
 
 type DashboardsObservation struct {
 
+	// (Map of String) Add report variables to the dashboard. Values should be separated by commas.
+	// Add report variables to the dashboard. Values should be separated by commas.
+	// +mapType=granular
+	ReportVariables map[string]*string `json:"reportVariables,omitempty" tf:"report_variables,omitempty"`
+
 	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
 	// Time range of the report.
 	TimeRange []TimeRangeObservation `json:"timeRange,omitempty" tf:"time_range,omitempty"`
@@ -40,6 +50,12 @@ type DashboardsObservation struct {
 }
 
 type DashboardsParameters struct {
+
+	// (Map of String) Add report variables to the dashboard. Values should be separated by commas.
+	// Add report variables to the dashboard. Values should be separated by commas.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	ReportVariables map[string]*string `json:"reportVariables,omitempty" tf:"report_variables,omitempty"`
 
 	// (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
 	// Time range of the report.
@@ -338,8 +354,8 @@ type ScheduleInitParameters struct {
 	// **Note:** This field is only available when frequency is set to `custom`.
 	CustomInterval *string `json:"customInterval,omitempty" tf:"custom_interval,omitempty"`
 
-	// (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
-	// End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+	// 01-02T15:04:05 format if you want to set a custom timezone
+	// End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	EndTime *string `json:"endTime,omitempty" tf:"end_time,omitempty"`
 
 	// (String) Frequency of the report. Allowed values: never, once, hourly, daily, weekly, monthly, custom.
@@ -350,9 +366,13 @@ type ScheduleInitParameters struct {
 	// Send the report on the last day of the month Defaults to `false`.
 	LastDayOfMonth *bool `json:"lastDayOfMonth,omitempty" tf:"last_day_of_month,omitempty"`
 
-	// (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
-	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+	// 01-02T15:04:05 format if you want to set a custom timezone
+	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
+
+	// (String) Set the report time zone. Defaults to GMT.
+	// Set the report time zone. Defaults to `GMT`.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// (Boolean) Whether to send the report only on work days. Defaults to false.
 	// Whether to send the report only on work days. Defaults to `false`.
@@ -367,8 +387,8 @@ type ScheduleObservation struct {
 	// **Note:** This field is only available when frequency is set to `custom`.
 	CustomInterval *string `json:"customInterval,omitempty" tf:"custom_interval,omitempty"`
 
-	// (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
-	// End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+	// 01-02T15:04:05 format if you want to set a custom timezone
+	// End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	EndTime *string `json:"endTime,omitempty" tf:"end_time,omitempty"`
 
 	// (String) Frequency of the report. Allowed values: never, once, hourly, daily, weekly, monthly, custom.
@@ -379,9 +399,13 @@ type ScheduleObservation struct {
 	// Send the report on the last day of the month Defaults to `false`.
 	LastDayOfMonth *bool `json:"lastDayOfMonth,omitempty" tf:"last_day_of_month,omitempty"`
 
-	// (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
-	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+	// 01-02T15:04:05 format if you want to set a custom timezone
+	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
+
+	// (String) Set the report time zone. Defaults to GMT.
+	// Set the report time zone. Defaults to `GMT`.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// (Boolean) Whether to send the report only on work days. Defaults to false.
 	// Whether to send the report only on work days. Defaults to `false`.
@@ -397,8 +421,8 @@ type ScheduleParameters struct {
 	// +kubebuilder:validation:Optional
 	CustomInterval *string `json:"customInterval,omitempty" tf:"custom_interval,omitempty"`
 
-	// (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
-	// End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana.
+	// 01-02T15:04:05 format if you want to set a custom timezone
+	// End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	// +kubebuilder:validation:Optional
 	EndTime *string `json:"endTime,omitempty" tf:"end_time,omitempty"`
 
@@ -412,10 +436,15 @@ type ScheduleParameters struct {
 	// +kubebuilder:validation:Optional
 	LastDayOfMonth *bool `json:"lastDayOfMonth,omitempty" tf:"last_day_of_month,omitempty"`
 
-	// (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
-	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana.
+	// 01-02T15:04:05 format if you want to set a custom timezone
+	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	// +kubebuilder:validation:Optional
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
+
+	// (String) Set the report time zone. Defaults to GMT.
+	// Set the report time zone. Defaults to `GMT`.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// (Boolean) Whether to send the report only on work days. Defaults to false.
 	// Whether to send the report only on work days. Defaults to `false`.

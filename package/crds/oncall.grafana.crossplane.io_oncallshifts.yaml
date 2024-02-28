@@ -104,8 +104,8 @@ spec:
                     type: number
                   frequency:
                     description: |-
-                      (String) The frequency of the event. Can be daily, weekly, monthly
-                      The frequency of the event. Can be daily, weekly, monthly
+                      (String) The frequency of the event. Can be hourly, daily, weekly, monthly
+                      The frequency of the event. Can be hourly, daily, weekly, monthly
                     type: string
                   interval:
                     description: |-
@@ -214,8 +214,8 @@ spec:
                     type: number
                   frequency:
                     description: |-
-                      (String) The frequency of the event. Can be daily, weekly, monthly
-                      The frequency of the event. Can be daily, weekly, monthly
+                      (String) The frequency of the event. Can be hourly, daily, weekly, monthly
+                      The frequency of the event. Can be hourly, daily, weekly, monthly
                     type: string
                   interval:
                     description: |-
@@ -500,8 +500,8 @@ spec:
                     type: number
                   frequency:
                     description: |-
-                      (String) The frequency of the event. Can be daily, weekly, monthly
-                      The frequency of the event. Can be daily, weekly, monthly
+                      (String) The frequency of the event. Can be hourly, daily, weekly, monthly
+                      The frequency of the event. Can be hourly, daily, weekly, monthly
                     type: string
                   id:
                     description: (String) The ID of this resource.
