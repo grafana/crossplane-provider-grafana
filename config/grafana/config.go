@@ -377,4 +377,31 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
+
+	p.AddResourceConfigurator("grafana_machine_learning_job", func(r *ujconfig.Resource) {
+		r.References["datasource_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_data_source",
+			RefFieldName:      "DataSourceRef",
+			SelectorFieldName: "DataSourceSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+	})
+
+	p.AddResourceConfigurator("grafana_machine_learning_outlier_detector", func(r *ujconfig.Resource) {
+		r.References["datasource_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_data_source",
+			RefFieldName:      "DataSourceRef",
+			SelectorFieldName: "DataSourceSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+	})
+
+	p.AddResourceConfigurator("grafana_slo", func(r *ujconfig.Resource) {
+		r.References["destination_datasource.uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_data_source",
+			RefFieldName:      "Ref",
+			SelectorFieldName: "Selector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+	})
 }

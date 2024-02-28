@@ -70,6 +70,11 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_role_assignment":        ReplaceGroupWords("enterprise", 0),
 	"grafana_team_external_group":    ReplaceGroupWords("enterprise", 0),
 
+	// Machine Learning
+	"grafana_machine_learning_holiday":          ReplaceGroupWords("ml", 2),
+	"grafana_machine_learning_job":              ReplaceGroupWords("ml", 2),
+	"grafana_machine_learning_outlier_detector": ReplaceGroupWords("ml", 2),
+
 	// OnCall
 	"grafana_oncall_escalation":       ReplaceGroupWords("oncall", 1),
 	"grafana_oncall_escalation_chain": ReplaceGroupWords("oncall", 1),
@@ -98,6 +103,9 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_sso_settings":               ReplaceGroupWords("oss", 0),
 	"grafana_team":                       ReplaceGroupWords("oss", 0),
 	"grafana_user":                       ReplaceGroupWords("oss", 0),
+
+	// SLO
+	"grafana_slo": ReplaceGroupWords("slo", 0),
 
 	// Synthetic Monitoring
 	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),
