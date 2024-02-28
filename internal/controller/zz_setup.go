@@ -33,17 +33,22 @@ import (
 	outgoingwebhook "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/outgoingwebhook"
 	route "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/route"
 	schedule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/schedule"
+	annotation "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/annotation"
 	apikeyoss "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/apikey"
 	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
 	dashboardpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermission"
+	dashboardpublic "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpublic"
 	datasource "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/datasource"
 	folder "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folder"
 	folderpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folderpermission"
+	librarypanel "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/librarypanel"
 	organization "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organization"
 	organizationpreferences "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organizationpreferences"
+	playlist "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/playlist"
 	serviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccount"
 	serviceaccountpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccountpermission"
 	serviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccounttoken"
+	ssosettings "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/ssosettings"
 	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
@@ -80,17 +85,22 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.Setup,
 		route.Setup,
 		schedule.Setup,
+		annotation.Setup,
 		apikeyoss.Setup,
 		dashboard.Setup,
 		dashboardpermission.Setup,
+		dashboardpublic.Setup,
 		datasource.Setup,
 		folder.Setup,
 		folderpermission.Setup,
+		librarypanel.Setup,
 		organization.Setup,
 		organizationpreferences.Setup,
+		playlist.Setup,
 		serviceaccount.Setup,
 		serviceaccountpermission.Setup,
 		serviceaccounttoken.Setup,
+		ssosettings.Setup,
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,

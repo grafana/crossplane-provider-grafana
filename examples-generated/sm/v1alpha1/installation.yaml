@@ -20,6 +20,47 @@ spec:
 ---
 
 apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_metrics_publish
+  name: sm-metrics-publish
+spec:
+  forProvider:
+    name: metric-publisher-for-sm
+    provider: ${grafana.cloud}
+    realm:
+    - identifier: ${grafana_cloud_stack.sm_stack.id}
+      type: stack
+    region: ${var.cloud_region}
+    scopes:
+    - metrics:write
+    - stacks:read
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicyToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_metrics_publish
+  name: sm-metrics-publish
+spec:
+  forProvider:
+    accessPolicySelector:
+      matchLabels:
+        testing.upbound.io/example-name: sm_metrics_publish
+    name: metric-publisher-for-sm
+    provider: ${grafana.cloud}
+    region: ${var.cloud_region}
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
 kind: Stack
 metadata:
   annotations:

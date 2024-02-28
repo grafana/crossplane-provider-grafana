@@ -55,6 +55,80 @@ func (mg *APIKey) ResolveReferences(ctx context.Context, c client.Reader) error 
 	return nil
 }
 
+// ResolveReferences of this Annotation.
+func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
+		Extract:      grafana.UIDExtractor(),
+		Reference:    mg.Spec.ForProvider.DashboardRef,
+		Selector:     mg.Spec.ForProvider.DashboardSelector,
+		To: reference.To{
+			List:    &DashboardList{},
+			Managed: &Dashboard{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardUID")
+	}
+	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
+		Extract:      grafana.UIDExtractor(),
+		Reference:    mg.Spec.InitProvider.DashboardRef,
+		Selector:     mg.Spec.InitProvider.DashboardSelector,
+		To: reference.To{
+			List:    &DashboardList{},
+			Managed: &Dashboard{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardUID")
+	}
+	mg.Spec.InitProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DashboardRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.OrganizationRef,
+		Selector:     mg.Spec.InitProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
+	}
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this Dashboard.
 func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -272,6 +346,80 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 		mg.Spec.InitProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
+
+	return nil
+}
+
+// ResolveReferences of this DashboardPublic.
+func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
+		Extract:      grafana.UIDExtractor(),
+		Reference:    mg.Spec.ForProvider.DashboardRef,
+		Selector:     mg.Spec.ForProvider.DashboardSelector,
+		To: reference.To{
+			List:    &DashboardList{},
+			Managed: &Dashboard{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardUID")
+	}
+	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
+		Extract:      grafana.UIDExtractor(),
+		Reference:    mg.Spec.InitProvider.DashboardRef,
+		Selector:     mg.Spec.InitProvider.DashboardSelector,
+		To: reference.To{
+			List:    &DashboardList{},
+			Managed: &Dashboard{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardUID")
+	}
+	mg.Spec.InitProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DashboardRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.OrganizationRef,
+		Selector:     mg.Spec.InitProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
+	}
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -539,8 +687,124 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	return nil
 }
 
+// ResolveReferences of this LibraryPanel.
+func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.FolderRef,
+		Selector:     mg.Spec.ForProvider.FolderSelector,
+		To: reference.To{
+			List:    &FolderList{},
+			Managed: &Folder{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.FolderID")
+	}
+	mg.Spec.ForProvider.FolderID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.FolderRef,
+		Selector:     mg.Spec.InitProvider.FolderSelector,
+		To: reference.To{
+			List:    &FolderList{},
+			Managed: &Folder{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.FolderID")
+	}
+	mg.Spec.InitProvider.FolderID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.OrganizationRef,
+		Selector:     mg.Spec.InitProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
+	}
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this OrganizationPreferences.
 func (mg *OrganizationPreferences) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.OrganizationRef,
+		Selector:     mg.Spec.InitProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
+	}
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this Playlist.
+func (mg *Playlist) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse

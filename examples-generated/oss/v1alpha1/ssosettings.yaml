@@ -1,0 +1,19 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: SsoSettings
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/ssosettings
+  labels:
+    testing.upbound.io/example-name: github_sso_settings
+  name: github-sso-settings
+spec:
+  forProvider:
+    oauth2Settings:
+    - allowedOrganizations: organization1,organization2
+      clientId: github_client_id
+      clientSecretSecretRef:
+        key: example-key
+        name: example-secret
+        namespace: upbound-system
+      teamIds: 12,50,123
+    providerName: github

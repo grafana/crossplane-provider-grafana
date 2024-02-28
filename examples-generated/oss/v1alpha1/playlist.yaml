@@ -1,0 +1,21 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Playlist
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/playlist
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    interval: 5m
+    item:
+    - order: 2
+      title: Terraform Dashboard By Tag
+      type: dashboard_by_tag
+      value: terraform
+    - order: 1
+      title: Terraform Dashboard By ID
+      type: dashboard_by_id
+      value: "3"
+    name: My Playlist!

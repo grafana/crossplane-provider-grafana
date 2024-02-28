@@ -39,6 +39,15 @@ func Configure(p *ujconfig.Provider) {
 		resource.UseAsync = false
 	}
 
+	p.AddResourceConfigurator("grafana_annotation", func(r *ujconfig.Resource) {
+		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
+		r.References["dashboard_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_dashboard",
+			RefFieldName:      "DashboardRef",
+			SelectorFieldName: "DashboardSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+	})
 	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
 		contactPointRef := ujconfig.Reference{
 			TerraformName:     "grafana_contact_point",
@@ -202,6 +211,14 @@ func Configure(p *ujconfig.Provider) {
 		}
 		r.InitializerFns = append(r.InitializerFns, createDashboardConfigInitializer)
 	})
+	p.AddResourceConfigurator("grafana_dashboard_public", func(r *ujconfig.Resource) {
+		r.References["dashboard_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_dashboard",
+			RefFieldName:      "DashboardRef",
+			SelectorFieldName: "DashboardSelector",
+			Extractor:         SelfPackagePath + ".UIDExtractor()",
+		}
+	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
 		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
 		r.References["dashboard_uid"] = ujconfig.Reference{
@@ -262,6 +279,13 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_user",
 			RefFieldName:      "UserRef",
 			SelectorFieldName: "UserSelector",
+		}
+	})
+	p.AddResourceConfigurator("grafana_library_panel", func(r *ujconfig.Resource) {
+		r.References["folder_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_folder",
+			RefFieldName:      "FolderRef",
+			SelectorFieldName: "FolderSelector",
 		}
 	})
 	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {

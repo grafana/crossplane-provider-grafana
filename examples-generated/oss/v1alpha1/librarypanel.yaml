@@ -1,0 +1,23 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: LibraryPanel
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/librarypanel
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    modelJson: |-
+      ${jsonencode({
+          gridPos = {
+            x = 0
+            y = 0
+            h = 10
+            w = 10
+          }
+          title   = "panel"
+          type    = "text"
+          version = 0
+        })}
+    name: panel

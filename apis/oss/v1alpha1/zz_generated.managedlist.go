@@ -16,6 +16,15 @@ func (l *APIKeyList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this AnnotationList.
+func (l *AnnotationList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this DashboardList.
 func (l *DashboardList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -27,6 +36,15 @@ func (l *DashboardList) GetItems() []resource.Managed {
 
 // GetItems of this DashboardPermissionList.
 func (l *DashboardPermissionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DashboardPublicList.
+func (l *DashboardPublicList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -61,6 +79,15 @@ func (l *FolderPermissionList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this LibraryPanelList.
+func (l *LibraryPanelList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this OrganizationList.
 func (l *OrganizationList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -72,6 +99,15 @@ func (l *OrganizationList) GetItems() []resource.Managed {
 
 // GetItems of this OrganizationPreferencesList.
 func (l *OrganizationPreferencesList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this PlaylistList.
+func (l *PlaylistList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -99,6 +135,15 @@ func (l *ServiceAccountPermissionList) GetItems() []resource.Managed {
 
 // GetItems of this ServiceAccountTokenList.
 func (l *ServiceAccountTokenList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SsoSettingsList.
+func (l *SsoSettingsList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
