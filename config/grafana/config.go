@@ -82,6 +82,34 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
+	p.AddResourceConfigurator("grafana_cloud_access_policy_token", func(r *ujconfig.Resource) {
+		r.References["access_policy_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_access_policy",
+			RefFieldName:      "AccessPolicyRef",
+			SelectorFieldName: "AccessPolicySelector",
+		}
+		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
+			conn := map[string][]byte{}
+			cloudConfig := map[string]string{}
+			if a, ok := attr["token"].(string); ok {
+				cloudConfig["cloud_access_policy_token"] = a
+			}
+			marshalled, err := json.Marshal(cloudConfig)
+			if err != nil {
+				return nil, err
+			}
+			conn["cloudCredentials"] = marshalled
+			return conn, nil
+		}
+	})
+	p.AddResourceConfigurator("grafana_cloud_plugin_installation", func(r *ujconfig.Resource) {
+		r.References["stack_slug"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack",
+			RefFieldName:      "CloudStackRef",
+			SelectorFieldName: "CloudStackSelector",
+			Extractor:         SelfPackagePath + ".CloudStackSlugExtractor()",
+		}
+	})
 	p.AddResourceConfigurator("grafana_cloud_stack", func(r *ujconfig.Resource) {
 		r.UseAsync = true
 	})
