@@ -28,18 +28,16 @@ type StackInitParameters struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
-	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+	// (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
+	// Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	// Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	RegionSlug *string `json:"regionSlug,omitempty" tf:"region_slug,omitempty"`
 
-	// (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-	// available at “https://<stack_slug>.grafana.net".
-	// Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-	// available at “https://<stack_slug>.grafana.net".
+	// (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
+	// Subdomain that the Grafana instance will be available at. Setting slug to `<stack_slug>` will make the instance available at `https://<stack_slug>.grafana.net`.
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
 	// (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
@@ -109,8 +107,8 @@ type StackObservation struct {
 	// (Number)
 	LogsUserID *float64 `json:"logsUserId,omitempty" tf:"logs_user_id,omitempty"`
 
-	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
-	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+	// (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
+	// Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Number) Organization id to assign to this stack.
@@ -169,10 +167,8 @@ type StackObservation struct {
 	// Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	RegionSlug *string `json:"regionSlug,omitempty" tf:"region_slug,omitempty"`
 
-	// (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-	// available at “https://<stack_slug>.grafana.net".
-	// Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-	// available at “https://<stack_slug>.grafana.net".
+	// (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
+	// Subdomain that the Grafana instance will be available at. Setting slug to `<stack_slug>` will make the instance available at `https://<stack_slug>.grafana.net`.
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
 	// (String) Status of the stack.
@@ -218,8 +214,8 @@ type StackParameters struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
-	// Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+	// (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
+	// Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -228,10 +224,8 @@ type StackParameters struct {
 	// +kubebuilder:validation:Optional
 	RegionSlug *string `json:"regionSlug,omitempty" tf:"region_slug,omitempty"`
 
-	// (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-	// available at “https://<stack_slug>.grafana.net".
-	// Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-	// available at “https://<stack_slug>.grafana.net".
+	// (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
+	// Subdomain that the Grafana instance will be available at. Setting slug to `<stack_slug>` will make the instance available at `https://<stack_slug>.grafana.net`.
 	// +kubebuilder:validation:Optional
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
@@ -278,7 +272,7 @@ type StackStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Stack is the Schema for the Stacks API. Official documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#stacks/
+// Stack is the Schema for the Stacks API. Official documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#stacks/ Required access policy scopes: stacks:readstacks:writestacks:delete
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

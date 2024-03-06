@@ -34,9 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AccessPolicyToken is the Schema for the AccessPolicyTokens API.
+        description: 'AccessPolicyToken is the Schema for the AccessPolicyTokens API.
           Official documentation https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/API
           documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token
+          Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
         properties:
           apiVersion:
             description: |-
