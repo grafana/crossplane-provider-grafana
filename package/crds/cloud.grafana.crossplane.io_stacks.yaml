@@ -34,8 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Stack is the Schema for the Stacks API. Official documentation
+        description: 'Stack is the Schema for the Stacks API. Official documentation
           https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#stacks/
+          Required access policy scopes: stacks:readstacks:writestacks:delete'
         properties:
           apiVersion:
             description: |-
@@ -88,8 +89,8 @@ spec:
                     x-kubernetes-map-type: granular
                   name:
                     description: |-
-                      (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
-                      Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+                      (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
+                      Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
                     type: string
                   regionSlug:
                     description: |-
@@ -98,10 +99,8 @@ spec:
                     type: string
                   slug:
                     description: |-
-                      (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-                      available at “https://<stack_slug>.grafana.net".
-                      Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-                      available at “https://<stack_slug>.grafana.net".
+                      (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
+                      Subdomain that the Grafana instance will be available at. Setting slug to `<stack_slug>` will make the instance available at `https://<stack_slug>.grafana.net`.
                     type: string
                   url:
                     description: |-
@@ -147,8 +146,8 @@ spec:
                     x-kubernetes-map-type: granular
                   name:
                     description: |-
-                      (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
-                      Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+                      (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
+                      Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
                     type: string
                   regionSlug:
                     description: |-
@@ -157,10 +156,8 @@ spec:
                     type: string
                   slug:
                     description: |-
-                      (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-                      available at “https://<stack_slug>.grafana.net".
-                      Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-                      available at “https://<stack_slug>.grafana.net".
+                      (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
+                      Subdomain that the Grafana instance will be available at. Setting slug to `<stack_slug>` will make the instance available at `https://<stack_slug>.grafana.net`.
                     type: string
                   url:
                     description: |-
@@ -421,8 +418,8 @@ spec:
                     type: number
                   name:
                     description: |-
-                      (String) Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
-                      Name of stack. Conventionally matches the url of the instance (e.g. “<stack_slug>.grafana.net”).
+                      (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
+                      Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
                     type: string
                   orgId:
                     description: |-
@@ -493,10 +490,8 @@ spec:
                     type: string
                   slug:
                     description: |-
-                      (String) Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-                      available at “https://<stack_slug>.grafana.net".
-                      Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
-                      available at “https://<stack_slug>.grafana.net".
+                      (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
+                      Subdomain that the Grafana instance will be available at. Setting slug to `<stack_slug>` will make the instance available at `https://<stack_slug>.grafana.net`.
                     type: string
                   status:
                     description: |-

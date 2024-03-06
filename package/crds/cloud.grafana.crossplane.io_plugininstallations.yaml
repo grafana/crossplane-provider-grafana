@@ -34,8 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: PluginInstallation is the Schema for the PluginInstallations
+        description: 'PluginInstallation is the Schema for the PluginInstallations
           API. Manages Grafana Cloud Plugin Installations. Plugin Catalog https://grafana.com/grafana/plugins/
+          Required access policy scopes: stack-plugins:readstack-plugins:writestack-plugins:delete'
         properties:
           apiVersion:
             description: |-
