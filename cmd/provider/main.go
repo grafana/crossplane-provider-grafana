@@ -81,6 +81,10 @@ func main() {
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apis.AddToScheme(mgr.GetScheme()), "Cannot add Grafana APIs to scheme")
 	featureFlags := &feature.Flags{}
+
+	provider, err := config.GetProvider()
+	kingpin.FatalIfError(err, "Cannot get provider configuration")
+
 	o := tjcontroller.Options{
 		Options: xpcontroller.Options{
 			Logger:                  log,
@@ -89,7 +93,7 @@ func main() {
 			MaxConcurrentReconciles: *maxReconcileRate,
 			Features:                featureFlags,
 		},
-		Provider: config.GetProvider(),
+		Provider: provider,
 		// use the following WorkspaceStoreOption to enable the shared gRPC mode
 		// terraform.WithProviderRunner(terraform.NewSharedProvider(log, os.Getenv("TERRAFORM_NATIVE_PROVIDER_PATH"), terraform.WithNativeProviderArgs("-debuggable")))
 		WorkspaceStore: terraform.NewWorkspaceStore(log, terraform.WithFeatures(featureFlags)),

@@ -16,7 +16,7 @@ import (
 	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
 	tjcontroller "github.com/crossplane/upjet/pkg/controller"
 	"github.com/crossplane/upjet/pkg/controller/handler"
-	"github.com/crossplane/upjet/pkg/terraform"
+	"github.com/crossplane/upjet/pkg/metrics"
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
@@ -34,10 +34,13 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	}
 	eventHandler := handler.NewEventHandler(handler.WithLogger(o.Logger.WithValues("gvk", v1alpha1.ServiceAccountToken_GroupVersionKind)))
 	opts := []managed.ReconcilerOption{
-		managed.WithExternalConnecter(tjcontroller.NewConnector(mgr.GetClient(), o.WorkspaceStore, o.SetupFn, o.Provider.Resources["grafana_service_account_token"], tjcontroller.WithLogger(o.Logger), tjcontroller.WithConnectorEventHandler(eventHandler))),
+		managed.WithExternalConnecter(tjcontroller.NewTerraformPluginSDKConnector(mgr.GetClient(), o.SetupFn, o.Provider.Resources["grafana_service_account_token"], o.OperationTrackerStore,
+			tjcontroller.WithTerraformPluginSDKLogger(o.Logger),
+			tjcontroller.WithTerraformPluginSDKMetricRecorder(metrics.NewMetricRecorder(v1alpha1.ServiceAccountToken_GroupVersionKind, mgr, o.PollInterval)),
+			tjcontroller.WithTerraformPluginSDKManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
 		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
-		managed.WithFinalizer(terraform.NewWorkspaceFinalizer(o.WorkspaceStore, xpresource.NewAPIFinalizer(mgr.GetClient(), managed.FinalizerName))),
+		managed.WithFinalizer(tjcontroller.NewOperationTrackerFinalizer(o.OperationTrackerStore, xpresource.NewAPIFinalizer(mgr.GetClient(), managed.FinalizerName))),
 		managed.WithTimeout(3 * time.Minute),
 		managed.WithInitializers(initializers),
 		managed.WithConnectionPublishers(cps...),
