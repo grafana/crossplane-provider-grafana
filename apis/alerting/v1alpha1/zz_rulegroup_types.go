@@ -87,6 +87,93 @@ type DataParameters struct {
 	RelativeTimeRange []RelativeTimeRangeParameters `json:"relativeTimeRange" tf:"relative_time_range,omitempty"`
 }
 
+type NotificationSettingsInitParameters struct {
+
+	// (String) The contact point to route notifications that match this rule to.
+	// The contact point to route notifications that match this rule to.
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+
+	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// sending a notification if an alert is still firing. Default is 4 hours.
+	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+}
+
+type NotificationSettingsObservation struct {
+
+	// (String) The contact point to route notifications that match this rule to.
+	// The contact point to route notifications that match this rule to.
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+
+	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// sending a notification if an alert is still firing. Default is 4 hours.
+	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+}
+
+type NotificationSettingsParameters struct {
+
+	// (String) The contact point to route notifications that match this rule to.
+	// The contact point to route notifications that match this rule to.
+	// +kubebuilder:validation:Optional
+	ContactPoint *string `json:"contactPoint" tf:"contact_point,omitempty"`
+
+	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+	// +kubebuilder:validation:Optional
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+	// +kubebuilder:validation:Optional
+	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+
+	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+	// +kubebuilder:validation:Optional
+	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	// +kubebuilder:validation:Optional
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// sending a notification if an alert is still firing. Default is 4 hours.
+	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+	// +kubebuilder:validation:Optional
+	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+}
+
 type RelativeTimeRangeInitParameters struct {
 
 	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
@@ -294,6 +381,10 @@ type RuleInitParameters struct {
 	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+
+	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+	NotificationSettings []NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 }
 
 type RuleObservation struct {
@@ -335,6 +426,10 @@ type RuleObservation struct {
 	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+
+	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+	NotificationSettings []NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// (String) The unique identifier of the alert rule.
 	// The unique identifier of the alert rule.
@@ -389,6 +484,11 @@ type RuleParameters struct {
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
 	// +kubebuilder:validation:Optional
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+
+	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+	// +kubebuilder:validation:Optional
+	NotificationSettings []NotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 }
 
 // RuleGroupSpec defines the desired state of RuleGroup
