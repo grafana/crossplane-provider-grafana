@@ -253,9 +253,7 @@ resources:
             wait_for_readiness: (Boolean) Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to true.
             wait_for_readiness_timeout: (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
         importStatements:
-            - |-
-              terraform import grafana_cloud_stack.stack_name {{stack_id}} // import by numerical ID
-              terraform import grafana_cloud_stack.stack_name {{stack_slug}} // or import by slug
+            - terraform import grafana_cloud_stack.name "{{ stackSlugOrID }}"
     grafana_cloud_stack_api_key Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: 'Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ Required access policy scopes: stack-api-keys:write !> Deprecated: please use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token instead, see https://grafana.com/docs/grafana/next/administration/api-keys/#migrate-api-keys-to-grafana-service-accounts-using-terraform.'
@@ -290,7 +288,8 @@ resources:
             name: (String) The name of the service account.
             role: (String) The basic role of the service account in the organization.
             stack_slug: (String)
-        importStatements: []
+        importStatements:
+            - terraform import grafana_cloud_stack_service_account.name "{{ stackSlug }}:{{ serviceAccountID }}"
     grafana_cloud_stack_service_account_token:
         subCategory: Cloud
         description: 'Manages service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api Required access policy scopes: stack-service-accounts:write'
@@ -325,7 +324,7 @@ resources:
         importStatements: []
     grafana_contact_point:
         subCategory: Alerting
-        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/contact-points/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/notifications/contact-points/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
         name: grafana_contact_point
         title: grafana_contact_point Resource - terraform-provider-grafana
         examples:
@@ -1882,6 +1881,7 @@ resources:
         argumentDocs:
             annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to map[].
             condition: (String) The ref_id of the query node in the data field to use as the alert condition.
+            contact_point: (String) The contact point to route notifications that match this rule to.
             data: '(Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)'
             datasource_uid: (String) The UID of the datasource being queried, or "-100" if this stage is an expression stage.
             disable_provenance: (Boolean) Allow modifying the rule group from other sources than Terraform or the Grafana API. Defaults to false.
@@ -1889,17 +1889,23 @@ resources:
             folder_uid: (String) The UID of the folder that the group belongs to.
             for: (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
             from: (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+            group_by: (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+            group_interval: (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+            group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
             id: (String) The ID of this resource.
             interval_seconds: (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
             is_paused: (Boolean) Sets whether the alert should be paused or not. Defaults to false.
             labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
             model: (String) Custom JSON data to send to the specified datasource when querying.
+            mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
             name: (String) The name of the rule group.
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
+            notification_settings: '(Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag ''alertingSimplifiedRouting'' enabled. (see below for nested schema)'
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             query_type: (String) An optional identifier for the type of query being executed. Defaults to ``.
             ref_id: (String) A unique string to identify this query stage within a rule.
             relative_time_range: '(Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)'
+            repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
             rule: '(Block List, Min: 1) The rules within the group. (see below for nested schema)'
             to: (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
             uid: (String) The unique identifier of the alert rule.
@@ -2396,10 +2402,10 @@ resources:
                           "body": "and spirit",
                           "cache_busting_query_param_name": "pineapple",
                           "fail_if_body_matches_regexp": [
-                            "*bad stuff*"
+                            ".*bad stuff.*"
                           ],
                           "fail_if_body_not_matches_regexp": [
-                            "*good stuff*"
+                            ".*good stuff.*"
                           ],
                           "fail_if_header_matches_regexp": [
                             {

@@ -344,6 +344,48 @@ spec:
                             (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
                             Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
                           type: string
+                        notificationSettings:
+                          description: |-
+                            (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
+                            Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+                          items:
+                            properties:
+                              contactPoint:
+                                description: |-
+                                  (String) The contact point to route notifications that match this rule to.
+                                  The contact point to route notifications that match this rule to.
+                                type: string
+                              groupBy:
+                                description: |-
+                                  (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+                                  A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: |-
+                                  (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                  Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                type: string
+                              groupWait:
+                                description: |-
+                                  (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                  Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                type: string
+                              muteTimings:
+                                description: |-
+                                  (List of String) A list of mute timing names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: |-
+                                  sending a notification if an alert is still firing. Default is 4 hours.
+                                  Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -629,6 +671,48 @@ spec:
                             (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
                             Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
                           type: string
+                        notificationSettings:
+                          description: |-
+                            (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
+                            Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+                          items:
+                            properties:
+                              contactPoint:
+                                description: |-
+                                  (String) The contact point to route notifications that match this rule to.
+                                  The contact point to route notifications that match this rule to.
+                                type: string
+                              groupBy:
+                                description: |-
+                                  (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+                                  A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: |-
+                                  (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                  Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                type: string
+                              groupWait:
+                                description: |-
+                                  (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                  Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                type: string
+                              muteTimings:
+                                description: |-
+                                  (List of String) A list of mute timing names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: |-
+                                  sending a notification if an alert is still firing. Default is 4 hours.
+                                  Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -941,6 +1025,48 @@ spec:
                             (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
                             Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
                           type: string
+                        notificationSettings:
+                          description: |-
+                            (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
+                            Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+                          items:
+                            properties:
+                              contactPoint:
+                                description: |-
+                                  (String) The contact point to route notifications that match this rule to.
+                                  The contact point to route notifications that match this rule to.
+                                type: string
+                              groupBy:
+                                description: |-
+                                  (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+                                  A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: |-
+                                  (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                  Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                type: string
+                              groupWait:
+                                description: |-
+                                  (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                  Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                type: string
+                              muteTimings:
+                                description: |-
+                                  (List of String) A list of mute timing names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: |-
+                                  sending a notification if an alert is still firing. Default is 4 hours.
+                                  Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+                                type: string
+                            type: object
+                          type: array
                         uid:
                           description: |-
                             (String) The unique identifier of the alert rule.
