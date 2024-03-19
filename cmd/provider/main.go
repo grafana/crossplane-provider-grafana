@@ -82,7 +82,7 @@ func main() {
 	kingpin.FatalIfError(apis.AddToScheme(mgr.GetScheme()), "Cannot add Grafana APIs to scheme")
 	featureFlags := &feature.Flags{}
 
-	provider, err := config.GetProvider()
+	provider, err := config.GetProvider(false)
 	kingpin.FatalIfError(err, "Cannot get provider configuration")
 
 	o := tjcontroller.Options{
