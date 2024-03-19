@@ -93,7 +93,8 @@ func main() {
 			MaxConcurrentReconciles: *maxReconcileRate,
 			Features:                featureFlags,
 		},
-		Provider: provider,
+		OperationTrackerStore: tjcontroller.NewOperationStore(log),
+		Provider:              provider,
 		// use the following WorkspaceStoreOption to enable the shared gRPC mode
 		// terraform.WithProviderRunner(terraform.NewSharedProvider(log, os.Getenv("TERRAFORM_NATIVE_PROVIDER_PATH"), terraform.WithNativeProviderArgs("-debuggable")))
 		WorkspaceStore: terraform.NewWorkspaceStore(log, terraform.WithFeatures(featureFlags)),
