@@ -9,6 +9,8 @@ import (
 	"encoding/json"
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/hashicorp/go-azure-sdk/sdk/environments"
+	"github.com/hashicorp/terraform-svchost/auth"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -74,6 +76,30 @@ func TerraformSetupBuilder() terraform.SetupFn {
 				ps.Configuration[k] = v
 			}
 		}
-		return ps, nil
+		return ps, errors.Wrap(configureNoForkGrafanaClient(pc, &ps), "failed to configure the no-fork Azure client")
 	}
+}
+
+func configureNoForkGrafanaClient(pc *v1beta1.ProviderConfig, ps *terraform.Setup) error {
+	cb := grafanaProvider.AzureClientBuilder{}
+	switch pc.Spec.Credentials.Source { //nolint:exhaustive
+	case xpv1.CredentialsSourceSecret:
+		cb.SubscriptionID = ps.Configuration[keySubscriptionID].(string)
+		cb.AuthConfig = &auth.Credentials{
+			ClientID:                              ps.Configuration[keyClientID].(string),
+			TenantID:                              ps.Configuration[keyTenantID].(string),
+			ClientSecret:                          ps.Configuration[keyClientSecret].(string),
+			EnableAuthenticatingUsingClientSecret: true,
+		}
+	}
+	// TODO: we need to check how to prepare environment's
+	// authorization context, this may differ especially if
+	// we are preparing an environment inside an EKS cluster, etc.
+	cb.AuthConfig.Environment = *environments.AzurePublic()
+	c, err := cb.GetClient(context.WithoutCancel(ctx))
+	if err != nil {
+		return errors.Wrap(err, "failed to build the Terraform Azure provider client")
+	}
+	ps.Meta = c
+	return nil
 }
