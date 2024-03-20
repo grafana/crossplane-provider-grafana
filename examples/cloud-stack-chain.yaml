@@ -1,0 +1,145 @@
+# Cloud Provider Credentials
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-cloud-creds
+  namespace: crossplane
+type: Opaque
+stringData:
+  credentials: |
+    {
+      "cloud_access_policy_token": "token"
+    }
+
+---
+
+# Cloud Provider
+apiVersion: grafana.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: grafana-cloud-provider
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: grafana-cloud-creds
+      namespace: crossplane
+      key: credentials
+
+---
+
+# Cloud Stack
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: Stack
+metadata:
+  name: my-stack
+spec:
+  forProvider:
+    slug: 'crossplanetest'
+    name: 'crossplanetest'
+    regionSlug: "us"
+  providerConfigRef:
+    name: grafana-cloud-provider
+
+---
+
+# Cloud Stack Service Account
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: StackServiceAccount
+metadata:
+  name: my-stack-sa
+spec:
+  forProvider:
+    stackSlug: crossplanetest
+    name: crossplaneManagementKey
+    role: Admin
+  providerConfigRef:
+    name: grafana-cloud-provider
+
+---
+
+# Cloud Stack Service Account Token
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: StackServiceAccountToken
+metadata:
+  name: my-stack-sa-token
+spec:
+  forProvider:
+    name: crossplane
+    serviceAccountRef:
+      name: my-stack-sa
+    stackSlug: crossplanetest
+  providerConfigRef:
+    name: grafana-cloud-provider
+  writeConnectionSecretToRef:
+    name: my-stack-secret
+    namespace: crossplane
+
+---
+
+# Grafana Provider
+apiVersion: grafana.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: grafana-cloud-instance-provider
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: my-stack-secret
+      namespace: crossplane
+      key: instanceCredentials
+
+
+---
+
+# Folder
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  name: cloud-stack-folder
+spec:
+  forProvider:
+    title: 'Crossplane Folder Test!'
+  providerConfigRef:
+    name: grafana-cloud-instance-provider
+
+---
+
+# Dashboard
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  name: cloud-stack-dashboard
+spec:
+  forProvider:
+    folderRef:
+      name: cloud-stack-folder
+    configJson: |
+      {
+        "title": "Crossplane Test!",
+        "uid": "crossplane"
+      }
+  providerConfigRef:
+    name: grafana-cloud-instance-provider
+
+---
+
+# Report
+apiVersion: enterprise.grafana.crossplane.io/v1alpha1
+kind: Report
+metadata:
+  name: cloud-stack-report
+spec:
+  forProvider:
+    name: my-report
+    message: Test Report!
+    dashboardRef:
+      name: cloud-stack-dashboard
+    recipients: 
+      - julien.duchesne@grafana.com
+    schedule:
+      - frequency: never
+  providerConfigRef:
+    name: grafana-cloud-instance-provider
+
