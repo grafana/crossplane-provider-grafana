@@ -7,13 +7,15 @@ package clients
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
+	"github.com/crossplane/upjet/pkg/terraform"
+	grafanaProvider "github.com/grafana/terraform-provider-grafana/v2/pkg/provider"
+	terraformSDK "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-
-	"github.com/crossplane/upjet/pkg/terraform"
 
 	"github.com/grafana/crossplane-provider-grafana/apis/v1beta1"
 )
@@ -29,15 +31,9 @@ const (
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
-func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
+func TerraformSetupBuilder() terraform.SetupFn {
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
-		ps := terraform.Setup{
-			Version: version,
-			Requirement: terraform.ProviderRequirement{
-				Source:  providerSource,
-				Version: providerVersion,
-			},
-		}
+		ps := terraform.Setup{}
 
 		configRef := mg.GetProviderConfigReference()
 		if configRef == nil {
@@ -80,6 +76,18 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 				ps.Configuration[k] = v
 			}
 		}
-		return ps, nil
+		return ps, errors.Wrap(configureNoForkGrafanaClient(ctx, &ps), "failed to configure the no-fork Azure client")
 	}
+}
+
+func configureNoForkGrafanaClient(ctx context.Context, ps *terraform.Setup) error {
+	cb := grafanaProvider.Provider("crossplane")
+
+	diags := cb.Configure(ctx, terraformSDK.NewResourceConfigRaw(ps.Configuration))
+	if diags.HasError() {
+		return fmt.Errorf("failed to configure the Grafana provider: %v", diags)
+	}
+
+	ps.Meta = cb.Meta()
+	return nil
 }
