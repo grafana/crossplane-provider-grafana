@@ -209,7 +209,6 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "FolderSelector",
 			Extractor:         SelfPackagePath + ".UIDExtractor()",
 		}
-		r.InitializerFns = append(r.InitializerFns, createDashboardConfigInitializer)
 	})
 	p.AddResourceConfigurator("grafana_dashboard_public", func(r *ujconfig.Resource) {
 		r.References["dashboard_uid"] = ujconfig.Reference{
