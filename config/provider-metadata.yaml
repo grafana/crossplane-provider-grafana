@@ -922,7 +922,8 @@ resources:
             id: (String) The ID of the holiday.
             name: (String) The name of the holiday.
             start_time: (String)
-        importStatements: []
+        importStatements:
+            - terraform import grafana_machine_learning_holiday.name "{{ id }}"
     grafana_machine_learning_job Resource - terraform-provider-grafana:
         subCategory: Machine Learning
         description: A job defines the queries and model parameters for a machine learning task.
@@ -942,7 +943,8 @@ resources:
             name: (String) The name of the job.
             query_params: (Map of String) An object representing the query params to query Grafana with.
             training_window: (Number) The data interval in seconds to train the data on. Defaults to 7776000.
-        importStatements: []
+        importStatements:
+            - terraform import grafana_machine_learning_job.name "{{ id }}"
     grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana:
         subCategory: Machine Learning
         description: An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for more details.
@@ -962,7 +964,8 @@ resources:
             name: (String) The name of the outlier detector.
             query_params: (Map of String) An object representing the query params to query Grafana with.
             sensitivity: (Number) Specify the sensitivity of the detector (in range [0,1]).
-        importStatements: []
+        importStatements:
+            - terraform import grafana_machine_learning_outlier_detector.name "{{ id }}"
     grafana_message_template:
         subCategory: Alerting
         description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/template-notifications/create-notification-templates/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
@@ -2206,7 +2209,8 @@ resources:
             uid: (String) UID for the Mimir Datasource
             value: (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
             window: (String) A Prometheus-parsable time duration string like 24h, 60m. This is the time window the objective is measured over.
-        importStatements: []
+        importStatements:
+            - terraform import grafana_slo.name "{{ uuid }}"
     grafana_sso_settings:
         subCategory: Grafana OSS
         description: Manages Grafana SSO Settings for OAuth2. SAML support will be added soon. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
