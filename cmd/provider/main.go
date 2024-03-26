@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/crossplane/crossplane-runtime/pkg/feature"
+	"go.uber.org/zap/zapcore"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
@@ -53,16 +54,14 @@ func main() {
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 	log.Default().SetOutput(io.Discard)
-	ctrl.SetLogger(zap.New(zap.WriteTo(io.Discard)))
 
-	zl := zap.New(zap.UseDevMode(*debug))
-	logr := logging.NewLogrLogger(zl.WithName("provider-azure"))
+	level := zap.Level(zapcore.InfoLevel)
 	if *debug {
-		// The controller-runtime runs with a no-op logger by default. It is
-		// *very* verbose even at info level, so we only provide it a real
-		// logger when we're running in debug mode.
-		ctrl.SetLogger(zl)
+		level = zap.Level(zapcore.DebugLevel)
 	}
+	zl := zap.New(zap.UseDevMode(*debug), level).WithName("provider-grafana")
+	ctrl.SetLogger(zl)
+	logr := logging.NewLogrLogger(zl)
 
 	// currently, we configure the jitter to be the 5% of the poll interval
 	pollJitter := time.Duration(float64(*pollInterval) * 0.05)
