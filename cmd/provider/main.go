@@ -6,11 +6,14 @@ package main
 
 import (
 	"context"
+	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"time"
 
 	"github.com/crossplane/crossplane-runtime/pkg/feature"
+	"go.uber.org/zap/zapcore"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
@@ -34,14 +37,15 @@ import (
 	"github.com/grafana/crossplane-provider-grafana/internal/features"
 )
 
+// Inspired by the Azure provider: https://github.com/crossplane-contrib/provider-upjet-azure/blob/d6a52c46e243fd70d6a2859ec97f29da0d67efa2/cmd/provider/dbformysql/zz_main.go
 func main() {
 	var (
 		app              = kingpin.New(filepath.Base(os.Args[0]), "Terraform based Crossplane provider for Grafana").DefaultEnvars()
 		debug            = app.Flag("debug", "Run with debug logging.").Short('d').Bool()
-		syncPeriod       = app.Flag("sync", "Controller manager sync period such as 300ms, 1.5h, or 2h45m").Short('s').Default("1h").Duration()
+		syncInterval     = app.Flag("sync", "Controller manager sync period such as 300ms, 1.5h, or 2h45m").Short('s').Default("1h").Duration()
+		pollInterval     = app.Flag("poll", "Poll interval controls how often an individual resource should be checked for drift.").Default("10m").Duration()
 		leaderElection   = app.Flag("leader-election", "Use leader election for the controller manager.").Short('l').Default("false").OverrideDefaultFromEnvar("LEADER_ELECTION").Bool()
-		pollInterval     = app.Flag("poll", "Poll interval controls how often an individual resource should be checked for drift.").Default("1m").Duration()
-		maxReconcileRate = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("10").Int()
+		maxReconcileRate = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("100").Int()
 
 		namespace                  = app.Flag("namespace", "Namespace used to set as default scope in default secret store config.").Default("crossplane-system").Envar("POD_NAMESPACE").String()
 		enableExternalSecretStores = app.Flag("enable-external-secret-stores", "Enable support for ExternalSecretStores.").Default("false").Envar("ENABLE_EXTERNAL_SECRET_STORES").Bool()
@@ -49,17 +53,20 @@ func main() {
 	)
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
+	log.Default().SetOutput(io.Discard)
 
-	zl := zap.New(zap.UseDevMode(*debug))
-	log := logging.NewLogrLogger(zl.WithName("provider-grafana"))
+	level := zap.Level(zapcore.InfoLevel)
 	if *debug {
-		// The controller-runtime runs with a no-op logger by default. It is
-		// *very* verbose even at info level, so we only provide it a real
-		// logger when we're running in debug mode.
-		ctrl.SetLogger(zl)
+		level = zap.Level(zapcore.DebugLevel)
 	}
+	zl := zap.New(zap.UseDevMode(*debug), level).WithName("provider-grafana")
+	ctrl.SetLogger(zl)
+	logr := logging.NewLogrLogger(zl)
 
-	log.Debug("Starting", "sync-period", syncPeriod.String())
+	// currently, we configure the jitter to be the 5% of the poll interval
+	pollJitter := time.Duration(float64(*pollInterval) * 0.05)
+	logr.Debug("Starting", "sync-interval", syncInterval.String(),
+		"poll-interval", pollInterval.String(), "poll-jitter", pollJitter, "max-reconcile-rate", *maxReconcileRate)
 
 	cfg, err := ctrl.GetConfig()
 	kingpin.FatalIfError(err, "Cannot get API server rest config")
@@ -68,7 +75,7 @@ func main() {
 		LeaderElection:   *leaderElection,
 		LeaderElectionID: "crossplane-leader-election-provider-grafana",
 		Cache: cache.Options{
-			SyncPeriod: syncPeriod,
+			SyncPeriod: syncInterval,
 		},
 		LeaderElectionResourceLock: resourcelock.LeasesResourceLock,
 		LeaseDuration:              func() *time.Duration { d := 60 * time.Second; return &d }(),
@@ -83,21 +90,26 @@ func main() {
 
 	o := tjcontroller.Options{
 		Options: xpcontroller.Options{
-			Logger:                  log,
+			Logger:                  logr,
 			GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcileRate),
 			PollInterval:            *pollInterval,
 			MaxConcurrentReconciles: *maxReconcileRate,
 			Features:                featureFlags,
 		},
 
-		OperationTrackerStore: tjcontroller.NewOperationStore(log),
 		Provider:              provider,
 		SetupFn:               clients.TerraformSetupBuilder(),
+		PollJitter:            pollJitter,
+		OperationTrackerStore: tjcontroller.NewOperationStore(logr),
+	}
+	if *enableManagementPolicies {
+		o.Features.Enable(features.EnableBetaManagementPolicies)
+		logr.Info("Beta feature enabled", "flag", features.EnableBetaManagementPolicies)
 	}
 
 	if *enableExternalSecretStores {
 		o.SecretStoreConfigGVK = &v1alpha1.StoreConfigGroupVersionKind
-		log.Info("Alpha feature enabled", "flag", features.EnableAlphaExternalSecretStores)
+		logr.Info("Alpha feature enabled", "flag", features.EnableAlphaExternalSecretStores)
 
 		// Ensure default store config exists.
 		kingpin.FatalIfError(resource.Ignore(kerrors.IsAlreadyExists, mgr.GetClient().Create(context.Background(), &v1alpha1.StoreConfig{
@@ -114,10 +126,6 @@ func main() {
 		})), "cannot create default store config")
 	}
 
-	if *enableManagementPolicies {
-		o.Features.Enable(features.EnableBetaManagementPolicies)
-		log.Info("Beta feature enabled", "flag", features.EnableBetaManagementPolicies)
-	}
 	kingpin.FatalIfError(controller.Setup(mgr, o), "Cannot setup Grafana controllers")
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
 }
