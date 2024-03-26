@@ -1,0 +1,92 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  annotations:
+    tanka.dev/namespaced: "false"
+  labels:
+    crossplane.io/xrd: xcloudstacks.grafana.crossplane.grafana.net
+    provider: grafana
+    tanka.dev/environment: 678044bf8da945934127906c79b00277e7905af9ccdc5a3a
+  name: cloudstack
+spec:
+  compositeTypeRef:
+    apiVersion: grafana.crossplane.grafana.net/v1alpha1
+    kind: XCloudStack
+  resources:
+  - base:
+      apiVersion: cloud.grafana.crossplane.io/v1alpha1
+      kind: Stack
+      spec:
+        deletionPolicy: Orphan
+        forProvider:
+          regionSlug: us
+    name: cloudstack
+    patches:
+    - fromFieldPath: spec.parameters.providerName
+      toFieldPath: spec.providerConfigRef.name
+      type: FromCompositeFieldPath
+    - fromFieldPath: spec.parameters.externalName
+      toFieldPath: metadata.annotations["crossplane.io/external-name"]
+      type: FromCompositeFieldPath
+    - fromFieldPath: spec.parameters.deleteProtection
+      toFieldPath: spec.deletionPolicy
+      transforms:
+      - convert:
+          toType: string
+        type: convert
+      - map:
+          "false": Delete
+          "true": Orphan
+        type: map
+      type: FromCompositeFieldPath
+    - fromFieldPath: spec.parameters.slug
+      toFieldPath: spec.forProvider.slug
+      type: FromCompositeFieldPath
+    - fromFieldPath: spec.parameters.slug
+      toFieldPath: spec.forProvider.name
+      type: FromCompositeFieldPath
+    - fromFieldPath: spec.parameters.region
+      toFieldPath: spec.forProvider.regionSlug
+      type: FromCompositeFieldPath
+  - base:
+      apiVersion: cloud.grafana.crossplane.io/v1alpha1
+      kind: StackServiceAccount
+      spec:
+        forProvider:
+          cloudStackSelector:
+            matchControllerRef: true
+          name: crossplaneManagementKey
+          role: Admin
+    name: cloudstackserviceaccount
+    patches:
+    - fromFieldPath: spec.parameters.providerName
+      toFieldPath: spec.providerConfigRef.name
+      type: FromCompositeFieldPath
+  - base:
+      apiVersion: cloud.grafana.crossplane.io/v1alpha1
+      kind: StackServiceAccountToken
+      spec:
+        forProvider:
+          cloudStackSelector:
+            matchControllerRef: true
+          name: crossplane
+          serviceAccountSelector:
+            matchControllerRef: true
+        writeConnectionSecretToRef:
+          namespace: crossplane
+    connectionDetails:
+    - fromConnectionSecretKey: instanceCredentials
+      name: instanceCredentials
+    name: cloudstackserviceaccounttoken
+    patches:
+    - fromFieldPath: spec.parameters.providerName
+      toFieldPath: spec.providerConfigRef.name
+      type: FromCompositeFieldPath
+    - fromFieldPath: metadata.uid
+      toFieldPath: spec.writeConnectionSecretToRef.name
+      transforms:
+      - string:
+          fmt: '%s-cloudstackserviceaccounttoken'
+        type: string
+      type: FromCompositeFieldPath
+  writeConnectionSecretsToNamespace: crossplane

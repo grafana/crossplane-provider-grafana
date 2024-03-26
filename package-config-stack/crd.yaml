@@ -1,0 +1,52 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  annotations:
+    tanka.dev/namespaced: "false"
+  labels:
+    tanka.dev/environment: 678044bf8da945934127906c79b00277e7905af9ccdc5a3a
+  name: xcloudstacks.grafana.crossplane.grafana.net
+spec:
+  claimNames:
+    kind: CloudStack
+    plural: cloudstacks
+  defaultCompositionRef:
+    name: cloudstack
+  group: grafana.crossplane.grafana.net
+  names:
+    kind: XCloudStack
+    plural: xcloudstacks
+  versions:
+  - name: v1alpha1
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              parameters:
+                properties:
+                  deleteProtection:
+                    default: true
+                    description: When turned on, deleting the Kubernetes object will
+                      simply orphan the CSP resource.
+                    type: boolean
+                  externalName:
+                    type: string
+                  providerName:
+                    type: string
+                  region:
+                    type: string
+                  slug:
+                    type: string
+                required: []
+                type: object
+            type: object
+        type: object
+    served: true

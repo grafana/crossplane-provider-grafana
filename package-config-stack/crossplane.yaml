@@ -1,0 +1,17 @@
+apiVersion: meta.pkg.crossplane.io/v1alpha1
+kind: Configuration
+metadata:
+  name: grafana-stack
+  annotations:
+    meta.crossplane.io/maintainer: Grafana
+    meta.crossplane.io/source: github.com/grafana/crossplane-provider-grafana
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/description: |
+      This configuration deploys a Grafana stack along with a stack service account and an SM installation.
+spec:
+  crossplane:
+    version: ">=v1.11.0"
+  dependsOn:
+    - provider: xpkg.upbound.io/grafana/provider-grafana
+      # renovate: datasource=github-releases depName=grafana/crossplane-provider-grafana
+      version: "v0.13.2"

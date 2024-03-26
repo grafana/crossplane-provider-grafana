@@ -12,3 +12,4 @@ cover.out
 
 # ignore build artifacts
 dist/crds.yaml
+*.xpkg
