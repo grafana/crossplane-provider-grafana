@@ -13,7 +13,7 @@ require (
 	github.com/hashicorp/terraform-json v0.21.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.33.0
 	github.com/pkg/errors v0.9.1
-	go.uber.org/zap v1.26.0
+	go.uber.org/zap v1.27.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	k8s.io/apimachinery v0.29.3
 	k8s.io/client-go v0.29.3
