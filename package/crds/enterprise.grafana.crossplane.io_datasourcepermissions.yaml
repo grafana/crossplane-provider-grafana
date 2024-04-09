@@ -150,8 +150,13 @@ spec:
                     type: object
                   datasourceId:
                     description: |-
-                      (String) ID of the datasource to apply permissions to.
-                      ID of the datasource to apply permissions to.
+                      (String, Deprecated) Deprecated: Use datasource_uid instead.
+                      Deprecated: Use `datasource_uid` instead.
+                    type: string
+                  datasourceUid:
+                    description: |-
+                      (String) UID of the datasource to apply permissions to.
+                      UID of the datasource to apply permissions to.
                     type: string
                   orgId:
                     description: |-
@@ -498,8 +503,13 @@ spec:
                     type: object
                   datasourceId:
                     description: |-
-                      (String) ID of the datasource to apply permissions to.
-                      ID of the datasource to apply permissions to.
+                      (String, Deprecated) Deprecated: Use datasource_uid instead.
+                      Deprecated: Use `datasource_uid` instead.
+                    type: string
+                  datasourceUid:
+                    description: |-
+                      (String) UID of the datasource to apply permissions to.
+                      UID of the datasource to apply permissions to.
                     type: string
                   orgId:
                     description: |-
@@ -932,8 +942,13 @@ spec:
                 properties:
                   datasourceId:
                     description: |-
-                      (String) ID of the datasource to apply permissions to.
-                      ID of the datasource to apply permissions to.
+                      (String, Deprecated) Deprecated: Use datasource_uid instead.
+                      Deprecated: Use `datasource_uid` instead.
+                    type: string
+                  datasourceUid:
+                    description: |-
+                      (String) UID of the datasource to apply permissions to.
+                      UID of the datasource to apply permissions to.
                     type: string
                   id:
                     description: (String) The ID of this resource.

@@ -9,7 +9,7 @@ require (
 	github.com/crossplane/crossplane-runtime v1.15.1
 	github.com/crossplane/crossplane-tools v0.0.0-20230925130601-628280f8bf79
 	github.com/crossplane/upjet v1.2.4
-	github.com/grafana/terraform-provider-grafana/v2 v2.14.3
+	github.com/grafana/terraform-provider-grafana/v2 v2.15.0
 	github.com/hashicorp/terraform-json v0.21.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.33.0
 	github.com/pkg/errors v0.9.1
@@ -64,7 +64,7 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/grafana/amixr-api-go-client v0.0.11 // indirect
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20240322153219-42c6a1d2bcab // indirect
-	github.com/grafana/grafana-openapi-client-go v0.0.0-20240306142804-861284d1ba83 // indirect
+	github.com/grafana/grafana-openapi-client-go v0.0.0-20240325012504-4958bdd139e7 // indirect
 	github.com/grafana/machine-learning-go-client v0.5.0 // indirect
 	github.com/grafana/slo-openapi-client/go v0.0.0-20240112175006-de02e75b9d73 // indirect
 	github.com/grafana/synthetic-monitoring-agent v0.23.1 // indirect
@@ -76,9 +76,10 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.5 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
-	github.com/hashicorp/hcl/v2 v2.20.0 // indirect
+	github.com/hashicorp/hcl/v2 v2.20.1 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
-	github.com/hashicorp/terraform-plugin-framework v1.6.1 // indirect
+	github.com/hashicorp/terraform-plugin-framework v1.7.0 // indirect
+	github.com/hashicorp/terraform-plugin-framework-validators v0.12.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.22.1 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.9.0 // indirect
 	github.com/hashicorp/terraform-plugin-mux v0.15.0 // indirect

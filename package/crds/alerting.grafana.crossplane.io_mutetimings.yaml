@@ -75,6 +75,9 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   intervals:
                     description: |-
                       (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
@@ -232,6 +235,9 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   intervals:
                     description: |-
                       (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
@@ -553,6 +559,9 @@ spec:
             properties:
               atProvider:
                 properties:
+                  disableProvenance:
+                    description: Defaults to false. Defaults to `false`.
+                    type: boolean
                   id:
                     description: (String) The ID of this resource.
                     type: string

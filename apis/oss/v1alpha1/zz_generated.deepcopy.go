@@ -2520,6 +2520,11 @@ func (in *LibraryPanelInitParameters) DeepCopyInto(out *LibraryPanelInitParamete
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.FolderUID != nil {
+		in, out := &in.FolderUID, &out.FolderUID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ModelJSON != nil {
 		in, out := &in.ModelJSON, &out.ModelJSON
 		*out = new(string)
@@ -2707,6 +2712,11 @@ func (in *LibraryPanelParameters) DeepCopyInto(out *LibraryPanelParameters) {
 		in, out := &in.FolderSelector, &out.FolderSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.FolderUID != nil {
+		in, out := &in.FolderUID, &out.FolderUID
+		*out = new(string)
+		**out = **in
 	}
 	if in.ModelJSON != nil {
 		in, out := &in.ModelJSON, &out.ModelJSON
