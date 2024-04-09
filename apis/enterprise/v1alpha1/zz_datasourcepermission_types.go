@@ -23,12 +23,16 @@ type DataSourcePermissionInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// (String) ID of the datasource to apply permissions to.
-	// ID of the datasource to apply permissions to.
+	// (String, Deprecated) Deprecated: Use datasource_uid instead.
+	// Deprecated: Use `datasource_uid` instead.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceID *string `json:"datasourceId,omitempty" tf:"datasource_id,omitempty"`
+
+	// (String) UID of the datasource to apply permissions to.
+	// UID of the datasource to apply permissions to.
+	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -52,9 +56,13 @@ type DataSourcePermissionInitParameters struct {
 
 type DataSourcePermissionObservation struct {
 
-	// (String) ID of the datasource to apply permissions to.
-	// ID of the datasource to apply permissions to.
+	// (String, Deprecated) Deprecated: Use datasource_uid instead.
+	// Deprecated: Use `datasource_uid` instead.
 	DatasourceID *string `json:"datasourceId,omitempty" tf:"datasource_id,omitempty"`
+
+	// (String) UID of the datasource to apply permissions to.
+	// UID of the datasource to apply permissions to.
+	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -78,13 +86,18 @@ type DataSourcePermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// (String) ID of the datasource to apply permissions to.
-	// ID of the datasource to apply permissions to.
+	// (String, Deprecated) Deprecated: Use datasource_uid instead.
+	// Deprecated: Use `datasource_uid` instead.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DatasourceID *string `json:"datasourceId,omitempty" tf:"datasource_id,omitempty"`
+
+	// (String) UID of the datasource to apply permissions to.
+	// UID of the datasource to apply permissions to.
+	// +kubebuilder:validation:Optional
+	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.

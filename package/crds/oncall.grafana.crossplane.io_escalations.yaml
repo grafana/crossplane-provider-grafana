@@ -76,8 +76,8 @@ spec:
                 properties:
                   actionToTrigger:
                     description: |-
-                      (String) The ID of an Action for trigger_action type step.
-                      The ID of an Action for trigger_action type step.
+                      (String) The ID of an Action for trigger_webhook type step.
+                      The ID of an Action for trigger_webhook type step.
                     type: string
                   duration:
                     description: |-
@@ -137,8 +137,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
                     type: string
                 type: object
               initProvider:
@@ -156,8 +156,8 @@ spec:
                 properties:
                   actionToTrigger:
                     description: |-
-                      (String) The ID of an Action for trigger_action type step.
-                      The ID of an Action for trigger_action type step.
+                      (String) The ID of an Action for trigger_webhook type step.
+                      The ID of an Action for trigger_webhook type step.
                     type: string
                   duration:
                     description: |-
@@ -217,8 +217,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
                     type: string
                 type: object
               managementPolicies:
@@ -404,8 +404,8 @@ spec:
                 properties:
                   actionToTrigger:
                     description: |-
-                      (String) The ID of an Action for trigger_action type step.
-                      The ID of an Action for trigger_action type step.
+                      (String) The ID of an Action for trigger_webhook type step.
+                      The ID of an Action for trigger_webhook type step.
                     type: string
                   duration:
                     description: |-
@@ -468,8 +468,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
                     type: string
                 type: object
               conditions:

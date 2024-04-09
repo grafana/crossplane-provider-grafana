@@ -187,6 +187,11 @@ func (in *DataSourcePermissionInitParameters) DeepCopyInto(out *DataSourcePermis
 		*out = new(string)
 		**out = **in
 	}
+	if in.DatasourceUID != nil {
+		in, out := &in.DatasourceUID, &out.DatasourceUID
+		*out = new(string)
+		**out = **in
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -261,6 +266,11 @@ func (in *DataSourcePermissionObservation) DeepCopyInto(out *DataSourcePermissio
 		*out = new(string)
 		**out = **in
 	}
+	if in.DatasourceUID != nil {
+		in, out := &in.DatasourceUID, &out.DatasourceUID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ID != nil {
 		in, out := &in.ID, &out.ID
 		*out = new(string)
@@ -305,6 +315,11 @@ func (in *DataSourcePermissionParameters) DeepCopyInto(out *DataSourcePermission
 	}
 	if in.DatasourceID != nil {
 		in, out := &in.DatasourceID, &out.DatasourceID
+		*out = new(string)
+		**out = **in
+	}
+	if in.DatasourceUID != nil {
+		in, out := &in.DatasourceUID, &out.DatasourceUID
 		*out = new(string)
 		**out = **in
 	}

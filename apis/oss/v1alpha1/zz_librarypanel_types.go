@@ -15,8 +15,8 @@ import (
 
 type LibraryPanelInitParameters struct {
 
-	// (String) ID of the folder where the library panel is stored.
-	// ID of the folder where the library panel is stored.
+	// (String, Deprecated) Deprecated. Use folder_uid instead
+	// Deprecated. Use `folder_uid` instead
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
@@ -29,6 +29,10 @@ type LibraryPanelInitParameters struct {
 	// Selector for a Folder in oss to populate folderId.
 	// +kubebuilder:validation:Optional
 	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+
+	// (String) Unique ID (UID) of the folder containing the library panel.
+	// Unique ID (UID) of the folder containing the library panel.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The JSON model for the library panel.
 	// The JSON model for the library panel.
@@ -72,8 +76,8 @@ type LibraryPanelObservation struct {
 	// Description of the library panel.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) ID of the folder where the library panel is stored.
-	// ID of the folder where the library panel is stored.
+	// (String, Deprecated) Deprecated. Use folder_uid instead
+	// Deprecated. Use `folder_uid` instead
 	FolderID *string `json:"folderId,omitempty" tf:"folder_id,omitempty"`
 
 	// (String) Name of the folder containing the library panel.
@@ -122,8 +126,8 @@ type LibraryPanelObservation struct {
 
 type LibraryPanelParameters struct {
 
-	// (String) ID of the folder where the library panel is stored.
-	// ID of the folder where the library panel is stored.
+	// (String, Deprecated) Deprecated. Use folder_uid instead
+	// Deprecated. Use `folder_uid` instead
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
@@ -137,6 +141,11 @@ type LibraryPanelParameters struct {
 	// Selector for a Folder in oss to populate folderId.
 	// +kubebuilder:validation:Optional
 	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+
+	// (String) Unique ID (UID) of the folder containing the library panel.
+	// Unique ID (UID) of the folder containing the library panel.
+	// +kubebuilder:validation:Optional
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The JSON model for the library panel.
 	// The JSON model for the library panel.

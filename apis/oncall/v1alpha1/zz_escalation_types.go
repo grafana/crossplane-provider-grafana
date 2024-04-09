@@ -15,8 +15,8 @@ import (
 
 type EscalationInitParameters struct {
 
-	// (String) The ID of an Action for trigger_action type step.
-	// The ID of an Action for trigger_action type step.
+	// (String) The ID of an Action for trigger_webhook type step.
+	// The ID of an Action for trigger_webhook type step.
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
 
 	// (Number) The duration of delay for wait type step.
@@ -61,15 +61,15 @@ type EscalationInitParameters struct {
 	// The position of the escalation step (starts from 0).
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EscalationObservation struct {
 
-	// (String) The ID of an Action for trigger_action type step.
-	// The ID of an Action for trigger_action type step.
+	// (String) The ID of an Action for trigger_webhook type step.
+	// The ID of an Action for trigger_webhook type step.
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
 
 	// (Number) The duration of delay for wait type step.
@@ -117,15 +117,15 @@ type EscalationObservation struct {
 	// The position of the escalation step (starts from 0).
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type EscalationParameters struct {
 
-	// (String) The ID of an Action for trigger_action type step.
-	// The ID of an Action for trigger_action type step.
+	// (String) The ID of an Action for trigger_webhook type step.
+	// The ID of an Action for trigger_webhook type step.
 	// +kubebuilder:validation:Optional
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
 
@@ -181,8 +181,8 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_action, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

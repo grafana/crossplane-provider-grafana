@@ -173,7 +173,7 @@ type BodyParameters struct {
 type CheckInitParameters struct {
 
 	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
-	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/). Defaults to `none`.
+	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/configure-alerts/synthetic-monitoring-alerting/). Defaults to `none`.
 	AlertSensitivity *string `json:"alertSensitivity,omitempty" tf:"alert_sensitivity,omitempty"`
 
 	// (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
@@ -218,7 +218,7 @@ type CheckInitParameters struct {
 type CheckObservation struct {
 
 	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
-	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/). Defaults to `none`.
+	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/configure-alerts/synthetic-monitoring-alerting/). Defaults to `none`.
 	AlertSensitivity *string `json:"alertSensitivity,omitempty" tf:"alert_sensitivity,omitempty"`
 
 	// (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
@@ -270,7 +270,7 @@ type CheckObservation struct {
 type CheckParameters struct {
 
 	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
-	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/synthetic-monitoring-alerting/). Defaults to `none`.
+	// Can be set to `none`, `low`, `medium`, or `high` to correspond to the check [alert levels](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/configure-alerts/synthetic-monitoring-alerting/). Defaults to `none`.
 	// +kubebuilder:validation:Optional
 	AlertSensitivity *string `json:"alertSensitivity,omitempty" tf:"alert_sensitivity,omitempty"`
 
@@ -1706,7 +1706,7 @@ type CheckStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Check is the Schema for the Checks API. Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/checks/
+// Check is the Schema for the Checks API. Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/create-checks/checks/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -76,8 +76,8 @@ spec:
                 properties:
                   folderId:
                     description: |-
-                      (String) ID of the folder where the library panel is stored.
-                      ID of the folder where the library panel is stored.
+                      (String, Deprecated) Deprecated. Use folder_uid instead
+                      Deprecated. Use `folder_uid` instead
                     type: string
                   folderRef:
                     description: Reference to a Folder in oss to populate folderId.
@@ -153,6 +153,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  folderUid:
+                    description: |-
+                      (String) Unique ID (UID) of the folder containing the library panel.
+                      Unique ID (UID) of the folder containing the library panel.
+                    type: string
                   modelJson:
                     description: |-
                       (String) The JSON model for the library panel.
@@ -263,8 +268,8 @@ spec:
                 properties:
                   folderId:
                     description: |-
-                      (String) ID of the folder where the library panel is stored.
-                      ID of the folder where the library panel is stored.
+                      (String, Deprecated) Deprecated. Use folder_uid instead
+                      Deprecated. Use `folder_uid` instead
                     type: string
                   folderRef:
                     description: Reference to a Folder in oss to populate folderId.
@@ -340,6 +345,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  folderUid:
+                    description: |-
+                      (String) Unique ID (UID) of the folder containing the library panel.
+                      Unique ID (UID) of the folder containing the library panel.
+                    type: string
                   modelJson:
                     description: |-
                       (String) The JSON model for the library panel.
@@ -635,8 +645,8 @@ spec:
                     type: string
                   folderId:
                     description: |-
-                      (String) ID of the folder where the library panel is stored.
-                      ID of the folder where the library panel is stored.
+                      (String, Deprecated) Deprecated. Use folder_uid instead
+                      Deprecated. Use `folder_uid` instead
                     type: string
                   folderName:
                     description: |-

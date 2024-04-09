@@ -313,8 +313,8 @@ spec:
                           type: array
                         execErrState:
                           description: |-
-                            (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, and Alerting. Defaults to Alerting.
-                            Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, and Alerting. Defaults to `Alerting`.
+                            (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to Alerting.
+                            Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to `Alerting`.
                           type: string
                         for:
                           description: |-
@@ -341,8 +341,8 @@ spec:
                           type: string
                         noDataState:
                           description: |-
-                            (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
-                            Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
+                            (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData.
+                            Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
                           type: string
                         notificationSettings:
                           description: |-
@@ -640,8 +640,8 @@ spec:
                           type: array
                         execErrState:
                           description: |-
-                            (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, and Alerting. Defaults to Alerting.
-                            Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, and Alerting. Defaults to `Alerting`.
+                            (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to Alerting.
+                            Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to `Alerting`.
                           type: string
                         for:
                           description: |-
@@ -668,8 +668,8 @@ spec:
                           type: string
                         noDataState:
                           description: |-
-                            (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
-                            Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
+                            (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData.
+                            Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
                           type: string
                         notificationSettings:
                           description: |-
@@ -994,8 +994,8 @@ spec:
                           type: array
                         execErrState:
                           description: |-
-                            (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, and Alerting. Defaults to Alerting.
-                            Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, and Alerting. Defaults to `Alerting`.
+                            (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to Alerting.
+                            Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to `Alerting`.
                           type: string
                         for:
                           description: |-
@@ -1022,8 +1022,8 @@ spec:
                           type: string
                         noDataState:
                           description: |-
-                            (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to NoData.
-                            Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, and Alerting. Defaults to `NoData`.
+                            (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData.
+                            Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
                           type: string
                         notificationSettings:
                           description: |-
