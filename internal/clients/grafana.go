@@ -64,6 +64,7 @@ func TerraformSetupBuilder() terraform.SetupFn {
 		for _, k := range []string{
 			"url",
 			"auth",
+			"cloud_access_policy_token",
 			"cloud_api_key",
 			"cloud_api_url",
 			"oncall_access_token",
