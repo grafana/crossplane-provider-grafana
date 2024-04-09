@@ -91,6 +91,13 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
+	p.AddResourceConfigurator("grafana_cloud_access_policy", func(r *ujconfig.Resource) {
+		r.References["realm.identifier"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack",
+			RefFieldName:      "StackRef",
+			SelectorFieldName: "StackSelector",
+		}
+	})
 	p.AddResourceConfigurator("grafana_cloud_access_policy_token", func(r *ujconfig.Resource) {
 		r.References["access_policy_id"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_access_policy",

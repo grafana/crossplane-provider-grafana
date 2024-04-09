@@ -993,6 +993,16 @@ func (in *RealmInitParameters) DeepCopyInto(out *RealmInitParameters) {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
+	if in.StackRef != nil {
+		in, out := &in.StackRef, &out.StackRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StackSelector != nil {
+		in, out := &in.StackSelector, &out.StackSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
 		*out = new(string)
@@ -1056,6 +1066,16 @@ func (in *RealmParameters) DeepCopyInto(out *RealmParameters) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.StackRef != nil {
+		in, out := &in.StackRef, &out.StackRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.StackSelector != nil {
+		in, out := &in.StackSelector, &out.StackSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type

@@ -11,9 +11,11 @@ spec:
     displayName: My Policy
     name: my-policy
     realm:
-    - identifier: ${data.grafana_cloud_organization.current.id}
-      labelPolicy:
+    - labelPolicy:
       - selector: '{namespace="default"}'
+      stackSelector:
+        matchLabels:
+          testing.upbound.io/example-name: grafana_cloud_organization
       type: org
     region: us
     scopes:

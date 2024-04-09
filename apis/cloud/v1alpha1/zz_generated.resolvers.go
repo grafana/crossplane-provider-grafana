@@ -13,6 +13,53 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// ResolveReferences of this AccessPolicy.
+func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Realm); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Realm[i3].Identifier),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.ForProvider.Realm[i3].StackRef,
+			Selector:     mg.Spec.ForProvider.Realm[i3].StackSelector,
+			To: reference.To{
+				List:    &StackList{},
+				Managed: &Stack{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Realm[i3].Identifier")
+		}
+		mg.Spec.ForProvider.Realm[i3].Identifier = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Realm[i3].StackRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Realm); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Realm[i3].Identifier),
+			Extract:      reference.ExternalName(),
+			Reference:    mg.Spec.InitProvider.Realm[i3].StackRef,
+			Selector:     mg.Spec.InitProvider.Realm[i3].StackSelector,
+			To: reference.To{
+				List:    &StackList{},
+				Managed: &Stack{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Realm[i3].Identifier")
+		}
+		mg.Spec.InitProvider.Realm[i3].Identifier = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Realm[i3].StackRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this AccessPolicyToken.
 func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
