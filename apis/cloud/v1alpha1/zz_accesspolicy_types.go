@@ -128,10 +128,21 @@ type RealmInitParameters struct {
 
 	// (String) The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
 	// The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:refFieldName=StackRef
+	// +crossplane:generate:reference:selectorFieldName=StackSelector
 	Identifier *string `json:"identifier,omitempty" tf:"identifier,omitempty"`
 
 	// (Block Set) (see below for nested schema)
 	LabelPolicy []LabelPolicyInitParameters `json:"labelPolicy,omitempty" tf:"label_policy,omitempty"`
+
+	// Reference to a Stack in cloud to populate identifier.
+	// +kubebuilder:validation:Optional
+	StackRef *v1.Reference `json:"stackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate identifier.
+	// +kubebuilder:validation:Optional
+	StackSelector *v1.Selector `json:"stackSelector,omitempty" tf:"-"`
 
 	// (String) Whether a policy applies to a Cloud org or a specific stack. Should be one of org or stack.
 	// Whether a policy applies to a Cloud org or a specific stack. Should be one of `org` or `stack`.
@@ -156,12 +167,23 @@ type RealmParameters struct {
 
 	// (String) The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
 	// The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:refFieldName=StackRef
+	// +crossplane:generate:reference:selectorFieldName=StackSelector
 	// +kubebuilder:validation:Optional
-	Identifier *string `json:"identifier" tf:"identifier,omitempty"`
+	Identifier *string `json:"identifier,omitempty" tf:"identifier,omitempty"`
 
 	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	LabelPolicy []LabelPolicyParameters `json:"labelPolicy,omitempty" tf:"label_policy,omitempty"`
+
+	// Reference to a Stack in cloud to populate identifier.
+	// +kubebuilder:validation:Optional
+	StackRef *v1.Reference `json:"stackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate identifier.
+	// +kubebuilder:validation:Optional
+	StackSelector *v1.Selector `json:"stackSelector,omitempty" tf:"-"`
 
 	// (String) Whether a policy applies to a Cloud org or a specific stack. Should be one of org or stack.
 	// Whether a policy applies to a Cloud org or a specific stack. Should be one of `org` or `stack`.

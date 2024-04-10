@@ -32,7 +32,9 @@ spec:
     name: metric-publisher-for-sm
     provider: ${grafana.cloud}
     realm:
-    - identifier: ${grafana_cloud_stack.sm_stack.id}
+    - stackSelector:
+        matchLabels:
+          testing.upbound.io/example-name: sm_stack
       type: stack
     region: ${var.cloud_region}
     scopes:
