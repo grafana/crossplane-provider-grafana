@@ -69,7 +69,7 @@ func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Rea
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AccessPolicyID),
-		Extract:      reference.ExternalName(),
+		Extract:      grafana.PolicyIDExtractor(),
 		Reference:    mg.Spec.ForProvider.AccessPolicyRef,
 		Selector:     mg.Spec.ForProvider.AccessPolicySelector,
 		To: reference.To{
@@ -85,7 +85,7 @@ func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Rea
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AccessPolicyID),
-		Extract:      reference.ExternalName(),
+		Extract:      grafana.PolicyIDExtractor(),
 		Reference:    mg.Spec.InitProvider.AccessPolicyRef,
 		Selector:     mg.Spec.InitProvider.AccessPolicySelector,
 		To: reference.To{

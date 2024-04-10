@@ -103,6 +103,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_access_policy",
 			RefFieldName:      "AccessPolicyRef",
 			SelectorFieldName: "AccessPolicySelector",
+			Extractor:         SelfPackagePath + ".PolicyIDExtractor()",
 		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}

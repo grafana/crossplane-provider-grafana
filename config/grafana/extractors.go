@@ -70,3 +70,18 @@ func UserEmailExtractor() reference.ExtractValueFn {
 		return r
 	}
 }
+
+// nolint: golint
+func PolicyIDExtractor() reference.ExtractValueFn {
+	return func(mg xpresource.Managed) string {
+		paved, err := fieldpath.PaveObject(mg)
+		if err != nil {
+			return ""
+		}
+		r, err := paved.GetString("status.atProvider.policyId")
+		if err != nil {
+			return ""
+		}
+		return r
+	}
+}
