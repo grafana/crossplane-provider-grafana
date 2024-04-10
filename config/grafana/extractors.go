@@ -1,19 +1,30 @@
 package grafana
 
 import (
+	"fmt"
+
 	"github.com/crossplane/crossplane-runtime/pkg/fieldpath"
 	"github.com/crossplane/crossplane-runtime/pkg/reference"
 	xpresource "github.com/crossplane/crossplane-runtime/pkg/resource"
 )
 
+const (
+	// SelfPackagePath is the golang path for this package.
+	SelfPackagePath = "github.com/grafana/crossplane-provider-grafana/config/grafana"
+)
+
+func computedFieldExtractor(field string) string {
+	return fmt.Sprintf("%s.ComputedFieldExtractor(%q)", SelfPackagePath, field)
+}
+
 // nolint: golint
-func CloudStackSlugExtractor() reference.ExtractValueFn {
+func ComputedFieldExtractor(field string) reference.ExtractValueFn {
 	return func(mg xpresource.Managed) string {
 		paved, err := fieldpath.PaveObject(mg)
 		if err != nil {
 			return ""
 		}
-		r, err := paved.GetString("spec.forProvider.slug")
+		r, err := paved.GetString("status.atProvider." + field)
 		if err != nil {
 			return ""
 		}
@@ -21,14 +32,18 @@ func CloudStackSlugExtractor() reference.ExtractValueFn {
 	}
 }
 
+func fieldExtractor(field string) string {
+	return fmt.Sprintf("%s.FieldExtractor(%q)", SelfPackagePath, field)
+}
+
 // nolint: golint
-func NameExtractor() reference.ExtractValueFn {
+func FieldExtractor(field string) reference.ExtractValueFn {
 	return func(mg xpresource.Managed) string {
 		paved, err := fieldpath.PaveObject(mg)
 		if err != nil {
 			return ""
 		}
-		r, err := paved.GetString("spec.forProvider.name")
+		r, err := paved.GetString("spec.forProvider." + field)
 		if err != nil {
 			return ""
 		}
@@ -36,52 +51,17 @@ func NameExtractor() reference.ExtractValueFn {
 	}
 }
 
-// nolint: golint
-func UIDExtractor() reference.ExtractValueFn {
-	return func(mg xpresource.Managed) string {
-		paved, err := fieldpath.PaveObject(mg)
-		if err != nil {
-			return ""
-		}
-		r, err := paved.GetString("spec.forProvider.uid")
-		if err == nil && r != "" {
-			return r
-		}
-		// UID is optional, so it can be in atProvider if it's not in forProvider
-		r, err = paved.GetString("status.atProvider.uid")
-		if err != nil {
-			return ""
-		}
-		return r
-	}
+func optionalFieldExtractor(field string) string {
+	return fmt.Sprintf("%s.OptionalFieldExtractor(%q)", SelfPackagePath, field)
 }
 
 // nolint: golint
-func UserEmailExtractor() reference.ExtractValueFn {
+func OptionalFieldExtractor(field string) reference.ExtractValueFn {
 	return func(mg xpresource.Managed) string {
-		paved, err := fieldpath.PaveObject(mg)
-		if err != nil {
-			return ""
+		res := FieldExtractor(field)(mg)
+		if res != "" {
+			return res
 		}
-		r, err := paved.GetString("spec.forProvider.email")
-		if err != nil {
-			return ""
-		}
-		return r
-	}
-}
-
-// nolint: golint
-func PolicyIDExtractor() reference.ExtractValueFn {
-	return func(mg xpresource.Managed) string {
-		paved, err := fieldpath.PaveObject(mg)
-		if err != nil {
-			return ""
-		}
-		r, err := paved.GetString("status.atProvider.policyId")
-		if err != nil {
-			return ""
-		}
-		return r
+		return ComputedFieldExtractor(field)(mg)
 	}
 }

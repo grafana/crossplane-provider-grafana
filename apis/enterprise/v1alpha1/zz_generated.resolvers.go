@@ -170,7 +170,7 @@ func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
 		To: reference.To{
@@ -202,7 +202,7 @@ func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DashboardRef,
 		Selector:     mg.Spec.InitProvider.DashboardSelector,
 		To: reference.To{
@@ -303,7 +303,7 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.RoleUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.RoleRef,
 		Selector:     mg.Spec.ForProvider.RoleSelector,
 		To: reference.To{
@@ -383,7 +383,7 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.RoleUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.RoleRef,
 		Selector:     mg.Spec.InitProvider.RoleSelector,
 		To: reference.To{

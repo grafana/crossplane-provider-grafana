@@ -23,7 +23,7 @@ func (mg *Job) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DataSourceRef,
 		Selector:     mg.Spec.ForProvider.DataSourceSelector,
 		To: reference.To{
@@ -39,7 +39,7 @@ func (mg *Job) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DataSourceRef,
 		Selector:     mg.Spec.InitProvider.DataSourceSelector,
 		To: reference.To{
@@ -65,7 +65,7 @@ func (mg *OutlierDetector) ResolveReferences(ctx context.Context, c client.Reade
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DataSourceRef,
 		Selector:     mg.Spec.ForProvider.DataSourceSelector,
 		To: reference.To{
@@ -81,7 +81,7 @@ func (mg *OutlierDetector) ResolveReferences(ctx context.Context, c client.Reade
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DataSourceRef,
 		Selector:     mg.Spec.InitProvider.DataSourceSelector,
 		To: reference.To{

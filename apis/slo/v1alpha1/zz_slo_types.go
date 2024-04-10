@@ -145,7 +145,7 @@ type DestinationDatasourceInitParameters struct {
 	// (String) UID for the Mimir Datasource
 	// UID for the Mimir Datasource
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=Ref
 	// +crossplane:generate:reference:selectorFieldName=Selector
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
@@ -171,7 +171,7 @@ type DestinationDatasourceParameters struct {
 	// (String) UID for the Mimir Datasource
 	// UID for the Mimir Datasource
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=Ref
 	// +crossplane:generate:reference:selectorFieldName=Selector
 	// +kubebuilder:validation:Optional

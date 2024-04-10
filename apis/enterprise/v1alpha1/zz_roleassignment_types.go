@@ -41,7 +41,7 @@ type RoleAssignmentInitParameters struct {
 	// (String) Grafana RBAC role UID.
 	// Grafana RBAC role UID.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/enterprise/v1alpha1.Role
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=RoleRef
 	// +crossplane:generate:reference:selectorFieldName=RoleSelector
 	RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
@@ -153,7 +153,7 @@ type RoleAssignmentParameters struct {
 	// (String) Grafana RBAC role UID.
 	// Grafana RBAC role UID.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/enterprise/v1alpha1.Role
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=RoleRef
 	// +crossplane:generate:reference:selectorFieldName=RoleSelector
 	// +kubebuilder:validation:Optional
