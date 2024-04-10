@@ -51,6 +51,7 @@ func FieldExtractor(field string) reference.ExtractValueFn {
 	}
 }
 
+// nolint: unparam
 func optionalFieldExtractor(field string) string {
 	return fmt.Sprintf("%s.OptionalFieldExtractor(%q)", SelfPackagePath, field)
 }
