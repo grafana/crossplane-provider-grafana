@@ -11,11 +11,6 @@ import (
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 )
 
-const (
-	// SelfPackagePath is the golang path for this package.
-	SelfPackagePath = "github.com/grafana/crossplane-provider-grafana/config/grafana"
-)
-
 // ConfigureOrgIDRefs adds an organization reference to the org_id field for all resources that have the field.
 func ConfigureOrgIDRefs(p *ujconfig.Provider) {
 	for name, resource := range p.Resources {
@@ -45,7 +40,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
 			SelectorFieldName: "DashboardSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
@@ -53,7 +48,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_contact_point",
 			RefFieldName:      "ContactPointRef",
 			SelectorFieldName: "ContactPointSelector",
-			Extractor:         SelfPackagePath + ".NameExtractor()",
+			Extractor:         fieldExtractor("name"),
 		}
 		r.References["contact_point"] = contactPointRef
 		r.References["policy.contact_point"] = contactPointRef
@@ -65,7 +60,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_mute_timing",
 			RefFieldName:      "MuteTimingRef",
 			SelectorFieldName: "MuteTimingSelector",
-			Extractor:         SelfPackagePath + ".NameExtractor()",
+			Extractor:         fieldExtractor("name"),
 		}
 		r.References["policy.mute_timings"] = muteTimingRef
 		r.References["policy.policy.mute_timings"] = muteTimingRef
@@ -103,6 +98,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_access_policy",
 			RefFieldName:      "AccessPolicyRef",
 			SelectorFieldName: "AccessPolicySelector",
+			Extractor:         computedFieldExtractor("policyId"),
 		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
@@ -123,7 +119,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
-			Extractor:         SelfPackagePath + ".CloudStackSlugExtractor()",
+			Extractor:         fieldExtractor("slug"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_cloud_stack", func(r *ujconfig.Resource) {
@@ -134,7 +130,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
-			Extractor:         SelfPackagePath + ".CloudStackSlugExtractor()",
+			Extractor:         fieldExtractor("slug"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_cloud_stack_service_account_token", func(r *ujconfig.Resource) {
@@ -142,7 +138,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
-			Extractor:         SelfPackagePath + ".CloudStackSlugExtractor()",
+			Extractor:         fieldExtractor("slug"),
 		}
 		r.References["service_account_id"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack_service_account",
@@ -214,7 +210,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard_public", func(r *ujconfig.Resource) {
@@ -222,7 +218,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
 			SelectorFieldName: "DashboardSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
@@ -231,7 +227,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
 			SelectorFieldName: "DashboardSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 		r.References["permissions.team_id"] = ujconfig.Reference{
 			TerraformName:     "grafana_team",
@@ -266,7 +262,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_folder_permission", func(r *ujconfig.Resource) {
@@ -274,7 +270,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 		r.References["permissions.team_id"] = ujconfig.Reference{
 			TerraformName:     "grafana_team",
@@ -299,7 +295,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_contact_point",
 			RefFieldName:      "ContactPointRef",
 			SelectorFieldName: "ContactPointSelector",
-			Extractor:         SelfPackagePath + ".NameExtractor()",
+			Extractor:         fieldExtractor("name"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
@@ -308,7 +304,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
 			SelectorFieldName: "DashboardSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_role_assignment", func(r *ujconfig.Resource) {
@@ -316,7 +312,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_role",
 			RefFieldName:      "RoleRef",
 			SelectorFieldName: "RoleSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 		r.References["service_accounts"] = ujconfig.Reference{
 			TerraformName:     "grafana_service_account",
@@ -339,7 +335,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
@@ -347,7 +343,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_user",
 			RefFieldName:      "MemberRefs",
 			SelectorFieldName: "MemberSelector",
-			Extractor:         SelfPackagePath + ".UserEmailExtractor()",
+			Extractor:         fieldExtractor("email"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_team_external_group", func(r *ujconfig.Resource) {
@@ -389,7 +385,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_data_source",
 			RefFieldName:      "DataSourceRef",
 			SelectorFieldName: "DataSourceSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 
@@ -398,7 +394,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_data_source",
 			RefFieldName:      "DataSourceRef",
 			SelectorFieldName: "DataSourceSelector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 
@@ -407,7 +403,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_data_source",
 			RefFieldName:      "Ref",
 			SelectorFieldName: "Selector",
-			Extractor:         SelfPackagePath + ".UIDExtractor()",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 }

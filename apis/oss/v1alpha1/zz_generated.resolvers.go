@@ -64,7 +64,7 @@ func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
 		To: reference.To{
@@ -96,7 +96,7 @@ func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) er
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DashboardRef,
 		Selector:     mg.Spec.InitProvider.DashboardSelector,
 		To: reference.To{
@@ -138,7 +138,7 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Folder),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
@@ -170,7 +170,7 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Folder),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
 		To: reference.To{
@@ -212,7 +212,7 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
 		To: reference.To{
@@ -280,7 +280,7 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DashboardRef,
 		Selector:     mg.Spec.InitProvider.DashboardSelector,
 		To: reference.To{
@@ -359,7 +359,7 @@ func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reade
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
 		To: reference.To{
@@ -391,7 +391,7 @@ func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reade
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DashboardRef,
 		Selector:     mg.Spec.InitProvider.DashboardSelector,
 		To: reference.To{
@@ -491,7 +491,7 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ParentFolderUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
@@ -523,7 +523,7 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ParentFolderUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
 		To: reference.To{
@@ -549,7 +549,7 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
@@ -617,7 +617,7 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
 		To: reference.To{
@@ -1085,7 +1085,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Members),
-		Extract:       grafana.UserEmailExtractor(),
+		Extract:       grafana.FieldExtractor("email"),
 		References:    mg.Spec.ForProvider.MemberRefs,
 		Selector:      mg.Spec.ForProvider.MemberSelector,
 		To: reference.To{
@@ -1117,7 +1117,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Members),
-		Extract:       grafana.UserEmailExtractor(),
+		Extract:       grafana.FieldExtractor("email"),
 		References:    mg.Spec.InitProvider.MemberRefs,
 		Selector:      mg.Spec.InitProvider.MemberSelector,
 		To: reference.To{

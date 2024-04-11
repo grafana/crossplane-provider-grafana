@@ -34,7 +34,7 @@ type DashboardPublicInitParameters struct {
 	// (String) The unique identifier of the original dashboard.
 	// The unique identifier of the original dashboard.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DashboardRef
 	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
@@ -132,7 +132,7 @@ type DashboardPublicParameters struct {
 	// (String) The unique identifier of the original dashboard.
 	// The unique identifier of the original dashboard.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.UIDExtractor()
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DashboardRef
 	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
 	// +kubebuilder:validation:Optional

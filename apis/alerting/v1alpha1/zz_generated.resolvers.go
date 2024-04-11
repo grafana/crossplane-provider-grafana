@@ -150,7 +150,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ContactPoint),
-		Extract:      grafana.NameExtractor(),
+		Extract:      grafana.FieldExtractor("name"),
 		Reference:    mg.Spec.ForProvider.ContactPointRef,
 		Selector:     mg.Spec.ForProvider.ContactPointSelector,
 		To: reference.To{
@@ -183,7 +183,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].ContactPoint),
-			Extract:      grafana.NameExtractor(),
+			Extract:      grafana.FieldExtractor("name"),
 			Reference:    mg.Spec.ForProvider.Policy[i3].ContactPointRef,
 			Selector:     mg.Spec.ForProvider.Policy[i3].ContactPointSelector,
 			To: reference.To{
@@ -201,7 +201,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].MuteTimings),
-			Extract:       grafana.NameExtractor(),
+			Extract:       grafana.FieldExtractor("name"),
 			References:    mg.Spec.ForProvider.Policy[i3].MuteTimingRef,
 			Selector:      mg.Spec.ForProvider.Policy[i3].MuteTimingSelector,
 			To: reference.To{
@@ -220,7 +220,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint),
-				Extract:      grafana.NameExtractor(),
+				Extract:      grafana.FieldExtractor("name"),
 				Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointRef,
 				Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointSelector,
 				To: reference.To{
@@ -240,7 +240,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings),
-				Extract:       grafana.NameExtractor(),
+				Extract:       grafana.FieldExtractor("name"),
 				References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingRef,
 				Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingSelector,
 				To: reference.To{
@@ -261,7 +261,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint),
-					Extract:      grafana.NameExtractor(),
+					Extract:      grafana.FieldExtractor("name"),
 					Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef,
 					Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointSelector,
 					To: reference.To{
@@ -283,7 +283,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 					CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings),
-					Extract:       grafana.NameExtractor(),
+					Extract:       grafana.FieldExtractor("name"),
 					References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef,
 					Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingSelector,
 					To: reference.To{
@@ -306,7 +306,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				for i6 := 0; i6 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 						CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint),
-						Extract:      grafana.NameExtractor(),
+						Extract:      grafana.FieldExtractor("name"),
 						Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef,
 						Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointSelector,
 						To: reference.To{
@@ -330,7 +330,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				for i6 := 0; i6 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 						CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings),
-						Extract:       grafana.NameExtractor(),
+						Extract:       grafana.FieldExtractor("name"),
 						References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef,
 						Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingSelector,
 						To: reference.To{
@@ -350,7 +350,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ContactPoint),
-		Extract:      grafana.NameExtractor(),
+		Extract:      grafana.FieldExtractor("name"),
 		Reference:    mg.Spec.InitProvider.ContactPointRef,
 		Selector:     mg.Spec.InitProvider.ContactPointSelector,
 		To: reference.To{
@@ -383,7 +383,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Policy); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].ContactPoint),
-			Extract:      grafana.NameExtractor(),
+			Extract:      grafana.FieldExtractor("name"),
 			Reference:    mg.Spec.InitProvider.Policy[i3].ContactPointRef,
 			Selector:     mg.Spec.InitProvider.Policy[i3].ContactPointSelector,
 			To: reference.To{
@@ -401,7 +401,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Policy); i3++ {
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].MuteTimings),
-			Extract:       grafana.NameExtractor(),
+			Extract:       grafana.FieldExtractor("name"),
 			References:    mg.Spec.InitProvider.Policy[i3].MuteTimingRef,
 			Selector:      mg.Spec.InitProvider.Policy[i3].MuteTimingSelector,
 			To: reference.To{
@@ -420,7 +420,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Policy[i3].Policy); i4++ {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPoint),
-				Extract:      grafana.NameExtractor(),
+				Extract:      grafana.FieldExtractor("name"),
 				Reference:    mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPointRef,
 				Selector:     mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPointSelector,
 				To: reference.To{
@@ -440,7 +440,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Policy[i3].Policy); i4++ {
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimings),
-				Extract:       grafana.NameExtractor(),
+				Extract:       grafana.FieldExtractor("name"),
 				References:    mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimingRef,
 				Selector:      mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimingSelector,
 				To: reference.To{
@@ -461,7 +461,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 					CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint),
-					Extract:      grafana.NameExtractor(),
+					Extract:      grafana.FieldExtractor("name"),
 					Reference:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef,
 					Selector:     mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointSelector,
 					To: reference.To{
@@ -483,7 +483,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 					CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings),
-					Extract:       grafana.NameExtractor(),
+					Extract:       grafana.FieldExtractor("name"),
 					References:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef,
 					Selector:      mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingSelector,
 					To: reference.To{
@@ -506,7 +506,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				for i6 := 0; i6 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 						CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint),
-						Extract:      grafana.NameExtractor(),
+						Extract:      grafana.FieldExtractor("name"),
 						Reference:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef,
 						Selector:     mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointSelector,
 						To: reference.To{
@@ -530,7 +530,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				for i6 := 0; i6 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 						CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings),
-						Extract:       grafana.NameExtractor(),
+						Extract:       grafana.FieldExtractor("name"),
 						References:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef,
 						Selector:      mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingSelector,
 						To: reference.To{
@@ -561,7 +561,7 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
@@ -593,7 +593,7 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
-		Extract:      grafana.UIDExtractor(),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
 		To: reference.To{

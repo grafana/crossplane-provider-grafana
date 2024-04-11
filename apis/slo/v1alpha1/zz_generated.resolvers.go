@@ -24,7 +24,7 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.DestinationDatasource); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationDatasource[i3].UID),
-			Extract:      grafana.UIDExtractor(),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
 			Reference:    mg.Spec.ForProvider.DestinationDatasource[i3].Ref,
 			Selector:     mg.Spec.ForProvider.DestinationDatasource[i3].Selector,
 			To: reference.To{
@@ -42,7 +42,7 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DestinationDatasource); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DestinationDatasource[i3].UID),
-			Extract:      grafana.UIDExtractor(),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
 			Reference:    mg.Spec.InitProvider.DestinationDatasource[i3].Ref,
 			Selector:     mg.Spec.InitProvider.DestinationDatasource[i3].Selector,
 			To: reference.To{
