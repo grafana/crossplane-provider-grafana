@@ -511,15 +511,402 @@ type Oauth2SettingsParameters struct {
 	UseRefreshToken *bool `json:"useRefreshToken,omitempty" tf:"use_refresh_token,omitempty"`
 }
 
+type SAMLSettingsInitParameters struct {
+
+	// initiated login is allowed.
+	// Whether SAML IdP-initiated login is allowed.
+	AllowIdpInitiated *bool `json:"allowIdpInitiated,omitempty" tf:"allow_idp_initiated,omitempty"`
+
+	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
+	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
+
+	// or space-separated organizations. The user should be a member of at least one organization to log in.
+	// List of comma- or space-separated organizations. User should be a member of at least one organization to log in.
+	AllowedOrganizations *string `json:"allowedOrganizations,omitempty" tf:"allowed_organizations,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user email.
+	AssertionAttributeEmail *string `json:"assertionAttributeEmail,omitempty" tf:"assertion_attribute_email,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+	AssertionAttributeGroups *string `json:"assertionAttributeGroups,omitempty" tf:"assertion_attribute_groups,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+	AssertionAttributeLogin *string `json:"assertionAttributeLogin,omitempty" tf:"assertion_attribute_login,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+	AssertionAttributeName *string `json:"assertionAttributeName,omitempty" tf:"assertion_attribute_name,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+	AssertionAttributeOrg *string `json:"assertionAttributeOrg,omitempty" tf:"assertion_attribute_org,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+	AssertionAttributeRole *string `json:"assertionAttributeRole,omitempty" tf:"assertion_attribute_role,omitempty"`
+
+	// (Boolean) Log in automatically, skipping the login screen.
+	// Whether SAML auto login is enabled.
+	AutoLogin *bool `json:"autoLogin,omitempty" tf:"auto_login,omitempty"`
+
+	// (String) Path for the SP X.509 certificate.
+	// Path for the SP X.509 certificate.
+	CertificatePath *string `json:"certificatePath,omitempty" tf:"certificate_path,omitempty"`
+
+	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// Define whether this configuration is enabled for SAML. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// encoded string for the IdP SAML metadata XML.
+	// Base64-encoded string for the IdP SAML metadata XML.
+	IdpMetadata *string `json:"idpMetadata,omitempty" tf:"idp_metadata,omitempty"`
+
+	// (String) Path for the IdP SAML metadata XML.
+	// Path for the IdP SAML metadata XML.
+	IdpMetadataPath *string `json:"idpMetadataPath,omitempty" tf:"idp_metadata_path,omitempty"`
+
+	// (String) URL for the IdP SAML metadata XML.
+	// URL for the IdP SAML metadata XML.
+	IdpMetadataURL *string `json:"idpMetadataUrl,omitempty" tf:"idp_metadata_url,omitempty"`
+
+	// (String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+	// Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+	MaxIssueDelay *string `json:"maxIssueDelay,omitempty" tf:"max_issue_delay,omitempty"`
+
+	// (String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+	// Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+	MetadataValidDuration *string `json:"metadataValidDuration,omitempty" tf:"metadata_valid_duration,omitempty"`
+
+	// (String) Helpful if you use more than one identity providers or SSO protocols.
+	// Name used to refer to the SAML authentication.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// format:transient
+	// The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+	NameIDFormat *string `json:"nameIdFormat,omitempty" tf:"name_id_format,omitempty"`
+
+	// or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	// List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
+
+	// (String) Path for the SP private key.
+	// Path for the SP private key.
+	PrivateKeyPath *string `json:"privateKeyPath,omitempty" tf:"private_key_path,omitempty"`
+
+	// initiated login. Should match relay state configured in IdP.
+	// Relay state for IdP-initiated login. Should match relay state configured in IdP.
+	RelayState *string `json:"relayState,omitempty" tf:"relay_state,omitempty"`
+
+	// or space-separated roles which will be mapped into the Admin role.
+	// List of comma- or space-separated roles which will be mapped into the Admin role.
+	RoleValuesAdmin *string `json:"roleValuesAdmin,omitempty" tf:"role_values_admin,omitempty"`
+
+	// or space-separated roles which will be mapped into the Editor role.
+	// List of comma- or space-separated roles which will be mapped into the Editor role.
+	RoleValuesEditor *string `json:"roleValuesEditor,omitempty" tf:"role_values_editor,omitempty"`
+
+	// or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+	// List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+	RoleValuesGrafanaAdmin *string `json:"roleValuesGrafanaAdmin,omitempty" tf:"role_values_grafana_admin,omitempty"`
+
+	// or space-separated roles which will be mapped into the None role.
+	// List of comma- or space-separated roles which will be mapped into the None role.
+	RoleValuesNone *string `json:"roleValuesNone,omitempty" tf:"role_values_none,omitempty"`
+
+	// sha1, rsa-sha256, rsa-sha512.
+	// Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
+	SignatureAlgorithm *string `json:"signatureAlgorithm,omitempty" tf:"signature_algorithm,omitempty"`
+
+	// (Boolean) Whether SAML Single Logout is enabled.
+	// Whether SAML Single Logout is enabled.
+	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
+}
+
+type SAMLSettingsObservation struct {
+
+	// initiated login is allowed.
+	// Whether SAML IdP-initiated login is allowed.
+	AllowIdpInitiated *bool `json:"allowIdpInitiated,omitempty" tf:"allow_idp_initiated,omitempty"`
+
+	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
+	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
+
+	// or space-separated organizations. The user should be a member of at least one organization to log in.
+	// List of comma- or space-separated organizations. User should be a member of at least one organization to log in.
+	AllowedOrganizations *string `json:"allowedOrganizations,omitempty" tf:"allowed_organizations,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user email.
+	AssertionAttributeEmail *string `json:"assertionAttributeEmail,omitempty" tf:"assertion_attribute_email,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+	AssertionAttributeGroups *string `json:"assertionAttributeGroups,omitempty" tf:"assertion_attribute_groups,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+	AssertionAttributeLogin *string `json:"assertionAttributeLogin,omitempty" tf:"assertion_attribute_login,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+	AssertionAttributeName *string `json:"assertionAttributeName,omitempty" tf:"assertion_attribute_name,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+	AssertionAttributeOrg *string `json:"assertionAttributeOrg,omitempty" tf:"assertion_attribute_org,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+	AssertionAttributeRole *string `json:"assertionAttributeRole,omitempty" tf:"assertion_attribute_role,omitempty"`
+
+	// (Boolean) Log in automatically, skipping the login screen.
+	// Whether SAML auto login is enabled.
+	AutoLogin *bool `json:"autoLogin,omitempty" tf:"auto_login,omitempty"`
+
+	// (String) Path for the SP X.509 certificate.
+	// Path for the SP X.509 certificate.
+	CertificatePath *string `json:"certificatePath,omitempty" tf:"certificate_path,omitempty"`
+
+	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// Define whether this configuration is enabled for SAML. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// encoded string for the IdP SAML metadata XML.
+	// Base64-encoded string for the IdP SAML metadata XML.
+	IdpMetadata *string `json:"idpMetadata,omitempty" tf:"idp_metadata,omitempty"`
+
+	// (String) Path for the IdP SAML metadata XML.
+	// Path for the IdP SAML metadata XML.
+	IdpMetadataPath *string `json:"idpMetadataPath,omitempty" tf:"idp_metadata_path,omitempty"`
+
+	// (String) URL for the IdP SAML metadata XML.
+	// URL for the IdP SAML metadata XML.
+	IdpMetadataURL *string `json:"idpMetadataUrl,omitempty" tf:"idp_metadata_url,omitempty"`
+
+	// (String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+	// Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+	MaxIssueDelay *string `json:"maxIssueDelay,omitempty" tf:"max_issue_delay,omitempty"`
+
+	// (String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+	// Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+	MetadataValidDuration *string `json:"metadataValidDuration,omitempty" tf:"metadata_valid_duration,omitempty"`
+
+	// (String) Helpful if you use more than one identity providers or SSO protocols.
+	// Name used to refer to the SAML authentication.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// format:transient
+	// The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+	NameIDFormat *string `json:"nameIdFormat,omitempty" tf:"name_id_format,omitempty"`
+
+	// or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	// List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
+
+	// (String) Path for the SP private key.
+	// Path for the SP private key.
+	PrivateKeyPath *string `json:"privateKeyPath,omitempty" tf:"private_key_path,omitempty"`
+
+	// initiated login. Should match relay state configured in IdP.
+	// Relay state for IdP-initiated login. Should match relay state configured in IdP.
+	RelayState *string `json:"relayState,omitempty" tf:"relay_state,omitempty"`
+
+	// or space-separated roles which will be mapped into the Admin role.
+	// List of comma- or space-separated roles which will be mapped into the Admin role.
+	RoleValuesAdmin *string `json:"roleValuesAdmin,omitempty" tf:"role_values_admin,omitempty"`
+
+	// or space-separated roles which will be mapped into the Editor role.
+	// List of comma- or space-separated roles which will be mapped into the Editor role.
+	RoleValuesEditor *string `json:"roleValuesEditor,omitempty" tf:"role_values_editor,omitempty"`
+
+	// or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+	// List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+	RoleValuesGrafanaAdmin *string `json:"roleValuesGrafanaAdmin,omitempty" tf:"role_values_grafana_admin,omitempty"`
+
+	// or space-separated roles which will be mapped into the None role.
+	// List of comma- or space-separated roles which will be mapped into the None role.
+	RoleValuesNone *string `json:"roleValuesNone,omitempty" tf:"role_values_none,omitempty"`
+
+	// sha1, rsa-sha256, rsa-sha512.
+	// Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
+	SignatureAlgorithm *string `json:"signatureAlgorithm,omitempty" tf:"signature_algorithm,omitempty"`
+
+	// (Boolean) Whether SAML Single Logout is enabled.
+	// Whether SAML Single Logout is enabled.
+	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
+}
+
+type SAMLSettingsParameters struct {
+
+	// initiated login is allowed.
+	// Whether SAML IdP-initiated login is allowed.
+	// +kubebuilder:validation:Optional
+	AllowIdpInitiated *bool `json:"allowIdpInitiated,omitempty" tf:"allow_idp_initiated,omitempty"`
+
+	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
+	// +kubebuilder:validation:Optional
+	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
+
+	// or space-separated organizations. The user should be a member of at least one organization to log in.
+	// List of comma- or space-separated organizations. User should be a member of at least one organization to log in.
+	// +kubebuilder:validation:Optional
+	AllowedOrganizations *string `json:"allowedOrganizations,omitempty" tf:"allowed_organizations,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user email.
+	// +kubebuilder:validation:Optional
+	AssertionAttributeEmail *string `json:"assertionAttributeEmail,omitempty" tf:"assertion_attribute_email,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+	// +kubebuilder:validation:Optional
+	AssertionAttributeGroups *string `json:"assertionAttributeGroups,omitempty" tf:"assertion_attribute_groups,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+	// +kubebuilder:validation:Optional
+	AssertionAttributeLogin *string `json:"assertionAttributeLogin,omitempty" tf:"assertion_attribute_login,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+	// +kubebuilder:validation:Optional
+	AssertionAttributeName *string `json:"assertionAttributeName,omitempty" tf:"assertion_attribute_name,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+	// +kubebuilder:validation:Optional
+	AssertionAttributeOrg *string `json:"assertionAttributeOrg,omitempty" tf:"assertion_attribute_org,omitempty"`
+
+	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+	// Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+	// +kubebuilder:validation:Optional
+	AssertionAttributeRole *string `json:"assertionAttributeRole,omitempty" tf:"assertion_attribute_role,omitempty"`
+
+	// (Boolean) Log in automatically, skipping the login screen.
+	// Whether SAML auto login is enabled.
+	// +kubebuilder:validation:Optional
+	AutoLogin *bool `json:"autoLogin,omitempty" tf:"auto_login,omitempty"`
+
+	// (String) Path for the SP X.509 certificate.
+	// Path for the SP X.509 certificate.
+	// +kubebuilder:validation:Optional
+	CertificatePath *string `json:"certificatePath,omitempty" tf:"certificate_path,omitempty"`
+
+	// encoded string for the SP X.509 certificate.
+	// Base64-encoded string for the SP X.509 certificate.
+	// +kubebuilder:validation:Optional
+	CertificateSecretRef *v1.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
+
+	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// Define whether this configuration is enabled for SAML. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// encoded string for the IdP SAML metadata XML.
+	// Base64-encoded string for the IdP SAML metadata XML.
+	// +kubebuilder:validation:Optional
+	IdpMetadata *string `json:"idpMetadata,omitempty" tf:"idp_metadata,omitempty"`
+
+	// (String) Path for the IdP SAML metadata XML.
+	// Path for the IdP SAML metadata XML.
+	// +kubebuilder:validation:Optional
+	IdpMetadataPath *string `json:"idpMetadataPath,omitempty" tf:"idp_metadata_path,omitempty"`
+
+	// (String) URL for the IdP SAML metadata XML.
+	// URL for the IdP SAML metadata XML.
+	// +kubebuilder:validation:Optional
+	IdpMetadataURL *string `json:"idpMetadataUrl,omitempty" tf:"idp_metadata_url,omitempty"`
+
+	// (String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+	// Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+	// +kubebuilder:validation:Optional
+	MaxIssueDelay *string `json:"maxIssueDelay,omitempty" tf:"max_issue_delay,omitempty"`
+
+	// (String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+	// Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+	// +kubebuilder:validation:Optional
+	MetadataValidDuration *string `json:"metadataValidDuration,omitempty" tf:"metadata_valid_duration,omitempty"`
+
+	// (String) Helpful if you use more than one identity providers or SSO protocols.
+	// Name used to refer to the SAML authentication.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// format:transient
+	// The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+	// +kubebuilder:validation:Optional
+	NameIDFormat *string `json:"nameIdFormat,omitempty" tf:"name_id_format,omitempty"`
+
+	// or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	// List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	// +kubebuilder:validation:Optional
+	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
+
+	// (String) Path for the SP private key.
+	// Path for the SP private key.
+	// +kubebuilder:validation:Optional
+	PrivateKeyPath *string `json:"privateKeyPath,omitempty" tf:"private_key_path,omitempty"`
+
+	// encoded string for the SP private key.
+	// Base64-encoded string for the SP private key.
+	// +kubebuilder:validation:Optional
+	PrivateKeySecretRef *v1.SecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
+
+	// initiated login. Should match relay state configured in IdP.
+	// Relay state for IdP-initiated login. Should match relay state configured in IdP.
+	// +kubebuilder:validation:Optional
+	RelayState *string `json:"relayState,omitempty" tf:"relay_state,omitempty"`
+
+	// or space-separated roles which will be mapped into the Admin role.
+	// List of comma- or space-separated roles which will be mapped into the Admin role.
+	// +kubebuilder:validation:Optional
+	RoleValuesAdmin *string `json:"roleValuesAdmin,omitempty" tf:"role_values_admin,omitempty"`
+
+	// or space-separated roles which will be mapped into the Editor role.
+	// List of comma- or space-separated roles which will be mapped into the Editor role.
+	// +kubebuilder:validation:Optional
+	RoleValuesEditor *string `json:"roleValuesEditor,omitempty" tf:"role_values_editor,omitempty"`
+
+	// or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+	// List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+	// +kubebuilder:validation:Optional
+	RoleValuesGrafanaAdmin *string `json:"roleValuesGrafanaAdmin,omitempty" tf:"role_values_grafana_admin,omitempty"`
+
+	// or space-separated roles which will be mapped into the None role.
+	// List of comma- or space-separated roles which will be mapped into the None role.
+	// +kubebuilder:validation:Optional
+	RoleValuesNone *string `json:"roleValuesNone,omitempty" tf:"role_values_none,omitempty"`
+
+	// sha1, rsa-sha256, rsa-sha512.
+	// Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
+	// +kubebuilder:validation:Optional
+	SignatureAlgorithm *string `json:"signatureAlgorithm,omitempty" tf:"signature_algorithm,omitempty"`
+
+	// (Boolean) Whether SAML Single Logout is enabled.
+	// Whether SAML Single Logout is enabled.
+	// +kubebuilder:validation:Optional
+	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
+}
+
 type SsoSettingsInitParameters struct {
 
-	// (Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)
-	// The SSO settings set.
+	// (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
+	// The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
 	Oauth2Settings []Oauth2SettingsInitParameters `json:"oauth2Settings,omitempty" tf:"oauth2_settings,omitempty"`
 
-	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
-	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
+	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
+
+	// (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
+	// The SAML settings set. Required for the saml provider.
+	SAMLSettings []SAMLSettingsInitParameters `json:"samlSettings,omitempty" tf:"saml_settings,omitempty"`
 }
 
 type SsoSettingsObservation struct {
@@ -527,26 +914,35 @@ type SsoSettingsObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)
-	// The SSO settings set.
+	// (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
+	// The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
 	Oauth2Settings []Oauth2SettingsObservation `json:"oauth2Settings,omitempty" tf:"oauth2_settings,omitempty"`
 
-	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
-	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
+	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
+
+	// (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
+	// The SAML settings set. Required for the saml provider.
+	SAMLSettings []SAMLSettingsObservation `json:"samlSettings,omitempty" tf:"saml_settings,omitempty"`
 }
 
 type SsoSettingsParameters struct {
 
-	// (Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)
-	// The SSO settings set.
+	// (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
+	// The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
 	// +kubebuilder:validation:Optional
 	Oauth2Settings []Oauth2SettingsParameters `json:"oauth2Settings,omitempty" tf:"oauth2_settings,omitempty"`
 
-	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
-	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
+	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
 	// +kubebuilder:validation:Optional
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
+
+	// (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
+	// The SAML settings set. Required for the saml provider.
+	// +kubebuilder:validation:Optional
+	SAMLSettings []SAMLSettingsParameters `json:"samlSettings,omitempty" tf:"saml_settings,omitempty"`
 }
 
 // SsoSettingsSpec defines the desired state of SsoSettings
@@ -576,7 +972,7 @@ type SsoSettingsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2. SAML support will be added soon. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2 and SAML. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -585,7 +981,6 @@ type SsoSettingsStatus struct {
 type SsoSettings struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.oauth2Settings) || (has(self.initProvider) && has(self.initProvider.oauth2Settings))",message="spec.forProvider.oauth2Settings is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.providerName) || (has(self.initProvider) && has(self.initProvider.providerName))",message="spec.forProvider.providerName is a required parameter"
 	Spec   SsoSettingsSpec   `json:"spec"`
 	Status SsoSettingsStatus `json:"status,omitempty"`

@@ -96,8 +96,8 @@ spec:
                     type: string
                   important:
                     description: |-
-                      (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group
-                      Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group
+                      (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
+                      Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
                     type: boolean
                   notifyIfTimeFrom:
                     description: |-
@@ -113,6 +113,11 @@ spec:
                     description: |-
                       (String) ID of a Schedule for notify_on_call_from_schedule type step.
                       ID of a Schedule for notify_on_call_from_schedule type step.
+                    type: string
+                  notifyToTeamMembers:
+                    description: |-
+                      (String) The ID of a Team for a notify_team_members type step.
+                      The ID of a Team for a notify_team_members type step.
                     type: string
                   personsToNotify:
                     description: |-
@@ -137,8 +142,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
                     type: string
                 type: object
               initProvider:
@@ -176,8 +181,8 @@ spec:
                     type: string
                   important:
                     description: |-
-                      (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group
-                      Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group
+                      (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
+                      Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
                     type: boolean
                   notifyIfTimeFrom:
                     description: |-
@@ -193,6 +198,11 @@ spec:
                     description: |-
                       (String) ID of a Schedule for notify_on_call_from_schedule type step.
                       ID of a Schedule for notify_on_call_from_schedule type step.
+                    type: string
+                  notifyToTeamMembers:
+                    description: |-
+                      (String) The ID of a Team for a notify_team_members type step.
+                      The ID of a Team for a notify_team_members type step.
                     type: string
                   personsToNotify:
                     description: |-
@@ -217,8 +227,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
                     type: string
                 type: object
               managementPolicies:
@@ -427,8 +437,8 @@ spec:
                     type: string
                   important:
                     description: |-
-                      (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group
-                      Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group
+                      (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
+                      Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
                     type: boolean
                   notifyIfTimeFrom:
                     description: |-
@@ -444,6 +454,11 @@ spec:
                     description: |-
                       (String) ID of a Schedule for notify_on_call_from_schedule type step.
                       ID of a Schedule for notify_on_call_from_schedule type step.
+                    type: string
+                  notifyToTeamMembers:
+                    description: |-
+                      (String) The ID of a Team for a notify_team_members type step.
+                      The ID of a Team for a notify_team_members type step.
                     type: string
                   personsToNotify:
                     description: |-
@@ -468,8 +483,8 @@ spec:
                     type: number
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
                     type: string
                 type: object
               conditions:

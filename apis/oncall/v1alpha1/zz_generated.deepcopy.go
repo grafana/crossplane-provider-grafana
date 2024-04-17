@@ -460,6 +460,11 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.NotifyToTeamMembers != nil {
+		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
+		*out = new(string)
+		**out = **in
+	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
 		*out = make([]*string, len(*in))
@@ -584,6 +589,11 @@ func (in *EscalationObservation) DeepCopyInto(out *EscalationObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.NotifyToTeamMembers != nil {
+		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
+		*out = new(string)
+		**out = **in
+	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
 		*out = make([]*string, len(*in))
@@ -668,6 +678,11 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 	}
 	if in.NotifyOnCallFromSchedule != nil {
 		in, out := &in.NotifyOnCallFromSchedule, &out.NotifyOnCallFromSchedule
+		*out = new(string)
+		**out = **in
+	}
+	if in.NotifyToTeamMembers != nil {
+		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
 		*out = new(string)
 		**out = **in
 	}

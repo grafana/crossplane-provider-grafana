@@ -35,8 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: SsoSettings is the Schema for the SsoSettingss API. Manages Grafana
-          SSO Settings for OAuth2. SAML support will be added soon. Official documentation
-          https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP
+          SSO Settings for OAuth2 and SAML. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP
           API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
         properties:
           apiVersion:
@@ -77,8 +76,8 @@ spec:
                 properties:
                   oauth2Settings:
                     description: |-
-                      (Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)
-                      The SSO settings set.
+                      (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
+                      The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
                     items:
                       properties:
                         allowAssignGrafanaAdmin:
@@ -292,9 +291,195 @@ spec:
                     type: array
                   providerName:
                     description: |-
-                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
-                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
+                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
                     type: string
+                  samlSettings:
+                    description: |-
+                      (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
+                      The SAML settings set. Required for the saml provider.
+                    items:
+                      properties:
+                        allowIdpInitiated:
+                          description: |-
+                            initiated login is allowed.
+                            Whether SAML IdP-initiated login is allowed.
+                          type: boolean
+                        allowSignUp:
+                          description: |-
+                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
+                          type: boolean
+                        allowedOrganizations:
+                          description: |-
+                            or space-separated organizations. The user should be a member of at least one organization to log in.
+                            List of comma- or space-separated organizations. User should be a member of at least one organization to log in.
+                          type: string
+                        assertionAttributeEmail:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                          type: string
+                        assertionAttributeGroups:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+                          type: string
+                        assertionAttributeLogin:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+                          type: string
+                        assertionAttributeName:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+                          type: string
+                        assertionAttributeOrg:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+                          type: string
+                        assertionAttributeRole:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+                          type: string
+                        autoLogin:
+                          description: |-
+                            (Boolean) Log in automatically, skipping the login screen.
+                            Whether SAML auto login is enabled.
+                          type: boolean
+                        certificatePath:
+                          description: |-
+                            (String) Path for the SP X.509 certificate.
+                            Path for the SP X.509 certificate.
+                          type: string
+                        certificateSecretRef:
+                          description: |-
+                            encoded string for the SP X.509 certificate.
+                            Base64-encoded string for the SP X.509 certificate.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        enabled:
+                          description: |-
+                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            Define whether this configuration is enabled for SAML. Defaults to `true`.
+                          type: boolean
+                        idpMetadata:
+                          description: |-
+                            encoded string for the IdP SAML metadata XML.
+                            Base64-encoded string for the IdP SAML metadata XML.
+                          type: string
+                        idpMetadataPath:
+                          description: |-
+                            (String) Path for the IdP SAML metadata XML.
+                            Path for the IdP SAML metadata XML.
+                          type: string
+                        idpMetadataUrl:
+                          description: |-
+                            (String) URL for the IdP SAML metadata XML.
+                            URL for the IdP SAML metadata XML.
+                          type: string
+                        maxIssueDelay:
+                          description: |-
+                            (String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+                            Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+                          type: string
+                        metadataValidDuration:
+                          description: |-
+                            (String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+                            Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Helpful if you use more than one identity providers or SSO protocols.
+                            Name used to refer to the SAML authentication.
+                          type: string
+                        nameIdFormat:
+                          description: |-
+                            format:transient
+                            The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+                          type: string
+                        orgMapping:
+                          description: |-
+                            or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+                            List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+                          type: string
+                        privateKeyPath:
+                          description: |-
+                            (String) Path for the SP private key.
+                            Path for the SP private key.
+                          type: string
+                        privateKeySecretRef:
+                          description: |-
+                            encoded string for the SP private key.
+                            Base64-encoded string for the SP private key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        relayState:
+                          description: |-
+                            initiated login. Should match relay state configured in IdP.
+                            Relay state for IdP-initiated login. Should match relay state configured in IdP.
+                          type: string
+                        roleValuesAdmin:
+                          description: |-
+                            or space-separated roles which will be mapped into the Admin role.
+                            List of comma- or space-separated roles which will be mapped into the Admin role.
+                          type: string
+                        roleValuesEditor:
+                          description: |-
+                            or space-separated roles which will be mapped into the Editor role.
+                            List of comma- or space-separated roles which will be mapped into the Editor role.
+                          type: string
+                        roleValuesGrafanaAdmin:
+                          description: |-
+                            or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+                            List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+                          type: string
+                        roleValuesNone:
+                          description: |-
+                            or space-separated roles which will be mapped into the None role.
+                            List of comma- or space-separated roles which will be mapped into the None role.
+                          type: string
+                        signatureAlgorithm:
+                          description: |-
+                            sha1, rsa-sha256, rsa-sha512.
+                            Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
+                          type: string
+                        singleLogout:
+                          description: |-
+                            (Boolean) Whether SAML Single Logout is enabled.
+                            Whether SAML Single Logout is enabled.
+                          type: boolean
+                      type: object
+                    type: array
                 type: object
               initProvider:
                 description: |-
@@ -311,8 +496,8 @@ spec:
                 properties:
                   oauth2Settings:
                     description: |-
-                      (Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)
-                      The SSO settings set.
+                      (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
+                      The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
                     items:
                       properties:
                         allowAssignGrafanaAdmin:
@@ -507,9 +692,157 @@ spec:
                     type: array
                   providerName:
                     description: |-
-                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
-                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
+                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
                     type: string
+                  samlSettings:
+                    description: |-
+                      (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
+                      The SAML settings set. Required for the saml provider.
+                    items:
+                      properties:
+                        allowIdpInitiated:
+                          description: |-
+                            initiated login is allowed.
+                            Whether SAML IdP-initiated login is allowed.
+                          type: boolean
+                        allowSignUp:
+                          description: |-
+                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
+                          type: boolean
+                        allowedOrganizations:
+                          description: |-
+                            or space-separated organizations. The user should be a member of at least one organization to log in.
+                            List of comma- or space-separated organizations. User should be a member of at least one organization to log in.
+                          type: string
+                        assertionAttributeEmail:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                          type: string
+                        assertionAttributeGroups:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+                          type: string
+                        assertionAttributeLogin:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+                          type: string
+                        assertionAttributeName:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+                          type: string
+                        assertionAttributeOrg:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+                          type: string
+                        assertionAttributeRole:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+                          type: string
+                        autoLogin:
+                          description: |-
+                            (Boolean) Log in automatically, skipping the login screen.
+                            Whether SAML auto login is enabled.
+                          type: boolean
+                        certificatePath:
+                          description: |-
+                            (String) Path for the SP X.509 certificate.
+                            Path for the SP X.509 certificate.
+                          type: string
+                        enabled:
+                          description: |-
+                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            Define whether this configuration is enabled for SAML. Defaults to `true`.
+                          type: boolean
+                        idpMetadata:
+                          description: |-
+                            encoded string for the IdP SAML metadata XML.
+                            Base64-encoded string for the IdP SAML metadata XML.
+                          type: string
+                        idpMetadataPath:
+                          description: |-
+                            (String) Path for the IdP SAML metadata XML.
+                            Path for the IdP SAML metadata XML.
+                          type: string
+                        idpMetadataUrl:
+                          description: |-
+                            (String) URL for the IdP SAML metadata XML.
+                            URL for the IdP SAML metadata XML.
+                          type: string
+                        maxIssueDelay:
+                          description: |-
+                            (String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+                            Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+                          type: string
+                        metadataValidDuration:
+                          description: |-
+                            (String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+                            Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Helpful if you use more than one identity providers or SSO protocols.
+                            Name used to refer to the SAML authentication.
+                          type: string
+                        nameIdFormat:
+                          description: |-
+                            format:transient
+                            The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+                          type: string
+                        orgMapping:
+                          description: |-
+                            or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+                            List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+                          type: string
+                        privateKeyPath:
+                          description: |-
+                            (String) Path for the SP private key.
+                            Path for the SP private key.
+                          type: string
+                        relayState:
+                          description: |-
+                            initiated login. Should match relay state configured in IdP.
+                            Relay state for IdP-initiated login. Should match relay state configured in IdP.
+                          type: string
+                        roleValuesAdmin:
+                          description: |-
+                            or space-separated roles which will be mapped into the Admin role.
+                            List of comma- or space-separated roles which will be mapped into the Admin role.
+                          type: string
+                        roleValuesEditor:
+                          description: |-
+                            or space-separated roles which will be mapped into the Editor role.
+                            List of comma- or space-separated roles which will be mapped into the Editor role.
+                          type: string
+                        roleValuesGrafanaAdmin:
+                          description: |-
+                            or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+                            List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+                          type: string
+                        roleValuesNone:
+                          description: |-
+                            or space-separated roles which will be mapped into the None role.
+                            List of comma- or space-separated roles which will be mapped into the None role.
+                          type: string
+                        signatureAlgorithm:
+                          description: |-
+                            sha1, rsa-sha256, rsa-sha512.
+                            Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
+                          type: string
+                        singleLogout:
+                          description: |-
+                            (Boolean) Whether SAML Single Logout is enabled.
+                            Whether SAML Single Logout is enabled.
+                          type: boolean
+                      type: object
+                    type: array
                 type: object
               managementPolicies:
                 default:
@@ -679,10 +1012,6 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.oauth2Settings is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.oauth2Settings)
-                || (has(self.initProvider) && has(self.initProvider.oauth2Settings))'
             - message: spec.forProvider.providerName is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.providerName)
@@ -697,8 +1026,8 @@ spec:
                     type: string
                   oauth2Settings:
                     description: |-
-                      (Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)
-                      The SSO settings set.
+                      (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
+                      The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
                     items:
                       properties:
                         allowAssignGrafanaAdmin:
@@ -893,9 +1222,157 @@ spec:
                     type: array
                   providerName:
                     description: |-
-                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
-                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.
+                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
                     type: string
+                  samlSettings:
+                    description: |-
+                      (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
+                      The SAML settings set. Required for the saml provider.
+                    items:
+                      properties:
+                        allowIdpInitiated:
+                          description: |-
+                            initiated login is allowed.
+                            Whether SAML IdP-initiated login is allowed.
+                          type: boolean
+                        allowSignUp:
+                          description: |-
+                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
+                          type: boolean
+                        allowedOrganizations:
+                          description: |-
+                            or space-separated organizations. The user should be a member of at least one organization to log in.
+                            List of comma- or space-separated organizations. User should be a member of at least one organization to log in.
+                          type: string
+                        assertionAttributeEmail:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                          type: string
+                        assertionAttributeGroups:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+                          type: string
+                        assertionAttributeLogin:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+                          type: string
+                        assertionAttributeName:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+                          type: string
+                        assertionAttributeOrg:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+                          type: string
+                        assertionAttributeRole:
+                          description: |-
+                            (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+                            Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+                          type: string
+                        autoLogin:
+                          description: |-
+                            (Boolean) Log in automatically, skipping the login screen.
+                            Whether SAML auto login is enabled.
+                          type: boolean
+                        certificatePath:
+                          description: |-
+                            (String) Path for the SP X.509 certificate.
+                            Path for the SP X.509 certificate.
+                          type: string
+                        enabled:
+                          description: |-
+                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            Define whether this configuration is enabled for SAML. Defaults to `true`.
+                          type: boolean
+                        idpMetadata:
+                          description: |-
+                            encoded string for the IdP SAML metadata XML.
+                            Base64-encoded string for the IdP SAML metadata XML.
+                          type: string
+                        idpMetadataPath:
+                          description: |-
+                            (String) Path for the IdP SAML metadata XML.
+                            Path for the IdP SAML metadata XML.
+                          type: string
+                        idpMetadataUrl:
+                          description: |-
+                            (String) URL for the IdP SAML metadata XML.
+                            URL for the IdP SAML metadata XML.
+                          type: string
+                        maxIssueDelay:
+                          description: |-
+                            (String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+                            Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.
+                          type: string
+                        metadataValidDuration:
+                          description: |-
+                            (String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+                            Duration, for how long the SP metadata is valid. For example: 48h, 5d.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Helpful if you use more than one identity providers or SSO protocols.
+                            Name used to refer to the SAML authentication.
+                          type: string
+                        nameIdFormat:
+                          description: |-
+                            format:transient
+                            The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+                          type: string
+                        orgMapping:
+                          description: |-
+                            or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+                            List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+                          type: string
+                        privateKeyPath:
+                          description: |-
+                            (String) Path for the SP private key.
+                            Path for the SP private key.
+                          type: string
+                        relayState:
+                          description: |-
+                            initiated login. Should match relay state configured in IdP.
+                            Relay state for IdP-initiated login. Should match relay state configured in IdP.
+                          type: string
+                        roleValuesAdmin:
+                          description: |-
+                            or space-separated roles which will be mapped into the Admin role.
+                            List of comma- or space-separated roles which will be mapped into the Admin role.
+                          type: string
+                        roleValuesEditor:
+                          description: |-
+                            or space-separated roles which will be mapped into the Editor role.
+                            List of comma- or space-separated roles which will be mapped into the Editor role.
+                          type: string
+                        roleValuesGrafanaAdmin:
+                          description: |-
+                            or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+                            List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+                          type: string
+                        roleValuesNone:
+                          description: |-
+                            or space-separated roles which will be mapped into the None role.
+                            List of comma- or space-separated roles which will be mapped into the None role.
+                          type: string
+                        signatureAlgorithm:
+                          description: |-
+                            sha1, rsa-sha256, rsa-sha512.
+                            Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
+                          type: string
+                        singleLogout:
+                          description: |-
+                            (Boolean) Whether SAML Single Logout is enabled.
+                            Whether SAML Single Logout is enabled.
+                          type: boolean
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.
