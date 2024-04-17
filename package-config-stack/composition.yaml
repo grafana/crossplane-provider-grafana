@@ -89,4 +89,86 @@ spec:
           fmt: '%s-cloudstackserviceaccounttoken'
         type: string
       type: FromCompositeFieldPath
+  # Also create an access policy scoped to the stack (as an example of a stack reference)
+  - base:
+      apiVersion: cloud.grafana.crossplane.io/v1alpha1
+      kind: AccessPolicy
+      spec:
+        forProvider:
+          realm:
+          - stackSelector:
+              matchControllerRef: true
+            type: stack
+          region: us
+          scopes:
+          - metrics:write
+          - stacks:read
+    name: cloudaccesspolicy
+    patches:
+    - fromFieldPath: spec.parameters.providerName
+      toFieldPath: spec.providerConfigRef.name
+      type: FromCompositeFieldPath
+    - combine:
+        strategy: string
+        string:
+          fmt: '%s-metrics-publish'
+        variables:
+        - fromFieldPath: spec.parameters.slug
+      toFieldPath: spec.forProvider.name
+      type: CombineFromComposite
+    - combine:
+        strategy: string
+        string:
+          fmt: '%s-metrics-publish'
+        variables:
+        - fromFieldPath: spec.parameters.slug
+      toFieldPath: spec.forProvider.displayName
+      type: CombineFromComposite
+    - fromFieldPath: spec.parameters.region
+      toFieldPath: spec.forProvider.region
+      type: FromCompositeFieldPath
+  - base:
+      apiVersion: cloud.grafana.crossplane.io/v1alpha1
+      kind: AccessPolicyToken
+      spec:
+        forProvider:
+          accessPolicySelector:
+            matchControllerRef: true
+          region: us
+        writeConnectionSecretToRef:
+          namespace: crossplane
+    connectionDetails:
+    - fromConnectionSecretKey: attribute.token
+      name: metricsPublishToken
+    name: cloudaccesspolicytoken
+    patches:
+    - fromFieldPath: spec.parameters.providerName
+      toFieldPath: spec.providerConfigRef.name
+      type: FromCompositeFieldPath
+    - combine:
+        strategy: string
+        string:
+          fmt: '%s-metrics-publish'
+        variables:
+        - fromFieldPath: spec.parameters.slug
+      toFieldPath: spec.forProvider.name
+      type: CombineFromComposite
+    - combine:
+        strategy: string
+        string:
+          fmt: '%s-metrics-publish'
+        variables:
+        - fromFieldPath: spec.parameters.slug
+      toFieldPath: spec.forProvider.displayName
+      type: CombineFromComposite
+    - fromFieldPath: spec.parameters.region
+      toFieldPath: spec.forProvider.region
+      type: FromCompositeFieldPath
+    - fromFieldPath: metadata.uid
+      toFieldPath: spec.writeConnectionSecretToRef.name
+      transforms:
+      - string:
+          fmt: '%s-cloudaccesspolicytoken'
+        type: string
+      type: FromCompositeFieldPath
   writeConnectionSecretsToNamespace: crossplane
