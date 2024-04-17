@@ -571,6 +571,98 @@ resources:
             - |-
               terraform import grafana_dashboard_permission.name "{{ dashboardUID }}"
               terraform import grafana_dashboard_permission.name "{{ orgID }}:{{ dashboardUID }}"
+    grafana_dashboard_permission_item:
+        subCategory: Grafana OSS
+        description: Manages a single permission item for a dashboard. Conflicts with the "grafanadashboardpermission" resource which manages the entire set of permissions for a dashboard.
+        name: grafana_dashboard_permission_item
+        title: grafana_dashboard_permission_item Resource - terraform-provider-grafana
+        examples:
+            - name: role
+              manifest: |-
+                {
+                  "dashboard_uid": "${grafana_dashboard.dashboard.uid}",
+                  "permission": "View",
+                  "role": "Viewer"
+                }
+              references:
+                dashboard_uid: grafana_dashboard.dashboard.uid
+              dependencies:
+                grafana_dashboard.dashboard: |-
+                    {
+                      "config_json": "${jsonencode({\n    \"title\" : \"My Dashboard\",\n    \"uid\" : \"my-dashboard-uid\"\n  })}"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+            - name: user
+              manifest: |-
+                {
+                  "dashboard_uid": "${grafana_dashboard.dashboard.uid}",
+                  "permission": "Admin",
+                  "user": "${grafana_user.user.id}"
+                }
+              references:
+                dashboard_uid: grafana_dashboard.dashboard.uid
+                user: grafana_user.user.id
+              dependencies:
+                grafana_dashboard.dashboard: |-
+                    {
+                      "config_json": "${jsonencode({\n    \"title\" : \"My Dashboard\",\n    \"uid\" : \"my-dashboard-uid\"\n  })}"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+            - name: team
+              manifest: |-
+                {
+                  "dashboard_uid": "${grafana_dashboard.dashboard.uid}",
+                  "permission": "Edit",
+                  "team": "${grafana_team.team.id}"
+                }
+              references:
+                dashboard_uid: grafana_dashboard.dashboard.uid
+                team: grafana_team.team.id
+              dependencies:
+                grafana_dashboard.dashboard: |-
+                    {
+                      "config_json": "${jsonencode({\n    \"title\" : \"My Dashboard\",\n    \"uid\" : \"my-dashboard-uid\"\n  })}"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+        argumentDocs:
+            dashboard_uid: (String) The UID of the dashboard.
+            id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            permission: (String) the permission to be assigned
+            role: (String) the role onto which the permission is to be assigned
+            team: (String) the team onto which the permission is to be assigned
+            user: (String) the user or service account onto which the permission is to be assigned
+        importStatements:
+            - |-
+              terraform import grafana_dashboard_permission_item.name "{{ dashboardUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
+              terraform import grafana_dashboard_permission_item.name "{{ orgID }}:{{ dashboardUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_dashboard_public:
         subCategory: Grafana OSS
         description: 'Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/dashboard-public/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/dashboard_public/'
@@ -892,6 +984,159 @@ resources:
             - |-
               terraform import grafana_data_source_permission.name "{{ datasourceID }}"
               terraform import grafana_data_source_permission.name "{{ orgID }}:{{ datasourceID }}"
+    grafana_data_source_permission_item:
+        subCategory: Grafana Enterprise
+        description: Manages a single permission item for a datasource. Conflicts with the "grafanadatasource_permission" resource which manages the entire set of permissions for a datasource.
+        name: grafana_data_source_permission_item
+        title: grafana_data_source_permission_item Resource - terraform-provider-grafana
+        examples:
+            - name: team
+              manifest: |-
+                {
+                  "datasource_uid": "${grafana_data_source.foo.uid}",
+                  "permission": "Edit",
+                  "team": "${grafana_team.team.id}"
+                }
+              references:
+                datasource_uid: grafana_data_source.foo.uid
+                team: grafana_team.team.id
+              dependencies:
+                grafana_data_source.foo: |-
+                    {
+                      "json_data_encoded": "${jsonencode({\n    defaultRegion = \"us-east-1\"\n    authType      = \"keys\"\n  })}",
+                      "name": "cw-example",
+                      "secure_json_data_encoded": "${jsonencode({\n    accessKey = \"123\"\n    secretKey = \"456\"\n  })}",
+                      "type": "cloudwatch"
+                    }
+                grafana_service_account.sa: |-
+                    {
+                      "name": "test-ds-permissions",
+                      "role": "Viewer"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "test-ds-permissions@example.com",
+                      "login": "test-ds-permissions",
+                      "name": "test-ds-permissions",
+                      "password": "hunter2"
+                    }
+            - name: user
+              manifest: |-
+                {
+                  "datasource_uid": "${grafana_data_source.foo.uid}",
+                  "permission": "Edit",
+                  "user": "${grafana_user.user.id}"
+                }
+              references:
+                datasource_uid: grafana_data_source.foo.uid
+                user: grafana_user.user.id
+              dependencies:
+                grafana_data_source.foo: |-
+                    {
+                      "json_data_encoded": "${jsonencode({\n    defaultRegion = \"us-east-1\"\n    authType      = \"keys\"\n  })}",
+                      "name": "cw-example",
+                      "secure_json_data_encoded": "${jsonencode({\n    accessKey = \"123\"\n    secretKey = \"456\"\n  })}",
+                      "type": "cloudwatch"
+                    }
+                grafana_service_account.sa: |-
+                    {
+                      "name": "test-ds-permissions",
+                      "role": "Viewer"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "test-ds-permissions@example.com",
+                      "login": "test-ds-permissions",
+                      "name": "test-ds-permissions",
+                      "password": "hunter2"
+                    }
+            - name: role
+              manifest: |-
+                {
+                  "datasource_uid": "${grafana_data_source.foo.uid}",
+                  "permission": "Query",
+                  "role": "Viewer"
+                }
+              references:
+                datasource_uid: grafana_data_source.foo.uid
+              dependencies:
+                grafana_data_source.foo: |-
+                    {
+                      "json_data_encoded": "${jsonencode({\n    defaultRegion = \"us-east-1\"\n    authType      = \"keys\"\n  })}",
+                      "name": "cw-example",
+                      "secure_json_data_encoded": "${jsonencode({\n    accessKey = \"123\"\n    secretKey = \"456\"\n  })}",
+                      "type": "cloudwatch"
+                    }
+                grafana_service_account.sa: |-
+                    {
+                      "name": "test-ds-permissions",
+                      "role": "Viewer"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "test-ds-permissions@example.com",
+                      "login": "test-ds-permissions",
+                      "name": "test-ds-permissions",
+                      "password": "hunter2"
+                    }
+            - name: service_account
+              manifest: |-
+                {
+                  "datasource_uid": "${grafana_data_source.foo.uid}",
+                  "permission": "Query",
+                  "user": "${grafana_service_account.sa.id}"
+                }
+              references:
+                datasource_uid: grafana_data_source.foo.uid
+                user: grafana_service_account.sa.id
+              dependencies:
+                grafana_data_source.foo: |-
+                    {
+                      "json_data_encoded": "${jsonencode({\n    defaultRegion = \"us-east-1\"\n    authType      = \"keys\"\n  })}",
+                      "name": "cw-example",
+                      "secure_json_data_encoded": "${jsonencode({\n    accessKey = \"123\"\n    secretKey = \"456\"\n  })}",
+                      "type": "cloudwatch"
+                    }
+                grafana_service_account.sa: |-
+                    {
+                      "name": "test-ds-permissions",
+                      "role": "Viewer"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "test-ds-permissions@example.com",
+                      "login": "test-ds-permissions",
+                      "name": "test-ds-permissions",
+                      "password": "hunter2"
+                    }
+        argumentDocs:
+            datasource_uid: (String) The UID of the datasource.
+            id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            permission: (String) the permission to be assigned
+            role: (String) the role onto which the permission is to be assigned
+            team: (String) the team onto which the permission is to be assigned
+            user: (String) the user or service account onto which the permission is to be assigned
+        importStatements:
+            - |-
+              terraform import grafana_data_source_permission_item.name "{{ datasourceUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
+              terraform import grafana_data_source_permission_item.name "{{ orgID }}:{{ datasourceUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_folder:
         subCategory: Grafana OSS
         description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/manage-dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder/
@@ -990,6 +1235,98 @@ resources:
             - |-
               terraform import grafana_folder_permission.name "{{ folderUID }}"
               terraform import grafana_folder_permission.name "{{ orgID }}:{{ folderUID }}"
+    grafana_folder_permission_item:
+        subCategory: Grafana OSS
+        description: Manages a single permission item for a folder. Conflicts with the "grafanafolderpermission" resource which manages the entire set of permissions for a folder. * Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/ * HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+        name: grafana_folder_permission_item
+        title: grafana_folder_permission_item Resource - terraform-provider-grafana
+        examples:
+            - name: on_role
+              manifest: |-
+                {
+                  "folder_uid": "${grafana_folder.collection.uid}",
+                  "permission": "Edit",
+                  "role": "Viewer"
+                }
+              references:
+                folder_uid: grafana_folder.collection.uid
+              dependencies:
+                grafana_folder.collection: |-
+                    {
+                      "title": "Folder Title"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+            - name: on_team
+              manifest: |-
+                {
+                  "folder_uid": "${grafana_folder.collection.uid}",
+                  "permission": "View",
+                  "team": "${grafana_team.team.id}"
+                }
+              references:
+                folder_uid: grafana_folder.collection.uid
+                team: grafana_team.team.id
+              dependencies:
+                grafana_folder.collection: |-
+                    {
+                      "title": "Folder Title"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+            - name: on_user
+              manifest: |-
+                {
+                  "folder_uid": "${grafana_folder.collection.uid}",
+                  "permission": "Admin",
+                  "user": "${grafana_user.user.id}"
+                }
+              references:
+                folder_uid: grafana_folder.collection.uid
+                user: grafana_user.user.id
+              dependencies:
+                grafana_folder.collection: |-
+                    {
+                      "title": "Folder Title"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+        argumentDocs:
+            folder_uid: (String) The UID of the folder.
+            id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            permission: (String) the permission to be assigned
+            role: (String) the role onto which the permission is to be assigned
+            team: (String) the team onto which the permission is to be assigned
+            user: (String) the user or service account onto which the permission is to be assigned
+        importStatements:
+            - |-
+              terraform import grafana_folder_permission_item.name "{{ folderUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
+              terraform import grafana_folder_permission_item.name "{{ orgID }}:{{ folderUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_library_panel:
         subCategory: Grafana OSS
         description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/manage-library-panels/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
@@ -1346,14 +1683,15 @@ resources:
             escalation_chain_id: (String) The ID of the escalation chain.
             group_to_notify: (String) The ID of a User Group for notify_user_group type step.
             id: (String) The ID of this resource.
-            important: '(Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group'
+            important: '(Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members'
             notify_if_time_from: (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
             notify_if_time_to: (String) The end of the time interval for notify_if_time_from_to type step in UTC (for example 18:00:00Z).
             notify_on_call_from_schedule: (String) ID of a Schedule for notify_on_call_from_schedule type step.
+            notify_to_team_members: (String) The ID of a Team for a notify_team_members type step.
             persons_to_notify: (Set of String) The list of ID's of users for notify_persons type step.
             persons_to_notify_next_each_time: (Set of String) The list of ID's of users for notify_person_next_each_time type step.
             position: (Number) The position of the escalation step (starts from 0).
-            type: (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation
+            type: (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
         importStatements:
             - terraform import grafana_oncall_escalation.name "{{ id }}"
     grafana_oncall_escalation_chain:
@@ -2124,6 +2462,77 @@ resources:
             - |-
               terraform import grafana_service_account_permission.name "{{ serviceAccountID }}"
               terraform import grafana_service_account_permission.name "{{ orgID }}:{{ serviceAccountID }}"
+    grafana_service_account_permission_item:
+        subCategory: Grafana OSS
+        description: Manages a single permission item for a service account. Conflicts with the "grafanaserviceaccount_permission" resource which manages the entire set of permissions for a service account.
+        name: grafana_service_account_permission_item
+        title: grafana_service_account_permission_item Resource - terraform-provider-grafana
+        examples:
+            - name: on_team
+              manifest: |-
+                {
+                  "permission": "Admin",
+                  "service_account_id": "${grafana_service_account.test.id}",
+                  "team": "${grafana_team.team.id}"
+                }
+              references:
+                service_account_id: grafana_service_account.test.id
+                team: grafana_team.team.id
+              dependencies:
+                grafana_service_account.test: |-
+                    {
+                      "is_disabled": false,
+                      "name": "terraform-sa",
+                      "role": "Editor"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+            - name: on_user
+              manifest: |-
+                {
+                  "permission": "Admin",
+                  "service_account_id": "${grafana_service_account.test.id}",
+                  "user": "${grafana_user.user.id}"
+                }
+              references:
+                service_account_id: grafana_service_account.test.id
+                user: grafana_user.user.id
+              dependencies:
+                grafana_service_account.test: |-
+                    {
+                      "is_disabled": false,
+                      "name": "terraform-sa",
+                      "role": "Editor"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
+                grafana_user.user: |-
+                    {
+                      "email": "user.name@example.com",
+                      "login": "user.name",
+                      "password": "my-password"
+                    }
+        argumentDocs:
+            id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            permission: (String) the permission to be assigned
+            service_account_id: (String) The ID of the service account.
+            team: (String) the team onto which the permission is to be assigned
+            user: (String) the user or service account onto which the permission is to be assigned
+        importStatements:
+            - |-
+              terraform import grafana_service_account_permission_item.name "{{ serviceAccountID }}:{{ type (role, team, or user) }}:{{ identifier }}"
+              terraform import grafana_service_account_permission_item.name "{{ orgID }}:{{ serviceAccountID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_service_account_token:
         subCategory: Grafana OSS
         description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
@@ -2352,7 +2761,7 @@ resources:
             - terraform import grafana_slo.name "{{ uuid }}"
     grafana_sso_settings:
         subCategory: Grafana OSS
-        description: Manages Grafana SSO Settings for OAuth2. SAML support will be added soon. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+        description: Manages Grafana SSO Settings for OAuth2 and SAML. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
         name: grafana_sso_settings
         title: grafana_sso_settings Resource - terraform-provider-grafana
         examples:
@@ -2371,14 +2780,23 @@ resources:
                 }
         argumentDocs:
             allow_assign_grafana_admin: (Boolean) If enabled, it will automatically sync the Grafana server administrator role.
+            allow_idp_initiated: (Boolean) Whether SAML IdP-initiated login is allowed.
             allow_sign_up: (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
             allowed_domains: (String) List of comma- or space-separated domains. The user should belong to at least one domain to log in.
             allowed_groups: (String) List of comma- or space-separated groups. The user should be a member of at least one group to log in. For Generic OAuth, if you configure allowed_groups, you must also configure groups_attribute_path.
             allowed_organizations: (String) List of comma- or space-separated organizations. The user should be a member of at least one organization to log in.
             api_url: (String) The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+            assertion_attribute_email: (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+            assertion_attribute_groups: (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
+            assertion_attribute_login: (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
+            assertion_attribute_name: (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
+            assertion_attribute_org: (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
+            assertion_attribute_role: (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
             auth_style: (String) It determines how client_id and client_secret are sent to Oauth2 provider. Possible values are AutoDetect, InParams, InHeader. Default is AutoDetect.
             auth_url: (String) The authorization endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
             auto_login: (Boolean) Log in automatically, skipping the login screen.
+            certificate: (String, Sensitive) Base64-encoded string for the SP X.509 certificate.
+            certificate_path: (String) Path for the SP X.509 certificate.
             client_id: (String) The client Id of your OAuth2 app.
             client_secret: (String, Sensitive) The client secret of your OAuth2 app.
             custom: (Map of String) Custom fields to configure for OAuth2 such as the force_use_graph_api field.
@@ -2391,15 +2809,32 @@ resources:
             groups_attribute_path: (String) JMESPath expression to use for user group lookup. If you configure allowed_groups, you must also configure groups_attribute_path.
             id: (String) The ID of this resource.
             id_token_attribute_name: (String) The name of the key used to extract the ID token from the returned OAuth2 token. Only applicable to Generic OAuth.
+            idp_metadata: (String) Base64-encoded string for the IdP SAML metadata XML.
+            idp_metadata_path: (String) Path for the IdP SAML metadata XML.
+            idp_metadata_url: (String) URL for the IdP SAML metadata XML.
             login_attribute_path: (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
+            max_issue_delay: '(String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.'
+            metadata_valid_duration: '(String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.'
             name: (String) Helpful if you use more than one identity providers or SSO protocols.
             name_attribute_path: (String) JMESPath expression to use for user name lookup from the user ID token. This name will be used as the user’s display name. Only applicable to Generic OAuth.
-            oauth2_settings: '(Block Set, Min: 1, Max: 1) The SSO settings set. (see below for nested schema)'
-            provider_name: '(String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth.'
+            name_id_format: (String) The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
+            oauth2_settings: '(Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)'
+            org_mapping: '(String) List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.'
+            private_key: (String, Sensitive) Base64-encoded string for the SP private key.
+            private_key_path: (String) Path for the SP private key.
+            provider_name: '(String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.'
+            relay_state: (String) Relay state for IdP-initiated login. Should match relay state configured in IdP.
             role_attribute_path: (String) JMESPath expression to use for Grafana role lookup.
             role_attribute_strict: (Boolean) If enabled, denies user login if the Grafana role cannot be extracted using Role attribute path.
+            role_values_admin: (String) List of comma- or space-separated roles which will be mapped into the Admin role.
+            role_values_editor: (String) List of comma- or space-separated roles which will be mapped into the Editor role.
+            role_values_grafana_admin: (String) List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
+            role_values_none: (String) List of comma- or space-separated roles which will be mapped into the None role.
+            saml_settings: '(Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)'
             scopes: (String) List of comma- or space-separated OAuth2 scopes.
+            signature_algorithm: (String) Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
             signout_redirect_url: (String) The URL to redirect the user to after signing out from Grafana.
+            single_logout: (Boolean) Whether SAML Single Logout is enabled.
             skip_org_role_sync: (Boolean) Prevent synchronizing users’ organization roles from your IdP.
             team_ids: (String) String list of Team Ids. If set, the user must be a member of one of the given teams to log in. If you configure team_ids, you must also configure teams_url and team_ids_attribute_path.
             team_ids_attribute_path: (String) The JMESPath expression to use for Grafana Team Id lookup within the results returned by the teams_url endpoint. Only applicable to Generic OAuth.

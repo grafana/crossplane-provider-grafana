@@ -21,7 +21,7 @@ func (mg *SsoSettings) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this SsoSettings
 func (tr *SsoSettings) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"oauth2_settings[*].client_secret": "spec.forProvider.oauth2Settings[*].clientSecretSecretRef"}
+	return map[string]string{"oauth2_settings[*].client_secret": "spec.forProvider.oauth2Settings[*].clientSecretSecretRef", "saml_settings[*].certificate": "spec.forProvider.samlSettings[*].certificateSecretRef", "saml_settings[*].private_key": "spec.forProvider.samlSettings[*].privateKeySecretRef"}
 }
 
 // GetObservation of this SsoSettings
