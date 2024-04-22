@@ -9,7 +9,7 @@ require (
 	github.com/crossplane/crossplane-runtime v1.15.1
 	github.com/crossplane/crossplane-tools v0.0.0-20230925130601-628280f8bf79
 	github.com/crossplane/upjet v1.2.4
-	github.com/grafana/terraform-provider-grafana/v2 v2.17.0
+	github.com/grafana/terraform-provider-grafana/v2 v2.18.0
 	github.com/hashicorp/terraform-json v0.21.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.33.0
 	github.com/pkg/errors v0.9.1
@@ -67,7 +67,7 @@ require (
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20240325012504-4958bdd139e7 // indirect
 	github.com/grafana/machine-learning-go-client v0.5.0 // indirect
 	github.com/grafana/slo-openapi-client/go v0.0.0-20240112175006-de02e75b9d73 // indirect
-	github.com/grafana/synthetic-monitoring-agent v0.23.2 // indirect
+	github.com/grafana/synthetic-monitoring-agent v0.23.3 // indirect
 	github.com/grafana/synthetic-monitoring-api-go-client v0.8.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-cty v1.4.1-0.20200414143053-d3edf31b6320 // indirect
@@ -118,8 +118,8 @@ require (
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	github.com/yuin/goldmark v1.6.0 // indirect
-	github.com/zclconf/go-cty v1.14.2 // indirect
+	github.com/yuin/goldmark v1.7.0 // indirect
+	github.com/zclconf/go-cty v1.14.4 // indirect
 	github.com/zclconf/go-cty-yaml v1.0.3 // indirect
 	go.mongodb.org/mongo-driver v1.14.0 // indirect
 	go.opentelemetry.io/otel v1.24.0 // indirect
