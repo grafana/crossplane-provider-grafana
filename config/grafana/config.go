@@ -164,8 +164,8 @@ func Configure(p *ujconfig.Provider) {
 					diff = &terraform.InstanceDiff{}
 				}
 				diff.DestroyTainted = true
-				return diff, nil
 			}
+
 			return diff, nil
 		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
