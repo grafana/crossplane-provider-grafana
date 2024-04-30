@@ -228,8 +228,8 @@ type ServiceAccountPermissionStatus struct {
 // +kubebuilder:storageversion
 
 // ServiceAccountPermission is the Schema for the ServiceAccountPermissions API. Manages the entire set of permissions for a service account. Permissions that aren't specified when applying this resource will be removed. Note: This resource is available from Grafana 9.2.4 onwards. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/#manage-users-and-teams-permissions-for-a-service-account-in-grafana
-// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
+// +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 // +kubebuilder:resource:scope=Cluster,categories={crossplane,managed,grafana}
