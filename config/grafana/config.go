@@ -154,10 +154,15 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "ServiceAccountSelector",
 		}
 		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
+			if state == nil {
+				return diff, nil
+			}
+
 			// The key may not be returned in the state, so we need to recreate the key if it is missing
 			if _, ok := state.Attributes["key"]; !ok {
-				state.Tainted = true
+				return &terraform.InstanceDiff{Destroy: true}, nil
 			}
+
 			return diff, nil
 		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
