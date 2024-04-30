@@ -110,12 +110,12 @@ type ServiceAccountPermissionParameters struct {
 
 type ServiceAccountPermissionPermissionsInitParameters struct {
 
-	// (String) Permission to associate with item. Must be Edit or Admin.
-	// Permission to associate with item. Must be `Edit` or `Admin`.
+	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
-	// ID of the team to manage permissions for. Specify either this or `user_id`. Defaults to `0`.
+	// (String) ID of the team to manage permissions for. Defaults to 0.
+	// ID of the team to manage permissions for. Defaults to `0`.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
@@ -129,8 +129,8 @@ type ServiceAccountPermissionPermissionsInitParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// (String) ID of the user or service account to manage permissions for. Specify either this or team_id. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
+	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Defaults to `0`.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
@@ -147,28 +147,28 @@ type ServiceAccountPermissionPermissionsInitParameters struct {
 
 type ServiceAccountPermissionPermissionsObservation struct {
 
-	// (String) Permission to associate with item. Must be Edit or Admin.
-	// Permission to associate with item. Must be `Edit` or `Admin`.
+	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
-	// ID of the team to manage permissions for. Specify either this or `user_id`. Defaults to `0`.
+	// (String) ID of the team to manage permissions for. Defaults to 0.
+	// ID of the team to manage permissions for. Defaults to `0`.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) ID of the user or service account to manage permissions for. Specify either this or team_id. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
+	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Defaults to `0`.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type ServiceAccountPermissionPermissionsParameters struct {
 
-	// (String) Permission to associate with item. Must be Edit or Admin.
-	// Permission to associate with item. Must be `Edit` or `Admin`.
+	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
 	// +kubebuilder:validation:Optional
 	Permission *string `json:"permission" tf:"permission,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
-	// ID of the team to manage permissions for. Specify either this or `user_id`. Defaults to `0`.
+	// (String) ID of the team to manage permissions for. Defaults to 0.
+	// ID of the team to manage permissions for. Defaults to `0`.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
@@ -183,8 +183,8 @@ type ServiceAccountPermissionPermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// (String) ID of the user or service account to manage permissions for. Specify either this or team_id. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Specify either this or `team_id`. Defaults to `0`.
+	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+	// ID of the user or service account to manage permissions for. Defaults to `0`.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector

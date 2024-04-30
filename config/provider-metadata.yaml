@@ -161,7 +161,7 @@ resources:
             - terraform import grafana_cloud_access_policy_token.name "{{ region }}:{{ tokenId }}"
     grafana_cloud_api_key:
         subCategory: Cloud
-        description: This resource is deprecated and will be removed in a future release. Please use grafanacloudaccess_policy instead. Manages a single API key on the Grafana Cloud portal (on the organization level)
+        description: 'This resource is deprecated and will be removed in a future release. Please use grafana_cloud_access_policy instead. Manages a single API key on the Grafana Cloud portal (on the organization level) API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#api-keys Required access policy scopes: api-keys:readapi-keys:writeapi-keys:delete'
         name: grafana_cloud_api_key
         title: grafana_cloud_api_key Resource - terraform-provider-grafana
         examples:
@@ -272,7 +272,7 @@ resources:
             - terraform import grafana_cloud_stack.name "{{ stackSlugOrID }}"
     grafana_cloud_stack_api_key Resource - terraform-provider-grafana:
         subCategory: Cloud
-        description: 'Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ Required access policy scopes: stack-api-keys:write !> Deprecated: please use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token instead, see https://grafana.com/docs/grafana/next/administration/api-keys/#migrate-api-keys-to-grafana-service-accounts-using-terraform.'
+        description: 'Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ Required access policy scopes: stack-api-keys:write !> Deprecated: please use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token instead, see .'
         name: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
         title: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
         argumentDocs:
@@ -515,7 +515,7 @@ resources:
               terraform import grafana_dashboard.name "{{ orgID }}:{{ uid }}"
     grafana_dashboard_permission:
         subCategory: Grafana OSS
-        description: Manages the entire set of permissions for a dashboard. Permissions that aren't specified when applying this resource will be removed.
+        description: Manages the entire set of permissions for a dashboard. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
         name: grafana_dashboard_permission
         title: grafana_dashboard_permission Resource - terraform-provider-grafana
         examples:
@@ -564,7 +564,7 @@ resources:
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             permission: (String) Permission to associate with item. Must be one of View, Edit, or Admin.
             permissions: (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
-            role: (String) Manage permissions for Viewer or Editor roles.
+            role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.'
             team_id: (String) ID of the team to manage permissions for. Defaults to 0.
             user_id: (String) ID of the user or service account to manage permissions for. Defaults to 0.
         importStatements:
@@ -573,7 +573,7 @@ resources:
               terraform import grafana_dashboard_permission.name "{{ orgID }}:{{ dashboardUID }}"
     grafana_dashboard_permission_item:
         subCategory: Grafana OSS
-        description: Manages a single permission item for a dashboard. Conflicts with the "grafanadashboardpermission" resource which manages the entire set of permissions for a dashboard.
+        description: Manages a single permission item for a dashboard. Conflicts with the "grafana_dashboard_permission" resource which manages the entire set of permissions for a dashboard.
         name: grafana_dashboard_permission_item
         title: grafana_dashboard_permission_item Resource - terraform-provider-grafana
         examples:
@@ -915,7 +915,7 @@ resources:
               terraform import grafana_data_source_config.name "{{ orgID }}:{{ uid }}"
     grafana_data_source_permission:
         subCategory: Grafana Enterprise
-        description: Manages the entire set of permissions for a datasource. Permissions that aren't specified when applying this resource will be removed.
+        description: Manages the entire set of permissions for a datasource. Permissions that aren't specified when applying this resource will be removed. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
         name: grafana_data_source_permission
         title: grafana_data_source_permission Resource - terraform-provider-grafana
         examples:
@@ -971,7 +971,7 @@ resources:
                       "password": "hunter2"
                     }
         argumentDocs:
-            built_in_role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin. Can only be set from Grafana v9.2.3+. Defaults to ``.'
+            built_in_role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.'
             datasource_id: '(String, Deprecated) Deprecated: Use datasource_uid instead.'
             datasource_uid: (String) UID of the datasource to apply permissions to.
             id: (String) The ID of this resource.
@@ -986,7 +986,7 @@ resources:
               terraform import grafana_data_source_permission.name "{{ orgID }}:{{ datasourceID }}"
     grafana_data_source_permission_item:
         subCategory: Grafana Enterprise
-        description: Manages a single permission item for a datasource. Conflicts with the "grafanadatasource_permission" resource which manages the entire set of permissions for a datasource.
+        description: Manages a single permission item for a datasource. Conflicts with the "grafana_data_source_permission" resource which manages the entire set of permissions for a datasource.
         name: grafana_data_source_permission_item
         title: grafana_data_source_permission_item Resource - terraform-provider-grafana
         examples:
@@ -1180,7 +1180,7 @@ resources:
               terraform import grafana_folder.name "{{ orgID }}:{{ uid }}"
     grafana_folder_permission:
         subCategory: Grafana OSS
-        description: Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed.
+        description: Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
         name: grafana_folder_permission
         title: grafana_folder_permission Resource - terraform-provider-grafana
         examples:
@@ -1228,7 +1228,7 @@ resources:
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             permission: (String) Permission to associate with item. Must be one of View, Edit, or Admin.
             permissions: (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
-            role: (String) Manage permissions for Viewer or Editor roles.
+            role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.'
             team_id: (String) ID of the team to manage permissions for. Defaults to 0.
             user_id: (String) ID of the user or service account to manage permissions for. Defaults to 0.
         importStatements:
@@ -1237,7 +1237,7 @@ resources:
               terraform import grafana_folder_permission.name "{{ orgID }}:{{ folderUID }}"
     grafana_folder_permission_item:
         subCategory: Grafana OSS
-        description: Manages a single permission item for a folder. Conflicts with the "grafanafolderpermission" resource which manages the entire set of permissions for a folder. * Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/ * HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+        description: Manages a single permission item for a folder. Conflicts with the "grafana_folder_permission" resource which manages the entire set of permissions for a folder.
         name: grafana_folder_permission_item
         title: grafana_folder_permission_item Resource - terraform-provider-grafana
         examples:
@@ -1361,7 +1361,7 @@ resources:
               terraform import grafana_library_panel.name "{{ orgID }}:{{ uid }}"
     grafana_machine_learning_holiday Resource - terraform-provider-grafana:
         subCategory: Machine Learning
-        description: 'A holiday describes time periods where a time series is expected to behave differently to normal. To use a holiday in a job, use its id in the holidays attribute of a grafana_machine_learning_job: terraform resource "grafana_machine_learning_job" "test_job" { ... holidays = [ grafana_machine_learning_holiday.my_holiday.id ] }'
+        description: 'A holiday describes time periods where a time series is expected to behave differently to normal. To use a holiday in a job, use its id in the holidays attribute of a grafana_machine_learning_job:'
         name: grafana_machine_learning_holiday Resource - terraform-provider-grafana
         title: grafana_machine_learning_holiday Resource - terraform-provider-grafana
         argumentDocs:
@@ -1398,7 +1398,7 @@ resources:
             - terraform import grafana_machine_learning_job.name "{{ id }}"
     grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana:
         subCategory: Machine Learning
-        description: An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for more details.
+        description: An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit  for more details.
         name: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
         title: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
         argumentDocs:
@@ -2225,7 +2225,7 @@ resources:
               terraform import grafana_role.name "{{ orgID }}:{{ uid }}"
     grafana_role_assignment:
         subCategory: Grafana Enterprise
-        description: 'Manages the entire set of assignments for a role. Assignments that aren''t specified when applying this resource will be removed. Note: This resource is available only with Grafana Enterprise 9.2+.'
+        description: 'Manages the entire set of assignments for a role. Assignments that aren''t specified when applying this resource will be removed. Note: This resource is available only with Grafana Enterprise 9.2+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
         name: grafana_role_assignment
         title: grafana_role_assignment Resource - terraform-provider-grafana
         examples:
@@ -2285,6 +2285,137 @@ resources:
             - |-
               terraform import grafana_role_assignment.name "{{ roleUID }}"
               terraform import grafana_role_assignment.name "{{ orgID }}:{{ roleUID }}"
+    grafana_role_assignment_item:
+        subCategory: Grafana Enterprise
+        description: Manages a single assignment for a role. Conflicts with the "grafana_role_assignment" resource which manages the entire set of assignments for a role.
+        name: grafana_role_assignment_item
+        title: grafana_role_assignment_item Resource - terraform-provider-grafana
+        examples:
+            - name: user
+              manifest: |-
+                {
+                  "role_uid": "${grafana_role.test_role.uid}",
+                  "user_id": "${grafana_user.test_user.id}"
+                }
+              references:
+                role_uid: grafana_role.test_role.uid
+                user_id: grafana_user.test_user.id
+              dependencies:
+                grafana_role.test_role: |-
+                    {
+                      "global": true,
+                      "name": "Test Role",
+                      "permissions": [
+                        {
+                          "action": "org.users:add",
+                          "scope": "users:*"
+                        }
+                      ],
+                      "uid": "testrole",
+                      "version": 1
+                    }
+                grafana_service_account.test_sa: |-
+                    {
+                      "name": "terraform_test_sa",
+                      "role": "Viewer"
+                    }
+                grafana_team.test_team: |-
+                    {
+                      "name": "terraform_test_team"
+                    }
+                grafana_user.test_user: |-
+                    {
+                      "email": "terraform_user@test.com",
+                      "login": "terraform_user@test.com",
+                      "password": "password"
+                    }
+            - name: team
+              manifest: |-
+                {
+                  "role_uid": "${grafana_role.test_role.uid}",
+                  "team_id": "${grafana_team.test_team.id}"
+                }
+              references:
+                role_uid: grafana_role.test_role.uid
+                team_id: grafana_team.test_team.id
+              dependencies:
+                grafana_role.test_role: |-
+                    {
+                      "global": true,
+                      "name": "Test Role",
+                      "permissions": [
+                        {
+                          "action": "org.users:add",
+                          "scope": "users:*"
+                        }
+                      ],
+                      "uid": "testrole",
+                      "version": 1
+                    }
+                grafana_service_account.test_sa: |-
+                    {
+                      "name": "terraform_test_sa",
+                      "role": "Viewer"
+                    }
+                grafana_team.test_team: |-
+                    {
+                      "name": "terraform_test_team"
+                    }
+                grafana_user.test_user: |-
+                    {
+                      "email": "terraform_user@test.com",
+                      "login": "terraform_user@test.com",
+                      "password": "password"
+                    }
+            - name: service_account
+              manifest: |-
+                {
+                  "role_uid": "${grafana_role.test_role.uid}",
+                  "service_account_id": "${grafana_service_account.test_sa.id}"
+                }
+              references:
+                role_uid: grafana_role.test_role.uid
+                service_account_id: grafana_service_account.test_sa.id
+              dependencies:
+                grafana_role.test_role: |-
+                    {
+                      "global": true,
+                      "name": "Test Role",
+                      "permissions": [
+                        {
+                          "action": "org.users:add",
+                          "scope": "users:*"
+                        }
+                      ],
+                      "uid": "testrole",
+                      "version": 1
+                    }
+                grafana_service_account.test_sa: |-
+                    {
+                      "name": "terraform_test_sa",
+                      "role": "Viewer"
+                    }
+                grafana_team.test_team: |-
+                    {
+                      "name": "terraform_test_team"
+                    }
+                grafana_user.test_user: |-
+                    {
+                      "email": "terraform_user@test.com",
+                      "login": "terraform_user@test.com",
+                      "password": "password"
+                    }
+        argumentDocs:
+            id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            role_uid: (String) the role UID onto which to assign an actor
+            service_account_id: (String) the service account onto which the role is to be assigned
+            team_id: (String) the team onto which the role is to be assigned
+            user_id: (String) the user onto which the role is to be assigned
+        importStatements:
+            - |-
+              terraform import grafana_role_assignment_item.name "{{ roleUID }}:{{ type (user, team or service_account) }}:{{ identifier }}"
+              terraform import grafana_role_assignment_item.name "{{ orgID }}:{{ roleUID }}:{{ type (user, team or service_account) }}:{{ identifier }}"
     grafana_rule_group:
         subCategory: Alerting
         description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rules/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
@@ -2453,18 +2584,18 @@ resources:
         argumentDocs:
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            permission: (String) Permission to associate with item. Must be Edit or Admin.
+            permission: (String) Permission to associate with item. Must be one of View, Edit, or Admin.
             permissions: (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
             service_account_id: (String) The id of the service account.
-            team_id: (String) ID of the team to manage permissions for. Specify either this or user_id. Defaults to 0.
-            user_id: (String) ID of the user or service account to manage permissions for. Specify either this or team_id. Defaults to 0.
+            team_id: (String) ID of the team to manage permissions for. Defaults to 0.
+            user_id: (String) ID of the user or service account to manage permissions for. Defaults to 0.
         importStatements:
             - |-
               terraform import grafana_service_account_permission.name "{{ serviceAccountID }}"
               terraform import grafana_service_account_permission.name "{{ orgID }}:{{ serviceAccountID }}"
     grafana_service_account_permission_item:
         subCategory: Grafana OSS
-        description: Manages a single permission item for a service account. Conflicts with the "grafanaserviceaccount_permission" resource which manages the entire set of permissions for a service account.
+        description: Manages a single permission item for a service account. Conflicts with the "grafana_service_account_permission" resource which manages the entire set of permissions for a service account. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/#manage-users-and-teams-permissions-for-a-service-account-in-grafana
         name: grafana_service_account_permission_item
         title: grafana_service_account_permission_item Resource - terraform-provider-grafana
         examples:
@@ -3405,7 +3536,7 @@ resources:
             - terraform import grafana_synthetic_monitoring_check.name "{{ id }}"
     grafana_synthetic_monitoring_installation:
         subCategory: Synthetic Monitoring
-        description: 'Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/set-up/installation/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall Required access policy scopes: stacks:read'
+        description: 'Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/set-up/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall Required access policy scopes: stacks:read'
         name: grafana_synthetic_monitoring_installation
         title: grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana
         examples:
