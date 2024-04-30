@@ -160,9 +160,12 @@ func Configure(p *ujconfig.Provider) {
 
 			// The key may not be returned in the state, so we need to recreate the key if it is missing
 			if _, ok := state.Attributes["key"]; !ok {
-				return &terraform.InstanceDiff{Destroy: true}, nil
+				if diff == nil {
+					diff = &terraform.InstanceDiff{}
+				}
+				diff.DestroyTainted = true
+				return diff, nil
 			}
-
 			return diff, nil
 		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
