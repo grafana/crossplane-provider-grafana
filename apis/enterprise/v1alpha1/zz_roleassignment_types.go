@@ -238,7 +238,7 @@ type RoleAssignmentStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// RoleAssignment is the Schema for the RoleAssignments API. Manages the entire set of assignments for a role. Assignments that aren't specified when applying this resource will be removed. Note: This resource is available only with Grafana Enterprise 9.2+.
+// RoleAssignment is the Schema for the RoleAssignments API. Manages the entire set of assignments for a role. Assignments that aren't specified when applying this resource will be removed. Note: This resource is available only with Grafana Enterprise 9.2+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

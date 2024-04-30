@@ -116,8 +116,8 @@ type FolderPermissionPermissionsInitParameters struct {
 	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) Manage permissions for Viewer or Editor roles.
-	// Manage permissions for `Viewer` or `Editor` roles.
+	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (String) ID of the team to manage permissions for. Defaults to 0.
@@ -157,8 +157,8 @@ type FolderPermissionPermissionsObservation struct {
 	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) Manage permissions for Viewer or Editor roles.
-	// Manage permissions for `Viewer` or `Editor` roles.
+	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (String) ID of the team to manage permissions for. Defaults to 0.
@@ -177,8 +177,8 @@ type FolderPermissionPermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Permission *string `json:"permission" tf:"permission,omitempty"`
 
-	// (String) Manage permissions for Viewer or Editor roles.
-	// Manage permissions for `Viewer` or `Editor` roles.
+	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
@@ -242,7 +242,7 @@ type FolderPermissionStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// FolderPermission is the Schema for the FolderPermissions API. Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed.
+// FolderPermission is the Schema for the FolderPermissions API. Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

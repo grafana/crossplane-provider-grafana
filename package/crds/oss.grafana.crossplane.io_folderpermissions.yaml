@@ -36,7 +36,9 @@ spec:
       openAPIV3Schema:
         description: FolderPermission is the Schema for the FolderPermissions API.
           Manages the entire set of permissions for a folder. Permissions that aren't
-          specified when applying this resource will be removed.
+          specified when applying this resource will be removed. Official documentation
+          https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP
+          API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
         properties:
           apiVersion:
             description: |-
@@ -245,8 +247,8 @@ spec:
                           type: string
                         role:
                           description: |-
-                            (String) Manage permissions for Viewer or Editor roles.
-                            Manage permissions for `Viewer` or `Editor` roles.
+                            (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+                            Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
                           type: string
                         teamId:
                           description: |-
@@ -593,8 +595,8 @@ spec:
                           type: string
                         role:
                           description: |-
-                            (String) Manage permissions for Viewer or Editor roles.
-                            Manage permissions for `Viewer` or `Editor` roles.
+                            (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+                            Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
                           type: string
                         teamId:
                           description: |-
@@ -955,8 +957,8 @@ spec:
                           type: string
                         role:
                           description: |-
-                            (String) Manage permissions for Viewer or Editor roles.
-                            Manage permissions for `Viewer` or `Editor` roles.
+                            (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+                            Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
                           type: string
                         teamId:
                           description: |-
