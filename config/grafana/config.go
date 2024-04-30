@@ -156,7 +156,7 @@ func Configure(p *ujconfig.Provider) {
 		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
 			// The key may not be returned in the state, so we need to recreate the key if it is missing
 			if _, ok := state.Attributes["key"]; !ok {
-				diff.DestroyTainted = true
+				state.Tainted = true
 			}
 			return diff, nil
 		}
