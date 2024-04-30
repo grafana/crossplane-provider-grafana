@@ -363,7 +363,7 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
 		}
-
+		r.TerraformCustomDiff = recreateIfAttributeMissing("sm_access_token")
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 
