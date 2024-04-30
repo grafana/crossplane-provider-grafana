@@ -9,6 +9,7 @@ import (
 	"fmt"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
 // ConfigureOrgIDRefs adds an organization reference to the org_id field for all resources that have the field.
@@ -100,6 +101,13 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "AccessPolicySelector",
 			Extractor:         computedFieldExtractor("policyId"),
 		}
+		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
+			// The token may not be returned in the state, so we need to recreate the token if it is missing
+			if _, ok := state.Attributes["token"]; !ok {
+				diff.DestroyTainted = true
+			}
+			return diff, nil
+		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 			cloudConfig := map[string]string{}
@@ -144,6 +152,13 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_stack_service_account",
 			RefFieldName:      "ServiceAccountRef",
 			SelectorFieldName: "ServiceAccountSelector",
+		}
+		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
+			// The key may not be returned in the state, so we need to recreate the key if it is missing
+			if _, ok := state.Attributes["key"]; !ok {
+				diff.DestroyTainted = true
+			}
+			return diff, nil
 		}
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
