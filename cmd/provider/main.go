@@ -13,8 +13,11 @@ import (
 	"time"
 
 	"github.com/crossplane/crossplane-runtime/pkg/feature"
+	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
+	"github.com/crossplane/crossplane-runtime/pkg/statemetrics"
 	"go.uber.org/zap/zapcore"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/metrics"
 
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	xpcontroller "github.com/crossplane/crossplane-runtime/pkg/controller"
@@ -40,12 +43,13 @@ import (
 // Inspired by the Azure provider: https://github.com/crossplane-contrib/provider-upjet-azure/blob/d6a52c46e243fd70d6a2859ec97f29da0d67efa2/cmd/provider/dbformysql/zz_main.go
 func main() {
 	var (
-		app              = kingpin.New(filepath.Base(os.Args[0]), "Terraform based Crossplane provider for Grafana").DefaultEnvars()
-		debug            = app.Flag("debug", "Run with debug logging.").Short('d').Bool()
-		syncInterval     = app.Flag("sync", "Controller manager sync period such as 300ms, 1.5h, or 2h45m").Short('s').Default("1h").Duration()
-		pollInterval     = app.Flag("poll", "Poll interval controls how often an individual resource should be checked for drift.").Default("10m").Duration()
-		leaderElection   = app.Flag("leader-election", "Use leader election for the controller manager.").Short('l').Default("false").OverrideDefaultFromEnvar("LEADER_ELECTION").Bool()
-		maxReconcileRate = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("100").Int()
+		app                     = kingpin.New(filepath.Base(os.Args[0]), "Terraform based Crossplane provider for Grafana").DefaultEnvars()
+		debug                   = app.Flag("debug", "Run with debug logging.").Short('d').Bool()
+		syncInterval            = app.Flag("sync", "Controller manager sync period such as 300ms, 1.5h, or 2h45m").Short('s').Default("1h").Duration()
+		pollInterval            = app.Flag("poll", "Poll interval controls how often an individual resource should be checked for drift.").Default("10m").Duration()
+		pollStateMetricInterval = app.Flag("poll-state-metric", "State metric recording interval").Default("5s").Duration()
+		leaderElection          = app.Flag("leader-election", "Use leader election for the controller manager.").Short('l').Default("false").OverrideDefaultFromEnvar("LEADER_ELECTION").Bool()
+		maxReconcileRate        = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("100").Int()
 
 		namespace                  = app.Flag("namespace", "Namespace used to set as default scope in default secret store config.").Default("crossplane-system").Envar("POD_NAMESPACE").String()
 		enableExternalSecretStores = app.Flag("enable-external-secret-stores", "Enable support for ExternalSecretStores.").Default("false").Envar("ENABLE_EXTERNAL_SECRET_STORES").Bool()
@@ -83,6 +87,19 @@ func main() {
 	})
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apis.AddToScheme(mgr.GetScheme()), "Cannot add Grafana APIs to scheme")
+
+	mm := managed.NewMRMetricRecorder()
+	sm := statemetrics.NewMRStateMetrics()
+
+	metrics.Registry.MustRegister(mm)
+	metrics.Registry.MustRegister(sm)
+
+	mo := &xpcontroller.MetricOptions{
+		PollStateMetricInterval: *pollStateMetricInterval,
+		MRMetrics:               mm,
+		MRStateMetrics:          sm,
+	}
+
 	featureFlags := &feature.Flags{}
 
 	provider, err := config.GetProvider(false)
@@ -95,6 +112,7 @@ func main() {
 			PollInterval:            *pollInterval,
 			MaxConcurrentReconciles: *maxReconcileRate,
 			Features:                featureFlags,
+			MetricOptions:           mo,
 		},
 
 		Provider:              provider,
