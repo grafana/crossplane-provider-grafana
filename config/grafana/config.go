@@ -311,6 +311,9 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
+	p.AddResourceConfigurator("grafana_role", func(r *ujconfig.Resource) {
+		r.InitializerFns = append(r.InitializerFns, createroleInitializer)
+	})
 	p.AddResourceConfigurator("grafana_role_assignment", func(r *ujconfig.Resource) {
 		r.References["role_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_role",
