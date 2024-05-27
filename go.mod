@@ -1,7 +1,8 @@
 module github.com/grafana/crossplane-provider-grafana
 
-go 1.21
-toolchain go1.22.2
+go 1.22
+
+toolchain go1.22.3
 
 require (
 	dario.cat/mergo v1.0.0
