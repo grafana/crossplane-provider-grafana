@@ -272,7 +272,7 @@ resources:
             - terraform import grafana_cloud_stack.name "{{ stackSlugOrID }}"
     grafana_cloud_stack_api_key Resource - terraform-provider-grafana:
         subCategory: Cloud
-        description: 'Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ Required access policy scopes: stack-api-keys:write !> Deprecated: please use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token instead, see .'
+        description: 'Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ Required access policy scopes: stack-api-keys:write !> Deprecated: please use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token instead, see https://grafana.com/docs/grafana/next/administration/api-keys/#migrate-api-keys-to-grafana-service-accounts-using-terraform.'
         name: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
         title: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
         argumentDocs:
@@ -1398,7 +1398,7 @@ resources:
             - terraform import grafana_machine_learning_job.name "{{ id }}"
     grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana:
         subCategory: Machine Learning
-        description: An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit  for more details.
+        description: An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for more details.
         name: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
         title: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
         argumentDocs:
@@ -1925,6 +1925,9 @@ resources:
                     }
                 grafana_oncall_integration.example_integration: |-
                     {
+                      "default_route": [
+                        {}
+                      ],
                       "name": "Grafana Integration",
                       "type": "grafana"
                     }
@@ -1985,7 +1988,7 @@ resources:
             slack: '(Block List, Max: 1) The Slack-specific settings for a schedule. (see below for nested schema)'
             team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
             time_zone: (String) The schedule's time zone.
-            type: (String) The schedule's type.
+            type: (String) The schedule's type. Valid values are ical, calendar.
             user_group_id: (String) Slack user group id. Members of user group will be updated when on-call users change.
         importStatements:
             - terraform import grafana_oncall_schedule.name "{{ id }}"
@@ -2892,7 +2895,7 @@ resources:
             - terraform import grafana_slo.name "{{ uuid }}"
     grafana_sso_settings:
         subCategory: Grafana OSS
-        description: Manages Grafana SSO Settings for OAuth2 and SAML. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+        description: Manages Grafana SSO Settings for OAuth2 and SAML. Support for SAML is currently in preview, it will be available in Grafana Enterprise starting with v11.1. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
         name: grafana_sso_settings
         title: grafana_sso_settings Resource - terraform-provider-grafana
         examples:
@@ -2916,7 +2919,7 @@ resources:
             allowed_domains: (String) List of comma- or space-separated domains. The user should belong to at least one domain to log in.
             allowed_groups: (String) List of comma- or space-separated groups. The user should be a member of at least one group to log in. For Generic OAuth, if you configure allowed_groups, you must also configure groups_attribute_path.
             allowed_organizations: (String) List of comma- or space-separated organizations. The user should be a member of at least one organization to log in.
-            api_url: (String) The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+            api_url: (String) The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
             assertion_attribute_email: (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
             assertion_attribute_groups: (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
             assertion_attribute_login: (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
@@ -2983,7 +2986,7 @@ resources:
               terraform import grafana_sso_settings.name "{{ orgID }}:{{ provider }}"
     grafana_synthetic_monitoring_check:
         subCategory: Synthetic Monitoring
-        description: Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/create-checks/checks/
+        description: Synthetic Monitoring checks are tests that run on selected probes at defined intervals and report metrics and logs back to your Grafana Cloud account. The target for checks can be a domain name, a server, or a website, depending on what information you would like to gather about your endpoint. You can define multiple checks for a single endpoint to check different capabilities. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/
         name: grafana_synthetic_monitoring_check
         title: grafana_synthetic_monitoring_check Resource - terraform-provider-grafana
         examples:
@@ -3432,7 +3435,7 @@ resources:
                                   "headers": [
                                     {
                                       "name": "Authorization",
-                                      "value": "Bearer ${accessToken}"
+                                      "value": "Bearer $${accessToken}"
                                     }
                                   ],
                                   "method": "GET",
@@ -3536,7 +3539,7 @@ resources:
             - terraform import grafana_synthetic_monitoring_check.name "{{ id }}"
     grafana_synthetic_monitoring_installation:
         subCategory: Synthetic Monitoring
-        description: 'Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/set-up/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall Required access policy scopes: stacks:read'
+        description: 'Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall Required access policy scopes: stacks:read'
         name: grafana_synthetic_monitoring_installation
         title: grafana_synthetic_monitoring_installation Resource - terraform-provider-grafana
         examples:
@@ -3587,11 +3590,11 @@ resources:
             metrics_publisher_key: '(String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.'
             sm_access_token: (String) Generated token to access the SM API.
             stack_id: (String) The ID or slug of the stack to install SM on.
-            stack_sm_api_url: '(String) The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack''s region, this field is computed automatically and readable.'
+            stack_sm_api_url: '(String) The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack''s region, this field is computed automatically and readable.'
         importStatements: []
     grafana_synthetic_monitoring_probe:
         subCategory: Synthetic Monitoring
-        description: Besides the public probes run by Grafana Labs, you can also install your own private probes. These are only accessible to you and only write data to your Grafana Cloud account. Private probes are instances of the open source Grafana Synthetic Monitoring Agent. Official documentation https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/set-up/set-up-private-probes/
+        description: Besides the public probes run by Grafana Labs, you can also install your own private probes. These are only accessible to you and only write data to your Grafana Cloud account. Private probes are instances of the open source Grafana Synthetic Monitoring Agent. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/
         name: grafana_synthetic_monitoring_probe
         title: grafana_synthetic_monitoring_probe Resource - terraform-provider-grafana
         examples:

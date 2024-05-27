@@ -130,8 +130,8 @@ spec:
                     type: string
                   type:
                     description: |-
-                      (String) The schedule's type.
-                      The schedule's type.
+                      (String) The schedule's type. Valid values are ical, calendar.
+                      The schedule's type. Valid values are `ical`, `calendar`.
                     type: string
                 type: object
               initProvider:
@@ -205,8 +205,8 @@ spec:
                     type: string
                   type:
                     description: |-
-                      (String) The schedule's type.
-                      The schedule's type.
+                      (String) The schedule's type. Valid values are ical, calendar.
+                      The schedule's type. Valid values are `ical`, `calendar`.
                     type: string
                 type: object
               managementPolicies:
@@ -451,8 +451,8 @@ spec:
                     type: string
                   type:
                     description: |-
-                      (String) The schedule's type.
-                      The schedule's type.
+                      (String) The schedule's type. Valid values are ical, calendar.
+                      The schedule's type. Valid values are `ical`, `calendar`.
                     type: string
                 type: object
               conditions:

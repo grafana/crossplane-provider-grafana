@@ -48,5 +48,7 @@ metadata:
   name: example-integration
 spec:
   forProvider:
+    defaultRoute:
+    - {}
     name: Grafana Integration
     type: grafana
