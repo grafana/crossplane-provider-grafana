@@ -15,8 +15,8 @@ import (
 
 type Oauth2SettingsInitParameters struct {
 
-	// (String) The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
-	// The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+	// (String) The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
+	// The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
 	// (Boolean) If enabled, it will automatically sync the Grafana server administrator role.
@@ -167,8 +167,8 @@ type Oauth2SettingsInitParameters struct {
 
 type Oauth2SettingsObservation struct {
 
-	// (String) The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
-	// The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+	// (String) The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
+	// The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
 	// (Boolean) If enabled, it will automatically sync the Grafana server administrator role.
@@ -319,8 +319,8 @@ type Oauth2SettingsObservation struct {
 
 type Oauth2SettingsParameters struct {
 
-	// (String) The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
-	// The user information endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+	// (String) The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
+	// The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
 	// +kubebuilder:validation:Optional
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
@@ -624,6 +624,10 @@ type SAMLSettingsInitParameters struct {
 	// (Boolean) Whether SAML Single Logout is enabled.
 	// Whether SAML Single Logout is enabled.
 	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
+
+	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// Prevent synchronizing users’ organization roles from your IdP.
+	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
 }
 
 type SAMLSettingsObservation struct {
@@ -739,6 +743,10 @@ type SAMLSettingsObservation struct {
 	// (Boolean) Whether SAML Single Logout is enabled.
 	// Whether SAML Single Logout is enabled.
 	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
+
+	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// Prevent synchronizing users’ organization roles from your IdP.
+	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
 }
 
 type SAMLSettingsParameters struct {
@@ -892,6 +900,11 @@ type SAMLSettingsParameters struct {
 	// Whether SAML Single Logout is enabled.
 	// +kubebuilder:validation:Optional
 	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
+
+	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// Prevent synchronizing users’ organization roles from your IdP.
+	// +kubebuilder:validation:Optional
+	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
 }
 
 type SsoSettingsInitParameters struct {
@@ -972,7 +985,7 @@ type SsoSettingsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2 and SAML. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2 and SAML. Support for SAML is currently in preview, it will be available in Grafana Enterprise starting with v11.1. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
