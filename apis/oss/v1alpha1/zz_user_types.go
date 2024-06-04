@@ -30,6 +30,10 @@ type UserInitParameters struct {
 	// (String) The display name for the Grafana user.
 	// The display name for the Grafana user.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String, Sensitive) The password for the Grafana user.
+	// The password for the Grafana user.
+	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 }
 
 type UserObservation struct {

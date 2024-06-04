@@ -1105,6 +1105,25 @@ spec:
                                         (String) Client certificate in PEM format.
                                         Client certificate in PEM format.
                                       type: string
+                                    clientKeySecretRef:
+                                      description: |-
+                                        (String, Sensitive) Client key in PEM format.
+                                        Client key in PEM format.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     insecureSkipVerify:
                                       description: |-
                                         (Boolean) Disable target certificate validation. Defaults to false.
@@ -1375,6 +1394,25 @@ spec:
                                         (String) Client certificate in PEM format.
                                         Client certificate in PEM format.
                                       type: string
+                                    clientKeySecretRef:
+                                      description: |-
+                                        (String, Sensitive) Client key in PEM format.
+                                        Client key in PEM format.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     insecureSkipVerify:
                                       description: |-
                                         (Boolean) Disable target certificate validation. Defaults to false.

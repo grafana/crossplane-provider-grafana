@@ -187,6 +187,25 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  authorizationHeaderSecretRef:
+                    description: |-
+                      (String, Sensitive) The auth data of the webhook. Used in Authorization header instead of user/password auth.
+                      The auth data of the webhook. Used in Authorization header instead of user/password auth.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   data:
                     description: |-
                       (String) The data of the webhook.
@@ -224,6 +243,25 @@ spec:
                       (String) The name of the outgoing webhook.
                       The name of the outgoing webhook.
                     type: string
+                  passwordSecretRef:
+                    description: |-
+                      (String, Sensitive) The auth data of the webhook. Used for Basic authentication
+                      The auth data of the webhook. Used for Basic authentication
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
                   teamId:
                     description: |-
                       (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.

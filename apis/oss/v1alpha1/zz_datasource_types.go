@@ -31,6 +31,8 @@ type DataSourceInitParameters struct {
 	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
+	HTTPHeaders map[string]*string `json:"httpHeadersSecretRef,omitempty" tf:"-"`
+
 	// (Boolean) Whether to set the data source as default. This should only be true to a single data source. Defaults to false.
 	// Whether to set the data source as default. This should only be `true` to a single data source. Defaults to `false`.
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
@@ -57,6 +59,10 @@ type DataSourceInitParameters struct {
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
+	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
+	SecureJSONDataEncodedSecretRef *v1.SecretKeySelector `json:"secureJsonDataEncodedSecretRef,omitempty" tf:"-"`
 
 	// (String) The data source type. Must be one of the supported data source keywords.
 	// The data source type. Must be one of the supported data source keywords.

@@ -1750,6 +1750,7 @@ func (in *InstallationInitParameters) DeepCopyInto(out *InstallationInitParamete
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	out.MetricsPublisherKeySecretRef = in.MetricsPublisherKeySecretRef
 	if in.StackID != nil {
 		in, out := &in.StackID, &out.StackID
 		*out = new(string)
@@ -2972,6 +2973,11 @@ func (in *TCPTLSConfigInitParameters) DeepCopyInto(out *TCPTLSConfigInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.ClientKeySecretRef != nil {
+		in, out := &in.ClientKeySecretRef, &out.ClientKeySecretRef
+		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
 	if in.InsecureSkipVerify != nil {
 		in, out := &in.InsecureSkipVerify, &out.InsecureSkipVerify
 		*out = new(bool)
@@ -3080,6 +3086,11 @@ func (in *TLSConfigInitParameters) DeepCopyInto(out *TLSConfigInitParameters) {
 	if in.ClientCert != nil {
 		in, out := &in.ClientCert, &out.ClientCert
 		*out = new(string)
+		**out = **in
+	}
+	if in.ClientKeySecretRef != nil {
+		in, out := &in.ClientKeySecretRef, &out.ClientKeySecretRef
+		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
 	if in.InsecureSkipVerify != nil {

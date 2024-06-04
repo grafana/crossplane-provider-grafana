@@ -21,7 +21,7 @@ func (mg *DataSource) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this DataSource
 func (tr *DataSource) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"http_headers": "spec.forProvider.httpHeadersSecretRef", "secure_json_data_encoded": "spec.forProvider.secureJsonDataEncodedSecretRef"}
+	return map[string]string{"http_headers": "httpHeadersSecretRef", "secure_json_data_encoded": "secureJsonDataEncodedSecretRef"}
 }
 
 // GetObservation of this DataSource

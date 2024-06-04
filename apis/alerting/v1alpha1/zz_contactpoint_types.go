@@ -15,6 +15,10 @@ import (
 
 type AlertmanagerInitParameters struct {
 
+	// (String, Sensitive) The password component of the basic auth credentials to use.
+	// The password component of the basic auth credentials to use.
+	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+
 	// (String) The username component of the basic auth credentials to use.
 	// The username component of the basic auth credentials to use.
 	BasicAuthUser *string `json:"basicAuthUser,omitempty" tf:"basic_auth_user,omitempty"`
@@ -22,6 +26,8 @@ type AlertmanagerInitParameters struct {
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// The URL of the Alertmanager instance.
@@ -432,6 +438,8 @@ type DingdingInitParameters struct {
 	// The format of message to send - either 'link' or 'actionCard'
 	MessageType *string `json:"messageType,omitempty" tf:"message_type,omitempty"`
 
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) The templated title of the message.
 	// The templated title of the message.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -515,9 +523,15 @@ type DiscordInitParameters struct {
 	// The templated content of the message. Defaults to “.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) The templated title of the message.
 	// The templated content of the title.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The discord webhook URL.
+	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 
 	// (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
 	// Whether to use the bot account's plain username instead of "Grafana." Defaults to `false`.
@@ -580,7 +594,7 @@ type DiscordParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The discord webhook URL.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 
 	// (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
@@ -602,6 +616,8 @@ type EmailInitParameters struct {
 	// (String) The templated content of the message.
 	// The templated content of the email. Defaults to “.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to false.
 	// Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to `false`.
@@ -682,9 +698,15 @@ type GooglechatInitParameters struct {
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) The templated title of the message.
 	// The templated content of the title.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The Google Chat webhook URL.
+	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type GooglechatObservation struct {
@@ -730,7 +752,7 @@ type GooglechatParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The Google Chat webhook URL.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
@@ -755,6 +777,16 @@ type KafkaInitParameters struct {
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+	// The password to use when making a call to the Kafka REST Proxy
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
+	// The URL of the Kafka REST proxy to send requests to.
+	RestProxyURLSecretRef v1.SecretKeySelector `json:"restProxyUrlSecretRef" tf:"-"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The name of the Kafka topic to publish to.
 	// The name of the Kafka topic to publish to.
@@ -834,7 +866,7 @@ type KafkaParameters struct {
 
 	// (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
 	// The URL of the Kafka REST proxy to send requests to.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	RestProxyURLSecretRef v1.SecretKeySelector `json:"restProxyUrlSecretRef" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
@@ -863,9 +895,15 @@ type LineInitParameters struct {
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) The templated title of the message.
 	// The templated title of the message.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String, Sensitive) The bearer token used to authorize the client.
+	// The bearer token used to authorize the client.
+	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type LineObservation struct {
@@ -911,15 +949,23 @@ type LineParameters struct {
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The bearer token used to authorize the client.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type OncallInitParameters struct {
 
+	// attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+	// Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+	AuthorizationCredentialsSecretRef *v1.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
+
 	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	AuthorizationScheme *string `json:"authorizationScheme,omitempty" tf:"authorization_scheme,omitempty"`
+
+	// (String, Sensitive) The password component of the basic auth credentials to use.
+	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
@@ -940,6 +986,8 @@ type OncallInitParameters struct {
 	// (String) The templated content of the message.
 	// Custom message. You can use template variables.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// Templated title of the message.
@@ -1049,6 +1097,10 @@ type OncallParameters struct {
 
 type OpsgenieInitParameters struct {
 
+	// (String, Sensitive) The OpsGenie API key to use.
+	// The OpsGenie API key to use.
+	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
+
 	// close alerts in OpsGenie when they resolve in the Alertmanager.
 	// Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
 	AutoClose *bool `json:"autoClose,omitempty" tf:"auto_close,omitempty"`
@@ -1076,6 +1128,8 @@ type OpsgenieInitParameters struct {
 	// (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
 	// Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are `tags`, `details`, `both`, or empty to use the default behavior of Tags.
 	SendTagsAs *string `json:"sendTagsAs,omitempty" tf:"send_tags_as,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// Allows customization of the OpsGenie API URL.
@@ -1125,7 +1179,7 @@ type OpsgenieParameters struct {
 
 	// (String, Sensitive) The OpsGenie API key to use.
 	// The OpsGenie API key to use.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
 	// close alerts in OpsGenie when they resolve in the Alertmanager.
@@ -1204,6 +1258,12 @@ type PagerdutyInitParameters struct {
 	// (String) The group to which the provided component belongs to.
 	// The group to which the provided component belongs to.
 	Group *string `json:"group,omitempty" tf:"group,omitempty"`
+
+	// (String, Sensitive) The PagerDuty API key.
+	// The PagerDuty API key.
+	IntegrationKeySecretRef v1.SecretKeySelector `json:"integrationKeySecretRef" tf:"-"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The PagerDuty event severity level. Default is critical.
 	// The PagerDuty event severity level. Default is `critical`.
@@ -1306,7 +1366,7 @@ type PagerdutyParameters struct {
 
 	// (String, Sensitive) The PagerDuty API key.
 	// The PagerDuty API key.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	IntegrationKeySecretRef v1.SecretKeySelector `json:"integrationKeySecretRef" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
@@ -1331,6 +1391,10 @@ type PagerdutyParameters struct {
 }
 
 type PushoverInitParameters struct {
+
+	// (String, Sensitive) The Pushover API token.
+	// The Pushover API token.
+	APITokenSecretRef v1.SecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
 
 	// separated list of devices to which the event is associated.
 	// Comma-separated list of devices to which the event is associated.
@@ -1364,6 +1428,8 @@ type PushoverInitParameters struct {
 	// How often, in seconds, the Pushover servers will send the same notification to the user.
 	Retry *float64 `json:"retry,omitempty" tf:"retry,omitempty"`
 
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) The sound associated with the notification.
 	// The sound associated with the notification.
 	Sound *string `json:"sound,omitempty" tf:"sound,omitempty"`
@@ -1375,6 +1441,10 @@ type PushoverInitParameters struct {
 	// (Boolean) Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
 	// Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
 	UploadImage *bool `json:"uploadImage,omitempty" tf:"upload_image,omitempty"`
+
+	// (String, Sensitive) The Pushover user key.
+	// The Pushover user key.
+	UserKeySecretRef v1.SecretKeySelector `json:"userKeySecretRef" tf:"-"`
 }
 
 type PushoverObservation struct {
@@ -1432,7 +1502,7 @@ type PushoverParameters struct {
 
 	// (String, Sensitive) The Pushover API token.
 	// The Pushover API token.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	APITokenSecretRef v1.SecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
 
 	// separated list of devices to which the event is associated.
@@ -1497,7 +1567,7 @@ type PushoverParameters struct {
 
 	// (String, Sensitive) The Pushover user key.
 	// The Pushover user key.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	UserKeySecretRef v1.SecretKeySelector `json:"userKeySecretRef" tf:"-"`
 }
 
@@ -1564,6 +1634,10 @@ type RespondersParameters struct {
 
 type SensugoInitParameters struct {
 
+	// (String, Sensitive) The OpsGenie API key to use.
+	// The SensuGo API key.
+	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
+
 	// (String) The SensuGo check to which the event should be routed.
 	// The SensuGo check to which the event should be routed.
 	Check *string `json:"check,omitempty" tf:"check,omitempty"`
@@ -1587,6 +1661,8 @@ type SensugoInitParameters struct {
 	// (String) The namespace in which the check resides.
 	// The namespace in which the check resides.
 	Namespace *string `json:"namespace,omitempty" tf:"namespace,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// The SensuGo URL to send requests to.
@@ -1632,7 +1708,7 @@ type SensugoParameters struct {
 
 	// (String, Sensitive) The OpsGenie API key to use.
 	// The SensuGo API key.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
 	// (String) The SensuGo check to which the event should be routed.
@@ -1710,6 +1786,8 @@ type SlackInitParameters struct {
 	// Channel, private group, or IM channel (can be an encoded ID or a name) to send messages to.
 	Recipient *string `json:"recipient,omitempty" tf:"recipient,omitempty"`
 
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) Templated content of the message.
 	// Templated content of the message.
 	Text *string `json:"text,omitempty" tf:"text,omitempty"`
@@ -1717,6 +1795,14 @@ type SlackInitParameters struct {
 	// (String) The templated title of the message.
 	// Templated title of the message.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String, Sensitive) The bearer token used to authorize the client.
+	// A Slack API token,for sending messages directly without the webhook method.
+	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
+
+	// (String) The URL of the Alertmanager instance.
+	// A Slack webhook URL,for sending messages via the webhook method.
+	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	// (String) The user name to use when making a call to the Kafka REST Proxy
 	// Username for the bot to use.
@@ -1849,6 +1935,10 @@ type SlackParameters struct {
 
 type SnsInitParameters struct {
 
+	// (String, Sensitive) AWS access key ID used to authenticate with Amazon SNS.
+	// AWS access key ID used to authenticate with Amazon SNS.
+	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
+
 	// (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
 	// The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
 	AssumeRoleArn *string `json:"assumeRoleArn,omitempty" tf:"assume_role_arn,omitempty"`
@@ -1871,6 +1961,12 @@ type SnsInitParameters struct {
 	// (String) The format of the message to send. Valid values are text, body and json. Default is text. Defaults to text.
 	// The format of the message to send. Valid values are `text`, `body` and `json`. Default is `text`. Defaults to `text`.
 	MessageFormat *string `json:"messageFormat,omitempty" tf:"message_format,omitempty"`
+
+	// (String, Sensitive) AWS secret access key used to authenticate with Amazon SNS.
+	// AWS secret access key used to authenticate with Amazon SNS.
+	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated subject line of the email. Defaults to “.
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
@@ -1987,9 +2083,15 @@ type TeamsInitParameters struct {
 	// The templated subtitle for each message section.
 	SectionTitle *string `json:"sectionTitle,omitempty" tf:"section_title,omitempty"`
 
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) The templated title of the message.
 	// The templated title of the message.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// A Teams webhook URL.
+	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type TeamsObservation struct {
@@ -2044,7 +2146,7 @@ type TeamsParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// A Teams webhook URL.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
@@ -2077,6 +2179,12 @@ type TelegramInitParameters struct {
 	// (Boolean) When set it protects the contents of the message from forwarding and saving.
 	// When set it protects the contents of the message from forwarding and saving.
 	ProtectContent *bool `json:"protectContent,omitempty" tf:"protect_content,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The bearer token used to authorize the client.
+	// The Telegram bot token.
+	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type TelegramObservation struct {
@@ -2158,11 +2266,15 @@ type TelegramParameters struct {
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The Telegram bot token.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type ThreemaInitParameters struct {
+
+	// (String, Sensitive) The Threema API key.
+	// The Threema API key.
+	APISecretSecretRef v1.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
 	// (String) The templated description of the Kafka message.
 	// The templated description of the message.
@@ -2179,6 +2291,8 @@ type ThreemaInitParameters struct {
 	// (String) The ID of the recipient of the message.
 	// The ID of the recipient of the message.
 	RecipientID *string `json:"recipientId,omitempty" tf:"recipient_id,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated title of the message.
@@ -2216,7 +2330,7 @@ type ThreemaParameters struct {
 
 	// (String, Sensitive) The Threema API key.
 	// The Threema API key.
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	APISecretSecretRef v1.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
 	// (String) The templated description of the Kafka message.
@@ -2263,6 +2377,8 @@ type VictoropsInitParameters struct {
 	// either 'link' or 'actionCard'
 	// The VictorOps alert state - typically either `CRITICAL` or `RECOVERY`.
 	MessageType *string `json:"messageType,omitempty" tf:"message_type,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// Templated title to display.
@@ -2350,6 +2466,12 @@ type WebexInitParameters struct {
 	// (String) ID of the Webex Teams room where to send the messages.
 	// ID of the Webex Teams room where to send the messages.
 	RoomID *string `json:"roomId,omitempty" tf:"room_id,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The bearer token used to authorize the client.
+	// The bearer token used to authorize the client.
+	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
 }
 
 type WebexObservation struct {
@@ -2410,9 +2532,17 @@ type WebexParameters struct {
 
 type WebhookInitParameters struct {
 
+	// attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+	// Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+	AuthorizationCredentialsSecretRef *v1.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
+
 	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	AuthorizationScheme *string `json:"authorizationScheme,omitempty" tf:"authorization_scheme,omitempty"`
+
+	// (String, Sensitive) The password component of the basic auth credentials to use.
+	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
@@ -2433,6 +2563,8 @@ type WebhookInitParameters struct {
 	// (String) The templated content of the message.
 	// Custom message. You can use template variables.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// Templated title of the message.
@@ -2562,6 +2694,12 @@ type WecomInitParameters struct {
 	// The type of them message. Supported: markdown, text. Default: text.
 	MsgType *string `json:"msgType,omitempty" tf:"msg_type,omitempty"`
 
+	// (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+	// The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
 	// (String) The templated title of the message.
 	// The templated title of the message to send.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -2569,6 +2707,10 @@ type WecomInitParameters struct {
 	// (String) The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
 	// The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
 	ToUser *string `json:"toUser,omitempty" tf:"to_user,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The WeCom webhook URL. Required if using GroupRobot.
+	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 type WecomObservation struct {

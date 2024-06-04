@@ -21,7 +21,7 @@ func (mg *OutgoingWebhook) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this OutgoingWebhook
 func (tr *OutgoingWebhook) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"authorization_header": "spec.forProvider.authorizationHeaderSecretRef", "password": "spec.forProvider.passwordSecretRef"}
+	return map[string]string{"authorization_header": "authorizationHeaderSecretRef", "password": "passwordSecretRef"}
 }
 
 // GetObservation of this OutgoingWebhook

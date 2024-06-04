@@ -1325,6 +1325,10 @@ type TCPTLSConfigInitParameters struct {
 	// Client certificate in PEM format.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
+	// (String, Sensitive) Client key in PEM format.
+	// Client key in PEM format.
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
 	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
@@ -1390,6 +1394,10 @@ type TLSConfigInitParameters struct {
 	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (String, Sensitive) Client key in PEM format.
+	// Client key in PEM format.
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
