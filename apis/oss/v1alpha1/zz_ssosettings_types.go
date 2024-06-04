@@ -55,6 +55,10 @@ type Oauth2SettingsInitParameters struct {
 	// The client Id of your OAuth2 app.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
+	// (String, Sensitive) The client secret of your OAuth2 app.
+	// The client secret of your OAuth2 app.
+	ClientSecretSecretRef *v1.SecretKeySelector `json:"clientSecretSecretRef,omitempty" tf:"-"`
+
 	// (Map of String) Custom fields to configure for OAuth2 such as the force_use_graph_api field.
 	// Custom fields to configure for OAuth2 such as the [force_use_graph_api](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/azuread/#force-fetching-groups-from-microsoft-graph-api) field.
 	// +mapType=granular
@@ -557,6 +561,10 @@ type SAMLSettingsInitParameters struct {
 	// Path for the SP X.509 certificate.
 	CertificatePath *string `json:"certificatePath,omitempty" tf:"certificate_path,omitempty"`
 
+	// encoded string for the SP X.509 certificate.
+	// Base64-encoded string for the SP X.509 certificate.
+	CertificateSecretRef *v1.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
+
 	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -596,6 +604,10 @@ type SAMLSettingsInitParameters struct {
 	// (String) Path for the SP private key.
 	// Path for the SP private key.
 	PrivateKeyPath *string `json:"privateKeyPath,omitempty" tf:"private_key_path,omitempty"`
+
+	// encoded string for the SP private key.
+	// Base64-encoded string for the SP private key.
+	PrivateKeySecretRef *v1.SecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
 
 	// initiated login. Should match relay state configured in IdP.
 	// Relay state for IdP-initiated login. Should match relay state configured in IdP.

@@ -277,6 +277,10 @@ spec:
                       (String)  The name of the database to use on the selected data source server. Defaults to “.
                       (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
                     type: string
+                  httpHeadersSecretRef:
+                    additionalProperties:
+                      type: string
+                    type: object
                   isDefault:
                     description: |-
                       (Boolean) Whether to set the data source as default. This should only be true to a single data source. Defaults to false.
@@ -370,6 +374,25 @@ spec:
                             - IfNotPresent
                             type: string
                         type: object
+                    type: object
+                  secureJsonDataEncodedSecretRef:
+                    description: |-
+                      (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
+                      Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
                     type: object
                   type:
                     description: |-

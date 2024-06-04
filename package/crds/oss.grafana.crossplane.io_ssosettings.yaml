@@ -557,6 +557,25 @@ spec:
                             (String) The client Id of your OAuth2 app.
                             The client Id of your OAuth2 app.
                           type: string
+                        clientSecretSecretRef:
+                          description: |-
+                            (String, Sensitive) The client secret of your OAuth2 app.
+                            The client secret of your OAuth2 app.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         custom:
                           additionalProperties:
                             type: string
@@ -763,6 +782,25 @@ spec:
                             (String) Path for the SP X.509 certificate.
                             Path for the SP X.509 certificate.
                           type: string
+                        certificateSecretRef:
+                          description: |-
+                            encoded string for the SP X.509 certificate.
+                            Base64-encoded string for the SP X.509 certificate.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         enabled:
                           description: |-
                             (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
@@ -813,6 +851,25 @@ spec:
                             (String) Path for the SP private key.
                             Path for the SP private key.
                           type: string
+                        privateKeySecretRef:
+                          description: |-
+                            encoded string for the SP private key.
+                            Base64-encoded string for the SP private key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         relayState:
                           description: |-
                             initiated login. Should match relay state configured in IdP.

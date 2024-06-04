@@ -248,8 +248,6 @@ spec:
                             (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
                             Whether to use the bot account's plain username instead of "Grafana." Defaults to `false`.
                           type: boolean
-                      required:
-                      - urlSecretRef
                       type: object
                     type: array
                   email:
@@ -357,8 +355,6 @@ spec:
                           - name
                           - namespace
                           type: object
-                      required:
-                      - urlSecretRef
                       type: object
                     type: array
                   kafka:
@@ -455,8 +451,6 @@ spec:
                             (String) The user name to use when making a call to the Kafka REST Proxy
                             The user name to use when making a call to the Kafka REST Proxy
                           type: string
-                      required:
-                      - restProxyUrlSecretRef
                       type: object
                     type: array
                   line:
@@ -514,8 +508,6 @@ spec:
                           - name
                           - namespace
                           type: object
-                      required:
-                      - tokenSecretRef
                       type: object
                     type: array
                   name:
@@ -727,8 +719,6 @@ spec:
                             (String) The URL of the Alertmanager instance.
                             Allows customization of the OpsGenie API URL.
                           type: string
-                      required:
-                      - apiKeySecretRef
                       type: object
                     type: array
                   orgId:
@@ -903,8 +893,6 @@ spec:
                             (String) The templated summary message of the event.
                             The templated summary message of the event.
                           type: string
-                      required:
-                      - integrationKeySecretRef
                       type: object
                     type: array
                   pushover:
@@ -1021,9 +1009,6 @@ spec:
                           - name
                           - namespace
                           type: object
-                      required:
-                      - apiTokenSecretRef
-                      - userKeySecretRef
                       type: object
                     type: array
                   sensugo:
@@ -1101,8 +1086,6 @@ spec:
                             (String) The URL of the Alertmanager instance.
                             The SensuGo URL to send requests to.
                           type: string
-                      required:
-                      - apiKeySecretRef
                       type: object
                     type: array
                   slack:
@@ -1379,8 +1362,6 @@ spec:
                           - name
                           - namespace
                           type: object
-                      required:
-                      - urlSecretRef
                       type: object
                     type: array
                   telegram:
@@ -1458,8 +1439,6 @@ spec:
                           - name
                           - namespace
                           type: object
-                      required:
-                      - tokenSecretRef
                       type: object
                     type: array
                   threema:
@@ -1527,8 +1506,6 @@ spec:
                             (String) The templated title of the message.
                             The templated title of the message.
                           type: string
-                      required:
-                      - apiSecretSecretRef
                       type: object
                     type: array
                   victorops:
@@ -1858,6 +1835,25 @@ spec:
                       A contact point that sends notifications to other Alertmanager instances.
                     items:
                       properties:
+                        basicAuthPasswordSecretRef:
+                          description: |-
+                            (String, Sensitive) The password component of the basic auth credentials to use.
+                            The password component of the basic auth credentials to use.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         basicAuthUser:
                           description: |-
                             (String) The username component of the basic auth credentials to use.
@@ -1868,6 +1864,10 @@ spec:
                             (Boolean) Whether to disable sending resolve messages. Defaults to false.
                             Whether to disable sending resolve messages. Defaults to `false`.
                           type: boolean
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         url:
                           description: |-
                             (String) The URL of the Alertmanager instance.
@@ -1896,6 +1896,10 @@ spec:
                             either 'link' or 'actionCard'
                             The format of message to send - either 'link' or 'actionCard'
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
@@ -1932,16 +1936,41 @@ spec:
                             (String) The templated content of the message.
                             The templated content of the message. Defaults to “.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
                             The templated content of the title.
                           type: string
+                        urlSecretRef:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            The discord webhook URL.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         useDiscordUsername:
                           description: |-
                             (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
                             Whether to use the bot account's plain username instead of "Grafana." Defaults to `false`.
                           type: boolean
+                      required:
+                      - urlSecretRef
                       type: object
                     type: array
                   email:
@@ -1967,6 +1996,10 @@ spec:
                             (String) The templated content of the message.
                             The templated content of the email. Defaults to “.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         singleEmail:
                           description: |-
                             (Boolean) Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to false.
@@ -1995,11 +2028,36 @@ spec:
                             (String) The templated content of the message.
                             The templated content of the message.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
                             The templated content of the title.
                           type: string
+                        urlSecretRef:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            The Google Chat webhook URL.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - urlSecretRef
                       type: object
                     type: array
                   kafka:
@@ -2033,6 +2091,48 @@ spec:
                             (Boolean) Whether to disable sending resolve messages. Defaults to false.
                             Whether to disable sending resolve messages. Defaults to `false`.
                           type: boolean
+                        passwordSecretRef:
+                          description: |-
+                            (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+                            The password to use when making a call to the Kafka REST Proxy
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        restProxyUrlSecretRef:
+                          description: |-
+                            (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
+                            The URL of the Kafka REST proxy to send requests to.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         topic:
                           description: |-
                             (String) The name of the Kafka topic to publish to.
@@ -2043,6 +2143,8 @@ spec:
                             (String) The user name to use when making a call to the Kafka REST Proxy
                             The user name to use when making a call to the Kafka REST Proxy
                           type: string
+                      required:
+                      - restProxyUrlSecretRef
                       type: object
                     type: array
                   line:
@@ -2061,11 +2163,36 @@ spec:
                             (Boolean) Whether to disable sending resolve messages. Defaults to false.
                             Whether to disable sending resolve messages. Defaults to `false`.
                           type: boolean
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
                             The templated title of the message.
                           type: string
+                        tokenSecretRef:
+                          description: |-
+                            (String, Sensitive) The bearer token used to authorize the client.
+                            The bearer token used to authorize the client.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - tokenSecretRef
                       type: object
                     type: array
                   name:
@@ -2079,11 +2206,49 @@ spec:
                       A contact point that sends notifications to Grafana On-Call.
                     items:
                       properties:
+                        authorizationCredentialsSecretRef:
+                          description: |-
+                            attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+                            Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         authorizationScheme:
                           description: |-
                             attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
                             Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
                           type: string
+                        basicAuthPasswordSecretRef:
+                          description: |-
+                            (String, Sensitive) The password component of the basic auth credentials to use.
+                            The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         basicAuthUser:
                           description: |-
                             (String) The username component of the basic auth credentials to use.
@@ -2109,6 +2274,10 @@ spec:
                             (String) The templated content of the message.
                             Custom message. You can use template variables.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
@@ -2127,6 +2296,25 @@ spec:
                       A contact point that sends notifications to OpsGenie.
                     items:
                       properties:
+                        apiKeySecretRef:
+                          description: |-
+                            (String, Sensitive) The OpsGenie API key to use.
+                            The OpsGenie API key to use.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         autoClose:
                           description: |-
                             close alerts in OpsGenie when they resolve in the Alertmanager.
@@ -2185,11 +2373,17 @@ spec:
                             (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
                             Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are `tags`, `details`, `both`, or empty to use the default behavior of Tags.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         url:
                           description: |-
                             (String) The URL of the Alertmanager instance.
                             Allows customization of the OpsGenie API URL.
                           type: string
+                      required:
+                      - apiKeySecretRef
                       type: object
                     type: array
                   orgId:
@@ -2315,6 +2509,29 @@ spec:
                             (String) The group to which the provided component belongs to.
                             The group to which the provided component belongs to.
                           type: string
+                        integrationKeySecretRef:
+                          description: |-
+                            (String, Sensitive) The PagerDuty API key.
+                            The PagerDuty API key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         severity:
                           description: |-
                             (String) The PagerDuty event severity level. Default is critical.
@@ -2330,6 +2547,8 @@ spec:
                             (String) The templated summary message of the event.
                             The templated summary message of the event.
                           type: string
+                      required:
+                      - integrationKeySecretRef
                       type: object
                     type: array
                   pushover:
@@ -2338,6 +2557,25 @@ spec:
                       A contact point that sends notifications to Pushover.
                     items:
                       properties:
+                        apiTokenSecretRef:
+                          description: |-
+                            (String, Sensitive) The Pushover API token.
+                            The Pushover API token.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         device:
                           description: |-
                             separated list of devices to which the event is associated.
@@ -2378,6 +2616,10 @@ spec:
                             (Number) How often, in seconds, the Pushover servers will send the same notification to the user.
                             How often, in seconds, the Pushover servers will send the same notification to the user.
                           type: number
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         sound:
                           description: |-
                             (String) The sound associated with the notification.
@@ -2393,6 +2635,28 @@ spec:
                             (Boolean) Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
                             Whether to send images in the notification or not. Default is true. Requires Grafana to be configured to send images in notifications.
                           type: boolean
+                        userKeySecretRef:
+                          description: |-
+                            (String, Sensitive) The Pushover user key.
+                            The Pushover user key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - apiTokenSecretRef
+                      - userKeySecretRef
                       type: object
                     type: array
                   sensugo:
@@ -2401,6 +2665,25 @@ spec:
                       A contact point that sends notifications to SensuGo.
                     items:
                       properties:
+                        apiKeySecretRef:
+                          description: |-
+                            (String, Sensitive) The OpsGenie API key to use.
+                            The SensuGo API key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         check:
                           description: |-
                             (String) The SensuGo check to which the event should be routed.
@@ -2431,11 +2714,17 @@ spec:
                             (String) The namespace in which the check resides.
                             The namespace in which the check resides.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         url:
                           description: |-
                             (String) The URL of the Alertmanager instance.
                             The SensuGo URL to send requests to.
                           type: string
+                      required:
+                      - apiKeySecretRef
                       type: object
                     type: array
                   slack:
@@ -2484,6 +2773,10 @@ spec:
                             (String) Channel, private group, or IM channel (can be an encoded ID or a name) to send messages to.
                             Channel, private group, or IM channel (can be an encoded ID or a name) to send messages to.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         text:
                           description: |-
                             (String) Templated content of the message.
@@ -2494,6 +2787,44 @@ spec:
                             (String) The templated title of the message.
                             Templated title of the message.
                           type: string
+                        tokenSecretRef:
+                          description: |-
+                            (String, Sensitive) The bearer token used to authorize the client.
+                            A Slack API token,for sending messages directly without the webhook method.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        urlSecretRef:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            A Slack webhook URL,for sending messages via the webhook method.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         username:
                           description: |-
                             (String) The user name to use when making a call to the Kafka REST Proxy
@@ -2507,6 +2838,25 @@ spec:
                       A contact point that sends notifications to Amazon SNS. Requires Amazon Managed Grafana.
                     items:
                       properties:
+                        accessKeySecretRef:
+                          description: |-
+                            (String, Sensitive) AWS access key ID used to authenticate with Amazon SNS.
+                            AWS access key ID used to authenticate with Amazon SNS.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         assumeRoleArn:
                           description: |-
                             (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
@@ -2535,6 +2885,29 @@ spec:
                             (String) The format of the message to send. Valid values are text, body and json. Default is text. Defaults to text.
                             The format of the message to send. Valid values are `text`, `body` and `json`. Default is `text`. Defaults to `text`.
                           type: string
+                        secretKeySecretRef:
+                          description: |-
+                            (String, Sensitive) AWS secret access key used to authenticate with Amazon SNS.
+                            AWS secret access key used to authenticate with Amazon SNS.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         subject:
                           description: (String) The templated subject line of the
                             email. Defaults to “.
@@ -2567,11 +2940,36 @@ spec:
                             (String) The templated subtitle for each message section.
                             The templated subtitle for each message section.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
                             The templated title of the message.
                           type: string
+                        urlSecretRef:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            A Teams webhook URL.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - urlSecretRef
                       type: object
                     type: array
                   telegram:
@@ -2615,6 +3013,31 @@ spec:
                             (Boolean) When set it protects the contents of the message from forwarding and saving.
                             When set it protects the contents of the message from forwarding and saving.
                           type: boolean
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        tokenSecretRef:
+                          description: |-
+                            (String, Sensitive) The bearer token used to authorize the client.
+                            The Telegram bot token.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - tokenSecretRef
                       type: object
                     type: array
                   threema:
@@ -2623,6 +3046,25 @@ spec:
                       A contact point that sends notifications to Threema.
                     items:
                       properties:
+                        apiSecretSecretRef:
+                          description: |-
+                            (String, Sensitive) The Threema API key.
+                            The Threema API key.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         description:
                           description: |-
                             (String) The templated description of the Kafka message.
@@ -2643,11 +3085,17 @@ spec:
                             (String) The ID of the recipient of the message.
                             The ID of the recipient of the message.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
                             The templated title of the message.
                           type: string
+                      required:
+                      - apiSecretSecretRef
                       type: object
                     type: array
                   victorops:
@@ -2671,6 +3119,10 @@ spec:
                             either 'link' or 'actionCard'
                             The VictorOps alert state - typically either `CRITICAL` or `RECOVERY`.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
@@ -2709,6 +3161,29 @@ spec:
                             (String) ID of the Webex Teams room where to send the messages.
                             ID of the Webex Teams room where to send the messages.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        tokenSecretRef:
+                          description: |-
+                            (String, Sensitive) The bearer token used to authorize the client.
+                            The bearer token used to authorize the client.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       type: object
                     type: array
                   webhook:
@@ -2717,11 +3192,49 @@ spec:
                       A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config
                     items:
                       properties:
+                        authorizationCredentialsSecretRef:
+                          description: |-
+                            attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+                            Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         authorizationScheme:
                           description: |-
                             attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
                             Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
                           type: string
+                        basicAuthPasswordSecretRef:
+                          description: |-
+                            (String, Sensitive) The password component of the basic auth credentials to use.
+                            The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                         basicAuthUser:
                           description: |-
                             (String) The username component of the basic auth credentials to use.
@@ -2747,6 +3260,10 @@ spec:
                             (String) The templated content of the message.
                             Custom message. You can use template variables.
                           type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
@@ -2790,6 +3307,29 @@ spec:
                             (String) The type of them message. Supported: markdown, text. Default: text.
                             The type of them message. Supported: markdown, text. Default: text.
                           type: string
+                        secretSecretRef:
+                          description: |-
+                            (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+                            The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         title:
                           description: |-
                             (String) The templated title of the message.
@@ -2800,6 +3340,25 @@ spec:
                             (String) The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
                             The ID of user that should receive the message. Multiple entries should be separated by '|'. Default: @all.
                           type: string
+                        urlSecretRef:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            The WeCom webhook URL. Required if using GroupRobot.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       type: object
                     type: array
                 type: object

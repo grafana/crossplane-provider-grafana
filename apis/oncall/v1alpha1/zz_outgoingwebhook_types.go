@@ -15,6 +15,10 @@ import (
 
 type OutgoingWebhookInitParameters struct {
 
+	// (String, Sensitive) The auth data of the webhook. Used in Authorization header instead of user/password auth.
+	// The auth data of the webhook. Used in Authorization header instead of user/password auth.
+	AuthorizationHeaderSecretRef *v1.SecretKeySelector `json:"authorizationHeaderSecretRef,omitempty" tf:"-"`
+
 	// (String) The data of the webhook.
 	// The data of the webhook.
 	Data *string `json:"data,omitempty" tf:"data,omitempty"`
@@ -42,6 +46,10 @@ type OutgoingWebhookInitParameters struct {
 	// (String) The name of the outgoing webhook.
 	// The name of the outgoing webhook.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String, Sensitive) The auth data of the webhook. Used for Basic authentication
+	// The auth data of the webhook. Used for Basic authentication
+	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
 	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.

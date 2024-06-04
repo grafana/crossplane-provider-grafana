@@ -21,7 +21,7 @@ func (mg *Installation) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Installation
 func (tr *Installation) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"metrics_publisher_key": "spec.forProvider.metricsPublisherKeySecretRef"}
+	return map[string]string{"metrics_publisher_key": "metricsPublisherKeySecretRef"}
 }
 
 // GetObservation of this Installation
