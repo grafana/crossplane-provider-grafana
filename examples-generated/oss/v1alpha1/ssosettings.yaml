@@ -9,11 +9,16 @@ metadata:
 spec:
   forProvider:
     oauth2Settings:
-    - allowedOrganizations: organization1,organization2
-      clientId: github_client_id
+    - allowSignUp: true
+      allowedDomains: mycompany.com mycompany.org
+      allowedOrganizations: '["My Organization", "Octocats"]'
+      autoLogin: false
+      clientId: <your GitHub app client id>
       clientSecretSecretRef:
         key: example-key
         name: example-secret
         namespace: upbound-system
-      teamIds: 12,50,123
+      name: Github
+      scopes: user:email,read:org
+      teamIds: 150,300
     providerName: github

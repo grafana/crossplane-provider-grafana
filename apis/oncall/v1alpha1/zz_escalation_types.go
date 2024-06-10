@@ -238,6 +238,7 @@ type Escalation struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.escalationChainId) || (has(self.initProvider) && has(self.initProvider.escalationChainId))",message="spec.forProvider.escalationChainId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.position) || (has(self.initProvider) && has(self.initProvider.position))",message="spec.forProvider.position is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
 	Spec   EscalationSpec   `json:"spec"`
 	Status EscalationStatus `json:"status,omitempty"`
 }
