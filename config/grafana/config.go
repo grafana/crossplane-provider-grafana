@@ -413,6 +413,15 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
+
+	p.AddResourceConfigurator("grafana_oncall_integration", func(r *ujconfig.Resource) {
+		r.References["default_route.escalation_chain_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_escalation_chain",
+			RefFieldName:      "EscalationChainRef",
+			SelectorFieldName: "EscalationChainSelector",
+			// Extractor:         fieldExtractor("name"),
+		}
+	})
 }
 
 func recreateIfAttributeMissing(attribute string) ujconfig.CustomDiff {
