@@ -419,8 +419,6 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_oncall_escalation_chain",
 			RefFieldName:      "EscalationChainRef",
 			SelectorFieldName: "EscalationChainSelector",
-			// TODO: do we need Extractor here?
-			// Extractor:         fieldExtractor("name"),
 		}
 	})
 

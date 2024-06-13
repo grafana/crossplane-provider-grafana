@@ -17,7 +17,18 @@ type DefaultRouteInitParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:refFieldName=EscalationChainRef
+	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
+
+	// Reference to a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainRef *v1.Reference `json:"escalationChainRef,omitempty" tf:"-"`
+
+	// Selector for a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainSelector *v1.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.
@@ -58,8 +69,19 @@ type DefaultRouteParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:refFieldName=EscalationChainRef
+	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	// +kubebuilder:validation:Optional
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
+
+	// Reference to a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainRef *v1.Reference `json:"escalationChainRef,omitempty" tf:"-"`
+
+	// Selector for a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainSelector *v1.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.

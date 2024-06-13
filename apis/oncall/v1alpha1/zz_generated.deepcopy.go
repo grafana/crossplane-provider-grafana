@@ -21,6 +21,16 @@ func (in *DefaultRouteInitParameters) DeepCopyInto(out *DefaultRouteInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.EscalationChainRef != nil {
+		in, out := &in.EscalationChainRef, &out.EscalationChainRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EscalationChainSelector != nil {
+		in, out := &in.EscalationChainSelector, &out.EscalationChainSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Msteams != nil {
 		in, out := &in.Msteams, &out.Msteams
 		*out = make([]MsteamsInitParameters, len(*in))
@@ -107,6 +117,16 @@ func (in *DefaultRouteParameters) DeepCopyInto(out *DefaultRouteParameters) {
 		in, out := &in.EscalationChainID, &out.EscalationChainID
 		*out = new(string)
 		**out = **in
+	}
+	if in.EscalationChainRef != nil {
+		in, out := &in.EscalationChainRef, &out.EscalationChainRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EscalationChainSelector != nil {
+		in, out := &in.EscalationChainSelector, &out.EscalationChainSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Msteams != nil {
 		in, out := &in.Msteams, &out.Msteams
