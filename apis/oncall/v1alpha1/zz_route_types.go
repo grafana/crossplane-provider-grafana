@@ -17,11 +17,33 @@ type RouteInitParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:refFieldName=EscalationChainRef
+	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
+
+	// Reference to a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainRef *v1.Reference `json:"escalationChainRef,omitempty" tf:"-"`
+
+	// Selector for a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainSelector *v1.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// (String) The ID of the integration.
 	// The ID of the integration.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:refFieldName=IntegrationRef
+	// +crossplane:generate:reference:selectorFieldName=IntegrationSelector
 	IntegrationID *string `json:"integrationId,omitempty" tf:"integration_id,omitempty"`
+
+	// Reference to a Integration in oncall to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationRef *v1.Reference `json:"integrationRef,omitempty" tf:"-"`
+
+	// Selector for a Integration in oncall to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationSelector *v1.Selector `json:"integrationSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.
@@ -125,13 +147,35 @@ type RouteParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:refFieldName=EscalationChainRef
+	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	// +kubebuilder:validation:Optional
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
 
+	// Reference to a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainRef *v1.Reference `json:"escalationChainRef,omitempty" tf:"-"`
+
+	// Selector for a EscalationChain in oncall to populate escalationChainId.
+	// +kubebuilder:validation:Optional
+	EscalationChainSelector *v1.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
+
 	// (String) The ID of the integration.
 	// The ID of the integration.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:refFieldName=IntegrationRef
+	// +crossplane:generate:reference:selectorFieldName=IntegrationSelector
 	// +kubebuilder:validation:Optional
 	IntegrationID *string `json:"integrationId,omitempty" tf:"integration_id,omitempty"`
+
+	// Reference to a Integration in oncall to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationRef *v1.Reference `json:"integrationRef,omitempty" tf:"-"`
+
+	// Selector for a Integration in oncall to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationSelector *v1.Selector `json:"integrationSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.
@@ -270,8 +314,6 @@ type RouteStatus struct {
 type Route struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.escalationChainId) || (has(self.initProvider) && has(self.initProvider.escalationChainId))",message="spec.forProvider.escalationChainId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.integrationId) || (has(self.initProvider) && has(self.initProvider.integrationId))",message="spec.forProvider.integrationId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.position) || (has(self.initProvider) && has(self.initProvider.position))",message="spec.forProvider.position is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.routingRegex) || (has(self.initProvider) && has(self.initProvider.routingRegex))",message="spec.forProvider.routingRegex is a required parameter"
 	Spec   RouteSpec   `json:"spec"`

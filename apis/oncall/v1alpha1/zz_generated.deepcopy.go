@@ -455,6 +455,16 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.EscalationChainRef != nil {
+		in, out := &in.EscalationChainRef, &out.EscalationChainRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EscalationChainSelector != nil {
+		in, out := &in.EscalationChainSelector, &out.EscalationChainSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.GroupToNotify != nil {
 		in, out := &in.GroupToNotify, &out.GroupToNotify
 		*out = new(string)
@@ -675,6 +685,16 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		in, out := &in.EscalationChainID, &out.EscalationChainID
 		*out = new(string)
 		**out = **in
+	}
+	if in.EscalationChainRef != nil {
+		in, out := &in.EscalationChainRef, &out.EscalationChainRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EscalationChainSelector != nil {
+		in, out := &in.EscalationChainSelector, &out.EscalationChainSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GroupToNotify != nil {
 		in, out := &in.GroupToNotify, &out.GroupToNotify
@@ -2135,10 +2155,30 @@ func (in *RouteInitParameters) DeepCopyInto(out *RouteInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EscalationChainRef != nil {
+		in, out := &in.EscalationChainRef, &out.EscalationChainRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EscalationChainSelector != nil {
+		in, out := &in.EscalationChainSelector, &out.EscalationChainSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.IntegrationID != nil {
 		in, out := &in.IntegrationID, &out.IntegrationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IntegrationRef != nil {
+		in, out := &in.IntegrationRef, &out.IntegrationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IntegrationSelector != nil {
+		in, out := &in.IntegrationSelector, &out.IntegrationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Msteams != nil {
 		in, out := &in.Msteams, &out.Msteams
@@ -2369,10 +2409,30 @@ func (in *RouteParameters) DeepCopyInto(out *RouteParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.EscalationChainRef != nil {
+		in, out := &in.EscalationChainRef, &out.EscalationChainRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.EscalationChainSelector != nil {
+		in, out := &in.EscalationChainSelector, &out.EscalationChainSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.IntegrationID != nil {
 		in, out := &in.IntegrationID, &out.IntegrationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IntegrationRef != nil {
+		in, out := &in.IntegrationRef, &out.IntegrationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IntegrationSelector != nil {
+		in, out := &in.IntegrationSelector, &out.IntegrationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Msteams != nil {
 		in, out := &in.Msteams, &out.Msteams

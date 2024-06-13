@@ -8,7 +8,9 @@ metadata:
   name: example-notify-step
 spec:
   forProvider:
-    escalationChainId: ${grafana_oncall_escalation_chain.default.id}
+    escalationChainSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
     personsToNotify:
     - ${data.grafana_oncall_user.alex.id}
     position: 0

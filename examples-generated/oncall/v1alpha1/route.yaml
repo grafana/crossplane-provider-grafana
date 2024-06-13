@@ -8,8 +8,12 @@ metadata:
   name: example-route
 spec:
   forProvider:
-    escalationChainId: ${grafana_oncall_escalation_chain.default.id}
-    integrationId: ${grafana_oncall_integration.example_integration.id}
+    escalationChainSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
+    integrationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example_integration
     msteams:
     - enabled: false
       id: ONCALLMSTEAMSID
