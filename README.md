@@ -9,11 +9,13 @@ Grafana API.
 
 Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/grafana/provider-grafana):
+
 ```
 up ctp provider install xpkg.upbound.io/grafana/provider-grafana:v0.5.1
 ```
 
 Alternatively, you can use declarative installation:
+
 ```
 cat <<EOF | kubectl apply -f -
 apiVersion: pkg.crossplane.io/v1
@@ -31,9 +33,16 @@ You can see the API reference [here](https://doc.crds.dev/github.com/grafana/cro
 
 ## Developing
 
+### Initial setup
+
+```bash
+make submodules
+```
+
 Run code-generation pipeline:
+
 ```console
-go run cmd/generator/main.go "$PWD"
+make generate
 ```
 
 Run against a Kubernetes cluster:
