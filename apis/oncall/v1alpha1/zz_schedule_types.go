@@ -33,8 +33,19 @@ type ScheduleInitParameters struct {
 
 	// call shifts.
 	// The list of ID's of on-call shifts.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OnCallShift
+	// +crossplane:generate:reference:refFieldName=ShiftsRef
+	// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
 	// +listType=set
 	Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
+
+	// References to OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
+
+	// Selector for a list of OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
 
 	// specific settings for a schedule. (see below for nested schema)
 	// The Slack-specific settings for a schedule.
@@ -120,9 +131,20 @@ type ScheduleParameters struct {
 
 	// call shifts.
 	// The list of ID's of on-call shifts.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OnCallShift
+	// +crossplane:generate:reference:refFieldName=ShiftsRef
+	// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
+
+	// References to OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
+
+	// Selector for a list of OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
 
 	// specific settings for a schedule. (see below for nested schema)
 	// The Slack-specific settings for a schedule.

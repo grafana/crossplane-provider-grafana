@@ -495,6 +495,16 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.OutgoingWebhookRef != nil {
+		in, out := &in.OutgoingWebhookRef, &out.OutgoingWebhookRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OutgoingWebhookSelector != nil {
+		in, out := &in.OutgoingWebhookSelector, &out.OutgoingWebhookSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
 		*out = make([]*string, len(*in))
@@ -521,6 +531,16 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		in, out := &in.Position, &out.Position
 		*out = new(float64)
 		**out = **in
+	}
+	if in.ScheduleRef != nil {
+		in, out := &in.ScheduleRef, &out.ScheduleRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ScheduleSelector != nil {
+		in, out := &in.ScheduleSelector, &out.ScheduleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
@@ -726,6 +746,16 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OutgoingWebhookRef != nil {
+		in, out := &in.OutgoingWebhookRef, &out.OutgoingWebhookRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OutgoingWebhookSelector != nil {
+		in, out := &in.OutgoingWebhookSelector, &out.OutgoingWebhookSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
 		*out = make([]*string, len(*in))
@@ -752,6 +782,16 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		in, out := &in.Position, &out.Position
 		*out = new(float64)
 		**out = **in
+	}
+	if in.ScheduleRef != nil {
+		in, out := &in.ScheduleRef, &out.ScheduleRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ScheduleSelector != nil {
+		in, out := &in.ScheduleSelector, &out.ScheduleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
@@ -2788,6 +2828,18 @@ func (in *ScheduleInitParameters) DeepCopyInto(out *ScheduleInitParameters) {
 			}
 		}
 	}
+	if in.ShiftsRef != nil {
+		in, out := &in.ShiftsRef, &out.ShiftsRef
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ShiftsSelector != nil {
+		in, out := &in.ShiftsSelector, &out.ShiftsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
 		*out = make([]ScheduleSlackInitParameters, len(*in))
@@ -2960,6 +3012,18 @@ func (in *ScheduleParameters) DeepCopyInto(out *ScheduleParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.ShiftsRef != nil {
+		in, out := &in.ShiftsRef, &out.ShiftsRef
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ShiftsSelector != nil {
+		in, out := &in.ShiftsSelector, &out.ShiftsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
