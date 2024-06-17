@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 set -aeuo pipefail
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 echo "Running setup.sh"
-echo "Creating cloud credential secret..."
-${KUBECTL} -n upbound-system create secret generic provider-secret --from-literal=credentials="{\"token\":\"${UPTEST_CLOUD_CREDENTIALS}\"}" --dry-run=client -o yaml | ${KUBECTL} apply -f -
+
+echo "Starting grafana on the cluster..."
+${KUBECTL} apply -f "${SCRIPT_DIR}/grafana.yaml"
+
+echo "Creating provider..."
+${KUBECTL} apply -f "${SCRIPT_DIR}/provider.yaml"
+
+echo "Waiting for grafana to come online..."
+${KUBECTL} -n grafana wait --for=condition=Available deployment/grafana --timeout=5m
 
 echo "Waiting until provider is healthy..."
 ${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
@@ -11,16 +20,3 @@ ${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
 echo "Waiting for all pods to come online..."
 ${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
 
-echo "Creating a default provider config..."
-cat <<EOF | ${KUBECTL} apply -f -
-apiVersion: grafana.com/v1beta1
-kind: ProviderConfig
-metadata:
-  name: default
-spec:
-  credentials:
-    source: Secret
-    secretRef:
-      name: provider-secret
-      namespace: upbound-system
-      key: credentials
