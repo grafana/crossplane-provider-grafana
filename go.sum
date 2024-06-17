@@ -134,8 +134,8 @@ github.com/grafana/synthetic-monitoring-agent v0.24.1 h1:BVruIcSLM5EpNtN5Z8Apdko
 github.com/grafana/synthetic-monitoring-agent v0.24.1/go.mod h1:izlTwdDryrndATx2rSAtyjplvccPdIg+Zm331+Oy9hU=
 github.com/grafana/synthetic-monitoring-api-go-client v0.8.0 h1:Tm4MtwwYmPNInGfnj66l6j6KOshMkNV4emIVKJdlXMg=
 github.com/grafana/synthetic-monitoring-api-go-client v0.8.0/go.mod h1:TGaywTdL2Z+PJhpWzJEmJFRF5K55vKz2f39mWY/GvV8=
-github.com/grafana/terraform-provider-grafana/v2 v2.19.1 h1:PUEgPz1RJm4Is7xW5eUgX+1BLrPxm7fBsIQg2X12YVI=
-github.com/grafana/terraform-provider-grafana/v2 v2.19.1/go.mod h1:lUzGObzwx58yD88VQy9JVhgC/zP3VzJLxvR/XwsNoNA=
+github.com/grafana/terraform-provider-grafana/v2 v2.19.2 h1:sqa7VKIy1FHQf/BZyHobVCJ6c2iLexhR+7RgafpP8hc=
+github.com/grafana/terraform-provider-grafana/v2 v2.19.2/go.mod h1:lUzGObzwx58yD88VQy9JVhgC/zP3VzJLxvR/XwsNoNA=
 github.com/hashicorp/errwrap v1.1.0 h1:OxrOeh75EUXMY8TBjag2fzXGZ40LB6IKw45YeGUDY2I=
 github.com/hashicorp/errwrap v1.1.0/go.mod h1:YH+1FKiLXxHSkmPseP+kNlulaMuP3n2brvKWEqk/Jc4=
 github.com/hashicorp/go-checkpoint v0.5.0 h1:MFYpPZCnQqQTE18jFwSII6eUQrD/oxMFp3mlgcqk5mU=
