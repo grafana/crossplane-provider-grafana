@@ -28,6 +28,105 @@ func ConfigureOrgIDRefs(p *ujconfig.Provider) {
 	}
 }
 
+// ConfigureOnCallRefsAndSelectors add reference and selector fields for Grafana OnCall resources
+func ConfigureOnCallRefsAndSelectors(p *ujconfig.Provider) {
+	escalationChainRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_escalation_chain",
+		RefFieldName:      "EscalationChainRef",
+		SelectorFieldName: "EscalationChainSelector",
+	}
+	integrationRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_integration",
+		RefFieldName:      "IntegrationRef",
+		SelectorFieldName: "IntegrationSelector",
+	}
+	oncallShiftRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_on_call_shift",
+		RefFieldName:      "OnCallShiftRef",
+		SelectorFieldName: "OnCallShiftSelector",
+	}
+	oncallTeamRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_team",
+		RefFieldName:      "TeamRef",
+		SelectorFieldName: "TeamSelector",
+	}
+	oncallUserGroupRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_user_group",
+		RefFieldName:      "OnCallUserGroupRef",
+		SelectorFieldName: "OnCallUserGroupSelector",
+	}
+	oncallUserRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_user",
+		RefFieldName:      "OnCallUserRef",
+		SelectorFieldName: "OnCallUserSelector",
+	}
+	outgoingWebhookRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_outgoing_webhook",
+		RefFieldName:      "OutgoingWebhookRef",
+		SelectorFieldName: "OutgoingWebhookSelector",
+	}
+	scheduleRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_schedule",
+		RefFieldName:      "ScheduleRef",
+		SelectorFieldName: "ScheduleSelector",
+	}
+	slackChannelRef := ujconfig.Reference{
+		TerraformName:     "grafana_oncall_slack_channel",
+		RefFieldName:      "SlackChannelRef",
+		SelectorFieldName: "SlackChannelSelector",
+	}
+
+	p.AddResourceConfigurator("grafana_oncall_escalation_chain", func(r *ujconfig.Resource) {
+		r.References["team_id"] = oncallTeamRef
+	})
+
+	p.AddResourceConfigurator("grafana_oncall_escalation", func(r *ujconfig.Resource) {
+		r.References["escalation_chain_id"] = escalationChainRef
+		r.References["action_to_trigger"] = outgoingWebhookRef
+		r.References["group_to_notify"] = oncallUserGroupRef
+		r.References["notify_on_call_from_schedule"] = scheduleRef
+		r.References["notify_to_team_members"] = oncallTeamRef
+		// TODO: this should be a list.. will this work like this?
+		// for reference https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/oncall_escalation#persons_to_notify
+		r.References["persons_to_notify"] = oncallUserRef
+		// TODO: this should be a list.. will this work like this?
+		// for reference https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/oncall_escalation#persons_to_notify_next_each_time
+		r.References["persons_to_notify_next_each_time"] = oncallUserRef
+	})
+
+	p.AddResourceConfigurator("grafana_oncall_integration", func(r *ujconfig.Resource) {
+		r.References["default_route.escalation_chain_id"] = escalationChainRef
+		r.References["team_id"] = oncallTeamRef
+	})
+
+	p.AddResourceConfigurator("grafana_oncall_route", func(r *ujconfig.Resource) {
+		r.References["escalation_chain_id"] = escalationChainRef
+		r.References["integration_id"] = integrationRef
+	})
+
+	p.AddResourceConfigurator("grafana_on_call_shift", func(r *ujconfig.Resource) {
+		// TODO: this should be a list.. will this work like this?
+		// for reference https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/oncall_on_call_shift#users
+		r.References["users"] = oncallUserRef
+		// TODO: this should be a list.. will this work like this?
+		// for reference https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/oncall_on_call_shift#rolling_users
+		r.References["rolling_users"] = oncallUserRef
+		r.References["team_id"] = oncallTeamRef
+	})
+
+	p.AddResourceConfigurator("grafana_oncall_schedule", func(r *ujconfig.Resource) {
+		// TODO: this should be a list.. will this work like this?
+		// for reference https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/oncall_schedule#shifts
+		r.References["shifts"] = oncallShiftRef
+		r.References["slack.channel_id"] = slackChannelRef
+		r.References["slack.user_group_id"] = oncallUserGroupRef
+	})
+
+	p.AddResourceConfigurator("grafana_oncall_outgoing_webhook", func(r *ujconfig.Resource) {
+		r.References["team_id"] = oncallTeamRef
+	})
+}
+
 // Configure configures the grafana group
 func Configure(p *ujconfig.Provider) {
 	// configures all resources to be synced without async callbacks, the Grafana API is synchronous
@@ -411,32 +510,6 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "Ref",
 			SelectorFieldName: "Selector",
 			Extractor:         optionalFieldExtractor("uid"),
-		}
-	})
-	p.AddResourceConfigurator("grafana_oncall_escalation", func(r *ujconfig.Resource) {
-		r.References["escalation_chain_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_oncall_escalation_chain",
-			RefFieldName:      "EscalationChainRef",
-			SelectorFieldName: "EscalationChainSelector",
-		}
-	})
-	p.AddResourceConfigurator("grafana_oncall_integration", func(r *ujconfig.Resource) {
-		r.References["default_route.escalation_chain_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_oncall_escalation_chain",
-			RefFieldName:      "EscalationChainRef",
-			SelectorFieldName: "EscalationChainSelector",
-		}
-	})
-	p.AddResourceConfigurator("grafana_oncall_route", func(r *ujconfig.Resource) {
-		r.References["escalation_chain_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_oncall_escalation_chain",
-			RefFieldName:      "EscalationChainRef",
-			SelectorFieldName: "EscalationChainSelector",
-		}
-		r.References["integration_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_oncall_integration",
-			RefFieldName:      "IntegrationRef",
-			SelectorFieldName: "IntegrationSelector",
 		}
 	})
 }
