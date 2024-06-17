@@ -40,11 +40,6 @@ func ConfigureOnCallRefsAndSelectors(p *ujconfig.Provider) {
 		RefFieldName:      "IntegrationRef",
 		SelectorFieldName: "IntegrationSelector",
 	}
-	oncallShiftRef := ujconfig.Reference{
-		TerraformName:     "grafana_oncall_on_call_shift",
-		RefFieldName:      "OnCallShiftRef",
-		SelectorFieldName: "OnCallShiftSelector",
-	}
 	outgoingWebhookRef := ujconfig.Reference{
 		TerraformName:     "grafana_oncall_outgoing_webhook",
 		RefFieldName:      "OutgoingWebhookRef",
@@ -77,11 +72,13 @@ func ConfigureOnCallRefsAndSelectors(p *ujconfig.Provider) {
 	})
 
 	p.AddResourceConfigurator("grafana_oncall_schedule", func(r *ujconfig.Resource) {
-		// TODO: this should be a list.. will this work like this?
-		// for reference https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/oncall_schedule#shifts
-		r.References["shifts"] = oncallShiftRef
 		// r.References["slack.channel_id"] = slackChannelRef
 		// r.References["slack.user_group_id"] = oncallUserGroupRef
+		r.References["shifts"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_on_call_shift",
+			RefFieldName:      "ShiftsRef",
+			SelectorFieldName: "ShiftsSelector",
+		}
 	})
 
 	// NOTE: the following refs will not work as Terraform datasources are not translated to Crossplane resources
