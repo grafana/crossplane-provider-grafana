@@ -1,0 +1,37 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboard
+  labels:
+    testing.upbound.io/example-name: test-dashboard
+  name: test-dashboard
+spec:
+  forProvider:
+    configJson: |-
+      {
+        "title" : "My Dashboard",
+        "uid" : "my-dashboard-uid"
+      }
+    folderSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test-dashboard
+  providerConfigRef:
+    name: grafana-provider
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboard
+  labels:
+    testing.upbound.io/example-name: test-dashboard
+  name: test-dashboard
+spec:
+  forProvider:
+    title: My Folder
+    uid: my-folder-uid
+  providerConfigRef:
+    name: grafana-provider
