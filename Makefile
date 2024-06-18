@@ -178,6 +178,9 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 
 e2e: local-deploy uptest
 
+e2e-oss:
+	@find examples/oss -name '*.yaml' -exec make e2e UPTEST_EXAMPLE_LIST={} \;
+
 .PHONY: cobertura submodules fallthrough run crds.clean
 
 # ====================================================================================
