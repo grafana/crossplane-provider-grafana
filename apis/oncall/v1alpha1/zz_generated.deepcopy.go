@@ -445,6 +445,16 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.ActionToTriggerRef != nil {
+		in, out := &in.ActionToTriggerRef, &out.ActionToTriggerRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ActionToTriggerSelector != nil {
+		in, out := &in.ActionToTriggerSelector, &out.ActionToTriggerSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Duration != nil {
 		in, out := &in.Duration, &out.Duration
 		*out = new(float64)
@@ -489,6 +499,16 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		in, out := &in.NotifyOnCallFromSchedule, &out.NotifyOnCallFromSchedule
 		*out = new(string)
 		**out = **in
+	}
+	if in.NotifyOnCallFromScheduleRef != nil {
+		in, out := &in.NotifyOnCallFromScheduleRef, &out.NotifyOnCallFromScheduleRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NotifyOnCallFromScheduleSelector != nil {
+		in, out := &in.NotifyOnCallFromScheduleSelector, &out.NotifyOnCallFromScheduleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.NotifyToTeamMembers != nil {
 		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
@@ -676,6 +696,16 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ActionToTriggerRef != nil {
+		in, out := &in.ActionToTriggerRef, &out.ActionToTriggerRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ActionToTriggerSelector != nil {
+		in, out := &in.ActionToTriggerSelector, &out.ActionToTriggerSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Duration != nil {
 		in, out := &in.Duration, &out.Duration
 		*out = new(float64)
@@ -720,6 +750,16 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		in, out := &in.NotifyOnCallFromSchedule, &out.NotifyOnCallFromSchedule
 		*out = new(string)
 		**out = **in
+	}
+	if in.NotifyOnCallFromScheduleRef != nil {
+		in, out := &in.NotifyOnCallFromScheduleRef, &out.NotifyOnCallFromScheduleRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NotifyOnCallFromScheduleSelector != nil {
+		in, out := &in.NotifyOnCallFromScheduleSelector, &out.NotifyOnCallFromScheduleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.NotifyToTeamMembers != nil {
 		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
@@ -2788,6 +2828,18 @@ func (in *ScheduleInitParameters) DeepCopyInto(out *ScheduleInitParameters) {
 			}
 		}
 	}
+	if in.ShiftsRef != nil {
+		in, out := &in.ShiftsRef, &out.ShiftsRef
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ShiftsSelector != nil {
+		in, out := &in.ShiftsSelector, &out.ShiftsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack
 		*out = make([]ScheduleSlackInitParameters, len(*in))
@@ -2960,6 +3012,18 @@ func (in *ScheduleParameters) DeepCopyInto(out *ScheduleParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.ShiftsRef != nil {
+		in, out := &in.ShiftsRef, &out.ShiftsRef
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ShiftsSelector != nil {
+		in, out := &in.ShiftsSelector, &out.ShiftsSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Slack != nil {
 		in, out := &in.Slack, &out.Slack

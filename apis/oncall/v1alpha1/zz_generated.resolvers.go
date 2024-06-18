@@ -20,6 +20,22 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ActionToTrigger),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.ActionToTriggerRef,
+		Selector:     mg.Spec.ForProvider.ActionToTriggerSelector,
+		To: reference.To{
+			List:    &OutgoingWebhookList{},
+			Managed: &OutgoingWebhook{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ActionToTrigger")
+	}
+	mg.Spec.ForProvider.ActionToTrigger = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ActionToTriggerRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.EscalationChainRef,
@@ -36,6 +52,38 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.EscalationChainRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotifyOnCallFromSchedule),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.ForProvider.NotifyOnCallFromScheduleRef,
+		Selector:     mg.Spec.ForProvider.NotifyOnCallFromScheduleSelector,
+		To: reference.To{
+			List:    &ScheduleList{},
+			Managed: &Schedule{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.NotifyOnCallFromSchedule")
+	}
+	mg.Spec.ForProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ActionToTrigger),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.ActionToTriggerRef,
+		Selector:     mg.Spec.InitProvider.ActionToTriggerSelector,
+		To: reference.To{
+			List:    &OutgoingWebhookList{},
+			Managed: &OutgoingWebhook{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ActionToTrigger")
+	}
+	mg.Spec.InitProvider.ActionToTrigger = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ActionToTriggerRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.EscalationChainRef,
@@ -50,6 +98,22 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	}
 	mg.Spec.InitProvider.EscalationChainID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.EscalationChainRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotifyOnCallFromSchedule),
+		Extract:      reference.ExternalName(),
+		Reference:    mg.Spec.InitProvider.NotifyOnCallFromScheduleRef,
+		Selector:     mg.Spec.InitProvider.NotifyOnCallFromScheduleSelector,
+		To: reference.To{
+			List:    &ScheduleList{},
+			Managed: &Schedule{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.NotifyOnCallFromSchedule")
+	}
+	mg.Spec.InitProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -171,6 +235,48 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	}
 	mg.Spec.InitProvider.IntegrationID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.IntegrationRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this Schedule.
+func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var mrsp reference.MultiResolutionResponse
+	var err error
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Shifts),
+		Extract:       reference.ExternalName(),
+		References:    mg.Spec.ForProvider.ShiftsRef,
+		Selector:      mg.Spec.ForProvider.ShiftsSelector,
+		To: reference.To{
+			List:    &OnCallShiftList{},
+			Managed: &OnCallShift{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Shifts")
+	}
+	mg.Spec.ForProvider.Shifts = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.ShiftsRef = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Shifts),
+		Extract:       reference.ExternalName(),
+		References:    mg.Spec.InitProvider.ShiftsRef,
+		Selector:      mg.Spec.InitProvider.ShiftsSelector,
+		To: reference.To{
+			List:    &OnCallShiftList{},
+			Managed: &OnCallShift{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Shifts")
+	}
+	mg.Spec.InitProvider.Shifts = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.ShiftsRef = mrsp.ResolvedReferences
 
 	return nil
 }

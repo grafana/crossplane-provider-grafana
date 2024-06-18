@@ -17,7 +17,18 @@ type EscalationInitParameters struct {
 
 	// (String) The ID of an Action for trigger_webhook type step.
 	// The ID of an Action for trigger_webhook type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OutgoingWebhook
+	// +crossplane:generate:reference:refFieldName=ActionToTriggerRef
+	// +crossplane:generate:reference:selectorFieldName=ActionToTriggerSelector
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
+
+	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerRef *v1.Reference `json:"actionToTriggerRef,omitempty" tf:"-"`
+
+	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerSelector *v1.Selector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
 	// (Number) The duration of delay for wait type step.
 	// The duration of delay for wait type step.
@@ -56,7 +67,18 @@ type EscalationInitParameters struct {
 
 	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
 	// ID of a Schedule for notify_on_call_from_schedule type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Schedule
+	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
+	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
 	NotifyOnCallFromSchedule *string `json:"notifyOnCallFromSchedule,omitempty" tf:"notify_on_call_from_schedule,omitempty"`
+
+	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleRef *v1.Reference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
+
+	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleSelector *v1.Selector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
@@ -145,8 +167,19 @@ type EscalationParameters struct {
 
 	// (String) The ID of an Action for trigger_webhook type step.
 	// The ID of an Action for trigger_webhook type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OutgoingWebhook
+	// +crossplane:generate:reference:refFieldName=ActionToTriggerRef
+	// +crossplane:generate:reference:selectorFieldName=ActionToTriggerSelector
 	// +kubebuilder:validation:Optional
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
+
+	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerRef *v1.Reference `json:"actionToTriggerRef,omitempty" tf:"-"`
+
+	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerSelector *v1.Selector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
 	// (Number) The duration of delay for wait type step.
 	// The duration of delay for wait type step.
@@ -191,8 +224,19 @@ type EscalationParameters struct {
 
 	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
 	// ID of a Schedule for notify_on_call_from_schedule type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Schedule
+	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
+	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
 	// +kubebuilder:validation:Optional
 	NotifyOnCallFromSchedule *string `json:"notifyOnCallFromSchedule,omitempty" tf:"notify_on_call_from_schedule,omitempty"`
+
+	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleRef *v1.Reference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
+
+	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleSelector *v1.Selector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
