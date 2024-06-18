@@ -1,0 +1,28 @@
+# Grafana Provider Creds
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-creds
+  namespace: upbound-system
+type: Opaque
+stringData:
+  credentials: |
+    {
+      "url": "http://grafana.grafana.svc.cluster.local",
+      "auth": "admin:admin"
+    }
+
+---
+
+# Grafana Provider
+apiVersion: grafana.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: grafana-provider
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: grafana-creds
+      namespace: upbound-system
+      key: credentials
