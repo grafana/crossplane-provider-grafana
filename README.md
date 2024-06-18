@@ -63,6 +63,17 @@ Build binary:
 make build
 ```
 
+### Installing Provider/CRDs into your local k8s cluster
+
+1. Ensure Crossplane is installed on your local cluster (instructions [here](https://docs.crossplane.io/latest/software/install/))
+2. Run the following:
+
+   ```bash
+   kubectl config use-context <name-of-your-local-k8s-context>
+   kubectl apply -f ./package/crossplane.yaml
+   kubectl apply -f ./package/crds
+   ```
+
 ### Possible issues when running locally
 
 Below are some issues that have been encountered and may be helpful in the future
