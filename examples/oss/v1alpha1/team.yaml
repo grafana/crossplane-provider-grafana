@@ -1,0 +1,52 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/team
+  labels:
+    testing.upbound.io/example-name: test-team
+  name: test-team
+spec:
+  forProvider:
+    email: teamemail@example.com
+    memberRefs:
+    - name: viewer
+    name: Test Team
+  providerConfigRef:
+    name: grafana-provider
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/team
+  labels:
+    testing.upbound.io/example-name: test-team
+  name: example-secret
+  namespace: upbound-system
+data:
+  example-key: ZXhhbXBsZS1wYXNzd29yZA==
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/team
+  labels:
+    testing.upbound.io/example-name: test-team
+  name: viewer
+spec:
+  forProvider:
+    email: viewer@example.com
+    login: viewer
+    name: Viewer
+    passwordSecretRef:
+      name: example-secret
+      namespace: upbound-system
+      key: example-key
+  providerConfigRef:
+    name: grafana-provider

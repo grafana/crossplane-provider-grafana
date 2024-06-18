@@ -51,6 +51,10 @@ spec:
           spec:
             description: A ProviderConfigSpec defines the desired state of a ProviderConfig.
             properties:
+              cloudApiUrl:
+                description: Override the Grafana Cloud API URL from the credentials
+                  reference attribute.
+                type: string
               credentials:
                 description: Credentials required to authenticate to this provider.
                 properties:
@@ -107,6 +111,18 @@ spec:
                 required:
                 - source
                 type: object
+              oncallUrl:
+                description: Override the OnCall API URL from the credentials reference
+                  attribute.
+                type: string
+              smUrl:
+                description: Override the Synthetic Monitoring API URL from the credentials
+                  reference attribute.
+                type: string
+              url:
+                description: Override the Grafana URL from the credentials reference
+                  attribute.
+                type: string
             required:
             - credentials
             type: object
