@@ -445,6 +445,16 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.ActionToTriggerRef != nil {
+		in, out := &in.ActionToTriggerRef, &out.ActionToTriggerRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ActionToTriggerSelector != nil {
+		in, out := &in.ActionToTriggerSelector, &out.ActionToTriggerSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Duration != nil {
 		in, out := &in.Duration, &out.Duration
 		*out = new(float64)
@@ -490,20 +500,20 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.NotifyOnCallFromScheduleRef != nil {
+		in, out := &in.NotifyOnCallFromScheduleRef, &out.NotifyOnCallFromScheduleRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NotifyOnCallFromScheduleSelector != nil {
+		in, out := &in.NotifyOnCallFromScheduleSelector, &out.NotifyOnCallFromScheduleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NotifyToTeamMembers != nil {
 		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
 		*out = new(string)
 		**out = **in
-	}
-	if in.OutgoingWebhookRef != nil {
-		in, out := &in.OutgoingWebhookRef, &out.OutgoingWebhookRef
-		*out = new(v1.Reference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.OutgoingWebhookSelector != nil {
-		in, out := &in.OutgoingWebhookSelector, &out.OutgoingWebhookSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
@@ -531,16 +541,6 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		in, out := &in.Position, &out.Position
 		*out = new(float64)
 		**out = **in
-	}
-	if in.ScheduleRef != nil {
-		in, out := &in.ScheduleRef, &out.ScheduleRef
-		*out = new(v1.Reference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ScheduleSelector != nil {
-		in, out := &in.ScheduleSelector, &out.ScheduleSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
@@ -696,6 +696,16 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ActionToTriggerRef != nil {
+		in, out := &in.ActionToTriggerRef, &out.ActionToTriggerRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ActionToTriggerSelector != nil {
+		in, out := &in.ActionToTriggerSelector, &out.ActionToTriggerSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Duration != nil {
 		in, out := &in.Duration, &out.Duration
 		*out = new(float64)
@@ -741,20 +751,20 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.NotifyOnCallFromScheduleRef != nil {
+		in, out := &in.NotifyOnCallFromScheduleRef, &out.NotifyOnCallFromScheduleRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NotifyOnCallFromScheduleSelector != nil {
+		in, out := &in.NotifyOnCallFromScheduleSelector, &out.NotifyOnCallFromScheduleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.NotifyToTeamMembers != nil {
 		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
 		*out = new(string)
 		**out = **in
-	}
-	if in.OutgoingWebhookRef != nil {
-		in, out := &in.OutgoingWebhookRef, &out.OutgoingWebhookRef
-		*out = new(v1.Reference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.OutgoingWebhookSelector != nil {
-		in, out := &in.OutgoingWebhookSelector, &out.OutgoingWebhookSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
@@ -782,16 +792,6 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 		in, out := &in.Position, &out.Position
 		*out = new(float64)
 		**out = **in
-	}
-	if in.ScheduleRef != nil {
-		in, out := &in.ScheduleRef, &out.ScheduleRef
-		*out = new(v1.Reference)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.ScheduleSelector != nil {
-		in, out := &in.ScheduleSelector, &out.ScheduleSelector
-		*out = new(v1.Selector)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type

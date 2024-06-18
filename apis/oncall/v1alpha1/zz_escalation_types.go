@@ -18,9 +18,17 @@ type EscalationInitParameters struct {
 	// (String) The ID of an Action for trigger_webhook type step.
 	// The ID of an Action for trigger_webhook type step.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OutgoingWebhook
-	// +crossplane:generate:reference:refFieldName=OutgoingWebhookRef
-	// +crossplane:generate:reference:selectorFieldName=OutgoingWebhookSelector
+	// +crossplane:generate:reference:refFieldName=ActionToTriggerRef
+	// +crossplane:generate:reference:selectorFieldName=ActionToTriggerSelector
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
+
+	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerRef *v1.Reference `json:"actionToTriggerRef,omitempty" tf:"-"`
+
+	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerSelector *v1.Selector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
 	// (Number) The duration of delay for wait type step.
 	// The duration of delay for wait type step.
@@ -60,21 +68,21 @@ type EscalationInitParameters struct {
 	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
 	// ID of a Schedule for notify_on_call_from_schedule type step.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Schedule
-	// +crossplane:generate:reference:refFieldName=ScheduleRef
-	// +crossplane:generate:reference:selectorFieldName=ScheduleSelector
+	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
+	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
 	NotifyOnCallFromSchedule *string `json:"notifyOnCallFromSchedule,omitempty" tf:"notify_on_call_from_schedule,omitempty"`
+
+	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleRef *v1.Reference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
+
+	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleSelector *v1.Selector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
 	NotifyToTeamMembers *string `json:"notifyToTeamMembers,omitempty" tf:"notify_to_team_members,omitempty"`
-
-	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
-	// +kubebuilder:validation:Optional
-	OutgoingWebhookRef *v1.Reference `json:"outgoingWebhookRef,omitempty" tf:"-"`
-
-	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
-	// +kubebuilder:validation:Optional
-	OutgoingWebhookSelector *v1.Selector `json:"outgoingWebhookSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
@@ -89,14 +97,6 @@ type EscalationInitParameters struct {
 	// (Number) The position of the escalation step (starts from 0).
 	// The position of the escalation step (starts from 0).
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
-
-	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
-	// +kubebuilder:validation:Optional
-	ScheduleRef *v1.Reference `json:"scheduleRef,omitempty" tf:"-"`
-
-	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
-	// +kubebuilder:validation:Optional
-	ScheduleSelector *v1.Selector `json:"scheduleSelector,omitempty" tf:"-"`
 
 	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
 	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
@@ -168,10 +168,18 @@ type EscalationParameters struct {
 	// (String) The ID of an Action for trigger_webhook type step.
 	// The ID of an Action for trigger_webhook type step.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OutgoingWebhook
-	// +crossplane:generate:reference:refFieldName=OutgoingWebhookRef
-	// +crossplane:generate:reference:selectorFieldName=OutgoingWebhookSelector
+	// +crossplane:generate:reference:refFieldName=ActionToTriggerRef
+	// +crossplane:generate:reference:selectorFieldName=ActionToTriggerSelector
 	// +kubebuilder:validation:Optional
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
+
+	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerRef *v1.Reference `json:"actionToTriggerRef,omitempty" tf:"-"`
+
+	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
+	// +kubebuilder:validation:Optional
+	ActionToTriggerSelector *v1.Selector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
 	// (Number) The duration of delay for wait type step.
 	// The duration of delay for wait type step.
@@ -217,23 +225,23 @@ type EscalationParameters struct {
 	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
 	// ID of a Schedule for notify_on_call_from_schedule type step.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Schedule
-	// +crossplane:generate:reference:refFieldName=ScheduleRef
-	// +crossplane:generate:reference:selectorFieldName=ScheduleSelector
+	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
+	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
 	// +kubebuilder:validation:Optional
 	NotifyOnCallFromSchedule *string `json:"notifyOnCallFromSchedule,omitempty" tf:"notify_on_call_from_schedule,omitempty"`
+
+	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleRef *v1.Reference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
+
+	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
+	// +kubebuilder:validation:Optional
+	NotifyOnCallFromScheduleSelector *v1.Selector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
 	// +kubebuilder:validation:Optional
 	NotifyToTeamMembers *string `json:"notifyToTeamMembers,omitempty" tf:"notify_to_team_members,omitempty"`
-
-	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
-	// +kubebuilder:validation:Optional
-	OutgoingWebhookRef *v1.Reference `json:"outgoingWebhookRef,omitempty" tf:"-"`
-
-	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
-	// +kubebuilder:validation:Optional
-	OutgoingWebhookSelector *v1.Selector `json:"outgoingWebhookSelector,omitempty" tf:"-"`
 
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
@@ -251,14 +259,6 @@ type EscalationParameters struct {
 	// The position of the escalation step (starts from 0).
 	// +kubebuilder:validation:Optional
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
-
-	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
-	// +kubebuilder:validation:Optional
-	ScheduleRef *v1.Reference `json:"scheduleRef,omitempty" tf:"-"`
-
-	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
-	// +kubebuilder:validation:Optional
-	ScheduleSelector *v1.Selector `json:"scheduleSelector,omitempty" tf:"-"`
 
 	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
 	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members

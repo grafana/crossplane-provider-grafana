@@ -22,8 +22,8 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ActionToTrigger),
 		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.OutgoingWebhookRef,
-		Selector:     mg.Spec.ForProvider.OutgoingWebhookSelector,
+		Reference:    mg.Spec.ForProvider.ActionToTriggerRef,
+		Selector:     mg.Spec.ForProvider.ActionToTriggerSelector,
 		To: reference.To{
 			List:    &OutgoingWebhookList{},
 			Managed: &OutgoingWebhook{},
@@ -33,7 +33,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.ActionToTrigger")
 	}
 	mg.Spec.ForProvider.ActionToTrigger = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.OutgoingWebhookRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.ActionToTriggerRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EscalationChainID),
@@ -54,8 +54,8 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.ScheduleRef,
-		Selector:     mg.Spec.ForProvider.ScheduleSelector,
+		Reference:    mg.Spec.ForProvider.NotifyOnCallFromScheduleRef,
+		Selector:     mg.Spec.ForProvider.NotifyOnCallFromScheduleSelector,
 		To: reference.To{
 			List:    &ScheduleList{},
 			Managed: &Schedule{},
@@ -65,13 +65,13 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.ForProvider.NotifyOnCallFromSchedule")
 	}
 	mg.Spec.ForProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.ScheduleRef = rsp.ResolvedReference
+	mg.Spec.ForProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ActionToTrigger),
 		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.OutgoingWebhookRef,
-		Selector:     mg.Spec.InitProvider.OutgoingWebhookSelector,
+		Reference:    mg.Spec.InitProvider.ActionToTriggerRef,
+		Selector:     mg.Spec.InitProvider.ActionToTriggerSelector,
 		To: reference.To{
 			List:    &OutgoingWebhookList{},
 			Managed: &OutgoingWebhook{},
@@ -81,7 +81,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.ActionToTrigger")
 	}
 	mg.Spec.InitProvider.ActionToTrigger = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.OutgoingWebhookRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.ActionToTriggerRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EscalationChainID),
@@ -102,8 +102,8 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.ScheduleRef,
-		Selector:     mg.Spec.InitProvider.ScheduleSelector,
+		Reference:    mg.Spec.InitProvider.NotifyOnCallFromScheduleRef,
+		Selector:     mg.Spec.InitProvider.NotifyOnCallFromScheduleSelector,
 		To: reference.To{
 			List:    &ScheduleList{},
 			Managed: &Schedule{},
@@ -113,7 +113,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 		return errors.Wrap(err, "mg.Spec.InitProvider.NotifyOnCallFromSchedule")
 	}
 	mg.Spec.InitProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.ScheduleRef = rsp.ResolvedReference
+	mg.Spec.InitProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
 
 	return nil
 }

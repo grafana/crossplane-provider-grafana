@@ -30,31 +30,23 @@ func ConfigureOrgIDRefs(p *ujconfig.Provider) {
 
 // ConfigureOnCallRefsAndSelectors add reference and selector fields for Grafana OnCall resources
 func ConfigureOnCallRefsAndSelectors(p *ujconfig.Provider) {
-	escalationChainRef := ujconfig.Reference{
-		TerraformName:     "grafana_oncall_escalation_chain",
-		RefFieldName:      "EscalationChainRef",
-		SelectorFieldName: "EscalationChainSelector",
-	}
-	integrationRef := ujconfig.Reference{
-		TerraformName:     "grafana_oncall_integration",
-		RefFieldName:      "IntegrationRef",
-		SelectorFieldName: "IntegrationSelector",
-	}
-	outgoingWebhookRef := ujconfig.Reference{
-		TerraformName:     "grafana_oncall_outgoing_webhook",
-		RefFieldName:      "OutgoingWebhookRef",
-		SelectorFieldName: "OutgoingWebhookSelector",
-	}
-	scheduleRef := ujconfig.Reference{
-		TerraformName:     "grafana_oncall_schedule",
-		RefFieldName:      "ScheduleRef",
-		SelectorFieldName: "ScheduleSelector",
-	}
-
 	p.AddResourceConfigurator("grafana_oncall_escalation", func(r *ujconfig.Resource) {
-		r.References["escalation_chain_id"] = escalationChainRef
-		r.References["action_to_trigger"] = outgoingWebhookRef
-		r.References["notify_on_call_from_schedule"] = scheduleRef
+		r.References["escalation_chain_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_escalation_chain",
+			RefFieldName:      "EscalationChainRef",
+			SelectorFieldName: "EscalationChainSelector",
+		}
+		r.References["action_to_trigger"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_outgoing_webhook",
+			RefFieldName:      "ActionToTriggerRef",
+			SelectorFieldName: "ActionToTriggerSelector",
+		}
+		r.References["notify_on_call_from_schedule"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_schedule",
+			RefFieldName:      "NotifyOnCallFromScheduleRef",
+			SelectorFieldName: "NotifyOnCallFromScheduleSelector",
+		}
+		// NOTE: the following references won't work as Terraform datasources are not translated to Crossplane resources
 		// r.References["group_to_notify"] = oncallUserGroupRef
 		// r.References["notify_to_team_members"] = oncallTeamRef
 		// r.References["persons_to_notify"] = oncallUserRef
@@ -62,23 +54,37 @@ func ConfigureOnCallRefsAndSelectors(p *ujconfig.Provider) {
 	})
 
 	p.AddResourceConfigurator("grafana_oncall_integration", func(r *ujconfig.Resource) {
-		r.References["default_route.escalation_chain_id"] = escalationChainRef
+		r.References["default_route.escalation_chain_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_escalation_chain",
+			RefFieldName:      "EscalationChainRef",
+			SelectorFieldName: "EscalationChainSelector",
+		}
+		// NOTE: the following references won't work as Terraform datasources are not translated to Crossplane resources
 		// r.References["team_id"] = oncallTeamRef
 	})
 
 	p.AddResourceConfigurator("grafana_oncall_route", func(r *ujconfig.Resource) {
-		r.References["escalation_chain_id"] = escalationChainRef
-		r.References["integration_id"] = integrationRef
+		r.References["escalation_chain_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_escalation_chain",
+			RefFieldName:      "EscalationChainRef",
+			SelectorFieldName: "EscalationChainSelector",
+		}
+		r.References["integration_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_integration",
+			RefFieldName:      "IntegrationRef",
+			SelectorFieldName: "IntegrationSelector",
+		}
 	})
 
 	p.AddResourceConfigurator("grafana_oncall_schedule", func(r *ujconfig.Resource) {
-		// r.References["slack.channel_id"] = slackChannelRef
-		// r.References["slack.user_group_id"] = oncallUserGroupRef
 		r.References["shifts"] = ujconfig.Reference{
 			TerraformName:     "grafana_oncall_on_call_shift",
 			RefFieldName:      "ShiftsRef",
 			SelectorFieldName: "ShiftsSelector",
 		}
+		// NOTE: the following references won't work as Terraform datasources are not translated to Crossplane resources
+		// r.References["slack.channel_id"] = slackChannelRef
+		// r.References["slack.user_group_id"] = oncallUserGroupRef
 	})
 
 	// NOTE: the following refs will not work as Terraform datasources are not translated to Crossplane resources

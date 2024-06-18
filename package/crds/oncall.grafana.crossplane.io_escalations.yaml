@@ -79,6 +79,82 @@ spec:
                       (String) The ID of an Action for trigger_webhook type step.
                       The ID of an Action for trigger_webhook type step.
                     type: string
+                  actionToTriggerRef:
+                    description: Reference to a OutgoingWebhook in oncall to populate
+                      actionToTrigger.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  actionToTriggerSelector:
+                    description: Selector for a OutgoingWebhook in oncall to populate
+                      actionToTrigger.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   duration:
                     description: |-
                       (Number) The duration of delay for wait type step.
@@ -190,109 +266,7 @@ spec:
                       (String) ID of a Schedule for notify_on_call_from_schedule type step.
                       ID of a Schedule for notify_on_call_from_schedule type step.
                     type: string
-                  notifyToTeamMembers:
-                    description: |-
-                      (String) The ID of a Team for a notify_team_members type step.
-                      The ID of a Team for a notify_team_members type step.
-                    type: string
-                  outgoingWebhookRef:
-                    description: Reference to a OutgoingWebhook in oncall to populate
-                      actionToTrigger.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  outgoingWebhookSelector:
-                    description: Selector for a OutgoingWebhook in oncall to populate
-                      actionToTrigger.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  personsToNotify:
-                    description: |-
-                      (Set of String) The list of ID's of users for notify_persons type step.
-                      The list of ID's of users for notify_persons type step.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
-                  personsToNotifyNextEachTime:
-                    description: |-
-                      (Set of String) The list of ID's of users for notify_person_next_each_time type step.
-                      The list of ID's of users for notify_person_next_each_time type step.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
-                  position:
-                    description: |-
-                      (Number) The position of the escalation step (starts from 0).
-                      The position of the escalation step (starts from 0).
-                    type: number
-                  scheduleRef:
+                  notifyOnCallFromScheduleRef:
                     description: Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
                     properties:
                       name:
@@ -326,7 +300,7 @@ spec:
                     required:
                     - name
                     type: object
-                  scheduleSelector:
+                  notifyOnCallFromScheduleSelector:
                     description: Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
                     properties:
                       matchControllerRef:
@@ -366,6 +340,32 @@ spec:
                             type: string
                         type: object
                     type: object
+                  notifyToTeamMembers:
+                    description: |-
+                      (String) The ID of a Team for a notify_team_members type step.
+                      The ID of a Team for a notify_team_members type step.
+                    type: string
+                  personsToNotify:
+                    description: |-
+                      (Set of String) The list of ID's of users for notify_persons type step.
+                      The list of ID's of users for notify_persons type step.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  personsToNotifyNextEachTime:
+                    description: |-
+                      (Set of String) The list of ID's of users for notify_person_next_each_time type step.
+                      The list of ID's of users for notify_person_next_each_time type step.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  position:
+                    description: |-
+                      (Number) The position of the escalation step (starts from 0).
+                      The position of the escalation step (starts from 0).
+                    type: number
                   type:
                     description: |-
                       (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
@@ -390,6 +390,82 @@ spec:
                       (String) The ID of an Action for trigger_webhook type step.
                       The ID of an Action for trigger_webhook type step.
                     type: string
+                  actionToTriggerRef:
+                    description: Reference to a OutgoingWebhook in oncall to populate
+                      actionToTrigger.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  actionToTriggerSelector:
+                    description: Selector for a OutgoingWebhook in oncall to populate
+                      actionToTrigger.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   duration:
                     description: |-
                       (Number) The duration of delay for wait type step.
@@ -501,109 +577,7 @@ spec:
                       (String) ID of a Schedule for notify_on_call_from_schedule type step.
                       ID of a Schedule for notify_on_call_from_schedule type step.
                     type: string
-                  notifyToTeamMembers:
-                    description: |-
-                      (String) The ID of a Team for a notify_team_members type step.
-                      The ID of a Team for a notify_team_members type step.
-                    type: string
-                  outgoingWebhookRef:
-                    description: Reference to a OutgoingWebhook in oncall to populate
-                      actionToTrigger.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  outgoingWebhookSelector:
-                    description: Selector for a OutgoingWebhook in oncall to populate
-                      actionToTrigger.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  personsToNotify:
-                    description: |-
-                      (Set of String) The list of ID's of users for notify_persons type step.
-                      The list of ID's of users for notify_persons type step.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
-                  personsToNotifyNextEachTime:
-                    description: |-
-                      (Set of String) The list of ID's of users for notify_person_next_each_time type step.
-                      The list of ID's of users for notify_person_next_each_time type step.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
-                  position:
-                    description: |-
-                      (Number) The position of the escalation step (starts from 0).
-                      The position of the escalation step (starts from 0).
-                    type: number
-                  scheduleRef:
+                  notifyOnCallFromScheduleRef:
                     description: Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
                     properties:
                       name:
@@ -637,7 +611,7 @@ spec:
                     required:
                     - name
                     type: object
-                  scheduleSelector:
+                  notifyOnCallFromScheduleSelector:
                     description: Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
                     properties:
                       matchControllerRef:
@@ -677,6 +651,32 @@ spec:
                             type: string
                         type: object
                     type: object
+                  notifyToTeamMembers:
+                    description: |-
+                      (String) The ID of a Team for a notify_team_members type step.
+                      The ID of a Team for a notify_team_members type step.
+                    type: string
+                  personsToNotify:
+                    description: |-
+                      (Set of String) The list of ID's of users for notify_persons type step.
+                      The list of ID's of users for notify_persons type step.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  personsToNotifyNextEachTime:
+                    description: |-
+                      (Set of String) The list of ID's of users for notify_person_next_each_time type step.
+                      The list of ID's of users for notify_person_next_each_time type step.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  position:
+                    description: |-
+                      (Number) The position of the escalation step (starts from 0).
+                      The position of the escalation step (starts from 0).
+                    type: number
                   type:
                     description: |-
                       (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
