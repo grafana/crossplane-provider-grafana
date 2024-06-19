@@ -12,6 +12,15 @@ import (
 
 // A ProviderConfigSpec defines the desired state of a ProviderConfig.
 type ProviderConfigSpec struct {
+	// Override the Grafana URL from the credentials reference attribute.
+	URL string `json:"url,omitempty"`
+	// Override the Grafana Cloud API URL from the credentials reference attribute.
+	CloudAPIURL string `json:"cloudApiUrl,omitempty"`
+	// Override the OnCall API URL from the credentials reference attribute.
+	OnCallURL string `json:"oncallUrl,omitempty"`
+	// Override the Synthetic Monitoring API URL from the credentials reference attribute.
+	SMURL string `json:"smUrl,omitempty"`
+
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`
 }
