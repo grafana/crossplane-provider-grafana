@@ -442,6 +442,12 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "FolderSelector",
 			Extractor:         optionalFieldExtractor("uid"),
 		}
+		r.References["rule.notification_settings.contact_point"] = ujconfig.Reference{
+			TerraformName:     "grafana_contact_point",
+			RefFieldName:      "ContactPointRef",
+			SelectorFieldName: "ContactPointSelector",
+			Extractor:         fieldExtractor("name"),
+		}
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
 		r.References["members"] = ujconfig.Reference{

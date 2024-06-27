@@ -591,6 +591,26 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Rule); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Rule[i3].NotificationSettings); i4++ {
+			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint),
+				Extract:      grafana.FieldExtractor("name"),
+				Reference:    mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPointRef,
+				Selector:     mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPointSelector,
+				To: reference.To{
+					List:    &ContactPointList{},
+					Managed: &ContactPoint{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint")
+			}
+			mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPointRef = rsp.ResolvedReference
+
+		}
+	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
@@ -622,6 +642,27 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	}
 	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Rule); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.Rule[i3].NotificationSettings); i4++ {
+			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint),
+				Extract:      grafana.FieldExtractor("name"),
+				Reference:    mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPointRef,
+				Selector:     mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPointSelector,
+				To: reference.To{
+					List:    &ContactPointList{},
+					Managed: &ContactPoint{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint")
+			}
+			mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPointRef = rsp.ResolvedReference
+
+		}
+	}
 
 	return nil
 }
