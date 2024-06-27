@@ -91,7 +91,19 @@ type NotificationSettingsInitParameters struct {
 
 	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:refFieldName=ContactPointRef
+	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Reference to a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+
+	// Selector for a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
 	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
@@ -145,8 +157,20 @@ type NotificationSettingsParameters struct {
 
 	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:refFieldName=ContactPointRef
+	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint" tf:"contact_point,omitempty"`
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// Reference to a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+
+	// Selector for a ContactPoint in alerting to populate contactPoint.
+	// +kubebuilder:validation:Optional
+	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
 	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
