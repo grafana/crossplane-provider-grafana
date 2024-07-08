@@ -26,3 +26,6 @@ func (tr *Route) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Schedule) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *UserNotificationRule) Hub() {}

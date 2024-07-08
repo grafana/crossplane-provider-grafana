@@ -76,13 +76,14 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_machine_learning_outlier_detector": ReplaceGroupWords("ml", 2),
 
 	// OnCall
-	"grafana_oncall_escalation":       ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_escalation_chain": ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_integration":      ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_on_call_shift":    ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_outgoing_webhook": ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_route":            ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_schedule":         ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_escalation":             ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_escalation_chain":       ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_integration":            ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_on_call_shift":          ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_outgoing_webhook":       ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_route":                  ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_schedule":               ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_user_notification_rule": ReplaceGroupWords("oncall", 1),
 
 	// OSS
 	"grafana_annotation":                 ReplaceGroupWords("oss", 0),
