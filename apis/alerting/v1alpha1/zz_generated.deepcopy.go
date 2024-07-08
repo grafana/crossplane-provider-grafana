@@ -2890,6 +2890,16 @@ func (in *NotificationSettingsInitParameters) DeepCopyInto(out *NotificationSett
 		*out = new(string)
 		**out = **in
 	}
+	if in.ContactPointRef != nil {
+		in, out := &in.ContactPointRef, &out.ContactPointRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ContactPointSelector != nil {
+		in, out := &in.ContactPointSelector, &out.ContactPointSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.GroupBy != nil {
 		in, out := &in.GroupBy, &out.GroupBy
 		*out = make([]*string, len(*in))
@@ -3003,6 +3013,16 @@ func (in *NotificationSettingsParameters) DeepCopyInto(out *NotificationSettings
 		in, out := &in.ContactPoint, &out.ContactPoint
 		*out = new(string)
 		**out = **in
+	}
+	if in.ContactPointRef != nil {
+		in, out := &in.ContactPointRef, &out.ContactPointRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ContactPointSelector != nil {
+		in, out := &in.ContactPointSelector, &out.ContactPointSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.GroupBy != nil {
 		in, out := &in.GroupBy, &out.GroupBy
