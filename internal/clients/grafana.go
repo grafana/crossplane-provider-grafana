@@ -11,7 +11,7 @@ import (
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/upjet/pkg/terraform"
-	grafanaProvider "github.com/grafana/terraform-provider-grafana/v2/pkg/provider"
+	grafanaProvider "github.com/grafana/terraform-provider-grafana/v3/pkg/provider"
 	terraformSDK "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"

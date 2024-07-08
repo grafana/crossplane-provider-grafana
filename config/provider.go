@@ -10,7 +10,7 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 	conversiontfjson "github.com/crossplane/upjet/pkg/types/conversion/tfjson"
-	grafanaProvider "github.com/grafana/terraform-provider-grafana/v2/pkg/provider"
+	grafanaProvider "github.com/grafana/terraform-provider-grafana/v3/pkg/provider"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/pkg/errors"
