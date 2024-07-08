@@ -8,9 +8,8 @@ metadata:
   name: test
 spec:
   forProvider:
-    dashboardSelector:
-      matchLabels:
-        testing.upbound.io/example-name: test
+    dashboards:
+    - uid: ${grafana_dashboard.test.uid}
     name: my report
     recipients:
     - some@email.com

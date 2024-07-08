@@ -15,21 +15,6 @@ import (
 
 type LibraryPanelInitParameters struct {
 
-	// (String, Deprecated) Deprecated. Use folder_uid instead
-	// Deprecated. Use `folder_uid` instead
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:refFieldName=FolderRef
-	// +crossplane:generate:reference:selectorFieldName=FolderSelector
-	FolderID *string `json:"folderId,omitempty" tf:"folder_id,omitempty"`
-
-	// Reference to a Folder in oss to populate folderId.
-	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
-
-	// Selector for a Folder in oss to populate folderId.
-	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
-
 	// (String) Unique ID (UID) of the folder containing the library panel.
 	// Unique ID (UID) of the folder containing the library panel.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
@@ -76,10 +61,6 @@ type LibraryPanelObservation struct {
 	// Description of the library panel.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String, Deprecated) Deprecated. Use folder_uid instead
-	// Deprecated. Use `folder_uid` instead
-	FolderID *string `json:"folderId,omitempty" tf:"folder_id,omitempty"`
-
 	// (String) Name of the folder containing the library panel.
 	// Name of the folder containing the library panel.
 	FolderName *string `json:"folderName,omitempty" tf:"folder_name,omitempty"`
@@ -125,22 +106,6 @@ type LibraryPanelObservation struct {
 }
 
 type LibraryPanelParameters struct {
-
-	// (String, Deprecated) Deprecated. Use folder_uid instead
-	// Deprecated. Use `folder_uid` instead
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:refFieldName=FolderRef
-	// +crossplane:generate:reference:selectorFieldName=FolderSelector
-	// +kubebuilder:validation:Optional
-	FolderID *string `json:"folderId,omitempty" tf:"folder_id,omitempty"`
-
-	// Reference to a Folder in oss to populate folderId.
-	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
-
-	// Selector for a Folder in oss to populate folderId.
-	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) Unique ID (UID) of the folder containing the library panel.
 	// Unique ID (UID) of the folder containing the library panel.

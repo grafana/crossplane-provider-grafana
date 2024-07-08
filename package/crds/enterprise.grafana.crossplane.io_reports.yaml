@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   name: reports.enterprise.grafana.crossplane.io
 spec:
   group: enterprise.grafana.crossplane.io
@@ -74,85 +74,6 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  dashboardRef:
-                    description: Reference to a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  dashboardSelector:
-                    description: Selector for a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  dashboardUid:
-                    description: |-
-                      (String, Deprecated) Dashboard to be sent in the report.
-                      Dashboard to be sent in the report.
-                    type: string
                   dashboards:
                     description: |-
                       (Block List) List of dashboards to render into the report (see below for nested schema)
@@ -169,7 +90,7 @@ spec:
                           x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
-                            (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
+                            (Block List, Max: 1) Time range of the report. (see below for nested schema)
                             Time range of the report.
                           items:
                             properties:
@@ -364,24 +285,6 @@ spec:
                             (Boolean) Whether to send the report only on work days. Defaults to false.
                             Whether to send the report only on work days. Defaults to `false`.
                           type: boolean
-                      type: object
-                    type: array
-                  timeRange:
-                    description: |-
-                      (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
-                      Time range of the report.
-                    items:
-                      properties:
-                        from:
-                          description: |-
-                            (String) Start of the time range.
-                            Start of the time range.
-                          type: string
-                        to:
-                          description: |-
-                            (String) End of the time range.
-                            End of the time range.
-                          type: string
                       type: object
                     type: array
                 type: object
@@ -398,85 +301,6 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  dashboardRef:
-                    description: Reference to a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  dashboardSelector:
-                    description: Selector for a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  dashboardUid:
-                    description: |-
-                      (String, Deprecated) Dashboard to be sent in the report.
-                      Dashboard to be sent in the report.
-                    type: string
                   dashboards:
                     description: |-
                       (Block List) List of dashboards to render into the report (see below for nested schema)
@@ -493,7 +317,7 @@ spec:
                           x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
-                            (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
+                            (Block List, Max: 1) Time range of the report. (see below for nested schema)
                             Time range of the report.
                           items:
                             properties:
@@ -688,24 +512,6 @@ spec:
                             (Boolean) Whether to send the report only on work days. Defaults to false.
                             Whether to send the report only on work days. Defaults to `false`.
                           type: boolean
-                      type: object
-                    type: array
-                  timeRange:
-                    description: |-
-                      (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
-                      Time range of the report.
-                    items:
-                      properties:
-                        from:
-                          description: |-
-                            (String) Start of the time range.
-                            Start of the time range.
-                          type: string
-                        to:
-                          description: |-
-                            (String) End of the time range.
-                            End of the time range.
-                          type: string
                       type: object
                     type: array
                 type: object
@@ -894,11 +700,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  dashboardUid:
-                    description: |-
-                      (String, Deprecated) Dashboard to be sent in the report.
-                      Dashboard to be sent in the report.
-                    type: string
                   dashboards:
                     description: |-
                       (Block List) List of dashboards to render into the report (see below for nested schema)
@@ -915,7 +716,7 @@ spec:
                           x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
-                            (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
+                            (Block List, Max: 1) Time range of the report. (see below for nested schema)
                             Time range of the report.
                           items:
                             properties:
@@ -1039,24 +840,6 @@ spec:
                             (Boolean) Whether to send the report only on work days. Defaults to false.
                             Whether to send the report only on work days. Defaults to `false`.
                           type: boolean
-                      type: object
-                    type: array
-                  timeRange:
-                    description: |-
-                      (Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)
-                      Time range of the report.
-                    items:
-                      properties:
-                        from:
-                          description: |-
-                            (String) Start of the time range.
-                            Start of the time range.
-                          type: string
-                        to:
-                          description: |-
-                            (String) End of the time range.
-                            End of the time range.
-                          type: string
                       type: object
                     type: array
                 type: object

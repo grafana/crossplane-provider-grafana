@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   name: organizationpreferences.oss.grafana.crossplane.io
 spec:
   group: oss.grafana.crossplane.io
@@ -75,11 +75,6 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  homeDashboardId:
-                    description: |-
-                      (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-                      The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-                    type: number
                   homeDashboardUid:
                     description: |-
                       (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
@@ -193,11 +188,6 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  homeDashboardId:
-                    description: |-
-                      (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-                      The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-                    type: number
                   homeDashboardUid:
                     description: |-
                       (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
@@ -471,11 +461,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  homeDashboardId:
-                    description: |-
-                      (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-                      The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-                    type: number
                   homeDashboardUid:
                     description: |-
                       (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.

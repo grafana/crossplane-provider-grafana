@@ -15,10 +15,6 @@ import (
 
 type OrganizationPreferencesInitParameters struct {
 
-	// (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-	// The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
-
 	// (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
 	// The Organization home dashboard UID. This is only available in Grafana 9.0+.
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
@@ -53,10 +49,6 @@ type OrganizationPreferencesInitParameters struct {
 
 type OrganizationPreferencesObservation struct {
 
-	// (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-	// The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
-
 	// (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
 	// The Organization home dashboard UID. This is only available in Grafana 9.0+.
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
@@ -82,11 +74,6 @@ type OrganizationPreferencesObservation struct {
 }
 
 type OrganizationPreferencesParameters struct {
-
-	// (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-	// The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-	// +kubebuilder:validation:Optional
-	HomeDashboardID *float64 `json:"homeDashboardId,omitempty" tf:"home_dashboard_id,omitempty"`
 
 	// (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
 	// The Organization home dashboard UID. This is only available in Grafana 9.0+.

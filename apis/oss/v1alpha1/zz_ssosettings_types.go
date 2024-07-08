@@ -629,6 +629,10 @@ type SAMLSettingsInitParameters struct {
 	// List of comma- or space-separated roles which will be mapped into the None role.
 	RoleValuesNone *string `json:"roleValuesNone,omitempty" tf:"role_values_none,omitempty"`
 
+	// or space-separated roles which will be mapped into the Viewer role.
+	// List of comma- or space-separated roles which will be mapped into the Viewer role.
+	RoleValuesViewer *string `json:"roleValuesViewer,omitempty" tf:"role_values_viewer,omitempty"`
+
 	// sha1, rsa-sha256, rsa-sha512.
 	// Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
 	SignatureAlgorithm *string `json:"signatureAlgorithm,omitempty" tf:"signature_algorithm,omitempty"`
@@ -747,6 +751,10 @@ type SAMLSettingsObservation struct {
 	// or space-separated roles which will be mapped into the None role.
 	// List of comma- or space-separated roles which will be mapped into the None role.
 	RoleValuesNone *string `json:"roleValuesNone,omitempty" tf:"role_values_none,omitempty"`
+
+	// or space-separated roles which will be mapped into the Viewer role.
+	// List of comma- or space-separated roles which will be mapped into the Viewer role.
+	RoleValuesViewer *string `json:"roleValuesViewer,omitempty" tf:"role_values_viewer,omitempty"`
 
 	// sha1, rsa-sha256, rsa-sha512.
 	// Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
@@ -902,6 +910,11 @@ type SAMLSettingsParameters struct {
 	// List of comma- or space-separated roles which will be mapped into the None role.
 	// +kubebuilder:validation:Optional
 	RoleValuesNone *string `json:"roleValuesNone,omitempty" tf:"role_values_none,omitempty"`
+
+	// or space-separated roles which will be mapped into the Viewer role.
+	// List of comma- or space-separated roles which will be mapped into the Viewer role.
+	// +kubebuilder:validation:Optional
+	RoleValuesViewer *string `json:"roleValuesViewer,omitempty" tf:"role_values_viewer,omitempty"`
 
 	// sha1, rsa-sha256, rsa-sha512.
 	// Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.

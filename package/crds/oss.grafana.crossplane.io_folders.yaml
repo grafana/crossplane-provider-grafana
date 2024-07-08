@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   name: folders.oss.grafana.crossplane.io
 spec:
   group: oss.grafana.crossplane.io
@@ -234,8 +234,8 @@ spec:
                     type: string
                   preventDestroyIfNotEmpty:
                     description: |-
-                      (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
-                      Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
+                      (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+                      Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
                     type: boolean
                   title:
                     description: |-
@@ -421,8 +421,8 @@ spec:
                     type: string
                   preventDestroyIfNotEmpty:
                     description: |-
-                      (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
-                      Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
+                      (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+                      Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
                     type: boolean
                   title:
                     description: |-
@@ -627,8 +627,8 @@ spec:
                     type: string
                   preventDestroyIfNotEmpty:
                     description: |-
-                      (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
-                      Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
+                      (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+                      Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
                     type: boolean
                   title:
                     description: |-

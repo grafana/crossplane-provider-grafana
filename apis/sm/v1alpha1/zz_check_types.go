@@ -608,6 +608,67 @@ type FailIfHeaderNotMatchesRegexpParameters struct {
 	Regexp *string `json:"regexp" tf:"regexp,omitempty"`
 }
 
+type GRPCInitParameters struct {
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (String) gRPC service.
+	// gRPC service.
+	Service *string `json:"service,omitempty" tf:"service,omitempty"`
+
+	// (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
+	// Whether or not TLS is used when the connection is initiated. Defaults to `false`.
+	TLS *bool `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
+	// TLS config.
+	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+}
+
+type GRPCObservation struct {
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (String) gRPC service.
+	// gRPC service.
+	Service *string `json:"service,omitempty" tf:"service,omitempty"`
+
+	// (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
+	// Whether or not TLS is used when the connection is initiated. Defaults to `false`.
+	TLS *bool `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
+	// TLS config.
+	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+}
+
+type GRPCParameters struct {
+
+	// (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
+	// Options are `V4`, `V6`, `Any`. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The `Any` value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to `V4`.
+	// +kubebuilder:validation:Optional
+	IPVersion *string `json:"ipVersion,omitempty" tf:"ip_version,omitempty"`
+
+	// (String) gRPC service.
+	// gRPC service.
+	// +kubebuilder:validation:Optional
+	Service *string `json:"service,omitempty" tf:"service,omitempty"`
+
+	// (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
+	// Whether or not TLS is used when the connection is initiated. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	TLS *bool `json:"tls,omitempty" tf:"tls,omitempty"`
+
+	// (Block Set, Max: 1) TLS config. (see below for nested schema)
+	// TLS config.
+	// +kubebuilder:validation:Optional
+	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+}
+
 type HTTPInitParameters struct {
 
 	// (Block Set, Max: 1) Basic auth settings. (see below for nested schema)
@@ -680,7 +741,7 @@ type HTTPInitParameters struct {
 
 	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.
-	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+	TLSConfig []HTTPTLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
 	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
@@ -765,7 +826,7 @@ type HTTPObservation struct {
 
 	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.
-	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+	TLSConfig []HTTPTLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
 	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
@@ -867,7 +928,7 @@ type HTTPParameters struct {
 	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.
 	// +kubebuilder:validation:Optional
-	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+	TLSConfig []HTTPTLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
 
 	// (Set of String) List of valid HTTP versions. Options include HTTP/1.0, HTTP/1.1, HTTP/2.0
 	// List of valid HTTP versions. Options include `HTTP/1.0`, `HTTP/1.1`, `HTTP/2.0`
@@ -880,6 +941,76 @@ type HTTPParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	ValidStatusCodes []*float64 `json:"validStatusCodes,omitempty" tf:"valid_status_codes,omitempty"`
+}
+
+type HTTPTLSConfigInitParameters struct {
+
+	// (String) CA certificate in PEM format.
+	// CA certificate in PEM format.
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) Client certificate in PEM format.
+	// Client certificate in PEM format.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (String, Sensitive) Client key in PEM format.
+	// Client key in PEM format.
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+
+	// (Boolean) Disable target certificate validation. Defaults to false.
+	// Disable target certificate validation. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String) Used to verify the hostname for the targets.
+	// Used to verify the hostname for the targets.
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
+}
+
+type HTTPTLSConfigObservation struct {
+
+	// (String) CA certificate in PEM format.
+	// CA certificate in PEM format.
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) Client certificate in PEM format.
+	// Client certificate in PEM format.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (Boolean) Disable target certificate validation. Defaults to false.
+	// Disable target certificate validation. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String) Used to verify the hostname for the targets.
+	// Used to verify the hostname for the targets.
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
+}
+
+type HTTPTLSConfigParameters struct {
+
+	// (String) CA certificate in PEM format.
+	// CA certificate in PEM format.
+	// +kubebuilder:validation:Optional
+	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
+
+	// (String) Client certificate in PEM format.
+	// Client certificate in PEM format.
+	// +kubebuilder:validation:Optional
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (String, Sensitive) Client key in PEM format.
+	// Client key in PEM format.
+	// +kubebuilder:validation:Optional
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+
+	// (Boolean) Disable target certificate validation. Defaults to false.
+	// Disable target certificate validation. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+
+	// (String) Used to verify the hostname for the targets.
+	// Used to verify the hostname for the targets.
+	// +kubebuilder:validation:Optional
+	ServerName *string `json:"serverName,omitempty" tf:"server_name,omitempty"`
 }
 
 type HeadersInitParameters struct {
@@ -1154,11 +1285,34 @@ type RequestParameters struct {
 	URL *string `json:"url" tf:"url,omitempty"`
 }
 
+type ScriptedInitParameters struct {
+
+	// (String)
+	Script *string `json:"script,omitempty" tf:"script,omitempty"`
+}
+
+type ScriptedObservation struct {
+
+	// (String)
+	Script *string `json:"script,omitempty" tf:"script,omitempty"`
+}
+
+type ScriptedParameters struct {
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Script *string `json:"script" tf:"script,omitempty"`
+}
+
 type SettingsInitParameters struct {
 
 	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
 	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).
 	DNS []DNSInitParameters `json:"dns,omitempty" tf:"dns,omitempty"`
+
+	// (Block Set, Max: 1) Settings for gRPC Health check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
+	// Settings for gRPC Health check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
+	GRPC []GRPCInitParameters `json:"grpc,omitempty" tf:"grpc,omitempty"`
 
 	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
 	// Settings for HTTP check. The target must be a URL (http or https).
@@ -1171,6 +1325,10 @@ type SettingsInitParameters struct {
 	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
 	Ping []PingInitParameters `json:"ping,omitempty" tf:"ping,omitempty"`
+
+	// cloud/testing/synthetic-monitoring/create-checks/checks/k6/. (see below for nested schema)
+	// Settings for scripted check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6/.
+	Scripted []ScriptedInitParameters `json:"scripted,omitempty" tf:"scripted,omitempty"`
 
 	// (Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for TCP check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
@@ -1187,6 +1345,10 @@ type SettingsObservation struct {
 	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).
 	DNS []DNSObservation `json:"dns,omitempty" tf:"dns,omitempty"`
 
+	// (Block Set, Max: 1) Settings for gRPC Health check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
+	// Settings for gRPC Health check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
+	GRPC []GRPCObservation `json:"grpc,omitempty" tf:"grpc,omitempty"`
+
 	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
 	// Settings for HTTP check. The target must be a URL (http or https).
 	HTTP []HTTPObservation `json:"http,omitempty" tf:"http,omitempty"`
@@ -1198,6 +1360,10 @@ type SettingsObservation struct {
 	// (Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
 	Ping []PingObservation `json:"ping,omitempty" tf:"ping,omitempty"`
+
+	// cloud/testing/synthetic-monitoring/create-checks/checks/k6/. (see below for nested schema)
+	// Settings for scripted check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6/.
+	Scripted []ScriptedObservation `json:"scripted,omitempty" tf:"scripted,omitempty"`
 
 	// (Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for TCP check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
@@ -1215,6 +1381,11 @@ type SettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	DNS []DNSParameters `json:"dns,omitempty" tf:"dns,omitempty"`
 
+	// (Block Set, Max: 1) Settings for gRPC Health check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
+	// Settings for gRPC Health check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.
+	// +kubebuilder:validation:Optional
+	GRPC []GRPCParameters `json:"grpc,omitempty" tf:"grpc,omitempty"`
+
 	// (Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)
 	// Settings for HTTP check. The target must be a URL (http or https).
 	// +kubebuilder:validation:Optional
@@ -1229,6 +1400,11 @@ type SettingsParameters struct {
 	// Settings for ping (ICMP) check. The target must be a valid hostname or IP address.
 	// +kubebuilder:validation:Optional
 	Ping []PingParameters `json:"ping,omitempty" tf:"ping,omitempty"`
+
+	// cloud/testing/synthetic-monitoring/create-checks/checks/k6/. (see below for nested schema)
+	// Settings for scripted check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6/.
+	// +kubebuilder:validation:Optional
+	Scripted []ScriptedParameters `json:"scripted,omitempty" tf:"scripted,omitempty"`
 
 	// (Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)
 	// Settings for TCP check. The target must be of the form `<host>:<port>`, where the host portion must be a valid hostname or IP address.

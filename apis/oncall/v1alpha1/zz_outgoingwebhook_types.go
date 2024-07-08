@@ -39,8 +39,8 @@ type OutgoingWebhookInitParameters struct {
 	// Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
 	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
 
-	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
-	// Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
+	// Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
 	IsWebhookEnabled *bool `json:"isWebhookEnabled,omitempty" tf:"is_webhook_enabled,omitempty"`
 
 	// (String) The name of the outgoing webhook.
@@ -97,8 +97,8 @@ type OutgoingWebhookObservation struct {
 	// Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
 	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
 
-	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
-	// Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
+	// Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
 	IsWebhookEnabled *bool `json:"isWebhookEnabled,omitempty" tf:"is_webhook_enabled,omitempty"`
 
 	// (String) The name of the outgoing webhook.
@@ -158,8 +158,8 @@ type OutgoingWebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
 
-	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
-	// Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
+	// Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	IsWebhookEnabled *bool `json:"isWebhookEnabled,omitempty" tf:"is_webhook_enabled,omitempty"`
 

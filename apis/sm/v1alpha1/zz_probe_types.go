@@ -15,6 +15,10 @@ import (
 
 type ProbeInitParameters struct {
 
+	// (Boolean) Disables scripted checks for this probe. Defaults to false.
+	// Disables scripted checks for this probe. Defaults to `false`.
+	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
+
 	// (Map of String) Custom labels to be included with collected metrics and logs.
 	// Custom labels to be included with collected metrics and logs.
 	// +mapType=granular
@@ -42,6 +46,10 @@ type ProbeInitParameters struct {
 }
 
 type ProbeObservation struct {
+
+	// (Boolean) Disables scripted checks for this probe. Defaults to false.
+	// Disables scripted checks for this probe. Defaults to `false`.
+	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
 
 	// (String) The ID of the probe.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -77,6 +85,11 @@ type ProbeObservation struct {
 }
 
 type ProbeParameters struct {
+
+	// (Boolean) Disables scripted checks for this probe. Defaults to false.
+	// Disables scripted checks for this probe. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
 
 	// (Map of String) Custom labels to be included with collected metrics and logs.
 	// Custom labels to be included with collected metrics and logs.
