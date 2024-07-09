@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/crossplane/upjet/pkg/terraform"
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v3/pkg/provider"
@@ -77,7 +78,33 @@ func TerraformSetupBuilder() terraform.SetupFn {
 				ps.Configuration[k] = v
 			}
 		}
-		return ps, errors.Wrap(configureNoForkGrafanaClient(ctx, &ps), "failed to configure the no-fork Azure client")
+
+		if pc.Spec.URL != "" {
+			ps.Configuration["url"] = pc.Spec.URL
+		}
+		if pc.Spec.CloudAPIURL != "" {
+			ps.Configuration["cloud_api_url"] = pc.Spec.CloudAPIURL
+		}
+		if pc.Spec.OnCallURL != "" {
+			ps.Configuration["oncall_url"] = pc.Spec.OnCallURL
+		}
+		if pc.Spec.SMURL != "" {
+			ps.Configuration["sm_url"] = pc.Spec.SMURL
+		}
+
+		if err := configureNoForkGrafanaClient(ctx, &ps); err != nil {
+			return ps, errors.Wrap(err, "failed to configure the no-fork Grafana client")
+		}
+
+		// Set Ready condition to true and write back the status.
+		if len(pc.Status.Conditions) == 0 {
+			pc.Status.SetConditions(v1.Available())
+			if err := client.Status().Update(ctx, pc); err != nil {
+				return ps, errors.Wrap(err, "cannot update ProviderConfig status")
+			}
+		}
+
+		return ps, nil
 	}
 }
 
