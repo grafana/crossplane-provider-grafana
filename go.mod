@@ -4,10 +4,16 @@ go 1.22.0
 
 toolchain go1.22.4
 
+// Have to lock those versions for now, the crossplane-runtime is not compatible with the latest versions
+replace (
+	k8s.io/apimachinery => k8s.io/apimachinery v0.29.3
+	k8s.io/client-go => k8s.io/client-go v0.29.3
+)
+
 require (
 	dario.cat/mergo v1.0.0
-	github.com/crossplane/crossplane-runtime v1.16.0
-	github.com/crossplane/crossplane-tools v0.0.0-20240522174801-1ad3d4c87f21
+	github.com/crossplane/crossplane-runtime v1.16.0-rc.1.0.20240424114634-8641eb2ba384
+	github.com/crossplane/crossplane-tools v0.0.0-20230925130601-628280f8bf79
 	github.com/crossplane/upjet v1.4.1
 	github.com/grafana/terraform-provider-grafana/v3 v3.3.0
 	github.com/hashicorp/terraform-json v0.22.1
@@ -17,14 +23,13 @@ require (
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	k8s.io/apimachinery v0.30.2
 	k8s.io/client-go v0.30.2
-	sigs.k8s.io/controller-runtime v0.18.4
-	sigs.k8s.io/controller-tools v0.15.0
+	sigs.k8s.io/controller-runtime v0.17.3
+	sigs.k8s.io/controller-tools v0.14.0
 )
 
 require (
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
-	github.com/alecthomas/kingpin/v2 v2.4.0 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20240626203959-61d1e3462e30 // indirect
 	github.com/antchfx/htmlquery v1.3.2 // indirect
@@ -153,7 +158,6 @@ require (
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
 	github.com/yuin/goldmark v1.7.4 // indirect
 	github.com/zclconf/go-cty v1.14.4 // indirect
 	github.com/zclconf/go-cty-yaml v1.0.3 // indirect
