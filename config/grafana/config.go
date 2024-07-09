@@ -134,7 +134,6 @@ func Configure(p *ujconfig.Provider) {
 	}
 
 	p.AddResourceConfigurator("grafana_annotation", func(r *ujconfig.Resource) {
-		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
@@ -166,24 +165,6 @@ func Configure(p *ujconfig.Provider) {
 		r.References["policy.policy.policy.mute_timings"] = muteTimingRef
 		r.References["policy.policy.policy.policy.mute_timings"] = muteTimingRef
 
-	})
-	p.AddResourceConfigurator("grafana_api_key", func(r *ujconfig.Resource) {
-		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
-			conn := map[string][]byte{}
-
-			instanceConfig := map[string]string{}
-			// TODO: set URL from client
-			if a, ok := attr["key"].(string); ok {
-				instanceConfig["auth"] = a
-			}
-			marshalled, err := json.Marshal(instanceConfig)
-			if err != nil {
-				return nil, err
-			}
-			conn["instanceCredentials"] = marshalled
-
-			return conn, nil
-		}
 	})
 	p.AddResourceConfigurator("grafana_cloud_access_policy", func(r *ujconfig.Resource) {
 		r.References["realm.identifier"] = ujconfig.Reference{
@@ -324,7 +305,6 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
-		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
@@ -386,10 +366,11 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_library_panel", func(r *ujconfig.Resource) {
-		r.References["folder_id"] = ujconfig.Reference{
+		r.References["folder_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
 			RefFieldName:      "FolderRef",
 			SelectorFieldName: "FolderSelector",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_notification_policy", func(r *ujconfig.Resource) {
@@ -401,7 +382,6 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
-		delete(r.TerraformResource.Schema, "dashboard_id") // Deprecated
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
 			RefFieldName:      "DashboardRef",
