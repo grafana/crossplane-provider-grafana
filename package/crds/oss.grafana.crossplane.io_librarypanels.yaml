@@ -74,13 +74,8 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  folderId:
-                    description: |-
-                      (String, Deprecated) Deprecated. Use folder_uid instead
-                      Deprecated. Use `folder_uid` instead
-                    type: string
                   folderRef:
-                    description: Reference to a Folder in oss to populate folderId.
+                    description: Reference to a Folder in oss to populate folderUid.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -114,7 +109,7 @@ spec:
                     - name
                     type: object
                   folderSelector:
-                    description: Selector for a Folder in oss to populate folderId.
+                    description: Selector for a Folder in oss to populate folderUid.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -266,13 +261,8 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  folderId:
-                    description: |-
-                      (String, Deprecated) Deprecated. Use folder_uid instead
-                      Deprecated. Use `folder_uid` instead
-                    type: string
                   folderRef:
-                    description: Reference to a Folder in oss to populate folderId.
+                    description: Reference to a Folder in oss to populate folderUid.
                     properties:
                       name:
                         description: Name of the referenced object.
@@ -306,7 +296,7 @@ spec:
                     - name
                     type: object
                   folderSelector:
-                    description: Selector for a Folder in oss to populate folderId.
+                    description: Selector for a Folder in oss to populate folderUid.
                     properties:
                       matchControllerRef:
                         description: |-
@@ -642,11 +632,6 @@ spec:
                     description: |-
                       (String) Description of the library panel.
                       Description of the library panel.
-                    type: string
-                  folderId:
-                    description: |-
-                      (String, Deprecated) Deprecated. Use folder_uid instead
-                      Deprecated. Use `folder_uid` instead
                     type: string
                   folderName:
                     description: |-

@@ -30,6 +30,17 @@ func KindOverrides() config.ResourceOption {
 	}
 }
 
+// ExternalNameConfigurations applies all external name configs listed in the
+// table ExternalNameConfigs and sets the version of those resources to v1beta1
+// assuming they will be tested.
+func ExternalNameConfigurations() config.ResourceOption {
+	return func(r *config.Resource) {
+		if _, ok := GroupMap[r.Name]; ok {
+			r.ExternalName = config.IdentifierFromProvider
+		}
+	}
+}
+
 // GroupKindCalculator returns the correct group and kind name for given TF
 // resource.
 type GroupKindCalculator func(resource string) (string, string)
@@ -57,7 +68,6 @@ var GroupMap = map[string]GroupKindCalculator{
 	// Cloud
 	"grafana_cloud_access_policy":               ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_access_policy_token":         ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_api_key":                     ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_plugin_installation":         ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_stack":                       ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_stack_service_account":       ReplaceGroupWords("cloud", 1),
@@ -76,17 +86,17 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_machine_learning_outlier_detector": ReplaceGroupWords("ml", 2),
 
 	// OnCall
-	"grafana_oncall_escalation":       ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_escalation_chain": ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_integration":      ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_on_call_shift":    ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_outgoing_webhook": ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_route":            ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_schedule":         ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_escalation":             ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_escalation_chain":       ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_integration":            ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_on_call_shift":          ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_outgoing_webhook":       ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_route":                  ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_schedule":               ReplaceGroupWords("oncall", 1),
+	"grafana_oncall_user_notification_rule": ReplaceGroupWords("oncall", 1),
 
 	// OSS
 	"grafana_annotation":                 ReplaceGroupWords("oss", 0),
-	"grafana_api_key":                    ReplaceGroupWords("oss", 0),
 	"grafana_dashboard":                  ReplaceGroupWords("oss", 0),
 	"grafana_dashboard_permission":       ReplaceGroupWords("oss", 0),
 	"grafana_dashboard_public":           ReplaceGroupWords("oss", 0),

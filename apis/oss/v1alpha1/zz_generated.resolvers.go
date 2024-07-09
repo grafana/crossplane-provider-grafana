@@ -13,48 +13,6 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
-// ResolveReferences of this APIKey.
-func (mg *APIKey) ResolveReferences(ctx context.Context, c client.Reader) error {
-	r := reference.NewAPIResolver(c, mg)
-
-	var rsp reference.ResolutionResponse
-	var err error
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.OrganizationRef,
-		Selector:     mg.Spec.ForProvider.OrganizationSelector,
-		To: reference.To{
-			List:    &OrganizationList{},
-			Managed: &Organization{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
-	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.OrganizationRef,
-		Selector:     mg.Spec.InitProvider.OrganizationSelector,
-		To: reference.To{
-			List:    &OrganizationList{},
-			Managed: &Organization{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
-	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
-
-	return nil
-}
-
 // ResolveReferences of this Annotation.
 func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
@@ -695,8 +653,8 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderID),
-		Extract:      reference.ExternalName(),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
@@ -705,9 +663,9 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.FolderID")
+		return errors.Wrap(err, "mg.Spec.ForProvider.FolderUID")
 	}
-	mg.Spec.ForProvider.FolderID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
@@ -727,8 +685,8 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderID),
-		Extract:      reference.ExternalName(),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
 		To: reference.To{
@@ -737,9 +695,9 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 		},
 	})
 	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.FolderID")
+		return errors.Wrap(err, "mg.Spec.InitProvider.FolderUID")
 	}
-	mg.Spec.InitProvider.FolderID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{

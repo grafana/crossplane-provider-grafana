@@ -86,6 +86,10 @@ type StackObservation struct {
 	// (String) The stack id assigned to this stack by Grafana.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// cloud/send-data/metrics/metrics-influxdb/push-from-telegraf/ for docs on how to use this.
+	// Base URL of the InfluxDB instance configured for this stack. The username is the same as the metrics' (`prometheus_user_id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-influxdb/push-from-telegraf/ for docs on how to use this.
+	InfluxURL *string `json:"influxUrl,omitempty" tf:"influx_url,omitempty"`
+
 	// zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.
 	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
 	// +mapType=granular
@@ -120,7 +124,7 @@ type StackObservation struct {
 	OrgSlug *string `json:"orgSlug,omitempty" tf:"org_slug,omitempty"`
 
 	// cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
-	// Base URL of the OTLP instance configured for this stack. See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
+	// Base URL of the OTLP instance configured for this stack. The username is the stack's ID (`id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
 	OtlpURL *string `json:"otlpUrl,omitempty" tf:"otlp_url,omitempty"`
 
 	// (String)

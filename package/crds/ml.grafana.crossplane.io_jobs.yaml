@@ -153,9 +153,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  datasourceId:
-                    description: The id of the datasource to query.
-                    type: number
                   datasourceType:
                     description: The type of datasource being queried. Currently allowed
                       values are prometheus, graphite, loki, postgres, and datadog.
@@ -297,9 +294,6 @@ spec:
                             type: string
                         type: object
                     type: object
-                  datasourceId:
-                    description: The id of the datasource to query.
-                    type: number
                   datasourceType:
                     description: The type of datasource being queried. Currently allowed
                       values are prometheus, graphite, loki, postgres, and datadog.
@@ -543,9 +537,6 @@ spec:
                       the forecast.
                     type: object
                     x-kubernetes-map-type: granular
-                  datasourceId:
-                    description: The id of the datasource to query.
-                    type: number
                   datasourceType:
                     description: The type of datasource being queried. Currently allowed
                       values are prometheus, graphite, loki, postgres, and datadog.

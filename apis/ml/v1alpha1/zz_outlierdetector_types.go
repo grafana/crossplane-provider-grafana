@@ -84,9 +84,6 @@ type OutlierDetectorInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// The id of the datasource to query.
-	DatasourceID *float64 `json:"datasourceId,omitempty" tf:"datasource_id,omitempty"`
-
 	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
@@ -118,9 +115,6 @@ type OutlierDetectorObservation struct {
 
 	// The algorithm to use and its configuration. See https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for details.
 	Algorithm []AlgorithmObservation `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
-
-	// The id of the datasource to query.
-	DatasourceID *float64 `json:"datasourceId,omitempty" tf:"datasource_id,omitempty"`
 
 	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
@@ -160,10 +154,6 @@ type OutlierDetectorParameters struct {
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
-
-	// The id of the datasource to query.
-	// +kubebuilder:validation:Optional
-	DatasourceID *float64 `json:"datasourceId,omitempty" tf:"datasource_id,omitempty"`
 
 	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
 	// +kubebuilder:validation:Optional

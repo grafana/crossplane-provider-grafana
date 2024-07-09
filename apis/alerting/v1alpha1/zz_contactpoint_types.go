@@ -1276,6 +1276,10 @@ type PagerdutyInitParameters struct {
 	// (String) The templated summary message of the event.
 	// The templated summary message of the event.
 	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The URL to send API requests to
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type PagerdutyObservation struct {
@@ -1324,6 +1328,10 @@ type PagerdutyObservation struct {
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The URL to send API requests to
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type PagerdutyParameters struct {
@@ -1388,6 +1396,11 @@ type PagerdutyParameters struct {
 	// The templated summary message of the event.
 	// +kubebuilder:validation:Optional
 	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
+
+	// (String) The URL of the Alertmanager instance.
+	// The URL to send API requests to
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type PushoverInitParameters struct {
@@ -2172,6 +2185,10 @@ type TelegramInitParameters struct {
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// (String) The ID of the message thread to send the message to.
+	// The ID of the message thread to send the message to.
+	MessageThreadID *string `json:"messageThreadId,omitempty" tf:"message_thread_id,omitempty"`
+
 	// (String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
 	// Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
 	ParseMode *string `json:"parseMode,omitempty" tf:"parse_mode,omitempty"`
@@ -2208,6 +2225,10 @@ type TelegramObservation struct {
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The ID of the message thread to send the message to.
+	// The ID of the message thread to send the message to.
+	MessageThreadID *string `json:"messageThreadId,omitempty" tf:"message_thread_id,omitempty"`
 
 	// (String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
 	// Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
@@ -2248,6 +2269,11 @@ type TelegramParameters struct {
 	// The templated content of the message.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) The ID of the message thread to send the message to.
+	// The ID of the message thread to send the message to.
+	// +kubebuilder:validation:Optional
+	MessageThreadID *string `json:"messageThreadId,omitempty" tf:"message_thread_id,omitempty"`
 
 	// (String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.
 	// Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.

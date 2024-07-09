@@ -75,11 +75,6 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  homeDashboardId:
-                    description: |-
-                      (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-                      The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-                    type: number
                   homeDashboardUid:
                     description: |-
                       (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
@@ -193,11 +188,6 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  homeDashboardId:
-                    description: |-
-                      (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-                      The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-                    type: number
                   homeDashboardUid:
                     description: |-
                       (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
@@ -471,11 +461,6 @@ spec:
             properties:
               atProvider:
                 properties:
-                  homeDashboardId:
-                    description: |-
-                      (Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.
-                      The Organization home dashboard ID. Deprecated: Use `home_dashboard_uid` instead.
-                    type: number
                   homeDashboardUid:
                     description: |-
                       (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.

@@ -121,8 +121,8 @@ spec:
                     type: array
                   isWebhookEnabled:
                     description: |-
-                      (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
-                      Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+                      (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
+                      Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
                     type: boolean
                   name:
                     description: |-
@@ -235,8 +235,8 @@ spec:
                     type: array
                   isWebhookEnabled:
                     description: |-
-                      (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
-                      Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+                      (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
+                      Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
                     type: boolean
                   name:
                     description: |-
@@ -501,8 +501,8 @@ spec:
                     type: array
                   isWebhookEnabled:
                     description: |-
-                      (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
-                      Controls whether the outgoing webhook will trigger or is ignored. The default is `true`.
+                      (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
+                      Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
                     type: boolean
                   name:
                     description: |-

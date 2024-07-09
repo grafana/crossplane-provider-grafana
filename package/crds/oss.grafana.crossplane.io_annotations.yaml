@@ -150,8 +150,8 @@ spec:
                     type: object
                   dashboardUid:
                     description: |-
-                      (String) The ID of the dashboard on which to create the annotation.
-                      The ID of the dashboard on which to create the annotation.
+                      (String) The UID of the dashboard on which to create the annotation.
+                      The UID of the dashboard on which to create the annotation.
                     type: string
                   orgId:
                     description: |-
@@ -350,8 +350,8 @@ spec:
                     type: object
                   dashboardUid:
                     description: |-
-                      (String) The ID of the dashboard on which to create the annotation.
-                      The ID of the dashboard on which to create the annotation.
+                      (String) The UID of the dashboard on which to create the annotation.
+                      The UID of the dashboard on which to create the annotation.
                     type: string
                   orgId:
                     description: |-
@@ -640,8 +640,8 @@ spec:
                 properties:
                   dashboardUid:
                     description: |-
-                      (String) The ID of the dashboard on which to create the annotation.
-                      The ID of the dashboard on which to create the annotation.
+                      (String) The UID of the dashboard on which to create the annotation.
+                      The UID of the dashboard on which to create the annotation.
                     type: string
                   id:
                     description: (String) The ID of this resource.

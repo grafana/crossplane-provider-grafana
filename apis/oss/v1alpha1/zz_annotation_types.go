@@ -23,8 +23,8 @@ type AnnotationInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
-	// (String) The ID of the dashboard on which to create the annotation.
-	// The ID of the dashboard on which to create the annotation.
+	// (String) The UID of the dashboard on which to create the annotation.
+	// The UID of the dashboard on which to create the annotation.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DashboardRef
@@ -70,8 +70,8 @@ type AnnotationInitParameters struct {
 
 type AnnotationObservation struct {
 
-	// (String) The ID of the dashboard on which to create the annotation.
-	// The ID of the dashboard on which to create the annotation.
+	// (String) The UID of the dashboard on which to create the annotation.
+	// The UID of the dashboard on which to create the annotation.
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
 	// (String) The ID of this resource.
@@ -113,8 +113,8 @@ type AnnotationParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
-	// (String) The ID of the dashboard on which to create the annotation.
-	// The ID of the dashboard on which to create the annotation.
+	// (String) The UID of the dashboard on which to create the annotation.
+	// The UID of the dashboard on which to create the annotation.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Dashboard
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DashboardRef

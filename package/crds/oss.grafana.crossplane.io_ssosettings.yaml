@@ -470,6 +470,11 @@ spec:
                             or space-separated roles which will be mapped into the None role.
                             List of comma- or space-separated roles which will be mapped into the None role.
                           type: string
+                        roleValuesViewer:
+                          description: |-
+                            or space-separated roles which will be mapped into the Viewer role.
+                            List of comma- or space-separated roles which will be mapped into the Viewer role.
+                          type: string
                         signatureAlgorithm:
                           description: |-
                             sha1, rsa-sha256, rsa-sha512.
@@ -894,6 +899,11 @@ spec:
                           description: |-
                             or space-separated roles which will be mapped into the None role.
                             List of comma- or space-separated roles which will be mapped into the None role.
+                          type: string
+                        roleValuesViewer:
+                          description: |-
+                            or space-separated roles which will be mapped into the Viewer role.
+                            List of comma- or space-separated roles which will be mapped into the Viewer role.
                           type: string
                         signatureAlgorithm:
                           description: |-
@@ -1429,6 +1439,11 @@ spec:
                           description: |-
                             or space-separated roles which will be mapped into the None role.
                             List of comma- or space-separated roles which will be mapped into the None role.
+                          type: string
+                        roleValuesViewer:
+                          description: |-
+                            or space-separated roles which will be mapped into the Viewer role.
+                            List of comma- or space-separated roles which will be mapped into the Viewer role.
                           type: string
                         signatureAlgorithm:
                           description: |-

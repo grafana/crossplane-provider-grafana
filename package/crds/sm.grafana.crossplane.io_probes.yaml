@@ -76,6 +76,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  disableScriptedChecks:
+                    description: |-
+                      (Boolean) Disables scripted checks for this probe. Defaults to false.
+                      Disables scripted checks for this probe. Defaults to `false`.
+                    type: boolean
                   labels:
                     additionalProperties:
                       type: string
@@ -123,6 +128,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  disableScriptedChecks:
+                    description: |-
+                      (Boolean) Disables scripted checks for this probe. Defaults to false.
+                      Disables scripted checks for this probe. Defaults to `false`.
+                    type: boolean
                   labels:
                     additionalProperties:
                       type: string
@@ -346,6 +356,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  disableScriptedChecks:
+                    description: |-
+                      (Boolean) Disables scripted checks for this probe. Defaults to false.
+                      Disables scripted checks for this probe. Defaults to `false`.
+                    type: boolean
                   id:
                     description: (String) The ID of the probe.
                     type: string

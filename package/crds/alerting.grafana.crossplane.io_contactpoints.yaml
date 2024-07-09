@@ -893,6 +893,11 @@ spec:
                             (String) The templated summary message of the event.
                             The templated summary message of the event.
                           type: string
+                        url:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            The URL to send API requests to
+                          type: string
                       type: object
                     type: array
                   pushover:
@@ -1394,6 +1399,11 @@ spec:
                           description: |-
                             (String) The templated content of the message.
                             The templated content of the message.
+                          type: string
+                        messageThreadId:
+                          description: |-
+                            (String) The ID of the message thread to send the message to.
+                            The ID of the message thread to send the message to.
                           type: string
                         parseMode:
                           description: |-
@@ -2547,6 +2557,11 @@ spec:
                             (String) The templated summary message of the event.
                             The templated summary message of the event.
                           type: string
+                        url:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            The URL to send API requests to
+                          type: string
                       required:
                       - integrationKeySecretRef
                       type: object
@@ -3002,6 +3017,11 @@ spec:
                           description: |-
                             (String) The templated content of the message.
                             The templated content of the message.
+                          type: string
+                        messageThreadId:
+                          description: |-
+                            (String) The ID of the message thread to send the message to.
+                            The ID of the message thread to send the message to.
                           type: string
                         parseMode:
                           description: |-
@@ -3996,6 +4016,11 @@ spec:
                             (String) The UID of the contact point.
                             The UID of the contact point.
                           type: string
+                        url:
+                          description: |-
+                            (String) The URL of the Alertmanager instance.
+                            The URL to send API requests to
+                          type: string
                       type: object
                     type: array
                   pushover:
@@ -4295,6 +4320,11 @@ spec:
                           description: |-
                             (String) The templated content of the message.
                             The templated content of the message.
+                          type: string
+                        messageThreadId:
+                          description: |-
+                            (String) The ID of the message thread to send the message to.
+                            The ID of the message thread to send the message to.
                           type: string
                         parseMode:
                           description: |-

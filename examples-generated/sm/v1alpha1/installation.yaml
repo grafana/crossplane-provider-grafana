@@ -40,6 +40,8 @@ spec:
     scopes:
     - metrics:write
     - stacks:read
+    - logs:write
+    - traces:write
 
 ---
 

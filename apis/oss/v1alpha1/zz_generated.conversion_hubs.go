@@ -10,9 +10,6 @@ package v1alpha1
 func (tr *Annotation) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *APIKey) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Dashboard) Hub() {}
 
 // Hub marks this type as a conversion hub.

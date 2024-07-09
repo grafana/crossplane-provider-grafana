@@ -540,11 +540,6 @@ func (in *JobInitParameters) DeepCopyInto(out *JobInitParameters) {
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.DatasourceID != nil {
-		in, out := &in.DatasourceID, &out.DatasourceID
-		*out = new(float64)
-		**out = **in
-	}
 	if in.DatasourceType != nil {
 		in, out := &in.DatasourceType, &out.DatasourceType
 		*out = new(string)
@@ -686,11 +681,6 @@ func (in *JobObservation) DeepCopyInto(out *JobObservation) {
 			(*out)[key] = outVal
 		}
 	}
-	if in.DatasourceID != nil {
-		in, out := &in.DatasourceID, &out.DatasourceID
-		*out = new(float64)
-		**out = **in
-	}
 	if in.DatasourceType != nil {
 		in, out := &in.DatasourceType, &out.DatasourceType
 		*out = new(string)
@@ -814,11 +804,6 @@ func (in *JobParameters) DeepCopyInto(out *JobParameters) {
 		in, out := &in.DataSourceSelector, &out.DataSourceSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
-	}
-	if in.DatasourceID != nil {
-		in, out := &in.DatasourceID, &out.DatasourceID
-		*out = new(float64)
-		**out = **in
 	}
 	if in.DatasourceType != nil {
 		in, out := &in.DatasourceType, &out.DatasourceType
@@ -992,11 +977,6 @@ func (in *OutlierDetectorInitParameters) DeepCopyInto(out *OutlierDetectorInitPa
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.DatasourceID != nil {
-		in, out := &in.DatasourceID, &out.DatasourceID
-		*out = new(float64)
-		**out = **in
-	}
 	if in.DatasourceType != nil {
 		in, out := &in.DatasourceType, &out.DatasourceType
 		*out = new(string)
@@ -1097,11 +1077,6 @@ func (in *OutlierDetectorObservation) DeepCopyInto(out *OutlierDetectorObservati
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.DatasourceID != nil {
-		in, out := &in.DatasourceID, &out.DatasourceID
-		*out = new(float64)
-		**out = **in
-	}
 	if in.DatasourceType != nil {
 		in, out := &in.DatasourceType, &out.DatasourceType
 		*out = new(string)
@@ -1184,11 +1159,6 @@ func (in *OutlierDetectorParameters) DeepCopyInto(out *OutlierDetectorParameters
 		in, out := &in.DataSourceSelector, &out.DataSourceSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
-	}
-	if in.DatasourceID != nil {
-		in, out := &in.DatasourceID, &out.DatasourceID
-		*out = new(float64)
-		**out = **in
 	}
 	if in.DatasourceType != nil {
 		in, out := &in.DatasourceType, &out.DatasourceType

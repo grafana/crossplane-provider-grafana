@@ -46,8 +46,8 @@ type FolderInitParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
 
-	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
-	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
+	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
 	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
 
 	// (String) The title of the folder.
@@ -72,8 +72,8 @@ type FolderObservation struct {
 	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
 	ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
 
-	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
-	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
+	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
 	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
 
 	// (String) The title of the folder.
@@ -124,8 +124,8 @@ type FolderParameters struct {
 	// +kubebuilder:validation:Optional
 	ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
 
-	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
-	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to `false`.
+	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
 

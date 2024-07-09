@@ -16,7 +16,6 @@ import (
 	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/rulegroup"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicy"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicytoken"
-	apikey "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/apikey"
 	plugininstallation "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/plugininstallation"
 	stack "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stack"
 	stackserviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccount"
@@ -36,8 +35,8 @@ import (
 	outgoingwebhook "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/outgoingwebhook"
 	route "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/route"
 	schedule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/schedule"
+	usernotificationrule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/usernotificationrule"
 	annotation "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/annotation"
-	apikeyoss "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/apikey"
 	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
 	dashboardpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermission"
 	dashboardpublic "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpublic"
@@ -72,7 +71,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rulegroup.Setup,
 		accesspolicy.Setup,
 		accesspolicytoken.Setup,
-		apikey.Setup,
 		plugininstallation.Setup,
 		stack.Setup,
 		stackserviceaccount.Setup,
@@ -92,8 +90,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.Setup,
 		route.Setup,
 		schedule.Setup,
+		usernotificationrule.Setup,
 		annotation.Setup,
-		apikeyoss.Setup,
 		dashboard.Setup,
 		dashboardpermission.Setup,
 		dashboardpublic.Setup,

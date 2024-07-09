@@ -22,22 +22,6 @@ func (mg *DataSourcePermission) ResolveReferences(ctx context.Context, c client.
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.ForProvider.DataSourceRef,
-		Selector:     mg.Spec.ForProvider.DataSourceSelector,
-		To: reference.To{
-			List:    &v1alpha1.DataSourceList{},
-			Managed: &v1alpha1.DataSource{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.DatasourceID")
-	}
-	mg.Spec.ForProvider.DatasourceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.DataSourceRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
@@ -89,22 +73,6 @@ func (mg *DataSourcePermission) ResolveReferences(ctx context.Context, c client.
 		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceID),
-		Extract:      reference.ExternalName(),
-		Reference:    mg.Spec.InitProvider.DataSourceRef,
-		Selector:     mg.Spec.InitProvider.DataSourceSelector,
-		To: reference.To{
-			List:    &v1alpha1.DataSourceList{},
-			Managed: &v1alpha1.DataSource{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.DatasourceID")
-	}
-	mg.Spec.InitProvider.DatasourceID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.DataSourceRef = rsp.ResolvedReference
-
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
@@ -169,22 +137,6 @@ func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error 
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
-		Extract:      grafana.OptionalFieldExtractor("uid"),
-		Reference:    mg.Spec.ForProvider.DashboardRef,
-		Selector:     mg.Spec.ForProvider.DashboardSelector,
-		To: reference.To{
-			List:    &v1alpha1.DashboardList{},
-			Managed: &v1alpha1.Dashboard{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardUID")
-	}
-	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
@@ -199,22 +151,6 @@ func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error 
 	}
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
-
-	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
-		Extract:      grafana.OptionalFieldExtractor("uid"),
-		Reference:    mg.Spec.InitProvider.DashboardRef,
-		Selector:     mg.Spec.InitProvider.DashboardSelector,
-		To: reference.To{
-			List:    &v1alpha1.DashboardList{},
-			Managed: &v1alpha1.Dashboard{},
-		},
-	})
-	if err != nil {
-		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardUID")
-	}
-	mg.Spec.InitProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
-	mg.Spec.InitProvider.DashboardRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),

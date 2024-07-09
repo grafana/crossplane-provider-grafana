@@ -14,18 +14,18 @@ import (
 	"github.com/crossplane/upjet/pkg/resource/json"
 )
 
-// GetTerraformResourceType returns Terraform resource type for this APIKey
-func (mg *APIKey) GetTerraformResourceType() string {
-	return "grafana_cloud_api_key"
+// GetTerraformResourceType returns Terraform resource type for this UserNotificationRule
+func (mg *UserNotificationRule) GetTerraformResourceType() string {
+	return "grafana_oncall_user_notification_rule"
 }
 
-// GetConnectionDetailsMapping for this APIKey
-func (tr *APIKey) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"key": "status.atProvider.key"}
+// GetConnectionDetailsMapping for this UserNotificationRule
+func (tr *UserNotificationRule) GetConnectionDetailsMapping() map[string]string {
+	return nil
 }
 
-// GetObservation of this APIKey
-func (tr *APIKey) GetObservation() (map[string]any, error) {
+// GetObservation of this UserNotificationRule
+func (tr *UserNotificationRule) GetObservation() (map[string]any, error) {
 	o, err := json.TFParser.Marshal(tr.Status.AtProvider)
 	if err != nil {
 		return nil, err
@@ -34,8 +34,8 @@ func (tr *APIKey) GetObservation() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(o, &base)
 }
 
-// SetObservation for this APIKey
-func (tr *APIKey) SetObservation(obs map[string]any) error {
+// SetObservation for this UserNotificationRule
+func (tr *UserNotificationRule) SetObservation(obs map[string]any) error {
 	p, err := json.TFParser.Marshal(obs)
 	if err != nil {
 		return err
@@ -43,16 +43,16 @@ func (tr *APIKey) SetObservation(obs map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Status.AtProvider)
 }
 
-// GetID returns ID of underlying Terraform resource of this APIKey
-func (tr *APIKey) GetID() string {
+// GetID returns ID of underlying Terraform resource of this UserNotificationRule
+func (tr *UserNotificationRule) GetID() string {
 	if tr.Status.AtProvider.ID == nil {
 		return ""
 	}
 	return *tr.Status.AtProvider.ID
 }
 
-// GetParameters of this APIKey
-func (tr *APIKey) GetParameters() (map[string]any, error) {
+// GetParameters of this UserNotificationRule
+func (tr *UserNotificationRule) GetParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.ForProvider)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func (tr *APIKey) GetParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// SetParameters for this APIKey
-func (tr *APIKey) SetParameters(params map[string]any) error {
+// SetParameters for this UserNotificationRule
+func (tr *UserNotificationRule) SetParameters(params map[string]any) error {
 	p, err := json.TFParser.Marshal(params)
 	if err != nil {
 		return err
@@ -70,8 +70,8 @@ func (tr *APIKey) SetParameters(params map[string]any) error {
 	return json.TFParser.Unmarshal(p, &tr.Spec.ForProvider)
 }
 
-// GetInitParameters of this APIKey
-func (tr *APIKey) GetInitParameters() (map[string]any, error) {
+// GetInitParameters of this UserNotificationRule
+func (tr *UserNotificationRule) GetInitParameters() (map[string]any, error) {
 	p, err := json.TFParser.Marshal(tr.Spec.InitProvider)
 	if err != nil {
 		return nil, err
@@ -80,8 +80,8 @@ func (tr *APIKey) GetInitParameters() (map[string]any, error) {
 	return base, json.TFParser.Unmarshal(p, &base)
 }
 
-// GetInitParameters of this APIKey
-func (tr *APIKey) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
+// GetInitParameters of this UserNotificationRule
+func (tr *UserNotificationRule) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
 		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
@@ -110,10 +110,10 @@ func (tr *APIKey) GetMergedParameters(shouldMergeInitProvider bool) (map[string]
 	return params, nil
 }
 
-// LateInitialize this APIKey using its observed tfState.
+// LateInitialize this UserNotificationRule using its observed tfState.
 // returns True if there are any spec changes for the resource.
-func (tr *APIKey) LateInitialize(attrs []byte) (bool, error) {
-	params := &APIKeyParameters{}
+func (tr *UserNotificationRule) LateInitialize(attrs []byte) (bool, error) {
+	params := &UserNotificationRuleParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -124,6 +124,6 @@ func (tr *APIKey) LateInitialize(attrs []byte) (bool, error) {
 }
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
-func (tr *APIKey) GetTerraformSchemaVersion() int {
+func (tr *UserNotificationRule) GetTerraformSchemaVersion() int {
 	return 0
 }

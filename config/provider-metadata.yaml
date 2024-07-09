@@ -12,8 +12,7 @@ resources:
                   "text": "basic text"
                 }
         argumentDocs:
-            dashboard_id: '(Number, Deprecated) The ID of the dashboard on which to create the annotation. Deprecated: Use dashboard_uid instead.'
-            dashboard_uid: (String) The ID of the dashboard on which to create the annotation.
+            dashboard_uid: (String) The UID of the dashboard on which to create the annotation.
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             panel_id: (Number) The ID of the dashboard panel on which to create the annotation.
@@ -25,34 +24,6 @@ resources:
             - |-
               terraform import grafana_annotation.name "{{ id }}"
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
-    grafana_api_key:
-        subCategory: Grafana OSS
-        description: 'Manages Grafana API Keys. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ !> Deprecated: please use grafana_service_account and grafana_service_account_token instead, see Migrate API keys to Grafana service accounts using Terraform https://grafana.com/docs/grafana/latest/administration/api-keys/#migrate-api-keys-to-grafana-service-accounts-using-terraform for more information.'
-        name: grafana_api_key
-        title: grafana_api_key Resource - terraform-provider-grafana
-        examples:
-            - name: foo
-              manifest: |-
-                {
-                  "name": "key_foo",
-                  "role": "Viewer"
-                }
-            - name: bar
-              manifest: |-
-                {
-                  "name": "key_bar",
-                  "role": "Admin",
-                  "seconds_to_live": 30
-                }
-        argumentDocs:
-            expiration: (String)
-            id: (String) The ID of this resource.
-            key: (String, Sensitive)
-            name: (String)
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            role: (String)
-            seconds_to_live: (Number)
-        importStatements: []
     grafana_cloud_access_policy:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
@@ -159,27 +130,6 @@ resources:
             updated_at: (String) Last update date of the access policy token.
         importStatements:
             - terraform import grafana_cloud_access_policy_token.name "{{ region }}:{{ tokenId }}"
-    grafana_cloud_api_key:
-        subCategory: Cloud
-        description: 'This resource is deprecated and will be removed in a future release. Please use grafana_cloud_access_policy instead. Manages a single API key on the Grafana Cloud portal (on the organization level) API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#api-keys Required access policy scopes: api-keys:readapi-keys:writeapi-keys:delete'
-        name: grafana_cloud_api_key
-        title: grafana_cloud_api_key Resource - terraform-provider-grafana
-        examples:
-            - name: test
-              manifest: |-
-                {
-                  "cloud_org_slug": "myorg",
-                  "name": "my-key",
-                  "role": "Admin"
-                }
-        argumentDocs:
-            cloud_org_slug: (String) The slug of the organization to create the API key in. This is the same slug as the organization name in the URL.
-            id: (String) The ID of this resource.
-            key: (String, Sensitive) The generated API key.
-            name: (String) Name of the API key.
-            role: (String) Role of the API key. Should be one of [Viewer Editor Admin MetricsPublisher PluginPublisher]. See https://grafana.com/docs/grafana-cloud/api/#create-api-key for details.
-        importStatements:
-            - terraform import grafana_cloud_api_key.name "{{ orgSlug }}:{{ apiKeyName }}"
     grafana_cloud_org_member Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: Manages the membership of a user in an organization.
@@ -238,6 +188,7 @@ resources:
             graphite_url: (String)
             graphite_user_id: (Number)
             id: (String) The stack id assigned to this stack by Grafana.
+            influx_url: (String) Base URL of the InfluxDB instance configured for this stack. The username is the same as the metrics' (prometheus_user_id attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-influxdb/push-from-telegraf/ for docs on how to use this.
             labels: '(Map of String) A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.'
             logs_name: (String)
             logs_status: (String)
@@ -247,7 +198,7 @@ resources:
             org_id: (Number) Organization id to assign to this stack.
             org_name: (String) Organization name to assign to this stack.
             org_slug: (String) Organization slug to assign to this stack.
-            otlp_url: (String) Base URL of the OTLP instance configured for this stack. See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
+            otlp_url: (String) Base URL of the OTLP instance configured for this stack. The username is the stack's ID (id attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
             profiles_name: (String)
             profiles_status: (String)
             profiles_url: (String)
@@ -270,20 +221,6 @@ resources:
             wait_for_readiness_timeout: (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
         importStatements:
             - terraform import grafana_cloud_stack.name "{{ stackSlugOrID }}"
-    grafana_cloud_stack_api_key Resource - terraform-provider-grafana:
-        subCategory: Cloud
-        description: 'Manages API keys of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management API key for a new stack HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/auth/ Required access policy scopes: stack-api-keys:write !> Deprecated: please use grafana_cloud_stack_service_account and grafana_cloud_stack_service_account_token instead, see https://grafana.com/docs/grafana/next/administration/api-keys/#migrate-api-keys-to-grafana-service-accounts-using-terraform.'
-        name: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
-        title: grafana_cloud_stack_api_key Resource - terraform-provider-grafana
-        argumentDocs:
-            expiration: (String)
-            id: (String) The ID of this resource.
-            key: (String, Sensitive)
-            name: (String)
-            role: (String)
-            seconds_to_live: (Number)
-            stack_slug: (String)
-        importStatements: []
     grafana_cloud_stack_service_account:
         subCategory: Cloud
         description: 'Manages service accounts of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api Required access policy scopes: stacks:readstack-service-accounts:write'
@@ -419,6 +356,7 @@ resources:
             mention_users: (String) Comma-separated list of users to mention in the message.
             message: (String) The templated content of the message.
             message_format: (String) The format of the message to send. Valid values are text, body and json. Default is text. Defaults to text.
+            message_thread_id: (String) The ID of the message thread to send the message to.
             message_type: (String) The format of message to send - either 'link' or 'actionCard'
             msg_type: '(String) The type of them message. Supported: markdown, text. Default: text.'
             name: (String) The name of the contact point.
@@ -558,7 +496,6 @@ resources:
                       "password": "my-password"
                     }
         argumentDocs:
-            dashboard_id: '(Number, Deprecated) ID of the dashboard to apply permissions to. Deprecated: use dashboard_uid instead.'
             dashboard_uid: (String) UID of the dashboard to apply permissions to.
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -972,7 +909,6 @@ resources:
                     }
         argumentDocs:
             built_in_role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.'
-            datasource_id: '(String, Deprecated) Deprecated: Use datasource_uid instead.'
             datasource_uid: (String) UID of the datasource to apply permissions to.
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -1170,7 +1106,7 @@ resources:
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             parent_folder_uid: '(String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.'
-            prevent_destroy_if_not_empty: (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). Defaults to false.
+            prevent_destroy_if_not_empty: (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
             title: (String) The title of the folder.
             uid: (String) Unique identifier.
             url: (String) The full URL of the folder.
@@ -1343,7 +1279,6 @@ resources:
             created: (String) Timestamp when the library panel was created.
             dashboard_ids: (List of Number) Numerical IDs of Grafana dashboards containing the library panel.
             description: (String) Description of the library panel.
-            folder_id: (String, Deprecated) Deprecated. Use folder_uid instead
             folder_name: (String) Name of the folder containing the library panel.
             folder_uid: (String) Unique ID (UID) of the folder containing the library panel.
             id: (String) The ID of this resource.
@@ -1382,7 +1317,6 @@ resources:
         title: grafana_machine_learning_job Resource - terraform-provider-grafana
         argumentDocs:
             custom_labels: (Map of String) An object representing the custom labels added on the forecast.
-            datasource_id: (Number, Deprecated) The id of the datasource to query.
             datasource_type: (String) The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
             datasource_uid: (String) The uid of the datasource to query.
             description: (String) A description of the job.
@@ -1404,7 +1338,6 @@ resources:
         argumentDocs:
             algorithm: '(Block Set, Min: 1, Max: 1) The algorithm to use and its configuration. See https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for details. (see below for nested schema)'
             config: '(Block Set, Max: 1) For DBSCAN only, specify the configuration map (see below for nested schema)'
-            datasource_id: (Number, Deprecated) The id of the datasource to query.
             datasource_type: (String) The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
             datasource_uid: (String) The uid of the datasource to query.
             description: (String) A description of the outlier detector.
@@ -1497,7 +1430,7 @@ resources:
               terraform import grafana_mute_timing.name "{{ orgID }}:{{ name }}"
     grafana_notification_policy:
         subCategory: Alerting
-        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/manage-notifications/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/ This resource requires Grafana 9.1.0 or later.
+        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/configure-notifications/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/ This resource requires Grafana 9.1.0 or later.
         name: grafana_notification_policy
         title: grafana_notification_policy Resource - terraform-provider-grafana
         examples:
@@ -1872,7 +1805,7 @@ resources:
             http_method: (String) The HTTP method used in the request made by the outgoing webhook. Defaults to POST.
             id: (String) The ID of this resource.
             integration_filter: (List of String) Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
-            is_webhook_enabled: (Boolean) Controls whether the outgoing webhook will trigger or is ignored. The default is true.
+            is_webhook_enabled: (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
             name: (String) The name of the outgoing webhook.
             password: (String, Sensitive) The auth data of the webhook. Used for Basic authentication
             team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
@@ -1992,6 +1925,115 @@ resources:
             user_group_id: (String) Slack user group id. Members of user group will be updated when on-call users change.
         importStatements:
             - terraform import grafana_oncall_schedule.name "{{ id }}"
+    grafana_oncall_user_notification_rule:
+        subCategory: OnCall
+        description: 'HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/personal_notification_rules/ Note: you must be running Grafana OnCall >= v1.8.0 to use this resource.'
+        name: grafana_oncall_user_notification_rule
+        title: grafana_oncall_user_notification_rule Resource - terraform-provider-grafana
+        examples:
+            - name: my_user_step_1
+              manifest: |-
+                {
+                  "position": 0,
+                  "provider": "${grafana.oncall}",
+                  "type": "notify_by_mobile_app",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+            - name: my_user_step_2
+              manifest: |-
+                {
+                  "duration": 600,
+                  "position": 1,
+                  "provider": "${grafana.oncall}",
+                  "type": "wait",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+            - name: my_user_step_3
+              manifest: |-
+                {
+                  "position": 2,
+                  "provider": "${grafana.oncall}",
+                  "type": "notify_by_phone_call",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+            - name: my_user_step_4
+              manifest: |-
+                {
+                  "duration": 300,
+                  "position": 3,
+                  "provider": "${grafana.oncall}",
+                  "type": "wait",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+            - name: my_user_step_5
+              manifest: |-
+                {
+                  "position": 4,
+                  "provider": "${grafana.oncall}",
+                  "type": "notify_by_slack",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+            - name: my_user_important_step_1
+              manifest: |-
+                {
+                  "important": true,
+                  "position": 0,
+                  "provider": "${grafana.oncall}",
+                  "type": "notify_by_mobile_app_critical",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+            - name: my_user_important_step_2
+              manifest: |-
+                {
+                  "duration": 300,
+                  "important": true,
+                  "position": 1,
+                  "provider": "${grafana.oncall}",
+                  "type": "wait",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+            - name: my_user_important_step_3
+              manifest: |-
+                {
+                  "important": true,
+                  "position": 2,
+                  "provider": "${grafana.oncall}",
+                  "type": "notify_by_mobile_app_critical",
+                  "user_id": "${data.grafana_oncall_user.my_user.id}"
+                }
+              references:
+                provider: grafana.oncall
+                user_id: data.grafana_oncall_user.my_user.id
+        argumentDocs:
+            duration: (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
+            id: (String) The ID of this resource.
+            important: (Boolean) Boolean value which indicates if a rule is “important”
+            position: (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+            type: '(String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.'
+            user_id: (String) User ID
+        importStatements:
+            - terraform import grafana_oncall_user_notification_rule.name "{{ id }}"
     grafana_organization:
         subCategory: Grafana OSS
         description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/org/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth.
@@ -2067,7 +2109,6 @@ resources:
                   "week_start": "sunday"
                 }
         argumentDocs:
-            home_dashboard_id: '(Number, Deprecated) The Organization home dashboard ID. Deprecated: Use home_dashboard_uid instead.'
             home_dashboard_uid: (String) The Organization home dashboard UID. This is only available in Grafana 9.0+.
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -2125,7 +2166,11 @@ resources:
             - name: test
               manifest: |-
                 {
-                  "dashboard_uid": "${grafana_dashboard.test.uid}",
+                  "dashboards": [
+                    {
+                      "uid": "${grafana_dashboard.test.uid}"
+                    }
+                  ],
                   "name": "my report",
                   "recipients": [
                     "some@email.com"
@@ -2137,7 +2182,7 @@ resources:
                   ]
                 }
               references:
-                dashboard_uid: grafana_dashboard.test.uid
+                dashboards.uid: grafana_dashboard.test.uid
               dependencies:
                 grafana_dashboard.test: |-
                     {
@@ -2148,8 +2193,6 @@ resources:
             custom_interval: |-
                 (String) Custom interval of the report.
                 Note: This field is only available when frequency is set to custom.
-            dashboard_id: (Number, Deprecated) Dashboard to be sent in the report. This field is deprecated, use dashboard_uid instead.
-            dashboard_uid: (String, Deprecated) Dashboard to be sent in the report.
             dashboards: (Block List) List of dashboards to render into the report (see below for nested schema)
             end_time: (String) End time of the report. If empty, the report will be sent indefinitely (according to frequency). Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
             formats: '(Set of String) Specifies what kind of attachment to generate for the report. Allowed values: pdf, csv, image.'
@@ -2169,7 +2212,7 @@ resources:
             report_variables: (Map of String) Add report variables to the dashboard. Values should be separated by commas.
             schedule: '(Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)'
             start_time: (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
-            time_range: '(Block List, Max: 1, Deprecated) Time range of the report. (see below for nested schema)'
+            time_range: '(Block List, Max: 1) Time range of the report. (see below for nested schema)'
             timezone: (String) Set the report time zone. Defaults to GMT.
             to: (String) End of the time range.
             uid: (String) Dashboard uid.
@@ -2865,6 +2908,7 @@ resources:
                   ]
                 }
         argumentDocs:
+            advanced_options: '(Block List, Max: 1) Advanced Options for Alert Rules (see below for nested schema)'
             alerting: |-
                 (Block List, Max: 1) Configures the alerting rules that will be generated for each
                 time window associated with the SLO. Grafana SLOs can generate
@@ -2875,11 +2919,13 @@ resources:
             description: (String) Description is a free-text field that can provide more context to an SLO.
             destination_datasource: '(Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)'
             fastburn: '(Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)'
+            folder_uid: (String) UID for the SLO folder
             freeform: '(Block List, Max: 1) (see below for nested schema)'
             group_by_labels: (List of String) Defines Group By Labels used for per-label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
             id: (String) The ID of this resource.
             key: (String)
             label: (Block List) Additional labels that will be attached to all metrics generated from the query. These labels are useful for grouping SLOs in dashboard views that you create by hand. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$" (see below for nested schema)
+            min_failures: (Number) Minimum number of failed events to trigger an alert
             name: (String) Name should be a short description of your indicator. Consider names like "API Availability"
             objectives: '(Block List, Min: 1) Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)'
             query: '(Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)'
@@ -3006,6 +3052,7 @@ resources:
             role_values_editor: (String) List of comma- or space-separated roles which will be mapped into the Editor role.
             role_values_grafana_admin: (String) List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
             role_values_none: (String) List of comma- or space-separated roles which will be mapped into the None role.
+            role_values_viewer: (String) List of comma- or space-separated roles which will be mapped into the Viewer role.
             saml_settings: '(Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)'
             scopes: (String) List of comma- or space-separated OAuth2 scopes.
             signature_algorithm: (String) Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
@@ -3492,6 +3539,79 @@ resources:
                   ],
                   "target": "https://www.an-auth-endpoint.com"
                 }
+            - name: scripted
+              manifest: |-
+                {
+                  "enabled": true,
+                  "job": "Validate homepage",
+                  "labels": {
+                    "environment": "production"
+                  },
+                  "probes": [
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Paris}"
+                  ],
+                  "settings": [
+                    {
+                      "scripted": [
+                        {
+                          "script": "${file(\"${path.module}/script.js\")}"
+                        }
+                      ]
+                    }
+                  ],
+                  "target": "https://grafana.com/"
+                }
+            - name: grpc
+              manifest: |-
+                {
+                  "enabled": false,
+                  "job": "gRPC Defaults",
+                  "labels": {
+                    "foo": "bar"
+                  },
+                  "probes": [
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}"
+                  ],
+                  "settings": [
+                    {
+                      "grpc": [
+                        {}
+                      ]
+                    }
+                  ],
+                  "target": "host.docker.internal:50051"
+                }
+            - name: grpc
+              manifest: |-
+                {
+                  "enabled": false,
+                  "job": "gRPC Defaults",
+                  "labels": {
+                    "foo": "baz"
+                  },
+                  "probes": [
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt}",
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.London}"
+                  ],
+                  "settings": [
+                    {
+                      "grpc": [
+                        {
+                          "ip_version": "V6",
+                          "service": "health-check-test",
+                          "tls": true,
+                          "tls_config": [
+                            {
+                              "ca_cert": "-----BEGIN CERTIFICATE-----\nMIIEljCCAn4CCQCKJPUQQxeO0zANBgkqhkiG9w0BAQsFADANMQswCQYDVQQGEwJT\nRTAeFw0yMTA1MjkxOTIyNTdaFw0yNDAzMTgxOTIyNTdaMA0xCzAJBgNVBAYTAlNF\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAnmbazDNUT0rSI4BpGZK+\n0AJ+9FDkIYWJUtRLJoxw8CF+AobMFploYA2L2Myt80cTA1w8FrewjC8qlqdnrPWr\nh1ely2zsUljgi1/niH0ndjFzliL7UkinXQiAsTtYOrOQmzyd/o5PNdu7dz0m7stD\nBN/Sz5TlXZnA1/eJbqV/kqMau6b1MaBx8SbRfUG9+cSmUobFJwuktDrPuwJhcEkl\niDmhEqu1GuZzmKvzPacLTVia1vSlmCTCu89NiHI8iGiiLtqNrapup7f8j5m3a3SL\na+vXhplFj2piNl7Nc0dfuVgtEliTI+qUL2/+4A7gzRWZpHy21/LxMMXmBhdJW9En\nFWkev97VZLgb5TR3+qpSWmXcodjPy4dibvwsOMpdd+Q4AYulwvlDw5idRPVgGvk7\nqq03+w9ppZ5Fugws9k2CD9F/75JX2mCbRpkuPe8XXZ7bqrMaQgQMLOrs68HuiiCk\nFTklglq4DMKxnf/Y/T/MgIa9Q1o28YSevh6A7FnfPGARj2H2T4rToi+bC1Vf7qNB\nZ18bDpz99tRUTbyiRUSBMWLCGhU6c4HAqUrfrkpperOKFBQ3i38a79838oFdXHBW\n6rx1t5cC3XwtEoUyeBKAygez8G1LDXbN3607MxVhAjhHKtPkYvuBfysSNU6JrR0z\nUV1IURJANt2UMuKgSEkG/IMCAwEAATANBgkqhkiG9w0BAQsFAAOCAgEAcipMhp/w\nyzfPy61faVAw9SPaMNRlnW9FCDC3N9CGOjo2knjXpObPzyzsJiUURTjrA9eFMpRA\ne2Rgn2j+nvm2XdLAlC4Kh8jqv/wCL0X6BTQMdN5aOhXdSiXtpXOMvXYY/dQ4ebRZ\nXeRCVWQD79JbV6/uyx0nCV3FVcU7L1P4UjxroefVr0soLPMirgxHmOxLnkoVgdcB\ntqufP5kJx9CIeJXPx3QQsk1XfEtxtUvuw4ZaZkQnNUqvGl7V+AZpur5Eqfv3zBi8\nQxxL7qGkARNssNWH2Ju+tqpM/UZRnjlFrDR4SXUgT0coTduBalUY6qHkciHmRpiP\ntf3SgpDeiCSOV2iVFGdaR1mz3muWoAYWFstcWN3a3HjjVugIi23yLN8Gv8CNeoH4\nprulinFCLrFgAh8SLAF8mOAZanT06LH8jOIFYrdUxH+ZeRBR0rLoFjUF+JB7UKD9\n5TA+B4EBzQ1tMbGFU1DX79MjAejq0IV0Nzq+GMfBvLHxEf4+Oz8nqhDXQcJ6TdtY\nl3Lyw5zBvOL80SBK+Mr0UP7d9U3VXgbGHCYVJU6Ot1TwiGwahtWALRALA3TWeGkq\n7kyD1H+nm+9lfKhuyBRQnRGBVyze2lAp7oxwshJuhBwEXosXFxq1Cy6QhPN77r6N\nvuhxvtppolNnyOgGxwG4zquqq2V5/+vKjKY=\n-----END CERTIFICATE-----\n",
+                              "server_name": "grafana.com"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "target": "host.docker.internal:50051"
+                }
         argumentDocs:
             alert_sensitivity: (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
             allow_missing: (Boolean) Allow header to be missing from responses. Defaults to false.
@@ -3523,6 +3643,7 @@ resources:
             fail_if_not_ssl: (Boolean) Fail if SSL is not present. Defaults to false.
             fail_if_ssl: (Boolean) Fail if SSL is present. Defaults to false.
             frequency: (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to 60000.
+            grpc: '(Block Set, Max: 1) Settings for gRPC Health check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)'
             header: (String) Header name.
             headers: (Set of String) The HTTP headers set for the probe.
             http: '(Block Set, Max: 1) Settings for HTTP check. The target must be a URL (http or https). (see below for nested schema)'
@@ -3552,9 +3673,12 @@ resources:
             record_type: (String) One of ANY, A, AAAA, CNAME, MX, NS, PTR, SOA, SRV, TXT. Defaults to A.
             regexp: (String) Regex that header value should match.
             request: '(Block Set, Max: 1) An individual MultiHTTP request (see below for nested schema)'
+            script: (String)
+            scripted: '(Block Set, Max: 1) Settings for scripted check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6/. (see below for nested schema)'
             send: (String) Data to send.
             server: (String) DNS server address to target. Defaults to 8.8.8.8.
             server_name: (String) Used to verify the hostname for the targets.
+            service: (String) gRPC service.
             settings: '(Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)'
             source_ip_address: (String) Source IP address.
             start_tls: (Boolean) Upgrade TCP connection to TLS. Defaults to false.
@@ -3610,7 +3734,9 @@ resources:
                       "region": "${var.cloud_region}",
                       "scopes": [
                         "metrics:write",
-                        "stacks:read"
+                        "stacks:read",
+                        "logs:write",
+                        "traces:write"
                       ]
                     }
                 grafana_cloud_access_policy_token.sm_metrics_publish: |-
@@ -3653,6 +3779,7 @@ resources:
                 }
         argumentDocs:
             auth_token: (String, Sensitive) The probe authentication token. Your probe must use this to authenticate with Grafana Cloud.
+            disable_scripted_checks: (Boolean) Disables scripted checks for this probe. Defaults to false.
             id: (String) The ID of the probe.
             labels: (Map of String) Custom labels to be included with collected metrics and logs.
             latitude: (Number) Latitude coordinates.
