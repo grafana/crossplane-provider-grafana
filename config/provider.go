@@ -50,6 +50,27 @@ func getProviderSchema(s string) (*schema.Provider, error) {
 	}, nil
 }
 
+// resourcesByFramework returns resources by framework (legacy SDK or plugin framework)
+func resourcesByFramework() ([]string, []string) {
+	resourcesMap := map[string]bool{}
+	for _, r := range grafanaProvider.Resources() {
+		resourcesMap[r.Name] = r.PluginFrameworkSchema != nil
+	}
+
+	var legacySDKResources, pluginFrameworkResources []string
+	for crossplaneResource := range GroupMap {
+		isPluginFrameworkResource := resourcesMap[crossplaneResource]
+		regexResource := "^" + crossplaneResource + "$"
+		if isPluginFrameworkResource {
+			pluginFrameworkResources = append(pluginFrameworkResources, regexResource)
+		} else {
+			legacySDKResources = append(legacySDKResources, regexResource)
+		}
+	}
+
+	return legacySDKResources, pluginFrameworkResources
+}
+
 // GetProvider returns provider configuration
 func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 	var p *schema.Provider
@@ -63,14 +84,16 @@ func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 		return nil, errors.Wrapf(err, "cannot get the Terraform provider schema with generation mode set to %t", generationProvider)
 	}
 
+	legacySDKResources, pluginFrameworkResources := resourcesByFramework()
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithShortName("grafana"),
 		ujconfig.WithRootGroup("grafana.crossplane.io"),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithIncludeList([]string{}),
-		ujconfig.WithTerraformPluginSDKIncludeList(ExternalNameConfigured()),
-		ujconfig.WithTerraformPluginFrameworkIncludeList([]string{}), // For future resources
+		ujconfig.WithTerraformPluginSDKIncludeList(legacySDKResources),
+		ujconfig.WithTerraformPluginFrameworkIncludeList(pluginFrameworkResources),
 		ujconfig.WithTerraformProvider(p),
+		ujconfig.WithTerraformPluginFrameworkProvider(grafanaProvider.FrameworkProvider("crossplane")),
 		ujconfig.WithDefaultResourceOptions(
 			GroupKindOverrides(),
 			KindOverrides(),

@@ -30,6 +30,17 @@ func KindOverrides() config.ResourceOption {
 	}
 }
 
+// ExternalNameConfigurations applies all external name configs listed in the
+// table ExternalNameConfigs and sets the version of those resources to v1beta1
+// assuming they will be tested.
+func ExternalNameConfigurations() config.ResourceOption {
+	return func(r *config.Resource) {
+		if _, ok := GroupMap[r.Name]; ok {
+			r.ExternalName = config.IdentifierFromProvider
+		}
+	}
+}
+
 // GroupKindCalculator returns the correct group and kind name for given TF
 // resource.
 type GroupKindCalculator func(resource string) (string, string)
