@@ -565,9 +565,21 @@ type SAMLSettingsInitParameters struct {
 	// Base64-encoded string for the SP X.509 certificate.
 	CertificateSecretRef *v1.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
 
+	// (String) The client Id of your OAuth2 app.
+	// The client Id of your OAuth2 app.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (String, Sensitive) The client secret of your OAuth2 app.
+	// The client secret of your OAuth2 app.
+	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
 	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+	// If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+	ForceUseGraphAPI *bool `json:"forceUseGraphApi,omitempty" tf:"force_use_graph_api,omitempty"`
 
 	// encoded string for the IdP SAML metadata XML.
 	// Base64-encoded string for the IdP SAML metadata XML.
@@ -644,6 +656,10 @@ type SAMLSettingsInitParameters struct {
 	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
+
+	// (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+	// The token endpoint of your OAuth2 provider. Required for Azure AD providers.
+	TokenURL *string `json:"tokenUrl,omitempty" tf:"token_url,omitempty"`
 }
 
 type SAMLSettingsObservation struct {
@@ -692,9 +708,21 @@ type SAMLSettingsObservation struct {
 	// Path for the SP X.509 certificate.
 	CertificatePath *string `json:"certificatePath,omitempty" tf:"certificate_path,omitempty"`
 
+	// (String) The client Id of your OAuth2 app.
+	// The client Id of your OAuth2 app.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (String, Sensitive) The client secret of your OAuth2 app.
+	// The client secret of your OAuth2 app.
+	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
 	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+	// If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+	ForceUseGraphAPI *bool `json:"forceUseGraphApi,omitempty" tf:"force_use_graph_api,omitempty"`
 
 	// encoded string for the IdP SAML metadata XML.
 	// Base64-encoded string for the IdP SAML metadata XML.
@@ -767,6 +795,10 @@ type SAMLSettingsObservation struct {
 	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
+
+	// (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+	// The token endpoint of your OAuth2 provider. Required for Azure AD providers.
+	TokenURL *string `json:"tokenUrl,omitempty" tf:"token_url,omitempty"`
 }
 
 type SAMLSettingsParameters struct {
@@ -831,10 +863,25 @@ type SAMLSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	CertificateSecretRef *v1.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
 
+	// (String) The client Id of your OAuth2 app.
+	// The client Id of your OAuth2 app.
+	// +kubebuilder:validation:Optional
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (String, Sensitive) The client secret of your OAuth2 app.
+	// The client secret of your OAuth2 app.
+	// +kubebuilder:validation:Optional
+	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
+
 	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+	// If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+	// +kubebuilder:validation:Optional
+	ForceUseGraphAPI *bool `json:"forceUseGraphApi,omitempty" tf:"force_use_graph_api,omitempty"`
 
 	// encoded string for the IdP SAML metadata XML.
 	// Base64-encoded string for the IdP SAML metadata XML.
@@ -930,6 +977,11 @@ type SAMLSettingsParameters struct {
 	// Prevent synchronizing users’ organization roles from your IdP.
 	// +kubebuilder:validation:Optional
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
+
+	// (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+	// The token endpoint of your OAuth2 provider. Required for Azure AD providers.
+	// +kubebuilder:validation:Optional
+	TokenURL *string `json:"tokenUrl,omitempty" tf:"token_url,omitempty"`
 }
 
 type SsoSettingsInitParameters struct {

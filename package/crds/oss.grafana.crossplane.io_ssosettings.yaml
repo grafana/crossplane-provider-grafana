@@ -376,10 +376,25 @@ spec:
                           - name
                           - namespace
                           type: object
+                        clientId:
+                          description: |-
+                            (String) The client Id of your OAuth2 app.
+                            The client Id of your OAuth2 app.
+                          type: string
+                        clientSecret:
+                          description: |-
+                            (String, Sensitive) The client secret of your OAuth2 app.
+                            The client secret of your OAuth2 app.
+                          type: string
                         enabled:
                           description: |-
                             (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
+                          type: boolean
+                        forceUseGraphApi:
+                          description: |-
+                            (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+                            If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
                           type: boolean
                         idpMetadata:
                           description: |-
@@ -490,6 +505,11 @@ spec:
                             (Boolean) Prevent synchronizing users’ organization roles from your IdP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
+                        tokenUrl:
+                          description: |-
+                            (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+                            The token endpoint of your OAuth2 provider. Required for Azure AD providers.
+                          type: string
                       type: object
                     type: array
                 type: object
@@ -806,10 +826,25 @@ spec:
                           - name
                           - namespace
                           type: object
+                        clientId:
+                          description: |-
+                            (String) The client Id of your OAuth2 app.
+                            The client Id of your OAuth2 app.
+                          type: string
+                        clientSecret:
+                          description: |-
+                            (String, Sensitive) The client secret of your OAuth2 app.
+                            The client secret of your OAuth2 app.
+                          type: string
                         enabled:
                           description: |-
                             (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
+                          type: boolean
+                        forceUseGraphApi:
+                          description: |-
+                            (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+                            If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
                           type: boolean
                         idpMetadata:
                           description: |-
@@ -920,6 +955,11 @@ spec:
                             (Boolean) Prevent synchronizing users’ organization roles from your IdP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
+                        tokenUrl:
+                          description: |-
+                            (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+                            The token endpoint of your OAuth2 provider. Required for Azure AD providers.
+                          type: string
                       type: object
                     type: array
                 type: object
@@ -1365,10 +1405,25 @@ spec:
                             (String) Path for the SP X.509 certificate.
                             Path for the SP X.509 certificate.
                           type: string
+                        clientId:
+                          description: |-
+                            (String) The client Id of your OAuth2 app.
+                            The client Id of your OAuth2 app.
+                          type: string
+                        clientSecret:
+                          description: |-
+                            (String, Sensitive) The client secret of your OAuth2 app.
+                            The client secret of your OAuth2 app.
+                          type: string
                         enabled:
                           description: |-
                             (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
+                          type: boolean
+                        forceUseGraphApi:
+                          description: |-
+                            (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+                            If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
                           type: boolean
                         idpMetadata:
                           description: |-
@@ -1460,6 +1515,11 @@ spec:
                             (Boolean) Prevent synchronizing users’ organization roles from your IdP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
+                        tokenUrl:
+                          description: |-
+                            (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
+                            The token endpoint of your OAuth2 provider. Required for Azure AD providers.
+                          type: string
                       type: object
                     type: array
                 type: object
