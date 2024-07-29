@@ -158,8 +158,8 @@ github.com/grafana/amixr-api-go-client v0.0.12 h1:oEHZTBhxoZ35EsfeccZBJGPKhZUVOm
 github.com/grafana/amixr-api-go-client v0.0.12/go.mod h1:N6x26XUrM5zGtK5zL5vNJnAn2JFMxLFPPLTw/6pDkFE=
 github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20240708151845-82dae40bd631 h1:RnOKSdUW/SGIQZoug1wtV3WKsmCvJzbTX2SnR2Yxf4w=
 github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20240708151845-82dae40bd631/go.mod h1:6sYY1qgwYfSDNQhKQA0tar8Oc38cIGfyqwejhxoOsPs=
-github.com/grafana/grafana-openapi-client-go v0.0.0-20240625142759-9ef69836127d h1:yyHfZqlOHDeJ/UGgqeRg71Fn/ynQt5gAbf0HX/hgJKY=
-github.com/grafana/grafana-openapi-client-go v0.0.0-20240625142759-9ef69836127d/go.mod h1:hiZnMmXc9KXNUlvkV2BKFsiWuIFF/fF4wGgYWEjBitI=
+github.com/grafana/grafana-openapi-client-go v0.0.0-20240723170622-ae2c94b7c9a3 h1:W35ScJIkeyLuDlOo3F+u1JSRRvmoIYYf/ghA/17Y18Q=
+github.com/grafana/grafana-openapi-client-go v0.0.0-20240723170622-ae2c94b7c9a3/go.mod h1:hiZnMmXc9KXNUlvkV2BKFsiWuIFF/fF4wGgYWEjBitI=
 github.com/grafana/grafana-plugin-sdk-go v0.236.0 h1:SmBO0KuAwbKwp68sVrrMnpWhqkDRsFmyChhTfYsBFHU=
 github.com/grafana/grafana-plugin-sdk-go v0.236.0/go.mod h1:diZikRjMwbyCDyKpieBK0MpSmHU4SNtvmW/iDfTXzyQ=
 github.com/grafana/machine-learning-go-client v0.8.0 h1:N8+0f5aFM/umVJWvlJkJy9McVIp9MIBUtuNruug94II=
@@ -174,8 +174,8 @@ github.com/grafana/synthetic-monitoring-agent v0.25.0 h1:krGprYHKs6Yc6ObGzt2b8u9
 github.com/grafana/synthetic-monitoring-agent v0.25.0/go.mod h1:jqe7JItP1mNo1n/O3ufbmdRpk4T8nj8d/aH+T8ywUzc=
 github.com/grafana/synthetic-monitoring-api-go-client v0.8.0 h1:Tm4MtwwYmPNInGfnj66l6j6KOshMkNV4emIVKJdlXMg=
 github.com/grafana/synthetic-monitoring-api-go-client v0.8.0/go.mod h1:TGaywTdL2Z+PJhpWzJEmJFRF5K55vKz2f39mWY/GvV8=
-github.com/grafana/terraform-provider-grafana/v3 v3.5.0 h1:div+kD8LP3l9z0/ErgT3zBuEgrqwSD27xjgf6kcnxig=
-github.com/grafana/terraform-provider-grafana/v3 v3.5.0/go.mod h1:9yQNb05bdlJeshnDmAF7JCCnE4T2EPPmdu7fk2KecEQ=
+github.com/grafana/terraform-provider-grafana/v3 v3.6.0 h1:CqQ57e0ymJG8zGZ2axwooEr6PpbZuFgQ4GnS13m/MZQ=
+github.com/grafana/terraform-provider-grafana/v3 v3.6.0/go.mod h1:M1zkQSdOUrA1jlWcb+DD7m7ZBkqruwxfLZKJqq67e4o=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1 h1:qnpSQwGEnkcRpTqNOIR6bJbR0gAorgP9CSALpRcKoAA=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1/go.mod h1:lXGCsh6c22WGtjr+qGHj1otzZpV/1kwTMAqkwZsnWRU=
 github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.1.0 h1:pRhl55Yx1eC7BZ1N+BBWwnKaMyD8uC+34TLdndZMAKk=
