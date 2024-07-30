@@ -60,29 +60,35 @@ type AlertingInitParameters struct {
 
 type AlertingLabelInitParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type AlertingLabelObservation struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type AlertingLabelParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
@@ -140,29 +146,35 @@ type AlertingParameters struct {
 
 type AnnotationInitParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type AnnotationObservation struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type AnnotationParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
@@ -215,29 +227,35 @@ type DestinationDatasourceParameters struct {
 
 type FastburnAnnotationInitParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type FastburnAnnotationObservation struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type FastburnAnnotationParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
@@ -301,29 +319,35 @@ type FreeformParameters struct {
 
 type LabelInitParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type LabelObservation struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type LabelParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
@@ -492,33 +516,43 @@ type SLOInitParameters struct {
 	// (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
 	// Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
 	Query []QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	// The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	SearchExpression *string `json:"searchExpression,omitempty" tf:"search_expression,omitempty"`
 }
 
 type SLOLabelInitParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SLOLabelObservation struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SLOLabelParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
@@ -565,6 +599,10 @@ type SLOObservation struct {
 	// (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
 	// Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
 	Query []QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	// The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	SearchExpression *string `json:"searchExpression,omitempty" tf:"search_expression,omitempty"`
 }
 
 type SLOParameters struct {
@@ -614,33 +652,44 @@ type SLOParameters struct {
 	// Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
 	// +kubebuilder:validation:Optional
 	Query []QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	// The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	// +kubebuilder:validation:Optional
+	SearchExpression *string `json:"searchExpression,omitempty" tf:"search_expression,omitempty"`
 }
 
 type SlowburnAnnotationInitParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SlowburnAnnotationObservation struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SlowburnAnnotationParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }
@@ -658,29 +707,35 @@ type SlowburnInitParameters struct {
 
 type SlowburnLabelInitParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SlowburnLabelObservation struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SlowburnLabelParameters struct {
 
-	// (String)
+	// (String) Key for filtering and identification
+	// Key for filtering and identification
 	// +kubebuilder:validation:Optional
 	Key *string `json:"key" tf:"key,omitempty"`
 
 	// (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+	// Templatable value
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
 }

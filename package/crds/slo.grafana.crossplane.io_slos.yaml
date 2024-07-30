@@ -107,12 +107,14 @@ spec:
                           items:
                             properties:
                               key:
-                                description: (String)
+                                description: |-
+                                  (String) Key for filtering and identification
+                                  Key for filtering and identification
                                 type: string
                               value:
-                                description: (Number) Value between 0 and 1. If the
-                                  value of the query is above the objective, the SLO
-                                  is met.
+                                description: |-
+                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  Templatable value
                                 type: string
                             type: object
                           type: array
@@ -129,12 +131,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -145,12 +149,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -163,12 +169,14 @@ spec:
                           items:
                             properties:
                               key:
-                                description: (String)
+                                description: |-
+                                  (String) Key for filtering and identification
+                                  Key for filtering and identification
                                 type: string
                               value:
-                                description: (Number) Value between 0 and 1. If the
-                                  value of the query is above the objective, the SLO
-                                  is met.
+                                description: |-
+                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  Templatable value
                                 type: string
                             type: object
                           type: array
@@ -185,12 +193,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -201,12 +211,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -320,11 +332,14 @@ spec:
                     items:
                       properties:
                         key:
-                          description: (String)
+                          description: |-
+                            (String) Key for filtering and identification
+                            Key for filtering and identification
                           type: string
                         value:
-                          description: (Number) Value between 0 and 1. If the value
-                            of the query is above the objective, the SLO is met.
+                          description: |-
+                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            Templatable value
                           type: string
                       type: object
                     type: array
@@ -400,6 +415,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  searchExpression:
+                    description: |-
+                      (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                      The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -446,12 +466,14 @@ spec:
                           items:
                             properties:
                               key:
-                                description: (String)
+                                description: |-
+                                  (String) Key for filtering and identification
+                                  Key for filtering and identification
                                 type: string
                               value:
-                                description: (Number) Value between 0 and 1. If the
-                                  value of the query is above the objective, the SLO
-                                  is met.
+                                description: |-
+                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  Templatable value
                                 type: string
                             type: object
                           type: array
@@ -468,12 +490,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -484,12 +508,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -502,12 +528,14 @@ spec:
                           items:
                             properties:
                               key:
-                                description: (String)
+                                description: |-
+                                  (String) Key for filtering and identification
+                                  Key for filtering and identification
                                 type: string
                               value:
-                                description: (Number) Value between 0 and 1. If the
-                                  value of the query is above the objective, the SLO
-                                  is met.
+                                description: |-
+                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  Templatable value
                                 type: string
                             type: object
                           type: array
@@ -524,12 +552,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -540,12 +570,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -659,11 +691,14 @@ spec:
                     items:
                       properties:
                         key:
-                          description: (String)
+                          description: |-
+                            (String) Key for filtering and identification
+                            Key for filtering and identification
                           type: string
                         value:
-                          description: (Number) Value between 0 and 1. If the value
-                            of the query is above the objective, the SLO is met.
+                          description: |-
+                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            Templatable value
                           type: string
                       type: object
                     type: array
@@ -739,6 +774,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  searchExpression:
+                    description: |-
+                      (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                      The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -961,12 +1001,14 @@ spec:
                           items:
                             properties:
                               key:
-                                description: (String)
+                                description: |-
+                                  (String) Key for filtering and identification
+                                  Key for filtering and identification
                                 type: string
                               value:
-                                description: (Number) Value between 0 and 1. If the
-                                  value of the query is above the objective, the SLO
-                                  is met.
+                                description: |-
+                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  Templatable value
                                 type: string
                             type: object
                           type: array
@@ -983,12 +1025,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -999,12 +1043,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -1017,12 +1063,14 @@ spec:
                           items:
                             properties:
                               key:
-                                description: (String)
+                                description: |-
+                                  (String) Key for filtering and identification
+                                  Key for filtering and identification
                                 type: string
                               value:
-                                description: (Number) Value between 0 and 1. If the
-                                  value of the query is above the objective, the SLO
-                                  is met.
+                                description: |-
+                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  Templatable value
                                 type: string
                             type: object
                           type: array
@@ -1039,12 +1087,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -1055,12 +1105,14 @@ spec:
                                 items:
                                   properties:
                                     key:
-                                      description: (String)
+                                      description: |-
+                                        (String) Key for filtering and identification
+                                        Key for filtering and identification
                                       type: string
                                     value:
-                                      description: (Number) Value between 0 and 1.
-                                        If the value of the query is above the objective,
-                                        the SLO is met.
+                                      description: |-
+                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        Templatable value
                                       type: string
                                   type: object
                                 type: array
@@ -1101,11 +1153,14 @@ spec:
                     items:
                       properties:
                         key:
-                          description: (String)
+                          description: |-
+                            (String) Key for filtering and identification
+                            Key for filtering and identification
                           type: string
                         value:
-                          description: (Number) Value between 0 and 1. If the value
-                            of the query is above the objective, the SLO is met.
+                          description: |-
+                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            Templatable value
                           type: string
                       type: object
                     type: array
@@ -1181,6 +1236,11 @@ spec:
                           type: string
                       type: object
                     type: array
+                  searchExpression:
+                    description: |-
+                      (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                      The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

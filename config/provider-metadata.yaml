@@ -2964,13 +2964,14 @@ resources:
             freeform: '(Block List, Max: 1) (see below for nested schema)'
             group_by_labels: (List of String) Defines Group By Labels used for per-label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
             id: (String) The ID of this resource.
-            key: (String)
+            key: (String) Key for filtering and identification
             label: (Block List) Additional labels that will be attached to all metrics generated from the query. These labels are useful for grouping SLOs in dashboard views that you create by hand. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$" (see below for nested schema)
             min_failures: (Number) Minimum number of failed events to trigger an alert
             name: (String) Name should be a short description of your indicator. Consider names like "API Availability"
             objectives: '(Block List, Min: 1) Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)'
             query: '(Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)'
             ratio: '(Block List, Max: 1) (see below for nested schema)'
+            search_expression: (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
             slowburn: '(Block List, Max: 1) Alerting Rules generated for Slow Burn alerts (see below for nested schema)'
             success_metric: (String) Counter metric for success events (numerator)
             total_metric: (String) Metric for total events (denominator)
