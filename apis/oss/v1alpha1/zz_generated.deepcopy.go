@@ -2701,6 +2701,16 @@ func (in *Oauth2SettingsInitParameters) DeepCopyInto(out *Oauth2SettingsInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgAttributePath != nil {
+		in, out := &in.OrgAttributePath, &out.OrgAttributePath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OrgMapping != nil {
+		in, out := &in.OrgMapping, &out.OrgMapping
+		*out = new(string)
+		**out = **in
+	}
 	if in.RoleAttributePath != nil {
 		in, out := &in.RoleAttributePath, &out.RoleAttributePath
 		*out = new(string)
@@ -2909,6 +2919,16 @@ func (in *Oauth2SettingsObservation) DeepCopyInto(out *Oauth2SettingsObservation
 	}
 	if in.NameAttributePath != nil {
 		in, out := &in.NameAttributePath, &out.NameAttributePath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OrgAttributePath != nil {
+		in, out := &in.OrgAttributePath, &out.OrgAttributePath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OrgMapping != nil {
+		in, out := &in.OrgMapping, &out.OrgMapping
 		*out = new(string)
 		**out = **in
 	}
@@ -3125,6 +3145,16 @@ func (in *Oauth2SettingsParameters) DeepCopyInto(out *Oauth2SettingsParameters) 
 	}
 	if in.NameAttributePath != nil {
 		in, out := &in.NameAttributePath, &out.NameAttributePath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OrgAttributePath != nil {
+		in, out := &in.OrgAttributePath, &out.OrgAttributePath
+		*out = new(string)
+		**out = **in
+	}
+	if in.OrgMapping != nil {
+		in, out := &in.OrgMapping, &out.OrgMapping
 		*out = new(string)
 		**out = **in
 	}
