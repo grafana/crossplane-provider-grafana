@@ -108,6 +108,14 @@ type Oauth2SettingsInitParameters struct {
 	// JMESPath expression to use for user name lookup from the user ID token. This name will be used as the user’s display name. Only applicable to Generic OAuth.
 	NameAttributePath *string `json:"nameAttributePath,omitempty" tf:"name_attribute_path,omitempty"`
 
+	// (String) JMESPath expression to use for the organization mapping lookup from the user ID token. The extracted list will be used for the organization mapping (to match "Organization" in the "org_mapping"). Only applicable to Generic OAuth and Okta.
+	// JMESPath expression to use for the organization mapping lookup from the user ID token. The extracted list will be used for the organization mapping (to match "Organization" in the "org_mapping"). Only applicable to Generic OAuth and Okta.
+	OrgAttributePath *string `json:"orgAttributePath,omitempty" tf:"org_attribute_path,omitempty"`
+
+	// or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
+	// List of comma- or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
+	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
+
 	// (String) JMESPath expression to use for Grafana role lookup.
 	// JMESPath expression to use for Grafana role lookup.
 	RoleAttributePath *string `json:"roleAttributePath,omitempty" tf:"role_attribute_path,omitempty"`
@@ -259,6 +267,14 @@ type Oauth2SettingsObservation struct {
 	// (String) JMESPath expression to use for user name lookup from the user ID token. This name will be used as the user’s display name. Only applicable to Generic OAuth.
 	// JMESPath expression to use for user name lookup from the user ID token. This name will be used as the user’s display name. Only applicable to Generic OAuth.
 	NameAttributePath *string `json:"nameAttributePath,omitempty" tf:"name_attribute_path,omitempty"`
+
+	// (String) JMESPath expression to use for the organization mapping lookup from the user ID token. The extracted list will be used for the organization mapping (to match "Organization" in the "org_mapping"). Only applicable to Generic OAuth and Okta.
+	// JMESPath expression to use for the organization mapping lookup from the user ID token. The extracted list will be used for the organization mapping (to match "Organization" in the "org_mapping"). Only applicable to Generic OAuth and Okta.
+	OrgAttributePath *string `json:"orgAttributePath,omitempty" tf:"org_attribute_path,omitempty"`
+
+	// or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
+	// List of comma- or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
+	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
 
 	// (String) JMESPath expression to use for Grafana role lookup.
 	// JMESPath expression to use for Grafana role lookup.
@@ -439,6 +455,16 @@ type Oauth2SettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	NameAttributePath *string `json:"nameAttributePath,omitempty" tf:"name_attribute_path,omitempty"`
 
+	// (String) JMESPath expression to use for the organization mapping lookup from the user ID token. The extracted list will be used for the organization mapping (to match "Organization" in the "org_mapping"). Only applicable to Generic OAuth and Okta.
+	// JMESPath expression to use for the organization mapping lookup from the user ID token. The extracted list will be used for the organization mapping (to match "Organization" in the "org_mapping"). Only applicable to Generic OAuth and Okta.
+	// +kubebuilder:validation:Optional
+	OrgAttributePath *string `json:"orgAttributePath,omitempty" tf:"org_attribute_path,omitempty"`
+
+	// or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
+	// List of comma- or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
+	// +kubebuilder:validation:Optional
+	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
+
 	// (String) JMESPath expression to use for Grafana role lookup.
 	// JMESPath expression to use for Grafana role lookup.
 	// +kubebuilder:validation:Optional
@@ -609,7 +635,7 @@ type SAMLSettingsInitParameters struct {
 	// The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
 	NameIDFormat *string `json:"nameIdFormat,omitempty" tf:"name_id_format,omitempty"`
 
-	// or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	// or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
 	// List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
 	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
 
@@ -752,7 +778,7 @@ type SAMLSettingsObservation struct {
 	// The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
 	NameIDFormat *string `json:"nameIdFormat,omitempty" tf:"name_id_format,omitempty"`
 
-	// or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	// or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
 	// List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
 	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
 
@@ -918,7 +944,7 @@ type SAMLSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	NameIDFormat *string `json:"nameIdFormat,omitempty" tf:"name_id_format,omitempty"`
 
-	// or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
+	// or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.
 	// List of comma- or space-separated Organization:OrgId:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: Viewer, Editor or Admin.
 	// +kubebuilder:validation:Optional
 	OrgMapping *string `json:"orgMapping,omitempty" tf:"org_mapping,omitempty"`
