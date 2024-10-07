@@ -35,8 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: RuleGroup is the Schema for the RuleGroups API. Manages Grafana
-          Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rules/HTTP
-          API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules
+          Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules
           This resource requires Grafana 9.1.0 or later.
         properties:
           apiVersion:
@@ -283,8 +282,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to “.
-                                  An optional identifier for the type of query being executed. Defaults to “.
+                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
+                                  An optional identifier for the type of query being executed. Defaults to ``.
                                 type: string
                               refId:
                                 description: |-
@@ -686,8 +685,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to “.
-                                  An optional identifier for the type of query being executed. Defaults to “.
+                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
+                                  An optional identifier for the type of query being executed. Defaults to ``.
                                 type: string
                               refId:
                                 description: |-
@@ -1116,8 +1115,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to “.
-                                  An optional identifier for the type of query being executed. Defaults to “.
+                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
+                                  An optional identifier for the type of query being executed. Defaults to ``.
                                 type: string
                               refId:
                                 description: |-

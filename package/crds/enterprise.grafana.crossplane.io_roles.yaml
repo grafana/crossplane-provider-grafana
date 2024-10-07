@@ -201,8 +201,8 @@ spec:
                           type: string
                         scope:
                           description: |-
-                            (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-                            Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
+                            (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+                            Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
                           type: string
                       type: object
                     type: array
@@ -357,8 +357,8 @@ spec:
                           type: string
                         scope:
                           description: |-
-                            (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-                            Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
+                            (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+                            Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
                           type: string
                       type: object
                     type: array
@@ -606,8 +606,8 @@ spec:
                           type: string
                         scope:
                           description: |-
-                            (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-                            Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
+                            (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+                            Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
                           type: string
                       type: object
                     type: array

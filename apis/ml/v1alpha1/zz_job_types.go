@@ -194,7 +194,7 @@ type JobStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Job is the Schema for the Jobs API. <no value>
+// Job is the Schema for the Jobs API. A job defines the queries and model parameters for a machine learning task.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

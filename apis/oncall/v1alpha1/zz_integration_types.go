@@ -263,6 +263,41 @@ type MicrosoftTeamsParameters struct {
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
 
+type MobileAppInitParameters struct {
+
+	// (String) Template for Alert message.
+	// Template for Alert message.
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) Template for Alert title.
+	// Template for Alert title.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
+type MobileAppObservation struct {
+
+	// (String) Template for Alert message.
+	// Template for Alert message.
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) Template for Alert title.
+	// Template for Alert title.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
+type MobileAppParameters struct {
+
+	// (String) Template for Alert message.
+	// Template for Alert message.
+	// +kubebuilder:validation:Optional
+	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (String) Template for Alert title.
+	// Template for Alert title.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+}
+
 type MsteamsInitParameters struct {
 
 	// (Boolean) Enable notification in MS teams. Defaults to true.
@@ -426,9 +461,13 @@ type TemplatesInitParameters struct {
 	// Template for the key by which alerts are grouped.
 	GroupingKey *string `json:"groupingKey,omitempty" tf:"grouping_key,omitempty"`
 
-	// (Block List, Max: 1) Templates for Microsoft Teams. (see below for nested schema)
-	// Templates for Microsoft Teams.
+	// (Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)
+	// Templates for Microsoft Teams. **NOTE**: Microsoft Teams templates are only available on Grafana Cloud.
 	MicrosoftTeams []MicrosoftTeamsInitParameters `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
+
+	// (Block List, Max: 1) Templates for Mobile app push notifications. (see below for nested schema)
+	// Templates for Mobile app push notifications.
+	MobileApp []MobileAppInitParameters `json:"mobileApp,omitempty" tf:"mobile_app,omitempty"`
 
 	// (Block List, Max: 1) Templates for Phone Call. (see below for nested schema)
 	// Templates for Phone Call.
@@ -473,9 +512,13 @@ type TemplatesObservation struct {
 	// Template for the key by which alerts are grouped.
 	GroupingKey *string `json:"groupingKey,omitempty" tf:"grouping_key,omitempty"`
 
-	// (Block List, Max: 1) Templates for Microsoft Teams. (see below for nested schema)
-	// Templates for Microsoft Teams.
+	// (Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)
+	// Templates for Microsoft Teams. **NOTE**: Microsoft Teams templates are only available on Grafana Cloud.
 	MicrosoftTeams []MicrosoftTeamsObservation `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
+
+	// (Block List, Max: 1) Templates for Mobile app push notifications. (see below for nested schema)
+	// Templates for Mobile app push notifications.
+	MobileApp []MobileAppObservation `json:"mobileApp,omitempty" tf:"mobile_app,omitempty"`
 
 	// (Block List, Max: 1) Templates for Phone Call. (see below for nested schema)
 	// Templates for Phone Call.
@@ -523,10 +566,15 @@ type TemplatesParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupingKey *string `json:"groupingKey,omitempty" tf:"grouping_key,omitempty"`
 
-	// (Block List, Max: 1) Templates for Microsoft Teams. (see below for nested schema)
-	// Templates for Microsoft Teams.
+	// (Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)
+	// Templates for Microsoft Teams. **NOTE**: Microsoft Teams templates are only available on Grafana Cloud.
 	// +kubebuilder:validation:Optional
 	MicrosoftTeams []MicrosoftTeamsParameters `json:"microsoftTeams,omitempty" tf:"microsoft_teams,omitempty"`
+
+	// (Block List, Max: 1) Templates for Mobile app push notifications. (see below for nested schema)
+	// Templates for Mobile app push notifications.
+	// +kubebuilder:validation:Optional
+	MobileApp []MobileAppParameters `json:"mobileApp,omitempty" tf:"mobile_app,omitempty"`
 
 	// (Block List, Max: 1) Templates for Phone Call. (see below for nested schema)
 	// Templates for Phone Call.
@@ -735,7 +783,7 @@ type IntegrationStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Integration is the Schema for the Integrations API. Official documentation https://grafana.com/docs/oncall/latest/integrations/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/
+// Integration is the Schema for the Integrations API. Official documentation https://grafana.com/docs/oncall/latest/configure/integrations/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

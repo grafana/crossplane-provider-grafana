@@ -511,8 +511,8 @@ type DingdingParameters struct {
 
 type DiscordInitParameters struct {
 
-	// (String) The URL of a custom avatar image to use. Defaults to “.
-	// The URL of a custom avatar image to use. Defaults to “.
+	// (String) The URL of a custom avatar image to use. Defaults to ``.
+	// The URL of a custom avatar image to use. Defaults to ``.
 	AvatarURL *string `json:"avatarUrl,omitempty" tf:"avatar_url,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
@@ -520,7 +520,7 @@ type DiscordInitParameters struct {
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
 	// (String) The templated content of the message.
-	// The templated content of the message. Defaults to “.
+	// The templated content of the message. Defaults to ``.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
@@ -540,8 +540,8 @@ type DiscordInitParameters struct {
 
 type DiscordObservation struct {
 
-	// (String) The URL of a custom avatar image to use. Defaults to “.
-	// The URL of a custom avatar image to use. Defaults to “.
+	// (String) The URL of a custom avatar image to use. Defaults to ``.
+	// The URL of a custom avatar image to use. Defaults to ``.
 	AvatarURL *string `json:"avatarUrl,omitempty" tf:"avatar_url,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
@@ -549,7 +549,7 @@ type DiscordObservation struct {
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
 	// (String) The templated content of the message.
-	// The templated content of the message. Defaults to “.
+	// The templated content of the message. Defaults to ``.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (String) The templated title of the message.
@@ -567,8 +567,8 @@ type DiscordObservation struct {
 
 type DiscordParameters struct {
 
-	// (String) The URL of a custom avatar image to use. Defaults to “.
-	// The URL of a custom avatar image to use. Defaults to “.
+	// (String) The URL of a custom avatar image to use. Defaults to ``.
+	// The URL of a custom avatar image to use. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	AvatarURL *string `json:"avatarUrl,omitempty" tf:"avatar_url,omitempty"`
 
@@ -578,7 +578,7 @@ type DiscordParameters struct {
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
 	// (String) The templated content of the message.
-	// The templated content of the message. Defaults to “.
+	// The templated content of the message. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
@@ -614,7 +614,7 @@ type EmailInitParameters struct {
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
 	// (String) The templated content of the message.
-	// The templated content of the email. Defaults to “.
+	// The templated content of the email. Defaults to ``.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
@@ -623,8 +623,8 @@ type EmailInitParameters struct {
 	// Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to `false`.
 	SingleEmail *bool `json:"singleEmail,omitempty" tf:"single_email,omitempty"`
 
-	// (String) The templated subject line of the email. Defaults to “.
-	// The templated subject line of the email. Defaults to “.
+	// (String) The templated subject line of the email. Defaults to ``.
+	// The templated subject line of the email. Defaults to ``.
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
 }
 
@@ -639,15 +639,15 @@ type EmailObservation struct {
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
 	// (String) The templated content of the message.
-	// The templated content of the email. Defaults to “.
+	// The templated content of the email. Defaults to ``.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
 	// (Boolean) Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to false.
 	// Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to `false`.
 	SingleEmail *bool `json:"singleEmail,omitempty" tf:"single_email,omitempty"`
 
-	// (String) The templated subject line of the email. Defaults to “.
-	// The templated subject line of the email. Defaults to “.
+	// (String) The templated subject line of the email. Defaults to ``.
+	// The templated subject line of the email. Defaults to ``.
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
 
 	// (String) The UID of the contact point.
@@ -668,7 +668,7 @@ type EmailParameters struct {
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
 	// (String) The templated content of the message.
-	// The templated content of the email. Defaults to “.
+	// The templated content of the email. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
@@ -682,8 +682,8 @@ type EmailParameters struct {
 	// +kubebuilder:validation:Optional
 	SingleEmail *bool `json:"singleEmail,omitempty" tf:"single_email,omitempty"`
 
-	// (String) The templated subject line of the email. Defaults to “.
-	// The templated subject line of the email. Defaults to “.
+	// (String) The templated subject line of the email. Defaults to ``.
+	// The templated subject line of the email. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
 }
@@ -1981,7 +1981,7 @@ type SnsInitParameters struct {
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
-	// (String) The templated subject line of the email. Defaults to “.
+	// (String) The templated subject line of the email. Defaults to ``.
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
 
 	// (String) The name of the Kafka topic to publish to.
@@ -2014,7 +2014,7 @@ type SnsObservation struct {
 	// The format of the message to send. Valid values are `text`, `body` and `json`. Default is `text`. Defaults to `text`.
 	MessageFormat *string `json:"messageFormat,omitempty" tf:"message_format,omitempty"`
 
-	// (String) The templated subject line of the email. Defaults to “.
+	// (String) The templated subject line of the email. Defaults to ``.
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
 
 	// (String) The name of the Kafka topic to publish to.
@@ -2072,7 +2072,7 @@ type SnsParameters struct {
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
-	// (String) The templated subject line of the email. Defaults to “.
+	// (String) The templated subject line of the email. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	Subject *string `json:"subject,omitempty" tf:"subject,omitempty"`
 
@@ -2854,7 +2854,7 @@ type ContactPointStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ContactPoint is the Schema for the ContactPoints API. Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/notifications/contact-points/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
+// ContactPoint is the Schema for the ContactPoints API. Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

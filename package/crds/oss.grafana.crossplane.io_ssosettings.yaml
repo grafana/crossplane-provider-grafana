@@ -35,9 +35,9 @@ spec:
     schema:
       openAPIV3Schema:
         description: SsoSettings is the Schema for the SsoSettingss API. Manages Grafana
-          SSO Settings for OAuth2 and SAML. Support for SAML is currently in preview,
-          it will be available in Grafana Enterprise starting with v11.1. Official
-          documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP
+          SSO Settings for OAuth2, SAML and LDAP. Support for LDAP is currently in
+          preview, it will be available in Grafana starting with v11.3. Official documentation
+          https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP
           API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
         properties:
           apiVersion:
@@ -76,6 +76,236 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  ldapSettings:
+                    description: |-
+                      (Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)
+                      The LDAP settings set. Required for the ldap provider.
+                    items:
+                      properties:
+                        allowSignUp:
+                          description: |-
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+                            Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+                          type: boolean
+                        config:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) The LDAP configuration. (see below for nested schema)
+                            The LDAP configuration.
+                          items:
+                            properties:
+                              servers:
+                                description: |-
+                                  (Block List, Min: 1) The LDAP servers configuration. (see below for nested schema)
+                                  The LDAP servers configuration.
+                                items:
+                                  properties:
+                                    attributes:
+                                      additionalProperties:
+                                        type: string
+                                      description: |-
+                                        (Map of String) The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+                                        The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+                                      type: object
+                                      x-kubernetes-map-type: granular
+                                    bindDn:
+                                      description: |-
+                                        (String) The search user bind DN.
+                                        The search user bind DN.
+                                      type: string
+                                    bindPasswordSecretRef:
+                                      description: |-
+                                        (String, Sensitive) The search user bind password.
+                                        The search user bind password.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    clientCert:
+                                      description: |-
+                                        (String) The path to the client certificate.
+                                        The path to the client certificate.
+                                      type: string
+                                    clientCertValue:
+                                      description: |-
+                                        (String) The Base64 encoded value of the client certificate.
+                                        The Base64 encoded value of the client certificate.
+                                      type: string
+                                    clientKeySecretRef:
+                                      description: |-
+                                        (String, Sensitive) The path to the client private key.
+                                        The path to the client private key.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    clientKeyValueSecretRef:
+                                      description: |-
+                                        (String, Sensitive) The Base64 encoded value of the client private key.
+                                        The Base64 encoded value of the client private key.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    groupMappings:
+                                      description: |-
+                                        (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
+                                        For mapping an LDAP group to a Grafana organization and role.
+                                      items:
+                                        properties:
+                                          grafanaAdmin:
+                                            description: |-
+                                              (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
+                                              If set to true, it makes the user of group_dn Grafana server admin.
+                                            type: boolean
+                                          groupDn:
+                                            description: |-
+                                              (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+                                              LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+                                            type: string
+                                          orgId:
+                                            description: |-
+                                              (Number) The Grafana organization database id.
+                                              The Grafana organization database id.
+                                            type: number
+                                          orgRole:
+                                            description: |-
+                                              (String) Assign users of group_dn the organization role Admin, Editor, or Viewer.
+                                              Assign users of group_dn the organization role Admin, Editor, or Viewer.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    groupSearchBaseDns:
+                                      description: |-
+                                        (List of String) An array of the base DNs to search through for groups. Typically uses ou=groups.
+                                        An array of the base DNs to search through for groups. Typically uses ou=groups.
+                                      items:
+                                        type: string
+                                      type: array
+                                    groupSearchFilter:
+                                      description: |-
+                                        (String) Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+                                        Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+                                      type: string
+                                    groupSearchFilterUserAttribute:
+                                      description: |-
+                                        (String) The %s in the search filter will be replaced with the attribute defined in this field.
+                                        The %s in the search filter will be replaced with the attribute defined in this field.
+                                      type: string
+                                    host:
+                                      description: |-
+                                        (String) The LDAP server host.
+                                        The LDAP server host.
+                                      type: string
+                                    minTlsVersion:
+                                      description: |-
+                                        (String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+                                        Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+                                      type: string
+                                    port:
+                                      description: |-
+                                        (Number) The LDAP server port.
+                                        The LDAP server port.
+                                      type: number
+                                    rootCaCert:
+                                      description: |-
+                                        (String) The path to the root CA certificate.
+                                        The path to the root CA certificate.
+                                      type: string
+                                    rootCaCertValue:
+                                      description: |-
+                                        (List of String) The Base64 encoded values of the root CA certificates.
+                                        The Base64 encoded values of the root CA certificates.
+                                      items:
+                                        type: string
+                                      type: array
+                                    searchBaseDns:
+                                      description: |-
+                                        (List of String) An array of base DNs to search through.
+                                        An array of base DNs to search through.
+                                      items:
+                                        type: string
+                                      type: array
+                                    searchFilter:
+                                      description: |-
+                                        (String) The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+                                        The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+                                      type: string
+                                    sslSkipVerify:
+                                      description: |-
+                                        (Boolean) If set to true, the SSL cert validation will be skipped.
+                                        If set to true, the SSL cert validation will be skipped.
+                                      type: boolean
+                                    startTls:
+                                      description: |-
+                                        (Boolean) If set to true, use LDAP with STARTTLS instead of LDAPS.
+                                        If set to true, use LDAP with STARTTLS instead of LDAPS.
+                                      type: boolean
+                                    timeout:
+                                      description: |-
+                                        (Number) The timeout in seconds for connecting to the LDAP host.
+                                        The timeout in seconds for connecting to the LDAP host.
+                                      type: number
+                                    tlsCiphers:
+                                      description: |-
+                                        (List of String) Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+                                        Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+                                      items:
+                                        type: string
+                                      type: array
+                                    useSsl:
+                                      description: |-
+                                        (Boolean) Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+                                        Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+                                      type: boolean
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        enabled:
+                          description: |-
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
+                            Define whether this configuration is enabled for LDAP. Defaults to `true`.
+                          type: boolean
+                        skipOrgRoleSync:
+                          description: |-
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
+                            Prevent synchronizing users’ organization roles from LDAP.
+                          type: boolean
+                      type: object
+                    type: array
                   oauth2Settings:
                     description: |-
                       (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
@@ -89,7 +319,7 @@ spec:
                           type: boolean
                         allowSignUp:
                           description: |-
-                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
                             If not enabled, only existing Grafana users can log in using OAuth.
                           type: boolean
                         allowedDomains:
@@ -186,7 +416,7 @@ spec:
                           type: boolean
                         enabled:
                           description: |-
-                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for the specified provider. Defaults to `true`.
                           type: boolean
                         groupsAttributePath:
@@ -246,7 +476,7 @@ spec:
                           type: string
                         skipOrgRoleSync:
                           description: |-
-                            (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
                         teamIds:
@@ -303,8 +533,8 @@ spec:
                     type: array
                   providerName:
                     description: |-
-                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
-                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
+                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
                     type: string
                   samlSettings:
                     description: |-
@@ -319,7 +549,7 @@ spec:
                           type: boolean
                         allowSignUp:
                           description: |-
-                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
                             Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
                           type: boolean
                         allowedOrganizations:
@@ -398,7 +628,7 @@ spec:
                           type: string
                         enabled:
                           description: |-
-                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
                           type: boolean
                         forceUseGraphApi:
@@ -512,7 +742,7 @@ spec:
                           type: boolean
                         skipOrgRoleSync:
                           description: |-
-                            (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
                         tokenUrl:
@@ -536,6 +766,236 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  ldapSettings:
+                    description: |-
+                      (Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)
+                      The LDAP settings set. Required for the ldap provider.
+                    items:
+                      properties:
+                        allowSignUp:
+                          description: |-
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+                            Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+                          type: boolean
+                        config:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) The LDAP configuration. (see below for nested schema)
+                            The LDAP configuration.
+                          items:
+                            properties:
+                              servers:
+                                description: |-
+                                  (Block List, Min: 1) The LDAP servers configuration. (see below for nested schema)
+                                  The LDAP servers configuration.
+                                items:
+                                  properties:
+                                    attributes:
+                                      additionalProperties:
+                                        type: string
+                                      description: |-
+                                        (Map of String) The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+                                        The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+                                      type: object
+                                      x-kubernetes-map-type: granular
+                                    bindDn:
+                                      description: |-
+                                        (String) The search user bind DN.
+                                        The search user bind DN.
+                                      type: string
+                                    bindPasswordSecretRef:
+                                      description: |-
+                                        (String, Sensitive) The search user bind password.
+                                        The search user bind password.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    clientCert:
+                                      description: |-
+                                        (String) The path to the client certificate.
+                                        The path to the client certificate.
+                                      type: string
+                                    clientCertValue:
+                                      description: |-
+                                        (String) The Base64 encoded value of the client certificate.
+                                        The Base64 encoded value of the client certificate.
+                                      type: string
+                                    clientKeySecretRef:
+                                      description: |-
+                                        (String, Sensitive) The path to the client private key.
+                                        The path to the client private key.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    clientKeyValueSecretRef:
+                                      description: |-
+                                        (String, Sensitive) The Base64 encoded value of the client private key.
+                                        The Base64 encoded value of the client private key.
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
+                                    groupMappings:
+                                      description: |-
+                                        (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
+                                        For mapping an LDAP group to a Grafana organization and role.
+                                      items:
+                                        properties:
+                                          grafanaAdmin:
+                                            description: |-
+                                              (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
+                                              If set to true, it makes the user of group_dn Grafana server admin.
+                                            type: boolean
+                                          groupDn:
+                                            description: |-
+                                              (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+                                              LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+                                            type: string
+                                          orgId:
+                                            description: |-
+                                              (Number) The Grafana organization database id.
+                                              The Grafana organization database id.
+                                            type: number
+                                          orgRole:
+                                            description: |-
+                                              (String) Assign users of group_dn the organization role Admin, Editor, or Viewer.
+                                              Assign users of group_dn the organization role Admin, Editor, or Viewer.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    groupSearchBaseDns:
+                                      description: |-
+                                        (List of String) An array of the base DNs to search through for groups. Typically uses ou=groups.
+                                        An array of the base DNs to search through for groups. Typically uses ou=groups.
+                                      items:
+                                        type: string
+                                      type: array
+                                    groupSearchFilter:
+                                      description: |-
+                                        (String) Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+                                        Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+                                      type: string
+                                    groupSearchFilterUserAttribute:
+                                      description: |-
+                                        (String) The %s in the search filter will be replaced with the attribute defined in this field.
+                                        The %s in the search filter will be replaced with the attribute defined in this field.
+                                      type: string
+                                    host:
+                                      description: |-
+                                        (String) The LDAP server host.
+                                        The LDAP server host.
+                                      type: string
+                                    minTlsVersion:
+                                      description: |-
+                                        (String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+                                        Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+                                      type: string
+                                    port:
+                                      description: |-
+                                        (Number) The LDAP server port.
+                                        The LDAP server port.
+                                      type: number
+                                    rootCaCert:
+                                      description: |-
+                                        (String) The path to the root CA certificate.
+                                        The path to the root CA certificate.
+                                      type: string
+                                    rootCaCertValue:
+                                      description: |-
+                                        (List of String) The Base64 encoded values of the root CA certificates.
+                                        The Base64 encoded values of the root CA certificates.
+                                      items:
+                                        type: string
+                                      type: array
+                                    searchBaseDns:
+                                      description: |-
+                                        (List of String) An array of base DNs to search through.
+                                        An array of base DNs to search through.
+                                      items:
+                                        type: string
+                                      type: array
+                                    searchFilter:
+                                      description: |-
+                                        (String) The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+                                        The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+                                      type: string
+                                    sslSkipVerify:
+                                      description: |-
+                                        (Boolean) If set to true, the SSL cert validation will be skipped.
+                                        If set to true, the SSL cert validation will be skipped.
+                                      type: boolean
+                                    startTls:
+                                      description: |-
+                                        (Boolean) If set to true, use LDAP with STARTTLS instead of LDAPS.
+                                        If set to true, use LDAP with STARTTLS instead of LDAPS.
+                                      type: boolean
+                                    timeout:
+                                      description: |-
+                                        (Number) The timeout in seconds for connecting to the LDAP host.
+                                        The timeout in seconds for connecting to the LDAP host.
+                                      type: number
+                                    tlsCiphers:
+                                      description: |-
+                                        (List of String) Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+                                        Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+                                      items:
+                                        type: string
+                                      type: array
+                                    useSsl:
+                                      description: |-
+                                        (Boolean) Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+                                        Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+                                      type: boolean
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        enabled:
+                          description: |-
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
+                            Define whether this configuration is enabled for LDAP. Defaults to `true`.
+                          type: boolean
+                        skipOrgRoleSync:
+                          description: |-
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
+                            Prevent synchronizing users’ organization roles from LDAP.
+                          type: boolean
+                      type: object
+                    type: array
                   oauth2Settings:
                     description: |-
                       (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
@@ -549,7 +1009,7 @@ spec:
                           type: boolean
                         allowSignUp:
                           description: |-
-                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
                             If not enabled, only existing Grafana users can log in using OAuth.
                           type: boolean
                         allowedDomains:
@@ -646,7 +1106,7 @@ spec:
                           type: boolean
                         enabled:
                           description: |-
-                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for the specified provider. Defaults to `true`.
                           type: boolean
                         groupsAttributePath:
@@ -706,7 +1166,7 @@ spec:
                           type: string
                         skipOrgRoleSync:
                           description: |-
-                            (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
                         teamIds:
@@ -763,8 +1223,8 @@ spec:
                     type: array
                   providerName:
                     description: |-
-                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
-                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
+                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
                     type: string
                   samlSettings:
                     description: |-
@@ -779,7 +1239,7 @@ spec:
                           type: boolean
                         allowSignUp:
                           description: |-
-                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
                             Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
                           type: boolean
                         allowedOrganizations:
@@ -858,7 +1318,7 @@ spec:
                           type: string
                         enabled:
                           description: |-
-                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
                           type: boolean
                         forceUseGraphApi:
@@ -972,7 +1432,7 @@ spec:
                           type: boolean
                         skipOrgRoleSync:
                           description: |-
-                            (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
                         tokenUrl:
@@ -1163,6 +1623,179 @@ spec:
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  ldapSettings:
+                    description: |-
+                      (Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)
+                      The LDAP settings set. Required for the ldap provider.
+                    items:
+                      properties:
+                        allowSignUp:
+                          description: |-
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+                            Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+                          type: boolean
+                        config:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) The LDAP configuration. (see below for nested schema)
+                            The LDAP configuration.
+                          items:
+                            properties:
+                              servers:
+                                description: |-
+                                  (Block List, Min: 1) The LDAP servers configuration. (see below for nested schema)
+                                  The LDAP servers configuration.
+                                items:
+                                  properties:
+                                    attributes:
+                                      additionalProperties:
+                                        type: string
+                                      description: |-
+                                        (Map of String) The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+                                        The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+                                      type: object
+                                      x-kubernetes-map-type: granular
+                                    bindDn:
+                                      description: |-
+                                        (String) The search user bind DN.
+                                        The search user bind DN.
+                                      type: string
+                                    clientCert:
+                                      description: |-
+                                        (String) The path to the client certificate.
+                                        The path to the client certificate.
+                                      type: string
+                                    clientCertValue:
+                                      description: |-
+                                        (String) The Base64 encoded value of the client certificate.
+                                        The Base64 encoded value of the client certificate.
+                                      type: string
+                                    groupMappings:
+                                      description: |-
+                                        (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
+                                        For mapping an LDAP group to a Grafana organization and role.
+                                      items:
+                                        properties:
+                                          grafanaAdmin:
+                                            description: |-
+                                              (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
+                                              If set to true, it makes the user of group_dn Grafana server admin.
+                                            type: boolean
+                                          groupDn:
+                                            description: |-
+                                              (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+                                              LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+                                            type: string
+                                          orgId:
+                                            description: |-
+                                              (Number) The Grafana organization database id.
+                                              The Grafana organization database id.
+                                            type: number
+                                          orgRole:
+                                            description: |-
+                                              (String) Assign users of group_dn the organization role Admin, Editor, or Viewer.
+                                              Assign users of group_dn the organization role Admin, Editor, or Viewer.
+                                            type: string
+                                        type: object
+                                      type: array
+                                    groupSearchBaseDns:
+                                      description: |-
+                                        (List of String) An array of the base DNs to search through for groups. Typically uses ou=groups.
+                                        An array of the base DNs to search through for groups. Typically uses ou=groups.
+                                      items:
+                                        type: string
+                                      type: array
+                                    groupSearchFilter:
+                                      description: |-
+                                        (String) Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+                                        Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+                                      type: string
+                                    groupSearchFilterUserAttribute:
+                                      description: |-
+                                        (String) The %s in the search filter will be replaced with the attribute defined in this field.
+                                        The %s in the search filter will be replaced with the attribute defined in this field.
+                                      type: string
+                                    host:
+                                      description: |-
+                                        (String) The LDAP server host.
+                                        The LDAP server host.
+                                      type: string
+                                    minTlsVersion:
+                                      description: |-
+                                        (String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+                                        Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+                                      type: string
+                                    port:
+                                      description: |-
+                                        (Number) The LDAP server port.
+                                        The LDAP server port.
+                                      type: number
+                                    rootCaCert:
+                                      description: |-
+                                        (String) The path to the root CA certificate.
+                                        The path to the root CA certificate.
+                                      type: string
+                                    rootCaCertValue:
+                                      description: |-
+                                        (List of String) The Base64 encoded values of the root CA certificates.
+                                        The Base64 encoded values of the root CA certificates.
+                                      items:
+                                        type: string
+                                      type: array
+                                    searchBaseDns:
+                                      description: |-
+                                        (List of String) An array of base DNs to search through.
+                                        An array of base DNs to search through.
+                                      items:
+                                        type: string
+                                      type: array
+                                    searchFilter:
+                                      description: |-
+                                        (String) The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+                                        The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+                                      type: string
+                                    sslSkipVerify:
+                                      description: |-
+                                        (Boolean) If set to true, the SSL cert validation will be skipped.
+                                        If set to true, the SSL cert validation will be skipped.
+                                      type: boolean
+                                    startTls:
+                                      description: |-
+                                        (Boolean) If set to true, use LDAP with STARTTLS instead of LDAPS.
+                                        If set to true, use LDAP with STARTTLS instead of LDAPS.
+                                      type: boolean
+                                    timeout:
+                                      description: |-
+                                        (Number) The timeout in seconds for connecting to the LDAP host.
+                                        The timeout in seconds for connecting to the LDAP host.
+                                      type: number
+                                    tlsCiphers:
+                                      description: |-
+                                        (List of String) Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+                                        Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+                                      items:
+                                        type: string
+                                      type: array
+                                    useSsl:
+                                      description: |-
+                                        (Boolean) Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+                                        Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+                                      type: boolean
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        enabled:
+                          description: |-
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
+                            Define whether this configuration is enabled for LDAP. Defaults to `true`.
+                          type: boolean
+                        skipOrgRoleSync:
+                          description: |-
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
+                            Prevent synchronizing users’ organization roles from LDAP.
+                          type: boolean
+                      type: object
+                    type: array
                   oauth2Settings:
                     description: |-
                       (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
@@ -1176,7 +1809,7 @@ spec:
                           type: boolean
                         allowSignUp:
                           description: |-
-                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
                             If not enabled, only existing Grafana users can log in using OAuth.
                           type: boolean
                         allowedDomains:
@@ -1254,7 +1887,7 @@ spec:
                           type: boolean
                         enabled:
                           description: |-
-                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for the specified provider. Defaults to `true`.
                           type: boolean
                         groupsAttributePath:
@@ -1314,7 +1947,7 @@ spec:
                           type: string
                         skipOrgRoleSync:
                           description: |-
-                            (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
                         teamIds:
@@ -1371,8 +2004,8 @@ spec:
                     type: array
                   providerName:
                     description: |-
-                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
-                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+                      (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
+                      The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
                     type: string
                   samlSettings:
                     description: |-
@@ -1387,7 +2020,7 @@ spec:
                           type: boolean
                         allowSignUp:
                           description: |-
-                            (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+                            (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
                             Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
                           type: boolean
                         allowedOrganizations:
@@ -1447,7 +2080,7 @@ spec:
                           type: string
                         enabled:
                           description: |-
-                            (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+                            (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
                           type: boolean
                         forceUseGraphApi:
@@ -1542,7 +2175,7 @@ spec:
                           type: boolean
                         skipOrgRoleSync:
                           description: |-
-                            (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+                            (Boolean) Prevent synchronizing users’ organization roles from LDAP.
                             Prevent synchronizing users’ organization roles from your IdP.
                           type: boolean
                         tokenUrl:

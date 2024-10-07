@@ -23,12 +23,12 @@ type DataSourceInitParameters struct {
 	// Whether to enable basic auth for the data source. Defaults to `false`.
 	BasicAuthEnabled *bool `json:"basicAuthEnabled,omitempty" tf:"basic_auth_enabled,omitempty"`
 
-	// (String) Basic auth username. Defaults to “.
-	// Basic auth username. Defaults to “.
+	// (String) Basic auth username. Defaults to ``.
+	// Basic auth username. Defaults to ``.
 	BasicAuthUsername *string `json:"basicAuthUsername,omitempty" tf:"basic_auth_username,omitempty"`
 
-	// (String)  The name of the database to use on the selected data source server. Defaults to “.
-	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
+	// (String)  The name of the database to use on the selected data source server. Defaults to ``.
+	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
 	HTTPHeaders map[string]*string `json:"httpHeadersSecretRef,omitempty" tf:"-"`
@@ -76,8 +76,8 @@ type DataSourceInitParameters struct {
 	// The URL for the data source. The type of URL required varies depending on the chosen data source type.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String)  The username to use to authenticate to the data source. Defaults to “.
-	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
+	// (String)  The username to use to authenticate to the data source. Defaults to ``.
+	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
@@ -91,12 +91,12 @@ type DataSourceObservation struct {
 	// Whether to enable basic auth for the data source. Defaults to `false`.
 	BasicAuthEnabled *bool `json:"basicAuthEnabled,omitempty" tf:"basic_auth_enabled,omitempty"`
 
-	// (String) Basic auth username. Defaults to “.
-	// Basic auth username. Defaults to “.
+	// (String) Basic auth username. Defaults to ``.
+	// Basic auth username. Defaults to ``.
 	BasicAuthUsername *string `json:"basicAuthUsername,omitempty" tf:"basic_auth_username,omitempty"`
 
-	// (String)  The name of the database to use on the selected data source server. Defaults to “.
-	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
+	// (String)  The name of the database to use on the selected data source server. Defaults to ``.
+	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
 	// (String) The ID of this resource.
@@ -130,8 +130,8 @@ type DataSourceObservation struct {
 	// The URL for the data source. The type of URL required varies depending on the chosen data source type.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String)  The username to use to authenticate to the data source. Defaults to “.
-	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
+	// (String)  The username to use to authenticate to the data source. Defaults to ``.
+	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
@@ -147,13 +147,13 @@ type DataSourceParameters struct {
 	// +kubebuilder:validation:Optional
 	BasicAuthEnabled *bool `json:"basicAuthEnabled,omitempty" tf:"basic_auth_enabled,omitempty"`
 
-	// (String) Basic auth username. Defaults to “.
-	// Basic auth username. Defaults to “.
+	// (String) Basic auth username. Defaults to ``.
+	// Basic auth username. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	BasicAuthUsername *string `json:"basicAuthUsername,omitempty" tf:"basic_auth_username,omitempty"`
 
-	// (String)  The name of the database to use on the selected data source server. Defaults to “.
-	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
+	// (String)  The name of the database to use on the selected data source server. Defaults to ``.
+	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
@@ -213,8 +213,8 @@ type DataSourceParameters struct {
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String)  The username to use to authenticate to the data source. Defaults to “.
-	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
+	// (String)  The username to use to authenticate to the data source. Defaults to ``.
+	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }

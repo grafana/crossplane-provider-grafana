@@ -277,7 +277,7 @@ resources:
         importStatements: []
     grafana_contact_point:
         subCategory: Alerting
-        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/next/alerting/fundamentals/notifications/contact-points/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
         name: grafana_contact_point
         title: grafana_contact_point Resource - terraform-provider-grafana
         examples:
@@ -726,6 +726,13 @@ resources:
                   "json_data_encoded": "${jsonencode({\n    defaultRegion = \"us-east-1\"\n    authType      = \"keys\"\n  })}",
                   "name": "cw-example",
                   "secure_json_data_encoded": "${jsonencode({\n    accessKey = \"123\"\n    secretKey = \"456\"\n  })}",
+                  "type": "cloudwatch"
+                }
+            - name: cloudwatch_assumeARN
+              manifest: |-
+                {
+                  "json_data_encoded": "${jsonencode({\n    defaultRegion = \"us-east-1\"\n    authType      = \"grafana_assume_role\"\n    assumeRoleArn = \"arn:aws:iam::123456789012:root\"\n  })}",
+                  "name": "cw-assumeARN-example",
                   "type": "cloudwatch"
                 }
             - name: prometheus
@@ -1321,79 +1328,236 @@ resources:
                         "expr": "grafanacloud_grafana_instance_active_user_count"
                       }
                     }
-        argumentDocs:
-            annotations: (Map of String) Annotations to add to the alert generated in Grafana.
-            anomaly_condition: (String) The condition for when to consider a point as anomalous.
-            for: (String) How long values must be anomalous before firing an alert.
-            id: (String) The ID of the alert.
-            job_id: (String) The forecast this alert belongs to.
-            labels: (Map of String) Labels to add to the alert generated in Grafana.
-            no_data_state: (String) How the alert should be processed when no data is returned by the underlying series
-            outlier_id: (String) The forecast this alert belongs to.
-            threshold: (String) The threshold of points over the window that need to be anomalous to alert.
-            title: (String) The title of the alert.
-            window: (String) How much time to average values over
+            - name: test_outlier_alert
+              manifest: |-
+                {
+                  "outlier_id": "${grafana_machine_learning_outlier_detector.test_alert_outlier_detector.id}",
+                  "title": "Test Alert",
+                  "window": "1h"
+                }
+              references:
+                outlier_id: grafana_machine_learning_outlier_detector.test_alert_outlier_detector.id
+              dependencies:
+                grafana_machine_learning_outlier_detector.test_alert_outlier_detector: |-
+                    {
+                      "algorithm": [
+                        {
+                          "config": [
+                            {
+                              "epsilon": 1
+                            }
+                          ],
+                          "name": "dbscan",
+                          "sensitivity": 0.5
+                        }
+                      ],
+                      "datasource_type": "prometheus",
+                      "datasource_uid": "AbCd12345",
+                      "interval": 300,
+                      "metric": "tf_test_alert_outlier",
+                      "name": "Test Outlier",
+                      "query_params": {
+                        "expr": "grafanacloud_grafana_instance_active_user_count"
+                      }
+                    }
+        argumentDocs: {}
         importStatements:
             - terraform import grafana_machine_learning_alert.name "{{ id }}"
-    grafana_machine_learning_holiday Resource - terraform-provider-grafana:
+    grafana_machine_learning_holiday:
         subCategory: Machine Learning
         description: 'A holiday describes time periods where a time series is expected to behave differently to normal. To use a holiday in a job, use its id in the holidays attribute of a grafana_machine_learning_job:'
-        name: grafana_machine_learning_holiday Resource - terraform-provider-grafana
+        name: grafana_machine_learning_holiday
         title: grafana_machine_learning_holiday Resource - terraform-provider-grafana
-        argumentDocs:
-            custom_periods: (Block List) A list of custom periods for the holiday. (see below for nested schema)
-            description: (String) A description of the holiday.
-            end_time: (String)
-            ical_timezone: (String) The timezone to use for events in the iCal file pointed to by ical_url.
-            ical_url: (String) A URL to an iCal file containing all occurrences of the holiday.
-            id: (String) The ID of the holiday.
-            name: (String) The name of the holiday.
-            start_time: (String)
+        examples:
+            - name: ical
+              manifest: |-
+                {
+                  "description": "My Holiday",
+                  "ical_timezone": "Europe/London",
+                  "ical_url": "https://calendar.google.com/calendar/ical/en.uk%23holiday%40group.v.calendar.google.com/public/basic.ics",
+                  "name": "My iCal holiday"
+                }
+            - name: custom_periods
+              manifest: |-
+                {
+                  "custom_periods": [
+                    {
+                      "end_time": "2023-01-02T00:00:00Z",
+                      "name": "First of January",
+                      "start_time": "2023-01-01T00:00:00Z"
+                    },
+                    {
+                      "end_time": "2023-02-02T00:00:00Z",
+                      "name": "First of Feburary",
+                      "start_time": "2023-02-01T00:00:00Z"
+                    }
+                  ],
+                  "description": "My Holiday",
+                  "name": "My custom periods holiday"
+                }
+        argumentDocs: {}
         importStatements:
             - terraform import grafana_machine_learning_holiday.name "{{ id }}"
-    grafana_machine_learning_job Resource - terraform-provider-grafana:
+    grafana_machine_learning_job:
         subCategory: Machine Learning
         description: A job defines the queries and model parameters for a machine learning task.
-        name: grafana_machine_learning_job Resource - terraform-provider-grafana
+        name: grafana_machine_learning_job
         title: grafana_machine_learning_job Resource - terraform-provider-grafana
-        argumentDocs:
-            custom_labels: (Map of String) An object representing the custom labels added on the forecast.
-            datasource_type: (String) The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
-            datasource_uid: (String) The uid of the datasource to query.
-            description: (String) A description of the job.
-            holidays: (List of String) A list of holiday IDs or names to take into account when training the model.
-            hyper_params: (Map of String) The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/machine-learning/models/ for the full list of available hyperparameters. Defaults to map[].
-            id: (String) The ID of the job.
-            interval: (Number) The data interval in seconds to train the data on. Defaults to 300.
-            metric: (String) The metric used to query the job results.
-            name: (String) The name of the job.
-            query_params: (Map of String) An object representing the query params to query Grafana with.
-            training_window: (Number) The data interval in seconds to train the data on. Defaults to 7776000.
+        examples:
+            - name: test_job
+              manifest: |-
+                {
+                  "datasource_type": "prometheus",
+                  "datasource_uid": "${grafana_data_source.foo.uid}",
+                  "metric": "tf_test_job",
+                  "name": "Test Job",
+                  "query_params": {
+                    "expr": "grafanacloud_grafana_instance_active_user_count"
+                  }
+                }
+              references:
+                datasource_uid: grafana_data_source.foo.uid
+              dependencies:
+                grafana_data_source.foo: |-
+                    {
+                      "basic_auth_enabled": true,
+                      "basic_auth_username": "username",
+                      "json_data_encoded": "${jsonencode({\n    httpMethod        = \"POST\"\n    prometheusType    = \"Mimir\"\n    prometheusVersion = \"2.4.0\"\n  })}",
+                      "name": "prometheus-ds-test",
+                      "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
+                      "type": "prometheus",
+                      "uid": "prometheus-ds-test-uid",
+                      "url": "https://my-instance.com"
+                    }
+            - name: test_job
+              manifest: |-
+                {
+                  "custom_labels": {
+                    "example_label": "example_value"
+                  },
+                  "datasource_type": "prometheus",
+                  "datasource_uid": "${grafana_data_source.foo.uid}",
+                  "hyper_params": {
+                    "daily_seasonality": 15,
+                    "weekly_seasonality": 10
+                  },
+                  "metric": "tf_test_job",
+                  "name": "Test Job",
+                  "query_params": {
+                    "expr": "grafanacloud_grafana_instance_active_user_count"
+                  }
+                }
+              references:
+                datasource_uid: grafana_data_source.foo.uid
+              dependencies:
+                grafana_data_source.foo: |-
+                    {
+                      "basic_auth_enabled": true,
+                      "basic_auth_username": "username",
+                      "json_data_encoded": "${jsonencode({\n    httpMethod        = \"POST\"\n    prometheusType    = \"Mimir\"\n    prometheusVersion = \"2.4.0\"\n  })}",
+                      "name": "prometheus-ds-test",
+                      "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
+                      "type": "prometheus",
+                      "uid": "prometheus-ds-test-uid",
+                      "url": "https://my-instance.com"
+                    }
+            - name: test_job
+              manifest: |-
+                {
+                  "datasource_type": "prometheus",
+                  "datasource_uid": "${grafana_data_source.foo.uid}",
+                  "holidays": [
+                    "${grafana_machine_learning_holiday.test_holiday.id}"
+                  ],
+                  "metric": "tf_test_job",
+                  "name": "Test Job",
+                  "query_params": {
+                    "expr": "grafanacloud_grafana_instance_active_user_count"
+                  }
+                }
+              references:
+                datasource_uid: grafana_data_source.foo.uid
+              dependencies:
+                grafana_data_source.foo: |-
+                    {
+                      "basic_auth_enabled": true,
+                      "basic_auth_username": "username",
+                      "json_data_encoded": "${jsonencode({\n    httpMethod        = \"POST\"\n    prometheusType    = \"Mimir\"\n    prometheusVersion = \"2.4.0\"\n  })}",
+                      "name": "prometheus-ds-test",
+                      "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
+                      "type": "prometheus",
+                      "uid": "prometheus-ds-test-uid",
+                      "url": "https://my-instance.com"
+                    }
+                grafana_machine_learning_holiday.test_holiday: |-
+                    {
+                      "custom_periods": [
+                        {
+                          "end_time": "2023-01-02T00:00:00Z",
+                          "name": "First of January",
+                          "start_time": "2023-01-01T00:00:00Z"
+                        }
+                      ],
+                      "name": "Test Holiday"
+                    }
+        argumentDocs: {}
         importStatements:
             - terraform import grafana_machine_learning_job.name "{{ id }}"
-    grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana:
+    grafana_machine_learning_outlier_detector:
         subCategory: Machine Learning
         description: An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for more details.
-        name: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
+        name: grafana_machine_learning_outlier_detector
         title: grafana_machine_learning_outlier_detector Resource - terraform-provider-grafana
-        argumentDocs:
-            algorithm: '(Block Set, Min: 1, Max: 1) The algorithm to use and its configuration. See https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for details. (see below for nested schema)'
-            config: '(Block Set, Max: 1) For DBSCAN only, specify the configuration map (see below for nested schema)'
-            datasource_type: (String) The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, and datadog.
-            datasource_uid: (String) The uid of the datasource to query.
-            description: (String) A description of the outlier detector.
-            epsilon: (Number) Specify the epsilon parameter (positive float)
-            id: (String) The ID of the outlier detector.
-            interval: (Number) The data interval in seconds to monitor. Defaults to 300.
-            metric: (String) The metric used to query the outlier detector results.
-            name: (String) The name of the outlier detector.
-            query_params: (Map of String) An object representing the query params to query Grafana with.
-            sensitivity: (Number) Specify the sensitivity of the detector (in range [0,1]).
+        examples:
+            - name: my_dbscan_outlier_detector
+              manifest: |-
+                {
+                  "algorithm": [
+                    {
+                      "config": [
+                        {
+                          "epsilon": 1
+                        }
+                      ],
+                      "name": "dbscan",
+                      "sensitivity": 0.5
+                    }
+                  ],
+                  "datasource_type": "prometheus",
+                  "datasource_uid": "AbCd12345",
+                  "description": "My DBSCAN Outlier Detector",
+                  "interval": 300,
+                  "metric": "tf_test_dbscan_job",
+                  "name": "My DBSCAN outlier detector",
+                  "query_params": {
+                    "expr": "grafanacloud_grafana_instance_active_user_count"
+                  }
+                }
+            - name: my_mad_outlier_detector
+              manifest: |-
+                {
+                  "algorithm": [
+                    {
+                      "name": "mad",
+                      "sensitivity": 0.7
+                    }
+                  ],
+                  "datasource_type": "prometheus",
+                  "datasource_uid": "AbCd12345",
+                  "description": "My MAD Outlier Detector",
+                  "interval": 300,
+                  "metric": "tf_test_mad_job",
+                  "name": "My MAD outlier detector",
+                  "query_params": {
+                    "expr": "grafanacloud_grafana_instance_active_user_count"
+                  }
+                }
+        argumentDocs: {}
         importStatements:
             - terraform import grafana_machine_learning_outlier_detector.name "{{ id }}"
     grafana_message_template:
         subCategory: Alerting
-        description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/configure-notifications/template-notifications/create-notification-templates/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
         name: grafana_message_template
         title: grafana_message_template Resource - terraform-provider-grafana
         examples:
@@ -1415,7 +1579,7 @@ resources:
               terraform import grafana_message_template.name "{{ orgID }}:{{ name }}"
     grafana_mute_timing:
         subCategory: Alerting
-        description: Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/configure-notifications/mute-timings/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
         name: grafana_mute_timing
         title: grafana_mute_timing Resource - terraform-provider-grafana
         examples:
@@ -1471,7 +1635,7 @@ resources:
               terraform import grafana_mute_timing.name "{{ orgID }}:{{ name }}"
     grafana_notification_policy:
         subCategory: Alerting
-        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/configure-notifications/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/ This resource requires Grafana 9.1.0 or later.
+        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
         name: grafana_notification_policy
         title: grafana_notification_policy Resource - terraform-provider-grafana
         examples:
@@ -1690,7 +1854,7 @@ resources:
             - terraform import grafana_oncall_escalation_chain.name "{{ id }}"
     grafana_oncall_integration:
         subCategory: OnCall
-        description: Official documentation https://grafana.com/docs/oncall/latest/integrations/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/
+        description: Official documentation https://grafana.com/docs/oncall/latest/configure/integrations/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/
         name: grafana_oncall_integration
         title: grafana_oncall_integration Resource - terraform-provider-grafana
         examples:
@@ -1742,7 +1906,8 @@ resources:
             image_url: (String) Template for Alert image url.
             link: (String) The link for using in an integrated tool.
             message: (String) Template for Alert message.
-            microsoft_teams: '(Block List, Max: 1) Templates for Microsoft Teams. (see below for nested schema)'
+            microsoft_teams: '(Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)'
+            mobile_app: '(Block List, Max: 1) Templates for Mobile app push notifications. (see below for nested schema)'
             msteams: '(Block List, Max: 1) MS teams-specific settings for a route. (see below for nested schema)'
             name: (String) The name of the service integration.
             phone_call: '(Block List, Max: 1) Templates for Phone Call. (see below for nested schema)'
@@ -1819,6 +1984,7 @@ resources:
             team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
             time_zone: (String) The shift's timezone.  Overrides schedule's timezone.
             type: (String) The shift's type. Can be rolling_users, recurrent_event, single_event
+            until: (String) The end time of recurrent on-call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
             users: (Set of String) The list of on-call users (for single_event and recurrent_event event type).
             week_start: (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
         importStatements:
@@ -2077,7 +2243,7 @@ resources:
             - terraform import grafana_oncall_user_notification_rule.name "{{ id }}"
     grafana_organization:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/org/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth.
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/org/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth. This resource is also not compatible with Grafana Cloud, as it does not allow basic auth.
         name: grafana_organization
         title: grafana_organization Resource - terraform-provider-grafana
         examples:
@@ -2505,7 +2671,7 @@ resources:
               terraform import grafana_role_assignment_item.name "{{ orgID }}:{{ roleUID }}:{{ type (user, team or service_account) }}:{{ identifier }}"
     grafana_rule_group:
         subCategory: Alerting
-        description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/alerting-rules/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
         name: grafana_rule_group
         title: grafana_rule_group Resource - terraform-provider-grafana
         examples:
@@ -2983,7 +3149,7 @@ resources:
             - terraform import grafana_slo.name "{{ uuid }}"
     grafana_sso_settings:
         subCategory: Grafana OSS
-        description: Manages Grafana SSO Settings for OAuth2 and SAML. Support for SAML is currently in preview, it will be available in Grafana Enterprise starting with v11.1. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+        description: Manages Grafana SSO Settings for OAuth2, SAML and LDAP. Support for LDAP is currently in preview, it will be available in Grafana starting with v11.3. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
         name: grafana_sso_settings
         title: grafana_sso_settings Resource - terraform-provider-grafana
         examples:
@@ -3042,10 +3208,59 @@ resources:
                     }
                   ]
                 }
+            - name: ldap_sso_settings
+              manifest: |-
+                {
+                  "ldap_settings": [
+                    {
+                      "config": [
+                        {
+                          "servers": [
+                            {
+                              "attributes": {
+                                "email": "email",
+                                "member_of": "memberOf",
+                                "name": "givenName",
+                                "surname": "sn",
+                                "username": "cn"
+                              },
+                              "bind_dn": "cn=admin,dc=grafana,dc=org",
+                              "bind_password": "grafana",
+                              "group_mappings": [
+                                {
+                                  "grafana_admin": true,
+                                  "group_dn": "cn=superadmins,dc=grafana,dc=org",
+                                  "org_id": 1,
+                                  "org_role": "Admin"
+                                },
+                                {
+                                  "group_dn": "cn=users,dc=grafana,dc=org",
+                                  "org_role": "Editor"
+                                },
+                                {
+                                  "group_dn": "*",
+                                  "org_role": "Viewer"
+                                }
+                              ],
+                              "host": "127.0.0.1",
+                              "port": 389,
+                              "search_base_dns": [
+                                "dc=grafana,dc=org"
+                              ],
+                              "search_filter": "(cn=%s)"
+                            }
+                          ]
+                        }
+                      ],
+                      "enabled": "true"
+                    }
+                  ],
+                  "provider_name": "ldap"
+                }
         argumentDocs:
             allow_assign_grafana_admin: (Boolean) If enabled, it will automatically sync the Grafana server administrator role.
             allow_idp_initiated: (Boolean) Whether SAML IdP-initiated login is allowed.
-            allow_sign_up: (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+            allow_sign_up: (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
             allowed_domains: (String) List of comma- or space-separated domains. The user should belong to at least one domain to log in.
             allowed_groups: (String) List of comma- or space-separated groups. The user should be a member of at least one group to log in. For Generic OAuth, if you configure allowed_groups, you must also configure groups_attribute_path.
             allowed_organizations: (String) List of comma- or space-separated organizations. The user should be a member of at least one organization to log in.
@@ -3056,39 +3271,59 @@ resources:
             assertion_attribute_name: (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
             assertion_attribute_org: (String) Friendly name or name of the attribute within the SAML assertion to use as the user organization.
             assertion_attribute_role: (String) Friendly name or name of the attribute within the SAML assertion to use as the user roles.
+            attributes: '(Map of String) The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.'
             auth_style: (String) It determines how client_id and client_secret are sent to Oauth2 provider. Possible values are AutoDetect, InParams, InHeader. Default is AutoDetect.
             auth_url: (String) The authorization endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
             auto_login: (Boolean) Log in automatically, skipping the login screen.
+            bind_dn: (String) The search user bind DN.
+            bind_password: (String, Sensitive) The search user bind password.
             certificate: (String, Sensitive) Base64-encoded string for the SP X.509 certificate.
             certificate_path: (String) Path for the SP X.509 certificate.
+            client_cert: (String) The path to the client certificate.
+            client_cert_value: (String) The Base64 encoded value of the client certificate.
             client_id: (String) The client Id of your OAuth2 app.
+            client_key: (String, Sensitive) The path to the client private key.
+            client_key_value: (String, Sensitive) The Base64 encoded value of the client private key.
             client_secret: (String, Sensitive) The client secret of your OAuth2 app.
+            config: '(Block List, Min: 1, Max: 1) The LDAP configuration. (see below for nested schema)'
             custom: (Map of String) Custom fields to configure for OAuth2 such as the force_use_graph_api field.
             define_allowed_groups: (Boolean) Define allowed groups.
             define_allowed_teams_ids: (Boolean) Define allowed teams ids.
             email_attribute_name: (String) Name of the key to use for user email lookup within the attributes map of OAuth2 ID token. Only applicable to Generic OAuth.
             email_attribute_path: (String) JMESPath expression to use for user email lookup from the user information. Only applicable to Generic OAuth.
             empty_scopes: (Boolean) If enabled, no scopes will be sent to the OAuth2 provider.
-            enabled: (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+            enabled: (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
             force_use_graph_api: (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
+            grafana_admin: (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
+            group_dn: (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+            group_mappings: (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
+            group_search_base_dns: (List of String) An array of the base DNs to search through for groups. Typically uses ou=groups.
+            group_search_filter: (String) Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+            group_search_filter_user_attribute: (String) The %s in the search filter will be replaced with the attribute defined in this field.
             groups_attribute_path: (String) JMESPath expression to use for user group lookup. If you configure allowed_groups, you must also configure groups_attribute_path.
+            host: (String) The LDAP server host.
             id: (String) The ID of this resource.
             id_token_attribute_name: (String) The name of the key used to extract the ID token from the returned OAuth2 token. Only applicable to Generic OAuth.
             idp_metadata: (String) Base64-encoded string for the IdP SAML metadata XML.
             idp_metadata_path: (String) Path for the IdP SAML metadata XML.
             idp_metadata_url: (String) URL for the IdP SAML metadata XML.
+            ldap_settings: '(Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)'
             login_attribute_path: (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
             max_issue_delay: '(String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.'
             metadata_valid_duration: '(String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.'
+            min_tls_version: '(String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.'
             name: (String) Helpful if you use more than one identity providers or SSO protocols.
             name_attribute_path: (String) JMESPath expression to use for user name lookup from the user ID token. This name will be used as the user’s display name. Only applicable to Generic OAuth.
             name_id_format: (String) The Name ID Format to request within the SAML assertion. Defaults to urn:oasis:names:tc:SAML:2.0:nameid-format:transient
             oauth2_settings: '(Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)'
             org_attribute_path: (String) JMESPath expression to use for the organization mapping lookup from the user ID token. The extracted list will be used for the organization mapping (to match "Organization" in the "org_mapping"). Only applicable to Generic OAuth and Okta.
+            org_id: (Number) The Grafana organization database id.
             org_mapping: '(String) List of comma- or space-separated Organization:OrgIdOrOrgName:Role mappings. Organization can be * meaning “All users”. Role is optional and can have the following values: None, Viewer, Editor or Admin.'
+            org_role: (String) Assign users of group_dn the organization role Admin, Editor, or Viewer.
+            port: (Number) The LDAP server port.
             private_key: (String, Sensitive) Base64-encoded string for the SP private key.
             private_key_path: (String) Path for the SP private key.
-            provider_name: '(String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.'
+            provider_name: '(String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.'
             relay_state: (String) Relay state for IdP-initiated login. Should match relay state configured in IdP.
             role_attribute_path: (String) JMESPath expression to use for Grafana role lookup.
             role_attribute_strict: (Boolean) If enabled, denies user login if the Grafana role cannot be extracted using Role attribute path.
@@ -3097,15 +3332,24 @@ resources:
             role_values_grafana_admin: (String) List of comma- or space-separated roles which will be mapped into the Grafana Admin (Super Admin) role.
             role_values_none: (String) List of comma- or space-separated roles which will be mapped into the None role.
             role_values_viewer: (String) List of comma- or space-separated roles which will be mapped into the Viewer role.
+            root_ca_cert: (String) The path to the root CA certificate.
+            root_ca_cert_value: (List of String) The Base64 encoded values of the root CA certificates.
             saml_settings: '(Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)'
             scopes: (String) List of comma- or space-separated OAuth2 scopes.
+            search_base_dns: (List of String) An array of base DNs to search through.
+            search_filter: (String) The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+            servers: '(Block List, Min: 1) The LDAP servers configuration. (see below for nested schema)'
             signature_algorithm: (String) Signature algorithm used for signing requests to the IdP. Supported values are rsa-sha1, rsa-sha256, rsa-sha512.
             signout_redirect_url: (String) The URL to redirect the user to after signing out from Grafana.
             single_logout: (Boolean) Whether SAML Single Logout is enabled.
-            skip_org_role_sync: (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+            skip_org_role_sync: (Boolean) Prevent synchronizing users’ organization roles from LDAP.
+            ssl_skip_verify: (Boolean) If set to true, the SSL cert validation will be skipped.
+            start_tls: (Boolean) If set to true, use LDAP with STARTTLS instead of LDAPS.
             team_ids: (String) String list of Team Ids. If set, the user must be a member of one of the given teams to log in. If you configure team_ids, you must also configure teams_url and team_ids_attribute_path.
             team_ids_attribute_path: (String) The JMESPath expression to use for Grafana Team Id lookup within the results returned by the teams_url endpoint. Only applicable to Generic OAuth.
             teams_url: (String) The URL used to query for Team Ids. If not set, the default value is /teams. If you configure teams_url, you must also configure team_ids_attribute_path. Only applicable to Generic OAuth.
+            timeout: (Number) The timeout in seconds for connecting to the LDAP host.
+            tls_ciphers: '(List of String) Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.'
             tls_client_ca: (String) The path to the trusted certificate authority list. Is not applicable on Grafana Cloud.
             tls_client_cert: (String) The path to the certificate. Is not applicable on Grafana Cloud.
             tls_client_key: (String) The path to the key. Is not applicable on Grafana Cloud.
@@ -3113,6 +3357,7 @@ resources:
             token_url: (String) The token endpoint of your OAuth2 provider. Required for azuread, okta and generic_oauth providers.
             use_pkce: (Boolean) If enabled, Grafana will use Proof Key for Code Exchange (PKCE) with the OAuth2 Authorization Code Grant.
             use_refresh_token: (Boolean) If enabled, Grafana will fetch a new access token using the refresh token provided by the OAuth2 provider.
+            use_ssl: (Boolean) Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
         importStatements:
             - |-
               terraform import grafana_sso_settings.name "{{ provider }}"
@@ -3915,7 +4160,7 @@ resources:
               terraform import grafana_team_external_group.name "{{ orgID }}:{{ teamID }}"
     grafana_user:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/user/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth.
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/user/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth. This resource is also not compatible with Grafana Cloud, as it does not allow basic auth.
         name: grafana_user
         title: grafana_user Resource - terraform-provider-grafana
         examples:

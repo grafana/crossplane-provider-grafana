@@ -1,0 +1,25 @@
+apiVersion: ml.grafana.crossplane.io/v1alpha1
+kind: OutlierDetector
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ml/v1alpha1/outlierdetector
+  labels:
+    testing.upbound.io/example-name: my_dbscan_outlier_detector
+  name: my-dbscan-outlier-detector
+spec:
+  forProvider:
+    algorithm:
+    - config:
+      - epsilon: 1
+      name: dbscan
+      sensitivity: 0.5
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    datasourceType: prometheus
+    description: My DBSCAN Outlier Detector
+    interval: 300
+    metric: tf_test_dbscan_job
+    name: My DBSCAN outlier detector
+    queryParams:
+      expr: grafanacloud_grafana_instance_active_user_count

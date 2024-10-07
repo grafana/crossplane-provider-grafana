@@ -87,13 +87,13 @@ spec:
                     type: boolean
                   basicAuthUsername:
                     description: |-
-                      (String) Basic auth username. Defaults to “.
-                      Basic auth username. Defaults to “.
+                      (String) Basic auth username. Defaults to ``.
+                      Basic auth username. Defaults to ``.
                     type: string
                   databaseName:
                     description: |-
-                      (String)  The name of the database to use on the selected data source server. Defaults to “.
-                      (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
+                      (String)  The name of the database to use on the selected data source server. Defaults to ``.
+                      (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
                     type: string
                   httpHeadersSecretRef:
                     description: |-
@@ -240,8 +240,8 @@ spec:
                     type: string
                   username:
                     description: |-
-                      (String)  The username to use to authenticate to the data source. Defaults to “.
-                      (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
+                      (String)  The username to use to authenticate to the data source. Defaults to ``.
+                      (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
                     type: string
                 type: object
               initProvider:
@@ -269,13 +269,13 @@ spec:
                     type: boolean
                   basicAuthUsername:
                     description: |-
-                      (String) Basic auth username. Defaults to “.
-                      Basic auth username. Defaults to “.
+                      (String) Basic auth username. Defaults to ``.
+                      Basic auth username. Defaults to ``.
                     type: string
                   databaseName:
                     description: |-
-                      (String)  The name of the database to use on the selected data source server. Defaults to “.
-                      (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
+                      (String)  The name of the database to use on the selected data source server. Defaults to ``.
+                      (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
                     type: string
                   httpHeadersSecretRef:
                     additionalProperties:
@@ -411,8 +411,8 @@ spec:
                     type: string
                   username:
                     description: |-
-                      (String)  The username to use to authenticate to the data source. Defaults to “.
-                      (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
+                      (String)  The username to use to authenticate to the data source. Defaults to ``.
+                      (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
                     type: string
                 type: object
               managementPolicies:
@@ -608,13 +608,13 @@ spec:
                     type: boolean
                   basicAuthUsername:
                     description: |-
-                      (String) Basic auth username. Defaults to “.
-                      Basic auth username. Defaults to “.
+                      (String) Basic auth username. Defaults to ``.
+                      Basic auth username. Defaults to ``.
                     type: string
                   databaseName:
                     description: |-
-                      (String)  The name of the database to use on the selected data source server. Defaults to “.
-                      (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
+                      (String)  The name of the database to use on the selected data source server. Defaults to ``.
+                      (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
                     type: string
                   id:
                     description: (String) The ID of this resource.
@@ -656,8 +656,8 @@ spec:
                     type: string
                   username:
                     description: |-
-                      (String)  The username to use to authenticate to the data source. Defaults to “.
-                      (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
+                      (String)  The username to use to authenticate to the data source. Defaults to ``.
+                      (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
                     type: string
                 type: object
               conditions:

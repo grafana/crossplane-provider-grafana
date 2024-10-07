@@ -245,7 +245,7 @@ type MuteTimingStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// MuteTiming is the Schema for the MuteTimings API. Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/configure-notifications/mute-timings/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
+// MuteTiming is the Schema for the MuteTimings API. Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

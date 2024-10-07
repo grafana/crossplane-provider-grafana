@@ -132,7 +132,7 @@ type HolidayStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Holiday is the Schema for the Holidays API. <no value>
+// Holiday is the Schema for the Holidays API. A holiday describes time periods where a time series is expected to behave differently to normal. To use a holiday in a job, use its id in the holidays attribute of a grafana_machine_learning_job:
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
