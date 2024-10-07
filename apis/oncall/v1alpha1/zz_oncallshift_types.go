@@ -74,6 +74,10 @@ type OnCallShiftInitParameters struct {
 	// The shift's type. Can be rolling_users, recurrent_event, single_event
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
+	// The end time of recurrent on-call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
+	Until *string `json:"until,omitempty" tf:"until,omitempty"`
+
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).
 	// +listType=set
@@ -147,6 +151,10 @@ type OnCallShiftObservation struct {
 	// (String) The shift's type. Can be rolling_users, recurrent_event, single_event
 	// The shift's type. Can be rolling_users, recurrent_event, single_event
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
+	// The end time of recurrent on-call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
+	Until *string `json:"until,omitempty" tf:"until,omitempty"`
 
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).
@@ -232,6 +240,11 @@ type OnCallShiftParameters struct {
 	// The shift's type. Can be rolling_users, recurrent_event, single_event
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
+	// The end time of recurrent on-call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
+	// +kubebuilder:validation:Optional
+	Until *string `json:"until,omitempty" tf:"until,omitempty"`
 
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).

@@ -1,0 +1,14 @@
+apiVersion: ml.grafana.crossplane.io/v1alpha1
+kind: Holiday
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ml/v1alpha1/holiday
+  labels:
+    testing.upbound.io/example-name: ical
+  name: ical
+spec:
+  forProvider:
+    description: My Holiday
+    icalTimezone: Europe/London
+    icalUrl: https://calendar.google.com/calendar/ical/en.uk%23holiday%40group.v.calendar.google.com/public/basic.ics
+    name: My iCal holiday
