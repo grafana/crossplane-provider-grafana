@@ -23,7 +23,7 @@ func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Realm); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Realm[i3].Identifier),
-			Extract:      reference.ExternalName(),
+			Extract:      grafana.ComputedFieldExtractor("id"),
 			Reference:    mg.Spec.ForProvider.Realm[i3].StackRef,
 			Selector:     mg.Spec.ForProvider.Realm[i3].StackSelector,
 			To: reference.To{
@@ -41,7 +41,7 @@ func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Realm); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Realm[i3].Identifier),
-			Extract:      reference.ExternalName(),
+			Extract:      grafana.ComputedFieldExtractor("id"),
 			Reference:    mg.Spec.InitProvider.Realm[i3].StackRef,
 			Selector:     mg.Spec.InitProvider.Realm[i3].StackSelector,
 			To: reference.To{
