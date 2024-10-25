@@ -171,6 +171,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "StackRef",
 			SelectorFieldName: "StackSelector",
+			Extractor:         computedFieldExtractor("id"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_cloud_access_policy_token", func(r *ujconfig.Resource) {
