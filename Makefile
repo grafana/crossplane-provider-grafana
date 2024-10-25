@@ -5,6 +5,7 @@ PROJECT_NAME := provider-grafana
 PROJECT_REPO := github.com/grafana/crossplane-provider-grafana
 
 export TERRAFORM_VERSION := 1.7.5
+export CROSSPLANE_VERSION := 1.17
 
 export TERRAFORM_PROVIDER_SOURCE := grafana/grafana
 export TERRAFORM_PROVIDER_REPO := https://github.com/grafana/terraform-provider-grafana
