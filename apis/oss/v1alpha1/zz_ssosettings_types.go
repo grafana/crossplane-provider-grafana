@@ -13,6 +13,150 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type ConfigInitParameters struct {
+
+	// (Block List, Min: 1) The LDAP servers configuration. (see below for nested schema)
+	// The LDAP servers configuration.
+	Servers []ServersInitParameters `json:"servers,omitempty" tf:"servers,omitempty"`
+}
+
+type ConfigObservation struct {
+
+	// (Block List, Min: 1) The LDAP servers configuration. (see below for nested schema)
+	// The LDAP servers configuration.
+	Servers []ServersObservation `json:"servers,omitempty" tf:"servers,omitempty"`
+}
+
+type ConfigParameters struct {
+
+	// (Block List, Min: 1) The LDAP servers configuration. (see below for nested schema)
+	// The LDAP servers configuration.
+	// +kubebuilder:validation:Optional
+	Servers []ServersParameters `json:"servers" tf:"servers,omitempty"`
+}
+
+type GroupMappingsInitParameters struct {
+
+	// (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
+	// If set to true, it makes the user of group_dn Grafana server admin.
+	GrafanaAdmin *bool `json:"grafanaAdmin,omitempty" tf:"grafana_admin,omitempty"`
+
+	// (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+	// LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+	GroupDn *string `json:"groupDn,omitempty" tf:"group_dn,omitempty"`
+
+	// (Number) The Grafana organization database id.
+	// The Grafana organization database id.
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (String) Assign users of group_dn the organization role Admin, Editor, or Viewer.
+	// Assign users of group_dn the organization role Admin, Editor, or Viewer.
+	OrgRole *string `json:"orgRole,omitempty" tf:"org_role,omitempty"`
+}
+
+type GroupMappingsObservation struct {
+
+	// (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
+	// If set to true, it makes the user of group_dn Grafana server admin.
+	GrafanaAdmin *bool `json:"grafanaAdmin,omitempty" tf:"grafana_admin,omitempty"`
+
+	// (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+	// LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+	GroupDn *string `json:"groupDn,omitempty" tf:"group_dn,omitempty"`
+
+	// (Number) The Grafana organization database id.
+	// The Grafana organization database id.
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (String) Assign users of group_dn the organization role Admin, Editor, or Viewer.
+	// Assign users of group_dn the organization role Admin, Editor, or Viewer.
+	OrgRole *string `json:"orgRole,omitempty" tf:"org_role,omitempty"`
+}
+
+type GroupMappingsParameters struct {
+
+	// (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
+	// If set to true, it makes the user of group_dn Grafana server admin.
+	// +kubebuilder:validation:Optional
+	GrafanaAdmin *bool `json:"grafanaAdmin,omitempty" tf:"grafana_admin,omitempty"`
+
+	// (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+	// LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
+	// +kubebuilder:validation:Optional
+	GroupDn *string `json:"groupDn" tf:"group_dn,omitempty"`
+
+	// (Number) The Grafana organization database id.
+	// The Grafana organization database id.
+	// +kubebuilder:validation:Optional
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (String) Assign users of group_dn the organization role Admin, Editor, or Viewer.
+	// Assign users of group_dn the organization role Admin, Editor, or Viewer.
+	// +kubebuilder:validation:Optional
+	OrgRole *string `json:"orgRole" tf:"org_role,omitempty"`
+}
+
+type LdapSettingsInitParameters struct {
+
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+	// Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The LDAP configuration. (see below for nested schema)
+	// The LDAP configuration.
+	Config []ConfigInitParameters `json:"config,omitempty" tf:"config,omitempty"`
+
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
+	// Define whether this configuration is enabled for LDAP. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
+	// Prevent synchronizing users’ organization roles from LDAP.
+	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
+}
+
+type LdapSettingsObservation struct {
+
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+	// Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The LDAP configuration. (see below for nested schema)
+	// The LDAP configuration.
+	Config []ConfigObservation `json:"config,omitempty" tf:"config,omitempty"`
+
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
+	// Define whether this configuration is enabled for LDAP. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
+	// Prevent synchronizing users’ organization roles from LDAP.
+	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
+}
+
+type LdapSettingsParameters struct {
+
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+	// Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
+	// +kubebuilder:validation:Optional
+	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
+
+	// (Block List, Min: 1, Max: 1) The LDAP configuration. (see below for nested schema)
+	// The LDAP configuration.
+	// +kubebuilder:validation:Optional
+	Config []ConfigParameters `json:"config" tf:"config,omitempty"`
+
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
+	// Define whether this configuration is enabled for LDAP. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
+	// Prevent synchronizing users’ organization roles from LDAP.
+	// +kubebuilder:validation:Optional
+	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
+}
+
 type Oauth2SettingsInitParameters struct {
 
 	// (String) The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
@@ -23,7 +167,7 @@ type Oauth2SettingsInitParameters struct {
 	// If enabled, it will automatically sync the Grafana server administrator role.
 	AllowAssignGrafanaAdmin *bool `json:"allowAssignGrafanaAdmin,omitempty" tf:"allow_assign_grafana_admin,omitempty"`
 
-	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
 	// If not enabled, only existing Grafana users can log in using OAuth.
 	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
 
@@ -84,7 +228,7 @@ type Oauth2SettingsInitParameters struct {
 	// If enabled, no scopes will be sent to the OAuth2 provider.
 	EmptyScopes *bool `json:"emptyScopes,omitempty" tf:"empty_scopes,omitempty"`
 
-	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
 	// Define whether this configuration is enabled for the specified provider. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -132,7 +276,7 @@ type Oauth2SettingsInitParameters struct {
 	// The URL to redirect the user to after signing out from Grafana.
 	SignoutRedirectURL *string `json:"signoutRedirectUrl,omitempty" tf:"signout_redirect_url,omitempty"`
 
-	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
 
@@ -187,7 +331,7 @@ type Oauth2SettingsObservation struct {
 	// If enabled, it will automatically sync the Grafana server administrator role.
 	AllowAssignGrafanaAdmin *bool `json:"allowAssignGrafanaAdmin,omitempty" tf:"allow_assign_grafana_admin,omitempty"`
 
-	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
 	// If not enabled, only existing Grafana users can log in using OAuth.
 	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
 
@@ -244,7 +388,7 @@ type Oauth2SettingsObservation struct {
 	// If enabled, no scopes will be sent to the OAuth2 provider.
 	EmptyScopes *bool `json:"emptyScopes,omitempty" tf:"empty_scopes,omitempty"`
 
-	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
 	// Define whether this configuration is enabled for the specified provider. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -292,7 +436,7 @@ type Oauth2SettingsObservation struct {
 	// The URL to redirect the user to after signing out from Grafana.
 	SignoutRedirectURL *string `json:"signoutRedirectUrl,omitempty" tf:"signout_redirect_url,omitempty"`
 
-	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
 
@@ -349,7 +493,7 @@ type Oauth2SettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	AllowAssignGrafanaAdmin *bool `json:"allowAssignGrafanaAdmin,omitempty" tf:"allow_assign_grafana_admin,omitempty"`
 
-	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
 	// If not enabled, only existing Grafana users can log in using OAuth.
 	// +kubebuilder:validation:Optional
 	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
@@ -425,7 +569,7 @@ type Oauth2SettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	EmptyScopes *bool `json:"emptyScopes,omitempty" tf:"empty_scopes,omitempty"`
 
-	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
 	// Define whether this configuration is enabled for the specified provider. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -485,7 +629,7 @@ type Oauth2SettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	SignoutRedirectURL *string `json:"signoutRedirectUrl,omitempty" tf:"signout_redirect_url,omitempty"`
 
-	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	// +kubebuilder:validation:Optional
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
@@ -547,7 +691,7 @@ type SAMLSettingsInitParameters struct {
 	// Whether SAML IdP-initiated login is allowed.
 	AllowIdpInitiated *bool `json:"allowIdpInitiated,omitempty" tf:"allow_idp_initiated,omitempty"`
 
-	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
 	// Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
 	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
 
@@ -599,7 +743,7 @@ type SAMLSettingsInitParameters struct {
 	// The client secret of your OAuth2 app.
 	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
 
-	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -679,7 +823,7 @@ type SAMLSettingsInitParameters struct {
 	// Whether SAML Single Logout is enabled.
 	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
 
-	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
 
@@ -694,7 +838,7 @@ type SAMLSettingsObservation struct {
 	// Whether SAML IdP-initiated login is allowed.
 	AllowIdpInitiated *bool `json:"allowIdpInitiated,omitempty" tf:"allow_idp_initiated,omitempty"`
 
-	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
 	// Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
 	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
 
@@ -742,7 +886,7 @@ type SAMLSettingsObservation struct {
 	// The client secret of your OAuth2 app.
 	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
 
-	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -818,7 +962,7 @@ type SAMLSettingsObservation struct {
 	// Whether SAML Single Logout is enabled.
 	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
 
-	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
 
@@ -834,7 +978,7 @@ type SAMLSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	AllowIdpInitiated *bool `json:"allowIdpInitiated,omitempty" tf:"allow_idp_initiated,omitempty"`
 
-	// (Boolean) If not enabled, only existing Grafana users can log in using OAuth.
+	// (Boolean) Whether to allow new Grafana user creation through LDAP login. If set to false, then only existing Grafana users can log in with LDAP.
 	// Whether to allow new Grafana user creation through SAML login. If set to false, then only existing Grafana users can log in with SAML.
 	// +kubebuilder:validation:Optional
 	AllowSignUp *bool `json:"allowSignUp,omitempty" tf:"allow_sign_up,omitempty"`
@@ -899,7 +1043,7 @@ type SAMLSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	ClientSecret *string `json:"clientSecret,omitempty" tf:"client_secret,omitempty"`
 
-	// (Boolean) Define whether this configuration is enabled for the specified provider. Defaults to true.
+	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -999,7 +1143,7 @@ type SAMLSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	SingleLogout *bool `json:"singleLogout,omitempty" tf:"single_logout,omitempty"`
 
-	// (Boolean) Prevent synchronizing users’ organization roles from your IdP.
+	// (Boolean) Prevent synchronizing users’ organization roles from LDAP.
 	// Prevent synchronizing users’ organization roles from your IdP.
 	// +kubebuilder:validation:Optional
 	SkipOrgRoleSync *bool `json:"skipOrgRoleSync,omitempty" tf:"skip_org_role_sync,omitempty"`
@@ -1010,14 +1154,317 @@ type SAMLSettingsParameters struct {
 	TokenURL *string `json:"tokenUrl,omitempty" tf:"token_url,omitempty"`
 }
 
+type ServersInitParameters struct {
+
+	// (Map of String) The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+	// The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+	// +mapType=granular
+	Attributes map[string]*string `json:"attributes,omitempty" tf:"attributes,omitempty"`
+
+	// (String) The search user bind DN.
+	// The search user bind DN.
+	BindDn *string `json:"bindDn,omitempty" tf:"bind_dn,omitempty"`
+
+	// (String, Sensitive) The search user bind password.
+	// The search user bind password.
+	BindPasswordSecretRef *v1.SecretKeySelector `json:"bindPasswordSecretRef,omitempty" tf:"-"`
+
+	// (String) The path to the client certificate.
+	// The path to the client certificate.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (String) The Base64 encoded value of the client certificate.
+	// The Base64 encoded value of the client certificate.
+	ClientCertValue *string `json:"clientCertValue,omitempty" tf:"client_cert_value,omitempty"`
+
+	// (String, Sensitive) The path to the client private key.
+	// The path to the client private key.
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The Base64 encoded value of the client private key.
+	// The Base64 encoded value of the client private key.
+	ClientKeyValueSecretRef *v1.SecretKeySelector `json:"clientKeyValueSecretRef,omitempty" tf:"-"`
+
+	// (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
+	// For mapping an LDAP group to a Grafana organization and role.
+	GroupMappings []GroupMappingsInitParameters `json:"groupMappings,omitempty" tf:"group_mappings,omitempty"`
+
+	// (List of String) An array of the base DNs to search through for groups. Typically uses ou=groups.
+	// An array of the base DNs to search through for groups. Typically uses ou=groups.
+	GroupSearchBaseDNS []*string `json:"groupSearchBaseDns,omitempty" tf:"group_search_base_dns,omitempty"`
+
+	// (String) Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+	// Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+	GroupSearchFilter *string `json:"groupSearchFilter,omitempty" tf:"group_search_filter,omitempty"`
+
+	// (String) The %s in the search filter will be replaced with the attribute defined in this field.
+	// The %s in the search filter will be replaced with the attribute defined in this field.
+	GroupSearchFilterUserAttribute *string `json:"groupSearchFilterUserAttribute,omitempty" tf:"group_search_filter_user_attribute,omitempty"`
+
+	// (String) The LDAP server host.
+	// The LDAP server host.
+	Host *string `json:"host,omitempty" tf:"host,omitempty"`
+
+	// (String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+	// Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+	MinTLSVersion *string `json:"minTlsVersion,omitempty" tf:"min_tls_version,omitempty"`
+
+	// (Number) The LDAP server port.
+	// The LDAP server port.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// (String) The path to the root CA certificate.
+	// The path to the root CA certificate.
+	RootCACert *string `json:"rootCaCert,omitempty" tf:"root_ca_cert,omitempty"`
+
+	// (List of String) The Base64 encoded values of the root CA certificates.
+	// The Base64 encoded values of the root CA certificates.
+	RootCACertValue []*string `json:"rootCaCertValue,omitempty" tf:"root_ca_cert_value,omitempty"`
+
+	// (Boolean) If set to true, the SSL cert validation will be skipped.
+	// If set to true, the SSL cert validation will be skipped.
+	SSLSkipVerify *bool `json:"sslSkipVerify,omitempty" tf:"ssl_skip_verify,omitempty"`
+
+	// (List of String) An array of base DNs to search through.
+	// An array of base DNs to search through.
+	SearchBaseDNS []*string `json:"searchBaseDns,omitempty" tf:"search_base_dns,omitempty"`
+
+	// (String) The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+	// The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+	SearchFilter *string `json:"searchFilter,omitempty" tf:"search_filter,omitempty"`
+
+	// (Boolean) If set to true, use LDAP with STARTTLS instead of LDAPS.
+	// If set to true, use LDAP with STARTTLS instead of LDAPS.
+	StartTLS *bool `json:"startTls,omitempty" tf:"start_tls,omitempty"`
+
+	// (List of String) Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+	// Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+	TLSCiphers []*string `json:"tlsCiphers,omitempty" tf:"tls_ciphers,omitempty"`
+
+	// (Number) The timeout in seconds for connecting to the LDAP host.
+	// The timeout in seconds for connecting to the LDAP host.
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Boolean) Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+	// Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+	UseSSL *bool `json:"useSsl,omitempty" tf:"use_ssl,omitempty"`
+}
+
+type ServersObservation struct {
+
+	// (Map of String) The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+	// The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+	// +mapType=granular
+	Attributes map[string]*string `json:"attributes,omitempty" tf:"attributes,omitempty"`
+
+	// (String) The search user bind DN.
+	// The search user bind DN.
+	BindDn *string `json:"bindDn,omitempty" tf:"bind_dn,omitempty"`
+
+	// (String) The path to the client certificate.
+	// The path to the client certificate.
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (String) The Base64 encoded value of the client certificate.
+	// The Base64 encoded value of the client certificate.
+	ClientCertValue *string `json:"clientCertValue,omitempty" tf:"client_cert_value,omitempty"`
+
+	// (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
+	// For mapping an LDAP group to a Grafana organization and role.
+	GroupMappings []GroupMappingsObservation `json:"groupMappings,omitempty" tf:"group_mappings,omitempty"`
+
+	// (List of String) An array of the base DNs to search through for groups. Typically uses ou=groups.
+	// An array of the base DNs to search through for groups. Typically uses ou=groups.
+	GroupSearchBaseDNS []*string `json:"groupSearchBaseDns,omitempty" tf:"group_search_base_dns,omitempty"`
+
+	// (String) Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+	// Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+	GroupSearchFilter *string `json:"groupSearchFilter,omitempty" tf:"group_search_filter,omitempty"`
+
+	// (String) The %s in the search filter will be replaced with the attribute defined in this field.
+	// The %s in the search filter will be replaced with the attribute defined in this field.
+	GroupSearchFilterUserAttribute *string `json:"groupSearchFilterUserAttribute,omitempty" tf:"group_search_filter_user_attribute,omitempty"`
+
+	// (String) The LDAP server host.
+	// The LDAP server host.
+	Host *string `json:"host,omitempty" tf:"host,omitempty"`
+
+	// (String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+	// Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+	MinTLSVersion *string `json:"minTlsVersion,omitempty" tf:"min_tls_version,omitempty"`
+
+	// (Number) The LDAP server port.
+	// The LDAP server port.
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// (String) The path to the root CA certificate.
+	// The path to the root CA certificate.
+	RootCACert *string `json:"rootCaCert,omitempty" tf:"root_ca_cert,omitempty"`
+
+	// (List of String) The Base64 encoded values of the root CA certificates.
+	// The Base64 encoded values of the root CA certificates.
+	RootCACertValue []*string `json:"rootCaCertValue,omitempty" tf:"root_ca_cert_value,omitempty"`
+
+	// (Boolean) If set to true, the SSL cert validation will be skipped.
+	// If set to true, the SSL cert validation will be skipped.
+	SSLSkipVerify *bool `json:"sslSkipVerify,omitempty" tf:"ssl_skip_verify,omitempty"`
+
+	// (List of String) An array of base DNs to search through.
+	// An array of base DNs to search through.
+	SearchBaseDNS []*string `json:"searchBaseDns,omitempty" tf:"search_base_dns,omitempty"`
+
+	// (String) The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+	// The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+	SearchFilter *string `json:"searchFilter,omitempty" tf:"search_filter,omitempty"`
+
+	// (Boolean) If set to true, use LDAP with STARTTLS instead of LDAPS.
+	// If set to true, use LDAP with STARTTLS instead of LDAPS.
+	StartTLS *bool `json:"startTls,omitempty" tf:"start_tls,omitempty"`
+
+	// (List of String) Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+	// Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+	TLSCiphers []*string `json:"tlsCiphers,omitempty" tf:"tls_ciphers,omitempty"`
+
+	// (Number) The timeout in seconds for connecting to the LDAP host.
+	// The timeout in seconds for connecting to the LDAP host.
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Boolean) Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+	// Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+	UseSSL *bool `json:"useSsl,omitempty" tf:"use_ssl,omitempty"`
+}
+
+type ServersParameters struct {
+
+	// (Map of String) The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+	// The LDAP server attributes. The following attributes can be configured: email, member_of, name, surname, username.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Attributes map[string]*string `json:"attributes,omitempty" tf:"attributes,omitempty"`
+
+	// (String) The search user bind DN.
+	// The search user bind DN.
+	// +kubebuilder:validation:Optional
+	BindDn *string `json:"bindDn,omitempty" tf:"bind_dn,omitempty"`
+
+	// (String, Sensitive) The search user bind password.
+	// The search user bind password.
+	// +kubebuilder:validation:Optional
+	BindPasswordSecretRef *v1.SecretKeySelector `json:"bindPasswordSecretRef,omitempty" tf:"-"`
+
+	// (String) The path to the client certificate.
+	// The path to the client certificate.
+	// +kubebuilder:validation:Optional
+	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
+
+	// (String) The Base64 encoded value of the client certificate.
+	// The Base64 encoded value of the client certificate.
+	// +kubebuilder:validation:Optional
+	ClientCertValue *string `json:"clientCertValue,omitempty" tf:"client_cert_value,omitempty"`
+
+	// (String, Sensitive) The path to the client private key.
+	// The path to the client private key.
+	// +kubebuilder:validation:Optional
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) The Base64 encoded value of the client private key.
+	// The Base64 encoded value of the client private key.
+	// +kubebuilder:validation:Optional
+	ClientKeyValueSecretRef *v1.SecretKeySelector `json:"clientKeyValueSecretRef,omitempty" tf:"-"`
+
+	// (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
+	// For mapping an LDAP group to a Grafana organization and role.
+	// +kubebuilder:validation:Optional
+	GroupMappings []GroupMappingsParameters `json:"groupMappings,omitempty" tf:"group_mappings,omitempty"`
+
+	// (List of String) An array of the base DNs to search through for groups. Typically uses ou=groups.
+	// An array of the base DNs to search through for groups. Typically uses ou=groups.
+	// +kubebuilder:validation:Optional
+	GroupSearchBaseDNS []*string `json:"groupSearchBaseDns,omitempty" tf:"group_search_base_dns,omitempty"`
+
+	// (String) Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+	// Group search filter, to retrieve the groups of which the user is a member (only set if memberOf attribute is not available).
+	// +kubebuilder:validation:Optional
+	GroupSearchFilter *string `json:"groupSearchFilter,omitempty" tf:"group_search_filter,omitempty"`
+
+	// (String) The %s in the search filter will be replaced with the attribute defined in this field.
+	// The %s in the search filter will be replaced with the attribute defined in this field.
+	// +kubebuilder:validation:Optional
+	GroupSearchFilterUserAttribute *string `json:"groupSearchFilterUserAttribute,omitempty" tf:"group_search_filter_user_attribute,omitempty"`
+
+	// (String) The LDAP server host.
+	// The LDAP server host.
+	// +kubebuilder:validation:Optional
+	Host *string `json:"host" tf:"host,omitempty"`
+
+	// (String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+	// Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.
+	// +kubebuilder:validation:Optional
+	MinTLSVersion *string `json:"minTlsVersion,omitempty" tf:"min_tls_version,omitempty"`
+
+	// (Number) The LDAP server port.
+	// The LDAP server port.
+	// +kubebuilder:validation:Optional
+	Port *float64 `json:"port,omitempty" tf:"port,omitempty"`
+
+	// (String) The path to the root CA certificate.
+	// The path to the root CA certificate.
+	// +kubebuilder:validation:Optional
+	RootCACert *string `json:"rootCaCert,omitempty" tf:"root_ca_cert,omitempty"`
+
+	// (List of String) The Base64 encoded values of the root CA certificates.
+	// The Base64 encoded values of the root CA certificates.
+	// +kubebuilder:validation:Optional
+	RootCACertValue []*string `json:"rootCaCertValue,omitempty" tf:"root_ca_cert_value,omitempty"`
+
+	// (Boolean) If set to true, the SSL cert validation will be skipped.
+	// If set to true, the SSL cert validation will be skipped.
+	// +kubebuilder:validation:Optional
+	SSLSkipVerify *bool `json:"sslSkipVerify,omitempty" tf:"ssl_skip_verify,omitempty"`
+
+	// (List of String) An array of base DNs to search through.
+	// An array of base DNs to search through.
+	// +kubebuilder:validation:Optional
+	SearchBaseDNS []*string `json:"searchBaseDns" tf:"search_base_dns,omitempty"`
+
+	// (String) The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+	// The user search filter, for example "(cn=%s)" or "(sAMAccountName=%s)" or "(uid=%s)".
+	// +kubebuilder:validation:Optional
+	SearchFilter *string `json:"searchFilter" tf:"search_filter,omitempty"`
+
+	// (Boolean) If set to true, use LDAP with STARTTLS instead of LDAPS.
+	// If set to true, use LDAP with STARTTLS instead of LDAPS.
+	// +kubebuilder:validation:Optional
+	StartTLS *bool `json:"startTls,omitempty" tf:"start_tls,omitempty"`
+
+	// (List of String) Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+	// Accepted TLS ciphers. For a complete list of supported ciphers, refer to: https://go.dev/src/crypto/tls/cipher_suites.go.
+	// +kubebuilder:validation:Optional
+	TLSCiphers []*string `json:"tlsCiphers,omitempty" tf:"tls_ciphers,omitempty"`
+
+	// (Number) The timeout in seconds for connecting to the LDAP host.
+	// The timeout in seconds for connecting to the LDAP host.
+	// +kubebuilder:validation:Optional
+	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// (Boolean) Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+	// Set to true if LDAP server should use an encrypted TLS connection (either with STARTTLS or LDAPS).
+	// +kubebuilder:validation:Optional
+	UseSSL *bool `json:"useSsl,omitempty" tf:"use_ssl,omitempty"`
+}
+
 type SsoSettingsInitParameters struct {
+
+	// (Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)
+	// The LDAP settings set. Required for the ldap provider.
+	LdapSettings []LdapSettingsInitParameters `json:"ldapSettings,omitempty" tf:"ldap_settings,omitempty"`
 
 	// (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
 	// The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
 	Oauth2Settings []Oauth2SettingsInitParameters `json:"oauth2Settings,omitempty" tf:"oauth2_settings,omitempty"`
 
-	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
-	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
+	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
 	// (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
@@ -1030,12 +1477,16 @@ type SsoSettingsObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)
+	// The LDAP settings set. Required for the ldap provider.
+	LdapSettings []LdapSettingsObservation `json:"ldapSettings,omitempty" tf:"ldap_settings,omitempty"`
+
 	// (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
 	// The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
 	Oauth2Settings []Oauth2SettingsObservation `json:"oauth2Settings,omitempty" tf:"oauth2_settings,omitempty"`
 
-	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
-	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
+	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
 	// (Block Set, Max: 1) The SAML settings set. Required for the saml provider. (see below for nested schema)
@@ -1045,13 +1496,18 @@ type SsoSettingsObservation struct {
 
 type SsoSettingsParameters struct {
 
+	// (Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)
+	// The LDAP settings set. Required for the ldap provider.
+	// +kubebuilder:validation:Optional
+	LdapSettings []LdapSettingsParameters `json:"ldapSettings,omitempty" tf:"ldap_settings,omitempty"`
+
 	// (Block Set, Max: 1) The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers. (see below for nested schema)
 	// The OAuth2 settings set. Required for github, gitlab, google, azuread, okta, generic_oauth providers.
 	// +kubebuilder:validation:Optional
 	Oauth2Settings []Oauth2SettingsParameters `json:"oauth2Settings,omitempty" tf:"oauth2_settings,omitempty"`
 
-	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
-	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml.
+	// (String) The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
+	// The name of the SSO provider. Supported values: github, gitlab, google, azuread, okta, generic_oauth, saml, ldap.
 	// +kubebuilder:validation:Optional
 	ProviderName *string `json:"providerName,omitempty" tf:"provider_name,omitempty"`
 
@@ -1088,7 +1544,7 @@ type SsoSettingsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2 and SAML. Support for SAML is currently in preview, it will be available in Grafana Enterprise starting with v11.1. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2, SAML and LDAP. Support for LDAP is currently in preview, it will be available in Grafana starting with v11.3. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

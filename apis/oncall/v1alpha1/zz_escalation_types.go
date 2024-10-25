@@ -98,8 +98,12 @@ type EscalationInitParameters struct {
 	// The position of the escalation step (starts from 0).
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
+	// (String) The severity of the incident for declare_incident type step.
+	// The severity of the incident for declare_incident type step.
+	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -158,8 +162,12 @@ type EscalationObservation struct {
 	// The position of the escalation step (starts from 0).
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
+	// (String) The severity of the incident for declare_incident type step.
+	// The severity of the incident for declare_incident type step.
+	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -260,8 +268,13 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members
+	// (String) The severity of the incident for declare_incident type step.
+	// The severity of the incident for declare_incident type step.
+	// +kubebuilder:validation:Optional
+	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

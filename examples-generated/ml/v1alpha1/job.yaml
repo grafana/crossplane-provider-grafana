@@ -1,0 +1,47 @@
+apiVersion: ml.grafana.crossplane.io/v1alpha1
+kind: Job
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ml/v1alpha1/job
+  labels:
+    testing.upbound.io/example-name: test_job
+  name: test-job
+spec:
+  forProvider:
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
+    datasourceType: prometheus
+    metric: tf_test_job
+    name: Test Job
+    queryParams:
+      expr: grafanacloud_grafana_instance_active_user_count
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DataSource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ml/v1alpha1/job
+  labels:
+    testing.upbound.io/example-name: foo
+  name: foo
+spec:
+  forProvider:
+    basicAuthEnabled: true
+    basicAuthUsername: username
+    jsonDataEncoded: |-
+      ${jsonencode({
+          httpMethod        = "POST"
+          prometheusType    = "Mimir"
+          prometheusVersion = "2.4.0"
+        })}
+    name: prometheus-ds-test
+    secureJsonDataEncodedSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    type: prometheus
+    uid: prometheus-ds-test-uid
+    url: https://my-instance.com
