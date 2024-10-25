@@ -216,7 +216,7 @@ type OutlierDetectorStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// OutlierDetector is the Schema for the OutlierDetectors API. <no value>
+// OutlierDetector is the Schema for the OutlierDetectors API. An outlier detector monitors the results of a query and reports when its values are outside normal bands. The normal band is configured by choice of algorithm, its sensitivity and other configuration. Visit https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for more details.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
