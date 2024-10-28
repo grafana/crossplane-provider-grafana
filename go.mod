@@ -21,10 +21,10 @@ require (
 	github.com/pkg/errors v0.9.1
 	go.uber.org/zap v1.27.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
-	k8s.io/apimachinery v0.31.1
-	k8s.io/client-go v0.31.1
+	k8s.io/apimachinery v0.31.2
+	k8s.io/client-go v0.31.2
 	sigs.k8s.io/controller-runtime v0.17.3
-	sigs.k8s.io/controller-tools v0.14.0
+	sigs.k8s.io/controller-tools v0.16.5
 )
 
 require (
@@ -51,7 +51,7 @@ require (
 	github.com/evanphx/json-patch v5.9.0+incompatible // indirect
 	github.com/evanphx/json-patch/v5 v5.9.0 // indirect
 	github.com/fatih/camelcase v1.0.0 // indirect
-	github.com/fatih/color v1.17.0 // indirect
+	github.com/fatih/color v1.18.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/getkin/kin-openapi v0.126.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
@@ -197,9 +197,9 @@ require (
 	gopkg.in/validator.v2 v2.0.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.29.3 // indirect
-	k8s.io/apiextensions-apiserver v0.29.3 // indirect
-	k8s.io/component-base v0.29.3 // indirect
+	k8s.io/api v0.31.2 // indirect
+	k8s.io/apiextensions-apiserver v0.31.2 // indirect
+	k8s.io/component-base v0.31.2 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240703190633-0aa61b46e8c2 // indirect
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8 // indirect
