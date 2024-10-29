@@ -4,15 +4,9 @@ go 1.22.0
 
 toolchain go1.22.4
 
-// Have to lock those versions for now, the crossplane-runtime is not compatible with the latest versions
-replace (
-	k8s.io/apimachinery => k8s.io/apimachinery v0.29.3
-	k8s.io/client-go => k8s.io/client-go v0.29.3
-)
-
 require (
 	dario.cat/mergo v1.0.1
-	github.com/crossplane/crossplane-runtime v1.16.0-rc.1.0.20240424114634-8641eb2ba384
+	github.com/crossplane/crossplane-runtime v1.18.0-rc.0.0.20241024104152-e6bea2f005c4
 	github.com/crossplane/crossplane-tools v0.0.0-20230925130601-628280f8bf79
 	github.com/crossplane/upjet v1.4.1
 	github.com/grafana/terraform-provider-grafana/v3 v3.10.0
@@ -23,7 +17,7 @@ require (
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	k8s.io/apimachinery v0.31.2
 	k8s.io/client-go v0.31.2
-	sigs.k8s.io/controller-runtime v0.17.3
+	sigs.k8s.io/controller-runtime v0.19.0
 	sigs.k8s.io/controller-tools v0.16.5
 )
 
@@ -53,6 +47,7 @@ require (
 	github.com/fatih/camelcase v1.0.0 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
+	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
 	github.com/getkin/kin-openapi v0.126.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -158,6 +153,7 @@ require (
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
+	github.com/x448/float16 v0.8.4 // indirect
 	github.com/yuin/goldmark v1.7.4 // indirect
 	github.com/zclconf/go-cty v1.15.0 // indirect
 	github.com/zclconf/go-cty-yaml v1.0.3 // indirect
