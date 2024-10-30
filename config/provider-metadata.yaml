@@ -1818,7 +1818,7 @@ resources:
                     }
         argumentDocs:
             action_to_trigger: (String) The ID of an Action for trigger_webhook type step.
-            duration: (Number) The duration of delay for wait type step.
+            duration: (Number) The duration of delay for wait type step. (60-86400) seconds
             escalation_chain_id: (String) The ID of the escalation chain.
             group_to_notify: (String) The ID of a User Group for notify_user_group type step.
             id: (String) The ID of this resource.
@@ -3910,7 +3910,7 @@ resources:
             attribute: (String) The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
             basic_auth: '(Block Set, Max: 1) Basic auth settings. (see below for nested schema)'
             basic_metrics_only: (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
-            bearer_token: (String) Token for use with bearer authorization header.
+            bearer_token: (String, Sensitive) Token for use with bearer authorization header.
             body: (String) The body of the HTTP request used in probe.
             ca_cert: (String) CA certificate in PEM format.
             cache_busting_query_param_name: (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
@@ -3949,7 +3949,7 @@ resources:
             multihttp: '(Block Set, Max: 1) Settings for MultiHTTP check. The target must be a URL (http or https) (see below for nested schema)'
             name: (String) Name of the header to send
             no_follow_redirects: (Boolean) Do not follow redirects. Defaults to false.
-            password: (String) Basic auth password.
+            password: (String, Sensitive) Basic auth password.
             payload: (String) The body payload
             payload_size: (Number) Payload size. Defaults to 0.
             ping: '(Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)'

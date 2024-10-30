@@ -325,11 +325,25 @@ spec:
                                   Basic auth settings.
                                 items:
                                   properties:
-                                    password:
+                                    passwordSecretRef:
                                       description: |-
-                                        (String) Basic auth password.
+                                        (String, Sensitive) Basic auth password.
                                         Basic auth password.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     username:
                                       description: |-
                                         (String) Basic auth username.
@@ -337,11 +351,25 @@ spec:
                                       type: string
                                   type: object
                                 type: array
-                              bearerToken:
+                              bearerTokenSecretRef:
                                 description: |-
-                                  (String) Token for use with bearer authorization header.
+                                  (String, Sensitive) Token for use with bearer authorization header.
                                   Token for use with bearer authorization header.
-                                type: string
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               body:
                                 description: |-
                                   (String) The body of the HTTP request used in probe.
@@ -1105,23 +1133,53 @@ spec:
                                   Basic auth settings.
                                 items:
                                   properties:
-                                    password:
+                                    passwordSecretRef:
                                       description: |-
-                                        (String) Basic auth password.
+                                        (String, Sensitive) Basic auth password.
                                         Basic auth password.
-                                      type: string
+                                      properties:
+                                        key:
+                                          description: The key to select.
+                                          type: string
+                                        name:
+                                          description: Name of the secret.
+                                          type: string
+                                        namespace:
+                                          description: Namespace of the secret.
+                                          type: string
+                                      required:
+                                      - key
+                                      - name
+                                      - namespace
+                                      type: object
                                     username:
                                       description: |-
                                         (String) Basic auth username.
                                         Basic auth username.
                                       type: string
+                                  required:
+                                  - passwordSecretRef
                                   type: object
                                 type: array
-                              bearerToken:
+                              bearerTokenSecretRef:
                                 description: |-
-                                  (String) Token for use with bearer authorization header.
+                                  (String, Sensitive) Token for use with bearer authorization header.
                                   Token for use with bearer authorization header.
-                                type: string
+                                properties:
+                                  key:
+                                    description: The key to select.
+                                    type: string
+                                  name:
+                                    description: Name of the secret.
+                                    type: string
+                                  namespace:
+                                    description: Namespace of the secret.
+                                    type: string
+                                required:
+                                - key
+                                - name
+                                - namespace
+                                type: object
                               body:
                                 description: |-
                                   (String) The body of the HTTP request used in probe.
@@ -2045,11 +2103,6 @@ spec:
                                   Basic auth settings.
                                 items:
                                   properties:
-                                    password:
-                                      description: |-
-                                        (String) Basic auth password.
-                                        Basic auth password.
-                                      type: string
                                     username:
                                       description: |-
                                         (String) Basic auth username.
@@ -2057,11 +2110,6 @@ spec:
                                       type: string
                                   type: object
                                 type: array
-                              bearerToken:
-                                description: |-
-                                  (String) Token for use with bearer authorization header.
-                                  Token for use with bearer authorization header.
-                                type: string
                               body:
                                 description: |-
                                   (String) The body of the HTTP request used in probe.
