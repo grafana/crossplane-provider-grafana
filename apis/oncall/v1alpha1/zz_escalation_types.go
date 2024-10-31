@@ -30,8 +30,8 @@ type EscalationInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ActionToTriggerSelector *v1.Selector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
-	// (Number) The duration of delay for wait type step.
-	// The duration of delay for wait type step.
+	// 86400) seconds
+	// The duration of delay for wait type step. (60-86400) seconds
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
 	// (String) The ID of the escalation chain.
@@ -113,8 +113,8 @@ type EscalationObservation struct {
 	// The ID of an Action for trigger_webhook type step.
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
 
-	// (Number) The duration of delay for wait type step.
-	// The duration of delay for wait type step.
+	// 86400) seconds
+	// The duration of delay for wait type step. (60-86400) seconds
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
 	// (String) The ID of the escalation chain.
@@ -189,8 +189,8 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	ActionToTriggerSelector *v1.Selector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
-	// (Number) The duration of delay for wait type step.
-	// The duration of delay for wait type step.
+	// 86400) seconds
+	// The duration of delay for wait type step. (60-86400) seconds
 	// +kubebuilder:validation:Optional
 	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 

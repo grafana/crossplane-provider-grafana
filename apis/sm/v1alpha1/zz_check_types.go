@@ -89,9 +89,9 @@ type AssertionsParameters struct {
 
 type BasicAuthInitParameters struct {
 
-	// (String) Basic auth password.
+	// (String, Sensitive) Basic auth password.
 	// Basic auth password.
-	Password *string `json:"password,omitempty" tf:"password,omitempty"`
+	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// (String) Basic auth username.
 	// Basic auth username.
@@ -100,10 +100,6 @@ type BasicAuthInitParameters struct {
 
 type BasicAuthObservation struct {
 
-	// (String) Basic auth password.
-	// Basic auth password.
-	Password *string `json:"password,omitempty" tf:"password,omitempty"`
-
 	// (String) Basic auth username.
 	// Basic auth username.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
@@ -111,10 +107,10 @@ type BasicAuthObservation struct {
 
 type BasicAuthParameters struct {
 
-	// (String) Basic auth password.
+	// (String, Sensitive) Basic auth password.
 	// Basic auth password.
 	// +kubebuilder:validation:Optional
-	Password *string `json:"password" tf:"password,omitempty"`
+	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// (String) Basic auth username.
 	// Basic auth username.
@@ -675,9 +671,9 @@ type HTTPInitParameters struct {
 	// Basic auth settings.
 	BasicAuth []BasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
-	// (String) Token for use with bearer authorization header.
+	// (String, Sensitive) Token for use with bearer authorization header.
 	// Token for use with bearer authorization header.
-	BearerToken *string `json:"bearerToken,omitempty" tf:"bearer_token,omitempty"`
+	BearerTokenSecretRef *v1.SecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The body of the HTTP request used in probe.
 	// The body of the HTTP request used in probe.
@@ -759,10 +755,6 @@ type HTTPObservation struct {
 	// (Block Set, Max: 1) Basic auth settings. (see below for nested schema)
 	// Basic auth settings.
 	BasicAuth []BasicAuthObservation `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
-
-	// (String) Token for use with bearer authorization header.
-	// Token for use with bearer authorization header.
-	BearerToken *string `json:"bearerToken,omitempty" tf:"bearer_token,omitempty"`
 
 	// (String) The body of the HTTP request used in probe.
 	// The body of the HTTP request used in probe.
@@ -846,10 +838,10 @@ type HTTPParameters struct {
 	// +kubebuilder:validation:Optional
 	BasicAuth []BasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
-	// (String) Token for use with bearer authorization header.
+	// (String, Sensitive) Token for use with bearer authorization header.
 	// Token for use with bearer authorization header.
 	// +kubebuilder:validation:Optional
-	BearerToken *string `json:"bearerToken,omitempty" tf:"bearer_token,omitempty"`
+	BearerTokenSecretRef *v1.SecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The body of the HTTP request used in probe.
 	// The body of the HTTP request used in probe.

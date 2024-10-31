@@ -157,8 +157,8 @@ spec:
                     type: object
                   duration:
                     description: |-
-                      (Number) The duration of delay for wait type step.
-                      The duration of delay for wait type step.
+                      86400) seconds
+                      The duration of delay for wait type step. (60-86400) seconds
                     type: number
                   escalationChainId:
                     description: |-
@@ -473,8 +473,8 @@ spec:
                     type: object
                   duration:
                     description: |-
-                      (Number) The duration of delay for wait type step.
-                      The duration of delay for wait type step.
+                      86400) seconds
+                      The duration of delay for wait type step. (60-86400) seconds
                     type: number
                   escalationChainId:
                     description: |-
@@ -881,8 +881,8 @@ spec:
                     type: string
                   duration:
                     description: |-
-                      (Number) The duration of delay for wait type step.
-                      The duration of delay for wait type step.
+                      86400) seconds
+                      The duration of delay for wait type step. (60-86400) seconds
                     type: number
                   escalationChainId:
                     description: |-

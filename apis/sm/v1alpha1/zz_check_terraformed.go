@@ -21,7 +21,7 @@ func (mg *Check) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Check
 func (tr *Check) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"settings[*].grpc[*].tls_config[*].client_key": "settings[*].grpc[*].tlsConfig[*].clientKeySecretRef", "settings[*].http[*].tls_config[*].client_key": "settings[*].http[*].tlsConfig[*].clientKeySecretRef", "settings[*].tcp[*].tls_config[*].client_key": "settings[*].tcp[*].tlsConfig[*].clientKeySecretRef"}
+	return map[string]string{"settings[*].grpc[*].tls_config[*].client_key": "settings[*].grpc[*].tlsConfig[*].clientKeySecretRef", "settings[*].http[*].basic_auth[*].password": "settings[*].http[*].basicAuth[*].passwordSecretRef", "settings[*].http[*].bearer_token": "settings[*].http[*].bearerTokenSecretRef", "settings[*].http[*].tls_config[*].client_key": "settings[*].http[*].tlsConfig[*].clientKeySecretRef", "settings[*].tcp[*].tls_config[*].client_key": "settings[*].tcp[*].tlsConfig[*].clientKeySecretRef"}
 }
 
 // GetObservation of this Check

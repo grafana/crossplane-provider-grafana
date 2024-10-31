@@ -10,9 +10,9 @@ export CROSSPLANE_VERSION := 1.17
 export TERRAFORM_PROVIDER_SOURCE := grafana/grafana
 export TERRAFORM_PROVIDER_REPO := https://github.com/grafana/terraform-provider-grafana
 # UPGRADE THE go.mod also!
-export TERRAFORM_PROVIDER_VERSION := 3.10.0
+export TERRAFORM_PROVIDER_VERSION := 3.11.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-grafana
-export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-grafana_v3.10.0
+export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-grafana_v3.11.0
 export TERRAFORM_DOCS_PATH := docs/resources
 
 PLATFORMS ?= linux_amd64 linux_arm64
@@ -40,8 +40,8 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.19
-GOLANGCILINT_VERSION ?= 1.54.0
+GO_REQUIRED_VERSION ?= 1.23
+GOLANGCILINT_VERSION ?= 1.61.0
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
 GO_SUBDIRS += cmd internal apis
