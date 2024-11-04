@@ -450,6 +450,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_cloud_stack",
 			RefFieldName:      "CloudStackRef",
 			SelectorFieldName: "CloudStackSelector",
+			Extractor:         computedFieldExtractor("id"),
 		}
 		r.TerraformCustomDiff = recreateIfAttributeMissing("sm_access_token")
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {

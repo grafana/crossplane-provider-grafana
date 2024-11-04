@@ -30,6 +30,7 @@ type InstallationInitParameters struct {
 	// (String) The ID or slug of the stack to install SM on.
 	// The ID or slug of the stack to install SM on.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.ComputedFieldExtractor("id")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
@@ -75,6 +76,7 @@ type InstallationParameters struct {
 	// (String) The ID or slug of the stack to install SM on.
 	// The ID or slug of the stack to install SM on.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.ComputedFieldExtractor("id")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
