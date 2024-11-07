@@ -1,6 +1,6 @@
 name: Bug Report
 description: File a bug report
-title: ""
+title: "REPLACE_ME"
 type: "bug"
 projects: ["grafana/513"] # Platform Monitoring
 body:
