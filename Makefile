@@ -10,9 +10,9 @@ export CROSSPLANE_VERSION := 1.17
 export TERRAFORM_PROVIDER_SOURCE := grafana/grafana
 export TERRAFORM_PROVIDER_REPO := https://github.com/grafana/terraform-provider-grafana
 # UPGRADE THE go.mod also!
-export TERRAFORM_PROVIDER_VERSION := 3.11.0
+export TERRAFORM_PROVIDER_VERSION := 3.13.1
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-grafana
-export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-grafana_v3.11.0
+export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-grafana_v3.13.1
 export TERRAFORM_DOCS_PATH := docs/resources
 
 PLATFORMS ?= linux_amd64 linux_arm64

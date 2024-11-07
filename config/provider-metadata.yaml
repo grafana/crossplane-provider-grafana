@@ -163,6 +163,124 @@ resources:
             version: (String) Version of the plugin to be installed.
         importStatements:
             - terraform import grafana_cloud_plugin_installation.name "{{ stackSlug }}:{{ pluginSlug }}"
+    grafana_cloud_provider_aws_account:
+        subCategory: Cloud Provider
+        name: grafana_cloud_provider_aws_account
+        title: grafana_cloud_provider_aws_account Resource - terraform-provider-grafana
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "regions": [
+                    "us-east-1",
+                    "us-east-2",
+                    "us-west-1"
+                  ],
+                  "role_arn": "${data.aws_iam_role.test.arn}",
+                  "stack_id": "${data.grafana_cloud_stack.test.id}"
+                }
+              references:
+                role_arn: data.aws_iam_role.test.arn
+                stack_id: data.grafana_cloud_stack.test.id
+        argumentDocs:
+            id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ resource_id }}".
+            regions: (Set of String) A set of regions that this AWS Account resource applies to.
+            resource_id: (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
+            role_arn: (String) An IAM Role ARN string to represent with this AWS Account resource.
+            stack_id: (String) The StackID of the Grafana Cloud instance. Part of the Terraform Resource ID.
+        importStatements:
+            - terraform import grafana_cloud_provider_aws_account.name "{{ stack_id }}:{{ resource_id }}"
+    grafana_cloud_provider_aws_cloudwatch_scrape_job:
+        subCategory: Cloud Provider
+        name: grafana_cloud_provider_aws_cloudwatch_scrape_job
+        title: grafana_cloud_provider_aws_cloudwatch_scrape_job Resource - terraform-provider-grafana
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "aws_account_resource_id": "${grafana_cloud_provider_aws_account.test.resource_id}",
+                  "custom_namespace": [
+                    {
+                      "metric": [
+                        {
+                          "name": "CoolMetric",
+                          "statistics": [
+                            "Maximum",
+                            "Sum"
+                          ]
+                        }
+                      ],
+                      "name": "CoolApp",
+                      "scrape_interval_seconds": 300
+                    }
+                  ],
+                  "export_tags": true,
+                  "name": "my-cloudwatch-scrape-job",
+                  "service": [
+                    {
+                      "metric": [
+                        {
+                          "name": "CPUUtilization",
+                          "statistics": [
+                            "Average"
+                          ]
+                        },
+                        {
+                          "name": "StatusCheckFailed",
+                          "statistics": [
+                            "Maximum"
+                          ]
+                        }
+                      ],
+                      "name": "AWS/EC2",
+                      "resource_discovery_tag_filter": [
+                        {
+                          "key": "k8s.io/cluster-autoscaler/enabled",
+                          "value": "true"
+                        }
+                      ],
+                      "scrape_interval_seconds": 300,
+                      "tags_to_add_to_metrics": [
+                        "eks:cluster-name"
+                      ]
+                    }
+                  ],
+                  "stack_id": "${data.grafana_cloud_stack.test.id}"
+                }
+              references:
+                aws_account_resource_id: grafana_cloud_provider_aws_account.test.resource_id
+                stack_id: data.grafana_cloud_stack.test.id
+              dependencies:
+                grafana_cloud_provider_aws_account.test: |-
+                    {
+                      "regions": [
+                        "us-east-1",
+                        "us-east-2",
+                        "us-west-1"
+                      ],
+                      "role_arn": "${data.aws_iam_role.test.arn}",
+                      "stack_id": "${data.grafana_cloud_stack.test.id}"
+                    }
+        argumentDocs:
+            aws_account_resource_id: (String) The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the resource_id attribute of the grafana_cloud_provider_aws_account resource.
+            custom_namespace: (Block List) Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            disabled_reason: (String) When the CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
+            enabled: (Boolean) Whether the CloudWatch Scrape Job is enabled or not.
+            export_tags: (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
+            id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
+            key: (String) The key of the tag filter.
+            metric: (Block List) One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            name: (String) The name of the CloudWatch Scrape Job. Part of the Terraform Resource ID.
+            regions_subset_override: (Set of String) A subset of the regions that are configured in the associated AWS Account resource to apply to this scrape job. If not set or empty, all of the Account resource's regions are scraped.
+            resource_discovery_tag_filter: (Block List) One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            scrape_interval_seconds: (Number) The interval in seconds to scrape the custom namespace.
+            service: (Block List) One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
+            statistics: (Set of String) A set of statistics to scrape.
+            tags_to_add_to_metrics: (Set of String) A set of tags to add to all metrics exported by this scrape job, for use in PromQL queries.
+            value: (String) The value of the tag filter.
+        importStatements:
+            - terraform import grafana_cloud_provider_aws_cloudwatch_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_stack:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#stacks/ Required access policy scopes: stacks:readstacks:writestacks:delete'
@@ -275,6 +393,36 @@ resources:
             service_account_id: (String)
             stack_slug: (String)
         importStatements: []
+    grafana_connections_metrics_endpoint_scrape_job:
+        subCategory: Connections
+        name: grafana_connections_metrics_endpoint_scrape_job
+        title: grafana_connections_metrics_endpoint_scrape_job Resource - terraform-provider-grafana
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "authentication_basic_password": "my-password",
+                  "authentication_basic_username": "my-username",
+                  "authentication_method": "basic",
+                  "enabled": true,
+                  "name": "my-scrape-job",
+                  "scrape_interval_seconds": 120,
+                  "stack_id": "1",
+                  "url": "https://grafana.com/metrics"
+                }
+        argumentDocs:
+            authentication_basic_password: (String, Sensitive) Password for basic authentication, use if scrape job is using basic authentication method
+            authentication_basic_username: (String) Username for basic authentication, use if scrape job is using basic authentication method
+            authentication_bearer_token: (String, Sensitive) Bearer token used for authentication, use if scrape job is using bearer authentication method
+            authentication_method: '(String) Method to pass authentication credentials: basic or bearer.'
+            enabled: (Boolean) Whether the metrics endpoint scrape job is enabled or not.
+            id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
+            name: (String) The name of the metrics endpoint scrape job. Part of the Terraform Resource ID.
+            scrape_interval_seconds: '(Number) Frequency for scraping the metrics endpoint: 30, 60, or 120 seconds.'
+            stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
+            url: (String) The url to scrape metrics from; a valid HTTPs URL is required.
+        importStatements:
+            - terraform import grafana_connections_metrics_endpoint_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_contact_point:
         subCategory: Alerting
         description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
@@ -2737,7 +2885,7 @@ resources:
                       "title": "My Alert Rule Folder"
                     }
         argumentDocs:
-            annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule that may add user-defined context, but cannot be used for matching, grouping, or routing. Defaults to map[].
+            annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The dashboardUId and panelId annotations, which link alerts to a panel, must be set together. Defaults to map[].
             condition: (String) The ref_id of the query node in the data field to use as the alert condition.
             contact_point: (String) The contact point to route notifications that match this rule to.
             data: '(Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)'
