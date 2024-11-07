@@ -1,0 +1,60 @@
+name: Bug Report
+description: File a bug report
+title: ""
+type: "bug"
+projects: ["grafana/513"] # Platform Monitoring
+body:
+  - type: input
+    id: crosssplane_version
+    attributes:
+      label: Crossplane Version
+  - type: input
+    id: crossplane_grafana_provider_version
+    attributes:
+      label: Crossplane Grafana Provider Version
+  - type: textarea
+    id: affected_resources
+    attributes:
+      label: Affected Resource(s)
+      placeholder: |
+        * oss.grafana.crossplane.io/v1alpha1/Dashboard
+        * sm.grafana.crossplane.io/v1alpha1/Check
+  - type: textarea
+    id: resources
+    attributes:
+      label: YAML resources
+      placeholder: |
+        ```yaml
+        # Copy-paste your Claims/Compositions/Managed resources here
+        ```
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      placeholder: |
+        What should have happened?
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      placeholder: |
+        What actually happened?
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        Please list the steps required to reproduce the issue, for example:
+        1. `terraform apply`
+  - type: textarea
+    id: important_factoids
+    attributes:
+      label: Important Factoids
+      placeholder: |
+        Are there anything atypical about your Crossplane setup? In which kind of Kubernetes cluster does it run?
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      placeholder: |
+        - GH-1234
