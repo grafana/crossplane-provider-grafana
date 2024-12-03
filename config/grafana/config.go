@@ -324,10 +324,11 @@ func Configure(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_data_source_permission", func(r *ujconfig.Resource) {
-		r.References["datasource_id"] = ujconfig.Reference{
+		r.References["datasource_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_data_source",
 			RefFieldName:      "DataSourceRef",
 			SelectorFieldName: "DataSourceSelector",
+			Extractor:         optionalFieldExtractor("uid"),
 		}
 		r.References["permissions.team_id"] = ujconfig.Reference{
 			TerraformName:     "grafana_team",
