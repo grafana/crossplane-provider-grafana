@@ -43,7 +43,7 @@ type JobInitParameters struct {
 	// A list of holiday IDs or names to take into account when training the model.
 	Holidays []*string `json:"holidays,omitempty" tf:"holidays,omitempty"`
 
-	// The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/machine-learning/models/ for the full list of available hyperparameters. Defaults to `map[]`.
+	// The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/forecasts/models/ for the full list of available hyperparameters. Defaults to `map[]`.
 	// +mapType=granular
 	HyperParams map[string]*string `json:"hyperParams,omitempty" tf:"hyper_params,omitempty"`
 
@@ -82,7 +82,7 @@ type JobObservation struct {
 	// A list of holiday IDs or names to take into account when training the model.
 	Holidays []*string `json:"holidays,omitempty" tf:"holidays,omitempty"`
 
-	// The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/machine-learning/models/ for the full list of available hyperparameters. Defaults to `map[]`.
+	// The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/forecasts/models/ for the full list of available hyperparameters. Defaults to `map[]`.
 	// +mapType=granular
 	HyperParams map[string]*string `json:"hyperParams,omitempty" tf:"hyper_params,omitempty"`
 
@@ -140,7 +140,7 @@ type JobParameters struct {
 	// +kubebuilder:validation:Optional
 	Holidays []*string `json:"holidays,omitempty" tf:"holidays,omitempty"`
 
-	// The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/machine-learning/models/ for the full list of available hyperparameters. Defaults to `map[]`.
+	// The hyperparameters used to fine tune the algorithm. See https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/forecasts/models/ for the full list of available hyperparameters. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	HyperParams map[string]*string `json:"hyperParams,omitempty" tf:"hyper_params,omitempty"`
@@ -194,7 +194,7 @@ type JobStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Job is the Schema for the Jobs API. A job defines the queries and model parameters for a machine learning task.
+// Job is the Schema for the Jobs API. A job defines the queries and model parameters for a machine learning task. See the Grafana Cloud docs https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/forecasts/models/ for more information on available hyperparameters for use in the hyper_params field.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -166,6 +166,25 @@ type BodyParameters struct {
 	Payload *string `json:"payload,omitempty" tf:"payload,omitempty"`
 }
 
+type BrowserInitParameters struct {
+
+	// (String)
+	Script *string `json:"script,omitempty" tf:"script,omitempty"`
+}
+
+type BrowserObservation struct {
+
+	// (String)
+	Script *string `json:"script,omitempty" tf:"script,omitempty"`
+}
+
+type BrowserParameters struct {
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	Script *string `json:"script" tf:"script,omitempty"`
+}
+
 type CheckInitParameters struct {
 
 	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
@@ -683,6 +702,10 @@ type HTTPInitParameters struct {
 	// The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
 	CacheBustingQueryParamName *string `json:"cacheBustingQueryParamName,omitempty" tf:"cache_busting_query_param_name,omitempty"`
 
+	// (String) Check fails if the response body is not compressed using this compression algorithm. One of none, identity, br, gzip, deflate.
+	// Check fails if the response body is not compressed using this compression algorithm. One of `none`, `identity`, `br`, `gzip`, `deflate`.
+	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
+
 	// (Set of String) List of regexes. If any match the response body, the check will fail.
 	// List of regexes. If any match the response body, the check will fail.
 	// +listType=set
@@ -763,6 +786,10 @@ type HTTPObservation struct {
 	// (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
 	// The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
 	CacheBustingQueryParamName *string `json:"cacheBustingQueryParamName,omitempty" tf:"cache_busting_query_param_name,omitempty"`
+
+	// (String) Check fails if the response body is not compressed using this compression algorithm. One of none, identity, br, gzip, deflate.
+	// Check fails if the response body is not compressed using this compression algorithm. One of `none`, `identity`, `br`, `gzip`, `deflate`.
+	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
 	// (Set of String) List of regexes. If any match the response body, the check will fail.
 	// List of regexes. If any match the response body, the check will fail.
@@ -852,6 +879,11 @@ type HTTPParameters struct {
 	// The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
 	// +kubebuilder:validation:Optional
 	CacheBustingQueryParamName *string `json:"cacheBustingQueryParamName,omitempty" tf:"cache_busting_query_param_name,omitempty"`
+
+	// (String) Check fails if the response body is not compressed using this compression algorithm. One of none, identity, br, gzip, deflate.
+	// Check fails if the response body is not compressed using this compression algorithm. One of `none`, `identity`, `br`, `gzip`, `deflate`.
+	// +kubebuilder:validation:Optional
+	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
 	// (Set of String) List of regexes. If any match the response body, the check will fail.
 	// List of regexes. If any match the response body, the check will fail.
@@ -1298,6 +1330,10 @@ type ScriptedParameters struct {
 
 type SettingsInitParameters struct {
 
+	// cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/. (see below for nested schema)
+	// Settings for browser check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/.
+	Browser []BrowserInitParameters `json:"browser,omitempty" tf:"browser,omitempty"`
+
 	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
 	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).
 	DNS []DNSInitParameters `json:"dns,omitempty" tf:"dns,omitempty"`
@@ -1333,6 +1369,10 @@ type SettingsInitParameters struct {
 
 type SettingsObservation struct {
 
+	// cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/. (see below for nested schema)
+	// Settings for browser check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/.
+	Browser []BrowserObservation `json:"browser,omitempty" tf:"browser,omitempty"`
+
 	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
 	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).
 	DNS []DNSObservation `json:"dns,omitempty" tf:"dns,omitempty"`
@@ -1367,6 +1407,11 @@ type SettingsObservation struct {
 }
 
 type SettingsParameters struct {
+
+	// cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/. (see below for nested schema)
+	// Settings for browser check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/.
+	// +kubebuilder:validation:Optional
+	Browser []BrowserParameters `json:"browser,omitempty" tf:"browser,omitempty"`
 
 	// (Block Set, Max: 1) Settings for DNS check. The target must be a valid hostname (or IP address for PTR records). (see below for nested schema)
 	// Settings for DNS check. The target must be a valid hostname (or IP address for `PTR` records).

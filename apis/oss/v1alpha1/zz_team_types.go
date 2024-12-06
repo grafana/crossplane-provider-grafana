@@ -180,6 +180,10 @@ type TeamObservation struct {
 	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
 	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
 	TeamSync []TeamSyncObservation `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
+
+	// (String) The team uid assigned to this team by Grafana.
+	// The team uid assigned to this team by Grafana.
+	TeamUID *string `json:"teamUid,omitempty" tf:"team_uid,omitempty"`
 }
 
 type TeamParameters struct {

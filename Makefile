@@ -8,8 +8,7 @@ export TERRAFORM_VERSION := 1.7.5
 
 export TERRAFORM_PROVIDER_SOURCE := grafana/grafana
 export TERRAFORM_PROVIDER_REPO := https://github.com/grafana/terraform-provider-grafana
-# UPGRADE THE go.mod also!
-export TERRAFORM_PROVIDER_VERSION := 3.13.1
+export TERRAFORM_PROVIDER_VERSION := $(shell grep terraform-provider-grafana go.mod | awk '{print $$2}' | sed 's/v//')
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-grafana
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY := $(TERRAFORM_PROVIDER_DOWNLOAD_NAME)_v$(TERRAFORM_PROVIDER_VERSION)
@@ -53,7 +52,6 @@ GO_SUBDIRS += cmd internal apis
 KIND_VERSION = v0.23.0
 UP_VERSION = v0.31.0
 UP_CHANNEL = stable
-UPTEST_VERSION = v0.11.1
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================

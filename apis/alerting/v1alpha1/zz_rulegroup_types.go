@@ -198,6 +198,41 @@ type NotificationSettingsParameters struct {
 	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
 
+type RecordInitParameters struct {
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	// The ref id of the query node in the data field to use as the source of the metric.
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (String) The name of the metric to write to.
+	// The name of the metric to write to.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+}
+
+type RecordObservation struct {
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	// The ref id of the query node in the data field to use as the source of the metric.
+	From *string `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (String) The name of the metric to write to.
+	// The name of the metric to write to.
+	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+}
+
+type RecordParameters struct {
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	// The ref id of the query node in the data field to use as the source of the metric.
+	// +kubebuilder:validation:Optional
+	From *string `json:"from" tf:"from,omitempty"`
+
+	// (String) The name of the metric to write to.
+	// The name of the metric to write to.
+	// +kubebuilder:validation:Optional
+	Metric *string `json:"metric" tf:"metric,omitempty"`
+}
+
 type RelativeTimeRangeInitParameters struct {
 
 	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
@@ -406,9 +441,13 @@ type RuleInitParameters struct {
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
 	NotificationSettings []NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+
+	// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
+	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
+	Record []RecordInitParameters `json:"record,omitempty" tf:"record,omitempty"`
 }
 
 type RuleObservation struct {
@@ -451,9 +490,13 @@ type RuleObservation struct {
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
 	NotificationSettings []NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+
+	// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
+	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
+	Record []RecordObservation `json:"record,omitempty" tf:"record,omitempty"`
 
 	// (String) The unique identifier of the alert rule.
 	// The unique identifier of the alert rule.
@@ -509,10 +552,15 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' enabled.
+	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
 	// +kubebuilder:validation:Optional
 	NotificationSettings []NotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+
+	// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
+	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
+	// +kubebuilder:validation:Optional
+	Record []RecordParameters `json:"record,omitempty" tf:"record,omitempty"`
 }
 
 // RuleGroupSpec defines the desired state of RuleGroup

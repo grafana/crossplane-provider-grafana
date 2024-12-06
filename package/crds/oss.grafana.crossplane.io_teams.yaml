@@ -804,6 +804,11 @@ spec:
                           x-kubernetes-list-type: set
                       type: object
                     type: array
+                  teamUid:
+                    description: |-
+                      (String) The team uid assigned to this team by Grafana.
+                      The team uid assigned to this team by Grafana.
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.
