@@ -52,7 +52,6 @@ GO_SUBDIRS += cmd internal apis
 KIND_VERSION = v0.23.0
 UP_VERSION = v0.31.0
 UP_CHANNEL = stable
-UPTEST_VERSION = v0.11.1
 -include build/makelib/k8s_tools.mk
 
 # ====================================================================================
