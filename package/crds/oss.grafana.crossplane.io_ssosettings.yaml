@@ -631,6 +631,11 @@ spec:
                             (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
                           type: boolean
+                        entityId:
+                          description: |-
+                            (String) The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+                            The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+                          type: string
                         forceUseGraphApi:
                           description: |-
                             (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
@@ -1321,6 +1326,11 @@ spec:
                             (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
                           type: boolean
+                        entityId:
+                          description: |-
+                            (String) The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+                            The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+                          type: string
                         forceUseGraphApi:
                           description: |-
                             (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
@@ -2083,6 +2093,11 @@ spec:
                             (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
                             Define whether this configuration is enabled for SAML. Defaults to `true`.
                           type: boolean
+                        entityId:
+                          description: |-
+                            (String) The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+                            The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+                          type: string
                         forceUseGraphApi:
                           description: |-
                             (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.

@@ -189,8 +189,8 @@ type DestinationDatasourceInitParameters struct {
 	// +kubebuilder:validation:Optional
 	Selector *v1.Selector `json:"selector,omitempty" tf:"-"`
 
-	// (String) UID for the Mimir Datasource
-	// UID for the Mimir Datasource
+	// (String) UID for the Datasource
+	// UID for the Datasource
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=Ref
@@ -200,8 +200,8 @@ type DestinationDatasourceInitParameters struct {
 
 type DestinationDatasourceObservation struct {
 
-	// (String) UID for the Mimir Datasource
-	// UID for the Mimir Datasource
+	// (String) UID for the Datasource
+	// UID for the Datasource
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -215,8 +215,8 @@ type DestinationDatasourceParameters struct {
 	// +kubebuilder:validation:Optional
 	Selector *v1.Selector `json:"selector,omitempty" tf:"-"`
 
-	// (String) UID for the Mimir Datasource
-	// UID for the Mimir Datasource
+	// (String) UID for the Datasource
+	// UID for the Datasource
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=Ref
@@ -493,7 +493,7 @@ type SLOInitParameters struct {
 	// Description is a free-text field that can provide more context to an SLO.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
 	// Destination Datasource sets the datasource defined for an SLO
 	DestinationDatasource []DestinationDatasourceInitParameters `json:"destinationDatasource,omitempty" tf:"destination_datasource,omitempty"`
 
@@ -573,7 +573,7 @@ type SLOObservation struct {
 	// Description is a free-text field that can provide more context to an SLO.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
 	// Destination Datasource sets the datasource defined for an SLO
 	DestinationDatasource []DestinationDatasourceObservation `json:"destinationDatasource,omitempty" tf:"destination_datasource,omitempty"`
 
@@ -623,7 +623,7 @@ type SLOParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+	// (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
 	// Destination Datasource sets the datasource defined for an SLO
 	// +kubebuilder:validation:Optional
 	DestinationDatasource []DestinationDatasourceParameters `json:"destinationDatasource,omitempty" tf:"destination_datasource,omitempty"`
@@ -801,6 +801,7 @@ type SLO struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.description) || (has(self.initProvider) && has(self.initProvider.description))",message="spec.forProvider.description is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.destinationDatasource) || (has(self.initProvider) && has(self.initProvider.destinationDatasource))",message="spec.forProvider.destinationDatasource is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.objectives) || (has(self.initProvider) && has(self.initProvider.objectives))",message="spec.forProvider.objectives is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.query) || (has(self.initProvider) && has(self.initProvider.query))",message="spec.forProvider.query is a required parameter"
