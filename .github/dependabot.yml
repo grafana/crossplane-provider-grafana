@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: ci
   - package-ecosystem: "gomod"
     directory: "/"
     schedule:
@@ -12,3 +14,6 @@ updates:
       k8s.io:
         patterns:
           - k8s.io/*
+    commit-message:
+      prefix: chore
+      include: scope
