@@ -22,6 +22,22 @@ func (mg *DataSourcePermission) ResolveReferences(ctx context.Context, c client.
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Reference:    mg.Spec.ForProvider.DataSourceRef,
+		Selector:     mg.Spec.ForProvider.DataSourceSelector,
+		To: reference.To{
+			List:    &v1alpha1.DataSourceList{},
+			Managed: &v1alpha1.DataSource{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DatasourceUID")
+	}
+	mg.Spec.ForProvider.DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DataSourceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
@@ -73,6 +89,22 @@ func (mg *DataSourcePermission) ResolveReferences(ctx context.Context, c client.
 		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Reference:    mg.Spec.InitProvider.DataSourceRef,
+		Selector:     mg.Spec.InitProvider.DataSourceSelector,
+		To: reference.To{
+			List:    &v1alpha1.DataSourceList{},
+			Managed: &v1alpha1.DataSource{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DatasourceUID")
+	}
+	mg.Spec.InitProvider.DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DataSourceRef = rsp.ResolvedReference
+
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),

@@ -8,7 +8,9 @@ metadata:
   name: foopermissions
 spec:
   forProvider:
-    datasourceUid: ${grafana_data_source.foo.uid}
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
     permissions:
     - permission: Edit
       teamSelector:

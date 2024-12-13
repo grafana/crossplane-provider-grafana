@@ -15,8 +15,20 @@ import (
 
 type DataSourcePermissionInitParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) UID of the datasource to apply permissions to.
 	// UID of the datasource to apply permissions to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -59,8 +71,20 @@ type DataSourcePermissionObservation struct {
 
 type DataSourcePermissionParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) UID of the datasource to apply permissions to.
 	// UID of the datasource to apply permissions to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
@@ -227,9 +251,8 @@ type DataSourcePermissionStatus struct {
 type DataSourcePermission struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.datasourceUid) || (has(self.initProvider) && has(self.initProvider.datasourceUid))",message="spec.forProvider.datasourceUid is a required parameter"
-	Spec   DataSourcePermissionSpec   `json:"spec"`
-	Status DataSourcePermissionStatus `json:"status,omitempty"`
+	Spec              DataSourcePermissionSpec   `json:"spec"`
+	Status            DataSourcePermissionStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
