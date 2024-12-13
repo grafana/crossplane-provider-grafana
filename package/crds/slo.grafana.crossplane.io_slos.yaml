@@ -233,7 +233,7 @@ spec:
                     type: string
                   destinationDatasource:
                     description: |-
-                      (Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+                      (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
                       Destination Datasource sets the datasource defined for an SLO
                     items:
                       properties:
@@ -315,8 +315,8 @@ spec:
                           type: object
                         uid:
                           description: |-
-                            (String) UID for the Mimir Datasource
-                            UID for the Mimir Datasource
+                            (String) UID for the Datasource
+                            UID for the Datasource
                           type: string
                       type: object
                     type: array
@@ -592,7 +592,7 @@ spec:
                     type: string
                   destinationDatasource:
                     description: |-
-                      (Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+                      (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
                       Destination Datasource sets the datasource defined for an SLO
                     items:
                       properties:
@@ -674,8 +674,8 @@ spec:
                           type: object
                         uid:
                           description: |-
-                            (String) UID for the Mimir Datasource
-                            UID for the Mimir Datasource
+                            (String) UID for the Datasource
+                            UID for the Datasource
                           type: string
                       type: object
                     type: array
@@ -952,6 +952,10 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.description)
                 || (has(self.initProvider) && has(self.initProvider.description))'
+            - message: spec.forProvider.destinationDatasource is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.destinationDatasource)
+                || (has(self.initProvider) && has(self.initProvider.destinationDatasource))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
@@ -1127,14 +1131,14 @@ spec:
                     type: string
                   destinationDatasource:
                     description: |-
-                      (Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+                      (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
                       Destination Datasource sets the datasource defined for an SLO
                     items:
                       properties:
                         uid:
                           description: |-
-                            (String) UID for the Mimir Datasource
-                            UID for the Mimir Datasource
+                            (String) UID for the Datasource
+                            UID for the Datasource
                           type: string
                       type: object
                     type: array

@@ -4650,6 +4650,11 @@ func (in *SAMLSettingsInitParameters) DeepCopyInto(out *SAMLSettingsInitParamete
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EntityID != nil {
+		in, out := &in.EntityID, &out.EntityID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ForceUseGraphAPI != nil {
 		in, out := &in.ForceUseGraphAPI, &out.ForceUseGraphAPI
 		*out = new(bool)
@@ -4840,6 +4845,11 @@ func (in *SAMLSettingsObservation) DeepCopyInto(out *SAMLSettingsObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.EntityID != nil {
+		in, out := &in.EntityID, &out.EntityID
+		*out = new(string)
+		**out = **in
+	}
 	if in.ForceUseGraphAPI != nil {
 		in, out := &in.ForceUseGraphAPI, &out.ForceUseGraphAPI
 		*out = new(bool)
@@ -5028,6 +5038,11 @@ func (in *SAMLSettingsParameters) DeepCopyInto(out *SAMLSettingsParameters) {
 	if in.Enabled != nil {
 		in, out := &in.Enabled, &out.Enabled
 		*out = new(bool)
+		**out = **in
+	}
+	if in.EntityID != nil {
+		in, out := &in.EntityID, &out.EntityID
+		*out = new(string)
 		**out = **in
 	}
 	if in.ForceUseGraphAPI != nil {
@@ -6861,6 +6876,11 @@ func (in *TeamObservation) DeepCopyInto(out *TeamObservation) {
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
+	}
+	if in.TeamUID != nil {
+		in, out := &in.TeamUID, &out.TeamUID
+		*out = new(string)
+		**out = **in
 	}
 }
 

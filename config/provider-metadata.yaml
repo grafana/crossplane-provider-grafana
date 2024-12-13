@@ -916,7 +916,7 @@ resources:
               terraform import grafana_data_source.name "{{ orgID }}:{{ uid }}"
     grafana_data_source_config:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). Use this resource for configuring multiple datasources, when that configuration (json_data_encoded field) requires circular references like in the example below. When using the grafana_data_source_config resource, the corresponding grafana_data_source resources must have the json_data_encoded and http_headers fields ignored. Otherwise, an infinite update loop will occur. See the example below.
+        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). Use this resource for configuring multiple datasources, when that configuration (json_data_encoded field) requires circular references like in the example below. When using the
         name: grafana_data_source_config
         title: grafana_data_source_config Resource - terraform-provider-grafana
         examples:
@@ -1005,6 +1005,17 @@ resources:
             - |-
               terraform import grafana_data_source_config.name "{{ uid }}"
               terraform import grafana_data_source_config.name "{{ orgID }}:{{ uid }}"
+    grafana_data_source_config_lbac_rules Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: 'Manages LBAC rules for a data source. !> Warning: The resource is experimental and will be subject to change. This resource manages the entire LBAC rules tree, and will overwrite any existing rules. Official documentation https://grafana.com/docs/grafana/latest/administration/data-source-management/teamlbac/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/ This resource requires Grafana >=11.5.0.'
+        name: grafana_data_source_config_lbac_rules Resource - terraform-provider-grafana
+        title: grafana_data_source_config_lbac_rules Resource - terraform-provider-grafana
+        argumentDocs:
+            datasource_uid: (String) The UID of the datasource.
+            id: (String) The ID of this resource.
+            rules: (String) JSON-encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
+        importStatements:
+            - terraform import grafana_data_source_config_lbac_rules.name "{{ datasource_uid }}"
     grafana_data_source_permission:
         subCategory: Grafana Enterprise
         description: Manages the entire set of permissions for a datasource. Permissions that aren't specified when applying this resource will be removed. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
@@ -1549,7 +1560,7 @@ resources:
             - terraform import grafana_machine_learning_holiday.name "{{ id }}"
     grafana_machine_learning_job:
         subCategory: Machine Learning
-        description: A job defines the queries and model parameters for a machine learning task.
+        description: A job defines the queries and model parameters for a machine learning task. See the Grafana Cloud docs https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/forecasts/models/ for more information on available hyperparameters for use in the hyper_params field.
         name: grafana_machine_learning_job
         title: grafana_machine_learning_job Resource - terraform-provider-grafana
         examples:
@@ -2493,9 +2504,9 @@ resources:
                     },
                     {
                       "order": 1,
-                      "title": "Terraform Dashboard By ID",
-                      "type": "dashboard_by_id",
-                      "value": "3"
+                      "title": "Terraform Dashboard By UID",
+                      "type": "dashboard_by_uid",
+                      "value": "cIBgcSjkk"
                     }
                   ],
                   "name": "My Playlist!"
@@ -2902,13 +2913,15 @@ resources:
             interval_seconds: (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
             is_paused: (Boolean) Sets whether the alert should be paused or not. Defaults to false.
             labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
+            metric: (String) The name of the metric to write to.
             model: (String) Custom JSON data to send to the specified datasource when querying.
             mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
             name: (String) The name of the rule group.
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData.
-            notification_settings: '(Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag ''alertingSimplifiedRouting'' enabled. (see below for nested schema)'
+            notification_settings: '(Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag ''alertingSimplifiedRouting'' to be enabled. (see below for nested schema)'
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             query_type: (String) An optional identifier for the type of query being executed. Defaults to ``.
+            record: '(Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag ''grafanaManagedRecordingRules'' to be enabled. (see below for nested schema)'
             ref_id: (String) A unique string to identify this query stage within a rule.
             relative_time_range: '(Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)'
             repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
@@ -3274,7 +3287,7 @@ resources:
                 error budget is below a certain threshold. Annotations and Labels support templating. (see below for nested schema)
             annotation: (Block List) Annotations will be attached to all alerts generated by any of these rules. (see below for nested schema)
             description: (String) Description is a free-text field that can provide more context to an SLO.
-            destination_datasource: '(Block List, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)'
+            destination_datasource: '(Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)'
             fastburn: '(Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)'
             folder_uid: (String) UID for the SLO folder
             freeform: '(Block List, Max: 1) (see below for nested schema)'
@@ -3292,7 +3305,7 @@ resources:
             success_metric: (String) Counter metric for success events (numerator)
             total_metric: (String) Metric for total events (denominator)
             type: '(String) Query type must be one of: "freeform", "query", "ratio", or "threshold"'
-            uid: (String) UID for the Mimir Datasource
+            uid: (String) UID for the Datasource
             value: (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
             window: (String) A Prometheus-parsable time duration string like 24h, 60m. This is the time window the objective is measured over.
         importStatements:
@@ -3443,6 +3456,7 @@ resources:
             email_attribute_path: (String) JMESPath expression to use for user email lookup from the user information. Only applicable to Generic OAuth.
             empty_scopes: (Boolean) If enabled, no scopes will be sent to the OAuth2 provider.
             enabled: (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
+            entity_id: (String) The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
             force_use_graph_api: (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
             grafana_admin: (Boolean) If set to true, it makes the user of group_dn Grafana server admin.
             group_dn: (String) LDAP distinguished name (DN) of LDAP group. If you want to match all (or no LDAP groups) then you can use wildcard ("*").
@@ -3644,6 +3658,7 @@ resources:
                           "bearer_token": "asdfjkl;",
                           "body": "and spirit",
                           "cache_busting_query_param_name": "pineapple",
+                          "compression": "deflate",
                           "fail_if_body_matches_regexp": [
                             ".*bad stuff.*"
                           ],
@@ -4000,6 +4015,28 @@ resources:
                   ],
                   "target": "https://grafana.com/"
                 }
+            - name: browser
+              manifest: |-
+                {
+                  "enabled": true,
+                  "job": "Validate login",
+                  "labels": {
+                    "environment": "production"
+                  },
+                  "probes": [
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Paris}"
+                  ],
+                  "settings": [
+                    {
+                      "browser": [
+                        {
+                          "script": "${file(\"${path.module}/browser_script.js\")}"
+                        }
+                      ]
+                    }
+                  ],
+                  "target": "https://test.k6.io"
+                }
             - name: grpc
               manifest: |-
                 {
@@ -4060,10 +4097,12 @@ resources:
             basic_metrics_only: (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
             bearer_token: (String, Sensitive) Token for use with bearer authorization header.
             body: (String) The body of the HTTP request used in probe.
+            browser: '(Block Set, Max: 1) Settings for browser check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/. (see below for nested schema)'
             ca_cert: (String) CA certificate in PEM format.
             cache_busting_query_param_name: (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
             client_cert: (String) Client certificate in PEM format.
             client_key: (String, Sensitive) Client key in PEM format.
+            compression: (String) Check fails if the response body is not compressed using this compression algorithm. One of none, identity, br, gzip, deflate.
             condition: '(String) The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS'
             content_encoding: (String) The content encoding of the body
             content_type: (String) The content type of the body
@@ -4271,6 +4310,7 @@ resources:
             preferences: '(Block List, Max: 1) (see below for nested schema)'
             team_id: (Number) The team id assigned to this team by Grafana.
             team_sync: '(Block List, Max: 1) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.'
+            team_uid: (String) The team uid assigned to this team by Grafana.
             theme: (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme. Defaults to ``.
             timezone: (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to ``.
             week_start: (String) The default week start day for this team. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.

@@ -747,6 +747,10 @@ type SAMLSettingsInitParameters struct {
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// (String) The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+	// The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
+
 	// (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
 	// If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
 	ForceUseGraphAPI *bool `json:"forceUseGraphApi,omitempty" tf:"force_use_graph_api,omitempty"`
@@ -889,6 +893,10 @@ type SAMLSettingsObservation struct {
 	// (Boolean) Define whether this configuration is enabled for LDAP. Defaults to true.
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+	// The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
 
 	// (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
 	// If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
@@ -1047,6 +1055,11 @@ type SAMLSettingsParameters struct {
 	// Define whether this configuration is enabled for SAML. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+	// The entity ID is a globally unique identifier for the service provider. It is used to identify the service provider to the identity provider. Defaults to the URL of the Grafana instance if not set.
+	// +kubebuilder:validation:Optional
+	EntityID *string `json:"entityId,omitempty" tf:"entity_id,omitempty"`
 
 	// (Boolean) If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
 	// If enabled, Grafana will fetch groups from Microsoft Graph API instead of using the groups claim from the ID token.
