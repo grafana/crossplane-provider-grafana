@@ -187,6 +187,66 @@ func (mg *DashboardPermission) SetWriteConnectionSecretToReference(r *xpv1.Secre
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this DashboardPermissionItem.
+func (mg *DashboardPermissionItem) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this DashboardPublic.
 func (mg *DashboardPublic) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -307,6 +367,66 @@ func (mg *DataSource) SetWriteConnectionSecretToReference(r *xpv1.SecretReferenc
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this DataSourceConfig.
+func (mg *DataSourceConfig) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this DataSourceConfig.
+func (mg *DataSourceConfig) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this DataSourceConfig.
+func (mg *DataSourceConfig) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this DataSourceConfig.
+func (mg *DataSourceConfig) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this DataSourceConfig.
+func (mg *DataSourceConfig) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this DataSourceConfig.
+func (mg *DataSourceConfig) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this DataSourceConfig.
+func (mg *DataSourceConfig) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this DataSourceConfig.
+func (mg *DataSourceConfig) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this DataSourceConfig.
+func (mg *DataSourceConfig) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this DataSourceConfig.
+func (mg *DataSourceConfig) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this DataSourceConfig.
+func (mg *DataSourceConfig) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this DataSourceConfig.
+func (mg *DataSourceConfig) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this Folder.
 func (mg *Folder) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -424,6 +544,66 @@ func (mg *FolderPermission) SetPublishConnectionDetailsTo(r *xpv1.PublishConnect
 
 // SetWriteConnectionSecretToReference of this FolderPermission.
 func (mg *FolderPermission) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this FolderPermissionItem.
+func (mg *FolderPermissionItem) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this FolderPermissionItem.
+func (mg *FolderPermissionItem) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this FolderPermissionItem.
+func (mg *FolderPermissionItem) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this FolderPermissionItem.
+func (mg *FolderPermissionItem) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this FolderPermissionItem.
+func (mg *FolderPermissionItem) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this FolderPermissionItem.
+func (mg *FolderPermissionItem) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this FolderPermissionItem.
+func (mg *FolderPermissionItem) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this FolderPermissionItem.
+func (mg *FolderPermissionItem) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this FolderPermissionItem.
+func (mg *FolderPermissionItem) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this FolderPermissionItem.
+func (mg *FolderPermissionItem) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this FolderPermissionItem.
+func (mg *FolderPermissionItem) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this FolderPermissionItem.
+func (mg *FolderPermissionItem) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
@@ -784,6 +964,66 @@ func (mg *ServiceAccountPermission) SetPublishConnectionDetailsTo(r *xpv1.Publis
 
 // SetWriteConnectionSecretToReference of this ServiceAccountPermission.
 func (mg *ServiceAccountPermission) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this ServiceAccountPermissionItem.
+func (mg *ServiceAccountPermissionItem) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

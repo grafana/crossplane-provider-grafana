@@ -7,6 +7,66 @@ package v1alpha1
 
 import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 
+// GetCondition of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this DataSourcePermission.
 func (mg *DataSourcePermission) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -64,6 +124,66 @@ func (mg *DataSourcePermission) SetPublishConnectionDetailsTo(r *xpv1.PublishCon
 
 // SetWriteConnectionSecretToReference of this DataSourcePermission.
 func (mg *DataSourcePermission) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this DataSourcePermissionItem.
+func (mg *DataSourcePermissionItem) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
@@ -244,6 +364,66 @@ func (mg *RoleAssignment) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectio
 
 // SetWriteConnectionSecretToReference of this RoleAssignment.
 func (mg *RoleAssignment) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this RoleAssignmentItem.
+func (mg *RoleAssignmentItem) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
