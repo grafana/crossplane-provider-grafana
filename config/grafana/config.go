@@ -6,6 +6,7 @@ package grafana
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
@@ -206,6 +207,24 @@ func Configure(p *ujconfig.Provider) {
 	})
 	p.AddResourceConfigurator("grafana_cloud_stack", func(r *ujconfig.Resource) {
 		r.UseAsync = true
+
+		// Cloud Stacks can either be imported by ID or by Slug
+		// We'll default to slug instead of ID as the ID can't be known upfront
+		// This'll allow us to import existing instances consistently
+		// Also see: https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack#import
+		r.ExternalName = ujconfig.ExternalName{
+			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
+			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
+				slug, ok := tfstate["slug"].(string)
+				if !ok {
+					return "", errors.New("cannot get slug attribute")
+				}
+				return slug, nil
+			},
+			GetIDFn:                ujconfig.ExternalNameAsID,
+			DisableNameInitializer: true,
+		}
+
 	})
 	p.AddResourceConfigurator("grafana_cloud_stack_service_account", func(r *ujconfig.Resource) {
 		r.References["stack_slug"] = ujconfig.Reference{
