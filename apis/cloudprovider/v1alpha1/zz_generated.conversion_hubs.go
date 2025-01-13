@@ -11,3 +11,6 @@ func (tr *AwsAccount) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *AwsCloudwatchScrapeJob) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *AzureCredential) Hub() {}
