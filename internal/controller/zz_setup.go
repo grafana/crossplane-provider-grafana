@@ -16,15 +16,23 @@ import (
 	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/rulegroup"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicy"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicytoken"
+	orgmember "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/orgmember"
 	plugininstallation "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/plugininstallation"
 	stack "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stack"
 	stackserviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccount"
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccounttoken"
+	awsaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/awsaccount"
+	awscloudwatchscrapejob "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/awscloudwatchscrapejob"
+	metricsendpointscrapejob "github.com/grafana/crossplane-provider-grafana/internal/controller/connections/metricsendpointscrapejob"
+	datasourceconfiglbacrules "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/datasourceconfiglbacrules"
 	datasourcepermission "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/datasourcepermission"
+	datasourcepermissionitem "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/datasourcepermissionitem"
 	report "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/report"
 	role "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/role"
 	roleassignment "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignment"
+	roleassignmentitem "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignmentitem"
 	teamexternalgroup "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/teamexternalgroup"
+	alert "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/alert"
 	holiday "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/holiday"
 	job "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/job"
 	outlierdetector "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/outlierdetector"
@@ -39,16 +47,20 @@ import (
 	annotation "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/annotation"
 	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
 	dashboardpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermission"
+	dashboardpermissionitem "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermissionitem"
 	dashboardpublic "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpublic"
 	datasource "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/datasource"
+	datasourceconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/datasourceconfig"
 	folder "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folder"
 	folderpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folderpermission"
+	folderpermissionitem "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folderpermissionitem"
 	librarypanel "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/librarypanel"
 	organization "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organization"
 	organizationpreferences "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organizationpreferences"
 	playlist "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/playlist"
 	serviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccount"
 	serviceaccountpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccountpermission"
+	serviceaccountpermissionitem "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccountpermissionitem"
 	serviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccounttoken"
 	ssosettings "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/ssosettings"
 	team "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/team"
@@ -71,15 +83,23 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rulegroup.Setup,
 		accesspolicy.Setup,
 		accesspolicytoken.Setup,
+		orgmember.Setup,
 		plugininstallation.Setup,
 		stack.Setup,
 		stackserviceaccount.Setup,
 		stackserviceaccounttoken.Setup,
+		awsaccount.Setup,
+		awscloudwatchscrapejob.Setup,
+		metricsendpointscrapejob.Setup,
+		datasourceconfiglbacrules.Setup,
 		datasourcepermission.Setup,
+		datasourcepermissionitem.Setup,
 		report.Setup,
 		role.Setup,
 		roleassignment.Setup,
+		roleassignmentitem.Setup,
 		teamexternalgroup.Setup,
+		alert.Setup,
 		holiday.Setup,
 		job.Setup,
 		outlierdetector.Setup,
@@ -94,16 +114,20 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		annotation.Setup,
 		dashboard.Setup,
 		dashboardpermission.Setup,
+		dashboardpermissionitem.Setup,
 		dashboardpublic.Setup,
 		datasource.Setup,
+		datasourceconfig.Setup,
 		folder.Setup,
 		folderpermission.Setup,
+		folderpermissionitem.Setup,
 		librarypanel.Setup,
 		organization.Setup,
 		organizationpreferences.Setup,
 		playlist.Setup,
 		serviceaccount.Setup,
 		serviceaccountpermission.Setup,
+		serviceaccountpermissionitem.Setup,
 		serviceaccounttoken.Setup,
 		ssosettings.Setup,
 		team.Setup,

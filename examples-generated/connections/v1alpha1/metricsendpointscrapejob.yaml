@@ -1,0 +1,21 @@
+apiVersion: connections.grafana.crossplane.io/v1alpha1
+kind: MetricsEndpointScrapeJob
+metadata:
+  annotations:
+    meta.upbound.io/example-id: connections/v1alpha1/metricsendpointscrapejob
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    authenticationBasicPasswordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    authenticationBasicUsername: my-username
+    authenticationMethod: basic
+    enabled: true
+    name: my-scrape-job
+    scrapeIntervalSeconds: 120
+    stackId: "1"
+    url: https://grafana.com/metrics

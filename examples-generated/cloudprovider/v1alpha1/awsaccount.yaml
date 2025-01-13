@@ -1,0 +1,16 @@
+apiVersion: cloudprovider.grafana.crossplane.io/v1alpha1
+kind: AwsAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudprovider/v1alpha1/awsaccount
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    regions:
+    - us-east-1
+    - us-east-2
+    - us-west-1
+    roleArn: ${data.aws_iam_role.test.arn}
+    stackId: ${data.grafana_cloud_stack.test.id}

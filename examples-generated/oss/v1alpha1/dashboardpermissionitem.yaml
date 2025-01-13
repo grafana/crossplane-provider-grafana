@@ -1,0 +1,64 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DashboardPermissionItem
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpermissionitem
+  labels:
+    testing.upbound.io/example-name: role
+  name: role
+spec:
+  forProvider:
+    dashboardUid: ${grafana_dashboard.dashboard.uid}
+    permission: View
+    role: Viewer
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpermissionitem
+  labels:
+    testing.upbound.io/example-name: dashboard
+  name: dashboard
+spec:
+  forProvider:
+    configJson: |-
+      ${jsonencode({
+          "title" : "My Dashboard",
+          "uid" : "my-dashboard-uid"
+        })}
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpermissionitem
+  labels:
+    testing.upbound.io/example-name: team
+  name: team
+spec:
+  forProvider:
+    name: Team Name
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpermissionitem
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+spec:
+  forProvider:
+    email: user.name@example.com
+    login: user.name
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

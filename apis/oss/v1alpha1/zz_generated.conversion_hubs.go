@@ -16,16 +16,25 @@ func (tr *Dashboard) Hub() {}
 func (tr *DashboardPermission) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DashboardPermissionItem) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DashboardPublic) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *DataSource) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DataSourceConfig) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Folder) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *FolderPermission) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *FolderPermissionItem) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *LibraryPanel) Hub() {}
@@ -44,6 +53,9 @@ func (tr *ServiceAccount) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccountPermission) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ServiceAccountPermissionItem) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccountToken) Hub() {}

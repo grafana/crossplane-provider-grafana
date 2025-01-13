@@ -13,6 +13,9 @@ func (tr *AccessPolicy) Hub() {}
 func (tr *AccessPolicyToken) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *OrgMember) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *PluginInstallation) Hub() {}
 
 // Hub marks this type as a conversion hub.
