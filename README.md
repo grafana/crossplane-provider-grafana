@@ -11,7 +11,7 @@ Install the provider by using the following command after changing the image tag
 to the [latest release](https://marketplace.upbound.io/providers/grafana/provider-grafana):
 
 ```
-up ctp provider install xpkg.upbound.io/grafana/provider-grafana:v0.5.1
+up ctp provider install xpkg.upbound.io/grafana/provider-grafana:v0.24.0
 ```
 
 Alternatively, you can use declarative installation:
@@ -23,7 +23,7 @@ kind: Provider
 metadata:
   name: provider-grafana
 spec:
-  package: xpkg.upbound.io/grafana/provider-grafana:v0.5.1
+  package: xpkg.upbound.io/grafana/provider-grafana:v0.24.0
 EOF
 ```
 
