@@ -23,6 +23,7 @@ import (
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccounttoken"
 	awsaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/awsaccount"
 	awscloudwatchscrapejob "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/awscloudwatchscrapejob"
+	azurecredential "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/azurecredential"
 	metricsendpointscrapejob "github.com/grafana/crossplane-provider-grafana/internal/controller/connections/metricsendpointscrapejob"
 	datasourceconfiglbacrules "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/datasourceconfiglbacrules"
 	datasourcepermission "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/datasourcepermission"
@@ -90,6 +91,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		stackserviceaccounttoken.Setup,
 		awsaccount.Setup,
 		awscloudwatchscrapejob.Setup,
+		azurecredential.Setup,
 		metricsendpointscrapejob.Setup,
 		datasourceconfiglbacrules.Setup,
 		datasourcepermission.Setup,

@@ -77,6 +77,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	// Cloud Provider
 	"grafana_cloud_provider_aws_account":               ReplaceGroupWords("cloudprovider", 2),
 	"grafana_cloud_provider_aws_cloudwatch_scrape_job": ReplaceGroupWords("cloudprovider", 2),
+	"grafana_cloud_provider_azure_credential":          ReplaceGroupWords("cloudprovider", 2),
 
 	// Connections
 	"grafana_connections_metrics_endpoint_scrape_job": ReplaceGroupWords("connections", 1),
