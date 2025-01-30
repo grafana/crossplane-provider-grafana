@@ -186,14 +186,23 @@ func Configure(p *ujconfig.Provider) {
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 			cloudConfig := map[string]string{}
+			basicAuthConfig := map[string]string{}
 			if a, ok := attr["token"].(string); ok {
 				cloudConfig["cloud_access_policy_token"] = a
+				basicAuthConfig["basicAuthPassword"] = a
 			}
-			marshalled, err := json.Marshal(cloudConfig)
+
+			marshalledBasicAuthConfig, err := json.Marshal(basicAuthConfig)
 			if err != nil {
 				return nil, err
 			}
-			conn["cloudCredentials"] = marshalled
+			conn["basicAuthCredentials"] = marshalledBasicAuthConfig
+
+			marshalledCloudConfig, err := json.Marshal(cloudConfig)
+			if err != nil {
+				return nil, err
+			}
+			conn["cloudCredentials"] = marshalledCloudConfig
 			return conn, nil
 		}
 	})
