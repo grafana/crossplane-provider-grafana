@@ -202,7 +202,7 @@ type DashboardPublicStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// DashboardPublic is the Schema for the DashboardPublics API. Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/dashboard-public/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/dashboard_public/
+// DashboardPublic is the Schema for the DashboardPublics API. Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/share-dashboards-panels/shared-dashboards/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/dashboard_public/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

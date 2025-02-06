@@ -1257,6 +1257,11 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(float64)
 		**out = **in
 	}
+	if in.ClusterSlug != nil {
+		in, out := &in.ClusterSlug, &out.ClusterSlug
+		*out = new(string)
+		**out = **in
+	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
 		*out = new(string)

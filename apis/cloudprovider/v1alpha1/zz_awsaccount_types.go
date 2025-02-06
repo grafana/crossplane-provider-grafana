@@ -15,6 +15,10 @@ import (
 
 type AwsAccountInitParameters struct {
 
+	// readable name for this AWS Account resource.
+	// An optional human-readable name for this AWS Account resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
 	// (Set of String) A set of regions that this AWS Account resource applies to.
 	// A set of regions that this AWS Account resource applies to.
 	// +listType=set
@@ -33,6 +37,10 @@ type AwsAccountObservation struct {
 
 	// This has the format "{{ stack_id }}:{{ resource_id }}".
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// readable name for this AWS Account resource.
+	// An optional human-readable name for this AWS Account resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A set of regions that this AWS Account resource applies to.
 	// A set of regions that this AWS Account resource applies to.
@@ -53,6 +61,11 @@ type AwsAccountObservation struct {
 }
 
 type AwsAccountParameters struct {
+
+	// readable name for this AWS Account resource.
+	// An optional human-readable name for this AWS Account resource.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A set of regions that this AWS Account resource applies to.
 	// A set of regions that this AWS Account resource applies to.

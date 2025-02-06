@@ -194,7 +194,7 @@ type JobStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Job is the Schema for the Jobs API. A job defines the queries and model parameters for a machine learning task. See the Grafana Cloud docs https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/forecasts/models/ for more information on available hyperparameters for use in the hyper_params field.
+// Job is the Schema for the Jobs API. A job defines the queries and model parameters for a machine learning task. See the Grafana Cloud docs https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/dynamic-alerting/forecasting/config/ for more information on available hyperparameters for use in the hyper_params field.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

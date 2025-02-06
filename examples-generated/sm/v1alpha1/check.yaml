@@ -13,7 +13,7 @@ spec:
     labels:
       foo: bar
     probes:
-    - ${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}
+    - ${data.grafana_synthetic_monitoring_probes.main.probes.Ohio}
     settings:
     - dns:
       - {}

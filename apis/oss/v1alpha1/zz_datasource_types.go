@@ -60,6 +60,10 @@ type DataSourceInitParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
+	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
+
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	SecureJSONDataEncodedSecretRef *v1.SecretKeySelector `json:"secureJsonDataEncodedSecretRef,omitempty" tf:"-"`
@@ -117,6 +121,10 @@ type DataSourceObservation struct {
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
 
 	// (String) The data source type. Must be one of the supported data source keywords.
 	// The data source type. Must be one of the supported data source keywords.
@@ -192,6 +200,11 @@ type DataSourceParameters struct {
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
 
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.

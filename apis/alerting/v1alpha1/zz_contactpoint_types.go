@@ -1767,6 +1767,10 @@ type SensugoParameters struct {
 
 type SlackInitParameters struct {
 
+	// (String) Templated color of the slack message.
+	// Templated color of the slack message.
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -1824,6 +1828,10 @@ type SlackInitParameters struct {
 
 type SlackObservation struct {
 
+	// (String) Templated color of the slack message.
+	// Templated color of the slack message.
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
+
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
@@ -1874,6 +1882,11 @@ type SlackObservation struct {
 }
 
 type SlackParameters struct {
+
+	// (String) Templated color of the slack message.
+	// Templated color of the slack message.
+	// +kubebuilder:validation:Optional
+	Color *string `json:"color,omitempty" tf:"color,omitempty"`
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
 	// Whether to disable sending resolve messages. Defaults to `false`.

@@ -76,6 +76,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  disableBrowserChecks:
+                    description: |-
+                      (Boolean) Disables browser checks for this probe. Defaults to false.
+                      Disables browser checks for this probe. Defaults to `false`.
+                    type: boolean
                   disableScriptedChecks:
                     description: |-
                       (Boolean) Disables scripted checks for this probe. Defaults to false.
@@ -128,6 +133,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  disableBrowserChecks:
+                    description: |-
+                      (Boolean) Disables browser checks for this probe. Defaults to false.
+                      Disables browser checks for this probe. Defaults to `false`.
+                    type: boolean
                   disableScriptedChecks:
                     description: |-
                       (Boolean) Disables scripted checks for this probe. Defaults to false.
@@ -356,6 +366,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  disableBrowserChecks:
+                    description: |-
+                      (Boolean) Disables browser checks for this probe. Defaults to false.
+                      Disables browser checks for this probe. Defaults to `false`.
+                    type: boolean
                   disableScriptedChecks:
                     description: |-
                       (Boolean) Disables scripted checks for this probe. Defaults to false.
