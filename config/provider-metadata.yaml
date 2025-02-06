@@ -163,6 +163,78 @@ resources:
             version: (String) Version of the plugin to be installed.
         importStatements:
             - terraform import grafana_cloud_plugin_installation.name "{{ stackSlug }}:{{ pluginSlug }}"
+    grafana_cloud_private_data_source_connect_network:
+        subCategory: Cloud
+        description: 'Official documentation https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
+        name: grafana_cloud_private_data_source_connect_network
+        title: grafana_cloud_private_data_source_connect_network Resource - terraform-provider-grafana
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "display_name": "My PDC",
+                  "name": "my-pdc",
+                  "region": "us",
+                  "stack_identifier": "${data.grafana_cloud_stack.current.id}"
+                }
+              references:
+                stack_identifier: data.grafana_cloud_stack.current.id
+              dependencies:
+                grafana_cloud_private_data_source_connect_network_token.test: |-
+                    {
+                      "display_name": "My PDC Token",
+                      "name": "my-pdc-token",
+                      "pdc_network_id": "${grafana_cloud_private_data_source_connect_network.test.pdc_network_id}",
+                      "region": "${grafana_cloud_private_data_source_connect_network.test.region}"
+                    }
+        argumentDocs:
+            created_at: (String) Creation date of the private data source connect network.
+            display_name: (String) Display name of the PDC network. Defaults to the name.
+            id: (String) The ID of this resource.
+            name: '(String) Name of the PDC network.Note: The name must be lowercase and can contain hyphens or underscores. See full requirements here: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#request-body'
+            pdc_network_id: (String) ID of the private data source connect network.
+            region: '(String) The region where your stack is deployed. Use the instances list API to get the region for your instance - use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks'
+            stack_identifier: (String) The identifier of the stack.
+            updated_at: (String) Last update date of the private data source connect network.
+        importStatements:
+            - terraform import grafana_cloud_private_data_source_connect_network.name "{{ region }}:{{ policyId }}"
+    grafana_cloud_private_data_source_connect_network_token:
+        subCategory: Cloud
+        description: 'Official documentation https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
+        name: grafana_cloud_private_data_source_connect_network_token
+        title: grafana_cloud_private_data_source_connect_network_token Resource - terraform-provider-grafana
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "display_name": "My PDC Token",
+                  "name": "my-pdc-token",
+                  "pdc_network_id": "${grafana_cloud_private_data_source_connect_network.test.pdc_network_id}",
+                  "region": "${grafana_cloud_private_data_source_connect_network.test.region}"
+                }
+              references:
+                pdc_network_id: grafana_cloud_private_data_source_connect_network.test.pdc_network_id
+                region: grafana_cloud_private_data_source_connect_network.test.region
+              dependencies:
+                grafana_cloud_private_data_source_connect_network.test: |-
+                    {
+                      "display_name": "My PDC",
+                      "name": "my-pdc",
+                      "region": "us",
+                      "stack_identifier": "${data.grafana_cloud_stack.current.id}"
+                    }
+        argumentDocs:
+            created_at: (String) Creation date of the private data source network token.
+            display_name: (String) Display name of the private data source network token. Defaults to the name.
+            expires_at: (String) Expiration date of the private data source network token. Does not expire by default.
+            id: (String) The ID of this resource.
+            name: (String) Name of the private data source network token.
+            pdc_network_id: (String) ID of the private data source network for which to create a token.
+            region: '(String) Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.'
+            token: (String, Sensitive)
+            updated_at: (String) Last update date of the private data source network token.
+        importStatements:
+            - terraform import grafana_cloud_private_data_source_connect_network_token.name "{{ region }}:{{ tokenId }}"
     grafana_cloud_provider_aws_account:
         subCategory: Cloud Provider
         name: grafana_cloud_provider_aws_account
@@ -184,6 +256,7 @@ resources:
                 stack_id: data.grafana_cloud_stack.test.id
         argumentDocs:
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ resource_id }}".
+            name: (String) An optional human-readable name for this AWS Account resource.
             regions: (Set of String) A set of regions that this AWS Account resource applies to.
             resource_id: (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
             role_arn: (String) An IAM Role ARN string to represent with this AWS Account resource.
@@ -289,6 +362,36 @@ resources:
             - name: test
               manifest: |-
                 {
+                  "auto_discovery_configuration": [
+                    {
+                      "resource_type_configurations": [
+                        {
+                          "metric_configuration": [
+                            {
+                              "name": "TotalCoresQuotaUsed"
+                            }
+                          ],
+                          "resource_type_name": "Microsoft.App/containerApps"
+                        },
+                        {
+                          "metric_configuration": [
+                            {
+                              "aggregations": [
+                                "Average"
+                              ],
+                              "dimensions": [
+                                "GeoType",
+                                "ApiName"
+                              ],
+                              "name": "Availability"
+                            }
+                          ],
+                          "resource_type_name": "Microsoft.Storage/storageAccounts/tableServices"
+                        }
+                      ],
+                      "subscription_id": "my-subscription_id"
+                    }
+                  ],
                   "client_id": "my-client-id",
                   "client_secret": "my-client-secret",
                   "name": "test-name",
@@ -302,18 +405,30 @@ resources:
                       "value": "value-2"
                     }
                   ],
+                  "resource_tags_to_add_to_metrics": [
+                    "tag1",
+                    "tag2"
+                  ],
                   "stack_id": "1",
                   "tenant_id": "my-tenant-id"
                 }
         argumentDocs:
+            aggregations: (List of String)
+            auto_discovery_configuration: (Block List) The list of auto discovery configurations. (see below for nested schema)
             client_id: (String) The client ID of the Azure Credential.
             client_secret: (String, Sensitive) The client secret of the Azure Credential.
+            dimensions: (List of String)
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ resource_id }}".
             key: (String) The key of the tag filter.
+            metric_configuration: (List of Object) (see below for nested schema)
             name: (String) The name of the Azure Credential.
             resource_discovery_tag_filter: (Block List) The list of tag filters to apply to resources. (see below for nested schema)
             resource_id: (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
+            resource_tags_to_add_to_metrics: (Set of String) A set of regions that this AWS Account resource applies to.
+            resource_type_configurations: (List of Object) The list of resource type configurations. (see below for nested schema)
+            resource_type_name: (String)
             stack_id: (String) The StackID of the Grafana Cloud instance. Part of the Terraform Resource ID.
+            subscription_id: (String) The subscription ID of the Azure account.
             tenant_id: (String) The tenant ID of the Azure Credential.
             value: (String) The value of the tag filter.
         importStatements:
@@ -337,6 +452,7 @@ resources:
             alertmanager_status: (String) Status of the Alertmanager instance configured for this stack.
             alertmanager_url: (String) Base URL of the Alertmanager instance configured for this stack.
             alertmanager_user_id: (Number) User ID of the Alertmanager instance configured for this stack.
+            cluster_slug: (String) Slug of the cluster where this stack resides.
             description: (String) Description of stack.
             graphite_name: (String)
             graphite_status: (String)
@@ -508,6 +624,7 @@ resources:
             client: (String) The name of the monitoring client that is triggering this event.
             client_url: (String) The URL of the monitoring client that is triggering this event.
             cluster_id: (String) The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
+            color: (String) Templated color of the slack message.
             component: (String) The component being affected by the event.
             corp_id: (String) Corp ID used to get token when using APIAPP.
             description: (String) The templated description of the Kafka message.
@@ -787,7 +904,7 @@ resources:
               terraform import grafana_dashboard_permission_item.name "{{ orgID }}:{{ dashboardUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_dashboard_public:
         subCategory: Grafana OSS
-        description: 'Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/dashboard-public/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/dashboard_public/'
+        description: 'Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/share-dashboards-panels/shared-dashboards/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/dashboard_public/'
         name: grafana_dashboard_public
         title: grafana_dashboard_public Resource - terraform-provider-grafana
         examples:
@@ -942,6 +1059,7 @@ resources:
             json_data_encoded: (String) Serialized JSON string containing the json data. This attribute can be used to pass configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
             name: (String) A unique name for the data source.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            private_data_source_connect_network_id: (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.
             secure_json_data_encoded: (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
             type: (String) The data source type. Must be one of the supported data source keywords.
             uid: (String) Unique identifier. If unset, this will be automatically generated.
@@ -1597,7 +1715,7 @@ resources:
             - terraform import grafana_machine_learning_holiday.name "{{ id }}"
     grafana_machine_learning_job:
         subCategory: Machine Learning
-        description: A job defines the queries and model parameters for a machine learning task. See the Grafana Cloud docs https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/forecasts/models/ for more information on available hyperparameters for use in the hyper_params field.
+        description: A job defines the queries and model parameters for a machine learning task. See the Grafana Cloud docs https://grafana.com/docs/grafana-cloud/alerting-and-irm/machine-learning/dynamic-alerting/forecasting/config/ for more information on available hyperparameters for use in the hyper_params field.
         name: grafana_machine_learning_job
         title: grafana_machine_learning_job Resource - terraform-provider-grafana
         examples:
@@ -3578,7 +3696,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Ohio}"
                   ],
                   "settings": [
                     {
@@ -3659,7 +3777,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Ohio}"
                   ],
                   "settings": [
                     {
@@ -3679,7 +3797,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Bangalore}",
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Mumbai}",
                     "${data.grafana_synthetic_monitoring_probes.main.probes.Mumbai}"
                   ],
                   "settings": [
@@ -3748,7 +3866,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Ohio}"
                   ],
                   "settings": [
                     {
@@ -3793,7 +3911,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Ohio}"
                   ],
                   "settings": [
                     {
@@ -3855,7 +3973,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Ohio}"
                   ],
                   "settings": [
                     {
@@ -3903,7 +4021,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Amsterdam}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt}"
                   ],
                   "settings": [
                     {
@@ -3934,7 +4052,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Amsterdam}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt}"
                   ],
                   "settings": [
                     {
@@ -4083,7 +4201,7 @@ resources:
                     "foo": "bar"
                   },
                   "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Atlanta}"
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Ohio}"
                   ],
                   "settings": [
                     {
@@ -4294,6 +4412,7 @@ resources:
                 }
         argumentDocs:
             auth_token: (String, Sensitive) The probe authentication token. Your probe must use this to authenticate with Grafana Cloud.
+            disable_browser_checks: (Boolean) Disables browser checks for this probe. Defaults to false.
             disable_scripted_checks: (Boolean) Disables scripted checks for this probe. Defaults to false.
             id: (String) The ID of the probe.
             labels: (Map of String) Custom labels to be included with collected metrics and logs.

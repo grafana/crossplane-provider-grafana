@@ -13,7 +13,46 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type AutoDiscoveryConfigurationInitParameters struct {
+
+	// (List of Object) The list of resource type configurations. (see below for nested schema)
+	// The list of resource type configurations.
+	ResourceTypeConfigurations []ResourceTypeConfigurationsInitParameters `json:"resourceTypeConfigurations,omitempty" tf:"resource_type_configurations,omitempty"`
+
+	// (String) The subscription ID of the Azure account.
+	// The subscription ID of the Azure account.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type AutoDiscoveryConfigurationObservation struct {
+
+	// (List of Object) The list of resource type configurations. (see below for nested schema)
+	// The list of resource type configurations.
+	ResourceTypeConfigurations []ResourceTypeConfigurationsObservation `json:"resourceTypeConfigurations,omitempty" tf:"resource_type_configurations,omitempty"`
+
+	// (String) The subscription ID of the Azure account.
+	// The subscription ID of the Azure account.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+}
+
+type AutoDiscoveryConfigurationParameters struct {
+
+	// (List of Object) The list of resource type configurations. (see below for nested schema)
+	// The list of resource type configurations.
+	// +kubebuilder:validation:Optional
+	ResourceTypeConfigurations []ResourceTypeConfigurationsParameters `json:"resourceTypeConfigurations" tf:"resource_type_configurations,omitempty"`
+
+	// (String) The subscription ID of the Azure account.
+	// The subscription ID of the Azure account.
+	// +kubebuilder:validation:Optional
+	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
+}
+
 type AzureCredentialInitParameters struct {
+
+	// (Block List) The list of auto discovery configurations. (see below for nested schema)
+	// The list of auto discovery configurations.
+	AutoDiscoveryConfiguration []AutoDiscoveryConfigurationInitParameters `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
 
 	// (String) The client ID of the Azure Credential.
 	// The client ID of the Azure Credential.
@@ -41,6 +80,10 @@ type AzureCredentialInitParameters struct {
 }
 
 type AzureCredentialObservation struct {
+
+	// (Block List) The list of auto discovery configurations. (see below for nested schema)
+	// The list of auto discovery configurations.
+	AutoDiscoveryConfiguration []AutoDiscoveryConfigurationObservation `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
 
 	// (String) The client ID of the Azure Credential.
 	// The client ID of the Azure Credential.
@@ -71,6 +114,11 @@ type AzureCredentialObservation struct {
 }
 
 type AzureCredentialParameters struct {
+
+	// (Block List) The list of auto discovery configurations. (see below for nested schema)
+	// The list of auto discovery configurations.
+	// +kubebuilder:validation:Optional
+	AutoDiscoveryConfiguration []AutoDiscoveryConfigurationParameters `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
 
 	// (String) The client ID of the Azure Credential.
 	// The client ID of the Azure Credential.
@@ -136,6 +184,74 @@ type AzureCredentialResourceDiscoveryTagFilterParameters struct {
 	// The value of the tag filter.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type MetricConfigurationInitParameters struct {
+
+	// (List of String)
+	Aggregations []*string `json:"aggregations,omitempty" tf:"aggregations"`
+
+	// (List of String)
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions"`
+
+	// (String) The name of the Azure Credential.
+	Name *string `json:"name,omitempty" tf:"name"`
+}
+
+type MetricConfigurationObservation struct {
+
+	// (List of String)
+	Aggregations []*string `json:"aggregations,omitempty" tf:"aggregations,omitempty"`
+
+	// (List of String)
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
+
+	// (String) The name of the Azure Credential.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type MetricConfigurationParameters struct {
+
+	// (List of String)
+	// +kubebuilder:validation:Optional
+	Aggregations []*string `json:"aggregations" tf:"aggregations"`
+
+	// (List of String)
+	// +kubebuilder:validation:Optional
+	Dimensions []*string `json:"dimensions" tf:"dimensions"`
+
+	// (String) The name of the Azure Credential.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name"`
+}
+
+type ResourceTypeConfigurationsInitParameters struct {
+
+	// (List of Object) (see below for nested schema)
+	MetricConfiguration []MetricConfigurationInitParameters `json:"metricConfiguration,omitempty" tf:"metric_configuration"`
+
+	// (String)
+	ResourceTypeName *string `json:"resourceTypeName,omitempty" tf:"resource_type_name"`
+}
+
+type ResourceTypeConfigurationsObservation struct {
+
+	// (List of Object) (see below for nested schema)
+	MetricConfiguration []MetricConfigurationObservation `json:"metricConfiguration,omitempty" tf:"metric_configuration,omitempty"`
+
+	// (String)
+	ResourceTypeName *string `json:"resourceTypeName,omitempty" tf:"resource_type_name,omitempty"`
+}
+
+type ResourceTypeConfigurationsParameters struct {
+
+	// (List of Object) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	MetricConfiguration []MetricConfigurationParameters `json:"metricConfiguration" tf:"metric_configuration"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	ResourceTypeName *string `json:"resourceTypeName" tf:"resource_type_name"`
 }
 
 // AzureCredentialSpec defines the desired state of AzureCredential

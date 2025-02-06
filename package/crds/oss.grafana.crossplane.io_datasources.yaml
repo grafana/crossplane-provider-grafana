@@ -204,6 +204,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  privateDataSourceConnectNetworkId:
+                    description: |-
+                      (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+                      (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+                    type: string
                   secureJsonDataEncodedSecretRef:
                     description: |-
                       (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
@@ -375,6 +380,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  privateDataSourceConnectNetworkId:
+                    description: |-
+                      (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+                      (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+                    type: string
                   secureJsonDataEncodedSecretRef:
                     description: |-
                       (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
@@ -638,6 +648,11 @@ spec:
                     description: |-
                       (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
                       The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                    type: string
+                  privateDataSourceConnectNetworkId:
+                    description: |-
+                      (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+                      (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
                     type: string
                   type:
                     description: |-

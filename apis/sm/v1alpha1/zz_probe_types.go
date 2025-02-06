@@ -15,6 +15,10 @@ import (
 
 type ProbeInitParameters struct {
 
+	// (Boolean) Disables browser checks for this probe. Defaults to false.
+	// Disables browser checks for this probe. Defaults to `false`.
+	DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
+
 	// (Boolean) Disables scripted checks for this probe. Defaults to false.
 	// Disables scripted checks for this probe. Defaults to `false`.
 	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
@@ -46,6 +50,10 @@ type ProbeInitParameters struct {
 }
 
 type ProbeObservation struct {
+
+	// (Boolean) Disables browser checks for this probe. Defaults to false.
+	// Disables browser checks for this probe. Defaults to `false`.
+	DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
 
 	// (Boolean) Disables scripted checks for this probe. Defaults to false.
 	// Disables scripted checks for this probe. Defaults to `false`.
@@ -85,6 +93,11 @@ type ProbeObservation struct {
 }
 
 type ProbeParameters struct {
+
+	// (Boolean) Disables browser checks for this probe. Defaults to false.
+	// Disables browser checks for this probe. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
 
 	// (Boolean) Disables scripted checks for this probe. Defaults to false.
 	// Disables scripted checks for this probe. Defaults to `false`.

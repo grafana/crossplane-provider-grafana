@@ -1794,6 +1794,11 @@ func (in *DataSourceInitParameters) DeepCopyInto(out *DataSourceInitParameters) 
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.PrivateDataSourceConnectNetworkID != nil {
+		in, out := &in.PrivateDataSourceConnectNetworkID, &out.PrivateDataSourceConnectNetworkID
+		*out = new(string)
+		**out = **in
+	}
 	if in.SecureJSONDataEncodedSecretRef != nil {
 		in, out := &in.SecureJSONDataEncodedSecretRef, &out.SecureJSONDataEncodedSecretRef
 		*out = new(v1.SecretKeySelector)
@@ -1911,6 +1916,11 @@ func (in *DataSourceObservation) DeepCopyInto(out *DataSourceObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrivateDataSourceConnectNetworkID != nil {
+		in, out := &in.PrivateDataSourceConnectNetworkID, &out.PrivateDataSourceConnectNetworkID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
 		*out = new(string)
@@ -2000,6 +2010,11 @@ func (in *DataSourceParameters) DeepCopyInto(out *DataSourceParameters) {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.PrivateDataSourceConnectNetworkID != nil {
+		in, out := &in.PrivateDataSourceConnectNetworkID, &out.PrivateDataSourceConnectNetworkID
+		*out = new(string)
+		**out = **in
 	}
 	if in.SecureJSONDataEncodedSecretRef != nil {
 		in, out := &in.SecureJSONDataEncodedSecretRef, &out.SecureJSONDataEncodedSecretRef
