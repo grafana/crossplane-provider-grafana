@@ -1,0 +1,65 @@
+# Example that creates a DataSource that uses BasicAuth to connect to a Prometheus endpoint
+# Note: There exists a race condition between access policy token and datasource as datasource currently
+# does not block creation if secureJsonDataEncodedSecretRef points to a non-existing secret.
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicy
+metadata:
+  name: example-datasource-with-basic-auth
+  labels:
+    example.com/name: example-datasource-with-basic-auth
+spec:
+  forProvider:
+    name: example-datasource-with-basic-auth
+    realm:
+    - labelPolicy:
+      - selector: '{foo="bar"}'
+      type: stack
+      identifier: "STACKID" # changeme
+    region: REGION # changeme
+    scopes:
+    - metrics:read
+    - logs:read
+  providerConfigRef:
+    name: grafana-cloud-provider
+---
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicyToken
+metadata:
+  name: example-datasource-with-basic-auth
+spec:
+  forProvider:
+    accessPolicySelector:
+      matchLabels:
+        example.com/name: example-datasource-with-basic-auth
+    name: example-datasource-with-basic-auth
+    region: REGION  # changeme
+  writeConnectionSecretToRef:
+    name: example-datasource-with-basic-auth
+    namespace: crossplane
+  providerConfigRef:
+    name: grafana-cloud-provider
+---
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DataSource
+metadata:
+  labels:
+    example.com/name: example-datasource-with-basic-auth
+  name: example-datasource-with-basic-auth
+spec:
+  forProvider:
+    name: example-datasource-with-basic-auth
+    type: prometheus
+    url: URL  # changeme
+    basicAuthEnabled: true
+    basicAuthUsername: "USERID"  # changeme
+    jsonDataEncoded: |
+      {
+        "httpMethod": "POST",
+        "tokenName": "example-datasource-with-basic-auth"
+      }
+    secureJsonDataEncodedSecretRef:
+      key: basicAuthCredentials
+      name: example-datasource-with-basic-auth
+      namespace: crossplane
+  providerConfigRef:
+    name: grafana-cloud-instance-provider
