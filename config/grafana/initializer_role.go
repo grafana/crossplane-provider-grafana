@@ -38,11 +38,11 @@ func (i *roleInitializer) Initialize(ctx context.Context, mg resource.Managed) e
 	}
 	atProviderValue, err := paved.GetValue("status.atProvider.version")
 	if err == nil {
-		if err := paved.SetValue("spec.forProvider.version", atProviderValue); err != nil {
-			return fmt.Errorf("could not set version: %w", err)
+		if err2 := paved.SetValue("spec.forProvider.version", atProviderValue); err2 != nil {
+			return fmt.Errorf("could not set version: %w", err2)
 		}
-	} else if err := paved.DeleteField("spec.forProvider.version"); err != nil {
-		return fmt.Errorf("could not delete version: %w", err)
+	} else if err3 := paved.DeleteField("spec.forProvider.version"); err3 != nil {
+		return fmt.Errorf("could not delete version: %w", err3)
 	}
 	pavedByte, err := paved.MarshalJSON()
 	if err != nil {
