@@ -28,7 +28,7 @@ linters-settings:
       # report about shadowed variables
       - shadow
       # Find structs that would use less memory if their fields were sorted.
-      - fieldalignment
+      #- fieldalignment
 
   gofmt:
     # simplify code: gofmt with `-s` option, true by default
