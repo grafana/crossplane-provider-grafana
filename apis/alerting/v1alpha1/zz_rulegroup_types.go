@@ -416,8 +416,8 @@ type RuleInitParameters struct {
 	// A sequence of stages that describe the contents of the rule.
 	Data []DataInitParameters `json:"data,omitempty" tf:"data,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to Alerting.
-	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to `Alerting`.
+	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
 	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
 	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
@@ -437,8 +437,8 @@ type RuleInitParameters struct {
 	// The name of the alert rule.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData.
-	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
+	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
 	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
@@ -465,8 +465,8 @@ type RuleObservation struct {
 	// A sequence of stages that describe the contents of the rule.
 	Data []DataObservation `json:"data,omitempty" tf:"data,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to Alerting.
-	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to `Alerting`.
+	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
 	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
 	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
@@ -486,8 +486,8 @@ type RuleObservation struct {
 	// The name of the alert rule.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData.
-	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
+	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
 	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
@@ -514,15 +514,15 @@ type RuleParameters struct {
 	// (String) The ref_id of the query node in the data field to use as the alert condition.
 	// The `ref_id` of the query node in the `data` field to use as the alert condition.
 	// +kubebuilder:validation:Optional
-	Condition *string `json:"condition" tf:"condition,omitempty"`
+	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// (Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)
 	// A sequence of stages that describe the contents of the rule.
 	// +kubebuilder:validation:Optional
 	Data []DataParameters `json:"data" tf:"data,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to Alerting.
-	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting. Defaults to `Alerting`.
+	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
 	// +kubebuilder:validation:Optional
 	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
@@ -547,8 +547,8 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData.
-	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to `NoData`.
+	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
 	// +kubebuilder:validation:Optional
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 

@@ -35,7 +35,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: MessageTemplate is the Schema for the MessageTemplates API. Manages
-          Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#templates
+          Grafana Alerting notification template groups, including notification templates.
+          Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-template-groups
           This resource requires Grafana 9.1.0 or later.
         properties:
           apiVersion:
@@ -79,8 +80,8 @@ spec:
                     type: boolean
                   name:
                     description: |-
-                      (String) The name of the message template.
-                      The name of the message template.
+                      (String) The name of the notification template group.
+                      The name of the notification template group.
                     type: string
                   orgId:
                     description: |-
@@ -163,8 +164,8 @@ spec:
                     type: object
                   template:
                     description: |-
-                      (String) The content of the message template.
-                      The content of the message template.
+                      (String) The content of the notification template group.
+                      The content of the notification template group.
                     type: string
                 type: object
               initProvider:
@@ -185,8 +186,8 @@ spec:
                     type: boolean
                   name:
                     description: |-
-                      (String) The name of the message template.
-                      The name of the message template.
+                      (String) The name of the notification template group.
+                      The name of the notification template group.
                     type: string
                   orgId:
                     description: |-
@@ -269,8 +270,8 @@ spec:
                     type: object
                   template:
                     description: |-
-                      (String) The content of the message template.
-                      The content of the message template.
+                      (String) The content of the notification template group.
+                      The content of the notification template group.
                     type: string
                 type: object
               managementPolicies:
@@ -462,8 +463,8 @@ spec:
                     type: string
                   name:
                     description: |-
-                      (String) The name of the message template.
-                      The name of the message template.
+                      (String) The name of the notification template group.
+                      The name of the notification template group.
                     type: string
                   orgId:
                     description: |-
@@ -472,8 +473,8 @@ spec:
                     type: string
                   template:
                     description: |-
-                      (String) The content of the message template.
-                      The content of the message template.
+                      (String) The content of the notification template group.
+                      The content of the notification template group.
                     type: string
                 type: object
               conditions:

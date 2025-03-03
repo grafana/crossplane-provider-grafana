@@ -35,6 +35,9 @@ spec:
       tagsToAddToMetrics:
       - eks:cluster-name
     stackId: ${data.grafana_cloud_stack.test.id}
+    staticLabels:
+      label1: value1
+      label2: value2
 
 ---
 

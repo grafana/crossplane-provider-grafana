@@ -70,6 +70,11 @@ type AzureCredentialInitParameters struct {
 	// The list of tag filters to apply to resources.
 	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterInitParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
+	// (Set of String) A set of regions that this AWS Account resource applies to.
+	// A set of regions that this AWS Account resource applies to.
+	// +listType=set
+	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
+
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
@@ -103,6 +108,11 @@ type AzureCredentialObservation struct {
 	// (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
 	// The ID given by the Grafana Cloud Provider API to this AWS Account resource.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+
+	// (Set of String) A set of regions that this AWS Account resource applies to.
+	// A set of regions that this AWS Account resource applies to.
+	// +listType=set
+	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
 
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.
@@ -139,6 +149,12 @@ type AzureCredentialParameters struct {
 	// The list of tag filters to apply to resources.
 	// +kubebuilder:validation:Optional
 	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
+
+	// (Set of String) A set of regions that this AWS Account resource applies to.
+	// A set of regions that this AWS Account resource applies to.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
 
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.

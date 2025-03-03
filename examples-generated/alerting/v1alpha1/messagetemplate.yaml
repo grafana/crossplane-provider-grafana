@@ -8,8 +8,8 @@ metadata:
   name: my-template
 spec:
   forProvider:
-    name: My Reusable Template
+    name: My Notification Template Group
     template: |-
-      {{define "My Reusable Template" }}
+      {{define "custom.message" }}
        template content
       {{ end }}
