@@ -1932,6 +1932,7 @@ resources:
                 }
               references:
                 datasource_uid: grafana_data_source.foo.uid
+                holidays: grafana_machine_learning_holiday.test_holiday.id
               dependencies:
                 grafana_data_source.foo: |-
                     {
@@ -2165,6 +2166,7 @@ resources:
               references:
                 contact_point: grafana_contact_point.a_contact_point.name
                 policy.contact_point: grafana_contact_point.a_contact_point.name
+                policy.mute_timings: grafana_mute_timing.a_mute_timing.name
                 policy.policy.contact_point: grafana_contact_point.a_contact_point.name
               dependencies:
                 grafana_contact_point.a_contact_point: |-
@@ -2229,6 +2231,7 @@ resources:
                 }
               references:
                 escalation_chain_id: grafana_oncall_escalation_chain.default.id
+                persons_to_notify: data.grafana_oncall_user.alex.id
               dependencies:
                 grafana_oncall_escalation_chain.default: |-
                     {
@@ -2264,6 +2267,7 @@ resources:
                 }
               references:
                 escalation_chain_id: grafana_oncall_escalation_chain.default.id
+                persons_to_notify: data.grafana_oncall_user.alex.id
               dependencies:
                 grafana_oncall_escalation_chain.default: |-
                     {
@@ -2404,6 +2408,8 @@ resources:
                   ],
                   "week_start": "MO"
                 }
+              references:
+                users: data.grafana_oncall_user.alex.id
             - name: emea_weekday_shift
               manifest: |-
                 {
@@ -2954,6 +2960,9 @@ resources:
                 }
               references:
                 role_uid: grafana_role.test_role.uid
+                service_accounts: grafana_service_account.test_sa.id
+                teams: grafana_team.test_team.id
+                users: grafana_user.test_user.id
               dependencies:
                 grafana_role.test_role: |-
                     {
@@ -3847,6 +3856,8 @@ resources:
                   ],
                   "target": "grafana.com"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Ohio
             - name: dns
               manifest: |-
                 {
@@ -3908,6 +3919,8 @@ resources:
                   ],
                   "target": "grafana.net"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt
             - name: http
               manifest: |-
                 {
@@ -3928,6 +3941,8 @@ resources:
                   ],
                   "target": "https://grafana.com"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Ohio
             - name: http
               manifest: |-
                 {
@@ -3997,6 +4012,8 @@ resources:
                   ],
                   "target": "https://grafana.org"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Mumbai
             - name: ping
               manifest: |-
                 {
@@ -4017,6 +4034,8 @@ resources:
                   ],
                   "target": "grafana.com"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Ohio
             - name: ping
               manifest: |-
                 {
@@ -4042,6 +4061,8 @@ resources:
                   ],
                   "target": "grafana.net"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt
             - name: tcp
               manifest: |-
                 {
@@ -4062,6 +4083,8 @@ resources:
                   ],
                   "target": "grafana.com:80"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Ohio
             - name: tcp
               manifest: |-
                 {
@@ -4103,6 +4126,8 @@ resources:
                   ],
                   "target": "grafana.com:443"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt
             - name: traceroute
               manifest: |-
                 {
@@ -4125,6 +4150,8 @@ resources:
                   "target": "grafana.com",
                   "timeout": 30000
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Ohio
             - name: traceroute
               manifest: |-
                 {
@@ -4152,6 +4179,8 @@ resources:
                   "target": "grafana.net",
                   "timeout": 30000
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt
             - name: multihttp
               manifest: |-
                 {
@@ -4183,6 +4212,8 @@ resources:
                   ],
                   "target": "https://www.grafana-dev.com"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt
             - name: multihttp
               manifest: |-
                 {
@@ -4288,6 +4319,8 @@ resources:
                   ],
                   "target": "https://www.an-auth-endpoint.com"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt
             - name: scripted
               manifest: |-
                 {
@@ -4310,6 +4343,8 @@ resources:
                   ],
                   "target": "https://grafana.com/"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Paris
             - name: browser
               manifest: |-
                 {
@@ -4332,6 +4367,8 @@ resources:
                   ],
                   "target": "https://test.k6.io"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Paris
             - name: grpc
               manifest: |-
                 {
@@ -4352,6 +4389,8 @@ resources:
                   ],
                   "target": "host.docker.internal:50051"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Ohio
             - name: grpc
               manifest: |-
                 {
@@ -4383,6 +4422,8 @@ resources:
                   ],
                   "target": "host.docker.internal:50051"
                 }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Frankfurt
         argumentDocs:
             alert_sensitivity: (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
             allow_missing: (Boolean) Allow header to be missing from responses. Defaults to false.
@@ -4581,6 +4622,8 @@ resources:
                   ],
                   "name": "Test Team"
                 }
+              references:
+                members: grafana_user.viewer.email
               dependencies:
                 grafana_user.viewer: |-
                     {
