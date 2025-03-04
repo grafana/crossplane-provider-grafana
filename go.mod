@@ -17,7 +17,7 @@ require (
 	github.com/crossplane/upjet v1.4.2
 	github.com/grafana/terraform-provider-grafana/v3 v3.20.0
 	github.com/hashicorp/terraform-json v0.24.0
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.36.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.36.1
 	github.com/pkg/errors v0.9.1
 	go.uber.org/zap v1.27.0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
