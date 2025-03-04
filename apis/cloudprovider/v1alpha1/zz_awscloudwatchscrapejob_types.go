@@ -47,6 +47,11 @@ type AwsCloudwatchScrapeJobInitParameters struct {
 	// (String) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// (Map of String) A set of static labels to add to all metrics exported by this scrape job.
+	// A set of static labels to add to all metrics exported by this scrape job.
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
 }
 
 type AwsCloudwatchScrapeJobObservation struct {
@@ -90,6 +95,11 @@ type AwsCloudwatchScrapeJobObservation struct {
 	// (String) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// (Map of String) A set of static labels to add to all metrics exported by this scrape job.
+	// A set of static labels to add to all metrics exported by this scrape job.
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
 }
 
 type AwsCloudwatchScrapeJobParameters struct {
@@ -134,6 +144,12 @@ type AwsCloudwatchScrapeJobParameters struct {
 	// The Stack ID of the Grafana Cloud instance.
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// (Map of String) A set of static labels to add to all metrics exported by this scrape job.
+	// A set of static labels to add to all metrics exported by this scrape job.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
 }
 
 type CustomNamespaceInitParameters struct {

@@ -356,6 +356,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  alertmanagerIpAllowListCname:
+                    description: |-
+                      separated list of CNAMEs that can be whitelisted to access the Alertmanager instances
+                      Comma-separated list of CNAMEs that can be whitelisted to access the Alertmanager instances (Optional)
+                    type: string
                   alertmanagerName:
                     description: |-
                       (String) Name of the Alertmanager instance configured for this stack.
@@ -386,8 +391,48 @@ spec:
                       (String) Description of stack.
                       Description of stack.
                     type: string
+                  fleetManagementName:
+                    description: |-
+                      (String) Name of the Fleet Management instance configured for this stack.
+                      Name of the Fleet Management instance configured for this stack.
+                    type: string
+                  fleetManagementStatus:
+                    description: |-
+                      (String) Status of the Fleet Management instance configured for this stack.
+                      Status of the Fleet Management instance configured for this stack.
+                    type: string
+                  fleetManagementUrl:
+                    description: |-
+                      (String) Base URL of the Fleet Management instance configured for this stack.
+                      Base URL of the Fleet Management instance configured for this stack.
+                    type: string
+                  fleetManagementUserId:
+                    description: |-
+                      (Number) User ID of the Fleet Management instance configured for this stack.
+                      User ID of the Fleet Management instance configured for this stack.
+                    type: number
+                  grafanasIpAllowListCname:
+                    description: |-
+                      separated list of CNAMEs that can be whitelisted to access the grafana instance
+                      Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
+                    type: string
+                  graphiteIpAllowListCname:
+                    description: |-
+                      separated list of CNAMEs that can be whitelisted to access the Graphite instance
+                      Comma-separated list of CNAMEs that can be whitelisted to access the Graphite instance (Optional)
+                    type: string
                   graphiteName:
                     description: (String)
+                    type: string
+                  graphitePrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  graphitePrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for Graphite when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for Graphite when using AWS PrivateLink (only for AWS stacks)
                     type: string
                   graphiteStatus:
                     description: (String)
@@ -414,8 +459,23 @@ spec:
                       A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
                     type: object
                     x-kubernetes-map-type: granular
+                  logsIpAllowListCname:
+                    description: |-
+                      separated list of CNAMEs that can be whitelisted to access the Logs instance
+                      Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
+                    type: string
                   logsName:
                     description: (String)
+                    type: string
+                  logsPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  logsPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for Logs when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for Logs when using AWS PrivateLink (only for AWS stacks)
                     type: string
                   logsStatus:
                     description: (String)
@@ -446,13 +506,58 @@ spec:
                       (String) Organization slug to assign to this stack.
                       Organization slug to assign to this stack.
                     type: string
+                  otlpPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  otlpPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
+                    type: string
                   otlpUrl:
                     description: |-
                       cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
                       Base URL of the OTLP instance configured for this stack. The username is the stack's ID (`id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
                     type: string
+                  pdcApiPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  pdcApiPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  pdcGatewayPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  pdcGatewayPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  profilesIpAllowListCname:
+                    description: |-
+                      separated list of CNAMEs that can be whitelisted to access the Profiles instance
+                      Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)
+                    type: string
                   profilesName:
                     description: (String)
+                    type: string
+                  profilesPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  profilesPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for Profiles when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for Profiles when using AWS PrivateLink (only for AWS stacks)
                     type: string
                   profilesStatus:
                     description: (String)
@@ -463,10 +568,25 @@ spec:
                   profilesUserId:
                     description: (Number)
                     type: number
+                  prometheusIpAllowListCname:
+                    description: |-
+                      separated list of CNAMEs that can be whitelisted to access the Prometheus instance
+                      Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)
+                    type: string
                   prometheusName:
                     description: |-
                       (String) Prometheus name for this instance.
                       Prometheus name for this instance.
+                    type: string
+                  prometheusPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  prometheusPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for Prometheus when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for Prometheus when using AWS PrivateLink (only for AWS stacks)
                     type: string
                   prometheusRemoteEndpoint:
                     description: |-
@@ -508,8 +628,23 @@ spec:
                       (String) Status of the stack.
                       Status of the stack.
                     type: string
+                  tracesIpAllowListCname:
+                    description: |-
+                      separated list of CNAMEs that can be whitelisted to access the Traces instance
+                      Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
+                    type: string
                   tracesName:
                     description: (String)
+                    type: string
+                  tracesPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  tracesPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for Traces when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for Traces when using AWS PrivateLink (only for AWS stacks)
                     type: string
                   tracesStatus:
                     description: (String)

@@ -14,7 +14,7 @@ spec:
     displayName: My Policy Token
     expiresAt: "2023-01-01T00:00:00Z"
     name: my-policy-token
-    region: us
+    region: prod-us-east-0
 
 ---
 
@@ -37,7 +37,7 @@ spec:
         matchLabels:
           testing.upbound.io/example-name: grafana_cloud_organization
       type: org
-    region: us
+    region: prod-us-east-0
     scopes:
     - metrics:read
     - logs:read

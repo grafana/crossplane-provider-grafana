@@ -51,6 +51,10 @@ type StackInitParameters struct {
 
 type StackObservation struct {
 
+	// separated list of CNAMEs that can be whitelisted to access the Alertmanager instances
+	// Comma-separated list of CNAMEs that can be whitelisted to access the Alertmanager instances (Optional)
+	AlertmanagerIPAllowListCname *string `json:"alertmanagerIpAllowListCname,omitempty" tf:"alertmanager_ip_allow_list_cname,omitempty"`
+
 	// (String) Name of the Alertmanager instance configured for this stack.
 	// Name of the Alertmanager instance configured for this stack.
 	AlertmanagerName *string `json:"alertmanagerName,omitempty" tf:"alertmanager_name,omitempty"`
@@ -75,8 +79,40 @@ type StackObservation struct {
 	// Description of stack.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) Name of the Fleet Management instance configured for this stack.
+	// Name of the Fleet Management instance configured for this stack.
+	FleetManagementName *string `json:"fleetManagementName,omitempty" tf:"fleet_management_name,omitempty"`
+
+	// (String) Status of the Fleet Management instance configured for this stack.
+	// Status of the Fleet Management instance configured for this stack.
+	FleetManagementStatus *string `json:"fleetManagementStatus,omitempty" tf:"fleet_management_status,omitempty"`
+
+	// (String) Base URL of the Fleet Management instance configured for this stack.
+	// Base URL of the Fleet Management instance configured for this stack.
+	FleetManagementURL *string `json:"fleetManagementUrl,omitempty" tf:"fleet_management_url,omitempty"`
+
+	// (Number) User ID of the Fleet Management instance configured for this stack.
+	// User ID of the Fleet Management instance configured for this stack.
+	FleetManagementUserID *float64 `json:"fleetManagementUserId,omitempty" tf:"fleet_management_user_id,omitempty"`
+
+	// separated list of CNAMEs that can be whitelisted to access the grafana instance
+	// Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
+	GrafanasIPAllowListCname *string `json:"grafanasIpAllowListCname,omitempty" tf:"grafanas_ip_allow_list_cname,omitempty"`
+
+	// separated list of CNAMEs that can be whitelisted to access the Graphite instance
+	// Comma-separated list of CNAMEs that can be whitelisted to access the Graphite instance (Optional)
+	GraphiteIPAllowListCname *string `json:"graphiteIpAllowListCname,omitempty" tf:"graphite_ip_allow_list_cname,omitempty"`
+
 	// (String)
 	GraphiteName *string `json:"graphiteName,omitempty" tf:"graphite_name,omitempty"`
+
+	// (String) Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
+	GraphitePrivateConnectivityInfoPrivateDNS *string `json:"graphitePrivateConnectivityInfoPrivateDns,omitempty" tf:"graphite_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for Graphite when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for Graphite when using AWS PrivateLink (only for AWS stacks)
+	GraphitePrivateConnectivityInfoServiceName *string `json:"graphitePrivateConnectivityInfoServiceName,omitempty" tf:"graphite_private_connectivity_info_service_name,omitempty"`
 
 	// (String)
 	GraphiteStatus *string `json:"graphiteStatus,omitempty" tf:"graphite_status,omitempty"`
@@ -99,8 +135,20 @@ type StackObservation struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// separated list of CNAMEs that can be whitelisted to access the Logs instance
+	// Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
+	LogsIPAllowListCname *string `json:"logsIpAllowListCname,omitempty" tf:"logs_ip_allow_list_cname,omitempty"`
+
 	// (String)
 	LogsName *string `json:"logsName,omitempty" tf:"logs_name,omitempty"`
+
+	// (String) Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
+	LogsPrivateConnectivityInfoPrivateDNS *string `json:"logsPrivateConnectivityInfoPrivateDns,omitempty" tf:"logs_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for Logs when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for Logs when using AWS PrivateLink (only for AWS stacks)
+	LogsPrivateConnectivityInfoServiceName *string `json:"logsPrivateConnectivityInfoServiceName,omitempty" tf:"logs_private_connectivity_info_service_name,omitempty"`
 
 	// (String)
 	LogsStatus *string `json:"logsStatus,omitempty" tf:"logs_status,omitempty"`
@@ -127,12 +175,48 @@ type StackObservation struct {
 	// Organization slug to assign to this stack.
 	OrgSlug *string `json:"orgSlug,omitempty" tf:"org_slug,omitempty"`
 
+	// (String) Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
+	OtlpPrivateConnectivityInfoPrivateDNS *string `json:"otlpPrivateConnectivityInfoPrivateDns,omitempty" tf:"otlp_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
+	OtlpPrivateConnectivityInfoServiceName *string `json:"otlpPrivateConnectivityInfoServiceName,omitempty" tf:"otlp_private_connectivity_info_service_name,omitempty"`
+
 	// cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
 	// Base URL of the OTLP instance configured for this stack. The username is the stack's ID (`id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
 	OtlpURL *string `json:"otlpUrl,omitempty" tf:"otlp_url,omitempty"`
 
+	// (String) Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	PdcAPIPrivateConnectivityInfoPrivateDNS *string `json:"pdcApiPrivateConnectivityInfoPrivateDns,omitempty" tf:"pdc_api_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	PdcAPIPrivateConnectivityInfoServiceName *string `json:"pdcApiPrivateConnectivityInfoServiceName,omitempty" tf:"pdc_api_private_connectivity_info_service_name,omitempty"`
+
+	// (String) Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	PdcGatewayPrivateConnectivityInfoPrivateDNS *string `json:"pdcGatewayPrivateConnectivityInfoPrivateDns,omitempty" tf:"pdc_gateway_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	PdcGatewayPrivateConnectivityInfoServiceName *string `json:"pdcGatewayPrivateConnectivityInfoServiceName,omitempty" tf:"pdc_gateway_private_connectivity_info_service_name,omitempty"`
+
+	// separated list of CNAMEs that can be whitelisted to access the Profiles instance
+	// Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)
+	ProfilesIPAllowListCname *string `json:"profilesIpAllowListCname,omitempty" tf:"profiles_ip_allow_list_cname,omitempty"`
+
 	// (String)
 	ProfilesName *string `json:"profilesName,omitempty" tf:"profiles_name,omitempty"`
+
+	// (String) Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
+	ProfilesPrivateConnectivityInfoPrivateDNS *string `json:"profilesPrivateConnectivityInfoPrivateDns,omitempty" tf:"profiles_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for Profiles when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for Profiles when using AWS PrivateLink (only for AWS stacks)
+	ProfilesPrivateConnectivityInfoServiceName *string `json:"profilesPrivateConnectivityInfoServiceName,omitempty" tf:"profiles_private_connectivity_info_service_name,omitempty"`
 
 	// (String)
 	ProfilesStatus *string `json:"profilesStatus,omitempty" tf:"profiles_status,omitempty"`
@@ -143,9 +227,21 @@ type StackObservation struct {
 	// (Number)
 	ProfilesUserID *float64 `json:"profilesUserId,omitempty" tf:"profiles_user_id,omitempty"`
 
+	// separated list of CNAMEs that can be whitelisted to access the Prometheus instance
+	// Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)
+	PrometheusIPAllowListCname *string `json:"prometheusIpAllowListCname,omitempty" tf:"prometheus_ip_allow_list_cname,omitempty"`
+
 	// (String) Prometheus name for this instance.
 	// Prometheus name for this instance.
 	PrometheusName *string `json:"prometheusName,omitempty" tf:"prometheus_name,omitempty"`
+
+	// (String) Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	PrometheusPrivateConnectivityInfoPrivateDNS *string `json:"prometheusPrivateConnectivityInfoPrivateDns,omitempty" tf:"prometheus_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	PrometheusPrivateConnectivityInfoServiceName *string `json:"prometheusPrivateConnectivityInfoServiceName,omitempty" tf:"prometheus_private_connectivity_info_service_name,omitempty"`
 
 	// (String) Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
 	// Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
@@ -179,8 +275,20 @@ type StackObservation struct {
 	// Status of the stack.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
+	// separated list of CNAMEs that can be whitelisted to access the Traces instance
+	// Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
+	TracesIPAllowListCname *string `json:"tracesIpAllowListCname,omitempty" tf:"traces_ip_allow_list_cname,omitempty"`
+
 	// (String)
 	TracesName *string `json:"tracesName,omitempty" tf:"traces_name,omitempty"`
+
+	// (String) Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
+	TracesPrivateConnectivityInfoPrivateDNS *string `json:"tracesPrivateConnectivityInfoPrivateDns,omitempty" tf:"traces_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for Traces when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for Traces when using AWS PrivateLink (only for AWS stacks)
+	TracesPrivateConnectivityInfoServiceName *string `json:"tracesPrivateConnectivityInfoServiceName,omitempty" tf:"traces_private_connectivity_info_service_name,omitempty"`
 
 	// (String)
 	TracesStatus *string `json:"tracesStatus,omitempty" tf:"traces_status,omitempty"`

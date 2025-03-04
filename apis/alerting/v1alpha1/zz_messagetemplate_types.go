@@ -18,8 +18,8 @@ type MessageTemplateInitParameters struct {
 	// Defaults to false. Defaults to `false`.
 	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The name of the message template.
-	// The name of the message template.
+	// (String) The name of the notification template group.
+	// The name of the notification template group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -37,8 +37,8 @@ type MessageTemplateInitParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) The content of the message template.
-	// The content of the message template.
+	// (String) The content of the notification template group.
+	// The content of the notification template group.
 	Template *string `json:"template,omitempty" tf:"template,omitempty"`
 }
 
@@ -50,16 +50,16 @@ type MessageTemplateObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the message template.
-	// The name of the message template.
+	// (String) The name of the notification template group.
+	// The name of the notification template group.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) The content of the message template.
-	// The content of the message template.
+	// (String) The content of the notification template group.
+	// The content of the notification template group.
 	Template *string `json:"template,omitempty" tf:"template,omitempty"`
 }
 
@@ -69,8 +69,8 @@ type MessageTemplateParameters struct {
 	// +kubebuilder:validation:Optional
 	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The name of the message template.
-	// The name of the message template.
+	// (String) The name of the notification template group.
+	// The name of the notification template group.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -90,8 +90,8 @@ type MessageTemplateParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) The content of the message template.
-	// The content of the message template.
+	// (String) The content of the notification template group.
+	// The content of the notification template group.
 	// +kubebuilder:validation:Optional
 	Template *string `json:"template,omitempty" tf:"template,omitempty"`
 }
@@ -123,7 +123,7 @@ type MessageTemplateStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// MessageTemplate is the Schema for the MessageTemplates API. Manages Grafana Alerting message templates. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#templates This resource requires Grafana 9.1.0 or later.
+// MessageTemplate is the Schema for the MessageTemplates API. Manages Grafana Alerting notification template groups, including notification templates. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-template-groups This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

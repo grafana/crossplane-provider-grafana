@@ -210,6 +210,14 @@ spec:
                       (String) The Stack ID of the Grafana Cloud instance.
                       The Stack ID of the Grafana Cloud instance.
                     type: string
+                  staticLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) A set of static labels to add to all metrics exported by this scrape job.
+                      A set of static labels to add to all metrics exported by this scrape job.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               initProvider:
                 description: |-
@@ -361,6 +369,14 @@ spec:
                       (String) The Stack ID of the Grafana Cloud instance.
                       The Stack ID of the Grafana Cloud instance.
                     type: string
+                  staticLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) A set of static labels to add to all metrics exported by this scrape job.
+                      A set of static labels to add to all metrics exported by this scrape job.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               managementPolicies:
                 default:
@@ -693,6 +709,14 @@ spec:
                       (String) The Stack ID of the Grafana Cloud instance.
                       The Stack ID of the Grafana Cloud instance.
                     type: string
+                  staticLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) A set of static labels to add to all metrics exported by this scrape job.
+                      A set of static labels to add to all metrics exported by this scrape job.
+                    type: object
+                    x-kubernetes-map-type: granular
                 type: object
               conditions:
                 description: Conditions of the resource.
