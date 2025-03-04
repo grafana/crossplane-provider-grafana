@@ -17,10 +17,3 @@ updates:
     commit-message:
       prefix: chore
       include: scope
-    ignore:
-      # Needs to be updated together with github.com/crossplane/upjet
-      - dependency-name: "sigs.k8s.io/controller-tools"
-      # Needs to be updated together with github.com/crossplane/upjet
-      - dependency-name: "sigs.k8s.io/controller-runtime"
-      # Needs to be updated together with github.com/crossplane/upjet
-      - dependency-name: "github.com/crossplane/crossplane-runtime"
