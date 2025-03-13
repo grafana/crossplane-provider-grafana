@@ -15,6 +15,10 @@ import (
 
 type AccessPolicyInitParameters struct {
 
+	// (Block Set) Conditions for the access policy. (see below for nested schema)
+	// Conditions for the access policy.
+	Conditions []ConditionsInitParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
+
 	// (String) Display name of the access policy. Defaults to the name.
 	// Display name of the access policy. Defaults to the name.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
@@ -30,13 +34,17 @@ type AccessPolicyInitParameters struct {
 	// Region where the API is deployed. Generally where the stack is deployed. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// cloud/account-management/authentication-and-permissions/access-policies/#scopes for possible values.
-	// Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/#scopes for possible values.
+	// cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
+	// Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 }
 
 type AccessPolicyObservation struct {
+
+	// (Block Set) Conditions for the access policy. (see below for nested schema)
+	// Conditions for the access policy.
+	Conditions []ConditionsObservation `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// (String) Creation date of the access policy.
 	// Creation date of the access policy.
@@ -64,8 +72,8 @@ type AccessPolicyObservation struct {
 	// Region where the API is deployed. Generally where the stack is deployed. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// cloud/account-management/authentication-and-permissions/access-policies/#scopes for possible values.
-	// Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/#scopes for possible values.
+	// cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
+	// Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
 
@@ -75,6 +83,11 @@ type AccessPolicyObservation struct {
 }
 
 type AccessPolicyParameters struct {
+
+	// (Block Set) Conditions for the access policy. (see below for nested schema)
+	// Conditions for the access policy.
+	// +kubebuilder:validation:Optional
+	Conditions []ConditionsParameters `json:"conditions,omitempty" tf:"conditions,omitempty"`
 
 	// (String) Display name of the access policy. Defaults to the name.
 	// Display name of the access policy. Defaults to the name.
@@ -95,11 +108,36 @@ type AccessPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// cloud/account-management/authentication-and-permissions/access-policies/#scopes for possible values.
-	// Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/#scopes for possible values.
+	// cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
+	// Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+}
+
+type ConditionsInitParameters struct {
+
+	// (Set of String) Conditions that apply to the access policy,such as IP Allow lists.
+	// Conditions that apply to the access policy,such as IP Allow lists.
+	// +listType=set
+	AllowedSubnets []*string `json:"allowedSubnets,omitempty" tf:"allowed_subnets,omitempty"`
+}
+
+type ConditionsObservation struct {
+
+	// (Set of String) Conditions that apply to the access policy,such as IP Allow lists.
+	// Conditions that apply to the access policy,such as IP Allow lists.
+	// +listType=set
+	AllowedSubnets []*string `json:"allowedSubnets,omitempty" tf:"allowed_subnets,omitempty"`
+}
+
+type ConditionsParameters struct {
+
+	// (Set of String) Conditions that apply to the access policy,such as IP Allow lists.
+	// Conditions that apply to the access policy,such as IP Allow lists.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	AllowedSubnets []*string `json:"allowedSubnets" tf:"allowed_subnets,omitempty"`
 }
 
 type LabelPolicyInitParameters struct {
@@ -220,7 +258,7 @@ type AccessPolicyStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AccessPolicy is the Schema for the AccessPolicys API. Official documentation https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete
+// AccessPolicy is the Schema for the AccessPolicys API. Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

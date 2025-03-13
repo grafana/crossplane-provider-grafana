@@ -298,23 +298,45 @@ type FastburnParameters struct {
 type FreeformInitParameters struct {
 
 	// (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
-	// Freeform Query Field
+	// Freeform Query Field - valid promQl
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 type FreeformObservation struct {
 
 	// (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
-	// Freeform Query Field
+	// Freeform Query Field - valid promQl
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
 
 type FreeformParameters struct {
 
 	// (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
-	// Freeform Query Field
+	// Freeform Query Field - valid promQl
 	// +kubebuilder:validation:Optional
 	Query *string `json:"query" tf:"query,omitempty"`
+}
+
+type GrafanaQueriesInitParameters struct {
+
+	// (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+	// Query Object - Array of Grafana Query JSON objects
+	GrafanaQueries *string `json:"grafanaQueries,omitempty" tf:"grafana_queries,omitempty"`
+}
+
+type GrafanaQueriesObservation struct {
+
+	// (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+	// Query Object - Array of Grafana Query JSON objects
+	GrafanaQueries *string `json:"grafanaQueries,omitempty" tf:"grafana_queries,omitempty"`
+}
+
+type GrafanaQueriesParameters struct {
+
+	// (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+	// Query Object - Array of Grafana Query JSON objects
+	// +kubebuilder:validation:Optional
+	GrafanaQueries *string `json:"grafanaQueries" tf:"grafana_queries,omitempty"`
 }
 
 type LabelInitParameters struct {
@@ -392,11 +414,15 @@ type QueryInitParameters struct {
 	// (Block List, Max: 1) (see below for nested schema)
 	Freeform []FreeformInitParameters `json:"freeform,omitempty" tf:"freeform,omitempty"`
 
+	// (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+	// Array for holding a set of grafana queries
+	GrafanaQueries []GrafanaQueriesInitParameters `json:"grafanaQueries,omitempty" tf:"grafana_queries,omitempty"`
+
 	// (Block List, Max: 1) (see below for nested schema)
 	Ratio []RatioInitParameters `json:"ratio,omitempty" tf:"ratio,omitempty"`
 
-	// (String) Query type must be one of: "freeform", "query", "ratio", or "threshold"
-	// Query type must be one of: "freeform", "query", "ratio", or "threshold"
+	// (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+	// Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -405,11 +431,15 @@ type QueryObservation struct {
 	// (Block List, Max: 1) (see below for nested schema)
 	Freeform []FreeformObservation `json:"freeform,omitempty" tf:"freeform,omitempty"`
 
+	// (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+	// Array for holding a set of grafana queries
+	GrafanaQueries []GrafanaQueriesObservation `json:"grafanaQueries,omitempty" tf:"grafana_queries,omitempty"`
+
 	// (Block List, Max: 1) (see below for nested schema)
 	Ratio []RatioObservation `json:"ratio,omitempty" tf:"ratio,omitempty"`
 
-	// (String) Query type must be one of: "freeform", "query", "ratio", or "threshold"
-	// Query type must be one of: "freeform", "query", "ratio", or "threshold"
+	// (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+	// Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -419,12 +449,17 @@ type QueryParameters struct {
 	// +kubebuilder:validation:Optional
 	Freeform []FreeformParameters `json:"freeform,omitempty" tf:"freeform,omitempty"`
 
+	// (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+	// Array for holding a set of grafana queries
+	// +kubebuilder:validation:Optional
+	GrafanaQueries []GrafanaQueriesParameters `json:"grafanaQueries,omitempty" tf:"grafana_queries,omitempty"`
+
 	// (Block List, Max: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Ratio []RatioParameters `json:"ratio,omitempty" tf:"ratio,omitempty"`
 
-	// (String) Query type must be one of: "freeform", "query", "ratio", or "threshold"
-	// Query type must be one of: "freeform", "query", "ratio", or "threshold"
+	// (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+	// Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 }

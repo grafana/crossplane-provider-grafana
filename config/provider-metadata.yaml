@@ -26,7 +26,7 @@ resources:
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
     grafana_cloud_access_policy:
         subCategory: Cloud
-        description: 'Official documentation https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
+        description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
         name: grafana_cloud_access_policy
         title: grafana_cloud_access_policy Resource - terraform-provider-grafana
         examples:
@@ -64,6 +64,8 @@ resources:
                       "region": "prod-us-east-0"
                     }
         argumentDocs:
+            allowed_subnets: (Set of String) Conditions that apply to the access policy,such as IP Allow lists.
+            conditions: (Block Set) Conditions for the access policy. (see below for nested schema)
             created_at: (String) Creation date of the access policy.
             display_name: (String) Display name of the access policy. Defaults to the name.
             id: (String) The ID of this resource.
@@ -73,7 +75,7 @@ resources:
             policy_id: (String) ID of the access policy.
             realm: '(Block Set, Min: 1) (see below for nested schema)'
             region: '(String) Region where the API is deployed. Generally where the stack is deployed. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.'
-            scopes: (Set of String) Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/#scopes for possible values.
+            scopes: (Set of String) Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
             selector: (String) The label selector to match in metrics or logs query. Should be in PromQL or LogQL format.
             type: (String) Whether a policy applies to a Cloud org or a specific stack. Should be one of org or stack.
             updated_at: (String) Last update date of the access policy.
@@ -81,7 +83,7 @@ resources:
             - terraform import grafana_cloud_access_policy.name "{{ region }}:{{ policyId }}"
     grafana_cloud_access_policy_token:
         subCategory: Cloud
-        description: 'Official documentation https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
+        description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
         name: grafana_cloud_access_policy_token
         title: grafana_cloud_access_policy_token Resource - terraform-provider-grafana
         examples:
@@ -428,8 +430,8 @@ resources:
             metric_configuration: (List of Object) (see below for nested schema)
             name: (String) The name of the Azure Credential.
             resource_discovery_tag_filter: (Block List) The list of tag filters to apply to resources. (see below for nested schema)
-            resource_id: (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
-            resource_tags_to_add_to_metrics: (Set of String) A set of regions that this AWS Account resource applies to.
+            resource_id: (String) The ID given by the Grafana Cloud Provider API to this Azure Credential resource.
+            resource_tags_to_add_to_metrics: (Set of String) The list of resource tags to add to metrics.
             resource_type_configurations: (List of Object) The list of resource type configurations. (see below for nested schema)
             resource_type_name: (String)
             stack_id: (String) The StackID of the Grafana Cloud instance. Part of the Terraform Resource ID.
@@ -1428,7 +1430,7 @@ resources:
               terraform import grafana_data_source_permission_item.name "{{ orgID }}:{{ datasourceUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_fleet_management_collector:
         subCategory: Fleet Management
-        description: 'Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/ Note: Fleet Management is in public preview https://grafana.com/docs/release-life-cycle/#public-preview and this resource is experimental. Grafana Labs offers limited support, and breaking changes might occur. Required access policy scopes: fleet-management:readfleet-management:write'
+        description: 'Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/ Required access policy scopes: fleet-management:readfleet-management:write'
         name: grafana_fleet_management_collector
         title: grafana_fleet_management_collector Resource - terraform-provider-grafana
         examples:
@@ -1450,7 +1452,7 @@ resources:
             - terraform import grafana_fleet_management_collector.name "{{ id }}"
     grafana_fleet_management_pipeline:
         subCategory: Fleet Management
-        description: 'Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/ Note: Fleet Management is in public preview https://grafana.com/docs/release-life-cycle/#public-preview and this resource is experimental. Grafana Labs offers limited support, and breaking changes might occur. Required access policy scopes: fleet-management:readfleet-management:write'
+        description: 'Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/ Required access policy scopes: fleet-management:readfleet-management:write'
         name: grafana_fleet_management_pipeline
         title: grafana_fleet_management_pipeline Resource - terraform-provider-grafana
         examples:
@@ -2280,7 +2282,7 @@ resources:
             escalation_chain_id: (String) The ID of the escalation chain.
             group_to_notify: (String) The ID of a User Group for notify_user_group type step.
             id: (String) The ID of this resource.
-            important: '(Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members'
+            important: '(Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members'
             notify_if_time_from: (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
             notify_if_time_to: (String) The end of the time interval for notify_if_time_from_to type step in UTC (for example 18:00:00Z).
             notify_on_call_from_schedule: (String) ID of a Schedule for notify_on_call_from_schedule type step.
@@ -2379,7 +2381,7 @@ resources:
             telegram: '(Block List, Max: 1) Telegram-specific settings for a route. (see below for nested schema)'
             templates: '(Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)'
             title: (String) Template for Alert title.
-            type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, heartbeat, demo, manual, stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel, inbound_email, direct_paging, jira.
+            type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, heartbeat, demo, manual, stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel, inbound_email, direct_paging, jira, zendesk.
             web: '(Block List, Max: 1) Templates for Web. (see below for nested schema)'
         importStatements:
             - terraform import grafana_oncall_integration.name "{{ id }}"
@@ -3434,6 +3436,76 @@ resources:
         name: grafana_slo
         title: grafana_slo Resource - terraform-provider-grafana
         examples:
+            - name: ratio
+              manifest: |-
+                {
+                  "alerting": [
+                    {
+                      "fastburn": [
+                        {
+                          "annotation": [
+                            {
+                              "key": "name",
+                              "value": "SLO Burn Rate Very High"
+                            },
+                            {
+                              "key": "description",
+                              "value": "Error budget is burning too fast"
+                            }
+                          ]
+                        }
+                      ],
+                      "slowburn": [
+                        {
+                          "annotation": [
+                            {
+                              "key": "name",
+                              "value": "SLO Burn Rate High"
+                            },
+                            {
+                              "key": "description",
+                              "value": "Error budget is burning too fast"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "description": "Terraform Description - Ratio Query",
+                  "destination_datasource": [
+                    {
+                      "uid": "grafanacloud-prom"
+                    }
+                  ],
+                  "label": [
+                    {
+                      "key": "slo",
+                      "value": "terraform"
+                    }
+                  ],
+                  "name": "Terraform Testing - Ratio Query",
+                  "objectives": [
+                    {
+                      "value": 0.995,
+                      "window": "30d"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "ratio": [
+                        {
+                          "group_by_labels": [
+                            "job",
+                            "instance"
+                          ],
+                          "success_metric": "kubelet_http_requests_total{status!~\"5..\"}",
+                          "total_metric": "kubelet_http_requests_total"
+                        }
+                      ],
+                      "type": "ratio"
+                    }
+                  ]
+                }
             - name: test
               manifest: |-
                 {
@@ -3515,12 +3587,6 @@ resources:
                               "key": "description",
                               "value": "Error budget is burning too fast"
                             }
-                          ],
-                          "label": [
-                            {
-                              "key": "type",
-                              "value": "slo"
-                            }
                           ]
                         }
                       ],
@@ -3535,18 +3601,12 @@ resources:
                               "key": "description",
                               "value": "Error budget is burning too fast"
                             }
-                          ],
-                          "label": [
-                            {
-                              "key": "type",
-                              "value": "slo"
-                            }
                           ]
                         }
                       ]
                     }
                   ],
-                  "description": "Complex Resource - Terraform Ratio Query Description",
+                  "description": "Terraform Description",
                   "destination_datasource": [
                     {
                       "uid": "grafanacloud-prom"
@@ -3558,7 +3618,7 @@ resources:
                       "value": "terraform"
                     }
                   ],
-                  "name": "Complex Resource - Terraform Ratio Query Example",
+                  "name": "Terraform Testing",
                   "objectives": [
                     {
                       "value": 0.995,
@@ -3567,17 +3627,12 @@ resources:
                   ],
                   "query": [
                     {
-                      "ratio": [
+                      "grafana_queries": [
                         {
-                          "group_by_labels": [
-                            "job",
-                            "instance"
-                          ],
-                          "success_metric": "kubelet_http_requests_total{status!~\"5..\"}",
-                          "total_metric": "kubelet_http_requests_total"
+                          "grafana_queries": "${jsonencode([\n        {\n          datasource : {\n            \"type\" : \"graphite\",\n            \"uid\" : \"datasource-uid\"\n          },\n          refId : \"Success\",\n          target : \"groupByNode(perSecond(web.*.http.2xx_success.*.*), 3, 'avg')\"\n        },\n        {\n          datasource : {\n            \"type\" : \"graphite\",\n            \"uid\" : \"datasource-uid\"\n          },\n          refId : \"Total\",\n          target : \"groupByNode(perSecond(web.*.http.5xx_errors.*.*), 3, 'avg')\"\n        },\n        {\n          datasource : {\n            \"type\" : \"__expr__\",\n            \"uid\" : \"__expr__\"\n          },\n          expression : \"$Success / $Total\",\n          refId : \"Expression\",\n          type : \"math\"\n        }\n      ])}"
                         }
                       ],
-                      "type": "ratio"
+                      "type": "grafana_queries"
                     }
                   ]
                 }
@@ -3595,6 +3650,7 @@ resources:
             fastburn: '(Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)'
             folder_uid: (String) UID for the SLO folder
             freeform: '(Block List, Max: 1) (see below for nested schema)'
+            grafana_queries: '(Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)'
             group_by_labels: (List of String) Defines Group By Labels used for per-label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
             id: (String) The ID of this resource.
             key: (String) Key for filtering and identification
@@ -3608,7 +3664,7 @@ resources:
             slowburn: '(Block List, Max: 1) Alerting Rules generated for Slow Burn alerts (see below for nested schema)'
             success_metric: (String) Counter metric for success events (numerator)
             total_metric: (String) Metric for total events (denominator)
-            type: '(String) Query type must be one of: "freeform", "query", "ratio", or "threshold"'
+            type: '(String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"'
             uid: (String) UID for the Datasource
             value: (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
             window: (String) A Prometheus-parsable time duration string like 24h, 60m. This is the time window the objective is measured over.

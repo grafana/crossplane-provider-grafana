@@ -479,6 +479,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        uid:
+                          description: |-
+                            (String) The unique identifier of the alert rule.
+                            The unique identifier of the alert rule.
+                          type: string
                       type: object
                     type: array
                 type: object
@@ -900,6 +905,11 @@ spec:
                                 type: string
                             type: object
                           type: array
+                        uid:
+                          description: |-
+                            (String) The unique identifier of the alert rule.
+                            The unique identifier of the alert rule.
+                          type: string
                       type: object
                     type: array
                 type: object
