@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: slo/v1alpha1/slo
   labels:
-    testing.upbound.io/example-name: test
-  name: test
+    testing.upbound.io/example-name: ratio
+  name: ratio
 spec:
   forProvider:
     alerting:
@@ -21,7 +21,7 @@ spec:
           value: SLO Burn Rate High
         - key: description
           value: Error budget is burning too fast
-    description: Terraform Description
+    description: Terraform Description - Ratio Query
     destinationDatasource:
     - selector:
         matchLabels:
@@ -29,12 +29,15 @@ spec:
     label:
     - key: slo
       value: terraform
-    name: Terraform Testing
+    name: Terraform Testing - Ratio Query
     objectives:
     - value: 0.995
       window: 30d
     query:
-    - freeform:
-      - query: sum(rate(apiserver_request_total{code!="500"}[$__rate_interval])) /
-          sum(rate(apiserver_request_total[$__rate_interval]))
-      type: freeform
+    - ratio:
+      - groupByLabels:
+        - job
+        - instance
+        successMetric: kubelet_http_requests_total{status!~"5.."}
+        totalMetric: kubelet_http_requests_total
+      type: ratio

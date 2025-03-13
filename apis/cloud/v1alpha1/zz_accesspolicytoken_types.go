@@ -149,7 +149,7 @@ type AccessPolicyTokenStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AccessPolicyToken is the Schema for the AccessPolicyTokens API. Official documentation https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete
+// AccessPolicyToken is the Schema for the AccessPolicyTokens API. Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

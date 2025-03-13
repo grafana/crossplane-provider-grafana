@@ -70,8 +70,8 @@ type AzureCredentialInitParameters struct {
 	// The list of tag filters to apply to resources.
 	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterInitParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-	// (Set of String) A set of regions that this AWS Account resource applies to.
-	// A set of regions that this AWS Account resource applies to.
+	// (Set of String) The list of resource tags to add to metrics.
+	// The list of resource tags to add to metrics.
 	// +listType=set
 	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
 
@@ -105,12 +105,12 @@ type AzureCredentialObservation struct {
 	// The list of tag filters to apply to resources.
 	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterObservation `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-	// (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
-	// The ID given by the Grafana Cloud Provider API to this AWS Account resource.
+	// (String) The ID given by the Grafana Cloud Provider API to this Azure Credential resource.
+	// The ID given by the Grafana Cloud Provider API to this Azure Credential resource.
 	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
-	// (Set of String) A set of regions that this AWS Account resource applies to.
-	// A set of regions that this AWS Account resource applies to.
+	// (Set of String) The list of resource tags to add to metrics.
+	// The list of resource tags to add to metrics.
 	// +listType=set
 	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
 
@@ -150,8 +150,8 @@ type AzureCredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-	// (Set of String) A set of regions that this AWS Account resource applies to.
-	// A set of regions that this AWS Account resource applies to.
+	// (Set of String) The list of resource tags to add to metrics.
+	// The list of resource tags to add to metrics.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`

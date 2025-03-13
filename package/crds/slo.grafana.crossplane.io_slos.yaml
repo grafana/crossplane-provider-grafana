@@ -380,7 +380,20 @@ spec:
                               query:
                                 description: |-
                                   (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
-                                  Freeform Query Field
+                                  Freeform Query Field - valid promQl
+                                type: string
+                            type: object
+                          type: array
+                        grafanaQueries:
+                          description: |-
+                            (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                            Array for holding a set of grafana queries
+                          items:
+                            properties:
+                              grafanaQueries:
+                                description: |-
+                                  (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                                  Query Object - Array of Grafana Query JSON objects
                                 type: string
                             type: object
                           type: array
@@ -410,8 +423,8 @@ spec:
                           type: array
                         type:
                           description: |-
-                            (String) Query type must be one of: "freeform", "query", "ratio", or "threshold"
-                            Query type must be one of: "freeform", "query", "ratio", or "threshold"
+                            (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                            Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
                           type: string
                       type: object
                     type: array
@@ -739,7 +752,20 @@ spec:
                               query:
                                 description: |-
                                   (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
-                                  Freeform Query Field
+                                  Freeform Query Field - valid promQl
+                                type: string
+                            type: object
+                          type: array
+                        grafanaQueries:
+                          description: |-
+                            (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                            Array for holding a set of grafana queries
+                          items:
+                            properties:
+                              grafanaQueries:
+                                description: |-
+                                  (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                                  Query Object - Array of Grafana Query JSON objects
                                 type: string
                             type: object
                           type: array
@@ -769,8 +795,8 @@ spec:
                           type: array
                         type:
                           description: |-
-                            (String) Query type must be one of: "freeform", "query", "ratio", or "threshold"
-                            Query type must be one of: "freeform", "query", "ratio", or "threshold"
+                            (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                            Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
                           type: string
                       type: object
                     type: array
@@ -1205,7 +1231,20 @@ spec:
                               query:
                                 description: |-
                                   (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
-                                  Freeform Query Field
+                                  Freeform Query Field - valid promQl
+                                type: string
+                            type: object
+                          type: array
+                        grafanaQueries:
+                          description: |-
+                            (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                            Array for holding a set of grafana queries
+                          items:
+                            properties:
+                              grafanaQueries:
+                                description: |-
+                                  (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                                  Query Object - Array of Grafana Query JSON objects
                                 type: string
                             type: object
                           type: array
@@ -1235,8 +1274,8 @@ spec:
                           type: array
                         type:
                           description: |-
-                            (String) Query type must be one of: "freeform", "query", "ratio", or "threshold"
-                            Query type must be one of: "freeform", "query", "ratio", or "threshold"
+                            (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                            Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
                           type: string
                       type: object
                     type: array

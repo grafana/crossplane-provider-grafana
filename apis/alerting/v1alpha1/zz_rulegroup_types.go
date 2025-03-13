@@ -448,6 +448,10 @@ type RuleInitParameters struct {
 	// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
 	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
 	Record []RecordInitParameters `json:"record,omitempty" tf:"record,omitempty"`
+
+	// (String) The unique identifier of the alert rule.
+	// The unique identifier of the alert rule.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type RuleObservation struct {
@@ -561,6 +565,11 @@ type RuleParameters struct {
 	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
 	// +kubebuilder:validation:Optional
 	Record []RecordParameters `json:"record,omitempty" tf:"record,omitempty"`
+
+	// (String) The unique identifier of the alert rule.
+	// The unique identifier of the alert rule.
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 // RuleGroupSpec defines the desired state of RuleGroup

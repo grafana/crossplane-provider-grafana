@@ -53,8 +53,8 @@ type EscalationInitParameters struct {
 	// The ID of a User Group for notify_user_group type step.
 	GroupToNotify *string `json:"groupToNotify,omitempty" tf:"group_to_notify,omitempty"`
 
-	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
-	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
+	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
+	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
 	// (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
@@ -128,8 +128,8 @@ type EscalationObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
-	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
+	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
+	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
 	// (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
@@ -215,8 +215,8 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupToNotify *string `json:"groupToNotify,omitempty" tf:"group_to_notify,omitempty"`
 
-	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
-	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_on_call_from_schedule and notify_user_group,notify_team_members
+	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
+	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
 	// +kubebuilder:validation:Optional
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 

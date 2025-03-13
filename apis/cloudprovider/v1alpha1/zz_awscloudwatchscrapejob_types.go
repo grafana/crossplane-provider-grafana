@@ -280,7 +280,7 @@ type ServiceInitParameters struct {
 	Metric []ServiceMetricInitParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// (String) The name of the CloudWatch Scrape Job.
-	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/aws/cloudwatch-metrics/services/ for supported services.
+	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported services.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
@@ -288,7 +288,7 @@ type ServiceInitParameters struct {
 	ResourceDiscoveryTagFilter []ResourceDiscoveryTagFilterInitParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
 	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 
 	// (Set of String) A set of tags to add to all metrics exported by this scrape job, for use in PromQL queries.
@@ -342,7 +342,7 @@ type ServiceObservation struct {
 	Metric []ServiceMetricObservation `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// (String) The name of the CloudWatch Scrape Job.
-	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/aws/cloudwatch-metrics/services/ for supported services.
+	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported services.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Block List) One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
@@ -350,7 +350,7 @@ type ServiceObservation struct {
 	ResourceDiscoveryTagFilter []ResourceDiscoveryTagFilterObservation `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
 	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 
 	// (Set of String) A set of tags to add to all metrics exported by this scrape job, for use in PromQL queries.
@@ -367,7 +367,7 @@ type ServiceParameters struct {
 	Metric []ServiceMetricParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// (String) The name of the CloudWatch Scrape Job.
-	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/aws/cloudwatch-metrics/services/ for supported services.
+	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported services.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
@@ -377,7 +377,7 @@ type ServiceParameters struct {
 	ResourceDiscoveryTagFilter []ResourceDiscoveryTagFilterParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
 	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
 	// +kubebuilder:validation:Optional
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 
