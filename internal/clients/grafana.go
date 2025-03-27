@@ -63,16 +63,31 @@ func TerraformSetupBuilder() terraform.SetupFn {
 		// https://registry.terraform.io/providers/grafana/grafana/latest/docs
 		ps.Configuration = map[string]any{}
 		for _, k := range []string{
-			"url",
 			"auth",
+			"url",
+
 			"cloud_access_policy_token",
-			"cloud_api_key",
 			"cloud_api_url",
+
+			"cloud_provider_access_token",
+			"cloud_provider_url",
+
+			"connections_api_access_token",
+			"connections_api_url",
+
+			"fleet_management_auth",
+			"fleet_management_url",
+
+			"frontend_o11y_api_access_token",
+
 			"oncall_access_token",
 			"oncall_url",
+
 			"sm_access_token",
 			"sm_url",
-			"org_id",
+
+			"cloud_api_key", // don't see it in the TF config
+			"org_id",        // don't see it in the TF config
 		} {
 			if v, ok := creds[k]; ok {
 				ps.Configuration[k] = v
@@ -84,6 +99,15 @@ func TerraformSetupBuilder() terraform.SetupFn {
 		}
 		if pc.Spec.CloudAPIURL != "" {
 			ps.Configuration["cloud_api_url"] = pc.Spec.CloudAPIURL
+		}
+		if pc.Spec.CloudProviderURL != "" {
+			ps.Configuration["cloud_provider_url"] = pc.Spec.CloudProviderURL
+		}
+		if pc.Spec.ConnectionsAPIURL != "" {
+			ps.Configuration["connections_api_url"] = pc.Spec.ConnectionsAPIURL
+		}
+		if pc.Spec.FleetManagementURL != "" {
+			ps.Configuration["fleet_management_url"] = pc.Spec.FleetManagementURL
 		}
 		if pc.Spec.OnCallURL != "" {
 			ps.Configuration["oncall_url"] = pc.Spec.OnCallURL
