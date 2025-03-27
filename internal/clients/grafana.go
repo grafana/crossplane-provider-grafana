@@ -73,6 +73,8 @@ func TerraformSetupBuilder() terraform.SetupFn {
 			"sm_access_token",
 			"sm_url",
 			"org_id",
+			"connections_api_url",
+			"connections_api_access_token",
 		} {
 			if v, ok := creds[k]; ok {
 				ps.Configuration[k] = v
@@ -90,6 +92,9 @@ func TerraformSetupBuilder() terraform.SetupFn {
 		}
 		if pc.Spec.SMURL != "" {
 			ps.Configuration["sm_url"] = pc.Spec.SMURL
+		}
+		if pc.Spec.ConnectionsAPIURL != "" {
+			ps.Configuration["sm_url"] = pc.Spec.ConnectionsAPIURL
 		}
 
 		if err := configureNoForkGrafanaClient(ctx, &ps); err != nil {

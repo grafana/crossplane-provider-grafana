@@ -55,6 +55,10 @@ spec:
                 description: Override the Grafana Cloud API URL from the credentials
                   reference attribute.
                 type: string
+              connectionsApiUrl:
+                description: Override the Connections API from the credentials reference
+                  attribute.
+                type: string
               credentials:
                 description: Credentials required to authenticate to this provider.
                 properties:

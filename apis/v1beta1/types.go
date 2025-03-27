@@ -20,6 +20,8 @@ type ProviderConfigSpec struct {
 	OnCallURL string `json:"oncallUrl,omitempty"`
 	// Override the Synthetic Monitoring API URL from the credentials reference attribute.
 	SMURL string `json:"smUrl,omitempty"`
+	// Override the Connections API from the credentials reference attribute.
+	ConnectionsAPIURL string `json:"connectionsApiUrl,omitempty"`
 
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`
