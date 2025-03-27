@@ -16,12 +16,16 @@ type ProviderConfigSpec struct {
 	URL string `json:"url,omitempty"`
 	// Override the Grafana Cloud API URL from the credentials reference attribute.
 	CloudAPIURL string `json:"cloudApiUrl,omitempty"`
+	// Override the Cloud Provider API from the credentials reference attribute.
+	CloudProviderURL string `json:"cloudProviderUrl,omitempty"`
+	// Override the Connections API from the credentials reference attribute.
+	ConnectionsAPIURL string `json:"connectionsApiUrl,omitempty"`
+	// Override the FleetManagement API from the credentials reference attribute.
+	FleetManagementURL string `json:"fleetManagementUrl,omitempty"`
 	// Override the OnCall API URL from the credentials reference attribute.
 	OnCallURL string `json:"oncallUrl,omitempty"`
 	// Override the Synthetic Monitoring API URL from the credentials reference attribute.
 	SMURL string `json:"smUrl,omitempty"`
-	// Override the Connections API from the credentials reference attribute.
-	ConnectionsAPIURL string `json:"connectionsApiUrl,omitempty"`
 
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`
