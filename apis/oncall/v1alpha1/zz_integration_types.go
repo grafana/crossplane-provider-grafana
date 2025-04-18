@@ -140,10 +140,6 @@ type IntegrationInitParameters struct {
 	// The Default route for all alerts from the given integration
 	DefaultRoute []DefaultRouteInitParameters `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
 
-	// to-string mappings. Each map must include one key named "key" and one key named "value".
-	// A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
-	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
-
 	// (String) The name of the service integration.
 	// The name of the service integration.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -169,10 +165,6 @@ type IntegrationObservation struct {
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-	// to-string mappings. Each map must include one key named "key" and one key named "value".
-	// A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
-	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The link for using in an integrated tool.
 	// The link for using in an integrated tool.
@@ -201,11 +193,6 @@ type IntegrationParameters struct {
 	// The Default route for all alerts from the given integration
 	// +kubebuilder:validation:Optional
 	DefaultRoute []DefaultRouteParameters `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
-
-	// to-string mappings. Each map must include one key named "key" and one key named "value".
-	// A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
-	// +kubebuilder:validation:Optional
-	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The name of the service integration.
 	// The name of the service integration.

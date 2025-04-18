@@ -897,28 +897,6 @@ func (in *IntegrationInitParameters) DeepCopyInto(out *IntegrationInitParameters
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
-	if in.Labels != nil {
-		in, out := &in.Labels, &out.Labels
-		*out = make([]map[string]*string, len(*in))
-		for i := range *in {
-			if (*in)[i] != nil {
-				in, out := &(*in)[i], &(*out)[i]
-				*out = make(map[string]*string, len(*in))
-				for key, val := range *in {
-					var outVal *string
-					if val == nil {
-						(*out)[key] = nil
-					} else {
-						inVal := (*in)[key]
-						in, out := &inVal, &outVal
-						*out = new(string)
-						**out = **in
-					}
-					(*out)[key] = outVal
-				}
-			}
-		}
-	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -1000,28 +978,6 @@ func (in *IntegrationObservation) DeepCopyInto(out *IntegrationObservation) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.Labels != nil {
-		in, out := &in.Labels, &out.Labels
-		*out = make([]map[string]*string, len(*in))
-		for i := range *in {
-			if (*in)[i] != nil {
-				in, out := &(*in)[i], &(*out)[i]
-				*out = make(map[string]*string, len(*in))
-				for key, val := range *in {
-					var outVal *string
-					if val == nil {
-						(*out)[key] = nil
-					} else {
-						inVal := (*in)[key]
-						in, out := &inVal, &outVal
-						*out = new(string)
-						**out = **in
-					}
-					(*out)[key] = outVal
-				}
-			}
-		}
-	}
 	if in.Link != nil {
 		in, out := &in.Link, &out.Link
 		*out = new(string)
@@ -1069,28 +1025,6 @@ func (in *IntegrationParameters) DeepCopyInto(out *IntegrationParameters) {
 		*out = make([]DefaultRouteParameters, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
-	}
-	if in.Labels != nil {
-		in, out := &in.Labels, &out.Labels
-		*out = make([]map[string]*string, len(*in))
-		for i := range *in {
-			if (*in)[i] != nil {
-				in, out := &(*in)[i], &(*out)[i]
-				*out = make(map[string]*string, len(*in))
-				for key, val := range *in {
-					var outVal *string
-					if val == nil {
-						(*out)[key] = nil
-					} else {
-						inVal := (*in)[key]
-						in, out := &inVal, &outVal
-						*out = new(string)
-						**out = **in
-					}
-					(*out)[key] = outVal
-				}
-			}
 		}
 	}
 	if in.Name != nil {

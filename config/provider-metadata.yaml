@@ -24,46 +24,6 @@ resources:
             - |-
               terraform import grafana_annotation.name "{{ id }}"
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
-    grafana_apps_dashboard_dashboard_v1alpha1 Resource - terraform-provider-grafana:
-        subCategory: ""
-        description: Manages Grafana dashboards via the new Grafana App Platform API. This resource is currently EXPERIMENTAL and may be subject to change. It requires a development build of Grafana with specific feature flags enabled.
-        name: grafana_apps_dashboard_dashboard_v1alpha1 Resource - terraform-provider-grafana
-        title: grafana_apps_dashboard_dashboard_v1alpha1 Resource - terraform-provider-grafana
-        argumentDocs:
-            folder_uid: (String) The UID of the folder to save the resource in.
-            json: (String) The JSON representation of the dashboard spec.
-            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
-            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
-            tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-            title: (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
-            uid: (String) The unique identifier of the resource.
-            url: (String) The full URL of the resource.
-            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
-            version: (String) The version of the resource.
-        importStatements: []
-    grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana:
-        subCategory: ""
-        description: Manages Grafana playlists via the new Grafana App Platform API. This resource is currently EXPERIMENTAL and may be subject to change. It requires a development build of Grafana with specific feature flags enabled.
-        name: grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana
-        title: grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana
-        argumentDocs:
-            folder_uid: (String) The UID of the folder to save the resource in.
-            interval: (String) The interval of the playlist.
-            items: (List of Object) The items of the playlist. (see below for nested schema)
-            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
-            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
-            title: (String) The title of the playlist.
-            type: (String)
-            uid: (String) The unique identifier of the resource.
-            url: (String) The full URL of the resource.
-            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
-            value: (String)
-            version: (String) The version of the resource.
-        importStatements: []
     grafana_cloud_access_policy:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
@@ -2434,7 +2394,6 @@ resources:
             grouping_key: (String) Template for the key by which alerts are grouped.
             id: (String) The ID of this resource.
             image_url: (String) Template for Alert image url.
-            labels: (List of Map of String) A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
             link: (String) The link for using in an integrated tool.
             message: (String) Template for Alert message.
             microsoft_teams: '(Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)'
@@ -3271,7 +3230,7 @@ resources:
                       "title": "My Alert Rule Folder"
                     }
         argumentDocs:
-            annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
+            annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The dashboardUId and panelId annotations, which link alerts to a panel, must be set together. Defaults to map[].
             condition: (String) The ref_id of the query node in the data field to use as the alert condition.
             contact_point: (String) The contact point to route notifications that match this rule to.
             data: '(Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)'
@@ -3792,10 +3751,10 @@ resources:
                       "allow_sign_up": true,
                       "assertion_attribute_email": "email",
                       "assertion_attribute_login": "login",
-                      "certificate_path": "/certs/saml.crt",
+                      "certificate_path": "devenv/docker/blocks/auth/saml-enterprise/cert.crt",
                       "idp_metadata_url": "https://nexus.microsoftonline-p.com/federationmetadata/saml20/federationmetadata.xml",
                       "name_id_format": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
-                      "private_key_path": "/certs/saml.key",
+                      "private_key_path": "devenv/docker/blocks/auth/saml-enterprise/key.pem",
                       "signature_algorithm": "rsa-sha256"
                     }
                   ]
