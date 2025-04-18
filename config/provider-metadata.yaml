@@ -1194,11 +1194,38 @@ resources:
             - |-
               terraform import grafana_data_source_config.name "{{ uid }}"
               terraform import grafana_data_source_config.name "{{ orgID }}:{{ uid }}"
-    grafana_data_source_config_lbac_rules Resource - terraform-provider-grafana:
+    grafana_data_source_config_lbac_rules:
         subCategory: Grafana Enterprise
         description: 'Manages LBAC rules for a data source. !> Warning: The resource is experimental and will be subject to change. This resource manages the entire LBAC rules tree, and will overwrite any existing rules. Official documentation https://grafana.com/docs/grafana/latest/administration/data-source-management/teamlbac/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/ This resource requires Grafana >=11.5.0.'
-        name: grafana_data_source_config_lbac_rules Resource - terraform-provider-grafana
+        name: grafana_data_source_config_lbac_rules
         title: grafana_data_source_config_lbac_rules Resource - terraform-provider-grafana
+        examples:
+            - name: test_rule
+              manifest: |-
+                {
+                  "datasource_uid": "${grafana_data_source.test.uid}",
+                  "depends_on": [
+                    "${grafana_team.team}",
+                    "${grafana_data_source.test}"
+                  ],
+                  "rules": "${jsonencode({\n    \"${grafana_team.team.team_uid}\" = [\n      \"{ cluster = \\\"dev-us-central-0\\\", namespace = \\\"hosted-grafana\\\" }\",\n      \"{ foo = \\\"qux\\\" }\"\n    ]\n  })}"
+                }
+              references:
+                datasource_uid: grafana_data_source.test.uid
+              dependencies:
+                grafana_data_source.test: |-
+                    {
+                      "basic_auth_enabled": true,
+                      "basic_auth_username": "username",
+                      "json_data_encoded": "${jsonencode({\n    authType          = \"default\"\n    basicAuthPassword = \"password\"\n  })}",
+                      "name": "loki-from-terraform",
+                      "type": "loki",
+                      "url": "https://mylokiurl.net"
+                    }
+                grafana_team.team: |-
+                    {
+                      "name": "Team Name"
+                    }
         argumentDocs:
             datasource_uid: (String) The UID of the datasource.
             id: (String) The ID of this resource.
@@ -1682,7 +1709,7 @@ resources:
                   "name": "test-app",
                   "provider": "${grafana.cloud}",
                   "settings": {
-                    "geolocation.enabled": "1"
+                    "combineLabData": "1"
                   },
                   "stack_id": "${data.grafana_cloud_stack.teststack.id}"
                 }
@@ -1691,6 +1718,7 @@ resources:
                 stack_id: data.grafana_cloud_stack.teststack.id
         argumentDocs:
             allowed_origins: (List of String) A list of allowed origins for CORS.
+            collector_endpoint: (String) The collector URL Grafana Cloud Frontend Observability. Use this endpoint to send your Telemetry.
             extra_log_attributes: (Map of String) The extra attributes to append in each signal.
             id: (Number) The Terraform Resource ID. This is auto-generated from Frontend Observability API.
             name: (String) The name of Frontend Observability App. Part of the Terraform Resource ID.
@@ -2093,7 +2121,7 @@ resources:
               terraform import grafana_mute_timing.name "{{ orgID }}:{{ name }}"
     grafana_notification_policy:
         subCategory: Alerting
-        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree, and will overwrite any existing policies. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
+        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree and overwrites its policies. However, it does not overwrite internal policies created when alert rules directly set a contact point for notifications. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
         name: grafana_notification_policy
         title: grafana_notification_policy Resource - terraform-provider-grafana
         examples:
