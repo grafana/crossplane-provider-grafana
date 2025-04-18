@@ -8,8 +8,10 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
+	helper "github.com/crossplane/crossplane-tools/pkg/helpers"
 	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 	errors "github.com/pkg/errors"
+	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -21,7 +23,7 @@ func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) er
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.DashboardUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
@@ -33,11 +35,11 @@ func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardUID")
 	}
-	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -49,11 +51,11 @@ func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.DashboardUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DashboardRef,
 		Selector:     mg.Spec.InitProvider.DashboardSelector,
@@ -65,11 +67,11 @@ func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardUID")
 	}
-	mg.Spec.InitProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DashboardUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.DashboardRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -81,7 +83,7 @@ func (mg *Annotation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -95,7 +97,7 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Folder),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.Folder, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
@@ -107,11 +109,11 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Folder")
 	}
-	mg.Spec.ForProvider.Folder = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.Folder = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -123,11 +125,11 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Folder),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.Folder, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
@@ -139,11 +141,11 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Folder")
 	}
-	mg.Spec.InitProvider.Folder = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.Folder = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -155,7 +157,7 @@ func (mg *Dashboard) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -169,7 +171,7 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.DashboardUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
@@ -181,11 +183,11 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardUID")
 	}
-	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -197,12 +199,12 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].TeamID),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Permissions[i3].TeamID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.Permissions[i3].TeamRef,
 			Selector:     mg.Spec.ForProvider.Permissions[i3].TeamSelector,
@@ -214,13 +216,13 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].TeamID")
 		}
-		mg.Spec.ForProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].TeamID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].UserID),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Permissions[i3].UserID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.Permissions[i3].UserRef,
 			Selector:     mg.Spec.ForProvider.Permissions[i3].UserSelector,
@@ -232,12 +234,12 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].UserID")
 		}
-		mg.Spec.ForProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].UserID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.DashboardUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DashboardRef,
 		Selector:     mg.Spec.InitProvider.DashboardSelector,
@@ -249,11 +251,11 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardUID")
 	}
-	mg.Spec.InitProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DashboardUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.DashboardRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -265,12 +267,12 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].TeamID),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Permissions[i3].TeamID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.InitProvider.Permissions[i3].TeamRef,
 			Selector:     mg.Spec.InitProvider.Permissions[i3].TeamSelector,
@@ -282,13 +284,13 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].TeamID")
 		}
-		mg.Spec.InitProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].TeamID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].UserID),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Permissions[i3].UserID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.InitProvider.Permissions[i3].UserRef,
 			Selector:     mg.Spec.InitProvider.Permissions[i3].UserSelector,
@@ -300,7 +302,7 @@ func (mg *DashboardPermission) ResolveReferences(ctx context.Context, c client.R
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].UserID")
 		}
-		mg.Spec.InitProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].UserID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
@@ -316,7 +318,7 @@ func (mg *DashboardPermissionItem) ResolveReferences(ctx context.Context, c clie
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -328,11 +330,11 @@ func (mg *DashboardPermissionItem) ResolveReferences(ctx context.Context, c clie
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -344,7 +346,7 @@ func (mg *DashboardPermissionItem) ResolveReferences(ctx context.Context, c clie
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -358,7 +360,7 @@ func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reade
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DashboardUID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.DashboardUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.DashboardRef,
 		Selector:     mg.Spec.ForProvider.DashboardSelector,
@@ -370,11 +372,11 @@ func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reade
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.DashboardUID")
 	}
-	mg.Spec.ForProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DashboardUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.DashboardRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -386,11 +388,11 @@ func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reade
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DashboardUID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.DashboardUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.DashboardRef,
 		Selector:     mg.Spec.InitProvider.DashboardSelector,
@@ -402,11 +404,11 @@ func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reade
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.DashboardUID")
 	}
-	mg.Spec.InitProvider.DashboardUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DashboardUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.DashboardRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -418,7 +420,7 @@ func (mg *DashboardPublic) ResolveReferences(ctx context.Context, c client.Reade
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -432,7 +434,7 @@ func (mg *DataSource) ResolveReferences(ctx context.Context, c client.Reader) er
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -444,11 +446,11 @@ func (mg *DataSource) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -460,7 +462,7 @@ func (mg *DataSource) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -474,7 +476,7 @@ func (mg *DataSourceConfig) ResolveReferences(ctx context.Context, c client.Read
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -486,11 +488,11 @@ func (mg *DataSourceConfig) ResolveReferences(ctx context.Context, c client.Read
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -502,7 +504,7 @@ func (mg *DataSourceConfig) ResolveReferences(ctx context.Context, c client.Read
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -516,7 +518,7 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -528,11 +530,11 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ParentFolderUID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.ParentFolderUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
@@ -544,11 +546,11 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.ParentFolderUID")
 	}
-	mg.Spec.ForProvider.ParentFolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ParentFolderUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -560,11 +562,11 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ParentFolderUID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.ParentFolderUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
@@ -576,7 +578,7 @@ func (mg *Folder) ResolveReferences(ctx context.Context, c client.Reader) error 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.ParentFolderUID")
 	}
-	mg.Spec.InitProvider.ParentFolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ParentFolderUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
 
 	return nil
@@ -590,7 +592,7 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.FolderUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
@@ -602,11 +604,11 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.FolderUID")
 	}
-	mg.Spec.ForProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -618,12 +620,12 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].TeamID),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Permissions[i3].TeamID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.Permissions[i3].TeamRef,
 			Selector:     mg.Spec.ForProvider.Permissions[i3].TeamSelector,
@@ -635,13 +637,13 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].TeamID")
 		}
-		mg.Spec.ForProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].TeamID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].UserID),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Permissions[i3].UserID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.Permissions[i3].UserRef,
 			Selector:     mg.Spec.ForProvider.Permissions[i3].UserSelector,
@@ -653,12 +655,12 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].UserID")
 		}
-		mg.Spec.ForProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].UserID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.FolderUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
@@ -670,11 +672,11 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.FolderUID")
 	}
-	mg.Spec.InitProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.FolderUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -686,12 +688,12 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].TeamID),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Permissions[i3].TeamID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.InitProvider.Permissions[i3].TeamRef,
 			Selector:     mg.Spec.InitProvider.Permissions[i3].TeamSelector,
@@ -703,13 +705,13 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].TeamID")
 		}
-		mg.Spec.InitProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].TeamID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].UserID),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Permissions[i3].UserID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.InitProvider.Permissions[i3].UserRef,
 			Selector:     mg.Spec.InitProvider.Permissions[i3].UserSelector,
@@ -721,7 +723,7 @@ func (mg *FolderPermission) ResolveReferences(ctx context.Context, c client.Read
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].UserID")
 		}
-		mg.Spec.InitProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].UserID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
@@ -737,7 +739,7 @@ func (mg *FolderPermissionItem) ResolveReferences(ctx context.Context, c client.
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -749,11 +751,11 @@ func (mg *FolderPermissionItem) ResolveReferences(ctx context.Context, c client.
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -765,7 +767,7 @@ func (mg *FolderPermissionItem) ResolveReferences(ctx context.Context, c client.
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -779,7 +781,7 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.FolderUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
@@ -791,11 +793,11 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.FolderUID")
 	}
-	mg.Spec.ForProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -807,11 +809,11 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.FolderUID, ""),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
@@ -823,11 +825,11 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.FolderUID")
 	}
-	mg.Spec.InitProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.FolderUID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -839,7 +841,7 @@ func (mg *LibraryPanel) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -853,7 +855,7 @@ func (mg *OrganizationPreferences) ResolveReferences(ctx context.Context, c clie
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -865,11 +867,11 @@ func (mg *OrganizationPreferences) ResolveReferences(ctx context.Context, c clie
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -881,7 +883,7 @@ func (mg *OrganizationPreferences) ResolveReferences(ctx context.Context, c clie
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -895,7 +897,7 @@ func (mg *Playlist) ResolveReferences(ctx context.Context, c client.Reader) erro
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -907,11 +909,11 @@ func (mg *Playlist) ResolveReferences(ctx context.Context, c client.Reader) erro
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -923,7 +925,7 @@ func (mg *Playlist) ResolveReferences(ctx context.Context, c client.Reader) erro
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -937,7 +939,7 @@ func (mg *ServiceAccount) ResolveReferences(ctx context.Context, c client.Reader
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -949,11 +951,11 @@ func (mg *ServiceAccount) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -965,7 +967,7 @@ func (mg *ServiceAccount) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -979,7 +981,7 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -991,12 +993,12 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].TeamID),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Permissions[i3].TeamID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.Permissions[i3].TeamRef,
 			Selector:     mg.Spec.ForProvider.Permissions[i3].TeamSelector,
@@ -1008,13 +1010,13 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].TeamID")
 		}
-		mg.Spec.ForProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].TeamID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].UserID),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Permissions[i3].UserID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.Permissions[i3].UserRef,
 			Selector:     mg.Spec.ForProvider.Permissions[i3].UserSelector,
@@ -1026,12 +1028,12 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].UserID")
 		}
-		mg.Spec.ForProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].UserID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServiceAccountID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.ServiceAccountID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.ServiceAccountRef,
 		Selector:     mg.Spec.ForProvider.ServiceAccountSelector,
@@ -1043,11 +1045,11 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.ServiceAccountID")
 	}
-	mg.Spec.ForProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ServiceAccountID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ServiceAccountRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -1059,12 +1061,12 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].TeamID),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Permissions[i3].TeamID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.InitProvider.Permissions[i3].TeamRef,
 			Selector:     mg.Spec.InitProvider.Permissions[i3].TeamSelector,
@@ -1076,13 +1078,13 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].TeamID")
 		}
-		mg.Spec.InitProvider.Permissions[i3].TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].TeamID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Permissions[i3].TeamRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].UserID),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Permissions[i3].UserID, ""),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.InitProvider.Permissions[i3].UserRef,
 			Selector:     mg.Spec.InitProvider.Permissions[i3].UserSelector,
@@ -1094,12 +1096,12 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].UserID")
 		}
-		mg.Spec.InitProvider.Permissions[i3].UserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].UserID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Permissions[i3].UserRef = rsp.ResolvedReference
 
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServiceAccountID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.ServiceAccountID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.ServiceAccountRef,
 		Selector:     mg.Spec.InitProvider.ServiceAccountSelector,
@@ -1111,7 +1113,7 @@ func (mg *ServiceAccountPermission) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.ServiceAccountID")
 	}
-	mg.Spec.InitProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServiceAccountID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ServiceAccountRef = rsp.ResolvedReference
 
 	return nil
@@ -1125,7 +1127,7 @@ func (mg *ServiceAccountPermissionItem) ResolveReferences(ctx context.Context, c
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -1137,11 +1139,11 @@ func (mg *ServiceAccountPermissionItem) ResolveReferences(ctx context.Context, c
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -1153,7 +1155,7 @@ func (mg *ServiceAccountPermissionItem) ResolveReferences(ctx context.Context, c
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -1167,7 +1169,7 @@ func (mg *ServiceAccountToken) ResolveReferences(ctx context.Context, c client.R
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServiceAccountID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.ServiceAccountID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.ServiceAccountRef,
 		Selector:     mg.Spec.ForProvider.ServiceAccountSelector,
@@ -1179,11 +1181,11 @@ func (mg *ServiceAccountToken) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.ServiceAccountID")
 	}
-	mg.Spec.ForProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ServiceAccountID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ServiceAccountRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServiceAccountID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.ServiceAccountID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.ServiceAccountRef,
 		Selector:     mg.Spec.InitProvider.ServiceAccountSelector,
@@ -1195,7 +1197,7 @@ func (mg *ServiceAccountToken) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.ServiceAccountID")
 	}
-	mg.Spec.InitProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServiceAccountID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ServiceAccountRef = rsp.ResolvedReference
 
 	return nil
@@ -1210,7 +1212,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var err error
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Members),
+		CurrentValues: helper.FromPtrValues(mg.Spec.ForProvider.Members),
 		Extract:       grafana.FieldExtractor("email"),
 		References:    mg.Spec.ForProvider.MemberRefs,
 		Selector:      mg.Spec.ForProvider.MemberSelector,
@@ -1222,11 +1224,11 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Members")
 	}
-	mg.Spec.ForProvider.Members = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.Members = helper.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.MemberRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -1238,11 +1240,11 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Members),
+		CurrentValues: helper.FromPtrValues(mg.Spec.InitProvider.Members),
 		Extract:       grafana.FieldExtractor("email"),
 		References:    mg.Spec.InitProvider.MemberRefs,
 		Selector:      mg.Spec.InitProvider.MemberSelector,
@@ -1254,11 +1256,11 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Members")
 	}
-	mg.Spec.InitProvider.Members = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.Members = helper.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.MemberRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -1270,7 +1272,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil

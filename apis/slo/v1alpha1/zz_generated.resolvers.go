@@ -11,6 +11,7 @@ import (
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 	errors "github.com/pkg/errors"
+	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -23,7 +24,7 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.DestinationDatasource); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationDatasource[i3].UID),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.DestinationDatasource[i3].UID, ""),
 			Extract:      grafana.OptionalFieldExtractor("uid"),
 			Reference:    mg.Spec.ForProvider.DestinationDatasource[i3].Ref,
 			Selector:     mg.Spec.ForProvider.DestinationDatasource[i3].Selector,
@@ -35,13 +36,13 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.DestinationDatasource[i3].UID")
 		}
-		mg.Spec.ForProvider.DestinationDatasource[i3].UID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.DestinationDatasource[i3].UID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.DestinationDatasource[i3].Ref = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DestinationDatasource); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DestinationDatasource[i3].UID),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.DestinationDatasource[i3].UID, ""),
 			Extract:      grafana.OptionalFieldExtractor("uid"),
 			Reference:    mg.Spec.InitProvider.DestinationDatasource[i3].Ref,
 			Selector:     mg.Spec.InitProvider.DestinationDatasource[i3].Selector,
@@ -53,7 +54,7 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.DestinationDatasource[i3].UID")
 		}
-		mg.Spec.InitProvider.DestinationDatasource[i3].UID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.DestinationDatasource[i3].UID = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.DestinationDatasource[i3].Ref = rsp.ResolvedReference
 
 	}

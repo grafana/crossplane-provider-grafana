@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.0
   name: jobs.ml.grafana.crossplane.io
 spec:
   group: ml.grafana.crossplane.io
@@ -159,7 +159,8 @@ spec:
                     type: object
                   datasourceType:
                     description: The type of datasource being queried. Currently allowed
-                      values are prometheus, graphite, loki, postgres, and datadog.
+                      values are prometheus, graphite, loki, postgres, influxdb, snowflake,
+                      splunk, elasticsearch, bigquery, mongodb, and datadog.
                     type: string
                   datasourceUid:
                     description: The uid of the datasource to query.
@@ -300,7 +301,8 @@ spec:
                     type: object
                   datasourceType:
                     description: The type of datasource being queried. Currently allowed
-                      values are prometheus, graphite, loki, postgres, and datadog.
+                      values are prometheus, graphite, loki, postgres, influxdb, snowflake,
+                      splunk, elasticsearch, bigquery, mongodb, and datadog.
                     type: string
                   datasourceUid:
                     description: The uid of the datasource to query.
@@ -543,7 +545,8 @@ spec:
                     x-kubernetes-map-type: granular
                   datasourceType:
                     description: The type of datasource being queried. Currently allowed
-                      values are prometheus, graphite, loki, postgres, and datadog.
+                      values are prometheus, graphite, loki, postgres, influxdb, snowflake,
+                      splunk, elasticsearch, bigquery, mongodb, and datadog.
                     type: string
                   datasourceUid:
                     description: The uid of the datasource to query.
