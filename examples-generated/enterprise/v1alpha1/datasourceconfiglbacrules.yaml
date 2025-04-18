@@ -1,0 +1,55 @@
+apiVersion: enterprise.grafana.crossplane.io/v1alpha1
+kind: DataSourceConfigLbacRules
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/datasourceconfiglbacrules
+  labels:
+    testing.upbound.io/example-name: test_rule
+  name: test-rule
+spec:
+  forProvider:
+    datasourceUid: ${grafana_data_source.test.uid}
+    rules: |-
+      ${jsonencode({
+          "${grafana_team.team.team_uid}" = [
+            "{ cluster = \"dev-us-central-0\", namespace = \"hosted-grafana\" }",
+            "{ foo = \"qux\" }"
+          ]
+        })}
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DataSource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/datasourceconfiglbacrules
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    basicAuthEnabled: true
+    basicAuthUsername: username
+    jsonDataEncoded: |-
+      ${jsonencode({
+          authType          = "default"
+          basicAuthPassword = "password"
+        })}
+    name: loki-from-terraform
+    type: loki
+    url: https://mylokiurl.net
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/datasourceconfiglbacrules
+  labels:
+    testing.upbound.io/example-name: team
+  name: team
+spec:
+  forProvider:
+    name: Team Name
