@@ -15,30 +15,37 @@ import (
 
 type DataSourceConfigLbacRulesInitParameters struct {
 
+	// (String) The UID of the datasource.
 	// The UID of the datasource.
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
+	// encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
 	// JSON-encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
 	Rules *string `json:"rules,omitempty" tf:"rules,omitempty"`
 }
 
 type DataSourceConfigLbacRulesObservation struct {
 
+	// (String) The UID of the datasource.
 	// The UID of the datasource.
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
+	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
 	// JSON-encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
 	Rules *string `json:"rules,omitempty" tf:"rules,omitempty"`
 }
 
 type DataSourceConfigLbacRulesParameters struct {
 
+	// (String) The UID of the datasource.
 	// The UID of the datasource.
 	// +kubebuilder:validation:Optional
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
+	// encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
 	// JSON-encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
 	// +kubebuilder:validation:Optional
 	Rules *string `json:"rules,omitempty" tf:"rules,omitempty"`
@@ -71,7 +78,7 @@ type DataSourceConfigLbacRulesStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// DataSourceConfigLbacRules is the Schema for the DataSourceConfigLbacRuless API. <no value>
+// DataSourceConfigLbacRules is the Schema for the DataSourceConfigLbacRuless API. Manages LBAC rules for a data source. !> Warning: The resource is experimental and will be subject to change. This resource manages the entire LBAC rules tree, and will overwrite any existing rules. Official documentation https://grafana.com/docs/grafana/latest/administration/data-source-management/teamlbac/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/ This resource requires Grafana >=11.5.0.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
