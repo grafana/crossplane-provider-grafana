@@ -2425,7 +2425,7 @@ type VictoropsInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The VictorOps webhook URL.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type VictoropsObservation struct {
@@ -2449,10 +2449,6 @@ type VictoropsObservation struct {
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-	// (String) The URL of the Alertmanager instance.
-	// The VictorOps webhook URL.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type VictoropsParameters struct {
@@ -2485,7 +2481,7 @@ type VictoropsParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The VictorOps webhook URL.
 	// +kubebuilder:validation:Optional
-	URL *string `json:"url" tf:"url,omitempty"`
+	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type WebexInitParameters struct {

@@ -217,6 +217,15 @@ spec:
                           type: array
                       type: object
                     type: array
+                  labels:
+                    description: |-
+                      to-string mappings. Each map must include one key named "key" and one key named "value".
+                      A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+                    items:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    type: array
                   name:
                     description: |-
                       (String) The name of the service integration.
@@ -569,6 +578,15 @@ spec:
                                 type: string
                             type: object
                           type: array
+                      type: object
+                    type: array
+                  labels:
+                    description: |-
+                      to-string mappings. Each map must include one key named "key" and one key named "value".
+                      A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+                    items:
+                      additionalProperties:
+                        type: string
                       type: object
                     type: array
                   name:
@@ -1027,6 +1045,15 @@ spec:
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  labels:
+                    description: |-
+                      to-string mappings. Each map must include one key named "key" and one key named "value".
+                      A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+                    items:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    type: array
                   link:
                     description: |-
                       (String) The link for using in an integrated tool.
