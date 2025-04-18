@@ -10,6 +10,7 @@ import (
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 	errors "github.com/pkg/errors"
+	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -22,7 +23,7 @@ func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Realm); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Realm[i3].Identifier),
+			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Realm[i3].Identifier, ""),
 			Extract:      grafana.ComputedFieldExtractor("id"),
 			Reference:    mg.Spec.ForProvider.Realm[i3].StackRef,
 			Selector:     mg.Spec.ForProvider.Realm[i3].StackSelector,
@@ -34,13 +35,13 @@ func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) 
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Realm[i3].Identifier")
 		}
-		mg.Spec.ForProvider.Realm[i3].Identifier = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Realm[i3].Identifier = ptr.To(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Realm[i3].StackRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Realm); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Realm[i3].Identifier),
+			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Realm[i3].Identifier, ""),
 			Extract:      grafana.ComputedFieldExtractor("id"),
 			Reference:    mg.Spec.InitProvider.Realm[i3].StackRef,
 			Selector:     mg.Spec.InitProvider.Realm[i3].StackSelector,
@@ -52,7 +53,7 @@ func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) 
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Realm[i3].Identifier")
 		}
-		mg.Spec.InitProvider.Realm[i3].Identifier = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Realm[i3].Identifier = ptr.To(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Realm[i3].StackRef = rsp.ResolvedReference
 
 	}
@@ -68,7 +69,7 @@ func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Rea
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AccessPolicyID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.AccessPolicyID, ""),
 		Extract:      grafana.ComputedFieldExtractor("policyId"),
 		Reference:    mg.Spec.ForProvider.AccessPolicyRef,
 		Selector:     mg.Spec.ForProvider.AccessPolicySelector,
@@ -80,11 +81,11 @@ func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Rea
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.AccessPolicyID")
 	}
-	mg.Spec.ForProvider.AccessPolicyID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.AccessPolicyID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.AccessPolicyRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AccessPolicyID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.AccessPolicyID, ""),
 		Extract:      grafana.ComputedFieldExtractor("policyId"),
 		Reference:    mg.Spec.InitProvider.AccessPolicyRef,
 		Selector:     mg.Spec.InitProvider.AccessPolicySelector,
@@ -96,7 +97,7 @@ func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Rea
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.AccessPolicyID")
 	}
-	mg.Spec.InitProvider.AccessPolicyID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.AccessPolicyID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.AccessPolicyRef = rsp.ResolvedReference
 
 	return nil
@@ -110,7 +111,7 @@ func (mg *PluginInstallation) ResolveReferences(ctx context.Context, c client.Re
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackSlug),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.StackSlug, ""),
 		Extract:      grafana.FieldExtractor("slug"),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
@@ -122,11 +123,11 @@ func (mg *PluginInstallation) ResolveReferences(ctx context.Context, c client.Re
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.StackSlug")
 	}
-	mg.Spec.ForProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.StackSlug = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.StackSlug, ""),
 		Extract:      grafana.FieldExtractor("slug"),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
@@ -138,7 +139,7 @@ func (mg *PluginInstallation) ResolveReferences(ctx context.Context, c client.Re
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.StackSlug")
 	}
-	mg.Spec.InitProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.StackSlug = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
 
 	return nil
@@ -152,7 +153,7 @@ func (mg *StackServiceAccount) ResolveReferences(ctx context.Context, c client.R
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackSlug),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.StackSlug, ""),
 		Extract:      grafana.FieldExtractor("slug"),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
@@ -164,11 +165,11 @@ func (mg *StackServiceAccount) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.StackSlug")
 	}
-	mg.Spec.ForProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.StackSlug = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.StackSlug, ""),
 		Extract:      grafana.FieldExtractor("slug"),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
@@ -180,7 +181,7 @@ func (mg *StackServiceAccount) ResolveReferences(ctx context.Context, c client.R
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.StackSlug")
 	}
-	mg.Spec.InitProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.StackSlug = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
 
 	return nil
@@ -194,7 +195,7 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServiceAccountID),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.ServiceAccountID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.ServiceAccountRef,
 		Selector:     mg.Spec.ForProvider.ServiceAccountSelector,
@@ -206,11 +207,11 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.ServiceAccountID")
 	}
-	mg.Spec.ForProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ServiceAccountID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ServiceAccountRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackSlug),
+		CurrentValue: ptr.Deref(mg.Spec.ForProvider.StackSlug, ""),
 		Extract:      grafana.FieldExtractor("slug"),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
@@ -222,11 +223,11 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.StackSlug")
 	}
-	mg.Spec.ForProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.StackSlug = ptr.To(rsp.ResolvedValue)
 	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServiceAccountID),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.ServiceAccountID, ""),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.ServiceAccountRef,
 		Selector:     mg.Spec.InitProvider.ServiceAccountSelector,
@@ -238,11 +239,11 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.ServiceAccountID")
 	}
-	mg.Spec.InitProvider.ServiceAccountID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ServiceAccountID = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ServiceAccountRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
+		CurrentValue: ptr.Deref(mg.Spec.InitProvider.StackSlug, ""),
 		Extract:      grafana.FieldExtractor("slug"),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
@@ -254,7 +255,7 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.StackSlug")
 	}
-	mg.Spec.InitProvider.StackSlug = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.StackSlug = ptr.To(rsp.ResolvedValue)
 	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
 
 	return nil

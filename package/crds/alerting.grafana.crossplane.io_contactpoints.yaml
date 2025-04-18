@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.15.0
+    controller-gen.kubebuilder.io/version: v0.16.0
   name: contactpoints.alerting.grafana.crossplane.io
 spec:
   group: alerting.grafana.crossplane.io
@@ -1563,11 +1563,25 @@ spec:
                             (String) The templated title of the message.
                             Templated title to display.
                           type: string
-                        url:
+                        urlSecretRef:
                           description: |-
                             (String) The URL of the Alertmanager instance.
                             The VictorOps webhook URL.
-                          type: string
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
                       type: object
                     type: array
                   webex:
@@ -3157,11 +3171,27 @@ spec:
                             (String) The templated title of the message.
                             Templated title to display.
                           type: string
-                        url:
+                        urlSecretRef:
                           description: |-
                             (String) The URL of the Alertmanager instance.
                             The VictorOps webhook URL.
-                          type: string
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - urlSecretRef
                       type: object
                     type: array
                   webex:
@@ -4425,11 +4455,6 @@ spec:
                           description: |-
                             (String) The UID of the contact point.
                             The UID of the contact point.
-                          type: string
-                        url:
-                          description: |-
-                            (String) The URL of the Alertmanager instance.
-                            The VictorOps webhook URL.
                           type: string
                       type: object
                     type: array
