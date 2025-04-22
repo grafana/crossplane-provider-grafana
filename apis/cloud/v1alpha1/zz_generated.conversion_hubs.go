@@ -19,6 +19,12 @@ func (tr *OrgMember) Hub() {}
 func (tr *PluginInstallation) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *PrivateDataSourceConnectNetwork) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PrivateDataSourceConnectNetworkToken) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Stack) Hub() {}
 
 // Hub marks this type as a conversion hub.
