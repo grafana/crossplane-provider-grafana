@@ -1,0 +1,16 @@
+apiVersion: fleetmanagement.grafana.crossplane.io/v1alpha1
+kind: Pipeline
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fleetmanagement/v1alpha1/pipeline
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    contents: ${file("config.alloy")}
+    enabled: true
+    matchers:
+    - collector.os=~".*"
+    - env="PROD"
+    name: my_pipeline

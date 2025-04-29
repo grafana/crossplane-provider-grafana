@@ -66,13 +66,15 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_rule_group":          ReplaceGroupWords("alerting", 0),
 
 	// Cloud
-	"grafana_cloud_access_policy":               ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_access_policy_token":         ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_org_member":                  ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_plugin_installation":         ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack":                       ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack_service_account":       ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack_service_account_token": ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_access_policy":                             ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_access_policy_token":                       ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_org_member":                                ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_plugin_installation":                       ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_private_data_source_connect_network":       ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_private_data_source_connect_network_token": ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack":                                     ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack_service_account":                     ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack_service_account_token":               ReplaceGroupWords("cloud", 1),
 
 	// Cloud Provider
 	"grafana_cloud_provider_aws_account":               ReplaceGroupWords("cloudprovider", 2),
@@ -138,6 +140,13 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),
 	"grafana_synthetic_monitoring_installation": ReplaceGroupWords("sm", 2),
 	"grafana_synthetic_monitoring_probe":        ReplaceGroupWords("sm", 2),
+
+	// Fleet Management
+	"grafana_fleet_management_collector": ReplaceGroupWords("fleetmanagement", 2),
+	"grafana_fleet_management_pipeline":  ReplaceGroupWords("fleetmanagement", 2),
+
+	// Frontend Observability
+	"grafana_frontend_o11y_app": ReplaceGroupWords("frontendobservability", 2),
 }
 
 // KindMap contains kind string overrides.

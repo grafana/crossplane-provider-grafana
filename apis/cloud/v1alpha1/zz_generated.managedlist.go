@@ -43,6 +43,24 @@ func (l *PluginInstallationList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this PrivateDataSourceConnectNetworkList.
+func (l *PrivateDataSourceConnectNetworkList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this PrivateDataSourceConnectNetworkTokenList.
+func (l *PrivateDataSourceConnectNetworkTokenList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this StackList.
 func (l *StackList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
