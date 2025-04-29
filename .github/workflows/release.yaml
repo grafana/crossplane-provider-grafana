@@ -12,6 +12,8 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
     - run: ./hack/merge-crds.sh
     - uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174 # v1
       with:
