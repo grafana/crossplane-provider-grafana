@@ -18,6 +18,8 @@ import (
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicytoken"
 	orgmember "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/orgmember"
 	plugininstallation "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/plugininstallation"
+	privatedatasourceconnectnetwork "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/privatedatasourceconnectnetwork"
+	privatedatasourceconnectnetworktoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/privatedatasourceconnectnetworktoken"
 	stack "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stack"
 	stackserviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccount"
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccounttoken"
@@ -33,6 +35,9 @@ import (
 	roleassignment "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignment"
 	roleassignmentitem "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignmentitem"
 	teamexternalgroup "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/teamexternalgroup"
+	collector "github.com/grafana/crossplane-provider-grafana/internal/controller/fleetmanagement/collector"
+	pipeline "github.com/grafana/crossplane-provider-grafana/internal/controller/fleetmanagement/pipeline"
+	app "github.com/grafana/crossplane-provider-grafana/internal/controller/frontendobservability/app"
 	alert "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/alert"
 	holiday "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/holiday"
 	job "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/job"
@@ -86,6 +91,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		accesspolicytoken.Setup,
 		orgmember.Setup,
 		plugininstallation.Setup,
+		privatedatasourceconnectnetwork.Setup,
+		privatedatasourceconnectnetworktoken.Setup,
 		stack.Setup,
 		stackserviceaccount.Setup,
 		stackserviceaccounttoken.Setup,
@@ -101,6 +108,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		roleassignment.Setup,
 		roleassignmentitem.Setup,
 		teamexternalgroup.Setup,
+		collector.Setup,
+		pipeline.Setup,
+		app.Setup,
 		alert.Setup,
 		holiday.Setup,
 		job.Setup,

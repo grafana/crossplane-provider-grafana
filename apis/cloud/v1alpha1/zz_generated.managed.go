@@ -247,6 +247,126 @@ func (mg *PluginInstallation) SetWriteConnectionSecretToReference(r *xpv1.Secret
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this Stack.
 func (mg *Stack) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)

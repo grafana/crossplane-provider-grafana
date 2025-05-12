@@ -1,0 +1,31 @@
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: PrivateDataSourceConnectNetworkToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/privatedatasourceconnectnetworktoken
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    displayName: My PDC Token
+    name: my-pdc-token
+    pdcNetworkId: ${grafana_cloud_private_data_source_connect_network.test.pdc_network_id}
+    region: prod-us-east-0
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: PrivateDataSourceConnectNetwork
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/privatedatasourceconnectnetworktoken
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    displayName: My PDC
+    name: my-pdc
+    region: prod-us-east-0
+    stackIdentifier: ${data.grafana_cloud_stack.current.id}
