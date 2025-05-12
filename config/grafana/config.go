@@ -233,8 +233,26 @@ func Configure(p *ujconfig.Provider) {
 			GetIDFn:                ujconfig.ExternalNameAsID,
 			DisableNameInitializer: true,
 		}
+		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
+			// skip diff customization on create
+			if state == nil || state.Empty() {
+				return diff, nil
+			}
+			// skip no diff or destroy diffs
+			if diff == nil || diff.Empty() || diff.Destroy || diff.Attributes == nil {
+				return diff, nil
+			}
 
+			// ID is configured upon creation, don't try to update.
+			// log: ResourceAttrDiff{"id":*terraform.ResourceAttrDiff{Old:"5527", New:"fedstartcrossplanetest"}}
+			if diff.Attributes["id"] != nil {
+				delete(diff.Attributes, "id")
+			}
+
+			return diff, nil
+		}
 	})
+
 	p.AddResourceConfigurator("grafana_cloud_stack_service_account", func(r *ujconfig.Resource) {
 		r.References["stack_slug"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",
