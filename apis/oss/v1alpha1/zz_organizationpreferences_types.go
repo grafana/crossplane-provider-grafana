@@ -42,8 +42,8 @@ type OrganizationPreferencesInitParameters struct {
 	// The Organization timezone. Available values are `utc`, `browser`, or an empty string for the default.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
-	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.
-	// The Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to ``.
+	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
+	// The Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.
 	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
@@ -68,8 +68,8 @@ type OrganizationPreferencesObservation struct {
 	// The Organization timezone. Available values are `utc`, `browser`, or an empty string for the default.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
-	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.
-	// The Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to ``.
+	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
+	// The Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.
 	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
@@ -106,8 +106,8 @@ type OrganizationPreferencesParameters struct {
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
-	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.
-	// The Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to ``.
+	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
+	// The Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.
 	// +kubebuilder:validation:Optional
 	WeekStart *string `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }

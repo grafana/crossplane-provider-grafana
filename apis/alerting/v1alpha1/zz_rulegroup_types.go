@@ -23,8 +23,8 @@ type DataInitParameters struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to ``.
-	// An optional identifier for the type of query being executed. Defaults to ``.
+	// (String) An optional identifier for the type of query being executed. Defaults to “.
+	// An optional identifier for the type of query being executed. Defaults to “.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -46,8 +46,8 @@ type DataObservation struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to ``.
-	// An optional identifier for the type of query being executed. Defaults to ``.
+	// (String) An optional identifier for the type of query being executed. Defaults to “.
+	// An optional identifier for the type of query being executed. Defaults to “.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -71,8 +71,8 @@ type DataParameters struct {
 	// +kubebuilder:validation:Optional
 	Model *string `json:"model" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to ``.
-	// An optional identifier for the type of query being executed. Defaults to ``.
+	// (String) An optional identifier for the type of query being executed. Defaults to “.
+	// An optional identifier for the type of query being executed. Defaults to “.
 	// +kubebuilder:validation:Optional
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 

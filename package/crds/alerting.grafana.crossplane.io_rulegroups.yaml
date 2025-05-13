@@ -282,8 +282,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
-                                  An optional identifier for the type of query being executed. Defaults to ``.
+                                  (String) An optional identifier for the type of query being executed. Defaults to “.
+                                  An optional identifier for the type of query being executed. Defaults to “.
                                 type: string
                               refId:
                                 description: |-
@@ -718,8 +718,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
-                                  An optional identifier for the type of query being executed. Defaults to ``.
+                                  (String) An optional identifier for the type of query being executed. Defaults to “.
+                                  An optional identifier for the type of query being executed. Defaults to “.
                                 type: string
                               refId:
                                 description: |-
@@ -1181,8 +1181,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
-                                  An optional identifier for the type of query being executed. Defaults to ``.
+                                  (String) An optional identifier for the type of query being executed. Defaults to “.
+                                  An optional identifier for the type of query being executed. Defaults to “.
                                 type: string
                               refId:
                                 description: |-
