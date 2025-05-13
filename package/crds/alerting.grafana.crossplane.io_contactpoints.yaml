@@ -1740,6 +1740,21 @@ spec:
                             (String) The templated title of the message.
                             Templated title of the message.
                           type: string
+                        tlsConfigSecretRef:
+                          description: |-
+                            (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
+                            Allows configuring TLS for the webhook notifier.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
                         url:
                           description: |-
                             (String) The URL of the Alertmanager instance.
@@ -3328,6 +3343,10 @@ spec:
                             (String) The templated title of the message.
                             Templated title of the message.
                           type: string
+                        tlsConfigSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
                         url:
                           description: |-
                             (String) The URL of the Alertmanager instance.

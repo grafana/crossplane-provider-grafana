@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *Check) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *CheckAlerts) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Installation) Hub() {}
 
 // Hub marks this type as a conversion hub.

@@ -62,8 +62,8 @@ type OnCallShiftInitParameters struct {
 	// The index of the list of users in rolling_users, from which on-call rotation starts.
 	StartRotationFromUserIndex *float64 `json:"startRotationFromUserIndex,omitempty" tf:"start_rotation_from_user_index,omitempty"`
 
-	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
-	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
 	// (String) The shift's timezone.  Overrides schedule's timezone.
@@ -140,8 +140,8 @@ type OnCallShiftObservation struct {
 	// The index of the list of users in rolling_users, from which on-call rotation starts.
 	StartRotationFromUserIndex *float64 `json:"startRotationFromUserIndex,omitempty" tf:"start_rotation_from_user_index,omitempty"`
 
-	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
-	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
 	// (String) The shift's timezone.  Overrides schedule's timezone.
@@ -226,8 +226,8 @@ type OnCallShiftParameters struct {
 	// +kubebuilder:validation:Optional
 	StartRotationFromUserIndex *float64 `json:"startRotationFromUserIndex,omitempty" tf:"start_rotation_from_user_index,omitempty"`
 
-	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
-	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 

@@ -127,6 +127,66 @@ func (mg *AwsCloudwatchScrapeJob) SetWriteConnectionSecretToReference(r *xpv1.Se
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this AwsResourceMetadataScrapeJob.
+func (mg *AwsResourceMetadataScrapeJob) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this AzureCredential.
 func (mg *AzureCredential) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)

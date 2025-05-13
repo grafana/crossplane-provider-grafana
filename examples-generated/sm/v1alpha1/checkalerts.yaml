@@ -1,0 +1,41 @@
+apiVersion: sm.grafana.crossplane.io/v1alpha1
+kind: CheckAlerts
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/checkalerts
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    alerts:
+    - name: ProbeFailedExecutionsTooHigh
+      period: 15m
+      threshold: 1
+    - name: TLSTargetCertificateCloseToExpiring
+      period: ""
+      threshold: 14
+    checkId: ${grafana_synthetic_monitoring_check.main.id}
+
+---
+
+apiVersion: sm.grafana.crossplane.io/v1alpha1
+kind: Check
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/checkalerts
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    enabled: true
+    job: Check Alert Test
+    labels: {}
+    probes:
+    - 1
+    settings:
+    - http:
+      - ipVersion: V4
+        method: GET
+    target: https://grafana.com

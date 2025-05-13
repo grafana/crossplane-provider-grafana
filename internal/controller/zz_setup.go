@@ -25,6 +25,7 @@ import (
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/stackserviceaccounttoken"
 	awsaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/awsaccount"
 	awscloudwatchscrapejob "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/awscloudwatchscrapejob"
+	awsresourcemetadatascrapejob "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/awsresourcemetadatascrapejob"
 	azurecredential "github.com/grafana/crossplane-provider-grafana/internal/controller/cloudprovider/azurecredential"
 	metricsendpointscrapejob "github.com/grafana/crossplane-provider-grafana/internal/controller/connections/metricsendpointscrapejob"
 	datasourceconfiglbacrules "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/datasourceconfiglbacrules"
@@ -38,6 +39,10 @@ import (
 	collector "github.com/grafana/crossplane-provider-grafana/internal/controller/fleetmanagement/collector"
 	pipeline "github.com/grafana/crossplane-provider-grafana/internal/controller/fleetmanagement/pipeline"
 	app "github.com/grafana/crossplane-provider-grafana/internal/controller/frontendobservability/app"
+	installation "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/installation"
+	loadtest "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/loadtest"
+	project "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/project"
+	projectlimits "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/projectlimits"
 	alert "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/alert"
 	holiday "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/holiday"
 	job "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/job"
@@ -74,7 +79,8 @@ import (
 	providerconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/providerconfig"
 	slo "github.com/grafana/crossplane-provider-grafana/internal/controller/slo/slo"
 	check "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/check"
-	installation "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/installation"
+	checkalerts "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/checkalerts"
+	installationsm "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/installation"
 	probe "github.com/grafana/crossplane-provider-grafana/internal/controller/sm/probe"
 )
 
@@ -98,6 +104,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		stackserviceaccounttoken.Setup,
 		awsaccount.Setup,
 		awscloudwatchscrapejob.Setup,
+		awsresourcemetadatascrapejob.Setup,
 		azurecredential.Setup,
 		metricsendpointscrapejob.Setup,
 		datasourceconfiglbacrules.Setup,
@@ -111,6 +118,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		collector.Setup,
 		pipeline.Setup,
 		app.Setup,
+		installation.Setup,
+		loadtest.Setup,
+		project.Setup,
+		projectlimits.Setup,
 		alert.Setup,
 		holiday.Setup,
 		job.Setup,
@@ -147,7 +158,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		providerconfig.Setup,
 		slo.Setup,
 		check.Setup,
-		installation.Setup,
+		checkalerts.Setup,
+		installationsm.Setup,
 		probe.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

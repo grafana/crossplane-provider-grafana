@@ -14,4 +14,5 @@ spec:
     slack:
     - channelId: ${data.grafana_oncall_slack_channel.example_slack_channel.slack_id}
       userGroupId: ${data.grafana_oncall_user_group.example_user_group.slack_id}
+    teamId: ${data.grafana_oncall_team.my_team.id}
     type: ical

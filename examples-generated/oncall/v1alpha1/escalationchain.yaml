@@ -10,3 +10,4 @@ spec:
   forProvider:
     name: default
     provider: ${grafana.oncall}
+    teamId: ${data.grafana_oncall_team.my_team.id}

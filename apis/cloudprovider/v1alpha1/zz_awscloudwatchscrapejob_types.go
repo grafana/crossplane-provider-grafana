@@ -19,20 +19,20 @@ type AwsCloudwatchScrapeJobInitParameters struct {
 	// The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the `resource_id` attribute of the `grafana_cloud_provider_aws_account` resource.
 	AwsAccountResourceID *string `json:"awsAccountResourceId,omitempty" tf:"aws_account_resource_id,omitempty"`
 
-	// (Block List) Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
+	// (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
 	CustomNamespace []CustomNamespaceInitParameters `json:"customNamespace,omitempty" tf:"custom_namespace,omitempty"`
 
-	// (Boolean) Whether the CloudWatch Scrape Job is enabled or not.
-	// Whether the CloudWatch Scrape Job is enabled or not.
+	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
+	// Whether the AWS CloudWatch Scrape Job is enabled or not.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
 	// When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`.
 	ExportTags *bool `json:"exportTags,omitempty" tf:"export_tags,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
-	// The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
+	// The name of the AWS CloudWatch Scrape Job.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A subset of the regions that are configured in the associated AWS Account resource to apply to this scrape job. If not set or empty, all of the Account resource's regions are scraped.
@@ -40,8 +40,8 @@ type AwsCloudwatchScrapeJobInitParameters struct {
 	// +listType=set
 	RegionsSubsetOverride []*string `json:"regionsSubsetOverride,omitempty" tf:"regions_subset_override,omitempty"`
 
-	// (Block List) One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
+	// (Block List) One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
 	Service []ServiceInitParameters `json:"service,omitempty" tf:"service,omitempty"`
 
 	// (String) The Stack ID of the Grafana Cloud instance.
@@ -60,16 +60,16 @@ type AwsCloudwatchScrapeJobObservation struct {
 	// The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the `resource_id` attribute of the `grafana_cloud_provider_aws_account` resource.
 	AwsAccountResourceID *string `json:"awsAccountResourceId,omitempty" tf:"aws_account_resource_id,omitempty"`
 
-	// (Block List) Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
+	// (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
 	CustomNamespace []CustomNamespaceObservation `json:"customNamespace,omitempty" tf:"custom_namespace,omitempty"`
 
-	// (String) When the CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
-	// When the CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
+	// (String) When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
+	// When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
 	DisabledReason *string `json:"disabledReason,omitempty" tf:"disabled_reason,omitempty"`
 
-	// (Boolean) Whether the CloudWatch Scrape Job is enabled or not.
-	// Whether the CloudWatch Scrape Job is enabled or not.
+	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
+	// Whether the AWS CloudWatch Scrape Job is enabled or not.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
@@ -79,8 +79,8 @@ type AwsCloudwatchScrapeJobObservation struct {
 	// This has the format "{{ stack_id }}:{{ name }}".
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
-	// The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
+	// The name of the AWS CloudWatch Scrape Job.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Set of String) A subset of the regions that are configured in the associated AWS Account resource to apply to this scrape job. If not set or empty, all of the Account resource's regions are scraped.
@@ -88,8 +88,8 @@ type AwsCloudwatchScrapeJobObservation struct {
 	// +listType=set
 	RegionsSubsetOverride []*string `json:"regionsSubsetOverride,omitempty" tf:"regions_subset_override,omitempty"`
 
-	// (Block List) One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
+	// (Block List) One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
 	Service []ServiceObservation `json:"service,omitempty" tf:"service,omitempty"`
 
 	// (String) The Stack ID of the Grafana Cloud instance.
@@ -109,13 +109,13 @@ type AwsCloudwatchScrapeJobParameters struct {
 	// +kubebuilder:validation:Optional
 	AwsAccountResourceID *string `json:"awsAccountResourceId,omitempty" tf:"aws_account_resource_id,omitempty"`
 
-	// (Block List) Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
+	// (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
 	// +kubebuilder:validation:Optional
 	CustomNamespace []CustomNamespaceParameters `json:"customNamespace,omitempty" tf:"custom_namespace,omitempty"`
 
-	// (Boolean) Whether the CloudWatch Scrape Job is enabled or not.
-	// Whether the CloudWatch Scrape Job is enabled or not.
+	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
+	// Whether the AWS CloudWatch Scrape Job is enabled or not.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -124,8 +124,8 @@ type AwsCloudwatchScrapeJobParameters struct {
 	// +kubebuilder:validation:Optional
 	ExportTags *bool `json:"exportTags,omitempty" tf:"export_tags,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
-	// The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
+	// The name of the AWS CloudWatch Scrape Job.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -135,8 +135,8 @@ type AwsCloudwatchScrapeJobParameters struct {
 	// +listType=set
 	RegionsSubsetOverride []*string `json:"regionsSubsetOverride,omitempty" tf:"regions_subset_override,omitempty"`
 
-	// (Block List) One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
+	// (Block List) One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
 	// +kubebuilder:validation:Optional
 	Service []ServiceParameters `json:"service,omitempty" tf:"service,omitempty"`
 
@@ -158,7 +158,7 @@ type CustomNamespaceInitParameters struct {
 	// One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects.
 	Metric []MetricInitParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the custom namespace to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -173,7 +173,7 @@ type CustomNamespaceObservation struct {
 	// One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects.
 	Metric []MetricObservation `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the custom namespace to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -189,7 +189,7 @@ type CustomNamespaceParameters struct {
 	// +kubebuilder:validation:Optional
 	Metric []MetricParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the custom namespace to scrape.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -202,7 +202,7 @@ type CustomNamespaceParameters struct {
 
 type MetricInitParameters struct {
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the metric to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -214,7 +214,7 @@ type MetricInitParameters struct {
 
 type MetricObservation struct {
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the metric to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -226,7 +226,7 @@ type MetricObservation struct {
 
 type MetricParameters struct {
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the metric to scrape.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -279,7 +279,7 @@ type ServiceInitParameters struct {
 	// One or more configuration blocks to configure metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects.
 	Metric []ServiceMetricInitParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported services.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -299,7 +299,7 @@ type ServiceInitParameters struct {
 
 type ServiceMetricInitParameters struct {
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the metric to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -311,7 +311,7 @@ type ServiceMetricInitParameters struct {
 
 type ServiceMetricObservation struct {
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the metric to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -323,7 +323,7 @@ type ServiceMetricObservation struct {
 
 type ServiceMetricParameters struct {
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the metric to scrape.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
@@ -341,7 +341,7 @@ type ServiceObservation struct {
 	// One or more configuration blocks to configure metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects.
 	Metric []ServiceMetricObservation `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported services.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -366,7 +366,7 @@ type ServiceParameters struct {
 	// +kubebuilder:validation:Optional
 	Metric []ServiceMetricParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The name of the CloudWatch Scrape Job.
+	// (String) The name of the AWS CloudWatch Scrape Job.
 	// The name of the service to scrape. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported services.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`

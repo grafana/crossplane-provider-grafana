@@ -10,4 +10,5 @@ spec:
   forProvider:
     name: my outgoing webhook
     provider: ${grafana.oncall}
+    teamId: ${data.grafana_oncall_team.my_team.id}
     url: https://example.com/

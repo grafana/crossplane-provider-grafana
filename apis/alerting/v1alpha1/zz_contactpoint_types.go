@@ -2601,6 +2601,8 @@ type WebhookInitParameters struct {
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
+	TLSConfig map[string]*string `json:"tlsConfigSecretRef,omitempty" tf:"-"`
+
 	// (String) The templated title of the message.
 	// Templated title of the message.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
@@ -2695,6 +2697,11 @@ type WebhookParameters struct {
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
 	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
+	// Allows configuring TLS for the webhook notifier.
+	// +kubebuilder:validation:Optional
+	TLSConfigSecretRef *v1.SecretReference `json:"tlsConfigSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// Templated title of the message.

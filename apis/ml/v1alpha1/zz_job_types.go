@@ -27,7 +27,7 @@ type JobInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, influxdb, snowflake, splunk, elasticsearch, bigquery, mongodb, and datadog.
+	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
@@ -70,7 +70,7 @@ type JobObservation struct {
 	// +mapType=granular
 	CustomLabels map[string]*string `json:"customLabels,omitempty" tf:"custom_labels,omitempty"`
 
-	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, influxdb, snowflake, splunk, elasticsearch, bigquery, mongodb, and datadog.
+	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
@@ -120,7 +120,7 @@ type JobParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, influxdb, snowflake, splunk, elasticsearch, bigquery, mongodb, and datadog.
+	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	// +kubebuilder:validation:Optional
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
