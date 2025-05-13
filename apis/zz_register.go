@@ -17,6 +17,7 @@ import (
 	v1alpha1enterprise "github.com/grafana/crossplane-provider-grafana/apis/enterprise/v1alpha1"
 	v1alpha1fleetmanagement "github.com/grafana/crossplane-provider-grafana/apis/fleetmanagement/v1alpha1"
 	v1alpha1frontendobservability "github.com/grafana/crossplane-provider-grafana/apis/frontendobservability/v1alpha1"
+	v1alpha1k6 "github.com/grafana/crossplane-provider-grafana/apis/k6/v1alpha1"
 	v1alpha1ml "github.com/grafana/crossplane-provider-grafana/apis/ml/v1alpha1"
 	v1alpha1oncall "github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1"
 	v1alpha1oss "github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1"
@@ -36,6 +37,7 @@ func init() {
 		v1alpha1enterprise.SchemeBuilder.AddToScheme,
 		v1alpha1fleetmanagement.SchemeBuilder.AddToScheme,
 		v1alpha1frontendobservability.SchemeBuilder.AddToScheme,
+		v1alpha1k6.SchemeBuilder.AddToScheme,
 		v1alpha1ml.SchemeBuilder.AddToScheme,
 		v1alpha1oncall.SchemeBuilder.AddToScheme,
 		v1alpha1oss.SchemeBuilder.AddToScheme,

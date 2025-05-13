@@ -12,4 +12,5 @@ spec:
     - {}
     name: my integration
     provider: ${grafana.oncall}
+    teamId: ${data.grafana_oncall_team.my_team.id}
     type: grafana

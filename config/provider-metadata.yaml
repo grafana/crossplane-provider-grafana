@@ -24,11 +24,11 @@ resources:
             - |-
               terraform import grafana_annotation.name "{{ id }}"
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
-    grafana_apps_dashboard_dashboard_v1alpha1 Resource - terraform-provider-grafana:
-        subCategory: ""
-        description: Manages Grafana dashboards via the new Grafana App Platform API. This resource is currently EXPERIMENTAL and may be subject to change. It requires a development build of Grafana with specific feature flags enabled.
-        name: grafana_apps_dashboard_dashboard_v1alpha1 Resource - terraform-provider-grafana
-        title: grafana_apps_dashboard_dashboard_v1alpha1 Resource - terraform-provider-grafana
+    grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana:
+        subCategory: Grafana Apps
+        description: Manages Grafana dashboards using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/#new-dashboard-apis
+        name: grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana
+        title: grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana
         argumentDocs:
             folder_uid: (String) The UID of the folder to save the resource in.
             json: (String) The JSON representation of the dashboard spec.
@@ -44,8 +44,8 @@ resources:
             version: (String) The version of the resource.
         importStatements: []
     grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana:
-        subCategory: ""
-        description: Manages Grafana playlists via the new Grafana App Platform API. This resource is currently EXPERIMENTAL and may be subject to change. It requires a development build of Grafana with specific feature flags enabled.
+        subCategory: Grafana Apps
+        description: Manages Grafana playlists using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/apis/
         name: grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana
         title: grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana
         argumentDocs:
@@ -382,18 +382,18 @@ resources:
                     }
         argumentDocs:
             aws_account_resource_id: (String) The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the resource_id attribute of the grafana_cloud_provider_aws_account resource.
-            custom_namespace: (Block List) Zero or more configuration blocks to configure custom namespaces for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-            disabled_reason: (String) When the CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
-            enabled: (Boolean) Whether the CloudWatch Scrape Job is enabled or not.
+            custom_namespace: (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            disabled_reason: (String) When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
+            enabled: (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
             export_tags: (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
             key: (String) The key of the tag filter.
             metric: (Block List) One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-            name: (String) The name of the CloudWatch Scrape Job. Part of the Terraform Resource ID.
+            name: (String) The name of the AWS CloudWatch Scrape Job. Part of the Terraform Resource ID.
             regions_subset_override: (Set of String) A subset of the regions that are configured in the associated AWS Account resource to apply to this scrape job. If not set or empty, all of the Account resource's regions are scraped.
             resource_discovery_tag_filter: (Block List) One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             scrape_interval_seconds: (Number) The interval in seconds to scrape the custom namespace.
-            service: (Block List) One or more configuration blocks to configure AWS services for the CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            service: (Block List) One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
             static_labels: (Map of String) A set of static labels to add to all metrics exported by this scrape job.
             statistics: (Set of String) A set of statistics to scrape.
@@ -401,6 +401,64 @@ resources:
             value: (String) The value of the tag filter.
         importStatements:
             - terraform import grafana_cloud_provider_aws_cloudwatch_scrape_job.name "{{ stack_id }}:{{ name }}"
+    grafana_cloud_provider_aws_resource_metadata_scrape_job:
+        subCategory: Cloud Provider
+        name: grafana_cloud_provider_aws_resource_metadata_scrape_job
+        title: grafana_cloud_provider_aws_resource_metadata_scrape_job Resource - terraform-provider-grafana
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "aws_account_resource_id": "${grafana_cloud_provider_aws_account.test.resource_id}",
+                  "name": "my-aws-resource-metadata-scrape-job",
+                  "service": [
+                    {
+                      "name": "AWS/EC2",
+                      "resource_discovery_tag_filter": [
+                        {
+                          "key": "k8s.io/cluster-autoscaler/enabled",
+                          "value": "true"
+                        }
+                      ],
+                      "scrape_interval_seconds": 300
+                    }
+                  ],
+                  "stack_id": "${data.grafana_cloud_stack.test.id}",
+                  "static_labels": {
+                    "label1": "value1",
+                    "label2": "value2"
+                  }
+                }
+              references:
+                aws_account_resource_id: grafana_cloud_provider_aws_account.test.resource_id
+                stack_id: data.grafana_cloud_stack.test.id
+              dependencies:
+                grafana_cloud_provider_aws_account.test: |-
+                    {
+                      "regions": [
+                        "us-east-1",
+                        "us-east-2",
+                        "us-west-1"
+                      ],
+                      "role_arn": "${data.aws_iam_role.test.arn}",
+                      "stack_id": "${data.grafana_cloud_stack.test.id}"
+                    }
+        argumentDocs:
+            aws_account_resource_id: (String) The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this Resource Metadata Scrape Job. This can be provided by the resource_id attribute of the grafana_cloud_provider_aws_account resource.
+            disabled_reason: (String) When the AWS Resource Metadata Scrape Job is disabled, this will show the reason that it is in that state.
+            enabled: (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
+            id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
+            key: (String) The key of the tag filter.
+            name: (String) The name of the AWS Resource Metadata Scrape Job. Part of the Terraform Resource ID.
+            regions_subset_override: (Set of String) A subset of the regions that are configured in the associated AWS Account resource to apply to this scrape job. If not set or empty, all of the Account resource's regions are scraped.
+            resource_discovery_tag_filter: (Block List) One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            scrape_interval_seconds: (Number) The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+            service: (Block List) One or more configuration blocks to configure AWS services for the Resource Metadata Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+            stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
+            static_labels: (Map of String) A set of static labels to add to all metrics exported by this scrape job.
+            value: (String) The value of the tag filter.
+        importStatements:
+            - terraform import grafana_cloud_provider_aws_resource_metadata_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_provider_azure_credential:
         subCategory: Cloud Provider
         name: grafana_cloud_provider_azure_credential
@@ -774,6 +832,7 @@ resources:
             text: (String) Templated content of the message.
             threema: (Block Set) A contact point that sends notifications to Threema. (see below for nested schema)
             title: (String) The templated title of the message.
+            tls_config: (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
             to_user: '(String) The ID of user that should receive the message. Multiple entries should be separated by ''|''. Default: @all.'
             token: (String, Sensitive) The bearer token used to authorize the client.
             topic: (String) The name of the Kafka topic to publish to.
@@ -1766,6 +1825,144 @@ resources:
             stack_id: (Number) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
         importStatements:
             - terraform import grafana_frontend_o11y_app.name "{{ stack_id }}:{{ name }}"
+    grafana_k6_installation:
+        subCategory: k6
+        description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ Required access policy scopes: stacks:readstacks:writesubscriptions:readorgs:read'
+        name: grafana_k6_installation
+        title: grafana_k6_installation Resource - terraform-provider-grafana
+        examples:
+            - name: k6_installation
+              manifest: |-
+                {
+                  "cloud_access_policy_token": "${var.cloud_access_policy_token}",
+                  "grafana_sa_token": "${grafana_cloud_stack_service_account_token.k6_sa_token.key}",
+                  "grafana_user": "admin",
+                  "provider": "${grafana.cloud}",
+                  "stack_id": "${grafana_cloud_stack.k6_stack.id}"
+                }
+              references:
+                cloud_access_policy_token: var.cloud_access_policy_token
+                grafana_sa_token: grafana_cloud_stack_service_account_token.k6_sa_token.key
+                provider: grafana.cloud
+                stack_id: grafana_cloud_stack.k6_stack.id
+              dependencies:
+                grafana_cloud_stack.k6_stack: |-
+                    {
+                      "name": "${var.stack_slug}",
+                      "provider": "${grafana.cloud}",
+                      "region_slug": "${var.cloud_region}",
+                      "slug": "${var.stack_slug}"
+                    }
+                grafana_cloud_stack_service_account.k6_sa: |-
+                    {
+                      "is_disabled": false,
+                      "name": "${var.stack_slug}-k6-app",
+                      "provider": "${grafana.cloud}",
+                      "role": "Admin",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+                grafana_cloud_stack_service_account_token.k6_sa_token: |-
+                    {
+                      "name": "${var.stack_slug}-k6-app-token",
+                      "provider": "${grafana.cloud}",
+                      "service_account_id": "${grafana_cloud_stack_service_account.k6_sa.id}",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+                grafana_k6_project.my_k6_project: |-
+                    {
+                      "name": "k6 Project created with TF",
+                      "provider": "${grafana.k6}"
+                    }
+        argumentDocs:
+            cloud_access_policy_token: (String, Sensitive) The Grafana Cloud access policy.
+            grafana_sa_token: (String, Sensitive) The service account token.
+            grafana_user: (String) The user to use for the installation.
+            id: (String) The ID of this resource.
+            k6_access_token: (String, Sensitive) Generated token to access the k6 API.
+            k6_organization: (String) The identifier of the k6 organization.
+            stack_id: (String) The identifier of the stack to install k6 on.
+        importStatements: []
+    grafana_k6_load_test:
+        subCategory: k6
+        description: Manages a k6 load test.
+        name: grafana_k6_load_test
+        title: grafana_k6_load_test Resource - terraform-provider-grafana
+        examples:
+            - name: test_load_test
+              manifest: |-
+                {
+                  "name": "Terraform Test Load Test",
+                  "project_id": "${grafana_k6_project.load_test_project.id}",
+                  "script": "export default function() {\n  console.log('Hello from k6!');\n}\n"
+                }
+              references:
+                project_id: grafana_k6_project.load_test_project.id
+              dependencies:
+                grafana_k6_project.load_test_project: |-
+                    {
+                      "name": "Terraform Load Test Project"
+                    }
+        argumentDocs:
+            baseline_test_run_id: (Number) Identifier of a baseline test run used for results comparison.
+            created: (String) The date when the load test was created.
+            id: (Number) Numeric identifier of the load test.
+            name: (String) Human-friendly identifier of the load test.
+            project_id: (Number) The identifier of the project this load test belongs to.
+            script: (String) The k6 test script content. Can be provided inline or via the file() function.
+            updated: (String) The date when the load test was last updated.
+        importStatements:
+            - terraform import grafana_k6_load_test.name "{{ id }}"
+    grafana_k6_project:
+        subCategory: k6
+        description: Manages a k6 project.
+        name: grafana_k6_project
+        title: grafana_k6_project Resource - terraform-provider-grafana
+        examples:
+            - name: test_project
+              manifest: |-
+                {
+                  "name": "Terraform Test Project"
+                }
+        argumentDocs:
+            created: (String) The date when the project was created.
+            grafana_folder_uid: (String) The Grafana folder uid.
+            id: (Number) Numeric identifier of the project.
+            is_default: (Boolean) Use this project as default for running tests when no explicit project identifier is provided.
+            name: (String) Human-friendly identifier of the project.
+            updated: (String) The date when the project was last updated.
+        importStatements:
+            - terraform import grafana_k6_project.name "{{ id }}"
+    grafana_k6_project_limits:
+        subCategory: k6
+        description: Manages limits for a k6 project.
+        name: grafana_k6_project_limits
+        title: grafana_k6_project_limits Resource - terraform-provider-grafana
+        examples:
+            - name: test_limits
+              manifest: |-
+                {
+                  "duration_max_per_test": 3600,
+                  "project_id": "${grafana_k6_project.test_project_limits.id}",
+                  "vu_browser_max_per_test": 10,
+                  "vu_max_per_test": 100,
+                  "vuh_max_per_month": 1000
+                }
+              references:
+                project_id: grafana_k6_project.test_project_limits.id
+              dependencies:
+                grafana_k6_project.test_project_limits: |-
+                    {
+                      "name": "Terraform Project Test Limits"
+                    }
+        argumentDocs:
+            duration_max_per_test: (Number) Maximum duration of a test in seconds.
+            id: (Number) The identifier of the project limits. This is the same as the project_id.
+            project_id: (Number) The identifier of the project to manage limits for.
+            vu_browser_max_per_test: (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
+            vu_max_per_test: (Number) Maximum number of concurrent virtual users (VUs) used in one test.
+            vuh_max_per_month: (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
+        importStatements:
+            - terraform import grafana_k6_project_limits.name "{{ project_id }}"
     grafana_library_panel:
         subCategory: Grafana OSS
         description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/manage-library-panels/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
@@ -2372,14 +2569,16 @@ resources:
               manifest: |-
                 {
                   "name": "default",
-                  "provider": "${grafana.oncall}"
+                  "provider": "${grafana.oncall}",
+                  "team_id": "${data.grafana_oncall_team.my_team.id}"
                 }
               references:
                 provider: grafana.oncall
+                team_id: data.grafana_oncall_team.my_team.id
         argumentDocs:
             id: (String) The ID of this resource.
             name: (String) The name of the escalation chain.
-            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
         importStatements:
             - terraform import grafana_oncall_escalation_chain.name "{{ id }}"
     grafana_oncall_integration:
@@ -2396,10 +2595,12 @@ resources:
                   ],
                   "name": "my integration",
                   "provider": "${grafana.oncall}",
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "type": "grafana"
                 }
               references:
                 provider: grafana.oncall
+                team_id: data.grafana_oncall_team.my_team.id
             - name: integration_with_templates
               manifest: |-
                 {
@@ -2408,6 +2609,7 @@ resources:
                   ],
                   "name": "integration_with_templates",
                   "provider": "${grafana.oncall}",
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "templates": [
                     {
                       "grouping_key": "{{ payload.group_id }}",
@@ -2424,6 +2626,7 @@ resources:
                 }
               references:
                 provider: grafana.oncall
+                team_id: data.grafana_oncall_team.my_team.id
         argumentDocs:
             acknowledge_signal: (String) Template for sending a signal to acknowledge the Incident.
             channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
@@ -2446,7 +2649,7 @@ resources:
             slack: '(Block List, Max: 1) Slack-specific settings for a route. (see below for nested schema)'
             sms: '(Block List, Max: 1) Templates for SMS. (see below for nested schema)'
             source_link: (String) Template for a source link.
-            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
             telegram: '(Block List, Max: 1) Telegram-specific settings for a route. (see below for nested schema)'
             templates: '(Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)'
             title: (String) Template for Alert title.
@@ -2472,6 +2675,7 @@ resources:
                   "interval": 2,
                   "name": "Example Shift",
                   "start": "2020-09-07T14:00:00",
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "time_zone": "UTC",
                   "type": "recurrent_event",
                   "users": [
@@ -2480,6 +2684,7 @@ resources:
                   "week_start": "MO"
                 }
               references:
+                team_id: data.grafana_oncall_team.my_team.id
                 users: data.grafana_oncall_user.alex.id
             - name: emea_weekday_shift
               manifest: |-
@@ -2498,9 +2703,12 @@ resources:
                   "rolling_users": "${[for k in flatten([\n    local.teams_map_of_user_id.emea,\n  ]) : [k]]}",
                   "start": "2022-02-28T03:00:00",
                   "start_rotation_from_user_index": 0,
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "type": "rolling_users",
                   "week_start": "MO"
                 }
+              references:
+                team_id: data.grafana_oncall_team.my_team.id
         argumentDocs:
             by_day: (Set of String) This parameter takes a list of days in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
             by_month: (Set of Number) This parameter takes a list of months. Valid values are 1 to 12
@@ -2514,7 +2722,7 @@ resources:
             rolling_users: (List of Set of String) The list of lists with on-call users (for rolling_users event type)
             start: (String) The start time of the on-call shift. This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
             start_rotation_from_user_index: (Number) The index of the list of users in rolling_users, from which on-call rotation starts.
-            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
             time_zone: (String) The shift's timezone.  Overrides schedule's timezone.
             type: (String) The shift's type. Can be rolling_users, recurrent_event, single_event
             until: (String) The end time of recurrent on-call shifts (endless if null). This parameter takes a date format as yyyy-MM-dd'T'HH:mm:ss (for example "2020-09-05T08:00:00")
@@ -2533,10 +2741,12 @@ resources:
                 {
                   "name": "my outgoing webhook",
                   "provider": "${grafana.oncall}",
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "url": "https://example.com/"
                 }
               references:
                 provider: grafana.oncall
+                team_id: data.grafana_oncall_team.my_team.id
         argumentDocs:
             authorization_header: (String, Sensitive) The auth data of the webhook. Used in Authorization header instead of user/password auth.
             data: (String) The data of the webhook.
@@ -2548,7 +2758,7 @@ resources:
             is_webhook_enabled: (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
             name: (String) The name of the outgoing webhook.
             password: (String, Sensitive) The auth data of the webhook. Used for Basic authentication
-            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
             trigger_template: (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
             trigger_type: '(String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.'
             url: (String) The webhook URL.
@@ -2636,20 +2846,25 @@ resources:
                       "user_group_id": "${data.grafana_oncall_user_group.example_user_group.slack_id}"
                     }
                   ],
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "type": "ical"
                 }
               references:
                 slack.channel_id: data.grafana_oncall_slack_channel.example_slack_channel.slack_id
                 slack.user_group_id: data.grafana_oncall_user_group.example_user_group.slack_id
+                team_id: data.grafana_oncall_team.my_team.id
             - name: example_schedule
               manifest: |-
                 {
                   "ical_url_overrides": "https://example.com/example_overrides_ical.ics",
                   "name": "Example Calendar Schadule",
                   "shifts": [],
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "time_zone": "America/New_York",
                   "type": "calendar"
                 }
+              references:
+                team_id: data.grafana_oncall_team.my_team.id
         argumentDocs:
             channel_id: (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
             enable_web_overrides: (Boolean) Enable overrides via web UI (it will ignore ical_url_overrides).
@@ -2659,7 +2874,7 @@ resources:
             name: (String) The schedule's name.
             shifts: (Set of String) The list of ID's of on-call shifts.
             slack: '(Block List, Max: 1) The Slack-specific settings for a schedule. (see below for nested schema)'
-            team_id: (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
+            team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
             time_zone: (String) The schedule's time zone.
             type: (String) The schedule's type. Valid values are ical, calendar.
             user_group_id: (String) Slack user group id. Members of user group will be updated when on-call users change.
@@ -3287,6 +3502,7 @@ resources:
             id: (String) The ID of this resource.
             interval_seconds: (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
             is_paused: (Boolean) Sets whether the alert should be paused or not. Defaults to false.
+            keep_firing_for: (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
             labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
             metric: (String) The name of the metric to write to.
             model: (String) Custom JSON data to send to the specified datasource when querying.
@@ -3301,6 +3517,7 @@ resources:
             relative_time_range: '(Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)'
             repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
             rule: '(Block List, Min: 1) The rules within the group. (see below for nested schema)'
+            target_datasource_uid: (String) The UID of the datasource to write the metric to.
             to: (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
             uid: (String) The unique identifier of the alert rule.
         importStatements:
@@ -4642,6 +4859,61 @@ resources:
             variables: (Block List) Variables to extract from the request response (see below for nested schema)
         importStatements:
             - terraform import grafana_synthetic_monitoring_check.name "{{ id }}"
+    grafana_synthetic_monitoring_check_alerts:
+        subCategory: Synthetic Monitoring
+        description: Manages alerts for a check in Grafana Synthetic Monitoring. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/configure-alerts/configure-per-check-alerts/
+        name: grafana_synthetic_monitoring_check_alerts
+        title: grafana_synthetic_monitoring_check_alerts Resource - terraform-provider-grafana
+        examples:
+            - name: main
+              manifest: |-
+                {
+                  "alerts": [
+                    {
+                      "name": "ProbeFailedExecutionsTooHigh",
+                      "period": "15m",
+                      "threshold": 1
+                    },
+                    {
+                      "name": "TLSTargetCertificateCloseToExpiring",
+                      "period": "",
+                      "threshold": 14
+                    }
+                  ],
+                  "check_id": "${grafana_synthetic_monitoring_check.main.id}"
+                }
+              references:
+                check_id: grafana_synthetic_monitoring_check.main.id
+              dependencies:
+                grafana_synthetic_monitoring_check.main: |-
+                    {
+                      "enabled": true,
+                      "job": "Check Alert Test",
+                      "labels": {},
+                      "probes": [
+                        1
+                      ],
+                      "settings": [
+                        {
+                          "http": [
+                            {
+                              "ip_version": "V4",
+                              "method": "GET"
+                            }
+                          ]
+                        }
+                      ],
+                      "target": "https://grafana.com"
+                    }
+        argumentDocs:
+            alerts: (Set of Object) List of alerts for the check. (see below for nested schema)
+            check_id: (Number) The ID of the check to manage alerts for.
+            id: (String) The ID of this resource.
+            name: (String)
+            period: (String)
+            threshold: (Number)
+        importStatements:
+            - terraform import grafana_synthetic_monitoring_check_alerts.name "{{ check_id }}"
     grafana_synthetic_monitoring_installation:
         subCategory: Synthetic Monitoring
         description: 'Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall Required access policy scopes: stacks:read'

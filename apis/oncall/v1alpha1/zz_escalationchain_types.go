@@ -19,8 +19,8 @@ type EscalationChainInitParameters struct {
 	// The name of the escalation chain.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
-	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 }
 
@@ -33,8 +33,8 @@ type EscalationChainObservation struct {
 	// The name of the escalation chain.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
-	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 }
 
@@ -45,8 +45,8 @@ type EscalationChainParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the grafana_oncall_team datasource.
-	// The ID of the OnCall team. To get one, create a team in Grafana, and navigate to the OnCall plugin (to sync the team with OnCall). You can then get the ID using the `grafana_oncall_team` datasource.
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 }

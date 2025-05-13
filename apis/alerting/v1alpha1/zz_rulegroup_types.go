@@ -23,8 +23,8 @@ type DataInitParameters struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -46,8 +46,8 @@ type DataObservation struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -71,8 +71,8 @@ type DataParameters struct {
 	// +kubebuilder:validation:Optional
 	Model *string `json:"model" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
@@ -207,6 +207,10 @@ type RecordInitParameters struct {
 	// (String) The name of the metric to write to.
 	// The name of the metric to write to.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) The UID of the datasource to write the metric to.
+	// The UID of the datasource to write the metric to.
+	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
 
 type RecordObservation struct {
@@ -218,6 +222,10 @@ type RecordObservation struct {
 	// (String) The name of the metric to write to.
 	// The name of the metric to write to.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+	// (String) The UID of the datasource to write the metric to.
+	// The UID of the datasource to write the metric to.
+	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
 
 type RecordParameters struct {
@@ -231,6 +239,11 @@ type RecordParameters struct {
 	// The name of the metric to write to.
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
+
+	// (String) The UID of the datasource to write the metric to.
+	// The UID of the datasource to write the metric to.
+	// +kubebuilder:validation:Optional
+	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
 
 type RelativeTimeRangeInitParameters struct {
@@ -428,6 +441,10 @@ type RuleInitParameters struct {
 	// Sets whether the alert should be paused or not. Defaults to `false`.
 	IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
 
+	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
+
 	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
 	// +mapType=granular
@@ -480,6 +497,10 @@ type RuleObservation struct {
 	// (Boolean) Sets whether the alert should be paused or not. Defaults to false.
 	// Sets whether the alert should be paused or not. Defaults to `false`.
 	IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
+
+	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
 	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
@@ -539,6 +560,11 @@ type RuleParameters struct {
 	// Sets whether the alert should be paused or not. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
+
+	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+	// +kubebuilder:validation:Optional
+	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
 	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.

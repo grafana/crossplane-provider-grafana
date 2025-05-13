@@ -84,7 +84,7 @@ type OutlierDetectorInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, influxdb, snowflake, splunk, elasticsearch, bigquery, mongodb, and datadog.
+	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
@@ -116,7 +116,7 @@ type OutlierDetectorObservation struct {
 	// The algorithm to use and its configuration. See https://grafana.com/docs/grafana-cloud/machine-learning/outlier-detection/ for details.
 	Algorithm []AlgorithmObservation `json:"algorithm,omitempty" tf:"algorithm,omitempty"`
 
-	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, influxdb, snowflake, splunk, elasticsearch, bigquery, mongodb, and datadog.
+	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
@@ -155,7 +155,7 @@ type OutlierDetectorParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// The type of datasource being queried. Currently allowed values are prometheus, graphite, loki, postgres, influxdb, snowflake, splunk, elasticsearch, bigquery, mongodb, and datadog.
+	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	// +kubebuilder:validation:Optional
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 

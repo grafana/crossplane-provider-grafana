@@ -282,8 +282,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to “.
-                                  An optional identifier for the type of query being executed. Defaults to “.
+                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
+                                  An optional identifier for the type of query being executed. Defaults to ``.
                                 type: string
                               refId:
                                 description: |-
@@ -325,6 +325,11 @@ spec:
                             (Boolean) Sets whether the alert should be paused or not. Defaults to false.
                             Sets whether the alert should be paused or not. Defaults to `false`.
                           type: boolean
+                        keepFiringFor:
+                          description: |-
+                            (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                            The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                          type: string
                         labels:
                           additionalProperties:
                             type: string
@@ -476,6 +481,11 @@ spec:
                                 description: |-
                                   (String) The name of the metric to write to.
                                   The name of the metric to write to.
+                                type: string
+                              targetDatasourceUid:
+                                description: |-
+                                  (String) The UID of the datasource to write the metric to.
+                                  The UID of the datasource to write the metric to.
                                 type: string
                             type: object
                           type: array
@@ -708,8 +718,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to “.
-                                  An optional identifier for the type of query being executed. Defaults to “.
+                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
+                                  An optional identifier for the type of query being executed. Defaults to ``.
                                 type: string
                               refId:
                                 description: |-
@@ -751,6 +761,11 @@ spec:
                             (Boolean) Sets whether the alert should be paused or not. Defaults to false.
                             Sets whether the alert should be paused or not. Defaults to `false`.
                           type: boolean
+                        keepFiringFor:
+                          description: |-
+                            (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                            The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                          type: string
                         labels:
                           additionalProperties:
                             type: string
@@ -902,6 +917,11 @@ spec:
                                 description: |-
                                   (String) The name of the metric to write to.
                                   The name of the metric to write to.
+                                type: string
+                              targetDatasourceUid:
+                                description: |-
+                                  (String) The UID of the datasource to write the metric to.
+                                  The UID of the datasource to write the metric to.
                                 type: string
                             type: object
                           type: array
@@ -1161,8 +1181,8 @@ spec:
                                 type: string
                               queryType:
                                 description: |-
-                                  (String) An optional identifier for the type of query being executed. Defaults to “.
-                                  An optional identifier for the type of query being executed. Defaults to “.
+                                  (String) An optional identifier for the type of query being executed. Defaults to ``.
+                                  An optional identifier for the type of query being executed. Defaults to ``.
                                 type: string
                               refId:
                                 description: |-
@@ -1204,6 +1224,11 @@ spec:
                             (Boolean) Sets whether the alert should be paused or not. Defaults to false.
                             Sets whether the alert should be paused or not. Defaults to `false`.
                           type: boolean
+                        keepFiringFor:
+                          description: |-
+                            (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                            The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                          type: string
                         labels:
                           additionalProperties:
                             type: string
@@ -1279,6 +1304,11 @@ spec:
                                 description: |-
                                   (String) The name of the metric to write to.
                                   The name of the metric to write to.
+                                type: string
+                              targetDatasourceUid:
+                                description: |-
+                                  (String) The UID of the datasource to write the metric to.
+                                  The UID of the datasource to write the metric to.
                                 type: string
                             type: object
                           type: array
