@@ -8,7 +8,7 @@ require (
 	github.com/crossplane/crossplane-tools v0.0.0-20250507171300-3ad1f97263a3
 	github.com/crossplane/upjet v1.9.0
 	github.com/grafana/terraform-provider-grafana/v3 v3.25.0
-	github.com/hashicorp/terraform-json v0.24.0
+	github.com/hashicorp/terraform-json v0.25.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.36.1
 	github.com/pkg/errors v0.9.1
 	go.uber.org/zap v1.27.0
