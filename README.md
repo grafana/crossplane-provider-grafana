@@ -98,6 +98,8 @@ provider_installation {
 }
 ```
 
+**Solution 2**: delete generated `.cache`, `.work` and `_output` folders and try again.
+
 Additionally, you can check the `terraform` logs via:
 
 ```bash
@@ -110,6 +112,16 @@ Lastly, make sure that you have the following defined in your `.bashrc` (or `.zs
 ```bash
 export PATH="$PATH:$HOME/go/bin"
 ```
+
+## Update resources
+
+Steps to update resources from the latest Terraform provider version:
+
+1. Update terraform provider version in [go.mod](go.mod) file.
+2. Add your resource in the GroupMap in [groups.go](config/groups.go) file.
+3. Generate the resources with `go generate`.
+   * Output will show you missing resources to map if any. 
+4. Create a PR with the result.
 
 ## Report a Bug
 
