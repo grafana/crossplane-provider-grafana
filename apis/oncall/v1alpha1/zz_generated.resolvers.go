@@ -8,7 +8,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	helper "github.com/crossplane/crossplane-tools/pkg/helpers"
+	convert "github.com/crossplane/crossplane-tools/pkg/convert"
 	errors "github.com/pkg/errors"
 	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -249,7 +249,7 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	var err error
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.ForProvider.Shifts),
+		CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Shifts),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.ForProvider.ShiftsRef,
 		Selector:      mg.Spec.ForProvider.ShiftsSelector,
@@ -261,11 +261,11 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Shifts")
 	}
-	mg.Spec.ForProvider.Shifts = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.Shifts = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.ShiftsRef = mrsp.ResolvedReferences
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.InitProvider.Shifts),
+		CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Shifts),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.InitProvider.ShiftsRef,
 		Selector:      mg.Spec.InitProvider.ShiftsSelector,
@@ -277,7 +277,7 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Shifts")
 	}
-	mg.Spec.InitProvider.Shifts = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.Shifts = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.ShiftsRef = mrsp.ResolvedReferences
 
 	return nil

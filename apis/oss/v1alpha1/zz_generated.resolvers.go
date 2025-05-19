@@ -8,7 +8,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	helper "github.com/crossplane/crossplane-tools/pkg/helpers"
+	convert "github.com/crossplane/crossplane-tools/pkg/convert"
 	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 	errors "github.com/pkg/errors"
 	ptr "k8s.io/utils/ptr"
@@ -1212,7 +1212,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var err error
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.ForProvider.Members),
+		CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Members),
 		Extract:       grafana.FieldExtractor("email"),
 		References:    mg.Spec.ForProvider.MemberRefs,
 		Selector:      mg.Spec.ForProvider.MemberSelector,
@@ -1224,7 +1224,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Members")
 	}
-	mg.Spec.ForProvider.Members = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.Members = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.MemberRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
@@ -1244,7 +1244,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.InitProvider.Members),
+		CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Members),
 		Extract:       grafana.FieldExtractor("email"),
 		References:    mg.Spec.InitProvider.MemberRefs,
 		Selector:      mg.Spec.InitProvider.MemberSelector,
@@ -1256,7 +1256,7 @@ func (mg *Team) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Members")
 	}
-	mg.Spec.InitProvider.Members = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.Members = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.MemberRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
