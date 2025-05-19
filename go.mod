@@ -2,19 +2,11 @@ module github.com/grafana/crossplane-provider-grafana
 
 go 1.24.2
 
-replace (
-	// Upstream PR https://github.com/crossplane/crossplane-tools/pull/86
-	github.com/crossplane/crossplane-tools => github.com/ldalorion/crossplane-tools v0.0.0-20250325210356-6507791903ca
-
-	// Upsteam PR https://github.com/crossplane/upjet/pull/488
-	github.com/crossplane/upjet => github.com/grafana/upjet v1.6.1-0.20250418112139-1f63c0715031
-)
-
 require (
 	dario.cat/mergo v1.0.2
-	github.com/crossplane/crossplane-runtime v1.19.0
-	github.com/crossplane/crossplane-tools v0.0.0-20240522174801-1ad3d4c87f21
-	github.com/crossplane/upjet v1.6.0
+	github.com/crossplane/crossplane-runtime v1.20.0-rc.0.0.20250509113121-26da25aff65f
+	github.com/crossplane/crossplane-tools v0.0.0-20250507171300-3ad1f97263a3
+	github.com/crossplane/upjet v1.9.0
 	github.com/grafana/terraform-provider-grafana/v3 v3.25.0
 	github.com/hashicorp/terraform-json v0.24.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.36.1
@@ -25,7 +17,7 @@ require (
 	k8s.io/client-go v0.32.3
 	k8s.io/utils v0.0.0-20250321185631-1f6e0b77f77e
 	sigs.k8s.io/controller-runtime v0.19.0
-	sigs.k8s.io/controller-tools v0.16.0
+	sigs.k8s.io/controller-tools v0.16.5
 )
 
 require (
@@ -53,7 +45,7 @@ require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/elazarl/goproxy v1.7.2 // indirect
 	github.com/emicklei/go-restful/v3 v3.12.2 // indirect
-	github.com/evanphx/json-patch v5.9.0+incompatible // indirect
+	github.com/evanphx/json-patch v5.9.11+incompatible // indirect
 	github.com/evanphx/json-patch/v5 v5.9.11 // indirect
 	github.com/fatih/camelcase v1.0.0 // indirect
 	github.com/fatih/color v1.18.0 // indirect

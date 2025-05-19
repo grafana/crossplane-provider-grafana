@@ -8,7 +8,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	helper "github.com/crossplane/crossplane-tools/pkg/helpers"
+	convert "github.com/crossplane/crossplane-tools/pkg/convert"
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 	errors "github.com/pkg/errors"
@@ -330,7 +330,7 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	mg.Spec.ForProvider.RoleRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.ForProvider.ServiceAccounts),
+		CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.ServiceAccounts),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.ForProvider.ServiceAccountRefs,
 		Selector:      mg.Spec.ForProvider.ServiceAccountSelector,
@@ -342,11 +342,11 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.ServiceAccounts")
 	}
-	mg.Spec.ForProvider.ServiceAccounts = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.ServiceAccounts = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.ServiceAccountRefs = mrsp.ResolvedReferences
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.ForProvider.Teams),
+		CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Teams),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.ForProvider.TeamRefs,
 		Selector:      mg.Spec.ForProvider.TeamSelector,
@@ -358,11 +358,11 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Teams")
 	}
-	mg.Spec.ForProvider.Teams = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.Teams = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.TeamRefs = mrsp.ResolvedReferences
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromFloatPtrValues(mg.Spec.ForProvider.Users),
+		CurrentValues: convert.FromFloatPtrValues(mg.Spec.ForProvider.Users),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.ForProvider.UserRefs,
 		Selector:      mg.Spec.ForProvider.UserSelector,
@@ -374,7 +374,7 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Users")
 	}
-	mg.Spec.ForProvider.Users = helper.ToFloatPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.Users = convert.ToFloatPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.UserRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
@@ -410,7 +410,7 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	mg.Spec.InitProvider.RoleRef = rsp.ResolvedReference
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.InitProvider.ServiceAccounts),
+		CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.ServiceAccounts),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.InitProvider.ServiceAccountRefs,
 		Selector:      mg.Spec.InitProvider.ServiceAccountSelector,
@@ -422,11 +422,11 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.ServiceAccounts")
 	}
-	mg.Spec.InitProvider.ServiceAccounts = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.ServiceAccounts = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.ServiceAccountRefs = mrsp.ResolvedReferences
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromPtrValues(mg.Spec.InitProvider.Teams),
+		CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Teams),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.InitProvider.TeamRefs,
 		Selector:      mg.Spec.InitProvider.TeamSelector,
@@ -438,11 +438,11 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Teams")
 	}
-	mg.Spec.InitProvider.Teams = helper.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.Teams = convert.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.TeamRefs = mrsp.ResolvedReferences
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: helper.FromFloatPtrValues(mg.Spec.InitProvider.Users),
+		CurrentValues: convert.FromFloatPtrValues(mg.Spec.InitProvider.Users),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.InitProvider.UserRefs,
 		Selector:      mg.Spec.InitProvider.UserSelector,
@@ -454,7 +454,7 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Users")
 	}
-	mg.Spec.InitProvider.Users = helper.ToFloatPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.Users = convert.ToFloatPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.UserRefs = mrsp.ResolvedReferences
 
 	return nil
