@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
 
@@ -544,6 +545,41 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "Ref",
 			SelectorFieldName: "Selector",
 			Extractor:         optionalFieldExtractor("uid"),
+		}
+	})
+
+	// k6 resources
+	p.AddResourceConfigurator("grafana_k6_project", func(r *ujconfig.Resource) {
+		// By default, upjet is seeing id field as TypeFloat, probably due to:
+		// https://github.com/crossplane/upjet/issues/442
+		// So let's try to enforce TypeInt manually.
+		// So setting TypeInt here until the above issue is resolved.
+		if s, ok := r.TerraformResource.Schema["id"]; ok {
+			s.Type = schema.TypeInt
+		}
+
+		// But the above is insufficient: in generated code there is a string instead...
+		// So trying to also change the external name.
+
+		// r.ExternalName = ujconfig.IdentifierFromProvider
+		// r.ExternalName = ujconfig.NameAsIdentifier
+
+		r.ExternalName = ujconfig.ExternalName{
+			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
+			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
+				// can we add new fields to tfstate here?
+				if id, ok := tfstate["id_str"].(string); ok && id != "" {
+					return id, nil
+				}
+				if id_int, ok := tfstate["id"].(int32); ok && id_int != 0 {
+					tfstate["id_str"] = fmt.Sprintf("%d\n", id_int)
+					return tfstate["id_str"].(string), nil
+				}
+				return "", errors.New("cannot find id (int) in tfstate")
+			},
+			GetIDFn:                ujconfig.ExternalNameAsID,
+			DisableNameInitializer: true,
+			IdentifierFields:       []string{"name", "id_str"},
 		}
 	})
 }
