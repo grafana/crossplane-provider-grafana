@@ -450,6 +450,10 @@ type RuleInitParameters struct {
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
+	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
+
 	// (String) The name of the rule group.
 	// The name of the alert rule.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -506,6 +510,10 @@ type RuleObservation struct {
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
+	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
 	// (String) The name of the rule group.
 	// The name of the alert rule.
@@ -571,6 +579,11 @@ type RuleParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
+	// +kubebuilder:validation:Optional
+	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
 	// (String) The name of the rule group.
 	// The name of the alert rule.

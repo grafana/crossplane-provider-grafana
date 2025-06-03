@@ -583,6 +583,7 @@ resources:
             logs_url: (String)
             logs_user_id: (Number)
             name: (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
+            oncall_api_url: (String) Base URL of the OnCall API instance configured for this stack.
             org_id: (Number) Organization id to assign to this stack.
             org_name: (String) Organization name to assign to this stack.
             org_slug: (String) Organization slug to assign to this stack.
@@ -2627,17 +2628,38 @@ resources:
               references:
                 provider: grafana.oncall
                 team_id: data.grafana_oncall_team.my_team.id
+            - name: test-acc-integration
+              manifest: |-
+                {
+                  "default_route": [
+                    {}
+                  ],
+                  "dynamic_labels": [
+                    "${data.grafana_oncall_label.test-dynamic-label}"
+                  ],
+                  "labels": [
+                    "${data.grafana_oncall_label.test-label}"
+                  ],
+                  "name": "my integration",
+                  "provider": "${grafana.oncall}",
+                  "type": "webhook"
+                }
+              references:
+                dynamic_labels: data.grafana_oncall_label.test-dynamic-label
+                labels: data.grafana_oncall_label.test-label
+                provider: grafana.oncall
         argumentDocs:
             acknowledge_signal: (String) Template for sending a signal to acknowledge the Incident.
             channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
             default_route: '(Block List, Min: 1, Max: 1) The Default route for all alerts from the given integration (see below for nested schema)'
+            dynamic_labels: (List of Map of String) A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
             email: '(Block List, Max: 1) Templates for Email. (see below for nested schema)'
             enabled: (Boolean) Enable notification in MS teams. Defaults to true.
             escalation_chain_id: (String) The ID of the escalation chain.
             grouping_key: (String) Template for the key by which alerts are grouped.
             id: (String) The ID of this resource.
             image_url: (String) Template for Alert image url.
-            labels: (List of Map of String) A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+            labels: (List of Map of String) A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
             link: (String) The link for using in an integrated tool.
             message: (String) Template for Alert message.
             microsoft_teams: '(Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)'
@@ -3505,6 +3527,7 @@ resources:
             keep_firing_for: (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
             labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
             metric: (String) The name of the metric to write to.
+            missing_series_evals_to_resolve: (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
             model: (String) Custom JSON data to send to the specified datasource when querying.
             mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
             name: (String) The name of the rule group.
