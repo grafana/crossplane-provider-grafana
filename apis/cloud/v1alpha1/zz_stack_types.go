@@ -163,6 +163,10 @@ type StackObservation struct {
 	// Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) Base URL of the OnCall API instance configured for this stack.
+	// Base URL of the OnCall API instance configured for this stack.
+	OncallAPIURL *string `json:"oncallApiUrl,omitempty" tf:"oncall_api_url,omitempty"`
+
 	// (Number) Organization id to assign to this stack.
 	// Organization id to assign to this stack.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`

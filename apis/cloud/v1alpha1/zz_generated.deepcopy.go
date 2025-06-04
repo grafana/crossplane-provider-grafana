@@ -1945,6 +1945,11 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OncallAPIURL != nil {
+		in, out := &in.OncallAPIURL, &out.OncallAPIURL
+		*out = new(string)
+		**out = **in
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(float64)

@@ -491,6 +491,11 @@ spec:
                       (String) Name of stack. Conventionally matches the url of the instance (e.g. <stack_slug>.grafana.net).
                       Name of stack. Conventionally matches the url of the instance (e.g. `<stack_slug>.grafana.net`).
                     type: string
+                  oncallApiUrl:
+                    description: |-
+                      (String) Base URL of the OnCall API instance configured for this stack.
+                      Base URL of the OnCall API instance configured for this stack.
+                    type: string
                   orgId:
                     description: |-
                       (Number) Organization id to assign to this stack.
