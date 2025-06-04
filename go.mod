@@ -6,7 +6,7 @@ require (
 	dario.cat/mergo v1.0.2
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/crossplane/crossplane-runtime v1.20.0-rc.0.0.20250509113121-26da25aff65f
-	github.com/crossplane/crossplane-tools v0.0.0-20250507171300-3ad1f97263a3
+	github.com/crossplane/crossplane-tools v0.0.0-20250603090330-889cfb100517
 	github.com/crossplane/upjet v1.9.0
 	github.com/grafana/terraform-provider-grafana/v3 v3.25.2
 	github.com/hashicorp/terraform-json v0.25.0
@@ -15,7 +15,6 @@ require (
 	go.uber.org/zap v1.27.0
 	k8s.io/apimachinery v0.32.3
 	k8s.io/client-go v0.32.3
-	k8s.io/utils v0.0.0-20250321185631-1f6e0b77f77e
 	sigs.k8s.io/controller-runtime v0.19.0
 	sigs.k8s.io/controller-tools v0.16.5
 )
@@ -218,6 +217,7 @@ require (
 	k8s.io/component-base v0.32.3 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
+	k8s.io/utils v0.0.0-20250321185631-1f6e0b77f77e // indirect
 	sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8 // indirect
 	sigs.k8s.io/randfill v1.0.0 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.7.0 // indirect
