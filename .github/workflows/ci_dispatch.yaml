@@ -1,4 +1,4 @@
-name: CI
+name: CI Workflow Dispatch
 
 on:
   workflow_dispatch: {}
