@@ -1,6 +1,7 @@
 name: CI Workflow Dispatch
 
 on:
+  pull_request: {}
   workflow_dispatch: {}
 
 env:
