@@ -1,8 +1,12 @@
-name: CI Workflow Dispatch
+name: CI Tag
 
 on:
-  pull_request: {}
-  workflow_dispatch: {}
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - main
+      - release-*
 
 env:
   # Common versions

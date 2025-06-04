@@ -1,12 +1,8 @@
 name: CI
 
 on:
-  push:
-    tags:
-      - 'v*'
-    branches:
-      - main
-      - release-*
+  pull_request: { }
+  workflow_dispatch: { }
 
 env:
   # Common versions
