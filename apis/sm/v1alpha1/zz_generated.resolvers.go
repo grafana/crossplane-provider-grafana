@@ -11,7 +11,6 @@ import (
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 	errors "github.com/pkg/errors"
-	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -23,7 +22,7 @@ func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) 
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.StackID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackID),
 		Extract:      grafana.ComputedFieldExtractor("id"),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
@@ -35,11 +34,11 @@ func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.StackID")
 	}
-	mg.Spec.ForProvider.StackID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.StackID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.StackID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackID),
 		Extract:      grafana.ComputedFieldExtractor("id"),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
@@ -51,7 +50,7 @@ func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.StackID")
 	}
-	mg.Spec.InitProvider.StackID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.StackID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
 
 	return nil

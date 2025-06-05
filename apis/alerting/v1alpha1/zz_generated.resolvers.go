@@ -8,11 +8,9 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	convert "github.com/crossplane/crossplane-tools/pkg/convert"
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
 	errors "github.com/pkg/errors"
-	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -24,7 +22,7 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -36,11 +34,11 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -52,7 +50,7 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -66,7 +64,7 @@ func (mg *MessageTemplate) ResolveReferences(ctx context.Context, c client.Reade
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -78,11 +76,11 @@ func (mg *MessageTemplate) ResolveReferences(ctx context.Context, c client.Reade
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -94,7 +92,7 @@ func (mg *MessageTemplate) ResolveReferences(ctx context.Context, c client.Reade
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -108,7 +106,7 @@ func (mg *MuteTiming) ResolveReferences(ctx context.Context, c client.Reader) er
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -120,11 +118,11 @@ func (mg *MuteTiming) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -136,7 +134,7 @@ func (mg *MuteTiming) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	return nil
@@ -151,7 +149,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.ContactPoint, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ContactPoint),
 		Extract:      grafana.FieldExtractor("name"),
 		Reference:    mg.Spec.ForProvider.ContactPointRef,
 		Selector:     mg.Spec.ForProvider.ContactPointSelector,
@@ -163,11 +161,11 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.ContactPoint")
 	}
-	mg.Spec.ForProvider.ContactPoint = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ContactPointRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -179,12 +177,12 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: ptr.Deref(mg.Spec.ForProvider.Policy[i3].ContactPoint, ""),
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].ContactPoint),
 			Extract:      grafana.FieldExtractor("name"),
 			Reference:    mg.Spec.ForProvider.Policy[i3].ContactPointRef,
 			Selector:     mg.Spec.ForProvider.Policy[i3].ContactPointSelector,
@@ -196,13 +194,13 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].ContactPoint")
 		}
-		mg.Spec.ForProvider.Policy[i3].ContactPoint = ptr.To(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Policy[i3].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 		mg.Spec.ForProvider.Policy[i3].ContactPointRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-			CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Policy[i3].MuteTimings),
+			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].MuteTimings),
 			Extract:       grafana.FieldExtractor("name"),
 			References:    mg.Spec.ForProvider.Policy[i3].MuteTimingRef,
 			Selector:      mg.Spec.ForProvider.Policy[i3].MuteTimingSelector,
@@ -214,14 +212,14 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].MuteTimings")
 		}
-		mg.Spec.ForProvider.Policy[i3].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.ForProvider.Policy[i3].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 		mg.Spec.ForProvider.Policy[i3].MuteTimingRef = mrsp.ResolvedReferences
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: ptr.Deref(mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint, ""),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint),
 				Extract:      grafana.FieldExtractor("name"),
 				Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointRef,
 				Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointSelector,
@@ -233,7 +231,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			if err != nil {
 				return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint")
 			}
-			mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint = ptr.To(rsp.ResolvedValue)
+			mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 			mg.Spec.ForProvider.Policy[i3].Policy[i4].ContactPointRef = rsp.ResolvedReference
 
 		}
@@ -241,7 +239,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Policy); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-				CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings),
+				CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings),
 				Extract:       grafana.FieldExtractor("name"),
 				References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingRef,
 				Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingSelector,
@@ -253,7 +251,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			if err != nil {
 				return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings")
 			}
-			mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+			mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 			mg.Spec.ForProvider.Policy[i3].Policy[i4].MuteTimingRef = mrsp.ResolvedReferences
 
 		}
@@ -262,7 +260,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
 			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-					CurrentValue: ptr.Deref(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint, ""),
+					CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint),
 					Extract:      grafana.FieldExtractor("name"),
 					Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef,
 					Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointSelector,
@@ -274,7 +272,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				if err != nil {
 					return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint")
 				}
-				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint = ptr.To(rsp.ResolvedValue)
+				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef = rsp.ResolvedReference
 
 			}
@@ -284,7 +282,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Policy[i3].Policy); i4++ {
 			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-					CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings),
+					CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings),
 					Extract:       grafana.FieldExtractor("name"),
 					References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef,
 					Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingSelector,
@@ -296,7 +294,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				if err != nil {
 					return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings")
 				}
-				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 				mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef = mrsp.ResolvedReferences
 
 			}
@@ -307,7 +305,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				for i6 := 0; i6 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-						CurrentValue: ptr.Deref(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint, ""),
+						CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint),
 						Extract:      grafana.FieldExtractor("name"),
 						Reference:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef,
 						Selector:     mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointSelector,
@@ -319,7 +317,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 					if err != nil {
 						return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint")
 					}
-					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint = ptr.To(rsp.ResolvedValue)
+					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef = rsp.ResolvedReference
 
 				}
@@ -331,7 +329,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				for i6 := 0; i6 < len(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-						CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings),
+						CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings),
 						Extract:       grafana.FieldExtractor("name"),
 						References:    mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef,
 						Selector:      mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingSelector,
@@ -343,7 +341,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 					if err != nil {
 						return errors.Wrap(err, "mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings")
 					}
-					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 					mg.Spec.ForProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef = mrsp.ResolvedReferences
 
 				}
@@ -351,7 +349,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		}
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.ContactPoint, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ContactPoint),
 		Extract:      grafana.FieldExtractor("name"),
 		Reference:    mg.Spec.InitProvider.ContactPointRef,
 		Selector:     mg.Spec.InitProvider.ContactPointSelector,
@@ -363,11 +361,11 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.ContactPoint")
 	}
-	mg.Spec.InitProvider.ContactPoint = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ContactPointRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -379,12 +377,12 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Policy); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: ptr.Deref(mg.Spec.InitProvider.Policy[i3].ContactPoint, ""),
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].ContactPoint),
 			Extract:      grafana.FieldExtractor("name"),
 			Reference:    mg.Spec.InitProvider.Policy[i3].ContactPointRef,
 			Selector:     mg.Spec.InitProvider.Policy[i3].ContactPointSelector,
@@ -396,13 +394,13 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].ContactPoint")
 		}
-		mg.Spec.InitProvider.Policy[i3].ContactPoint = ptr.To(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Policy[i3].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 		mg.Spec.InitProvider.Policy[i3].ContactPointRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Policy); i3++ {
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-			CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Policy[i3].MuteTimings),
+			CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].MuteTimings),
 			Extract:       grafana.FieldExtractor("name"),
 			References:    mg.Spec.InitProvider.Policy[i3].MuteTimingRef,
 			Selector:      mg.Spec.InitProvider.Policy[i3].MuteTimingSelector,
@@ -414,14 +412,14 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].MuteTimings")
 		}
-		mg.Spec.InitProvider.Policy[i3].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+		mg.Spec.InitProvider.Policy[i3].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 		mg.Spec.InitProvider.Policy[i3].MuteTimingRef = mrsp.ResolvedReferences
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Policy); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Policy[i3].Policy); i4++ {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: ptr.Deref(mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPoint, ""),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPoint),
 				Extract:      grafana.FieldExtractor("name"),
 				Reference:    mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPointRef,
 				Selector:     mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPointSelector,
@@ -433,7 +431,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			if err != nil {
 				return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPoint")
 			}
-			mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPoint = ptr.To(rsp.ResolvedValue)
+			mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 			mg.Spec.InitProvider.Policy[i3].Policy[i4].ContactPointRef = rsp.ResolvedReference
 
 		}
@@ -441,7 +439,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Policy); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Policy[i3].Policy); i4++ {
 			mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-				CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimings),
+				CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimings),
 				Extract:       grafana.FieldExtractor("name"),
 				References:    mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimingRef,
 				Selector:      mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimingSelector,
@@ -453,7 +451,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			if err != nil {
 				return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimings")
 			}
-			mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+			mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 			mg.Spec.InitProvider.Policy[i3].Policy[i4].MuteTimingRef = mrsp.ResolvedReferences
 
 		}
@@ -462,7 +460,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Policy[i3].Policy); i4++ {
 			for i5 := 0; i5 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-					CurrentValue: ptr.Deref(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint, ""),
+					CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint),
 					Extract:      grafana.FieldExtractor("name"),
 					Reference:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef,
 					Selector:     mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointSelector,
@@ -474,7 +472,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				if err != nil {
 					return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint")
 				}
-				mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint = ptr.To(rsp.ResolvedValue)
+				mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 				mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].ContactPointRef = rsp.ResolvedReference
 
 			}
@@ -484,7 +482,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Policy[i3].Policy); i4++ {
 			for i5 := 0; i5 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-					CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings),
+					CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings),
 					Extract:       grafana.FieldExtractor("name"),
 					References:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef,
 					Selector:      mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingSelector,
@@ -496,7 +494,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 				if err != nil {
 					return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings")
 				}
-				mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+				mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 				mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].MuteTimingRef = mrsp.ResolvedReferences
 
 			}
@@ -507,7 +505,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				for i6 := 0; i6 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-						CurrentValue: ptr.Deref(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint, ""),
+						CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint),
 						Extract:      grafana.FieldExtractor("name"),
 						Reference:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef,
 						Selector:     mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointSelector,
@@ -519,7 +517,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 					if err != nil {
 						return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint")
 					}
-					mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint = ptr.To(rsp.ResolvedValue)
+					mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 					mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].ContactPointRef = rsp.ResolvedReference
 
 				}
@@ -531,7 +529,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 			for i5 := 0; i5 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy); i5++ {
 				for i6 := 0; i6 < len(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy); i6++ {
 					mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-						CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings),
+						CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings),
 						Extract:       grafana.FieldExtractor("name"),
 						References:    mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef,
 						Selector:      mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingSelector,
@@ -543,7 +541,7 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 					if err != nil {
 						return errors.Wrap(err, "mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings")
 					}
-					mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings = convert.ToPtrValues(mrsp.ResolvedValues)
+					mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimings = reference.ToPtrValues(mrsp.ResolvedValues)
 					mg.Spec.InitProvider.Policy[i3].Policy[i4].Policy[i5].Policy[i6].MuteTimingRef = mrsp.ResolvedReferences
 
 				}
@@ -562,7 +560,7 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.FolderUID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
@@ -574,11 +572,11 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.FolderUID")
 	}
-	mg.Spec.ForProvider.FolderUID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
@@ -590,13 +588,13 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
 	}
-	mg.Spec.ForProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Rule); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Rule[i3].NotificationSettings); i4++ {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: ptr.Deref(mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint, ""),
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint),
 				Extract:      grafana.FieldExtractor("name"),
 				Reference:    mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPointRef,
 				Selector:     mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPointSelector,
@@ -608,13 +606,13 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 			if err != nil {
 				return errors.Wrap(err, "mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint")
 			}
-			mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint = ptr.To(rsp.ResolvedValue)
+			mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 			mg.Spec.ForProvider.Rule[i3].NotificationSettings[i4].ContactPointRef = rsp.ResolvedReference
 
 		}
 	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.FolderUID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
@@ -626,11 +624,11 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.FolderUID")
 	}
-	mg.Spec.InitProvider.FolderUID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.OrgID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
@@ -642,13 +640,13 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
 	}
-	mg.Spec.InitProvider.OrgID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Rule); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Rule[i3].NotificationSettings); i4++ {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-				CurrentValue: ptr.Deref(mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint, ""),
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint),
 				Extract:      grafana.FieldExtractor("name"),
 				Reference:    mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPointRef,
 				Selector:     mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPointSelector,
@@ -660,7 +658,7 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 			if err != nil {
 				return errors.Wrap(err, "mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint")
 			}
-			mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint = ptr.To(rsp.ResolvedValue)
+			mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 			mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPointRef = rsp.ResolvedReference
 
 		}
