@@ -133,8 +133,9 @@ func TerraformSetupBuilder() terraform.SetupFn {
 }
 
 func configureNoForkGrafanaClient(ctx context.Context, ps *terraform.Setup) error {
-	cb := grafanaProvider.Provider("crossplane")
+	ps.FrameworkProvider = grafanaProvider.FrameworkProvider("crossplane")
 
+	cb := grafanaProvider.Provider("crossplane")
 	diags := cb.Configure(ctx, terraformSDK.NewResourceConfigRaw(ps.Configuration))
 	if diags.HasError() {
 		return fmt.Errorf("failed to configure the Grafana provider: %v", diags)
