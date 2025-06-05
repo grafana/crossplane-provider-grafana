@@ -338,6 +338,11 @@ spec:
                             Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
                           type: object
                           x-kubernetes-map-type: granular
+                        missingSeriesEvalsToResolve:
+                          description: |-
+                            (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                            The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                          type: number
                         name:
                           description: |-
                             (String) The name of the rule group.
@@ -774,6 +779,11 @@ spec:
                             Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
                           type: object
                           x-kubernetes-map-type: granular
+                        missingSeriesEvalsToResolve:
+                          description: |-
+                            (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                            The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                          type: number
                         name:
                           description: |-
                             (String) The name of the rule group.
@@ -1237,6 +1247,11 @@ spec:
                             Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
                           type: object
                           x-kubernetes-map-type: granular
+                        missingSeriesEvalsToResolve:
+                          description: |-
+                            (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                            The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                          type: number
                         name:
                           description: |-
                             (String) The name of the rule group.

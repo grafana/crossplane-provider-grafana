@@ -140,8 +140,12 @@ type IntegrationInitParameters struct {
 	// The Default route for all alerts from the given integration
 	DefaultRoute []DefaultRouteInitParameters `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
 
-	// to-string mappings. Each map must include one key named "key" and one key named "value".
-	// A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+	// A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
+	DynamicLabels []map[string]*string `json:"dynamicLabels,omitempty" tf:"dynamic_labels,omitempty"`
+
+	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+	// A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
 	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The name of the service integration.
@@ -167,11 +171,15 @@ type IntegrationObservation struct {
 	// The Default route for all alerts from the given integration
 	DefaultRoute []DefaultRouteObservation `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
 
+	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+	// A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
+	DynamicLabels []map[string]*string `json:"dynamicLabels,omitempty" tf:"dynamic_labels,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// to-string mappings. Each map must include one key named "key" and one key named "value".
-	// A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+	// A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
 	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
 	// (String) The link for using in an integrated tool.
@@ -202,8 +210,13 @@ type IntegrationParameters struct {
 	// +kubebuilder:validation:Optional
 	DefaultRoute []DefaultRouteParameters `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
 
-	// to-string mappings. Each map must include one key named "key" and one key named "value".
-	// A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+	// A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
+	// +kubebuilder:validation:Optional
+	DynamicLabels []map[string]*string `json:"dynamicLabels,omitempty" tf:"dynamic_labels,omitempty"`
+
+	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+	// A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
 	// +kubebuilder:validation:Optional
 	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 

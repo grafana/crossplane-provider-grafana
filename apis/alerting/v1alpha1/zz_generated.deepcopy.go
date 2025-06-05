@@ -5948,6 +5948,11 @@ func (in *RuleInitParameters) DeepCopyInto(out *RuleInitParameters) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.MissingSeriesEvalsToResolve != nil {
+		in, out := &in.MissingSeriesEvalsToResolve, &out.MissingSeriesEvalsToResolve
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -6056,6 +6061,11 @@ func (in *RuleObservation) DeepCopyInto(out *RuleObservation) {
 			(*out)[key] = outVal
 		}
 	}
+	if in.MissingSeriesEvalsToResolve != nil {
+		in, out := &in.MissingSeriesEvalsToResolve, &out.MissingSeriesEvalsToResolve
+		*out = new(float64)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -6163,6 +6173,11 @@ func (in *RuleParameters) DeepCopyInto(out *RuleParameters) {
 			}
 			(*out)[key] = outVal
 		}
+	}
+	if in.MissingSeriesEvalsToResolve != nil {
+		in, out := &in.MissingSeriesEvalsToResolve, &out.MissingSeriesEvalsToResolve
+		*out = new(float64)
+		**out = **in
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name

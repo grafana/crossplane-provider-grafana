@@ -217,10 +217,19 @@ spec:
                           type: array
                       type: object
                     type: array
+                  dynamicLabels:
+                    description: |-
+                      to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+                      A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
+                    items:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    type: array
                   labels:
                     description: |-
-                      to-string mappings. Each map must include one key named "key" and one key named "value".
-                      A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+                      to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+                      A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
                     items:
                       additionalProperties:
                         type: string
@@ -580,10 +589,19 @@ spec:
                           type: array
                       type: object
                     type: array
+                  dynamicLabels:
+                    description: |-
+                      to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+                      A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
+                    items:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    type: array
                   labels:
                     description: |-
-                      to-string mappings. Each map must include one key named "key" and one key named "value".
-                      A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+                      to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+                      A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
                     items:
                       additionalProperties:
                         type: string
@@ -1042,13 +1060,22 @@ spec:
                           type: array
                       type: object
                     type: array
+                  dynamicLabels:
+                    description: |-
+                      to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+                      A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
+                    items:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    type: array
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   labels:
                     description: |-
-                      to-string mappings. Each map must include one key named "key" and one key named "value".
-                      A list of string-to-string mappings. Each map must include one key named "key" and one key named "value".
+                      to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+                      A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
                     items:
                       additionalProperties:
                         type: string
