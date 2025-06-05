@@ -88,6 +88,10 @@ func TerraformSetupBuilder() terraform.SetupFn {
 
 			"cloud_api_key", // don't see it in the TF config
 			"org_id",        // don't see it in the TF config
+
+			// required for k6 resources
+			"stack_id",
+			"k6_access_token",
 		} {
 			if v, ok := creds[k]; ok {
 				ps.Configuration[k] = v
