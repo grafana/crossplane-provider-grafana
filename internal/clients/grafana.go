@@ -141,5 +141,6 @@ func configureNoForkGrafanaClient(ctx context.Context, ps *terraform.Setup) erro
 	}
 
 	ps.Meta = cb.Meta()
+	ps.FrameworkProvider = grafanaProvider.FrameworkProvider(ps.Version)
 	return nil
 }
