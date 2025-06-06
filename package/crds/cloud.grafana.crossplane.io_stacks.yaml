@@ -74,6 +74,10 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  deleteProtection:
+                    description: Whether to enable delete protection for the stack,
+                      preventing accidental deletion. Defaults to `true`.
+                    type: boolean
                   description:
                     description: |-
                       (String) Description of stack.
@@ -131,6 +135,10 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  deleteProtection:
+                    description: Whether to enable delete protection for the stack,
+                      preventing accidental deletion. Defaults to `true`.
+                    type: boolean
                   description:
                     description: |-
                       (String) Description of stack.
@@ -386,6 +394,10 @@ spec:
                       (String) Slug of the cluster where this stack resides.
                       Slug of the cluster where this stack resides.
                     type: string
+                  deleteProtection:
+                    description: Whether to enable delete protection for the stack,
+                      preventing accidental deletion. Defaults to `true`.
+                    type: boolean
                   description:
                     description: |-
                       (String) Description of stack.

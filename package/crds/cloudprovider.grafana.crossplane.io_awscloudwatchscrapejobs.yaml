@@ -113,19 +113,19 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             (Number) The interval in seconds to scrape the custom namespace.
-                            The interval in seconds to scrape the custom namespace.
+                            The interval in seconds to scrape the custom namespace. Defaults to `300`.
                           type: number
                       type: object
                     type: array
                   enabled:
                     description: |-
                       (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
-                      Whether the AWS CloudWatch Scrape Job is enabled or not.
+                      Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to `true`.
                     type: boolean
                   exportTags:
                     description: |-
                       (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
-                      When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`.
+                      When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`. Defaults to `true`.
                     type: boolean
                   name:
                     description: |-
@@ -193,7 +193,7 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             (Number) The interval in seconds to scrape the custom namespace.
-                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
                           type: number
                         tagsToAddToMetrics:
                           description: |-
@@ -272,19 +272,19 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             (Number) The interval in seconds to scrape the custom namespace.
-                            The interval in seconds to scrape the custom namespace.
+                            The interval in seconds to scrape the custom namespace. Defaults to `300`.
                           type: number
                       type: object
                     type: array
                   enabled:
                     description: |-
                       (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
-                      Whether the AWS CloudWatch Scrape Job is enabled or not.
+                      Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to `true`.
                     type: boolean
                   exportTags:
                     description: |-
                       (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
-                      When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`.
+                      When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`. Defaults to `true`.
                     type: boolean
                   name:
                     description: |-
@@ -352,7 +352,7 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             (Number) The interval in seconds to scrape the custom namespace.
-                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
                           type: number
                         tagsToAddToMetrics:
                           description: |-
@@ -604,7 +604,7 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             (Number) The interval in seconds to scrape the custom namespace.
-                            The interval in seconds to scrape the custom namespace.
+                            The interval in seconds to scrape the custom namespace. Defaults to `300`.
                           type: number
                       type: object
                     type: array
@@ -616,12 +616,12 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
-                      Whether the AWS CloudWatch Scrape Job is enabled or not.
+                      Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to `true`.
                     type: boolean
                   exportTags:
                     description: |-
                       (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
-                      When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`.
+                      When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`. Defaults to `true`.
                     type: boolean
                   id:
                     description: This has the format "{{ stack_id }}:{{ name }}".
@@ -692,7 +692,7 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             (Number) The interval in seconds to scrape the custom namespace.
-                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
                           type: number
                         tagsToAddToMetrics:
                           description: |-

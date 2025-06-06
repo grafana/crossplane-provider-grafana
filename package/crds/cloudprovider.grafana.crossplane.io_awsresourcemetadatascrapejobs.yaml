@@ -82,7 +82,7 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
-                      Whether the AWS Resource Metadata Scrape Job is enabled or not.
+                      Whether the AWS Resource Metadata Scrape Job is enabled or not. Defaults to `true`.
                     type: boolean
                   name:
                     description: |-
@@ -129,7 +129,7 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
-                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
                           type: number
                       type: object
                     type: array
@@ -168,7 +168,7 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
-                      Whether the AWS Resource Metadata Scrape Job is enabled or not.
+                      Whether the AWS Resource Metadata Scrape Job is enabled or not. Defaults to `true`.
                     type: boolean
                   name:
                     description: |-
@@ -215,7 +215,7 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
-                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
                           type: number
                       type: object
                     type: array
@@ -432,7 +432,7 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
-                      Whether the AWS Resource Metadata Scrape Job is enabled or not.
+                      Whether the AWS Resource Metadata Scrape Job is enabled or not. Defaults to `true`.
                     type: boolean
                   id:
                     description: This has the format "{{ stack_id }}:{{ name }}".
@@ -482,7 +482,7 @@ spec:
                         scrapeIntervalSeconds:
                           description: |-
                             cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
-                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+                            The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
                           type: number
                       type: object
                     type: array

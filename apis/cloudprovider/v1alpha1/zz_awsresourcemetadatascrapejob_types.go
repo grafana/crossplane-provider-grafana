@@ -20,7 +20,7 @@ type AwsResourceMetadataScrapeJobInitParameters struct {
 	AwsAccountResourceID *string `json:"awsAccountResourceId,omitempty" tf:"aws_account_resource_id,omitempty"`
 
 	// (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
-	// Whether the AWS Resource Metadata Scrape Job is enabled or not.
+	// Whether the AWS Resource Metadata Scrape Job is enabled or not. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) The name of the AWS Resource Metadata Scrape Job.
@@ -57,7 +57,7 @@ type AwsResourceMetadataScrapeJobObservation struct {
 	DisabledReason *string `json:"disabledReason,omitempty" tf:"disabled_reason,omitempty"`
 
 	// (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
-	// Whether the AWS Resource Metadata Scrape Job is enabled or not.
+	// Whether the AWS Resource Metadata Scrape Job is enabled or not. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// This has the format "{{ stack_id }}:{{ name }}".
@@ -94,7 +94,7 @@ type AwsResourceMetadataScrapeJobParameters struct {
 	AwsAccountResourceID *string `json:"awsAccountResourceId,omitempty" tf:"aws_account_resource_id,omitempty"`
 
 	// (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
-	// Whether the AWS Resource Metadata Scrape Job is enabled or not.
+	// Whether the AWS Resource Metadata Scrape Job is enabled or not. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -137,7 +137,7 @@ type AwsResourceMetadataScrapeJobServiceInitParameters struct {
 	ResourceDiscoveryTagFilter []ServiceResourceDiscoveryTagFilterInitParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
 	// cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 }
 
@@ -152,7 +152,7 @@ type AwsResourceMetadataScrapeJobServiceObservation struct {
 	ResourceDiscoveryTagFilter []ServiceResourceDiscoveryTagFilterObservation `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
 	// cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 }
 
@@ -169,7 +169,7 @@ type AwsResourceMetadataScrapeJobServiceParameters struct {
 	ResourceDiscoveryTagFilter []ServiceResourceDiscoveryTagFilterParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
 	// cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
 	// +kubebuilder:validation:Optional
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 }

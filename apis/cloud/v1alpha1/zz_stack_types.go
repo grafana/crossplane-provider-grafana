@@ -15,6 +15,9 @@ import (
 
 type StackInitParameters struct {
 
+	// Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+	DeleteProtection *bool `json:"deleteProtection,omitempty" tf:"delete_protection,omitempty"`
+
 	// (String) Description of stack.
 	// Description of stack.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -74,6 +77,9 @@ type StackObservation struct {
 	// (String) Slug of the cluster where this stack resides.
 	// Slug of the cluster where this stack resides.
 	ClusterSlug *string `json:"clusterSlug,omitempty" tf:"cluster_slug,omitempty"`
+
+	// Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+	DeleteProtection *bool `json:"deleteProtection,omitempty" tf:"delete_protection,omitempty"`
 
 	// (String) Description of stack.
 	// Description of stack.
@@ -318,6 +324,10 @@ type StackObservation struct {
 }
 
 type StackParameters struct {
+
+	// Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	DeleteProtection *bool `json:"deleteProtection,omitempty" tf:"delete_protection,omitempty"`
 
 	// (String) Description of stack.
 	// Description of stack.
