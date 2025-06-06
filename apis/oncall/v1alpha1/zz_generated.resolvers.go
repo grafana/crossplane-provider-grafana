@@ -8,9 +8,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	convert "github.com/crossplane/crossplane-tools/pkg/convert"
 	errors "github.com/pkg/errors"
-	ptr "k8s.io/utils/ptr"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -22,7 +20,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.ActionToTrigger, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ActionToTrigger),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.ActionToTriggerRef,
 		Selector:     mg.Spec.ForProvider.ActionToTriggerSelector,
@@ -34,11 +32,11 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.ActionToTrigger")
 	}
-	mg.Spec.ForProvider.ActionToTrigger = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ActionToTrigger = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.ActionToTriggerRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.EscalationChainID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.EscalationChainRef,
 		Selector:     mg.Spec.ForProvider.EscalationChainSelector,
@@ -50,11 +48,11 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.EscalationChainID")
 	}
-	mg.Spec.ForProvider.EscalationChainID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.EscalationChainID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.EscalationChainRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.NotifyOnCallFromSchedule, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.NotifyOnCallFromScheduleRef,
 		Selector:     mg.Spec.ForProvider.NotifyOnCallFromScheduleSelector,
@@ -66,11 +64,11 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.NotifyOnCallFromSchedule")
 	}
-	mg.Spec.ForProvider.NotifyOnCallFromSchedule = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.ActionToTrigger, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ActionToTrigger),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.ActionToTriggerRef,
 		Selector:     mg.Spec.InitProvider.ActionToTriggerSelector,
@@ -82,11 +80,11 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.ActionToTrigger")
 	}
-	mg.Spec.InitProvider.ActionToTrigger = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ActionToTrigger = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ActionToTriggerRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.EscalationChainID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.EscalationChainRef,
 		Selector:     mg.Spec.InitProvider.EscalationChainSelector,
@@ -98,11 +96,11 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.EscalationChainID")
 	}
-	mg.Spec.InitProvider.EscalationChainID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.EscalationChainID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.EscalationChainRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.NotifyOnCallFromSchedule, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.NotifyOnCallFromScheduleRef,
 		Selector:     mg.Spec.InitProvider.NotifyOnCallFromScheduleSelector,
@@ -114,7 +112,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.NotifyOnCallFromSchedule")
 	}
-	mg.Spec.InitProvider.NotifyOnCallFromSchedule = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
 
 	return nil
@@ -129,7 +127,7 @@ func (mg *Integration) ResolveReferences(ctx context.Context, c client.Reader) e
 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.DefaultRoute); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: ptr.Deref(mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainID, ""),
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainID),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainRef,
 			Selector:     mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainSelector,
@@ -141,13 +139,13 @@ func (mg *Integration) ResolveReferences(ctx context.Context, c client.Reader) e
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainID")
 		}
-		mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainID = ptr.To(rsp.ResolvedValue)
+		mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainID = reference.ToPtrValue(rsp.ResolvedValue)
 		mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainRef = rsp.ResolvedReference
 
 	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DefaultRoute); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-			CurrentValue: ptr.Deref(mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainID, ""),
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainID),
 			Extract:      reference.ExternalName(),
 			Reference:    mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainRef,
 			Selector:     mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainSelector,
@@ -159,7 +157,7 @@ func (mg *Integration) ResolveReferences(ctx context.Context, c client.Reader) e
 		if err != nil {
 			return errors.Wrap(err, "mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainID")
 		}
-		mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainID = ptr.To(rsp.ResolvedValue)
+		mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainID = reference.ToPtrValue(rsp.ResolvedValue)
 		mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainRef = rsp.ResolvedReference
 
 	}
@@ -175,7 +173,7 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.EscalationChainID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.EscalationChainRef,
 		Selector:     mg.Spec.ForProvider.EscalationChainSelector,
@@ -187,11 +185,11 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.EscalationChainID")
 	}
-	mg.Spec.ForProvider.EscalationChainID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.EscalationChainID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.EscalationChainRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.ForProvider.IntegrationID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.IntegrationID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.ForProvider.IntegrationRef,
 		Selector:     mg.Spec.ForProvider.IntegrationSelector,
@@ -203,11 +201,11 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.IntegrationID")
 	}
-	mg.Spec.ForProvider.IntegrationID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.ForProvider.IntegrationID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.IntegrationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.EscalationChainID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.EscalationChainRef,
 		Selector:     mg.Spec.InitProvider.EscalationChainSelector,
@@ -219,11 +217,11 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.EscalationChainID")
 	}
-	mg.Spec.InitProvider.EscalationChainID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.EscalationChainID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.EscalationChainRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
-		CurrentValue: ptr.Deref(mg.Spec.InitProvider.IntegrationID, ""),
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.IntegrationID),
 		Extract:      reference.ExternalName(),
 		Reference:    mg.Spec.InitProvider.IntegrationRef,
 		Selector:     mg.Spec.InitProvider.IntegrationSelector,
@@ -235,7 +233,7 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.IntegrationID")
 	}
-	mg.Spec.InitProvider.IntegrationID = ptr.To(rsp.ResolvedValue)
+	mg.Spec.InitProvider.IntegrationID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.IntegrationRef = rsp.ResolvedReference
 
 	return nil
@@ -249,7 +247,7 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	var err error
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: convert.FromPtrValues(mg.Spec.ForProvider.Shifts),
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Shifts),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.ForProvider.ShiftsRef,
 		Selector:      mg.Spec.ForProvider.ShiftsSelector,
@@ -261,11 +259,11 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.ForProvider.Shifts")
 	}
-	mg.Spec.ForProvider.Shifts = convert.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.Shifts = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.ShiftsRef = mrsp.ResolvedReferences
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
-		CurrentValues: convert.FromPtrValues(mg.Spec.InitProvider.Shifts),
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Shifts),
 		Extract:       reference.ExternalName(),
 		References:    mg.Spec.InitProvider.ShiftsRef,
 		Selector:      mg.Spec.InitProvider.ShiftsSelector,
@@ -277,7 +275,7 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	if err != nil {
 		return errors.Wrap(err, "mg.Spec.InitProvider.Shifts")
 	}
-	mg.Spec.InitProvider.Shifts = convert.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.Shifts = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.ShiftsRef = mrsp.ResolvedReferences
 
 	return nil
