@@ -546,6 +546,22 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
+
+	// Configuration for k6 resources
+	p.AddResourceConfigurator("grafana_k6_project_limits", func(r *ujconfig.Resource) {
+		r.References["project_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_k6_project",
+			RefFieldName:      "ProjectRef",
+			SelectorFieldName: "ProjectSelector",
+		}
+	})
+	p.AddResourceConfigurator("grafana_k6_load_test", func(r *ujconfig.Resource) {
+		r.References["project_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_k6_project",
+			RefFieldName:      "ProjectRef",
+			SelectorFieldName: "ProjectSelector",
+		}
+	})
 }
 
 func recreateIfAttributeMissing(attribute string) ujconfig.CustomDiff {
