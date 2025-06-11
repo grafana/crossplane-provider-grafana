@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     name: Terraform Test Load Test
-    projectId: ${grafana_k6_project.load_test_project.id}
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: load_test_project
     script: |
       export default function() {
         console.log('Hello from k6!');

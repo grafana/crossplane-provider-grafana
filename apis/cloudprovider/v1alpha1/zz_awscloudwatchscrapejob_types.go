@@ -23,12 +23,12 @@ type AwsCloudwatchScrapeJobInitParameters struct {
 	// Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
 	CustomNamespace []CustomNamespaceInitParameters `json:"customNamespace,omitempty" tf:"custom_namespace,omitempty"`
 
-	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
-	// Whether the AWS CloudWatch Scrape Job is enabled or not.
+	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to true.
+	// Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
-	// When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`.
+	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info. Defaults to true.
+	// When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`. Defaults to `true`.
 	ExportTags *bool `json:"exportTags,omitempty" tf:"export_tags,omitempty"`
 
 	// (String) The name of the AWS CloudWatch Scrape Job.
@@ -68,12 +68,12 @@ type AwsCloudwatchScrapeJobObservation struct {
 	// When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
 	DisabledReason *string `json:"disabledReason,omitempty" tf:"disabled_reason,omitempty"`
 
-	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
-	// Whether the AWS CloudWatch Scrape Job is enabled or not.
+	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to true.
+	// Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
-	// When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`.
+	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info. Defaults to true.
+	// When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`. Defaults to `true`.
 	ExportTags *bool `json:"exportTags,omitempty" tf:"export_tags,omitempty"`
 
 	// This has the format "{{ stack_id }}:{{ name }}".
@@ -114,13 +114,13 @@ type AwsCloudwatchScrapeJobParameters struct {
 	// +kubebuilder:validation:Optional
 	CustomNamespace []CustomNamespaceParameters `json:"customNamespace,omitempty" tf:"custom_namespace,omitempty"`
 
-	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
-	// Whether the AWS CloudWatch Scrape Job is enabled or not.
+	// (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to true.
+	// Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
-	// When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`.
+	// (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info. Defaults to true.
+	// When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as `aws_<service_name>_info`. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	ExportTags *bool `json:"exportTags,omitempty" tf:"export_tags,omitempty"`
 
@@ -162,8 +162,8 @@ type CustomNamespaceInitParameters struct {
 	// The name of the custom namespace to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the custom namespace.
+	// (Number) The interval in seconds to scrape the custom namespace. Defaults to 300.
+	// The interval in seconds to scrape the custom namespace. Defaults to `300`.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 }
 
@@ -177,8 +177,8 @@ type CustomNamespaceObservation struct {
 	// The name of the custom namespace to scrape.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the custom namespace.
+	// (Number) The interval in seconds to scrape the custom namespace. Defaults to 300.
+	// The interval in seconds to scrape the custom namespace. Defaults to `300`.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 }
 
@@ -194,8 +194,8 @@ type CustomNamespaceParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name,omitempty"`
 
-	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the custom namespace.
+	// (Number) The interval in seconds to scrape the custom namespace. Defaults to 300.
+	// The interval in seconds to scrape the custom namespace. Defaults to `300`.
 	// +kubebuilder:validation:Optional
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 }
@@ -287,8 +287,8 @@ type ServiceInitParameters struct {
 	// One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects.
 	ResourceDiscoveryTagFilter []ResourceDiscoveryTagFilterInitParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// (Number) The interval in seconds to scrape the custom namespace. Defaults to 300.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 
 	// (Set of String) A set of tags to add to all metrics exported by this scrape job, for use in PromQL queries.
@@ -349,8 +349,8 @@ type ServiceObservation struct {
 	// One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects.
 	ResourceDiscoveryTagFilter []ResourceDiscoveryTagFilterObservation `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// (Number) The interval in seconds to scrape the custom namespace. Defaults to 300.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 
 	// (Set of String) A set of tags to add to all metrics exported by this scrape job, for use in PromQL queries.
@@ -376,8 +376,8 @@ type ServiceParameters struct {
 	// +kubebuilder:validation:Optional
 	ResourceDiscoveryTagFilter []ResourceDiscoveryTagFilterParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-	// (Number) The interval in seconds to scrape the custom namespace.
-	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+	// (Number) The interval in seconds to scrape the custom namespace. Defaults to 300.
+	// The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to `300`.
 	// +kubebuilder:validation:Optional
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 

@@ -384,15 +384,15 @@ resources:
             aws_account_resource_id: (String) The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the resource_id attribute of the grafana_cloud_provider_aws_account resource.
             custom_namespace: (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             disabled_reason: (String) When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
-            enabled: (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not.
-            export_tags: (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info.
+            enabled: (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to true.
+            export_tags: (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info. Defaults to true.
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
             key: (String) The key of the tag filter.
             metric: (Block List) One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             name: (String) The name of the AWS CloudWatch Scrape Job. Part of the Terraform Resource ID.
             regions_subset_override: (Set of String) A subset of the regions that are configured in the associated AWS Account resource to apply to this scrape job. If not set or empty, all of the Account resource's regions are scraped.
             resource_discovery_tag_filter: (Block List) One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-            scrape_interval_seconds: (Number) The interval in seconds to scrape the custom namespace.
+            scrape_interval_seconds: (Number) The interval in seconds to scrape the custom namespace. Defaults to 300.
             service: (Block List) One or more configuration blocks to configure AWS services for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
             static_labels: (Map of String) A set of static labels to add to all metrics exported by this scrape job.
@@ -446,13 +446,13 @@ resources:
         argumentDocs:
             aws_account_resource_id: (String) The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this Resource Metadata Scrape Job. This can be provided by the resource_id attribute of the grafana_cloud_provider_aws_account resource.
             disabled_reason: (String) When the AWS Resource Metadata Scrape Job is disabled, this will show the reason that it is in that state.
-            enabled: (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not.
+            enabled: (Boolean) Whether the AWS Resource Metadata Scrape Job is enabled or not. Defaults to true.
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
             key: (String) The key of the tag filter.
             name: (String) The name of the AWS Resource Metadata Scrape Job. Part of the Terraform Resource ID.
             regions_subset_override: (Set of String) A subset of the regions that are configured in the associated AWS Account resource to apply to this scrape job. If not set or empty, all of the Account resource's regions are scraped.
             resource_discovery_tag_filter: (Block List) One or more configuration blocks to configure tag filters applied to discovery of resource entities in the associated AWS account. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-            scrape_interval_seconds: (Number) The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals.
+            scrape_interval_seconds: (Number) The interval in seconds to scrape the service. See https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/cloudwatch-metrics/services/ for supported scrape intervals. Defaults to 300.
             service: (Block List) One or more configuration blocks to configure AWS services for the Resource Metadata Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
             static_labels: (Map of String) A set of static labels to add to all metrics exported by this scrape job.
@@ -1904,11 +1904,11 @@ resources:
                       "name": "Terraform Load Test Project"
                     }
         argumentDocs:
-            baseline_test_run_id: (Number) Identifier of a baseline test run used for results comparison.
+            baseline_test_run_id: (String) Identifier of a baseline test run used for results comparison.
             created: (String) The date when the load test was created.
-            id: (Number) Numeric identifier of the load test.
+            id: (String) Numeric identifier of the load test.
             name: (String) Human-friendly identifier of the load test.
-            project_id: (Number) The identifier of the project this load test belongs to.
+            project_id: (String) The identifier of the project this load test belongs to.
             script: (String) The k6 test script content. Can be provided inline or via the file() function.
             updated: (String) The date when the load test was last updated.
         importStatements:
@@ -1927,7 +1927,7 @@ resources:
         argumentDocs:
             created: (String) The date when the project was created.
             grafana_folder_uid: (String) The Grafana folder uid.
-            id: (Number) Numeric identifier of the project.
+            id: (String) Numeric identifier of the project.
             is_default: (Boolean) Use this project as default for running tests when no explicit project identifier is provided.
             name: (String) Human-friendly identifier of the project.
             updated: (String) The date when the project was last updated.
@@ -1957,8 +1957,8 @@ resources:
                     }
         argumentDocs:
             duration_max_per_test: (Number) Maximum duration of a test in seconds.
-            id: (Number) The identifier of the project limits. This is the same as the project_id.
-            project_id: (Number) The identifier of the project to manage limits for.
+            id: (String) The identifier of the project limits. This is the same as the project_id.
+            project_id: (String) The identifier of the project to manage limits for.
             vu_browser_max_per_test: (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
             vu_max_per_test: (Number) Maximum number of concurrent virtual users (VUs) used in one test.
             vuh_max_per_month: (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.

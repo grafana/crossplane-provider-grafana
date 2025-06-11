@@ -285,7 +285,7 @@ spec:
                       The Grafana folder uid.
                     type: string
                   id:
-                    description: (Number) Numeric identifier of the project.
+                    description: (String) Numeric identifier of the project.
                     type: string
                   isDefault:
                     description: |-
