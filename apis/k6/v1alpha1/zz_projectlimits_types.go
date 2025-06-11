@@ -19,9 +19,20 @@ type ProjectLimitsInitParameters struct {
 	// Maximum duration of a test in seconds.
 	DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
 
-	// (Number) The identifier of the project to manage limits for.
+	// (String) The identifier of the project to manage limits for.
 	// The identifier of the project to manage limits for.
-	ProjectID *float64 `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 
 	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
 	// Maximum number of concurrent browser virtual users (VUs) used in one test.
@@ -42,12 +53,12 @@ type ProjectLimitsObservation struct {
 	// Maximum duration of a test in seconds.
 	DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
 
-	// (Number) The identifier of the project limits. This is the same as the project_id.
+	// (String) The identifier of the project limits. This is the same as the project_id.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Number) The identifier of the project to manage limits for.
+	// (String) The identifier of the project to manage limits for.
 	// The identifier of the project to manage limits for.
-	ProjectID *float64 `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
 	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
 	// Maximum number of concurrent browser virtual users (VUs) used in one test.
@@ -69,10 +80,21 @@ type ProjectLimitsParameters struct {
 	// +kubebuilder:validation:Optional
 	DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
 
-	// (Number) The identifier of the project to manage limits for.
+	// (String) The identifier of the project to manage limits for.
 	// The identifier of the project to manage limits for.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	// +kubebuilder:validation:Optional
-	ProjectID *float64 `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 
 	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
 	// Maximum number of concurrent browser virtual users (VUs) used in one test.
@@ -126,9 +148,8 @@ type ProjectLimitsStatus struct {
 type ProjectLimits struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.projectId) || (has(self.initProvider) && has(self.initProvider.projectId))",message="spec.forProvider.projectId is a required parameter"
-	Spec   ProjectLimitsSpec   `json:"spec"`
-	Status ProjectLimitsStatus `json:"status,omitempty"`
+	Spec              ProjectLimitsSpec   `json:"spec"`
+	Status            ProjectLimitsStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

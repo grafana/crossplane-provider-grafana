@@ -30,7 +30,7 @@ type ProjectObservation struct {
 	// The Grafana folder uid.
 	GrafanaFolderUID *string `json:"grafanaFolderUid,omitempty" tf:"grafana_folder_uid,omitempty"`
 
-	// (Number) Numeric identifier of the project.
+	// (String) Numeric identifier of the project.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean) Use this project as default for running tests when no explicit project identifier is provided.

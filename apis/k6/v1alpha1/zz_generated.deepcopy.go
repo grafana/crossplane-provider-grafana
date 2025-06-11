@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -227,7 +228,7 @@ func (in *LoadTestInitParameters) DeepCopyInto(out *LoadTestInitParameters) {
 	*out = *in
 	if in.BaselineTestRunID != nil {
 		in, out := &in.BaselineTestRunID, &out.BaselineTestRunID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
 	}
 	if in.Name != nil {
@@ -237,8 +238,18 @@ func (in *LoadTestInitParameters) DeepCopyInto(out *LoadTestInitParameters) {
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectRef != nil {
+		in, out := &in.ProjectRef, &out.ProjectRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectSelector != nil {
+		in, out := &in.ProjectSelector, &out.ProjectSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Script != nil {
 		in, out := &in.Script, &out.Script
@@ -294,7 +305,7 @@ func (in *LoadTestObservation) DeepCopyInto(out *LoadTestObservation) {
 	*out = *in
 	if in.BaselineTestRunID != nil {
 		in, out := &in.BaselineTestRunID, &out.BaselineTestRunID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
 	}
 	if in.Created != nil {
@@ -314,7 +325,7 @@ func (in *LoadTestObservation) DeepCopyInto(out *LoadTestObservation) {
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
 	}
 	if in.Script != nil {
@@ -344,7 +355,7 @@ func (in *LoadTestParameters) DeepCopyInto(out *LoadTestParameters) {
 	*out = *in
 	if in.BaselineTestRunID != nil {
 		in, out := &in.BaselineTestRunID, &out.BaselineTestRunID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
 	}
 	if in.Name != nil {
@@ -354,8 +365,18 @@ func (in *LoadTestParameters) DeepCopyInto(out *LoadTestParameters) {
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectRef != nil {
+		in, out := &in.ProjectRef, &out.ProjectRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectSelector != nil {
+		in, out := &in.ProjectSelector, &out.ProjectSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Script != nil {
 		in, out := &in.Script, &out.Script
@@ -493,8 +514,18 @@ func (in *ProjectLimitsInitParameters) DeepCopyInto(out *ProjectLimitsInitParame
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectRef != nil {
+		in, out := &in.ProjectRef, &out.ProjectRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectSelector != nil {
+		in, out := &in.ProjectSelector, &out.ProjectSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.VuBrowserMaxPerTest != nil {
 		in, out := &in.VuBrowserMaxPerTest, &out.VuBrowserMaxPerTest
@@ -570,7 +601,7 @@ func (in *ProjectLimitsObservation) DeepCopyInto(out *ProjectLimitsObservation) 
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
 	}
 	if in.VuBrowserMaxPerTest != nil {
@@ -610,8 +641,18 @@ func (in *ProjectLimitsParameters) DeepCopyInto(out *ProjectLimitsParameters) {
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
-		*out = new(float64)
+		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectRef != nil {
+		in, out := &in.ProjectRef, &out.ProjectRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectSelector != nil {
+		in, out := &in.ProjectSelector, &out.ProjectSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.VuBrowserMaxPerTest != nil {
 		in, out := &in.VuBrowserMaxPerTest, &out.VuBrowserMaxPerTest

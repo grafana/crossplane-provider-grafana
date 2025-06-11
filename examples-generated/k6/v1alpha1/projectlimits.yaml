@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     durationMaxPerTest: 3600
-    projectId: ${grafana_k6_project.test_project_limits.id}
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_project_limits
     vuBrowserMaxPerTest: 10
     vuMaxPerTest: 100
     vuhMaxPerMonth: 1000
