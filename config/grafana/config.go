@@ -335,6 +335,63 @@ func Configure(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
+	p.AddResourceConfigurator("grafana_oncall_schedule", func(r *ujconfig.Resource) {
+		// Configure external name to use the actual Grafana OnCall schedule ID
+		r.ExternalName = ujconfig.ExternalName{
+			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
+			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
+				id, ok := tfstate["id"].(string)
+				if !ok {
+					return "", errors.New("cannot get id attribute from grafana_oncall_schedule")
+				}
+				return id, nil
+			},
+			GetIDFn:                ujconfig.ExternalNameAsID,
+			DisableNameInitializer: true,
+		}
+		// Custom diff to handle manual overrides and prevent unnecessary recreation
+		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
+			// skip diff customization on create
+			if state == nil || state.Empty() {
+				return diff, nil
+			}
+			// skip no diff or destroy diffs
+			if diff == nil || diff.Empty() || diff.Destroy || diff.Attributes == nil {
+				return diff, nil
+			}
+
+			// Preserve manual web overrides - don't recreate schedule if only shifts changed externally
+			// This helps maintain manual shift changes made through the Grafana UI
+			if diff.Attributes["shifts"] != nil && state.Attributes != nil {
+				// Only update shifts if the change is coming from Crossplane spec, not external changes
+				oldShifts := state.Attributes["shifts"]
+				if oldShifts != "" {
+					// Keep external shift modifications when enableWebOverrides is true
+					if enableWebOverrides, exists := state.Attributes["enable_web_overrides"]; exists && enableWebOverrides == "true" {
+						// Log the change but don't force recreation
+						delete(diff.Attributes, "shifts")
+					}
+				}
+			}
+
+			return diff, nil
+		}
+	})
+	p.AddResourceConfigurator("grafana_oncall_on_call_shift", func(r *ujconfig.Resource) {
+		// Configure external name to use the actual Grafana OnCall shift ID
+		r.ExternalName = ujconfig.ExternalName{
+			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
+			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
+				id, ok := tfstate["id"].(string)
+				if !ok {
+					return "", errors.New("cannot get id attribute from grafana_oncall_on_call_shift")
+				}
+				return id, nil
+			},
+			GetIDFn:                ujconfig.ExternalNameAsID,
+			DisableNameInitializer: true,
+		}
+	})
 	p.AddResourceConfigurator("grafana_dashboard", func(r *ujconfig.Resource) {
 		r.References["folder"] = ujconfig.Reference{
 			TerraformName:     "grafana_folder",
