@@ -118,6 +118,10 @@ func (tr *OnCallShift) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("Duration"))
+	opts = append(opts, resource.WithNameFilter("RollingUsers"))
+	opts = append(opts, resource.WithNameFilter("Start"))
+	opts = append(opts, resource.WithNameFilter("Users"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
