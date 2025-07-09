@@ -5,7 +5,7 @@ is built using [Upjet](https://github.com/upbound/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
 Grafana API.
 
-> **This library is experimental**
+> **This tool is experimental**
 >
 > The code in this repository should be considered experimental. Documentation is only
 > available alongside the code. It comes without support, but we are keen to receive
