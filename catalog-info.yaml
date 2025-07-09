@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: crossplane-provider-grafana
+  title: crossplane-provider-grafana
+  description: |
+    Grafana Labs' Crossplane Provider
+  links:
+    - title: Internal Slack Channel
+      type: slack
+      url: https://grafanalabs.enterprise.slack.com/archives/C03A2L4R9U1
+  annotations:
+    github.com/project-slug: grafana/terraform-provider-grafana
+spec:
+  type: tool
+  owner: group:default/platform-monitoring
+  lifecycle: experimental

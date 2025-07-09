@@ -5,6 +5,16 @@ is built using [Upjet](https://github.com/upbound/upjet) code
 generation tools and exposes XRM-conformant managed resources for the
 Grafana API.
 
+> **This tool is experimental**
+>
+> The code in this repository should be considered experimental. Documentation is only
+> available alongside the code. It comes without support, but we are keen to receive
+> feedback on the product and suggestions on how to improve it, though we cannot commit to
+> resolution of any particular issue. No SLAs are available. It is not meant to be used in
+> production environments, and the risks are unknown/high.
+>
+> Additional information can be found in [Release life cycle for Grafana Labs](https://grafana.com/docs/release-life-cycle/).
+
 ## Getting Started
 
 Install the provider by using the following command after changing the image tag
