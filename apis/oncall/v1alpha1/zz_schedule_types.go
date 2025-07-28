@@ -59,8 +59,8 @@ type ScheduleInitParameters struct {
 	// The schedule's time zone.
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
-	// (String) The schedule's type. Valid values are ical, calendar.
-	// The schedule's type. Valid values are `ical`, `calendar`.
+	// (String) The schedule's type. Valid values are ical, calendar, web.
+	// The schedule's type. Valid values are `ical`, `calendar`, `web`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -102,8 +102,8 @@ type ScheduleObservation struct {
 	// The schedule's time zone.
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
-	// (String) The schedule's type. Valid values are ical, calendar.
-	// The schedule's type. Valid values are `ical`, `calendar`.
+	// (String) The schedule's type. Valid values are ical, calendar, web.
+	// The schedule's type. Valid values are `ical`, `calendar`, `web`.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -161,8 +161,8 @@ type ScheduleParameters struct {
 	// +kubebuilder:validation:Optional
 	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
-	// (String) The schedule's type. Valid values are ical, calendar.
-	// The schedule's type. Valid values are `ical`, `calendar`.
+	// (String) The schedule's type. Valid values are ical, calendar, web.
+	// The schedule's type. Valid values are `ical`, `calendar`, `web`.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

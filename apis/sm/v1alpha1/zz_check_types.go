@@ -225,8 +225,8 @@ type CheckInitParameters struct {
 	// Hostname to ping.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
-	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
-	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to `3000`.
+	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 180 seconds (180000 ms). Defaults to 3000.
+	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 180 seconds (180000 ms). Defaults to `3000`.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }
 
@@ -277,8 +277,8 @@ type CheckObservation struct {
 	// The tenant ID of the check.
 	TenantID *float64 `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 
-	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
-	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to `3000`.
+	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 180 seconds (180000 ms). Defaults to 3000.
+	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 180 seconds (180000 ms). Defaults to `3000`.
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }
 
@@ -331,8 +331,8 @@ type CheckParameters struct {
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 
-	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
-	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to `3000`.
+	// (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 180 seconds (180000 ms). Defaults to 3000.
+	// Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 180 seconds (180000 ms). Defaults to `3000`.
 	// +kubebuilder:validation:Optional
 	Timeout *float64 `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }

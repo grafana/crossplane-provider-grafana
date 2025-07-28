@@ -16,7 +16,9 @@ spec:
     groupInterval: 6m
     groupWait: 45s
     policy:
-    - contactPointSelector:
+    - activeTimings:
+      - ${grafana_mute_timing.working_hours.name}
+      contactPointSelector:
         matchLabels:
           testing.upbound.io/example-name: a_contact_point
       continue: true
@@ -91,3 +93,21 @@ spec:
     - weekdays:
       - monday
     name: Some Mute Timing
+
+---
+
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: MuteTiming
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/notificationpolicy
+  labels:
+    testing.upbound.io/example-name: working_hours
+  name: working-hours
+spec:
+  forProvider:
+    intervals:
+    - times:
+      - end: "18:00"
+        start: "09:00"
+    name: Working Hours
