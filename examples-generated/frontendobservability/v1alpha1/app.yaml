@@ -16,4 +16,7 @@ spec:
     provider: ${grafana.cloud}
     settings:
       combineLabData: "1"
+      geolocation.country_denylist: DE,GR
+      geolocation.enabled: "1"
+      geolocation.level: "3"
     stackId: ${data.grafana_cloud_stack.teststack.id}

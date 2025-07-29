@@ -74,6 +74,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  deleteProtection:
+                    description: |-
+                      (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
+                      Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+                    type: boolean
                   description:
                     description: |-
                       (String) Description of stack.
@@ -131,6 +136,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  deleteProtection:
+                    description: |-
+                      (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
+                      Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+                    type: boolean
                   description:
                     description: |-
                       (String) Description of stack.
@@ -386,6 +396,11 @@ spec:
                       (String) Slug of the cluster where this stack resides.
                       Slug of the cluster where this stack resides.
                     type: string
+                  deleteProtection:
+                    description: |-
+                      (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
+                      Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+                    type: boolean
                   description:
                     description: |-
                       (String) Description of stack.
@@ -395,6 +410,16 @@ spec:
                     description: |-
                       (String) Name of the Fleet Management instance configured for this stack.
                       Name of the Fleet Management instance configured for this stack.
+                    type: string
+                  fleetManagementPrivateConnectivityInfoPrivateDns:
+                    description: |-
+                      (String) Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+                      Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+                    type: string
+                  fleetManagementPrivateConnectivityInfoServiceName:
+                    description: |-
+                      (String) Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+                      Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
                     type: string
                   fleetManagementStatus:
                     description: |-

@@ -559,8 +559,11 @@ resources:
             alertmanager_url: (String) Base URL of the Alertmanager instance configured for this stack.
             alertmanager_user_id: (Number) User ID of the Alertmanager instance configured for this stack.
             cluster_slug: (String) Slug of the cluster where this stack resides.
+            delete_protection: (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
             description: (String) Description of stack.
             fleet_management_name: (String) Name of the Fleet Management instance configured for this stack.
+            fleet_management_private_connectivity_info_private_dns: (String) Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+            fleet_management_private_connectivity_info_service_name: (String) Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_status: (String) Status of the Fleet Management instance configured for this stack.
             fleet_management_url: (String) Base URL of the Fleet Management instance configured for this stack.
             fleet_management_user_id: (Number) User ID of the Fleet Management instance configured for this stack.
@@ -1572,7 +1575,7 @@ resources:
                   }
                 }
         argumentDocs:
-            enabled: (Boolean) Whether the collector is enabled or not
+            enabled: (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
             id: (String) ID of the collector
             remote_attributes: (Map of String) Remote attributes for the collector
         importStatements:
@@ -1809,7 +1812,10 @@ resources:
                   "name": "test-app",
                   "provider": "${grafana.cloud}",
                   "settings": {
-                    "combineLabData": "1"
+                    "combineLabData": "1",
+                    "geolocation.country_denylist": "DE,GR",
+                    "geolocation.enabled": "1",
+                    "geolocation.level": "3"
                   },
                   "stack_id": "${data.grafana_cloud_stack.teststack.id}"
                 }
@@ -1822,7 +1828,7 @@ resources:
             extra_log_attributes: (Map of String) The extra attributes to append in each signal.
             id: (Number) The Terraform Resource ID. This is auto-generated from Frontend Observability API.
             name: (String) The name of Frontend Observability App. Part of the Terraform Resource ID.
-            settings: '(Map of String) The key-value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1)}'
+            settings: '(Map of String) The key-value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}'
             stack_id: (Number) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
         importStatements:
             - terraform import grafana_frontend_o11y_app.name "{{ stack_id }}:{{ name }}"
@@ -2374,6 +2380,9 @@ resources:
                   "group_wait": "45s",
                   "policy": [
                     {
+                      "active_timings": [
+                        "${grafana_mute_timing.working_hours.name}"
+                      ],
                       "contact_point": "${grafana_contact_point.a_contact_point.name}",
                       "continue": true,
                       "group_interval": "6m",
@@ -2433,6 +2442,7 @@ resources:
                 }
               references:
                 contact_point: grafana_contact_point.a_contact_point.name
+                policy.active_timings: grafana_mute_timing.working_hours.name
                 policy.contact_point: grafana_contact_point.a_contact_point.name
                 policy.mute_timings: grafana_mute_timing.a_mute_timing.name
                 policy.policy.contact_point: grafana_contact_point.a_contact_point.name
@@ -2461,7 +2471,22 @@ resources:
                       ],
                       "name": "Some Mute Timing"
                     }
+                grafana_mute_timing.working_hours: |-
+                    {
+                      "intervals": [
+                        {
+                          "times": [
+                            {
+                              "end": "18:00",
+                              "start": "09:00"
+                            }
+                          ]
+                        }
+                      ],
+                      "name": "Working Hours"
+                    }
         argumentDocs:
+            active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
             contact_point: (String) The default contact point to route all unmatched notifications to.
             continue: (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
             disable_provenance: (Boolean) Allow modifying the notification policy from other sources than Terraform or the Grafana API. Defaults to false.
@@ -2472,7 +2497,7 @@ resources:
             label: (String) The name of the label to match against.
             match: (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
             matcher: (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-            mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
+            mute_timings: (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
             policy: (Block List) Routing rules for specific label sets. (see below for nested schema)
             repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
@@ -2898,7 +2923,7 @@ resources:
             slack: '(Block List, Max: 1) The Slack-specific settings for a schedule. (see below for nested schema)'
             team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
             time_zone: (String) The schedule's time zone.
-            type: (String) The schedule's type. Valid values are ical, calendar.
+            type: (String) The schedule's type. Valid values are ical, calendar, web.
             user_group_id: (String) Slack user group id. Members of user group will be updated when on-call users change.
         importStatements:
             - terraform import grafana_oncall_schedule.name "{{ id }}"
@@ -3547,6 +3572,29 @@ resources:
             - |-
               terraform import grafana_rule_group.name "{{ folderUID }}:{{ title }}"
               terraform import grafana_rule_group.name "{{ orgID }}:{{ folderUID }}:{{ title }}"
+    grafana_scim_config:
+        subCategory: Grafana Enterprise
+        description: 'Note: This resource is available only with Grafana Enterprise. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-scim-provisioning/'
+        name: grafana_scim_config
+        title: grafana_scim_config Resource - terraform-provider-grafana
+        examples:
+            - name: default
+              manifest: |-
+                {
+                  "allow_non_provisioned_users": false,
+                  "enable_group_sync": false,
+                  "enable_user_sync": true
+                }
+        argumentDocs:
+            allow_non_provisioned_users: (Boolean) Whether to allow non-provisioned users to access Grafana.
+            enable_group_sync: (Boolean) Whether group synchronization is enabled.
+            enable_user_sync: (Boolean) Whether user synchronization is enabled.
+            id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+        importStatements:
+            - |-
+              terraform import grafana_scim_config.name ""
+              terraform import grafana_scim_config.name "{{ orgID }}"
     grafana_service_account:
         subCategory: Grafana OSS
         description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
@@ -4865,7 +4913,7 @@ resources:
             target: (String) Hostname to ping.
             tcp: '(Block Set, Max: 1) Settings for TCP check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)'
             tenant_id: (Number) The tenant ID of the check.
-            timeout: (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 10 seconds (10000 ms). Defaults to 3000.
+            timeout: (Number) Specifies the maximum running time for the check in milliseconds. The minimum acceptable value is 1 second (1000 ms), and the maximum 180 seconds (180000 ms). Defaults to 3000.
             tls: (Boolean) Whether or not TLS is used when the connection is initiated. Defaults to false.
             tls_config: '(Block Set, Max: 1) TLS config. (see below for nested schema)'
             traceroute: '(Block Set, Max: 1) Settings for traceroute check. The target must be a valid hostname or IP address (see below for nested schema)'

@@ -222,6 +222,10 @@ type NotificationPolicyParameters struct {
 
 type PolicyInitParameters struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
@@ -266,8 +270,8 @@ type PolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
@@ -333,6 +337,10 @@ type PolicyMatcherParameters struct {
 
 type PolicyObservation struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -357,8 +365,8 @@ type PolicyObservation struct {
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []MatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
@@ -371,6 +379,11 @@ type PolicyObservation struct {
 }
 
 type PolicyParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// +kubebuilder:validation:Optional
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -422,8 +435,8 @@ type PolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
@@ -443,6 +456,10 @@ type PolicyParameters struct {
 }
 
 type PolicyPolicyInitParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -488,8 +505,8 @@ type PolicyPolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
@@ -555,6 +572,10 @@ type PolicyPolicyMatcherParameters struct {
 
 type PolicyPolicyObservation struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -579,8 +600,8 @@ type PolicyPolicyObservation struct {
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
@@ -593,6 +614,11 @@ type PolicyPolicyObservation struct {
 }
 
 type PolicyPolicyParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// +kubebuilder:validation:Optional
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -644,8 +670,8 @@ type PolicyPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
@@ -665,6 +691,10 @@ type PolicyPolicyParameters struct {
 }
 
 type PolicyPolicyPolicyInitParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -710,8 +740,8 @@ type PolicyPolicyPolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
@@ -777,6 +807,10 @@ type PolicyPolicyPolicyMatcherParameters struct {
 
 type PolicyPolicyPolicyObservation struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -801,8 +835,8 @@ type PolicyPolicyPolicyObservation struct {
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
@@ -815,6 +849,11 @@ type PolicyPolicyPolicyObservation struct {
 }
 
 type PolicyPolicyPolicyParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// +kubebuilder:validation:Optional
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -866,8 +905,8 @@ type PolicyPolicyPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
@@ -887,6 +926,10 @@ type PolicyPolicyPolicyParameters struct {
 }
 
 type PolicyPolicyPolicyPolicyInitParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -932,8 +975,8 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
@@ -946,6 +989,10 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 }
 
 type PolicyPolicyPolicyPolicyObservation struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -971,8 +1018,8 @@ type PolicyPolicyPolicyPolicyObservation struct {
 	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
 	Matcher []PolicyPolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
 	// sending a notification if an alert is still firing. Default is 4 hours.
@@ -981,6 +1028,11 @@ type PolicyPolicyPolicyPolicyObservation struct {
 }
 
 type PolicyPolicyPolicyPolicyParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// +kubebuilder:validation:Optional
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
@@ -1032,8 +1084,8 @@ type PolicyPolicyPolicyPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.MuteTiming
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef

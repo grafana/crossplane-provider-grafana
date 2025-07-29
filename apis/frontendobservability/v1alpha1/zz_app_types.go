@@ -28,8 +28,8 @@ type AppInitParameters struct {
 	// The name of Frontend Observability App.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1)}
-	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1)}`
+	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
+	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
 	// +mapType=granular
 	Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
 
@@ -60,8 +60,8 @@ type AppObservation struct {
 	// The name of Frontend Observability App.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1)}
-	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1)}`
+	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
+	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
 	// +mapType=granular
 	Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
 
@@ -88,8 +88,8 @@ type AppParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1)}
-	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1)}`
+	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
+	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`

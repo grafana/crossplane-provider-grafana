@@ -15,6 +15,10 @@ import (
 
 type StackInitParameters struct {
 
+	// (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
+	// Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+	DeleteProtection *bool `json:"deleteProtection,omitempty" tf:"delete_protection,omitempty"`
+
 	// (String) Description of stack.
 	// Description of stack.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -75,6 +79,10 @@ type StackObservation struct {
 	// Slug of the cluster where this stack resides.
 	ClusterSlug *string `json:"clusterSlug,omitempty" tf:"cluster_slug,omitempty"`
 
+	// (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
+	// Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+	DeleteProtection *bool `json:"deleteProtection,omitempty" tf:"delete_protection,omitempty"`
+
 	// (String) Description of stack.
 	// Description of stack.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -82,6 +90,14 @@ type StackObservation struct {
 	// (String) Name of the Fleet Management instance configured for this stack.
 	// Name of the Fleet Management instance configured for this stack.
 	FleetManagementName *string `json:"fleetManagementName,omitempty" tf:"fleet_management_name,omitempty"`
+
+	// (String) Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	// Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	FleetManagementPrivateConnectivityInfoPrivateDNS *string `json:"fleetManagementPrivateConnectivityInfoPrivateDns,omitempty" tf:"fleet_management_private_connectivity_info_private_dns,omitempty"`
+
+	// (String) Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	// Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	FleetManagementPrivateConnectivityInfoServiceName *string `json:"fleetManagementPrivateConnectivityInfoServiceName,omitempty" tf:"fleet_management_private_connectivity_info_service_name,omitempty"`
 
 	// (String) Status of the Fleet Management instance configured for this stack.
 	// Status of the Fleet Management instance configured for this stack.
@@ -318,6 +334,11 @@ type StackObservation struct {
 }
 
 type StackParameters struct {
+
+	// (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
+	// Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	DeleteProtection *bool `json:"deleteProtection,omitempty" tf:"delete_protection,omitempty"`
 
 	// (String) Description of stack.
 	// Description of stack.
