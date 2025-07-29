@@ -15,8 +15,8 @@ import (
 
 type CollectorInitParameters struct {
 
-	// (Boolean) Whether the collector is enabled or not
-	// Whether the collector is enabled or not
+	// (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
+	// Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (Map of String) Remote attributes for the collector
@@ -27,8 +27,8 @@ type CollectorInitParameters struct {
 
 type CollectorObservation struct {
 
-	// (Boolean) Whether the collector is enabled or not
-	// Whether the collector is enabled or not
+	// (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
+	// Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) ID of the collector
@@ -42,8 +42,8 @@ type CollectorObservation struct {
 
 type CollectorParameters struct {
 
-	// (Boolean) Whether the collector is enabled or not
-	// Whether the collector is enabled or not
+	// (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
+	// Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
