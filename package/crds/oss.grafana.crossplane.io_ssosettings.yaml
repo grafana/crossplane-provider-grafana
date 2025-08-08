@@ -434,6 +434,11 @@ spec:
                             (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
                             JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
                           type: string
+                        loginPrompt:
+                          description: |-
+                            (String) Indicates the type of user interaction when the user logs in with the IdP. Available values are login, consent and select_account.
+                            Indicates the type of user interaction when the user logs in with the IdP. Available values are `login`, `consent` and `select_account`.
+                          type: string
                         name:
                           description: |-
                             (String) Helpful if you use more than one identity providers or SSO protocols.
@@ -1128,6 +1133,11 @@ spec:
                           description: |-
                             (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
                             JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
+                          type: string
+                        loginPrompt:
+                          description: |-
+                            (String) Indicates the type of user interaction when the user logs in with the IdP. Available values are login, consent and select_account.
+                            Indicates the type of user interaction when the user logs in with the IdP. Available values are `login`, `consent` and `select_account`.
                           type: string
                         name:
                           description: |-
@@ -1914,6 +1924,11 @@ spec:
                           description: |-
                             (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
                             JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
+                          type: string
+                        loginPrompt:
+                          description: |-
+                            (String) Indicates the type of user interaction when the user logs in with the IdP. Available values are login, consent and select_account.
+                            Indicates the type of user interaction when the user logs in with the IdP. Available values are `login`, `consent` and `select_account`.
                           type: string
                         name:
                           description: |-

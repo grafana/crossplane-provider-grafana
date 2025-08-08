@@ -148,6 +148,11 @@ spec:
                     - name
                     - namespace
                     type: object
+                  preset:
+                    description: |-
+                      (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+                      The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+                    type: string
                   teamId:
                     description: |-
                       (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
@@ -160,13 +165,13 @@ spec:
                     type: string
                   triggerType:
                     description: |-
-                      (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
-                      The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+                      (String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.
+                      The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: `escalation`, `alert group created`, `status change`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`, `resolution note added`, `personal notification`; for incident webhooks: `incident declared`, `incident changed`, `incident resolved`. Defaults to `escalation`.
                     type: string
                   url:
                     description: |-
-                      (String) The webhook URL.
-                      The webhook URL.
+                      (String) The webhook URL. Required when not using a preset that controls this field.
+                      The webhook URL. Required when not using a preset that controls this field.
                     type: string
                   user:
                     description: |-
@@ -262,6 +267,11 @@ spec:
                     - name
                     - namespace
                     type: object
+                  preset:
+                    description: |-
+                      (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+                      The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+                    type: string
                   teamId:
                     description: |-
                       (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
@@ -274,13 +284,13 @@ spec:
                     type: string
                   triggerType:
                     description: |-
-                      (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
-                      The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+                      (String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.
+                      The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: `escalation`, `alert group created`, `status change`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`, `resolution note added`, `personal notification`; for incident webhooks: `incident declared`, `incident changed`, `incident resolved`. Defaults to `escalation`.
                     type: string
                   url:
                     description: |-
-                      (String) The webhook URL.
-                      The webhook URL.
+                      (String) The webhook URL. Required when not using a preset that controls this field.
+                      The webhook URL. Required when not using a preset that controls this field.
                     type: string
                   user:
                     description: |-
@@ -460,10 +470,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
                 || (has(self.initProvider) && has(self.initProvider.name))'
-            - message: spec.forProvider.url is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.url)
-                || (has(self.initProvider) && has(self.initProvider.url))'
           status:
             description: OutgoingWebhookStatus defines the observed state of OutgoingWebhook.
             properties:
@@ -509,6 +515,11 @@ spec:
                       (String) The name of the outgoing webhook.
                       The name of the outgoing webhook.
                     type: string
+                  preset:
+                    description: |-
+                      (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+                      The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+                    type: string
                   teamId:
                     description: |-
                       (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
@@ -521,13 +532,13 @@ spec:
                     type: string
                   triggerType:
                     description: |-
-                      (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
-                      The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+                      (String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.
+                      The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: `escalation`, `alert group created`, `status change`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`, `resolution note added`, `personal notification`; for incident webhooks: `incident declared`, `incident changed`, `incident resolved`. Defaults to `escalation`.
                     type: string
                   url:
                     description: |-
-                      (String) The webhook URL.
-                      The webhook URL.
+                      (String) The webhook URL. Required when not using a preset that controls this field.
+                      The webhook URL. Required when not using a preset that controls this field.
                     type: string
                   user:
                     description: |-

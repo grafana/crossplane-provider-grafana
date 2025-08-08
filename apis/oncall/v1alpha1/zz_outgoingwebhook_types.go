@@ -51,6 +51,10 @@ type OutgoingWebhookInitParameters struct {
 	// The auth data of the webhook. Used for Basic authentication
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
+	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+	Preset *string `json:"preset,omitempty" tf:"preset,omitempty"`
+
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
@@ -59,12 +63,12 @@ type OutgoingWebhookInitParameters struct {
 	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
 	TriggerTemplate *string `json:"triggerTemplate,omitempty" tf:"trigger_template,omitempty"`
 
-	// (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
-	// The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+	// (String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.
+	// The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: `escalation`, `alert group created`, `status change`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`, `resolution note added`, `personal notification`; for incident webhooks: `incident declared`, `incident changed`, `incident resolved`. Defaults to `escalation`.
 	TriggerType *string `json:"triggerType,omitempty" tf:"trigger_type,omitempty"`
 
-	// (String) The webhook URL.
-	// The webhook URL.
+	// (String) The webhook URL. Required when not using a preset that controls this field.
+	// The webhook URL. Required when not using a preset that controls this field.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// (String) Username to use when making the outgoing webhook request.
@@ -105,6 +109,10 @@ type OutgoingWebhookObservation struct {
 	// The name of the outgoing webhook.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+	Preset *string `json:"preset,omitempty" tf:"preset,omitempty"`
+
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
@@ -113,12 +121,12 @@ type OutgoingWebhookObservation struct {
 	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
 	TriggerTemplate *string `json:"triggerTemplate,omitempty" tf:"trigger_template,omitempty"`
 
-	// (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
-	// The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+	// (String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.
+	// The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: `escalation`, `alert group created`, `status change`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`, `resolution note added`, `personal notification`; for incident webhooks: `incident declared`, `incident changed`, `incident resolved`. Defaults to `escalation`.
 	TriggerType *string `json:"triggerType,omitempty" tf:"trigger_type,omitempty"`
 
-	// (String) The webhook URL.
-	// The webhook URL.
+	// (String) The webhook URL. Required when not using a preset that controls this field.
+	// The webhook URL. Required when not using a preset that controls this field.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// (String) Username to use when making the outgoing webhook request.
@@ -173,6 +181,11 @@ type OutgoingWebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
+	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+	// +kubebuilder:validation:Optional
+	Preset *string `json:"preset,omitempty" tf:"preset,omitempty"`
+
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
 	// +kubebuilder:validation:Optional
@@ -183,13 +196,13 @@ type OutgoingWebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	TriggerTemplate *string `json:"triggerTemplate,omitempty" tf:"trigger_template,omitempty"`
 
-	// (String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.
-	// The type of event that will cause this outgoing webhook to execute. The types of triggers are: `escalation`, `alert group created`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`. Defaults to `escalation`.
+	// (String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.
+	// The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: `escalation`, `alert group created`, `status change`, `acknowledge`, `resolve`, `silence`, `unsilence`, `unresolve`, `unacknowledge`, `resolution note added`, `personal notification`; for incident webhooks: `incident declared`, `incident changed`, `incident resolved`. Defaults to `escalation`.
 	// +kubebuilder:validation:Optional
 	TriggerType *string `json:"triggerType,omitempty" tf:"trigger_type,omitempty"`
 
-	// (String) The webhook URL.
-	// The webhook URL.
+	// (String) The webhook URL. Required when not using a preset that controls this field.
+	// The webhook URL. Required when not using a preset that controls this field.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
@@ -236,7 +249,6 @@ type OutgoingWebhook struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.url) || (has(self.initProvider) && has(self.initProvider.url))",message="spec.forProvider.url is a required parameter"
 	Spec   OutgoingWebhookSpec   `json:"spec"`
 	Status OutgoingWebhookStatus `json:"status,omitempty"`
 }

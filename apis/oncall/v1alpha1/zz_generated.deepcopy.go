@@ -2056,6 +2056,11 @@ func (in *OutgoingWebhookInitParameters) DeepCopyInto(out *OutgoingWebhookInitPa
 		*out = new(v1.SecretKeySelector)
 		**out = **in
 	}
+	if in.Preset != nil {
+		in, out := &in.Preset, &out.Preset
+		*out = new(string)
+		**out = **in
+	}
 	if in.TeamID != nil {
 		in, out := &in.TeamID, &out.TeamID
 		*out = new(string)
@@ -2174,6 +2179,11 @@ func (in *OutgoingWebhookObservation) DeepCopyInto(out *OutgoingWebhookObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.Preset != nil {
+		in, out := &in.Preset, &out.Preset
+		*out = new(string)
+		**out = **in
+	}
 	if in.TeamID != nil {
 		in, out := &in.TeamID, &out.TeamID
 		*out = new(string)
@@ -2263,6 +2273,11 @@ func (in *OutgoingWebhookParameters) DeepCopyInto(out *OutgoingWebhookParameters
 	if in.PasswordSecretRef != nil {
 		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
 		*out = new(v1.SecretKeySelector)
+		**out = **in
+	}
+	if in.Preset != nil {
+		in, out := &in.Preset, &out.Preset
+		*out = new(string)
 		**out = **in
 	}
 	if in.TeamID != nil {

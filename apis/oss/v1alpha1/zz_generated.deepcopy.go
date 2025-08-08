@@ -3736,6 +3736,11 @@ func (in *Oauth2SettingsInitParameters) DeepCopyInto(out *Oauth2SettingsInitPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.LoginPrompt != nil {
+		in, out := &in.LoginPrompt, &out.LoginPrompt
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -3954,6 +3959,11 @@ func (in *Oauth2SettingsObservation) DeepCopyInto(out *Oauth2SettingsObservation
 	}
 	if in.LoginAttributePath != nil {
 		in, out := &in.LoginAttributePath, &out.LoginAttributePath
+		*out = new(string)
+		**out = **in
+	}
+	if in.LoginPrompt != nil {
+		in, out := &in.LoginPrompt, &out.LoginPrompt
 		*out = new(string)
 		**out = **in
 	}
@@ -4180,6 +4190,11 @@ func (in *Oauth2SettingsParameters) DeepCopyInto(out *Oauth2SettingsParameters) 
 	}
 	if in.LoginAttributePath != nil {
 		in, out := &in.LoginAttributePath, &out.LoginAttributePath
+		*out = new(string)
+		**out = **in
+	}
+	if in.LoginPrompt != nil {
+		in, out := &in.LoginPrompt, &out.LoginPrompt
 		*out = new(string)
 		**out = **in
 	}
