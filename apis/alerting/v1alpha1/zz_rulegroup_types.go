@@ -89,6 +89,10 @@ type DataParameters struct {
 
 type NotificationSettingsInitParameters struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
 	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/alerting/v1alpha1.ContactPoint
@@ -128,6 +132,10 @@ type NotificationSettingsInitParameters struct {
 
 type NotificationSettingsObservation struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
 	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -154,6 +162,11 @@ type NotificationSettingsObservation struct {
 }
 
 type NotificationSettingsParameters struct {
+
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+	// +kubebuilder:validation:Optional
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
 	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.

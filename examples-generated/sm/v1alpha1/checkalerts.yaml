@@ -15,6 +15,9 @@ spec:
     - name: TLSTargetCertificateCloseToExpiring
       period: ""
       threshold: 14
+    - name: HTTPRequestDurationTooHighAvg
+      period: 10m
+      threshold: 5000
     checkId: ${grafana_synthetic_monitoring_check.main.id}
 
 ---
