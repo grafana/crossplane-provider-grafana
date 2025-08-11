@@ -94,6 +94,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_role_assignment":               ReplaceGroupWords("enterprise", 0),
 	"grafana_role_assignment_item":          ReplaceGroupWords("enterprise", 0),
 	"grafana_team_external_group":           ReplaceGroupWords("enterprise", 0),
+	"grafana_scim_config":                   ReplaceGroupWords("enterprise", 0),
 
 	// Machine Learning
 	"grafana_machine_learning_alert":            ReplaceGroupWords("ml", 2),
@@ -150,10 +151,11 @@ var GroupMap = map[string]GroupKindCalculator{
 	// Frontend Observability
 	"grafana_frontend_o11y_app": ReplaceGroupWords("frontendobservability", 2),
 
-	"grafana_k6_installation":   ReplaceGroupWords("k6", 1),
-	"grafana_k6_load_test":      ReplaceGroupWords("k6", 1),
-	"grafana_k6_project":        ReplaceGroupWords("k6", 1),
-	"grafana_k6_project_limits": ReplaceGroupWords("k6", 1),
+	"grafana_k6_installation":               ReplaceGroupWords("k6", 1),
+	"grafana_k6_load_test":                  ReplaceGroupWords("k6", 1),
+	"grafana_k6_project":                    ReplaceGroupWords("k6", 1),
+	"grafana_k6_project_limits":             ReplaceGroupWords("k6", 1),
+	"grafana_k6_project_allowed_load_zones": ReplaceGroupWords("k6", 1),
 }
 
 // KindMap contains kind string overrides.

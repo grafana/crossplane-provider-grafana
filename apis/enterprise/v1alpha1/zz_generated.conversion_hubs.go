@@ -28,4 +28,7 @@ func (tr *RoleAssignment) Hub() {}
 func (tr *RoleAssignmentItem) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *ScimConfig) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *TeamExternalGroup) Hub() {}

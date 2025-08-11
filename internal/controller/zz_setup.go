@@ -35,6 +35,7 @@ import (
 	role "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/role"
 	roleassignment "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignment"
 	roleassignmentitem "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/roleassignmentitem"
+	scimconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/scimconfig"
 	teamexternalgroup "github.com/grafana/crossplane-provider-grafana/internal/controller/enterprise/teamexternalgroup"
 	collector "github.com/grafana/crossplane-provider-grafana/internal/controller/fleetmanagement/collector"
 	pipeline "github.com/grafana/crossplane-provider-grafana/internal/controller/fleetmanagement/pipeline"
@@ -42,6 +43,7 @@ import (
 	installation "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/installation"
 	loadtest "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/loadtest"
 	project "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/project"
+	projectallowedloadzones "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/projectallowedloadzones"
 	projectlimits "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/projectlimits"
 	alert "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/alert"
 	holiday "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/holiday"
@@ -114,6 +116,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		role.Setup,
 		roleassignment.Setup,
 		roleassignmentitem.Setup,
+		scimconfig.Setup,
 		teamexternalgroup.Setup,
 		collector.Setup,
 		pipeline.Setup,
@@ -121,6 +124,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		installation.Setup,
 		loadtest.Setup,
 		project.Setup,
+		projectallowedloadzones.Setup,
 		projectlimits.Setup,
 		alert.Setup,
 		holiday.Setup,

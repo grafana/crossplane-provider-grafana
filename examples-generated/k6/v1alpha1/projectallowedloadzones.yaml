@@ -1,0 +1,28 @@
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: ProjectAllowedLoadZones
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/projectallowedloadzones
+  labels:
+    testing.upbound.io/example-name: test_allowed_zones
+  name: test-allowed-zones
+spec:
+  forProvider:
+    allowedLoadZones:
+    - my-load-zone-1
+    - other-load-zone
+    projectId: ${grafana_k6_project.test_project_allowed_load_zones.id}
+
+---
+
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/projectallowedloadzones
+  labels:
+    testing.upbound.io/example-name: test_project_allowed_load_zones
+  name: test-project-allowed-load-zones
+spec:
+  forProvider:
+    name: Terraform Project Test Allowed Load Zones
