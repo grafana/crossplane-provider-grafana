@@ -359,6 +359,13 @@ spec:
                             Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
                           items:
                             properties:
+                              activeTimings:
+                                description: |-
+                                  (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                  A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                items:
+                                  type: string
+                                type: array
                               contactPoint:
                                 description: |-
                                   (String) The contact point to route notifications that match this rule to.
@@ -800,6 +807,13 @@ spec:
                             Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
                           items:
                             properties:
+                              activeTimings:
+                                description: |-
+                                  (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                  A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                items:
+                                  type: string
+                                type: array
                               contactPoint:
                                 description: |-
                                   (String) The contact point to route notifications that match this rule to.
@@ -1268,6 +1282,13 @@ spec:
                             Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
                           items:
                             properties:
+                              activeTimings:
+                                description: |-
+                                  (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                  A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                items:
+                                  type: string
+                                type: array
                               contactPoint:
                                 description: |-
                                   (String) The contact point to route notifications that match this rule to.

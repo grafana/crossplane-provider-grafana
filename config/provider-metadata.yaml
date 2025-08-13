@@ -1939,6 +1939,34 @@ resources:
             updated: (String) The date when the project was last updated.
         importStatements:
             - terraform import grafana_k6_project.name "{{ id }}"
+    grafana_k6_project_allowed_load_zones:
+        subCategory: k6
+        description: Manages allowed private load zones for a k6 project.
+        name: grafana_k6_project_allowed_load_zones
+        title: grafana_k6_project_allowed_load_zones Resource - terraform-provider-grafana
+        examples:
+            - name: test_allowed_zones
+              manifest: |-
+                {
+                  "allowed_load_zones": [
+                    "my-load-zone-1",
+                    "other-load-zone"
+                  ],
+                  "project_id": "${grafana_k6_project.test_project_allowed_load_zones.id}"
+                }
+              references:
+                project_id: grafana_k6_project.test_project_allowed_load_zones.id
+              dependencies:
+                grafana_k6_project.test_project_allowed_load_zones: |-
+                    {
+                      "name": "Terraform Project Test Allowed Load Zones"
+                    }
+        argumentDocs:
+            allowed_load_zones: (List of String) List of allowed private k6 load zone IDs for this project.
+            id: (String) The identifier of the project. This is set to the same as the project_id.
+            project_id: (String) The identifier of the project to manage private allowed load zones for.
+        importStatements:
+            - terraform import grafana_k6_project_allowed_load_zones.name "{{ project_id }}"
     grafana_k6_project_limits:
         subCategory: k6
         description: Manages limits for a k6 project.
@@ -2794,6 +2822,18 @@ resources:
               references:
                 provider: grafana.oncall
                 team_id: data.grafana_oncall_team.my_team.id
+            - name: test-acc-outgoing_webhook-incident
+              manifest: |-
+                {
+                  "http_method": "POST",
+                  "name": "my outgoing incident webhook",
+                  "preset": "incident_webhook",
+                  "provider": "${grafana.oncall}",
+                  "trigger_type": "incident declared",
+                  "url": "https://example.com/"
+                }
+              references:
+                provider: grafana.oncall
         argumentDocs:
             authorization_header: (String, Sensitive) The auth data of the webhook. Used in Authorization header instead of user/password auth.
             data: (String) The data of the webhook.
@@ -2805,10 +2845,11 @@ resources:
             is_webhook_enabled: (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
             name: (String) The name of the outgoing webhook.
             password: (String, Sensitive) The auth data of the webhook. Used for Basic authentication
+            preset: '(String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.'
             team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
             trigger_template: (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
-            trigger_type: '(String) The type of event that will cause this outgoing webhook to execute. The types of triggers are: escalation, alert group created, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge. Defaults to escalation.'
-            url: (String) The webhook URL.
+            trigger_type: '(String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.'
+            url: (String) The webhook URL. Required when not using a preset that controls this field.
             user: (String) Username to use when making the outgoing webhook request.
         importStatements:
             - terraform import grafana_oncall_outgoing_webhook.name "{{ id }}"
@@ -3533,6 +3574,7 @@ resources:
                       "title": "My Alert Rule Folder"
                     }
         argumentDocs:
+            active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
             annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
             condition: (String) The ref_id of the query node in the data field to use as the alert condition.
             contact_point: (String) The contact point to route notifications that match this rule to.
@@ -3581,16 +3623,16 @@ resources:
             - name: default
               manifest: |-
                 {
-                  "allow_non_provisioned_users": false,
                   "enable_group_sync": false,
-                  "enable_user_sync": true
+                  "enable_user_sync": true,
+                  "reject_non_provisioned_users": false
                 }
         argumentDocs:
-            allow_non_provisioned_users: (Boolean) Whether to allow non-provisioned users to access Grafana.
             enable_group_sync: (Boolean) Whether group synchronization is enabled.
             enable_user_sync: (Boolean) Whether user synchronization is enabled.
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            reject_non_provisioned_users: (Boolean) Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
         importStatements:
             - |-
               terraform import grafana_scim_config.name ""
@@ -4190,6 +4232,7 @@ resources:
             idp_metadata_url: (String) URL for the IdP SAML metadata XML.
             ldap_settings: '(Block Set, Max: 1) The LDAP settings set. Required for the ldap provider. (see below for nested schema)'
             login_attribute_path: (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
+            login_prompt: (String) Indicates the type of user interaction when the user logs in with the IdP. Available values are login, consent and select_account.
             max_issue_delay: '(String) Duration, since the IdP issued a response and the SP is allowed to process it. For example: 90s, 1h.'
             metadata_valid_duration: '(String) Duration, for how long the SP metadata is valid. For example: 48h, 5d.'
             min_tls_version: '(String) Minimum TLS version allowed. Accepted values are: TLS1.2, TLS1.3.'
@@ -4949,6 +4992,11 @@ resources:
                       "name": "TLSTargetCertificateCloseToExpiring",
                       "period": "",
                       "threshold": 14
+                    },
+                    {
+                      "name": "HTTPRequestDurationTooHighAvg",
+                      "period": "10m",
+                      "threshold": 5000
                     }
                   ],
                   "check_id": "${grafana_synthetic_monitoring_check.main.id}"

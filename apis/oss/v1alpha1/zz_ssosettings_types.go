@@ -244,6 +244,10 @@ type Oauth2SettingsInitParameters struct {
 	// JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
 	LoginAttributePath *string `json:"loginAttributePath,omitempty" tf:"login_attribute_path,omitempty"`
 
+	// (String) Indicates the type of user interaction when the user logs in with the IdP. Available values are login, consent and select_account.
+	// Indicates the type of user interaction when the user logs in with the IdP. Available values are `login`, `consent` and `select_account`.
+	LoginPrompt *string `json:"loginPrompt,omitempty" tf:"login_prompt,omitempty"`
+
 	// (String) Helpful if you use more than one identity providers or SSO protocols.
 	// Helpful if you use more than one identity providers or SSO protocols.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -403,6 +407,10 @@ type Oauth2SettingsObservation struct {
 	// (String) JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
 	// JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
 	LoginAttributePath *string `json:"loginAttributePath,omitempty" tf:"login_attribute_path,omitempty"`
+
+	// (String) Indicates the type of user interaction when the user logs in with the IdP. Available values are login, consent and select_account.
+	// Indicates the type of user interaction when the user logs in with the IdP. Available values are `login`, `consent` and `select_account`.
+	LoginPrompt *string `json:"loginPrompt,omitempty" tf:"login_prompt,omitempty"`
 
 	// (String) Helpful if you use more than one identity providers or SSO protocols.
 	// Helpful if you use more than one identity providers or SSO protocols.
@@ -588,6 +596,11 @@ type Oauth2SettingsParameters struct {
 	// JMESPath expression to use for user login lookup from the user ID token. Only applicable to Generic OAuth.
 	// +kubebuilder:validation:Optional
 	LoginAttributePath *string `json:"loginAttributePath,omitempty" tf:"login_attribute_path,omitempty"`
+
+	// (String) Indicates the type of user interaction when the user logs in with the IdP. Available values are login, consent and select_account.
+	// Indicates the type of user interaction when the user logs in with the IdP. Available values are `login`, `consent` and `select_account`.
+	// +kubebuilder:validation:Optional
+	LoginPrompt *string `json:"loginPrompt,omitempty" tf:"login_prompt,omitempty"`
 
 	// (String) Helpful if you use more than one identity providers or SSO protocols.
 	// Helpful if you use more than one identity providers or SSO protocols.
