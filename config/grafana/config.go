@@ -182,7 +182,6 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "AccessPolicySelector",
 			Extractor:         computedFieldExtractor("policyId"),
 		}
-		r.TerraformCustomDiff = recreateIfAttributeMissing("token")
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 			cloudConfig := map[string]string{}
@@ -273,7 +272,6 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "ServiceAccountRef",
 			SelectorFieldName: "ServiceAccountSelector",
 		}
-		r.TerraformCustomDiff = recreateIfAttributeMissing("key")
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 
@@ -316,7 +314,6 @@ func Configure(p *ujconfig.Provider) {
 			RefFieldName:      "ServiceAccountRef",
 			SelectorFieldName: "ServiceAccountSelector",
 		}
-		r.TerraformCustomDiff = recreateIfAttributeMissing("key")
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 
@@ -499,7 +496,6 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "CloudStackSelector",
 			Extractor:         computedFieldExtractor("id"),
 		}
-		r.TerraformCustomDiff = recreateIfAttributeMissing("sm_access_token")
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 
@@ -562,22 +558,4 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "ProjectSelector",
 		}
 	})
-}
-
-func recreateIfAttributeMissing(attribute string) ujconfig.CustomDiff {
-	return func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
-		if state == nil {
-			return diff, nil
-		}
-
-		// The attribute may not be returned in the state, so we need to recreate the resource if it is missing
-		if _, ok := state.Attributes[attribute]; !ok {
-			if diff == nil {
-				diff = &terraform.InstanceDiff{}
-			}
-			diff.DestroyTainted = true
-		}
-
-		return diff, nil
-	}
 }
