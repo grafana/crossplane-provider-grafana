@@ -14,11 +14,6 @@ env:
   GOLANGCI_VERSION: 'v1.64.6'
   DOCKER_BUILDX_VERSION: 'v0.8.2'
 
-  # Common users. We can't run a step 'if secrets.XXX != ""' but we can run a
-  # step 'if env.XXX != ""', so we copy these to succinctly test whether
-  # credentials have been provided before trying to run steps that need them.
-  UPBOUND_MARKETPLACE_PUSH_ROBOT_USR: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
-
 jobs:
   detect-noop:
     runs-on: ubuntu-24.04
@@ -191,6 +186,7 @@ jobs:
     runs-on: ubuntu-24.04
     # Explicitly set permissions for this job
     permissions:
+      id-token: write
       contents: write
     needs:
       - detect-noop
@@ -214,13 +210,20 @@ jobs:
           install: 'true'
           cache-binary: 'false'
 
+      - name: Get Upbound Credentials from Vault
+        uses: grafana/shared-workflows/actions/get-vault-secrets@a37de51f3d713a30a9e4b21bcdfbd38170020593 # get-vault-secrets/v1.3.0
+        with:
+          common_secrets: |
+            UPBOUND_MARKETPLACE_PUSH_ROBOT_ID=upbound:access-id
+            UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN=upbound:token
+
       - name: Login to Upbound
-        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3
-        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
+        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
+        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
         with:
           registry: xpkg.upbound.io
-          username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
-          password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+          username: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID }}
+          password: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN }}
 
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -254,5 +257,5 @@ jobs:
           path: _output/**
 
       - name: Publish Artifacts
-        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
+        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
