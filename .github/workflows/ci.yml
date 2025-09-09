@@ -280,6 +280,7 @@ jobs:
     runs-on: ubuntu-24.04
     # Explicitly set permissions for this job
     permissions:
+      id-token: write
       contents: write
     needs:
       - detect-noop
