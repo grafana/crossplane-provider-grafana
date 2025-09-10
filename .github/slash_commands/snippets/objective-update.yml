@@ -1,6 +1,0 @@
-trigger: objective-update
-title: "Objective Update"
-description: This is an update on an objective
-surfaces:
-  - issue_comment
-value_source: slash_commands/snippets/objective-update.md
