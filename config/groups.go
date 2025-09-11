@@ -59,11 +59,12 @@ func ReplaceGroupWords(group string, count int) GroupKindCalculator {
 // Keep the same structure as in the Terraform docs: https://registry.terraform.io/providers/grafana/grafana/latest/docs
 var GroupMap = map[string]GroupKindCalculator{
 	// Alerting
-	"grafana_contact_point":       ReplaceGroupWords("alerting", 0),
-	"grafana_message_template":    ReplaceGroupWords("alerting", 0),
-	"grafana_mute_timing":         ReplaceGroupWords("alerting", 0),
-	"grafana_notification_policy": ReplaceGroupWords("alerting", 0),
-	"grafana_rule_group":          ReplaceGroupWords("alerting", 0),
+	"grafana_contact_point":                                ReplaceGroupWords("alerting", 0),
+	"grafana_message_template":                             ReplaceGroupWords("alerting", 0),
+	"grafana_mute_timing":                                  ReplaceGroupWords("alerting", 0),
+	"grafana_notification_policy":                          ReplaceGroupWords("alerting", 0),
+	"grafana_rule_group":                                   ReplaceGroupWords("alerting", 0),
+	"grafana_apps_alertenrichment_alertenrichment_v1beta1": ReplaceGroupWords("alerting", 2),
 
 	// Cloud
 	"grafana_cloud_access_policy":                             ReplaceGroupWords("cloud", 1),
@@ -156,6 +157,11 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_k6_project":                    ReplaceGroupWords("k6", 1),
 	"grafana_k6_project_limits":             ReplaceGroupWords("k6", 1),
 	"grafana_k6_project_allowed_load_zones": ReplaceGroupWords("k6", 1),
+	"grafana_k6_schedule":                   ReplaceGroupWords("k6", 1),
+
+	// Asserts
+	"grafana_asserts_notification_alerts_config":   ReplaceGroupWords("asserts", 1),
+	"grafana_asserts_suppressed_assertions_config": ReplaceGroupWords("asserts", 1),
 }
 
 // KindMap contains kind string overrides.
