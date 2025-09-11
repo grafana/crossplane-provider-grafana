@@ -1,0 +1,14 @@
+apiVersion: asserts.grafana.crossplane.io/v1alpha1
+kind: SuppressedAssertionsConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/suppressedassertionsconfig
+  labels:
+    testing.upbound.io/example-name: maintenance_window
+  name: maintenance-window
+spec:
+  forProvider:
+    matchLabels:
+      maintenance: "true"
+      service: api-service
+    name: MaintenanceWindow

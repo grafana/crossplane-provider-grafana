@@ -57,11 +57,17 @@ func resourcesByFramework() ([]string, []string) {
 	resourcesMap := map[string]bool{}
 	for _, r := range grafanaProvider.Resources() {
 		resourcesMap[r.Name] = r.PluginFrameworkSchema != nil
-		if _, ok := GroupMap[r.Name]; !ok {
-			// list resource not yet included in config/groups.go
-			fmt.Printf("Not in groupMap: %s\n", r.Name)
-		}
+	}
 
+	for _, r := range grafanaProvider.AppPlatformResources() {
+		resourcesMap[r.Name] = true
+	}
+
+	for name := range resourcesMap {
+		if _, ok := GroupMap[name]; !ok {
+			// list resource not yet included in config/groups.go
+			fmt.Printf("Not in groupMap: %s\n", name)
+		}
 	}
 
 	var legacySDKResources, pluginFrameworkResources []string

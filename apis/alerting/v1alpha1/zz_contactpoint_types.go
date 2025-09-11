@@ -446,7 +446,7 @@ type DingdingInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The DingDing webhook URL.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type DingdingObservation struct {
@@ -470,10 +470,6 @@ type DingdingObservation struct {
 	// (String) The UID of the contact point.
 	// The UID of the contact point.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-	// (String) The URL of the Alertmanager instance.
-	// The DingDing webhook URL.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type DingdingParameters struct {
@@ -506,7 +502,7 @@ type DingdingParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The DingDing webhook URL.
 	// +kubebuilder:validation:Optional
-	URL *string `json:"url" tf:"url,omitempty"`
+	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type DiscordInitParameters struct {
@@ -756,6 +752,72 @@ type GooglechatParameters struct {
 	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
+type HMACConfigInitParameters struct {
+
+	// Grafana-Alerting-Signature.
+	// The header in which the HMAC signature will be included. Defaults to `X-Grafana-Alerting-Signature`.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// (String, Sensitive) The secret key used to generate the HMAC signature.
+	// The secret key used to generate the HMAC signature.
+	SecretSecretRef v1.SecretKeySelector `json:"secretSecretRef" tf:"-"`
+
+	// (String) If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
+	// If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
+	TimestampHeader *string `json:"timestampHeader,omitempty" tf:"timestamp_header,omitempty"`
+}
+
+type HMACConfigObservation struct {
+
+	// Grafana-Alerting-Signature.
+	// The header in which the HMAC signature will be included. Defaults to `X-Grafana-Alerting-Signature`.
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// (String) If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
+	// If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
+	TimestampHeader *string `json:"timestampHeader,omitempty" tf:"timestamp_header,omitempty"`
+}
+
+type HMACConfigParameters struct {
+
+	// Grafana-Alerting-Signature.
+	// The header in which the HMAC signature will be included. Defaults to `X-Grafana-Alerting-Signature`.
+	// +kubebuilder:validation:Optional
+	Header *string `json:"header,omitempty" tf:"header,omitempty"`
+
+	// (String, Sensitive) The secret key used to generate the HMAC signature.
+	// The secret key used to generate the HMAC signature.
+	// +kubebuilder:validation:Optional
+	SecretSecretRef v1.SecretKeySelector `json:"secretSecretRef" tf:"-"`
+
+	// (String) If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
+	// If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
+	// +kubebuilder:validation:Optional
+	TimestampHeader *string `json:"timestampHeader,omitempty" tf:"timestamp_header,omitempty"`
+}
+
+type HTTPConfigInitParameters struct {
+
+	// (Block Set, Max: 1) OAuth2 configuration options. (see below for nested schema)
+	// OAuth2 configuration options.
+	Oauth2 []Oauth2InitParameters `json:"oauth2,omitempty" tf:"oauth2,omitempty"`
+}
+
+type HTTPConfigObservation struct {
+
+	// (Block Set, Max: 1) OAuth2 configuration options. (see below for nested schema)
+	// OAuth2 configuration options.
+	Oauth2 []Oauth2Observation `json:"oauth2,omitempty" tf:"oauth2,omitempty"`
+}
+
+type HTTPConfigParameters struct {
+
+	// (Block Set, Max: 1) OAuth2 configuration options. (see below for nested schema)
+	// OAuth2 configuration options.
+	// +kubebuilder:validation:Optional
+	Oauth2 []Oauth2Parameters `json:"oauth2,omitempty" tf:"oauth2,omitempty"`
+}
+
 type KafkaInitParameters struct {
 
 	// (String) The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to v2.
@@ -951,6 +1013,105 @@ type LineParameters struct {
 	// The bearer token used to authorize the client.
 	// +kubebuilder:validation:Optional
 	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+}
+
+type Oauth2InitParameters struct {
+
+	// (String) Client ID to use when authenticating.
+	// Client ID to use when authenticating.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (String, Sensitive) Client secret to use when authenticating.
+	// Client secret to use when authenticating.
+	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+
+	// (Map of String) Optional parameters to append to the access token request.
+	// Optional parameters to append to the access token request.
+	// +mapType=granular
+	EndpointParams map[string]*string `json:"endpointParams,omitempty" tf:"endpoint_params,omitempty"`
+
+	// (Block Set, Max: 1) Optional proxy configuration for OAuth2 requests. (see below for nested schema)
+	// Optional proxy configuration for OAuth2 requests.
+	ProxyConfig []ProxyConfigInitParameters `json:"proxyConfig,omitempty" tf:"proxy_config,omitempty"`
+
+	// (List of String) Optional scopes to request when obtaining an access token.
+	// Optional scopes to request when obtaining an access token.
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+
+	// (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
+	// Optional TLS configuration options for OAuth2 requests.
+	TLSConfig []TLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
+	// (String) URL for the access token endpoint.
+	// URL for the access token endpoint.
+	TokenURL *string `json:"tokenUrl,omitempty" tf:"token_url,omitempty"`
+}
+
+type Oauth2Observation struct {
+
+	// (String) Client ID to use when authenticating.
+	// Client ID to use when authenticating.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (Map of String) Optional parameters to append to the access token request.
+	// Optional parameters to append to the access token request.
+	// +mapType=granular
+	EndpointParams map[string]*string `json:"endpointParams,omitempty" tf:"endpoint_params,omitempty"`
+
+	// (Block Set, Max: 1) Optional proxy configuration for OAuth2 requests. (see below for nested schema)
+	// Optional proxy configuration for OAuth2 requests.
+	ProxyConfig []ProxyConfigObservation `json:"proxyConfig,omitempty" tf:"proxy_config,omitempty"`
+
+	// (List of String) Optional scopes to request when obtaining an access token.
+	// Optional scopes to request when obtaining an access token.
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+
+	// (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
+	// Optional TLS configuration options for OAuth2 requests.
+	TLSConfig []TLSConfigObservation `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
+	// (String) URL for the access token endpoint.
+	// URL for the access token endpoint.
+	TokenURL *string `json:"tokenUrl,omitempty" tf:"token_url,omitempty"`
+}
+
+type Oauth2Parameters struct {
+
+	// (String) Client ID to use when authenticating.
+	// Client ID to use when authenticating.
+	// +kubebuilder:validation:Optional
+	ClientID *string `json:"clientId" tf:"client_id,omitempty"`
+
+	// (String, Sensitive) Client secret to use when authenticating.
+	// Client secret to use when authenticating.
+	// +kubebuilder:validation:Optional
+	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+
+	// (Map of String) Optional parameters to append to the access token request.
+	// Optional parameters to append to the access token request.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	EndpointParams map[string]*string `json:"endpointParams,omitempty" tf:"endpoint_params,omitempty"`
+
+	// (Block Set, Max: 1) Optional proxy configuration for OAuth2 requests. (see below for nested schema)
+	// Optional proxy configuration for OAuth2 requests.
+	// +kubebuilder:validation:Optional
+	ProxyConfig []ProxyConfigParameters `json:"proxyConfig,omitempty" tf:"proxy_config,omitempty"`
+
+	// (List of String) Optional scopes to request when obtaining an access token.
+	// Optional scopes to request when obtaining an access token.
+	// +kubebuilder:validation:Optional
+	Scopes []*string `json:"scopes,omitempty" tf:"scopes,omitempty"`
+
+	// (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
+	// Optional TLS configuration options for OAuth2 requests.
+	// +kubebuilder:validation:Optional
+	TLSConfig []TLSConfigParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
+
+	// (String) URL for the access token endpoint.
+	// URL for the access token endpoint.
+	// +kubebuilder:validation:Optional
+	TokenURL *string `json:"tokenUrl" tf:"token_url,omitempty"`
 }
 
 type OncallInitParameters struct {
@@ -1401,6 +1562,108 @@ type PagerdutyParameters struct {
 	// The URL to send API requests to
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type PayloadInitParameters struct {
+
+	// (String) Custom payload template.
+	// Custom payload template.
+	Template *string `json:"template,omitempty" tf:"template,omitempty"`
+
+	// (Map of String) Optionally provide a variables to be used in the payload template. They will be available in the template as .Vars.<variable_name>.
+	// Optionally provide a variables to be used in the payload template. They will be available in the template as `.Vars.<variable_name>`.
+	// +mapType=granular
+	Vars map[string]*string `json:"vars,omitempty" tf:"vars,omitempty"`
+}
+
+type PayloadObservation struct {
+
+	// (String) Custom payload template.
+	// Custom payload template.
+	Template *string `json:"template,omitempty" tf:"template,omitempty"`
+
+	// (Map of String) Optionally provide a variables to be used in the payload template. They will be available in the template as .Vars.<variable_name>.
+	// Optionally provide a variables to be used in the payload template. They will be available in the template as `.Vars.<variable_name>`.
+	// +mapType=granular
+	Vars map[string]*string `json:"vars,omitempty" tf:"vars,omitempty"`
+}
+
+type PayloadParameters struct {
+
+	// (String) Custom payload template.
+	// Custom payload template.
+	// +kubebuilder:validation:Optional
+	Template *string `json:"template" tf:"template,omitempty"`
+
+	// (Map of String) Optionally provide a variables to be used in the payload template. They will be available in the template as .Vars.<variable_name>.
+	// Optionally provide a variables to be used in the payload template. They will be available in the template as `.Vars.<variable_name>`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Vars map[string]*string `json:"vars,omitempty" tf:"vars,omitempty"`
+}
+
+type ProxyConfigInitParameters struct {
+
+	// separated list of addresses that should not use a proxy.
+	// Comma-separated list of addresses that should not use a proxy.
+	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
+
+	// (Map of String) Optional headers to send to proxies during CONNECT requests.
+	// Optional headers to send to proxies during CONNECT requests.
+	// +mapType=granular
+	ProxyConnectHeader map[string]*string `json:"proxyConnectHeader,omitempty" tf:"proxy_connect_header,omitempty"`
+
+	// (Boolean) Use environment HTTP_PROXY, HTTPS_PROXY and NO_PROXY to determine proxies. Defaults to false.
+	// Use environment HTTP_PROXY, HTTPS_PROXY and NO_PROXY to determine proxies. Defaults to `false`.
+	ProxyFromEnvironment *bool `json:"proxyFromEnvironment,omitempty" tf:"proxy_from_environment,omitempty"`
+
+	// (String) HTTP proxy server to use to connect to the targets.
+	// HTTP proxy server to use to connect to the targets.
+	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
+}
+
+type ProxyConfigObservation struct {
+
+	// separated list of addresses that should not use a proxy.
+	// Comma-separated list of addresses that should not use a proxy.
+	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
+
+	// (Map of String) Optional headers to send to proxies during CONNECT requests.
+	// Optional headers to send to proxies during CONNECT requests.
+	// +mapType=granular
+	ProxyConnectHeader map[string]*string `json:"proxyConnectHeader,omitempty" tf:"proxy_connect_header,omitempty"`
+
+	// (Boolean) Use environment HTTP_PROXY, HTTPS_PROXY and NO_PROXY to determine proxies. Defaults to false.
+	// Use environment HTTP_PROXY, HTTPS_PROXY and NO_PROXY to determine proxies. Defaults to `false`.
+	ProxyFromEnvironment *bool `json:"proxyFromEnvironment,omitempty" tf:"proxy_from_environment,omitempty"`
+
+	// (String) HTTP proxy server to use to connect to the targets.
+	// HTTP proxy server to use to connect to the targets.
+	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
+}
+
+type ProxyConfigParameters struct {
+
+	// separated list of addresses that should not use a proxy.
+	// Comma-separated list of addresses that should not use a proxy.
+	// +kubebuilder:validation:Optional
+	NoProxy *string `json:"noProxy,omitempty" tf:"no_proxy,omitempty"`
+
+	// (Map of String) Optional headers to send to proxies during CONNECT requests.
+	// Optional headers to send to proxies during CONNECT requests.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	ProxyConnectHeader map[string]*string `json:"proxyConnectHeader,omitempty" tf:"proxy_connect_header,omitempty"`
+
+	// (Boolean) Use environment HTTP_PROXY, HTTPS_PROXY and NO_PROXY to determine proxies. Defaults to false.
+	// Use environment HTTP_PROXY, HTTPS_PROXY and NO_PROXY to determine proxies. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	ProxyFromEnvironment *bool `json:"proxyFromEnvironment,omitempty" tf:"proxy_from_environment,omitempty"`
+
+	// (String) HTTP proxy server to use to connect to the targets.
+	// HTTP proxy server to use to connect to the targets.
+	// +kubebuilder:validation:Optional
+	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
 }
 
 type PushoverInitParameters struct {
@@ -2095,6 +2358,55 @@ type SnsParameters struct {
 	Topic *string `json:"topic" tf:"topic,omitempty"`
 }
 
+type TLSConfigInitParameters struct {
+
+	// (String, Sensitive) Certificate in PEM format to use when verifying the server's certificate chain.
+	// Certificate in PEM format to use when verifying the server's certificate chain.
+	CACertificateSecretRef *v1.SecretKeySelector `json:"caCertificateSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) Client certificate in PEM format to use when connecting to the server.
+	// Client certificate in PEM format to use when connecting to the server.
+	ClientCertificateSecretRef *v1.SecretKeySelector `json:"clientCertificateSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) Client key in PEM format to use when connecting to the server.
+	// Client key in PEM format to use when connecting to the server.
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+
+	// (Boolean) Do not verify the server's certificate chain and host name. Defaults to false.
+	// Do not verify the server's certificate chain and host name. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type TLSConfigObservation struct {
+
+	// (Boolean) Do not verify the server's certificate chain and host name. Defaults to false.
+	// Do not verify the server's certificate chain and host name. Defaults to `false`.
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
+type TLSConfigParameters struct {
+
+	// (String, Sensitive) Certificate in PEM format to use when verifying the server's certificate chain.
+	// Certificate in PEM format to use when verifying the server's certificate chain.
+	// +kubebuilder:validation:Optional
+	CACertificateSecretRef *v1.SecretKeySelector `json:"caCertificateSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) Client certificate in PEM format to use when connecting to the server.
+	// Client certificate in PEM format to use when connecting to the server.
+	// +kubebuilder:validation:Optional
+	ClientCertificateSecretRef *v1.SecretKeySelector `json:"clientCertificateSecretRef,omitempty" tf:"-"`
+
+	// (String, Sensitive) Client key in PEM format to use when connecting to the server.
+	// Client key in PEM format to use when connecting to the server.
+	// +kubebuilder:validation:Optional
+	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+
+	// (Boolean) Do not verify the server's certificate chain and host name. Defaults to false.
+	// Do not verify the server's certificate chain and host name. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	InsecureSkipVerify *bool `json:"insecureSkipVerify,omitempty" tf:"insecure_skip_verify,omitempty"`
+}
+
 type TeamsInitParameters struct {
 
 	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
@@ -2506,7 +2818,7 @@ type WebexInitParameters struct {
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The bearer token used to authorize the client.
-	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
+	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type WebexObservation struct {
@@ -2552,7 +2864,7 @@ type WebexParameters struct {
 	// (String) ID of the Webex Teams room where to send the messages.
 	// ID of the Webex Teams room where to send the messages.
 	// +kubebuilder:validation:Optional
-	RoomID *string `json:"roomId,omitempty" tf:"room_id,omitempty"`
+	RoomID *string `json:"roomId" tf:"room_id,omitempty"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
@@ -2562,7 +2874,7 @@ type WebexParameters struct {
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The bearer token used to authorize the client.
 	// +kubebuilder:validation:Optional
-	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
+	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type WebhookInitParameters struct {
@@ -2587,9 +2899,22 @@ type WebhookInitParameters struct {
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// (Block Set, Max: 1) HMAC signature configuration options. (see below for nested schema)
+	// HMAC signature configuration options.
+	HMACConfig []HMACConfigInitParameters `json:"hmacConfig,omitempty" tf:"hmac_config,omitempty"`
+
+	// (Block Set, Max: 1) Common HTTP client options. (see below for nested schema)
+	// Common HTTP client options.
+	HTTPConfig []HTTPConfigInitParameters `json:"httpConfig,omitempty" tf:"http_config,omitempty"`
+
 	// (String) The HTTP method to use in the request. Defaults to POST.
 	// The HTTP method to use in the request. Defaults to `POST`.
 	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (Map of String) Custom headers to attach to the request.
+	// Custom headers to attach to the request.
+	// +mapType=granular
+	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
 	// The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
@@ -2598,6 +2923,10 @@ type WebhookInitParameters struct {
 	// (String) The templated content of the message.
 	// Custom message. You can use template variables.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Block Set, Max: 1) Optionally provide a templated payload. Overrides 'Message' and 'Title' field. (see below for nested schema)
+	// Optionally provide a templated payload. Overrides 'Message' and 'Title' field.
+	Payload []PayloadInitParameters `json:"payload,omitempty" tf:"payload,omitempty"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
@@ -2626,9 +2955,22 @@ type WebhookObservation struct {
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// (Block Set, Max: 1) HMAC signature configuration options. (see below for nested schema)
+	// HMAC signature configuration options.
+	HMACConfig []HMACConfigObservation `json:"hmacConfig,omitempty" tf:"hmac_config,omitempty"`
+
+	// (Block Set, Max: 1) Common HTTP client options. (see below for nested schema)
+	// Common HTTP client options.
+	HTTPConfig []HTTPConfigObservation `json:"httpConfig,omitempty" tf:"http_config,omitempty"`
+
 	// (String) The HTTP method to use in the request. Defaults to POST.
 	// The HTTP method to use in the request. Defaults to `POST`.
 	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (Map of String) Custom headers to attach to the request.
+	// Custom headers to attach to the request.
+	// +mapType=granular
+	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
 	// The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
@@ -2637,6 +2979,10 @@ type WebhookObservation struct {
 	// (String) The templated content of the message.
 	// Custom message. You can use template variables.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Block Set, Max: 1) Optionally provide a templated payload. Overrides 'Message' and 'Title' field. (see below for nested schema)
+	// Optionally provide a templated payload. Overrides 'Message' and 'Title' field.
+	Payload []PayloadObservation `json:"payload,omitempty" tf:"payload,omitempty"`
 
 	// (String) The templated title of the message.
 	// Templated title of the message.
@@ -2678,10 +3024,26 @@ type WebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// (Block Set, Max: 1) HMAC signature configuration options. (see below for nested schema)
+	// HMAC signature configuration options.
+	// +kubebuilder:validation:Optional
+	HMACConfig []HMACConfigParameters `json:"hmacConfig,omitempty" tf:"hmac_config,omitempty"`
+
+	// (Block Set, Max: 1) Common HTTP client options. (see below for nested schema)
+	// Common HTTP client options.
+	// +kubebuilder:validation:Optional
+	HTTPConfig []HTTPConfigParameters `json:"httpConfig,omitempty" tf:"http_config,omitempty"`
+
 	// (String) The HTTP method to use in the request. Defaults to POST.
 	// The HTTP method to use in the request. Defaults to `POST`.
 	// +kubebuilder:validation:Optional
 	HTTPMethod *string `json:"httpMethod,omitempty" tf:"http_method,omitempty"`
+
+	// (Map of String) Custom headers to attach to the request.
+	// Custom headers to attach to the request.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Headers map[string]*string `json:"headers,omitempty" tf:"headers,omitempty"`
 
 	// (Number) The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
 	// The maximum number of alerts to send in a single request. This can be helpful in limiting the size of the request body. The default is 0, which indicates no limit.
@@ -2692,6 +3054,11 @@ type WebhookParameters struct {
 	// Custom message. You can use template variables.
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+
+	// (Block Set, Max: 1) Optionally provide a templated payload. Overrides 'Message' and 'Title' field. (see below for nested schema)
+	// Optionally provide a templated payload. Overrides 'Message' and 'Title' field.
+	// +kubebuilder:validation:Optional
+	Payload []PayloadParameters `json:"payload,omitempty" tf:"payload,omitempty"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
@@ -2736,7 +3103,7 @@ type WecomInitParameters struct {
 	// The type of them message. Supported: markdown, text. Default: text.
 	MsgType *string `json:"msgType,omitempty" tf:"msg_type,omitempty"`
 
-	// (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+	// (String, Sensitive) The secret key used to generate the HMAC signature.
 	// The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
 	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
@@ -2817,7 +3184,7 @@ type WecomParameters struct {
 	// +kubebuilder:validation:Optional
 	MsgType *string `json:"msgType,omitempty" tf:"msg_type,omitempty"`
 
-	// (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+	// (String, Sensitive) The secret key used to generate the HMAC signature.
 	// The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
 	// +kubebuilder:validation:Optional
 	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`

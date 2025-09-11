@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-  name: plugininstallations.cloud.grafana.crossplane.io
+  name: schedules.k6.grafana.crossplane.io
 spec:
-  group: cloud.grafana.crossplane.io
+  group: k6.grafana.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - grafana
-    kind: PluginInstallation
-    listKind: PluginInstallationList
-    plural: plugininstallations
-    singular: plugininstallation
+    kind: Schedule
+    listKind: ScheduleList
+    plural: schedules
+    singular: schedule
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,9 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'PluginInstallation is the Schema for the PluginInstallations
-          API. Manages Grafana Cloud Plugin Installations. Plugin Catalog https://grafana.com/grafana/plugins/
-          Required access policy scopes: stack-plugins:readstack-plugins:writestack-plugins:delete'
+        description: Schedule is the Schema for the Schedules API. Manages a k6 schedule
+          for automated test execution.
         properties:
           apiVersion:
             description: |-
@@ -56,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: PluginInstallationSpec defines the desired state of PluginInstallation
+            description: ScheduleSpec defines the desired state of Schedule
             properties:
               deletionPolicy:
                 default: Delete
@@ -74,94 +73,50 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  cloudStackRef:
-                    description: Reference to a Stack in cloud to populate stackSlug.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
+                  loadTestId:
+                    description: |-
+                      (String) The identifier of the load test to schedule.
+                      The identifier of the load test to schedule.
+                    type: string
+                  recurrenceRule:
+                    description: |-
+                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
+                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+                    items:
+                      properties:
+                        byday:
+                          description: |-
+                            (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+                            The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+                          items:
                             type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  cloudStackSelector:
-                    description: Selector for a Stack in cloud to populate stackSlug.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
+                          type: array
+                        count:
+                          description: |-
+                            (Number) How many times the recurrence will repeat.
+                            How many times the recurrence will repeat.
+                          type: number
+                        frequency:
+                          description: |-
+                            (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+                            The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
                           type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  slug:
+                        interval:
+                          description: |-
+                            (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+                            The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+                          type: number
+                        until:
+                          description: |-
+                            (String) The end time for the recurrence (RFC3339 format).
+                            The end time for the recurrence (RFC3339 format).
+                          type: string
+                      type: object
+                    type: array
+                  starts:
                     description: |-
-                      (String) Slug of the plugin to be installed.
-                      Slug of the plugin to be installed.
-                    type: string
-                  stackSlug:
-                    description: |-
-                      (String) The stack id to which the plugin should be installed.
-                      The stack id to which the plugin should be installed.
-                    type: string
-                  version:
-                    description: |-
-                      (String) Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to latest.
-                      Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to `latest`.
+                      (String) The start time for the schedule (RFC3339 format).
+                      The start time for the schedule (RFC3339 format).
                     type: string
                 type: object
               initProvider:
@@ -177,94 +132,50 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  cloudStackRef:
-                    description: Reference to a Stack in cloud to populate stackSlug.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
+                  loadTestId:
+                    description: |-
+                      (String) The identifier of the load test to schedule.
+                      The identifier of the load test to schedule.
+                    type: string
+                  recurrenceRule:
+                    description: |-
+                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
+                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+                    items:
+                      properties:
+                        byday:
+                          description: |-
+                            (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+                            The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+                          items:
                             type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  cloudStackSelector:
-                    description: Selector for a Stack in cloud to populate stackSlug.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
+                          type: array
+                        count:
+                          description: |-
+                            (Number) How many times the recurrence will repeat.
+                            How many times the recurrence will repeat.
+                          type: number
+                        frequency:
+                          description: |-
+                            (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+                            The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
                           type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  slug:
+                        interval:
+                          description: |-
+                            (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+                            The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+                          type: number
+                        until:
+                          description: |-
+                            (String) The end time for the recurrence (RFC3339 format).
+                            The end time for the recurrence (RFC3339 format).
+                          type: string
+                      type: object
+                    type: array
+                  starts:
                     description: |-
-                      (String) Slug of the plugin to be installed.
-                      Slug of the plugin to be installed.
-                    type: string
-                  stackSlug:
-                    description: |-
-                      (String) The stack id to which the plugin should be installed.
-                      The stack id to which the plugin should be installed.
-                    type: string
-                  version:
-                    description: |-
-                      (String) Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to latest.
-                      Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to `latest`.
+                      (String) The start time for the schedule (RFC3339 format).
+                      The start time for the schedule (RFC3339 format).
                     type: string
                 type: object
               managementPolicies:
@@ -435,32 +346,81 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.slug is a required parameter
+            - message: spec.forProvider.loadTestId is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.slug)
-                || (has(self.initProvider) && has(self.initProvider.slug))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.loadTestId)
+                || (has(self.initProvider) && has(self.initProvider.loadTestId))'
+            - message: spec.forProvider.starts is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.starts)
+                || (has(self.initProvider) && has(self.initProvider.starts))'
           status:
-            description: PluginInstallationStatus defines the observed state of PluginInstallation.
+            description: ScheduleStatus defines the observed state of Schedule.
             properties:
               atProvider:
                 properties:
+                  createdBy:
+                    description: |-
+                      (String) The email of the user who created the schedule.
+                      The email of the user who created the schedule.
+                    type: string
+                  deactivated:
+                    description: |-
+                      (Boolean) Whether the schedule is deactivated.
+                      Whether the schedule is deactivated.
+                    type: boolean
                   id:
-                    description: (String) The ID of this resource.
+                    description: (String) Numeric identifier of the schedule.
                     type: string
-                  slug:
+                  loadTestId:
                     description: |-
-                      (String) Slug of the plugin to be installed.
-                      Slug of the plugin to be installed.
+                      (String) The identifier of the load test to schedule.
+                      The identifier of the load test to schedule.
                     type: string
-                  stackSlug:
+                  nextRun:
                     description: |-
-                      (String) The stack id to which the plugin should be installed.
-                      The stack id to which the plugin should be installed.
+                      (String) The next scheduled execution time.
+                      The next scheduled execution time.
                     type: string
-                  version:
+                  recurrenceRule:
                     description: |-
-                      (String) Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to latest.
-                      Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to `latest`.
+                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
+                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+                    items:
+                      properties:
+                        byday:
+                          description: |-
+                            (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+                            The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+                          items:
+                            type: string
+                          type: array
+                        count:
+                          description: |-
+                            (Number) How many times the recurrence will repeat.
+                            How many times the recurrence will repeat.
+                          type: number
+                        frequency:
+                          description: |-
+                            (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+                            The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+                          type: string
+                        interval:
+                          description: |-
+                            (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+                            The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+                          type: number
+                        until:
+                          description: |-
+                            (String) The end time for the recurrence (RFC3339 format).
+                            The end time for the recurrence (RFC3339 format).
+                          type: string
+                      type: object
+                    type: array
+                  starts:
+                    description: |-
+                      (String) The start time for the schedule (RFC3339 format).
+                      The start time for the schedule (RFC3339 format).
                     type: string
                 type: object
               conditions:

@@ -9,11 +9,14 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
+	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/alertenrichmentv1beta1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/contactpoint"
 	messagetemplate "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/messagetemplate"
 	mutetiming "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/notificationpolicy"
 	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/rulegroup"
+	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/notificationalertsconfig"
+	suppressedassertionsconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/suppressedassertionsconfig"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicy"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicytoken"
 	orgmember "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/orgmember"
@@ -45,6 +48,7 @@ import (
 	project "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/project"
 	projectallowedloadzones "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/projectallowedloadzones"
 	projectlimits "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/projectlimits"
+	schedule "github.com/grafana/crossplane-provider-grafana/internal/controller/k6/schedule"
 	alert "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/alert"
 	holiday "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/holiday"
 	job "github.com/grafana/crossplane-provider-grafana/internal/controller/ml/job"
@@ -55,7 +59,7 @@ import (
 	oncallshift "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/oncallshift"
 	outgoingwebhook "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/outgoingwebhook"
 	route "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/route"
-	schedule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/schedule"
+	scheduleoncall "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/schedule"
 	usernotificationrule "github.com/grafana/crossplane-provider-grafana/internal/controller/oncall/usernotificationrule"
 	annotation "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/annotation"
 	dashboard "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboard"
@@ -90,11 +94,14 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		alertenrichmentv1beta1.Setup,
 		contactpoint.Setup,
 		messagetemplate.Setup,
 		mutetiming.Setup,
 		notificationpolicy.Setup,
 		rulegroup.Setup,
+		notificationalertsconfig.Setup,
+		suppressedassertionsconfig.Setup,
 		accesspolicy.Setup,
 		accesspolicytoken.Setup,
 		orgmember.Setup,
@@ -126,6 +133,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		project.Setup,
 		projectallowedloadzones.Setup,
 		projectlimits.Setup,
+		schedule.Setup,
 		alert.Setup,
 		holiday.Setup,
 		job.Setup,
@@ -136,7 +144,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		oncallshift.Setup,
 		outgoingwebhook.Setup,
 		route.Setup,
-		schedule.Setup,
+		scheduleoncall.Setup,
 		usernotificationrule.Setup,
 		annotation.Setup,
 		dashboard.Setup,

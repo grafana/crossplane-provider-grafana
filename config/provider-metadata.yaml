@@ -24,6 +24,13 @@ resources:
             - |-
               terraform import grafana_annotation.name "{{ id }}"
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
+    grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana:
+        subCategory: Alerting
+        description: Under development
+        name: grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana
+        title: grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana
+        argumentDocs: {}
+        importStatements: []
     grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana:
         subCategory: Grafana Apps
         description: Manages Grafana dashboards using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/#new-dashboard-apis
@@ -31,6 +38,7 @@ resources:
         title: grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana
         argumentDocs:
             folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
             json: (String) The JSON representation of the dashboard spec.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
@@ -50,6 +58,7 @@ resources:
         title: grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana
         argumentDocs:
             folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
             interval: (String) The interval of the playlist.
             items: (List of Object) The items of the playlist. (see below for nested schema)
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
@@ -64,6 +73,140 @@ resources:
             value: (String)
             version: (String) The version of the resource.
         importStatements: []
+    grafana_asserts_notification_alerts_config:
+        subCategory: Asserts
+        description: Manages Asserts Alert Configurations through Grafana API.
+        name: grafana_asserts_notification_alerts_config
+        title: grafana_asserts_notification_alerts_config Resource - terraform-provider-grafana
+        examples:
+            - name: prometheus_remote_storage_failures
+              manifest: |-
+                {
+                  "match_labels": {
+                    "alertgroup": "prometheus.alerts",
+                    "alertname": "PrometheusRemoteStorageFailures",
+                    "asserts_env": "prod"
+                  },
+                  "name": "PrometheusRemoteStorageFailures",
+                  "silenced": true
+                }
+            - name: error_buildup_notify
+              manifest: |-
+                {
+                  "match_labels": {
+                    "alertname": "ErrorBuildup",
+                    "asserts_request_context": "/auth",
+                    "asserts_request_type": "inbound",
+                    "job": "acai"
+                  },
+                  "name": "ErrorBuildupNotify",
+                  "silenced": false
+                }
+            - name: payment_test_alert
+              manifest: |-
+                {
+                  "alert_labels": {
+                    "testing": "onetwothree"
+                  },
+                  "duration": "5m",
+                  "match_labels": {
+                    "additional_labels": "asserts_severity=~\"critical\"",
+                    "alertgroup": "alex-k8s-integration-test.alerts",
+                    "alertname": "PaymentTestAlert"
+                  },
+                  "name": "PaymentTestAlert",
+                  "silenced": false
+                }
+            - name: high_shipping_latency
+              manifest: |-
+                {
+                  "match_labels": {
+                    "alertname": "LatencyP99ErrorBuildup",
+                    "asserts_request_type": "inbound",
+                    "job": "shipping"
+                  },
+                  "name": "high shipping latency",
+                  "silenced": false
+                }
+            - name: cpu_throttling_sustained
+              manifest: |-
+                {
+                  "match_labels": {
+                    "additional_labels": "asserts_severity=~\"warning\"",
+                    "alertname": "CPUThrottlingSustained"
+                  },
+                  "name": "CPUThrottlingSustained",
+                  "silenced": true
+                }
+            - name: ingress_error
+              manifest: |-
+                {
+                  "match_labels": {
+                    "alertname": "ErrorRatioBreach",
+                    "asserts_request_type": "inbound",
+                    "job": "ingress-nginx-controller-metrics"
+                  },
+                  "name": "ingress error",
+                  "silenced": false
+                }
+            - name: mysql_galera_not_ready
+              manifest: |-
+                {
+                  "match_labels": {
+                    "alertname": "MySQLGaleraNotReady"
+                  },
+                  "name": "MySQLGaleraNotReady",
+                  "silenced": false
+                }
+        argumentDocs:
+            alert_labels: (Map of String) Labels to add to alerts generated by this configuration.
+            duration: (String) Duration for which the condition must be true before firing (e.g., '5m', '30s'). Maps to 'for' in Asserts API.
+            id: (String) The ID of this resource.
+            match_labels: (Map of String) Labels to match for this alert configuration.
+            name: (String) The name of the alert configuration.
+            silenced: (Boolean) Whether this alert configuration is silenced. Defaults to false.
+        importStatements:
+            - terraform import grafana_asserts_notification_alerts_config.name "{{ name }}"
+    grafana_asserts_suppressed_assertions_config:
+        subCategory: Asserts
+        description: Manages Asserts Disabled Alert Configurations through Grafana API.
+        name: grafana_asserts_suppressed_assertions_config
+        title: grafana_asserts_suppressed_assertions_config Resource - terraform-provider-grafana
+        examples:
+            - name: maintenance_window
+              manifest: |-
+                {
+                  "match_labels": {
+                    "maintenance": "true",
+                    "service": "api-service"
+                  },
+                  "name": "MaintenanceWindow"
+                }
+            - name: deployment_suppression
+              manifest: |-
+                {
+                  "match_labels": {
+                    "alertname": "HighLatency",
+                    "env": "staging",
+                    "job": "web-service"
+                  },
+                  "name": "DeploymentSuppression"
+                }
+            - name: test_environment_suppression
+              manifest: |-
+                {
+                  "match_labels": {
+                    "alertgroup": "test.alerts",
+                    "environment": "test"
+                  },
+                  "name": "TestEnvironmentSuppression"
+                }
+        argumentDocs:
+            id: (String) The ID of this resource.
+            match_labels: (Map of String) Labels to match for this disabled alert configuration.
+            name: (String) The name of the disabled alert configuration.
+        importStatements:
+            - terraform import grafana_asserts_suppressed_assertions_config.name "{{ name }}"
     grafana_cloud_access_policy:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
@@ -202,7 +345,7 @@ resources:
             id: (String) The ID of this resource.
             slug: (String) Slug of the plugin to be installed.
             stack_slug: (String) The stack id to which the plugin should be installed.
-            version: (String) Version of the plugin to be installed.
+            version: (String) Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Terraform will detect new version as drift for plan/apply. Defaults to latest.
         importStatements:
             - terraform import grafana_cloud_plugin_installation.name "{{ stackSlug }}:{{ pluginSlug }}"
     grafana_cloud_private_data_source_connect_network:
@@ -754,10 +897,15 @@ resources:
             basic_auth_password: (String, Sensitive) The password component of the basic auth credentials to use.
             basic_auth_user: (String) The username component of the basic auth credentials to use.
             body: (String)
+            ca_certificate: (String, Sensitive) Certificate in PEM format to use when verifying the server's certificate chain.
             chat_id: (String) The chat ID to send messages to.
             check: (String) The SensuGo check to which the event should be routed.
             class: (String) The class or type of event, for example ping failure.
             client: (String) The name of the monitoring client that is triggering this event.
+            client_certificate: (String, Sensitive) Client certificate in PEM format to use when connecting to the server.
+            client_id: (String) Client ID to use when authenticating.
+            client_key: (String, Sensitive) Client key in PEM format to use when connecting to the server.
+            client_secret: (String, Sensitive) Client secret to use when authenticating.
             client_url: (String) The URL of the monitoring client that is triggering this event.
             cluster_id: (String) The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
             color: (String) Templated color of the slack message.
@@ -773,6 +921,7 @@ resources:
             disable_web_page_preview: (Boolean) When set it disables link previews for links in the message.
             discord: (Block Set) A contact point that sends notifications as Discord messages (see below for nested schema)
             email: (Block Set) A contact point that sends notifications to an email address. (see below for nested schema)
+            endpoint_params: (Map of String) Optional parameters to append to the access token request.
             endpoint_url: (String) Use this to override the Slack API endpoint URL to send requests to.
             entity: (String) The entity being monitored.
             expire: (Number) How many seconds for which the notification will continue to be retried by Pushover.
@@ -781,10 +930,15 @@ resources:
             googlechat: (Block Set) A contact point that sends notifications to Google Chat. (see below for nested schema)
             group: (String) The group to which the provided component belongs to.
             handler: (String) A custom handler to execute in addition to the check.
+            header: (String) The header in which the HMAC signature will be included. Defaults to X-Grafana-Alerting-Signature.
+            headers: (Map of String) Custom headers to attach to the request.
+            hmac_config: '(Block Set, Max: 1) HMAC signature configuration options. (see below for nested schema)'
+            http_config: '(Block Set, Max: 1) Common HTTP client options. (see below for nested schema)'
             http_method: (String) The HTTP method to use in the request. Defaults to POST.
             icon_emoji: (String) The name of a Slack workspace emoji to use as the bot icon.
             icon_url: (String) A URL of an image to use as the bot icon.
             id: (String) The ID of this resource.
+            insecure_skip_verify: (Boolean) Do not verify the server's certificate chain and host name. Defaults to false.
             integration_key: (String, Sensitive) The PagerDuty API key.
             kafka: (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
             line: (Block Set) A contact point that sends notifications to LINE.me. (see below for nested schema)
@@ -799,6 +953,8 @@ resources:
             msg_type: '(String) The type of them message. Supported: markdown, text. Default: text.'
             name: (String) The name of the contact point.
             namespace: (String) The namespace in which the check resides.
+            no_proxy: (String) Comma-separated list of addresses that should not use a proxy.
+            oauth2: '(Block Set, Max: 1) OAuth2 configuration options. (see below for nested schema)'
             ok_priority: (Number) The priority level of the resolved event.
             ok_sound: (String) The sound associated with the resolved notification.
             oncall: (Block Set) A contact point that sends notifications to Grafana On-Call. (see below for nested schema)
@@ -808,8 +964,13 @@ resources:
             pagerduty: (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
             parse_mode: '(String) Mode for parsing entities in the message text. Supported: None, Markdown, MarkdownV2, and HTML. HTML is the default.'
             password: (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+            payload: '(Block Set, Max: 1) Optionally provide a templated payload. Overrides ''Message'' and ''Title'' field. (see below for nested schema)'
             priority: (Number) The priority level of the event.
             protect_content: (Boolean) When set it protects the contents of the message from forwarding and saving.
+            proxy_config: '(Block Set, Max: 1) Optional proxy configuration for OAuth2 requests. (see below for nested schema)'
+            proxy_connect_header: (Map of String) Optional headers to send to proxies during CONNECT requests.
+            proxy_from_environment: (Boolean) Use environment HTTP_PROXY, HTTPS_PROXY and NO_PROXY to determine proxies. Defaults to false.
+            proxy_url: (String) HTTP proxy server to use to connect to the targets.
             pushover: (Block Set) A contact point that sends notifications to Pushover. (see below for nested schema)
             recipient: (String) Channel, private group, or IM channel (can be an encoded ID or a name) to send messages to.
             recipient_id: (String) The ID of the recipient of the message.
@@ -817,7 +978,8 @@ resources:
             rest_proxy_url: (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
             retry: (Number) How often, in seconds, the Pushover servers will send the same notification to the user.
             room_id: (String) ID of the Webex Teams room where to send the messages.
-            secret: (String, Sensitive) The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
+            scopes: (List of String) Optional scopes to request when obtaining an access token.
+            secret: (String, Sensitive) The secret key used to generate the HMAC signature.
             secret_key: (String, Sensitive) AWS secret access key used to authenticate with Amazon SNS.
             section_title: (String) The templated subtitle for each message section.
             send_tags_as: (String) Whether to send annotations to OpsGenie as Tags, Details, or both. Supported values are tags, details, both, or empty to use the default behavior of Tags.
@@ -833,12 +995,15 @@ resources:
             summary: (String) The templated summary message of the event.
             teams: (Block Set) A contact point that sends notifications to Microsoft Teams. (see below for nested schema)
             telegram: (Block Set) A contact point that sends notifications to Telegram. (see below for nested schema)
+            template: (String) Custom payload template.
             text: (String) Templated content of the message.
             threema: (Block Set) A contact point that sends notifications to Threema. (see below for nested schema)
+            timestamp_header: (String) If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
             title: (String) The templated title of the message.
             tls_config: (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
             to_user: '(String) The ID of user that should receive the message. Multiple entries should be separated by ''|''. Default: @all.'
             token: (String, Sensitive) The bearer token used to authorize the client.
+            token_url: (String) URL for the access token endpoint.
             topic: (String) The name of the Kafka topic to publish to.
             type: '(String) Type of the responder. Supported: team, teams, user, escalation, schedule or a template that is expanded to one of these values.'
             uid: (String) The UID of the contact point.
@@ -847,6 +1012,7 @@ resources:
             use_discord_username: (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
             user_key: (String, Sensitive) The Pushover user key.
             username: (String) The user name to use when making a call to the Kafka REST Proxy
+            vars: (Map of String) Optionally provide a variables to be used in the payload template. They will be available in the template as .Vars.<variable_name>.
             victorops: (Block Set) A contact point that sends notifications to VictorOps (now known as Splunk OnCall). (see below for nested schema)
             webex: (Block Set) A contact point that sends notifications to Cisco Webex. (see below for nested schema)
             webhook: '(Block Set) A contact point that sends notifications to an arbitrary webhook, using the Prometheus webhook format defined here: https://prometheus.io/docs/alerting/latest/configuration/#webhook_config (see below for nested schema)'
@@ -1998,6 +2164,139 @@ resources:
             vuh_max_per_month: (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
         importStatements:
             - terraform import grafana_k6_project_limits.name "{{ project_id }}"
+    grafana_k6_schedule:
+        subCategory: k6
+        description: Manages a k6 schedule for automated test execution.
+        name: grafana_k6_schedule
+        title: grafana_k6_schedule Resource - terraform-provider-grafana
+        examples:
+            - name: daily
+              manifest: |-
+                {
+                  "load_test_id": "${grafana_k6_load_test.scheduled_test.id}",
+                  "recurrence_rule": [
+                    {
+                      "frequency": "DAILY",
+                      "interval": 1
+                    }
+                  ],
+                  "starts": "2024-12-25T10:00:00Z"
+                }
+              references:
+                load_test_id: grafana_k6_load_test.scheduled_test.id
+              dependencies:
+                grafana_k6_load_test.scheduled_test: |-
+                    {
+                      "depends_on": [
+                        "${grafana_k6_project.schedule_project}"
+                      ],
+                      "name": "Terraform Scheduled Resource Test",
+                      "project_id": "${grafana_k6_project.schedule_project.id}",
+                      "script": "export default function() {\n  console.log('Hello from scheduled k6 test!');\n}\n"
+                    }
+                grafana_k6_project.schedule_project: |-
+                    {
+                      "name": "Terraform Schedule Resource Project"
+                    }
+            - name: weekly
+              manifest: |-
+                {
+                  "load_test_id": "${grafana_k6_load_test.scheduled_test.id}",
+                  "recurrence_rule": [
+                    {
+                      "byday": [
+                        "MO",
+                        "WE",
+                        "FR"
+                      ],
+                      "frequency": "WEEKLY",
+                      "interval": 1
+                    }
+                  ],
+                  "starts": "2024-12-25T09:00:00Z"
+                }
+              references:
+                load_test_id: grafana_k6_load_test.scheduled_test.id
+              dependencies:
+                grafana_k6_load_test.scheduled_test: |-
+                    {
+                      "depends_on": [
+                        "${grafana_k6_project.schedule_project}"
+                      ],
+                      "name": "Terraform Scheduled Resource Test",
+                      "project_id": "${grafana_k6_project.schedule_project.id}",
+                      "script": "export default function() {\n  console.log('Hello from scheduled k6 test!');\n}\n"
+                    }
+                grafana_k6_project.schedule_project: |-
+                    {
+                      "name": "Terraform Schedule Resource Project"
+                    }
+            - name: yearly
+              manifest: |-
+                {
+                  "load_test_id": "${grafana_k6_load_test.scheduled_test.id}",
+                  "recurrence_rule": [
+                    {
+                      "count": 5,
+                      "frequency": "YEARLY",
+                      "interval": 1
+                    }
+                  ],
+                  "starts": "2024-01-01T12:00:00Z"
+                }
+              references:
+                load_test_id: grafana_k6_load_test.scheduled_test.id
+              dependencies:
+                grafana_k6_load_test.scheduled_test: |-
+                    {
+                      "depends_on": [
+                        "${grafana_k6_project.schedule_project}"
+                      ],
+                      "name": "Terraform Scheduled Resource Test",
+                      "project_id": "${grafana_k6_project.schedule_project.id}",
+                      "script": "export default function() {\n  console.log('Hello from scheduled k6 test!');\n}\n"
+                    }
+                grafana_k6_project.schedule_project: |-
+                    {
+                      "name": "Terraform Schedule Resource Project"
+                    }
+            - name: one_time
+              manifest: |-
+                {
+                  "load_test_id": "${grafana_k6_load_test.scheduled_test.id}",
+                  "starts": "2024-12-25T15:00:00Z"
+                }
+              references:
+                load_test_id: grafana_k6_load_test.scheduled_test.id
+              dependencies:
+                grafana_k6_load_test.scheduled_test: |-
+                    {
+                      "depends_on": [
+                        "${grafana_k6_project.schedule_project}"
+                      ],
+                      "name": "Terraform Scheduled Resource Test",
+                      "project_id": "${grafana_k6_project.schedule_project.id}",
+                      "script": "export default function() {\n  console.log('Hello from scheduled k6 test!');\n}\n"
+                    }
+                grafana_k6_project.schedule_project: |-
+                    {
+                      "name": "Terraform Schedule Resource Project"
+                    }
+        argumentDocs:
+            byday: (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+            count: (Number) How many times the recurrence will repeat.
+            created_by: (String) The email of the user who created the schedule.
+            deactivated: (Boolean) Whether the schedule is deactivated.
+            frequency: (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+            id: (String) Numeric identifier of the schedule.
+            interval: (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+            load_test_id: (String) The identifier of the load test to schedule.
+            next_run: (String) The next scheduled execution time.
+            recurrence_rule: (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
+            starts: (String) The start time for the schedule (RFC3339 format).
+            until: (String) The end time for the recurrence (RFC3339 format).
+        importStatements:
+            - terraform import grafana_k6_schedule.name "{{ load_test_id }}"
     grafana_library_panel:
         subCategory: Grafana OSS
         description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/manage-library-panels/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/library_element/

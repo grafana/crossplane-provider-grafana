@@ -35,8 +35,8 @@ type PluginInstallationInitParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 
-	// (String) Version of the plugin to be installed.
-	// Version of the plugin to be installed.
+	// (String) Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to latest.
+	// Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to `latest`.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -53,8 +53,8 @@ type PluginInstallationObservation struct {
 	// The stack id to which the plugin should be installed.
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 
-	// (String) Version of the plugin to be installed.
-	// Version of the plugin to be installed.
+	// (String) Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to latest.
+	// Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to `latest`.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
@@ -82,8 +82,8 @@ type PluginInstallationParameters struct {
 	// +kubebuilder:validation:Optional
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 
-	// (String) Version of the plugin to be installed.
-	// Version of the plugin to be installed.
+	// (String) Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to latest.
+	// Version of the plugin to be installed. Defaults to 'latest' and installs the most recent version. Defaults to `latest`.
 	// +kubebuilder:validation:Optional
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
@@ -125,7 +125,6 @@ type PluginInstallation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.slug) || (has(self.initProvider) && has(self.initProvider.slug))",message="spec.forProvider.slug is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.version) || (has(self.initProvider) && has(self.initProvider.version))",message="spec.forProvider.version is a required parameter"
 	Spec   PluginInstallationSpec   `json:"spec"`
 	Status PluginInstallationStatus `json:"status,omitempty"`
 }
