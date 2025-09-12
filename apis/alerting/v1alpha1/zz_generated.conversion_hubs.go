@@ -7,6 +7,9 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
+func (tr *AlertenrichmentV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *ContactPoint) Hub() {}
 
 // Hub marks this type as a conversion hub.

@@ -20,3 +20,6 @@ func (tr *ProjectAllowedLoadZones) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ProjectLimits) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Schedule) Hub() {}
