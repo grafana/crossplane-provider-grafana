@@ -151,6 +151,74 @@ type AssistantInvestigationsParameters struct {
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
 }
 
+type ConditionalInitParameters struct {
+
+	// Steps when condition is false.
+	Else []ElseInitParameters `json:"else,omitempty" tf:"else,omitempty"`
+
+	// Condition to evaluate.
+	If []IfInitParameters `json:"if,omitempty" tf:"if,omitempty"`
+
+	// Steps when condition is true.
+	Then []ThenInitParameters `json:"then,omitempty" tf:"then,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ConditionalObservation struct {
+
+	// Steps when condition is false.
+	Else []ElseObservation `json:"else,omitempty" tf:"else,omitempty"`
+
+	// Condition to evaluate.
+	If []IfObservation `json:"if,omitempty" tf:"if,omitempty"`
+
+	// Steps when condition is true.
+	Then []ThenObservation `json:"then,omitempty" tf:"then,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ConditionalParameters struct {
+
+	// Steps when condition is false.
+	// +kubebuilder:validation:Optional
+	Else []ElseParameters `json:"else,omitempty" tf:"else,omitempty"`
+
+	// Condition to evaluate.
+	// +kubebuilder:validation:Optional
+	If []IfParameters `json:"if,omitempty" tf:"if,omitempty"`
+
+	// Steps when condition is true.
+	// +kubebuilder:validation:Optional
+	Then []ThenParameters `json:"then,omitempty" tf:"then,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type DataSourceConditionInitParameters struct {
+
+	// Data source request payload.
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type DataSourceConditionObservation struct {
+
+	// Data source request payload.
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type DataSourceConditionParameters struct {
+
+	// Data source request payload.
+	// +kubebuilder:validation:Optional
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
 type DataSourceInitParameters struct {
 
 	// Logs query configuration for querying log data sources.
@@ -161,6 +229,55 @@ type DataSourceInitParameters struct {
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type DataSourceLogsQueryInitParameters struct {
+
+	// Data source type (e.g., 'loki').
+	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
+
+	// UID of the data source to query.
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+
+	// Log query expression to execute.
+	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+
+	// Maximum number of log lines to include. Defaults to 3.
+	MaxLines *float64 `json:"maxLines,omitempty" tf:"max_lines,omitempty"`
+}
+
+type DataSourceLogsQueryObservation struct {
+
+	// Data source type (e.g., 'loki').
+	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
+
+	// UID of the data source to query.
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+
+	// Log query expression to execute.
+	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+
+	// Maximum number of log lines to include. Defaults to 3.
+	MaxLines *float64 `json:"maxLines,omitempty" tf:"max_lines,omitempty"`
+}
+
+type DataSourceLogsQueryParameters struct {
+
+	// Data source type (e.g., 'loki').
+	// +kubebuilder:validation:Optional
+	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
+
+	// UID of the data source to query.
+	// +kubebuilder:validation:Optional
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+
+	// Log query expression to execute.
+	// +kubebuilder:validation:Optional
+	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+
+	// Maximum number of log lines to include. Defaults to 3.
+	// +kubebuilder:validation:Optional
+	MaxLines *float64 `json:"maxLines,omitempty" tf:"max_lines,omitempty"`
 }
 
 type DataSourceObservation struct {
@@ -188,6 +305,128 @@ type DataSourceParameters struct {
 	// Maximum execution time (e.g., '30s', '1m')
 	// +kubebuilder:validation:Optional
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type DataSourceRawQueryInitParameters struct {
+
+	// Reference ID for correlating queries.
+	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+	// Raw request payload for the data source query.
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type DataSourceRawQueryObservation struct {
+
+	// Reference ID for correlating queries.
+	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+	// Raw request payload for the data source query.
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type DataSourceRawQueryParameters struct {
+
+	// Reference ID for correlating queries.
+	// +kubebuilder:validation:Optional
+	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+	// Raw request payload for the data source query.
+	// +kubebuilder:validation:Optional
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type ElseInitParameters struct {
+	Step []ElseStepInitParameters `json:"step,omitempty" tf:"step,omitempty"`
+}
+
+type ElseObservation struct {
+	Step []ElseStepObservation `json:"step,omitempty" tf:"step,omitempty"`
+}
+
+type ElseParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Step []ElseStepParameters `json:"step,omitempty" tf:"step,omitempty"`
+}
+
+type ElseStepInitParameters struct {
+
+	// Integrate with Grafana Asserts for enrichment.
+	Asserts []StepAssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+
+	// Assign annotations to an alert.
+	Assign []StepAssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+
+	// Use AI assistant to investigate alerts and add insights.
+	AssistantInvestigations []StepAssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+
+	// Query Grafana data sources and add results to alerts.
+	DataSource []DataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Generate AI explanation and store in an annotation.
+	Explain []ExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+
+	// Call an external HTTP service for enrichment.
+	External []ExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
+
+	// Analyze alerts for patterns and insights.
+	Sift []SiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+}
+
+type ElseStepObservation struct {
+
+	// Integrate with Grafana Asserts for enrichment.
+	Asserts []StepAssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
+
+	// Assign annotations to an alert.
+	Assign []StepAssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
+
+	// Use AI assistant to investigate alerts and add insights.
+	AssistantInvestigations []StepAssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+
+	// Query Grafana data sources and add results to alerts.
+	DataSource []DataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Generate AI explanation and store in an annotation.
+	Explain []ExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
+
+	// Call an external HTTP service for enrichment.
+	External []ExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
+
+	// Analyze alerts for patterns and insights.
+	Sift []SiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
+}
+
+type ElseStepParameters struct {
+
+	// Integrate with Grafana Asserts for enrichment.
+	// +kubebuilder:validation:Optional
+	Asserts []StepAssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+
+	// Assign annotations to an alert.
+	// +kubebuilder:validation:Optional
+	Assign []StepAssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+
+	// Use AI assistant to investigate alerts and add insights.
+	// +kubebuilder:validation:Optional
+	AssistantInvestigations []StepAssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+
+	// Query Grafana data sources and add results to alerts.
+	// +kubebuilder:validation:Optional
+	DataSource []DataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Generate AI explanation and store in an annotation.
+	// +kubebuilder:validation:Optional
+	Explain []ExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+
+	// Call an external HTTP service for enrichment.
+	// +kubebuilder:validation:Optional
+	External []ExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
+
+	// Analyze alerts for patterns and insights.
+	// +kubebuilder:validation:Optional
+	Sift []SiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type ExplainInitParameters struct {
@@ -246,6 +485,101 @@ type ExternalParameters struct {
 	// HTTP endpoint URL to call for enrichment
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type IfAnnotationMatchersInitParameters struct {
+	Name *string `json:"name,omitempty" tf:"name"`
+
+	Type *string `json:"type,omitempty" tf:"type"`
+
+	Value *string `json:"value,omitempty" tf:"value"`
+}
+
+type IfAnnotationMatchersObservation struct {
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type IfAnnotationMatchersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value"`
+}
+
+type IfInitParameters struct {
+
+	// Annotation matchers for the condition.
+	AnnotationMatchers []IfAnnotationMatchersInitParameters `json:"annotationMatchers,omitempty" tf:"annotation_matchers,omitempty"`
+
+	// Data source condition.
+	DataSourceCondition []DataSourceConditionInitParameters `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
+
+	// Label matchers for the condition.
+	LabelMatchers []IfLabelMatchersInitParameters `json:"labelMatchers,omitempty" tf:"label_matchers,omitempty"`
+}
+
+type IfLabelMatchersInitParameters struct {
+	Name *string `json:"name,omitempty" tf:"name"`
+
+	Type *string `json:"type,omitempty" tf:"type"`
+
+	Value *string `json:"value,omitempty" tf:"value"`
+}
+
+type IfLabelMatchersObservation struct {
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type IfLabelMatchersParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name"`
+
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type"`
+
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value,omitempty" tf:"value"`
+}
+
+type IfObservation struct {
+
+	// Annotation matchers for the condition.
+	AnnotationMatchers []IfAnnotationMatchersObservation `json:"annotationMatchers,omitempty" tf:"annotation_matchers,omitempty"`
+
+	// Data source condition.
+	DataSourceCondition []DataSourceConditionObservation `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
+
+	// Label matchers for the condition.
+	LabelMatchers []IfLabelMatchersObservation `json:"labelMatchers,omitempty" tf:"label_matchers,omitempty"`
+}
+
+type IfParameters struct {
+
+	// Annotation matchers for the condition.
+	// +kubebuilder:validation:Optional
+	AnnotationMatchers []IfAnnotationMatchersParameters `json:"annotationMatchers,omitempty" tf:"annotation_matchers,omitempty"`
+
+	// Data source condition.
+	// +kubebuilder:validation:Optional
+	DataSourceCondition []DataSourceConditionParameters `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
+
+	// Label matchers for the condition.
+	// +kubebuilder:validation:Optional
+	LabelMatchers []IfLabelMatchersParameters `json:"labelMatchers,omitempty" tf:"label_matchers,omitempty"`
 }
 
 type LabelMatchersInitParameters struct {
@@ -509,6 +843,367 @@ type SpecParameters struct {
 	Title *string `json:"title" tf:"title,omitempty"`
 }
 
+type SpecStepDataSourceInitParameters struct {
+
+	// Logs query configuration for querying log data sources.
+	LogsQuery []StepDataSourceLogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+
+	// Raw query configuration for advanced data source queries.
+	RawQuery []StepDataSourceRawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepDataSourceObservation struct {
+
+	// Logs query configuration for querying log data sources.
+	LogsQuery []StepDataSourceLogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+
+	// Raw query configuration for advanced data source queries.
+	RawQuery []StepDataSourceRawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepDataSourceParameters struct {
+
+	// Logs query configuration for querying log data sources.
+	// +kubebuilder:validation:Optional
+	LogsQuery []StepDataSourceLogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+
+	// Raw query configuration for advanced data source queries.
+	// +kubebuilder:validation:Optional
+	RawQuery []StepDataSourceRawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepExplainInitParameters struct {
+
+	// Annotation name to set the explanation in. Defaults to 'ai_explanation'.
+	Annotation *string `json:"annotation,omitempty" tf:"annotation,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepExplainObservation struct {
+
+	// Annotation name to set the explanation in. Defaults to 'ai_explanation'.
+	Annotation *string `json:"annotation,omitempty" tf:"annotation,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepExplainParameters struct {
+
+	// Annotation name to set the explanation in. Defaults to 'ai_explanation'.
+	// +kubebuilder:validation:Optional
+	Annotation *string `json:"annotation,omitempty" tf:"annotation,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepExternalInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// HTTP endpoint URL to call for enrichment
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type SpecStepExternalObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// HTTP endpoint URL to call for enrichment
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type SpecStepExternalParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// HTTP endpoint URL to call for enrichment
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type SpecStepSiftInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepSiftObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type SpecStepSiftParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssertsInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssertsObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssertsParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssignInitParameters struct {
+
+	// Map of annotation names to values to set on matching alerts.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssignObservation struct {
+
+	// Map of annotation names to values to set on matching alerts.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssignParameters struct {
+
+	// Map of annotation names to values to set on matching alerts.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssistantInvestigationsInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssistantInvestigationsObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepAssistantInvestigationsParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepDataSourceInitParameters struct {
+
+	// Logs query configuration for querying log data sources.
+	LogsQuery []DataSourceLogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+
+	// Raw query configuration for advanced data source queries.
+	RawQuery []DataSourceRawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepDataSourceLogsQueryInitParameters struct {
+
+	// Data source type (e.g., 'loki').
+	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
+
+	// UID of the data source to query.
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+
+	// Log query expression to execute.
+	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+
+	// Maximum number of log lines to include. Defaults to 3.
+	MaxLines *float64 `json:"maxLines,omitempty" tf:"max_lines,omitempty"`
+}
+
+type StepDataSourceLogsQueryObservation struct {
+
+	// Data source type (e.g., 'loki').
+	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
+
+	// UID of the data source to query.
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+
+	// Log query expression to execute.
+	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+
+	// Maximum number of log lines to include. Defaults to 3.
+	MaxLines *float64 `json:"maxLines,omitempty" tf:"max_lines,omitempty"`
+}
+
+type StepDataSourceLogsQueryParameters struct {
+
+	// Data source type (e.g., 'loki').
+	// +kubebuilder:validation:Optional
+	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
+
+	// UID of the data source to query.
+	// +kubebuilder:validation:Optional
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+
+	// Log query expression to execute.
+	// +kubebuilder:validation:Optional
+	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+
+	// Maximum number of log lines to include. Defaults to 3.
+	// +kubebuilder:validation:Optional
+	MaxLines *float64 `json:"maxLines,omitempty" tf:"max_lines,omitempty"`
+}
+
+type StepDataSourceObservation struct {
+
+	// Logs query configuration for querying log data sources.
+	LogsQuery []DataSourceLogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+
+	// Raw query configuration for advanced data source queries.
+	RawQuery []DataSourceRawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepDataSourceParameters struct {
+
+	// Logs query configuration for querying log data sources.
+	// +kubebuilder:validation:Optional
+	LogsQuery []DataSourceLogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+
+	// Raw query configuration for advanced data source queries.
+	// +kubebuilder:validation:Optional
+	RawQuery []DataSourceRawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepDataSourceRawQueryInitParameters struct {
+
+	// Reference ID for correlating queries.
+	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+	// Raw request payload for the data source query.
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type StepDataSourceRawQueryObservation struct {
+
+	// Reference ID for correlating queries.
+	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+	// Raw request payload for the data source query.
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type StepDataSourceRawQueryParameters struct {
+
+	// Reference ID for correlating queries.
+	// +kubebuilder:validation:Optional
+	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+	// Raw request payload for the data source query.
+	// +kubebuilder:validation:Optional
+	Request *string `json:"request,omitempty" tf:"request,omitempty"`
+}
+
+type StepExplainInitParameters struct {
+
+	// Annotation name to set the explanation in. Defaults to 'ai_explanation'.
+	Annotation *string `json:"annotation,omitempty" tf:"annotation,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepExplainObservation struct {
+
+	// Annotation name to set the explanation in. Defaults to 'ai_explanation'.
+	Annotation *string `json:"annotation,omitempty" tf:"annotation,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepExplainParameters struct {
+
+	// Annotation name to set the explanation in. Defaults to 'ai_explanation'.
+	// +kubebuilder:validation:Optional
+	Annotation *string `json:"annotation,omitempty" tf:"annotation,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepExternalInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// HTTP endpoint URL to call for enrichment
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type StepExternalObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// HTTP endpoint URL to call for enrichment
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type StepExternalParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+
+	// HTTP endpoint URL to call for enrichment
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
 type StepInitParameters struct {
 
 	// Integrate with Grafana Asserts for enrichment.
@@ -520,17 +1215,20 @@ type StepInitParameters struct {
 	// Use AI assistant to investigate alerts and add insights.
 	AssistantInvestigations []AssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
+	// Conditional step with if/then/else.
+	Conditional []ConditionalInitParameters `json:"conditional,omitempty" tf:"conditional,omitempty"`
+
 	// Query Grafana data sources and add results to alerts.
-	DataSource []DataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource []SpecStepDataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []ExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain []SpecStepExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []ExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External []SpecStepExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []SiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift []SpecStepSiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type StepObservation struct {
@@ -544,17 +1242,20 @@ type StepObservation struct {
 	// Use AI assistant to investigate alerts and add insights.
 	AssistantInvestigations []AssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
+	// Conditional step with if/then/else.
+	Conditional []ConditionalObservation `json:"conditional,omitempty" tf:"conditional,omitempty"`
+
 	// Query Grafana data sources and add results to alerts.
-	DataSource []DataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource []SpecStepDataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []ExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain []SpecStepExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []ExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
+	External []SpecStepExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []SiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift []SpecStepSiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type StepParameters struct {
@@ -571,21 +1272,207 @@ type StepParameters struct {
 	// +kubebuilder:validation:Optional
 	AssistantInvestigations []AssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
+	// Conditional step with if/then/else.
+	// +kubebuilder:validation:Optional
+	Conditional []ConditionalParameters `json:"conditional,omitempty" tf:"conditional,omitempty"`
+
 	// Query Grafana data sources and add results to alerts.
 	// +kubebuilder:validation:Optional
-	DataSource []DataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource []SpecStepDataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
 	// +kubebuilder:validation:Optional
-	Explain []ExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain []SpecStepExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
 	// +kubebuilder:validation:Optional
-	External []ExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External []SpecStepExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
 	// +kubebuilder:validation:Optional
-	Sift []SiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift []SpecStepSiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+}
+
+type StepSiftInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepSiftObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type StepSiftParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenInitParameters struct {
+	Step []ThenStepInitParameters `json:"step,omitempty" tf:"step,omitempty"`
+}
+
+type ThenObservation struct {
+	Step []ThenStepObservation `json:"step,omitempty" tf:"step,omitempty"`
+}
+
+type ThenParameters struct {
+
+	// +kubebuilder:validation:Optional
+	Step []ThenStepParameters `json:"step,omitempty" tf:"step,omitempty"`
+}
+
+type ThenStepAssertsInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssertsObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssertsParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssignInitParameters struct {
+
+	// Map of annotation names to values to set on matching alerts.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssignObservation struct {
+
+	// Map of annotation names to values to set on matching alerts.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssignParameters struct {
+
+	// Map of annotation names to values to set on matching alerts.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssistantInvestigationsInitParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssistantInvestigationsObservation struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepAssistantInvestigationsParameters struct {
+
+	// Maximum execution time (e.g., '30s', '1m')
+	// +kubebuilder:validation:Optional
+	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
+}
+
+type ThenStepInitParameters struct {
+
+	// Integrate with Grafana Asserts for enrichment.
+	Asserts []ThenStepAssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+
+	// Assign annotations to an alert.
+	Assign []ThenStepAssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+
+	// Use AI assistant to investigate alerts and add insights.
+	AssistantInvestigations []ThenStepAssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+
+	// Query Grafana data sources and add results to alerts.
+	DataSource []StepDataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Generate AI explanation and store in an annotation.
+	Explain []StepExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+
+	// Call an external HTTP service for enrichment.
+	External []StepExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
+
+	// Analyze alerts for patterns and insights.
+	Sift []StepSiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+}
+
+type ThenStepObservation struct {
+
+	// Integrate with Grafana Asserts for enrichment.
+	Asserts []ThenStepAssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
+
+	// Assign annotations to an alert.
+	Assign []ThenStepAssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
+
+	// Use AI assistant to investigate alerts and add insights.
+	AssistantInvestigations []ThenStepAssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+
+	// Query Grafana data sources and add results to alerts.
+	DataSource []StepDataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Generate AI explanation and store in an annotation.
+	Explain []StepExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
+
+	// Call an external HTTP service for enrichment.
+	External []StepExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
+
+	// Analyze alerts for patterns and insights.
+	Sift []StepSiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
+}
+
+type ThenStepParameters struct {
+
+	// Integrate with Grafana Asserts for enrichment.
+	// +kubebuilder:validation:Optional
+	Asserts []ThenStepAssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+
+	// Assign annotations to an alert.
+	// +kubebuilder:validation:Optional
+	Assign []ThenStepAssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+
+	// Use AI assistant to investigate alerts and add insights.
+	// +kubebuilder:validation:Optional
+	AssistantInvestigations []ThenStepAssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+
+	// Query Grafana data sources and add results to alerts.
+	// +kubebuilder:validation:Optional
+	DataSource []StepDataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+
+	// Generate AI explanation and store in an annotation.
+	// +kubebuilder:validation:Optional
+	Explain []StepExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+
+	// Call an external HTTP service for enrichment.
+	// +kubebuilder:validation:Optional
+	External []StepExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
+
+	// Analyze alerts for patterns and insights.
+	// +kubebuilder:validation:Optional
+	Sift []StepSiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 // AlertenrichmentV1Beta1Spec defines the desired state of AlertenrichmentV1Beta1

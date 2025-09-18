@@ -193,6 +193,355 @@ spec:
                                       type: string
                                   type: object
                                 type: array
+                              conditional:
+                                description: Conditional step with if/then/else.
+                                items:
+                                  properties:
+                                    else:
+                                      description: Steps when condition is false.
+                                      items:
+                                        properties:
+                                          step:
+                                            items:
+                                              properties:
+                                                asserts:
+                                                  description: Integrate with Grafana
+                                                    Asserts for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assign:
+                                                  description: Assign annotations
+                                                    to an alert.
+                                                  items:
+                                                    properties:
+                                                      annotations:
+                                                        additionalProperties:
+                                                          type: string
+                                                        description: Map of annotation
+                                                          names to values to set on
+                                                          matching alerts.
+                                                        type: object
+                                                        x-kubernetes-map-type: granular
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assistantInvestigations:
+                                                  description: Use AI assistant to
+                                                    investigate alerts and add insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                dataSource:
+                                                  description: Query Grafana data
+                                                    sources and add results to alerts.
+                                                  items:
+                                                    properties:
+                                                      logsQuery:
+                                                        description: Logs query configuration
+                                                          for querying log data sources.
+                                                        items:
+                                                          properties:
+                                                            dataSourceType:
+                                                              description: Data source
+                                                                type (e.g., 'loki').
+                                                              type: string
+                                                            dataSourceUid:
+                                                              description: UID of
+                                                                the data source to
+                                                                query.
+                                                              type: string
+                                                            expr:
+                                                              description: Log query
+                                                                expression to execute.
+                                                              type: string
+                                                            maxLines:
+                                                              description: Maximum
+                                                                number of log lines
+                                                                to include. Defaults
+                                                                to 3.
+                                                              type: number
+                                                          type: object
+                                                        type: array
+                                                      rawQuery:
+                                                        description: Raw query configuration
+                                                          for advanced data source
+                                                          queries.
+                                                        items:
+                                                          properties:
+                                                            refId:
+                                                              description: Reference
+                                                                ID for correlating
+                                                                queries.
+                                                              type: string
+                                                            request:
+                                                              description: Raw request
+                                                                payload for the data
+                                                                source query.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                explain:
+                                                  description: Generate AI explanation
+                                                    and store in an annotation.
+                                                  items:
+                                                    properties:
+                                                      annotation:
+                                                        description: Annotation name
+                                                          to set the explanation in.
+                                                          Defaults to 'ai_explanation'.
+                                                        type: string
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                external:
+                                                  description: Call an external HTTP
+                                                    service for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                      url:
+                                                        description: HTTP endpoint
+                                                          URL to call for enrichment
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                sift:
+                                                  description: Analyze alerts for
+                                                    patterns and insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
+                                    if:
+                                      description: Condition to evaluate.
+                                      items:
+                                        properties:
+                                          annotationMatchers:
+                                            description: Annotation matchers for the
+                                              condition.
+                                            items:
+                                              properties:
+                                                name:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                value:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          dataSourceCondition:
+                                            description: Data source condition.
+                                            items:
+                                              properties:
+                                                request:
+                                                  description: Data source request
+                                                    payload.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          labelMatchers:
+                                            description: Label matchers for the condition.
+                                            items:
+                                              properties:
+                                                name:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                value:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
+                                    then:
+                                      description: Steps when condition is true.
+                                      items:
+                                        properties:
+                                          step:
+                                            items:
+                                              properties:
+                                                asserts:
+                                                  description: Integrate with Grafana
+                                                    Asserts for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assign:
+                                                  description: Assign annotations
+                                                    to an alert.
+                                                  items:
+                                                    properties:
+                                                      annotations:
+                                                        additionalProperties:
+                                                          type: string
+                                                        description: Map of annotation
+                                                          names to values to set on
+                                                          matching alerts.
+                                                        type: object
+                                                        x-kubernetes-map-type: granular
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assistantInvestigations:
+                                                  description: Use AI assistant to
+                                                    investigate alerts and add insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                dataSource:
+                                                  description: Query Grafana data
+                                                    sources and add results to alerts.
+                                                  items:
+                                                    properties:
+                                                      logsQuery:
+                                                        description: Logs query configuration
+                                                          for querying log data sources.
+                                                        items:
+                                                          properties:
+                                                            dataSourceType:
+                                                              description: Data source
+                                                                type (e.g., 'loki').
+                                                              type: string
+                                                            dataSourceUid:
+                                                              description: UID of
+                                                                the data source to
+                                                                query.
+                                                              type: string
+                                                            expr:
+                                                              description: Log query
+                                                                expression to execute.
+                                                              type: string
+                                                            maxLines:
+                                                              description: Maximum
+                                                                number of log lines
+                                                                to include. Defaults
+                                                                to 3.
+                                                              type: number
+                                                          type: object
+                                                        type: array
+                                                      rawQuery:
+                                                        description: Raw query configuration
+                                                          for advanced data source
+                                                          queries.
+                                                        items:
+                                                          properties:
+                                                            refId:
+                                                              description: Reference
+                                                                ID for correlating
+                                                                queries.
+                                                              type: string
+                                                            request:
+                                                              description: Raw request
+                                                                payload for the data
+                                                                source query.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                explain:
+                                                  description: Generate AI explanation
+                                                    and store in an annotation.
+                                                  items:
+                                                    properties:
+                                                      annotation:
+                                                        description: Annotation name
+                                                          to set the explanation in.
+                                                          Defaults to 'ai_explanation'.
+                                                        type: string
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                external:
+                                                  description: Call an external HTTP
+                                                    service for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                      url:
+                                                        description: HTTP endpoint
+                                                          URL to call for enrichment
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                sift:
+                                                  description: Analyze alerts for
+                                                    patterns and insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
+                                    timeout:
+                                      description: Maximum execution time (e.g., '30s',
+                                        '1m')
+                                      type: string
+                                  type: object
+                                type: array
                               dataSource:
                                 description: Query Grafana data sources and add results
                                   to alerts.
@@ -413,6 +762,355 @@ spec:
                                   and add insights.
                                 items:
                                   properties:
+                                    timeout:
+                                      description: Maximum execution time (e.g., '30s',
+                                        '1m')
+                                      type: string
+                                  type: object
+                                type: array
+                              conditional:
+                                description: Conditional step with if/then/else.
+                                items:
+                                  properties:
+                                    else:
+                                      description: Steps when condition is false.
+                                      items:
+                                        properties:
+                                          step:
+                                            items:
+                                              properties:
+                                                asserts:
+                                                  description: Integrate with Grafana
+                                                    Asserts for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assign:
+                                                  description: Assign annotations
+                                                    to an alert.
+                                                  items:
+                                                    properties:
+                                                      annotations:
+                                                        additionalProperties:
+                                                          type: string
+                                                        description: Map of annotation
+                                                          names to values to set on
+                                                          matching alerts.
+                                                        type: object
+                                                        x-kubernetes-map-type: granular
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assistantInvestigations:
+                                                  description: Use AI assistant to
+                                                    investigate alerts and add insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                dataSource:
+                                                  description: Query Grafana data
+                                                    sources and add results to alerts.
+                                                  items:
+                                                    properties:
+                                                      logsQuery:
+                                                        description: Logs query configuration
+                                                          for querying log data sources.
+                                                        items:
+                                                          properties:
+                                                            dataSourceType:
+                                                              description: Data source
+                                                                type (e.g., 'loki').
+                                                              type: string
+                                                            dataSourceUid:
+                                                              description: UID of
+                                                                the data source to
+                                                                query.
+                                                              type: string
+                                                            expr:
+                                                              description: Log query
+                                                                expression to execute.
+                                                              type: string
+                                                            maxLines:
+                                                              description: Maximum
+                                                                number of log lines
+                                                                to include. Defaults
+                                                                to 3.
+                                                              type: number
+                                                          type: object
+                                                        type: array
+                                                      rawQuery:
+                                                        description: Raw query configuration
+                                                          for advanced data source
+                                                          queries.
+                                                        items:
+                                                          properties:
+                                                            refId:
+                                                              description: Reference
+                                                                ID for correlating
+                                                                queries.
+                                                              type: string
+                                                            request:
+                                                              description: Raw request
+                                                                payload for the data
+                                                                source query.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                explain:
+                                                  description: Generate AI explanation
+                                                    and store in an annotation.
+                                                  items:
+                                                    properties:
+                                                      annotation:
+                                                        description: Annotation name
+                                                          to set the explanation in.
+                                                          Defaults to 'ai_explanation'.
+                                                        type: string
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                external:
+                                                  description: Call an external HTTP
+                                                    service for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                      url:
+                                                        description: HTTP endpoint
+                                                          URL to call for enrichment
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                sift:
+                                                  description: Analyze alerts for
+                                                    patterns and insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
+                                    if:
+                                      description: Condition to evaluate.
+                                      items:
+                                        properties:
+                                          annotationMatchers:
+                                            description: Annotation matchers for the
+                                              condition.
+                                            items:
+                                              properties:
+                                                name:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                value:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          dataSourceCondition:
+                                            description: Data source condition.
+                                            items:
+                                              properties:
+                                                request:
+                                                  description: Data source request
+                                                    payload.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          labelMatchers:
+                                            description: Label matchers for the condition.
+                                            items:
+                                              properties:
+                                                name:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                value:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
+                                    then:
+                                      description: Steps when condition is true.
+                                      items:
+                                        properties:
+                                          step:
+                                            items:
+                                              properties:
+                                                asserts:
+                                                  description: Integrate with Grafana
+                                                    Asserts for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assign:
+                                                  description: Assign annotations
+                                                    to an alert.
+                                                  items:
+                                                    properties:
+                                                      annotations:
+                                                        additionalProperties:
+                                                          type: string
+                                                        description: Map of annotation
+                                                          names to values to set on
+                                                          matching alerts.
+                                                        type: object
+                                                        x-kubernetes-map-type: granular
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assistantInvestigations:
+                                                  description: Use AI assistant to
+                                                    investigate alerts and add insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                dataSource:
+                                                  description: Query Grafana data
+                                                    sources and add results to alerts.
+                                                  items:
+                                                    properties:
+                                                      logsQuery:
+                                                        description: Logs query configuration
+                                                          for querying log data sources.
+                                                        items:
+                                                          properties:
+                                                            dataSourceType:
+                                                              description: Data source
+                                                                type (e.g., 'loki').
+                                                              type: string
+                                                            dataSourceUid:
+                                                              description: UID of
+                                                                the data source to
+                                                                query.
+                                                              type: string
+                                                            expr:
+                                                              description: Log query
+                                                                expression to execute.
+                                                              type: string
+                                                            maxLines:
+                                                              description: Maximum
+                                                                number of log lines
+                                                                to include. Defaults
+                                                                to 3.
+                                                              type: number
+                                                          type: object
+                                                        type: array
+                                                      rawQuery:
+                                                        description: Raw query configuration
+                                                          for advanced data source
+                                                          queries.
+                                                        items:
+                                                          properties:
+                                                            refId:
+                                                              description: Reference
+                                                                ID for correlating
+                                                                queries.
+                                                              type: string
+                                                            request:
+                                                              description: Raw request
+                                                                payload for the data
+                                                                source query.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                explain:
+                                                  description: Generate AI explanation
+                                                    and store in an annotation.
+                                                  items:
+                                                    properties:
+                                                      annotation:
+                                                        description: Annotation name
+                                                          to set the explanation in.
+                                                          Defaults to 'ai_explanation'.
+                                                        type: string
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                external:
+                                                  description: Call an external HTTP
+                                                    service for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                      url:
+                                                        description: HTTP endpoint
+                                                          URL to call for enrichment
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                sift:
+                                                  description: Analyze alerts for
+                                                    patterns and insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
                                     timeout:
                                       description: Maximum execution time (e.g., '30s',
                                         '1m')
@@ -820,6 +1518,355 @@ spec:
                                   and add insights.
                                 items:
                                   properties:
+                                    timeout:
+                                      description: Maximum execution time (e.g., '30s',
+                                        '1m')
+                                      type: string
+                                  type: object
+                                type: array
+                              conditional:
+                                description: Conditional step with if/then/else.
+                                items:
+                                  properties:
+                                    else:
+                                      description: Steps when condition is false.
+                                      items:
+                                        properties:
+                                          step:
+                                            items:
+                                              properties:
+                                                asserts:
+                                                  description: Integrate with Grafana
+                                                    Asserts for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assign:
+                                                  description: Assign annotations
+                                                    to an alert.
+                                                  items:
+                                                    properties:
+                                                      annotations:
+                                                        additionalProperties:
+                                                          type: string
+                                                        description: Map of annotation
+                                                          names to values to set on
+                                                          matching alerts.
+                                                        type: object
+                                                        x-kubernetes-map-type: granular
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assistantInvestigations:
+                                                  description: Use AI assistant to
+                                                    investigate alerts and add insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                dataSource:
+                                                  description: Query Grafana data
+                                                    sources and add results to alerts.
+                                                  items:
+                                                    properties:
+                                                      logsQuery:
+                                                        description: Logs query configuration
+                                                          for querying log data sources.
+                                                        items:
+                                                          properties:
+                                                            dataSourceType:
+                                                              description: Data source
+                                                                type (e.g., 'loki').
+                                                              type: string
+                                                            dataSourceUid:
+                                                              description: UID of
+                                                                the data source to
+                                                                query.
+                                                              type: string
+                                                            expr:
+                                                              description: Log query
+                                                                expression to execute.
+                                                              type: string
+                                                            maxLines:
+                                                              description: Maximum
+                                                                number of log lines
+                                                                to include. Defaults
+                                                                to 3.
+                                                              type: number
+                                                          type: object
+                                                        type: array
+                                                      rawQuery:
+                                                        description: Raw query configuration
+                                                          for advanced data source
+                                                          queries.
+                                                        items:
+                                                          properties:
+                                                            refId:
+                                                              description: Reference
+                                                                ID for correlating
+                                                                queries.
+                                                              type: string
+                                                            request:
+                                                              description: Raw request
+                                                                payload for the data
+                                                                source query.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                explain:
+                                                  description: Generate AI explanation
+                                                    and store in an annotation.
+                                                  items:
+                                                    properties:
+                                                      annotation:
+                                                        description: Annotation name
+                                                          to set the explanation in.
+                                                          Defaults to 'ai_explanation'.
+                                                        type: string
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                external:
+                                                  description: Call an external HTTP
+                                                    service for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                      url:
+                                                        description: HTTP endpoint
+                                                          URL to call for enrichment
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                sift:
+                                                  description: Analyze alerts for
+                                                    patterns and insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
+                                    if:
+                                      description: Condition to evaluate.
+                                      items:
+                                        properties:
+                                          annotationMatchers:
+                                            description: Annotation matchers for the
+                                              condition.
+                                            items:
+                                              properties:
+                                                name:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                value:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          dataSourceCondition:
+                                            description: Data source condition.
+                                            items:
+                                              properties:
+                                                request:
+                                                  description: Data source request
+                                                    payload.
+                                                  type: string
+                                              type: object
+                                            type: array
+                                          labelMatchers:
+                                            description: Label matchers for the condition.
+                                            items:
+                                              properties:
+                                                name:
+                                                  type: string
+                                                type:
+                                                  type: string
+                                                value:
+                                                  type: string
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
+                                    then:
+                                      description: Steps when condition is true.
+                                      items:
+                                        properties:
+                                          step:
+                                            items:
+                                              properties:
+                                                asserts:
+                                                  description: Integrate with Grafana
+                                                    Asserts for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assign:
+                                                  description: Assign annotations
+                                                    to an alert.
+                                                  items:
+                                                    properties:
+                                                      annotations:
+                                                        additionalProperties:
+                                                          type: string
+                                                        description: Map of annotation
+                                                          names to values to set on
+                                                          matching alerts.
+                                                        type: object
+                                                        x-kubernetes-map-type: granular
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                assistantInvestigations:
+                                                  description: Use AI assistant to
+                                                    investigate alerts and add insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                dataSource:
+                                                  description: Query Grafana data
+                                                    sources and add results to alerts.
+                                                  items:
+                                                    properties:
+                                                      logsQuery:
+                                                        description: Logs query configuration
+                                                          for querying log data sources.
+                                                        items:
+                                                          properties:
+                                                            dataSourceType:
+                                                              description: Data source
+                                                                type (e.g., 'loki').
+                                                              type: string
+                                                            dataSourceUid:
+                                                              description: UID of
+                                                                the data source to
+                                                                query.
+                                                              type: string
+                                                            expr:
+                                                              description: Log query
+                                                                expression to execute.
+                                                              type: string
+                                                            maxLines:
+                                                              description: Maximum
+                                                                number of log lines
+                                                                to include. Defaults
+                                                                to 3.
+                                                              type: number
+                                                          type: object
+                                                        type: array
+                                                      rawQuery:
+                                                        description: Raw query configuration
+                                                          for advanced data source
+                                                          queries.
+                                                        items:
+                                                          properties:
+                                                            refId:
+                                                              description: Reference
+                                                                ID for correlating
+                                                                queries.
+                                                              type: string
+                                                            request:
+                                                              description: Raw request
+                                                                payload for the data
+                                                                source query.
+                                                              type: string
+                                                          type: object
+                                                        type: array
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                explain:
+                                                  description: Generate AI explanation
+                                                    and store in an annotation.
+                                                  items:
+                                                    properties:
+                                                      annotation:
+                                                        description: Annotation name
+                                                          to set the explanation in.
+                                                          Defaults to 'ai_explanation'.
+                                                        type: string
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                external:
+                                                  description: Call an external HTTP
+                                                    service for enrichment.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                      url:
+                                                        description: HTTP endpoint
+                                                          URL to call for enrichment
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                sift:
+                                                  description: Analyze alerts for
+                                                    patterns and insights.
+                                                  items:
+                                                    properties:
+                                                      timeout:
+                                                        description: Maximum execution
+                                                          time (e.g., '30s', '1m')
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                              type: object
+                                            type: array
+                                        type: object
+                                      type: array
                                     timeout:
                                       description: Maximum execution time (e.g., '30s',
                                         '1m')

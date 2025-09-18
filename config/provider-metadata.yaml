@@ -31,11 +31,27 @@ resources:
         title: grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana
         argumentDocs: {}
         importStatements: []
-    grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana:
+    grafana_apps_dashboard_dashboard_v1beta1:
         subCategory: Grafana Apps
         description: Manages Grafana dashboards using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/#new-dashboard-apis
-        name: grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana
+        name: grafana_apps_dashboard_dashboard_v1beta1
         title: grafana_apps_dashboard_dashboard_v1beta1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-dashboard"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "json": "${jsonencode({\n      title         = \"Example Dashboard\"\n      uid           = \"example-dashboard\"\n      panels        = []\n      schemaVersion = 42\n    })}",
+                      "title": "Example Dashboard"
+                    }
+                  ]
+                }
         argumentDocs:
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from UUID.
@@ -51,11 +67,33 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
         importStatements: []
-    grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana:
+    grafana_apps_playlist_playlist_v0alpha1:
         subCategory: Grafana Apps
         description: Manages Grafana playlists using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/apis/
-        name: grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana
+        name: grafana_apps_playlist_playlist_v0alpha1
         title: grafana_apps_playlist_playlist_v0alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-playlist"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "interval": "5m",
+                      "items": [
+                        {
+                          "type": "dashboard_by_uid",
+                          "value": "example-dashboard-uid"
+                        }
+                      ],
+                      "title": "Example Playlist"
+                    }
+                  ]
+                }
         argumentDocs:
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from UUID.
