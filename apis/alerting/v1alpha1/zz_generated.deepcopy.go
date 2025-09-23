@@ -45,24 +45,18 @@ func (in *AlertenrichmentV1Beta1InitParameters) DeepCopyInto(out *Alertenrichmen
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -118,24 +112,18 @@ func (in *AlertenrichmentV1Beta1Observation) DeepCopyInto(out *AlertenrichmentV1
 	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -154,24 +142,18 @@ func (in *AlertenrichmentV1Beta1Parameters) DeepCopyInto(out *AlertenrichmentV1B
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -669,24 +651,18 @@ func (in *ConditionalInitParameters) DeepCopyInto(out *ConditionalInitParameters
 	*out = *in
 	if in.Else != nil {
 		in, out := &in.Else, &out.Else
-		*out = make([]ElseInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ElseInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.If != nil {
 		in, out := &in.If, &out.If
-		*out = make([]IfInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(IfInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Then != nil {
 		in, out := &in.Then, &out.Then
-		*out = make([]ThenInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -710,24 +686,18 @@ func (in *ConditionalObservation) DeepCopyInto(out *ConditionalObservation) {
 	*out = *in
 	if in.Else != nil {
 		in, out := &in.Else, &out.Else
-		*out = make([]ElseObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ElseObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.If != nil {
 		in, out := &in.If, &out.If
-		*out = make([]IfObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(IfObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Then != nil {
 		in, out := &in.Then, &out.Then
-		*out = make([]ThenObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -751,24 +721,18 @@ func (in *ConditionalParameters) DeepCopyInto(out *ConditionalParameters) {
 	*out = *in
 	if in.Else != nil {
 		in, out := &in.Else, &out.Else
-		*out = make([]ElseParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ElseParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.If != nil {
 		in, out := &in.If, &out.If
-		*out = make([]IfParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(IfParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Then != nil {
 		in, out := &in.Then, &out.Then
-		*out = make([]ThenParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -1628,17 +1592,13 @@ func (in *DataSourceInitParameters) DeepCopyInto(out *DataSourceInitParameters) 
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]LogsQueryInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(LogsQueryInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]RawQueryInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RawQueryInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -1767,17 +1727,13 @@ func (in *DataSourceObservation) DeepCopyInto(out *DataSourceObservation) {
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]LogsQueryObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(LogsQueryObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]RawQueryObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RawQueryObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -1801,17 +1757,13 @@ func (in *DataSourceParameters) DeepCopyInto(out *DataSourceParameters) {
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]LogsQueryParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(LogsQueryParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]RawQueryParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RawQueryParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -2257,52 +2209,38 @@ func (in *ElseStepInitParameters) DeepCopyInto(out *ElseStepInitParameters) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]StepAssertsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssertsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]StepAssignInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssignInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]StepAssistantInvestigationsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssistantInvestigationsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]DataSourceInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]ExplainInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ExplainInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]ExternalInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ExternalInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]SiftInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SiftInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2321,52 +2259,38 @@ func (in *ElseStepObservation) DeepCopyInto(out *ElseStepObservation) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]StepAssertsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssertsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]StepAssignObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssignObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]StepAssistantInvestigationsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssistantInvestigationsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]DataSourceObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]ExplainObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ExplainObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]ExternalObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ExternalObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]SiftObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SiftObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2385,52 +2309,38 @@ func (in *ElseStepParameters) DeepCopyInto(out *ElseStepParameters) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]StepAssertsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssertsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]StepAssignParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssignParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]StepAssistantInvestigationsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepAssistantInvestigationsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]DataSourceParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]ExplainParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ExplainParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]ExternalParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ExternalParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]SiftParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SiftParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -3121,10 +3031,8 @@ func (in *IfInitParameters) DeepCopyInto(out *IfInitParameters) {
 	}
 	if in.DataSourceCondition != nil {
 		in, out := &in.DataSourceCondition, &out.DataSourceCondition
-		*out = make([]DataSourceConditionInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceConditionInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LabelMatchers != nil {
 		in, out := &in.LabelMatchers, &out.LabelMatchers
@@ -3247,10 +3155,8 @@ func (in *IfObservation) DeepCopyInto(out *IfObservation) {
 	}
 	if in.DataSourceCondition != nil {
 		in, out := &in.DataSourceCondition, &out.DataSourceCondition
-		*out = make([]DataSourceConditionObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceConditionObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LabelMatchers != nil {
 		in, out := &in.LabelMatchers, &out.LabelMatchers
@@ -3283,10 +3189,8 @@ func (in *IfParameters) DeepCopyInto(out *IfParameters) {
 	}
 	if in.DataSourceCondition != nil {
 		in, out := &in.DataSourceCondition, &out.DataSourceCondition
-		*out = make([]DataSourceConditionParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceConditionParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LabelMatchers != nil {
 		in, out := &in.LabelMatchers, &out.LabelMatchers
@@ -9996,17 +9900,13 @@ func (in *SpecStepDataSourceInitParameters) DeepCopyInto(out *SpecStepDataSource
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]StepDataSourceLogsQueryInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceLogsQueryInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]StepDataSourceRawQueryInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceRawQueryInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -10030,17 +9930,13 @@ func (in *SpecStepDataSourceObservation) DeepCopyInto(out *SpecStepDataSourceObs
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]StepDataSourceLogsQueryObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceLogsQueryObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]StepDataSourceRawQueryObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceRawQueryObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -10064,17 +9960,13 @@ func (in *SpecStepDataSourceParameters) DeepCopyInto(out *SpecStepDataSourcePara
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]StepDataSourceLogsQueryParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceLogsQueryParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]StepDataSourceRawQueryParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceRawQueryParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -10536,17 +10428,13 @@ func (in *StepDataSourceInitParameters) DeepCopyInto(out *StepDataSourceInitPara
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]DataSourceLogsQueryInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceLogsQueryInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]DataSourceRawQueryInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceRawQueryInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -10675,17 +10563,13 @@ func (in *StepDataSourceObservation) DeepCopyInto(out *StepDataSourceObservation
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]DataSourceLogsQueryObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceLogsQueryObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]DataSourceRawQueryObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceRawQueryObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -10709,17 +10593,13 @@ func (in *StepDataSourceParameters) DeepCopyInto(out *StepDataSourceParameters) 
 	*out = *in
 	if in.LogsQuery != nil {
 		in, out := &in.LogsQuery, &out.LogsQuery
-		*out = make([]DataSourceLogsQueryParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceLogsQueryParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RawQuery != nil {
 		in, out := &in.RawQuery, &out.RawQuery
-		*out = make([]DataSourceRawQueryParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(DataSourceRawQueryParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Timeout != nil {
 		in, out := &in.Timeout, &out.Timeout
@@ -10968,59 +10848,43 @@ func (in *StepInitParameters) DeepCopyInto(out *StepInitParameters) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]AssertsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssertsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]AssignInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssignInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]AssistantInvestigationsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssistantInvestigationsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Conditional != nil {
 		in, out := &in.Conditional, &out.Conditional
-		*out = make([]ConditionalInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConditionalInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]SpecStepDataSourceInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepDataSourceInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]SpecStepExplainInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepExplainInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]SpecStepExternalInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepExternalInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]SpecStepSiftInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepSiftInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11039,59 +10903,43 @@ func (in *StepObservation) DeepCopyInto(out *StepObservation) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]AssertsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssertsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]AssignObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssignObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]AssistantInvestigationsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssistantInvestigationsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Conditional != nil {
 		in, out := &in.Conditional, &out.Conditional
-		*out = make([]ConditionalObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConditionalObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]SpecStepDataSourceObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepDataSourceObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]SpecStepExplainObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepExplainObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]SpecStepExternalObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepExternalObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]SpecStepSiftObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepSiftObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11110,59 +10958,43 @@ func (in *StepParameters) DeepCopyInto(out *StepParameters) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]AssertsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssertsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]AssignParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssignParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]AssistantInvestigationsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AssistantInvestigationsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Conditional != nil {
 		in, out := &in.Conditional, &out.Conditional
-		*out = make([]ConditionalParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ConditionalParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]SpecStepDataSourceParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepDataSourceParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]SpecStepExplainParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepExplainParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]SpecStepExternalParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepExternalParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]SpecStepSiftParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecStepSiftParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -11951,52 +11783,38 @@ func (in *ThenStepInitParameters) DeepCopyInto(out *ThenStepInitParameters) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]ThenStepAssertsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssertsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]ThenStepAssignInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssignInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]ThenStepAssistantInvestigationsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssistantInvestigationsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]StepDataSourceInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]StepExplainInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepExplainInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]StepExternalInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepExternalInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]StepSiftInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepSiftInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -12015,52 +11833,38 @@ func (in *ThenStepObservation) DeepCopyInto(out *ThenStepObservation) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]ThenStepAssertsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssertsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]ThenStepAssignObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssignObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]ThenStepAssistantInvestigationsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssistantInvestigationsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]StepDataSourceObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]StepExplainObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepExplainObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]StepExternalObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepExternalObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]StepSiftObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepSiftObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -12079,52 +11883,38 @@ func (in *ThenStepParameters) DeepCopyInto(out *ThenStepParameters) {
 	*out = *in
 	if in.Asserts != nil {
 		in, out := &in.Asserts, &out.Asserts
-		*out = make([]ThenStepAssertsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssertsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Assign != nil {
 		in, out := &in.Assign, &out.Assign
-		*out = make([]ThenStepAssignParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssignParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AssistantInvestigations != nil {
 		in, out := &in.AssistantInvestigations, &out.AssistantInvestigations
-		*out = make([]ThenStepAssistantInvestigationsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ThenStepAssistantInvestigationsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.DataSource != nil {
 		in, out := &in.DataSource, &out.DataSource
-		*out = make([]StepDataSourceParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepDataSourceParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Explain != nil {
 		in, out := &in.Explain, &out.Explain
-		*out = make([]StepExplainParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepExplainParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.External != nil {
 		in, out := &in.External, &out.External
-		*out = make([]StepExternalParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepExternalParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Sift != nil {
 		in, out := &in.Sift, &out.Sift
-		*out = make([]StepSiftParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(StepSiftParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

@@ -88,6 +88,15 @@ func ConfigureOnCallRefsAndSelectors(p *ujconfig.Provider) {
 		// r.References["slack.user_group_id"] = oncallUserGroupRef
 	})
 
+	p.AddResourceConfigurator(
+		"grafana_apps_alertenrichment_alertenrichment_v1beta1",
+		func(r *ujconfig.Resource) {
+			if err := ujconfig.TraverseSchemas(r.Name, r, &ujconfig.SingletonListEmbedder{}); err != nil {
+				panic(fmt.Errorf("failed to configure singleton blocks for %s: %w", r.Name, err))
+			}
+		},
+	)
+
 	// NOTE: the following refs will not work as Terraform datasources are not translated to Crossplane resources
 	// the workaround is to use the Terraform provider for Crossplane to use the datasources directly
 	// https://github.com/crossplane/crossplane/blob/master/design/design-doc-observe-only-resources.md
