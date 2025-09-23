@@ -16,41 +16,41 @@ import (
 type AlertenrichmentV1Beta1InitParameters struct {
 
 	// The metadata of the resource.
-	Metadata []MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Options for applying the resource.
-	Options []OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The spec of the resource.
-	Spec []SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertenrichmentV1Beta1Observation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The metadata of the resource.
-	Metadata []MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Options for applying the resource.
-	Options []OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+	Options *OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The spec of the resource.
-	Spec []SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertenrichmentV1Beta1Parameters struct {
 
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
-	Metadata []MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
-	Options []OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
-	Spec []SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AnnotationMatchersInitParameters struct {
@@ -154,13 +154,13 @@ type AssistantInvestigationsParameters struct {
 type ConditionalInitParameters struct {
 
 	// Steps when condition is false.
-	Else []ElseInitParameters `json:"else,omitempty" tf:"else,omitempty"`
+	Else *ElseInitParameters `json:"else,omitempty" tf:"else,omitempty"`
 
 	// Condition to evaluate.
-	If []IfInitParameters `json:"if,omitempty" tf:"if,omitempty"`
+	If *IfInitParameters `json:"if,omitempty" tf:"if,omitempty"`
 
 	// Steps when condition is true.
-	Then []ThenInitParameters `json:"then,omitempty" tf:"then,omitempty"`
+	Then *ThenInitParameters `json:"then,omitempty" tf:"then,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -169,13 +169,13 @@ type ConditionalInitParameters struct {
 type ConditionalObservation struct {
 
 	// Steps when condition is false.
-	Else []ElseObservation `json:"else,omitempty" tf:"else,omitempty"`
+	Else *ElseObservation `json:"else,omitempty" tf:"else,omitempty"`
 
 	// Condition to evaluate.
-	If []IfObservation `json:"if,omitempty" tf:"if,omitempty"`
+	If *IfObservation `json:"if,omitempty" tf:"if,omitempty"`
 
 	// Steps when condition is true.
-	Then []ThenObservation `json:"then,omitempty" tf:"then,omitempty"`
+	Then *ThenObservation `json:"then,omitempty" tf:"then,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -185,15 +185,15 @@ type ConditionalParameters struct {
 
 	// Steps when condition is false.
 	// +kubebuilder:validation:Optional
-	Else []ElseParameters `json:"else,omitempty" tf:"else,omitempty"`
+	Else *ElseParameters `json:"else,omitempty" tf:"else,omitempty"`
 
 	// Condition to evaluate.
 	// +kubebuilder:validation:Optional
-	If []IfParameters `json:"if,omitempty" tf:"if,omitempty"`
+	If *IfParameters `json:"if,omitempty" tf:"if,omitempty"`
 
 	// Steps when condition is true.
 	// +kubebuilder:validation:Optional
-	Then []ThenParameters `json:"then,omitempty" tf:"then,omitempty"`
+	Then *ThenParameters `json:"then,omitempty" tf:"then,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	// +kubebuilder:validation:Optional
@@ -222,10 +222,10 @@ type DataSourceConditionParameters struct {
 type DataSourceInitParameters struct {
 
 	// Logs query configuration for querying log data sources.
-	LogsQuery []LogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *LogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
-	RawQuery []RawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *RawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -283,10 +283,10 @@ type DataSourceLogsQueryParameters struct {
 type DataSourceObservation struct {
 
 	// Logs query configuration for querying log data sources.
-	LogsQuery []LogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *LogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
-	RawQuery []RawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *RawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -296,11 +296,11 @@ type DataSourceParameters struct {
 
 	// Logs query configuration for querying log data sources.
 	// +kubebuilder:validation:Optional
-	LogsQuery []LogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *LogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
 	// +kubebuilder:validation:Optional
-	RawQuery []RawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *RawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	// +kubebuilder:validation:Optional
@@ -353,80 +353,80 @@ type ElseParameters struct {
 type ElseStepInitParameters struct {
 
 	// Integrate with Grafana Asserts for enrichment.
-	Asserts []StepAssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *StepAssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
-	Assign []StepAssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *StepAssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
-	AssistantInvestigations []StepAssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *StepAssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
-	DataSource []DataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *DataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []ExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *ExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []ExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External *ExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []SiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *SiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type ElseStepObservation struct {
 
 	// Integrate with Grafana Asserts for enrichment.
-	Asserts []StepAssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *StepAssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
-	Assign []StepAssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *StepAssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
-	AssistantInvestigations []StepAssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *StepAssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
-	DataSource []DataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *DataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []ExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *ExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []ExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
+	External *ExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []SiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *SiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type ElseStepParameters struct {
 
 	// Integrate with Grafana Asserts for enrichment.
 	// +kubebuilder:validation:Optional
-	Asserts []StepAssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *StepAssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
 	// +kubebuilder:validation:Optional
-	Assign []StepAssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *StepAssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
 	// +kubebuilder:validation:Optional
-	AssistantInvestigations []StepAssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *StepAssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
 	// +kubebuilder:validation:Optional
-	DataSource []DataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *DataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
 	// +kubebuilder:validation:Optional
-	Explain []ExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *ExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
 	// +kubebuilder:validation:Optional
-	External []ExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External *ExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
 	// +kubebuilder:validation:Optional
-	Sift []SiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *SiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type ExplainInitParameters struct {
@@ -521,7 +521,7 @@ type IfInitParameters struct {
 	AnnotationMatchers []IfAnnotationMatchersInitParameters `json:"annotationMatchers,omitempty" tf:"annotation_matchers,omitempty"`
 
 	// Data source condition.
-	DataSourceCondition []DataSourceConditionInitParameters `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
+	DataSourceCondition *DataSourceConditionInitParameters `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
 
 	// Label matchers for the condition.
 	LabelMatchers []IfLabelMatchersInitParameters `json:"labelMatchers,omitempty" tf:"label_matchers,omitempty"`
@@ -561,7 +561,7 @@ type IfObservation struct {
 	AnnotationMatchers []IfAnnotationMatchersObservation `json:"annotationMatchers,omitempty" tf:"annotation_matchers,omitempty"`
 
 	// Data source condition.
-	DataSourceCondition []DataSourceConditionObservation `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
+	DataSourceCondition *DataSourceConditionObservation `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
 
 	// Label matchers for the condition.
 	LabelMatchers []IfLabelMatchersObservation `json:"labelMatchers,omitempty" tf:"label_matchers,omitempty"`
@@ -575,7 +575,7 @@ type IfParameters struct {
 
 	// Data source condition.
 	// +kubebuilder:validation:Optional
-	DataSourceCondition []DataSourceConditionParameters `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
+	DataSourceCondition *DataSourceConditionParameters `json:"dataSourceCondition,omitempty" tf:"data_source_condition,omitempty"`
 
 	// Label matchers for the condition.
 	// +kubebuilder:validation:Optional
@@ -846,10 +846,10 @@ type SpecParameters struct {
 type SpecStepDataSourceInitParameters struct {
 
 	// Logs query configuration for querying log data sources.
-	LogsQuery []StepDataSourceLogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *StepDataSourceLogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
-	RawQuery []StepDataSourceRawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *StepDataSourceRawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -858,10 +858,10 @@ type SpecStepDataSourceInitParameters struct {
 type SpecStepDataSourceObservation struct {
 
 	// Logs query configuration for querying log data sources.
-	LogsQuery []StepDataSourceLogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *StepDataSourceLogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
-	RawQuery []StepDataSourceRawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *StepDataSourceRawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -871,11 +871,11 @@ type SpecStepDataSourceParameters struct {
 
 	// Logs query configuration for querying log data sources.
 	// +kubebuilder:validation:Optional
-	LogsQuery []StepDataSourceLogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *StepDataSourceLogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
 	// +kubebuilder:validation:Optional
-	RawQuery []StepDataSourceRawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *StepDataSourceRawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	// +kubebuilder:validation:Optional
@@ -1032,10 +1032,10 @@ type StepAssistantInvestigationsParameters struct {
 type StepDataSourceInitParameters struct {
 
 	// Logs query configuration for querying log data sources.
-	LogsQuery []DataSourceLogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *DataSourceLogsQueryInitParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
-	RawQuery []DataSourceRawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *DataSourceRawQueryInitParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -1093,10 +1093,10 @@ type StepDataSourceLogsQueryParameters struct {
 type StepDataSourceObservation struct {
 
 	// Logs query configuration for querying log data sources.
-	LogsQuery []DataSourceLogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *DataSourceLogsQueryObservation `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
-	RawQuery []DataSourceRawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *DataSourceRawQueryObservation `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	Timeout *string `json:"timeout,omitempty" tf:"timeout,omitempty"`
@@ -1106,11 +1106,11 @@ type StepDataSourceParameters struct {
 
 	// Logs query configuration for querying log data sources.
 	// +kubebuilder:validation:Optional
-	LogsQuery []DataSourceLogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
+	LogsQuery *DataSourceLogsQueryParameters `json:"logsQuery,omitempty" tf:"logs_query,omitempty"`
 
 	// Raw query configuration for advanced data source queries.
 	// +kubebuilder:validation:Optional
-	RawQuery []DataSourceRawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
+	RawQuery *DataSourceRawQueryParameters `json:"rawQuery,omitempty" tf:"raw_query,omitempty"`
 
 	// Maximum execution time (e.g., '30s', '1m')
 	// +kubebuilder:validation:Optional
@@ -1207,90 +1207,90 @@ type StepExternalParameters struct {
 type StepInitParameters struct {
 
 	// Integrate with Grafana Asserts for enrichment.
-	Asserts []AssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *AssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
-	Assign []AssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *AssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
-	AssistantInvestigations []AssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *AssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Conditional step with if/then/else.
-	Conditional []ConditionalInitParameters `json:"conditional,omitempty" tf:"conditional,omitempty"`
+	Conditional *ConditionalInitParameters `json:"conditional,omitempty" tf:"conditional,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
-	DataSource []SpecStepDataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *SpecStepDataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []SpecStepExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *SpecStepExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []SpecStepExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External *SpecStepExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []SpecStepSiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *SpecStepSiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type StepObservation struct {
 
 	// Integrate with Grafana Asserts for enrichment.
-	Asserts []AssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *AssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
-	Assign []AssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *AssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
-	AssistantInvestigations []AssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *AssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Conditional step with if/then/else.
-	Conditional []ConditionalObservation `json:"conditional,omitempty" tf:"conditional,omitempty"`
+	Conditional *ConditionalObservation `json:"conditional,omitempty" tf:"conditional,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
-	DataSource []SpecStepDataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *SpecStepDataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []SpecStepExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *SpecStepExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []SpecStepExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
+	External *SpecStepExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []SpecStepSiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *SpecStepSiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type StepParameters struct {
 
 	// Integrate with Grafana Asserts for enrichment.
 	// +kubebuilder:validation:Optional
-	Asserts []AssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *AssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
 	// +kubebuilder:validation:Optional
-	Assign []AssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *AssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
 	// +kubebuilder:validation:Optional
-	AssistantInvestigations []AssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *AssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Conditional step with if/then/else.
 	// +kubebuilder:validation:Optional
-	Conditional []ConditionalParameters `json:"conditional,omitempty" tf:"conditional,omitempty"`
+	Conditional *ConditionalParameters `json:"conditional,omitempty" tf:"conditional,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
 	// +kubebuilder:validation:Optional
-	DataSource []SpecStepDataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *SpecStepDataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
 	// +kubebuilder:validation:Optional
-	Explain []SpecStepExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *SpecStepExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
 	// +kubebuilder:validation:Optional
-	External []SpecStepExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External *SpecStepExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
 	// +kubebuilder:validation:Optional
-	Sift []SpecStepSiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *SpecStepSiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type StepSiftInitParameters struct {
@@ -1399,80 +1399,80 @@ type ThenStepAssistantInvestigationsParameters struct {
 type ThenStepInitParameters struct {
 
 	// Integrate with Grafana Asserts for enrichment.
-	Asserts []ThenStepAssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *ThenStepAssertsInitParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
-	Assign []ThenStepAssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *ThenStepAssignInitParameters `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
-	AssistantInvestigations []ThenStepAssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *ThenStepAssistantInvestigationsInitParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
-	DataSource []StepDataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *StepDataSourceInitParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []StepExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *StepExplainInitParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []StepExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External *StepExternalInitParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []StepSiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *StepSiftInitParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type ThenStepObservation struct {
 
 	// Integrate with Grafana Asserts for enrichment.
-	Asserts []ThenStepAssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *ThenStepAssertsObservation `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
-	Assign []ThenStepAssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *ThenStepAssignObservation `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
-	AssistantInvestigations []ThenStepAssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *ThenStepAssistantInvestigationsObservation `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
-	DataSource []StepDataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *StepDataSourceObservation `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
-	Explain []StepExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *StepExplainObservation `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
-	External []StepExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
+	External *StepExternalObservation `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
-	Sift []StepSiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *StepSiftObservation `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 type ThenStepParameters struct {
 
 	// Integrate with Grafana Asserts for enrichment.
 	// +kubebuilder:validation:Optional
-	Asserts []ThenStepAssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
+	Asserts *ThenStepAssertsParameters `json:"asserts,omitempty" tf:"asserts,omitempty"`
 
 	// Assign annotations to an alert.
 	// +kubebuilder:validation:Optional
-	Assign []ThenStepAssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
+	Assign *ThenStepAssignParameters `json:"assign,omitempty" tf:"assign,omitempty"`
 
 	// Use AI assistant to investigate alerts and add insights.
 	// +kubebuilder:validation:Optional
-	AssistantInvestigations []ThenStepAssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
+	AssistantInvestigations *ThenStepAssistantInvestigationsParameters `json:"assistantInvestigations,omitempty" tf:"assistant_investigations,omitempty"`
 
 	// Query Grafana data sources and add results to alerts.
 	// +kubebuilder:validation:Optional
-	DataSource []StepDataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
+	DataSource *StepDataSourceParameters `json:"dataSource,omitempty" tf:"data_source,omitempty"`
 
 	// Generate AI explanation and store in an annotation.
 	// +kubebuilder:validation:Optional
-	Explain []StepExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
+	Explain *StepExplainParameters `json:"explain,omitempty" tf:"explain,omitempty"`
 
 	// Call an external HTTP service for enrichment.
 	// +kubebuilder:validation:Optional
-	External []StepExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
+	External *StepExternalParameters `json:"external,omitempty" tf:"external,omitempty"`
 
 	// Analyze alerts for patterns and insights.
 	// +kubebuilder:validation:Optional
-	Sift []StepSiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
+	Sift *StepSiftParameters `json:"sift,omitempty" tf:"sift,omitempty"`
 }
 
 // AlertenrichmentV1Beta1Spec defines the desired state of AlertenrichmentV1Beta1
