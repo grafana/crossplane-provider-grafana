@@ -127,10 +127,18 @@ spec:
                 description: Override the OnCall API URL from the credentials reference
                   attribute.
                 type: string
+              orgId:
+                description: Override the Grafana org ID from the credentials reference
+                  attribute.
+                type: integer
               smUrl:
                 description: Override the Synthetic Monitoring API URL from the credentials
                   reference attribute.
                 type: string
+              stackId:
+                description: Override the Grafana stack ID from the credentials reference
+                  attribute.
+                type: integer
               url:
                 description: Override the Grafana URL from the credentials reference
                   attribute.
