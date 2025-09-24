@@ -120,6 +120,9 @@ spec:
                       description:
                         description: Description of the alert enrichment.
                         type: string
+                      disableProvenance:
+                        description: allow modifying alert enrichment outside of provider
+                        type: boolean
                       labelMatchers:
                         description: 'Label matchers that an alert must satisfy for
                           this enrichment to apply. Each matcher is an object with:
@@ -607,6 +610,9 @@ spec:
                       description:
                         description: Description of the alert enrichment.
                         type: string
+                      disableProvenance:
+                        description: allow modifying alert enrichment outside of provider
+                        type: boolean
                       labelMatchers:
                         description: 'Label matchers that an alert must satisfy for
                           this enrichment to apply. Each matcher is an object with:
@@ -1221,6 +1227,12 @@ spec:
                   metadata:
                     description: The metadata of the resource.
                     properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        description: Annotations of the resource.
+                        type: object
+                        x-kubernetes-map-type: granular
                       folderUid:
                         description: The UID of the folder to save the resource in.
                         type: string
@@ -1275,6 +1287,9 @@ spec:
                       description:
                         description: Description of the alert enrichment.
                         type: string
+                      disableProvenance:
+                        description: allow modifying alert enrichment outside of provider
+                        type: boolean
                       labelMatchers:
                         description: 'Label matchers that an alert must satisfy for
                           this enrichment to apply. Each matcher is an object with:

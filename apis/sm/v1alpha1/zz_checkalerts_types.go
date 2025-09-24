@@ -21,6 +21,9 @@ type AlertsInitParameters struct {
 	// (String)
 	Period *string `json:"period,omitempty" tf:"period"`
 
+	// (String)
+	RunbookURL *string `json:"runbookUrl,omitempty" tf:"runbook_url"`
+
 	// (Number)
 	Threshold *float64 `json:"threshold,omitempty" tf:"threshold"`
 }
@@ -32,6 +35,9 @@ type AlertsObservation struct {
 
 	// (String)
 	Period *string `json:"period,omitempty" tf:"period,omitempty"`
+
+	// (String)
+	RunbookURL *string `json:"runbookUrl,omitempty" tf:"runbook_url,omitempty"`
 
 	// (Number)
 	Threshold *float64 `json:"threshold,omitempty" tf:"threshold,omitempty"`
@@ -46,6 +52,10 @@ type AlertsParameters struct {
 	// (String)
 	// +kubebuilder:validation:Optional
 	Period *string `json:"period" tf:"period"`
+
+	// (String)
+	// +kubebuilder:validation:Optional
+	RunbookURL *string `json:"runbookUrl" tf:"runbook_url"`
 
 	// (Number)
 	// +kubebuilder:validation:Optional

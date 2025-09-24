@@ -85,6 +85,9 @@ spec:
                         period:
                           description: (String)
                           type: string
+                        runbookUrl:
+                          description: (String)
+                          type: string
                         threshold:
                           description: (Number)
                           type: number
@@ -119,6 +122,9 @@ spec:
                           description: (String)
                           type: string
                         period:
+                          description: (String)
+                          type: string
+                        runbookUrl:
                           description: (String)
                           type: string
                         threshold:
@@ -323,6 +329,9 @@ spec:
                           description: (String)
                           type: string
                         period:
+                          description: (String)
+                          type: string
+                        runbookUrl:
                           description: (String)
                           type: string
                         threshold:
