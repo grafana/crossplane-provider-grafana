@@ -670,6 +670,10 @@ type MetadataInitParameters struct {
 
 type MetadataObservation struct {
 
+	// Annotations of the resource.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+
 	// The UID of the folder to save the resource in.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -775,6 +779,9 @@ type SpecInitParameters struct {
 	// Description of the alert enrichment.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// allow modifying alert enrichment outside of provider
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+
 	// Label matchers that an alert must satisfy for this enrichment to apply. Each matcher is an object with: 'type' (string, one of: =, !=, =~, !~), 'name' (string, label key to match), 'value' (string, label value to compare against, supports regex for =~/!~ operators).
 	LabelMatchers []LabelMatchersInitParameters `json:"labelMatchers,omitempty" tf:"label_matchers,omitempty"`
 
@@ -798,6 +805,9 @@ type SpecObservation struct {
 
 	// Description of the alert enrichment.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// allow modifying alert enrichment outside of provider
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// Label matchers that an alert must satisfy for this enrichment to apply. Each matcher is an object with: 'type' (string, one of: =, !=, =~, !~), 'name' (string, label key to match), 'value' (string, label value to compare against, supports regex for =~/!~ operators).
 	LabelMatchers []LabelMatchersObservation `json:"labelMatchers,omitempty" tf:"label_matchers,omitempty"`
@@ -825,6 +835,10 @@ type SpecParameters struct {
 	// Description of the alert enrichment.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// allow modifying alert enrichment outside of provider
+	// +kubebuilder:validation:Optional
+	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
 	// Label matchers that an alert must satisfy for this enrichment to apply. Each matcher is an object with: 'type' (string, one of: =, !=, =~, !~), 'name' (string, label key to match), 'value' (string, label value to compare against, supports regex for =~/!~ operators).
 	// +kubebuilder:validation:Optional

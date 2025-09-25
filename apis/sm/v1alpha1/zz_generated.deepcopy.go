@@ -26,6 +26,11 @@ func (in *AlertsInitParameters) DeepCopyInto(out *AlertsInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RunbookURL != nil {
+		in, out := &in.RunbookURL, &out.RunbookURL
+		*out = new(string)
+		**out = **in
+	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
 		*out = new(float64)
@@ -56,6 +61,11 @@ func (in *AlertsObservation) DeepCopyInto(out *AlertsObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.RunbookURL != nil {
+		in, out := &in.RunbookURL, &out.RunbookURL
+		*out = new(string)
+		**out = **in
+	}
 	if in.Threshold != nil {
 		in, out := &in.Threshold, &out.Threshold
 		*out = new(float64)
@@ -83,6 +93,11 @@ func (in *AlertsParameters) DeepCopyInto(out *AlertsParameters) {
 	}
 	if in.Period != nil {
 		in, out := &in.Period, &out.Period
+		*out = new(string)
+		**out = **in
+	}
+	if in.RunbookURL != nil {
+		in, out := &in.RunbookURL, &out.RunbookURL
 		*out = new(string)
 		**out = **in
 	}

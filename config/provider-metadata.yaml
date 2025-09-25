@@ -53,6 +53,7 @@ resources:
                   ]
                 }
         argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from UUID.
             json: (String) The JSON representation of the dashboard spec.
@@ -95,6 +96,7 @@ resources:
                   ]
                 }
         argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from UUID.
             interval: (String) The interval of the playlist.
@@ -111,6 +113,205 @@ resources:
             value: (String)
             version: (String) The version of the resource.
         importStatements: []
+    grafana_asserts_custom_model_rules:
+        subCategory: Asserts
+        description: Manages Asserts Custom Model Rules through the Grafana API.
+        name: grafana_asserts_custom_model_rules
+        title: grafana_asserts_custom_model_rules Resource - terraform-provider-grafana
+        examples:
+            - name: test
+              manifest: |-
+                {
+                  "name": "test-anything",
+                  "rules": [
+                    {
+                      "entity": [
+                        {
+                          "defined_by": [
+                            {
+                              "disabled": false,
+                              "label_values": {
+                                "job": "job",
+                                "service": "service"
+                              },
+                              "literals": {
+                                "_source": "up_query"
+                              },
+                              "query": "up{job!=''}"
+                            },
+                            {
+                              "disabled": true,
+                              "query": "up{job='disabled'}"
+                            }
+                          ],
+                          "lookup": {
+                            "job": "job",
+                            "proxy_job": "job",
+                            "service": "service",
+                            "workload": "workload | deployment | statefulset | daemonset | replicaset"
+                          },
+                          "name": "workload | service | job",
+                          "scope": {
+                            "env": "asserts_env",
+                            "namespace": "namespace",
+                            "site": "asserts_site"
+                          },
+                          "type": "Service"
+                        }
+                      ]
+                    }
+                  ]
+                }
+        argumentDocs:
+            defined_by: '(Block List, Min: 1) List of queries that define this entity. (see below for nested schema)'
+            disabled: (Boolean) Whether this entity is disabled.
+            enriched_by: (List of String) List of enrichment sources for the entity.
+            entity: '(Block List, Min: 1) List of entities to define in the custom model rules. (see below for nested schema)'
+            id: (String) The ID of this resource.
+            label_values: (Map of String) Label value mappings for the query.
+            literals: (Map of String) Literal value mappings for the query.
+            lookup: (Map of String) Lookup mappings for the entity.
+            metric_value: (String) Metric value for the query.
+            name: (String) The name of the custom model rules.
+            query: (String) The Prometheus query that defines this entity.
+            rules: '(Block List, Min: 1, Max: 1) The rules configuration for the custom model rules. (see below for nested schema)'
+            scope: (Map of String) Scope labels for the entity.
+            type: (String) The type of the entity (e.g., Service, Pod, Namespace).
+        importStatements:
+            - terraform import grafana_asserts_custom_model_rules.name "{{ name }}"
+    grafana_asserts_log_config:
+        subCategory: Asserts
+        description: Manages Asserts Log Configuration through Grafana API.
+        name: grafana_asserts_log_config
+        title: grafana_asserts_log_config Resource - terraform-provider-grafana
+        examples:
+            - name: production
+              manifest: |-
+                {
+                  "data_source_uid": "grafanacloud-logs",
+                  "default_config": false,
+                  "entity_property_to_log_label_mapping": {
+                    "environment": "env",
+                    "otel_namespace": "service_namespace",
+                    "otel_service": "service_name",
+                    "site": "region"
+                  },
+                  "error_label": "error",
+                  "filter_by_span_id": true,
+                  "filter_by_trace_id": true,
+                  "match": [
+                    {
+                      "op": "EQUALS",
+                      "property": "asserts_entity_type",
+                      "values": [
+                        "Service"
+                      ]
+                    },
+                    {
+                      "op": "EQUALS",
+                      "property": "environment",
+                      "values": [
+                        "production",
+                        "staging"
+                      ]
+                    },
+                    {
+                      "op": "EQUALS",
+                      "property": "site",
+                      "values": [
+                        "us-east-1",
+                        "us-west-2"
+                      ]
+                    }
+                  ],
+                  "name": "production",
+                  "priority": 1000
+                }
+            - name: development
+              manifest: |-
+                {
+                  "data_source_uid": "elasticsearch-dev",
+                  "default_config": true,
+                  "entity_property_to_log_label_mapping": {
+                    "environment": "env",
+                    "otel_namespace": "service_namespace",
+                    "otel_service": "service_name",
+                    "service": "app",
+                    "site": "region"
+                  },
+                  "error_label": "error",
+                  "filter_by_span_id": true,
+                  "filter_by_trace_id": true,
+                  "match": [
+                    {
+                      "op": "EQUALS",
+                      "property": "asserts_entity_type",
+                      "values": [
+                        "Service"
+                      ]
+                    },
+                    {
+                      "op": "EQUALS",
+                      "property": "environment",
+                      "values": [
+                        "development",
+                        "testing"
+                      ]
+                    },
+                    {
+                      "op": "EQUALS",
+                      "property": "site",
+                      "values": [
+                        "us-east-1"
+                      ]
+                    },
+                    {
+                      "op": "EQUALS",
+                      "property": "service",
+                      "values": [
+                        "api"
+                      ]
+                    }
+                  ],
+                  "name": "development",
+                  "priority": 2000
+                }
+            - name: minimal
+              manifest: |-
+                {
+                  "data_source_uid": "loki-minimal",
+                  "default_config": false,
+                  "match": [
+                    {
+                      "op": "IS_NOT_NULL",
+                      "property": "asserts_entity_type",
+                      "values": []
+                    }
+                  ],
+                  "name": "minimal",
+                  "priority": 3000
+                }
+        argumentDocs:
+            create: (String)
+            data_source_uid: (String) DataSource to be queried (e.g., a Loki instance).
+            default_config: (Boolean) Is it the default config, therefore undeletable?
+            delete: (String)
+            entity_property_to_log_label_mapping: (Map of String) Mapping of entity properties to log labels.
+            error_label: (String) Error label to filter logs.
+            filter_by_span_id: (Boolean) Filter logs by span ID.
+            filter_by_trace_id: (Boolean) Filter logs by trace ID.
+            id: (String) The ID of this resource.
+            match: (Block List) List of match rules for entity properties. (see below for nested schema)
+            name: (String) The name of the log configuration.
+            op: '(String) Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.'
+            priority: (Number) Priority of the log configuration. A lower number means a higher priority.
+            property: (String) Entity property to match.
+            read: (String)
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            values: (List of String) Values to match against.
+        importStatements:
+            - terraform import grafana_asserts_log_config.name "{{ name }}"
     grafana_asserts_notification_alerts_config:
         subCategory: Asserts
         description: Manages Asserts Alert Configurations through Grafana API.
@@ -5323,16 +5524,19 @@ resources:
                     {
                       "name": "ProbeFailedExecutionsTooHigh",
                       "period": "15m",
+                      "runbook_url": "",
                       "threshold": 1
                     },
                     {
                       "name": "TLSTargetCertificateCloseToExpiring",
                       "period": "",
+                      "runbook_url": "",
                       "threshold": 14
                     },
                     {
                       "name": "HTTPRequestDurationTooHighAvg",
                       "period": "10m",
+                      "runbook_url": "https://wiki.company.com/runbooks/http-duration",
                       "threshold": 5000
                     }
                   ],
@@ -5367,6 +5571,7 @@ resources:
             id: (String) The ID of this resource.
             name: (String)
             period: (String)
+            runbook_url: (String)
             threshold: (Number)
         importStatements:
             - terraform import grafana_synthetic_monitoring_check_alerts.name "{{ check_id }}"
