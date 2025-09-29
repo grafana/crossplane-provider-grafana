@@ -3,8 +3,7 @@ kind: Component
 metadata:
   name: crossplane-provider-grafana
   title: crossplane-provider-grafana
-  description: |
-    Grafana Labs' Crossplane Provider
+  description: Grafana Labs' Crossplane Provider
   tags:
     - gitops
   links:
@@ -12,7 +11,7 @@ metadata:
       type: slack
       url: https://grafanalabs.enterprise.slack.com/archives/C03A2L4R9U1
   annotations:
-    github.com/project-slug: grafana/terraform-provider-grafana
+    github.com/project-slug: grafana/crossplane-provider-grafana
 spec:
   type: tool
   owner: group:default/platform-monitoring
