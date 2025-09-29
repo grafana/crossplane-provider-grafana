@@ -5,8 +5,10 @@ metadata:
   title: crossplane-provider-grafana
   description: |
     Grafana Labs' Crossplane Provider
+  tags:
+    - gitops
   links:
-    - title: Internal Slack Channel
+    - title: "Internal Slack Channel #crossplane"
       type: slack
       url: https://grafanalabs.enterprise.slack.com/archives/C03A2L4R9U1
   annotations:
