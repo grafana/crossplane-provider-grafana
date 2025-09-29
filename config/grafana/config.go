@@ -284,18 +284,18 @@ func Configure(p *ujconfig.Provider) {
 		r.Sensitive.AdditionalConnectionDetailsFn = func(attr map[string]interface{}) (map[string][]byte, error) {
 			conn := map[string][]byte{}
 
-			instanceConfig := map[string]string{}
-			if a, ok := attr["stack_slug"].(string); ok {
-				instanceConfig["url"] = fmt.Sprintf("https://%s.grafana.net", a)
-			} // TODO: set URL from client
-			if a, ok := attr["key"].(string); ok {
-				instanceConfig["auth"] = a
+			stackSlug, hasStackSlugAttribute := attr["stack_slug"].(string)
+			key, hasKeyAttribute := attr["key"].(string)
+			if hasStackSlugAttribute && hasKeyAttribute {
+				instanceConfig := map[string]string{}
+				instanceConfig["url"] = fmt.Sprintf("https://%s.grafana.net", stackSlug)
+				instanceConfig["auth"] = key
+				marshalled, err := json.Marshal(instanceConfig)
+				if err != nil {
+					return nil, err
+				}
+				conn["instanceCredentials"] = marshalled
 			}
-			marshalled, err := json.Marshal(instanceConfig)
-			if err != nil {
-				return nil, err
-			}
-			conn["instanceCredentials"] = marshalled
 
 			return conn, nil
 		}
