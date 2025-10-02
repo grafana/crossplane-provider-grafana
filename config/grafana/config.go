@@ -482,6 +482,22 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "ContactPointSelector",
 			Extractor:         fieldExtractor("name"),
 		}
+		r.ExternalName = ujconfig.ExternalName{
+			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
+			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
+				folderUid, ok := tfstate["folder_uid"].(string)
+				if !ok {
+					return "", errors.New("cannot get folder_uid attribute")
+				}
+				name, ok := tfstate["name"].(string)
+				if !ok {
+					return "", errors.New("cannot get name attribute")
+				}
+				return fmt.Sprintf("%s:%s", folderUid, name), nil
+			},
+			GetIDFn:                ujconfig.ExternalNameAsID,
+			DisableNameInitializer: true,
+		}
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
 		r.References["members"] = ujconfig.Reference{
