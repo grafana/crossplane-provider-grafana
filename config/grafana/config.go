@@ -198,19 +198,17 @@ func Configure(p *ujconfig.Provider) {
 			if a, ok := attr["token"].(string); ok {
 				cloudConfig["cloud_access_policy_token"] = a
 				basicAuthConfig["basicAuthPassword"] = a
+				marshalledBasicAuthConfig, err := json.Marshal(basicAuthConfig)
+				if err != nil {
+					return nil, err
+				}
+				conn["basicAuthCredentials"] = marshalledBasicAuthConfig
+				marshalledCloudConfig, err := json.Marshal(cloudConfig)
+				if err != nil {
+					return nil, err
+				}
+				conn["cloudCredentials"] = marshalledCloudConfig
 			}
-
-			marshalledBasicAuthConfig, err := json.Marshal(basicAuthConfig)
-			if err != nil {
-				return nil, err
-			}
-			conn["basicAuthCredentials"] = marshalledBasicAuthConfig
-
-			marshalledCloudConfig, err := json.Marshal(cloudConfig)
-			if err != nil {
-				return nil, err
-			}
-			conn["cloudCredentials"] = marshalledCloudConfig
 			return conn, nil
 		}
 	})
@@ -509,18 +507,18 @@ func Configure(p *ujconfig.Provider) {
 			conn := map[string][]byte{}
 
 			providerConfig := map[string]string{}
-			if a, ok := attr["sm_access_token"].(string); ok {
-				providerConfig["sm_access_token"] = a
-			}
-			if a, ok := attr["stack_sm_api_url"].(string); ok {
-				providerConfig["sm_url"] = a
-			}
-			marshalled, err := json.Marshal(providerConfig)
-			if err != nil {
-				return nil, err
-			}
-			conn["smCredentials"] = marshalled
+			stackSmApiUrl, hasStackSmApiUrl := attr["stack_sm_api_url"].(string)
+			smAccessToken, hasSmAccessToken := attr["sm_access_token"].(string)
 
+			if hasStackSmApiUrl && hasSmAccessToken {
+				providerConfig["sm_url"] = stackSmApiUrl
+				providerConfig["sm_access_token"] = smAccessToken
+				marshalled, err := json.Marshal(providerConfig)
+				if err != nil {
+					return nil, err
+				}
+				conn["smCredentials"] = marshalled
+			}
 			return conn, nil
 		}
 	})
