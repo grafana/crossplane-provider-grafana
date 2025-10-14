@@ -26,6 +26,10 @@ type ProviderConfigSpec struct {
 	OnCallURL string `json:"oncallUrl,omitempty"`
 	// Override the Synthetic Monitoring API URL from the credentials reference attribute.
 	SMURL string `json:"smUrl,omitempty"`
+	// Override the Grafana org ID from the credentials reference attribute.
+	OrgID *int `json:"orgId,omitempty"`
+	// Override the Grafana stack ID from the credentials reference attribute.
+	StackID *int `json:"stackId,omitempty"`
 
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`

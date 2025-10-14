@@ -119,6 +119,12 @@ func TerraformSetupBuilder() terraform.SetupFn {
 		if pc.Spec.SMURL != "" {
 			ps.Configuration["sm_url"] = pc.Spec.SMURL
 		}
+		if pc.Spec.OrgID != nil {
+			ps.Configuration["org_id"] = *pc.Spec.OrgID
+		}
+		if pc.Spec.StackID != nil {
+			ps.Configuration["stack_id"] = *pc.Spec.StackID
+		}
 
 		if err := configureNoForkGrafanaClient(ctx, &ps); err != nil {
 			return ps, errors.Wrap(err, "failed to configure the no-fork Grafana client")
