@@ -28,3 +28,33 @@ jobs:
         allowUpdates: true
         artifacts: "dist/*"
         body: "See https://marketplace.upbound.io/providers/grafana/provider-grafana/ for API documentation."
+
+  deploy:
+    name: Trigger Argo Workflow Deployment
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    
+    steps:
+      - name: Extract version
+        id: version
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Deploying version: ${VERSION}"
+          echo "Docker image: crossplane/provider-grafana:${VERSION}"
+
+      - name: Trigger Argo Workflow
+        id: trigger-argo-workflow
+        uses: grafana/shared-workflows/actions/trigger-argo-workflow@trigger-argo-workflow/v1.2.0
+        with:
+          namespace: platform-monitoring-cd
+          workflow_template: crossplane-provider-grafana
+          parameters: |
+            imageName=crossplane/provider-grafana
+            dockertag=${{ steps.version.outputs.version }}
+            prCommentContext= Triggered by release ${{ steps.version.outputs.version }} in crossplane/crossplane-provider-grafana
+            commit_author=grafana-delivery-bot
