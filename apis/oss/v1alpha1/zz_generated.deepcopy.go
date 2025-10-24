@@ -3099,11 +3099,6 @@ func (in *ItemInitParameters) DeepCopyInto(out *ItemInitParameters) {
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Title != nil {
-		in, out := &in.Title, &out.Title
-		*out = new(string)
-		**out = **in
-	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
 		*out = new(string)
@@ -3139,11 +3134,6 @@ func (in *ItemObservation) DeepCopyInto(out *ItemObservation) {
 		*out = new(float64)
 		**out = **in
 	}
-	if in.Title != nil {
-		in, out := &in.Title, &out.Title
-		*out = new(string)
-		**out = **in
-	}
 	if in.Type != nil {
 		in, out := &in.Type, &out.Type
 		*out = new(string)
@@ -3172,11 +3162,6 @@ func (in *ItemParameters) DeepCopyInto(out *ItemParameters) {
 	if in.Order != nil {
 		in, out := &in.Order, &out.Order
 		*out = new(float64)
-		**out = **in
-	}
-	if in.Title != nil {
-		in, out := &in.Title, &out.Title
-		*out = new(string)
 		**out = **in
 	}
 	if in.Type != nil {
@@ -5373,6 +5358,11 @@ func (in *SAMLSettingsInitParameters) DeepCopyInto(out *SAMLSettingsInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.AssertionAttributeExternalUID != nil {
+		in, out := &in.AssertionAttributeExternalUID, &out.AssertionAttributeExternalUID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AssertionAttributeGroups != nil {
 		in, out := &in.AssertionAttributeGroups, &out.AssertionAttributeGroups
 		*out = new(string)
@@ -5573,6 +5563,11 @@ func (in *SAMLSettingsObservation) DeepCopyInto(out *SAMLSettingsObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.AssertionAttributeExternalUID != nil {
+		in, out := &in.AssertionAttributeExternalUID, &out.AssertionAttributeExternalUID
+		*out = new(string)
+		**out = **in
+	}
 	if in.AssertionAttributeGroups != nil {
 		in, out := &in.AssertionAttributeGroups, &out.AssertionAttributeGroups
 		*out = new(string)
@@ -5760,6 +5755,11 @@ func (in *SAMLSettingsParameters) DeepCopyInto(out *SAMLSettingsParameters) {
 	}
 	if in.AssertionAttributeEmail != nil {
 		in, out := &in.AssertionAttributeEmail, &out.AssertionAttributeEmail
+		*out = new(string)
+		**out = **in
+	}
+	if in.AssertionAttributeExternalUID != nil {
+		in, out := &in.AssertionAttributeExternalUID, &out.AssertionAttributeExternalUID
 		*out = new(string)
 		**out = **in
 	}

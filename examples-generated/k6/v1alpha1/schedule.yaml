@@ -4,14 +4,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: k6/v1alpha1/schedule
   labels:
-    testing.upbound.io/example-name: daily
-  name: daily
+    testing.upbound.io/example-name: cron_monthly
+  name: cron-monthly
 spec:
   forProvider:
+    cron:
+    - schedule: 0 10 1 * *
+      timezone: UTC
     loadTestId: ${grafana_k6_load_test.scheduled_test.id}
-    recurrenceRule:
-    - frequency: DAILY
-      interval: 1
     starts: "2024-12-25T10:00:00Z"
 
 ---

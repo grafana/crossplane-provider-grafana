@@ -567,6 +567,11 @@ spec:
                             (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
                             Friendly name or name of the attribute within the SAML assertion to use as the user email.
                           type: string
+                        assertionAttributeExternalUid:
+                          description: |-
+                            (String) Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+                            Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+                          type: string
                         assertionAttributeGroups:
                           description: |-
                             (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
@@ -1266,6 +1271,11 @@ spec:
                           description: |-
                             (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
                             Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                          type: string
+                        assertionAttributeExternalUid:
+                          description: |-
+                            (String) Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+                            Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
                           type: string
                         assertionAttributeGroups:
                           description: |-
@@ -2057,6 +2067,11 @@ spec:
                           description: |-
                             (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
                             Friendly name or name of the attribute within the SAML assertion to use as the user email.
+                          type: string
+                        assertionAttributeExternalUid:
+                          description: |-
+                            (String) Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+                            Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
                           type: string
                         assertionAttributeGroups:
                           description: |-

@@ -73,6 +73,24 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  cron:
+                    description: |-
+                      (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+                      The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+                    items:
+                      properties:
+                        schedule:
+                          description: |-
+                            (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+                            A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+                          type: string
+                        timezone:
+                          description: |-
+                            (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+                            The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+                          type: string
+                      type: object
+                    type: array
                   loadTestId:
                     description: |-
                       (String) The identifier of the load test to schedule.
@@ -80,8 +98,8 @@ spec:
                     type: string
                   recurrenceRule:
                     description: |-
-                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
-                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
                     items:
                       properties:
                         byday:
@@ -132,6 +150,24 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  cron:
+                    description: |-
+                      (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+                      The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+                    items:
+                      properties:
+                        schedule:
+                          description: |-
+                            (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+                            A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+                          type: string
+                        timezone:
+                          description: |-
+                            (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+                            The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+                          type: string
+                      type: object
+                    type: array
                   loadTestId:
                     description: |-
                       (String) The identifier of the load test to schedule.
@@ -139,8 +175,8 @@ spec:
                     type: string
                   recurrenceRule:
                     description: |-
-                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
-                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
                     items:
                       properties:
                         byday:
@@ -364,6 +400,24 @@ spec:
                       (String) The email of the user who created the schedule.
                       The email of the user who created the schedule.
                     type: string
+                  cron:
+                    description: |-
+                      (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+                      The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+                    items:
+                      properties:
+                        schedule:
+                          description: |-
+                            (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+                            A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+                          type: string
+                        timezone:
+                          description: |-
+                            (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+                            The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+                          type: string
+                      type: object
+                    type: array
                   deactivated:
                     description: |-
                       (Boolean) Whether the schedule is deactivated.
@@ -384,8 +438,8 @@ spec:
                     type: string
                   recurrenceRule:
                     description: |-
-                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
-                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+                      (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+                      The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
                     items:
                       properties:
                         byday:

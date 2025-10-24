@@ -11,11 +11,9 @@ spec:
     interval: 5m
     item:
     - order: 2
-      title: Terraform Dashboard By Tag
       type: dashboard_by_tag
       value: terraform
     - order: 1
-      title: Terraform Dashboard By UID
       type: dashboard_by_uid
       value: cIBgcSjkk
     name: My Playlist!

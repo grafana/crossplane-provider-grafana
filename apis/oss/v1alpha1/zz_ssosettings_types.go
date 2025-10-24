@@ -716,6 +716,10 @@ type SAMLSettingsInitParameters struct {
 	// Friendly name or name of the attribute within the SAML assertion to use as the user email.
 	AssertionAttributeEmail *string `json:"assertionAttributeEmail,omitempty" tf:"assertion_attribute_email,omitempty"`
 
+	// (String) Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+	// Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+	AssertionAttributeExternalUID *string `json:"assertionAttributeExternalUid,omitempty" tf:"assertion_attribute_external_uid,omitempty"`
+
 	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
 	// Friendly name or name of the attribute within the SAML assertion to use as the user groups.
 	AssertionAttributeGroups *string `json:"assertionAttributeGroups,omitempty" tf:"assertion_attribute_groups,omitempty"`
@@ -867,6 +871,10 @@ type SAMLSettingsObservation struct {
 	// Friendly name or name of the attribute within the SAML assertion to use as the user email.
 	AssertionAttributeEmail *string `json:"assertionAttributeEmail,omitempty" tf:"assertion_attribute_email,omitempty"`
 
+	// (String) Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+	// Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+	AssertionAttributeExternalUID *string `json:"assertionAttributeExternalUid,omitempty" tf:"assertion_attribute_external_uid,omitempty"`
+
 	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
 	// Friendly name or name of the attribute within the SAML assertion to use as the user groups.
 	AssertionAttributeGroups *string `json:"assertionAttributeGroups,omitempty" tf:"assertion_attribute_groups,omitempty"`
@@ -1013,6 +1021,11 @@ type SAMLSettingsParameters struct {
 	// Friendly name or name of the attribute within the SAML assertion to use as the user email.
 	// +kubebuilder:validation:Optional
 	AssertionAttributeEmail *string `json:"assertionAttributeEmail,omitempty" tf:"assertion_attribute_email,omitempty"`
+
+	// (String) Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+	// Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
+	// +kubebuilder:validation:Optional
+	AssertionAttributeExternalUID *string `json:"assertionAttributeExternalUid,omitempty" tf:"assertion_attribute_external_uid,omitempty"`
 
 	// (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
 	// Friendly name or name of the attribute within the SAML assertion to use as the user groups.

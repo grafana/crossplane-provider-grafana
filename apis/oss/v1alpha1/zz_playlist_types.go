@@ -19,9 +19,6 @@ type ItemInitParameters struct {
 	Order *float64 `json:"order,omitempty" tf:"order,omitempty"`
 
 	// (String)
-	Title *string `json:"title,omitempty" tf:"title,omitempty"`
-
-	// (String)
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String)
@@ -37,9 +34,6 @@ type ItemObservation struct {
 	Order *float64 `json:"order,omitempty" tf:"order,omitempty"`
 
 	// (String)
-	Title *string `json:"title,omitempty" tf:"title,omitempty"`
-
-	// (String)
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String)
@@ -51,10 +45,6 @@ type ItemParameters struct {
 	// (Number)
 	// +kubebuilder:validation:Optional
 	Order *float64 `json:"order" tf:"order,omitempty"`
-
-	// (String)
-	// +kubebuilder:validation:Optional
-	Title *string `json:"title" tf:"title,omitempty"`
 
 	// (String)
 	// +kubebuilder:validation:Optional

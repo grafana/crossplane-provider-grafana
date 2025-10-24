@@ -13,6 +13,41 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 )
 
+type CronInitParameters struct {
+
+	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+	// (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	// The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
+type CronObservation struct {
+
+	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+	// (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	// The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
+type CronParameters struct {
+
+	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	// +kubebuilder:validation:Optional
+	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+	// (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	// The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	// +kubebuilder:validation:Optional
+	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+}
+
 type RecurrenceRuleInitParameters struct {
 
 	// (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
@@ -89,12 +124,16 @@ type RecurrenceRuleParameters struct {
 
 type ScheduleInitParameters struct {
 
+	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+	Cron []CronInitParameters `json:"cron,omitempty" tf:"cron,omitempty"`
+
 	// (String) The identifier of the load test to schedule.
 	// The identifier of the load test to schedule.
 	LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
 
-	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
-	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
 	RecurrenceRule []RecurrenceRuleInitParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
 
 	// (String) The start time for the schedule (RFC3339 format).
@@ -107,6 +146,10 @@ type ScheduleObservation struct {
 	// (String) The email of the user who created the schedule.
 	// The email of the user who created the schedule.
 	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
+
+	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+	Cron []CronObservation `json:"cron,omitempty" tf:"cron,omitempty"`
 
 	// (Boolean) Whether the schedule is deactivated.
 	// Whether the schedule is deactivated.
@@ -123,8 +166,8 @@ type ScheduleObservation struct {
 	// The next scheduled execution time.
 	NextRun *string `json:"nextRun,omitempty" tf:"next_run,omitempty"`
 
-	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
-	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
 	RecurrenceRule []RecurrenceRuleObservation `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
 
 	// (String) The start time for the schedule (RFC3339 format).
@@ -134,13 +177,18 @@ type ScheduleObservation struct {
 
 type ScheduleParameters struct {
 
+	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+	// +kubebuilder:validation:Optional
+	Cron []CronParameters `json:"cron,omitempty" tf:"cron,omitempty"`
+
 	// (String) The identifier of the load test to schedule.
 	// The identifier of the load test to schedule.
 	// +kubebuilder:validation:Optional
 	LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
 
-	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
-	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date.
+	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
 	// +kubebuilder:validation:Optional
 	RecurrenceRule []RecurrenceRuleParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
 
