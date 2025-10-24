@@ -8,7 +8,7 @@ require (
 	dario.cat/mergo v1.0.2
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/crossplane/crossplane-runtime v1.20.0
-	github.com/crossplane/crossplane-tools v0.0.0-20250603090330-889cfb100517
+	github.com/crossplane/crossplane-tools v0.0.0-20251017183449-dd4517244339
 	github.com/crossplane/upjet v1.9.0
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/terraform-provider-grafana/v4 v4.12.0
