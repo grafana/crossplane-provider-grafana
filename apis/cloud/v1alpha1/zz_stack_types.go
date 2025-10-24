@@ -23,8 +23,8 @@ type StackInitParameters struct {
 	// Description of stack.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.
-	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
+	// zA-Z0-9/\-._]+$" and stacks cannot have more than 10 labels.
+	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-._]+$" and stacks cannot have more than 10 labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
@@ -146,8 +146,8 @@ type StackObservation struct {
 	// Base URL of the InfluxDB instance configured for this stack. The username is the same as the metrics' (`prometheus_user_id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-influxdb/push-from-telegraf/ for docs on how to use this.
 	InfluxURL *string `json:"influxUrl,omitempty" tf:"influx_url,omitempty"`
 
-	// zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.
-	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
+	// zA-Z0-9/\-._]+$" and stacks cannot have more than 10 labels.
+	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-._]+$" and stacks cannot have more than 10 labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
@@ -345,8 +345,8 @@ type StackParameters struct {
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.
-	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-.]+$" and stacks cannot have more than 10 labels.
+	// zA-Z0-9/\-._]+$" and stacks cannot have more than 10 labels.
+	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-._]+$" and stacks cannot have more than 10 labels.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`

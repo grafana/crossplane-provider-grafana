@@ -51,8 +51,8 @@ type OutgoingWebhookInitParameters struct {
 	// The auth data of the webhook. Used for Basic authentication
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
-	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
-	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, grafana_assistant, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `grafana_assistant`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
 	Preset *string `json:"preset,omitempty" tf:"preset,omitempty"`
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
@@ -109,8 +109,8 @@ type OutgoingWebhookObservation struct {
 	// The name of the outgoing webhook.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
-	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, grafana_assistant, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `grafana_assistant`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
 	Preset *string `json:"preset,omitempty" tf:"preset,omitempty"`
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
@@ -181,8 +181,8 @@ type OutgoingWebhookParameters struct {
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
-	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.
-	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
+	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, grafana_assistant, incident_webhook. If no preset is set, the default preset is advanced_webhook.
+	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `grafana_assistant`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
 	// +kubebuilder:validation:Optional
 	Preset *string `json:"preset,omitempty" tf:"preset,omitempty"`
 

@@ -113,6 +113,82 @@ resources:
             value: (String)
             version: (String) The version of the resource.
         importStatements: []
+    grafana_apps_productactivation_appo11yconfig_v1alpha1:
+        subCategory: Cloud
+        description: 'Manages Grafana Application Observability configurations using the Grafana APIs. This resource allows you to enable or disable application observability features. Note: This is a singleton resource. The UID is automatically set to "global" and there can only be one per namespace.'
+        name: grafana_apps_productactivation_appo11yconfig_v1alpha1
+        title: grafana_apps_productactivation_appo11yconfig_v1alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "global"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "enabled": true
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            enabled: (Boolean) Whether application observability is enabled.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements:
+            - |-
+              #!/bin/bash
+              # Import an existing app observability config by its UID
+              terraform import grafana_apps_productactivation_appo11yconfig_v1alpha1.example my-app-o11y-config
+    grafana_apps_productactivation_k8so11yconfig_v1alpha1:
+        subCategory: Cloud
+        description: 'Manages Grafana Kubernetes Observability configurations using the Grafana APIs. This resource allows you to enable or disable Kubernetes observability features. Note: This is a singleton resource. The UID is automatically set to "global" and there can only be one per namespace.'
+        name: grafana_apps_productactivation_k8so11yconfig_v1alpha1
+        title: grafana_apps_productactivation_k8so11yconfig_v1alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "global"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "enabled": true
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            enabled: (Boolean) Whether Kubernetes observability is enabled.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements:
+            - |-
+              #!/bin/bash
+              # Import an existing Kubernetes observability config by its UID
+              terraform import grafana_apps_productactivation_k8so11yconfig_v1alpha1.example my-k8s-o11y-config
     grafana_asserts_custom_model_rules:
         subCategory: Asserts
         description: Manages Asserts Custom Model Rules through the Grafana API.
@@ -959,7 +1035,7 @@ resources:
             graphite_user_id: (Number)
             id: (String) The stack id assigned to this stack by Grafana.
             influx_url: (String) Base URL of the InfluxDB instance configured for this stack. The username is the same as the metrics' (prometheus_user_id attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-influxdb/push-from-telegraf/ for docs on how to use this.
-            labels: '(Map of String) A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\-.]+$" and stacks cannot have more than 10 labels.'
+            labels: '(Map of String) A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\-._]+$" and stacks cannot have more than 10 labels.'
             logs_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
             logs_name: (String)
             logs_private_connectivity_info_private_dns: (String) Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
@@ -2239,7 +2315,7 @@ resources:
             - terraform import grafana_frontend_o11y_app.name "{{ stack_id }}:{{ name }}"
     grafana_k6_installation:
         subCategory: k6
-        description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ Required access policy scopes: stacks:readstacks:writesubscriptions:readorgs:read'
+        description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ Required access policy scopes: stacks:readstacks:writesubscriptions:readorgs:readstack-service-accounts:write'
         name: grafana_k6_installation
         title: grafana_k6_installation Resource - terraform-provider-grafana
         examples:
@@ -2409,6 +2485,34 @@ resources:
         name: grafana_k6_schedule
         title: grafana_k6_schedule Resource - terraform-provider-grafana
         examples:
+            - name: cron_monthly
+              manifest: |-
+                {
+                  "cron": [
+                    {
+                      "schedule": "0 10 1 * *",
+                      "timezone": "UTC"
+                    }
+                  ],
+                  "load_test_id": "${grafana_k6_load_test.scheduled_test.id}",
+                  "starts": "2024-12-25T10:00:00Z"
+                }
+              references:
+                load_test_id: grafana_k6_load_test.scheduled_test.id
+              dependencies:
+                grafana_k6_load_test.scheduled_test: |-
+                    {
+                      "depends_on": [
+                        "${grafana_k6_project.schedule_project}"
+                      ],
+                      "name": "Terraform Scheduled Resource Test",
+                      "project_id": "${grafana_k6_project.schedule_project.id}",
+                      "script": "export default function() {\n  console.log('Hello from scheduled k6 test!');\n}\n"
+                    }
+                grafana_k6_project.schedule_project: |-
+                    {
+                      "name": "Terraform Schedule Resource Project"
+                    }
             - name: daily
               manifest: |-
                 {
@@ -2525,14 +2629,17 @@ resources:
             byday: (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
             count: (Number) How many times the recurrence will repeat.
             created_by: (String) The email of the user who created the schedule.
+            cron: (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
             deactivated: (Boolean) Whether the schedule is deactivated.
             frequency: (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
             id: (String) Numeric identifier of the schedule.
             interval: (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
             load_test_id: (String) The identifier of the load test to schedule.
             next_run: (String) The next scheduled execution time.
-            recurrence_rule: (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. (see below for nested schema)
+            recurrence_rule: (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+            schedule: '(String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.'
             starts: (String) The start time for the schedule (RFC3339 format).
+            timezone: (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
             until: (String) The end time for the recurrence (RFC3339 format).
         importStatements:
             - terraform import grafana_k6_schedule.name "{{ load_test_id }}"
@@ -3383,7 +3490,7 @@ resources:
             is_webhook_enabled: (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
             name: (String) The name of the outgoing webhook.
             password: (String, Sensitive) The auth data of the webhook. Used for Basic authentication
-            preset: '(String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, incident_webhook. If no preset is set, the default preset is advanced_webhook.'
+            preset: '(String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, grafana_assistant, incident_webhook. If no preset is set, the default preset is advanced_webhook.'
             team_id: (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
             trigger_template: (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
             trigger_type: '(String) The type of event that will cause this outgoing webhook to execute. The events available will depend on the preset used. For alert group webhooks, the possible triggers are: escalation, alert group created, status change, acknowledge, resolve, silence, unsilence, unresolve, unacknowledge, resolution note added, personal notification; for incident webhooks: incident declared, incident changed, incident resolved. Defaults to escalation.'
@@ -3711,13 +3818,11 @@ resources:
                   "item": [
                     {
                       "order": 2,
-                      "title": "Terraform Dashboard By Tag",
                       "type": "dashboard_by_tag",
                       "value": "terraform"
                     },
                     {
                       "order": 1,
-                      "title": "Terraform Dashboard By UID",
                       "type": "dashboard_by_uid",
                       "value": "cIBgcSjkk"
                     }
@@ -3731,7 +3836,6 @@ resources:
             name: (String) The name of the playlist.
             order: (Number)
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            title: (String)
             type: (String)
             value: (String)
         importStatements:
@@ -4603,6 +4707,7 @@ resources:
             total_metric: (String) Metric for total events (denominator)
             type: '(String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"'
             uid: (String) UID for the Datasource
+            uuid: (String) UUID for the SLO. Custom UUIDs can be set. If not provided, a random UUID will be generated by the API.
             value: (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
             window: (String) A Prometheus-parsable time duration string like 24h, 60m. This is the time window the objective is measured over.
         importStatements:
@@ -4726,6 +4831,7 @@ resources:
             allowed_organizations: (String) List of comma- or space-separated organizations. The user should be a member of at least one organization to log in.
             api_url: (String) The user information endpoint of your OAuth2 provider. Required for okta and generic_oauth providers.
             assertion_attribute_email: (String) Friendly name or name of the attribute within the SAML assertion to use as the user email.
+            assertion_attribute_external_uid: (String) Friendly name of the attribute within the SAML assertion to use as the external user ID. Only used for SCIM provisioned users.
             assertion_attribute_groups: (String) Friendly name or name of the attribute within the SAML assertion to use as the user groups.
             assertion_attribute_login: (String) Friendly name or name of the attribute within the SAML assertion to use as the user login handle.
             assertion_attribute_name: (String) Friendly name or name of the attribute within the SAML assertion to use as the user name. Alternatively, this can be a template with variables that match the names of attributes within the SAML assertion.
@@ -4974,6 +5080,11 @@ resources:
                               "allow_missing": true,
                               "header": "Content-Type",
                               "regexp": "application/soap*"
+                            },
+                            {
+                              "allow_missing": true,
+                              "header": "Content-Type",
+                              "regexp": "application/json"
                             }
                           ],
                           "fail_if_not_ssl": true,

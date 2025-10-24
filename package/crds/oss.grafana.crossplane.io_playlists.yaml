@@ -84,9 +84,6 @@ spec:
                         order:
                           description: (Number)
                           type: number
-                        title:
-                          description: (String)
-                          type: string
                         type:
                           description: (String)
                           type: string
@@ -203,9 +200,6 @@ spec:
                         order:
                           description: (Number)
                           type: number
-                        title:
-                          description: (String)
-                          type: string
                         type:
                           description: (String)
                           type: string
@@ -500,9 +494,6 @@ spec:
                         order:
                           description: (Number)
                           type: number
-                        title:
-                          description: (String)
-                          type: string
                         type:
                           description: (String)
                           type: string
