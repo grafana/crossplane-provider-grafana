@@ -54,7 +54,6 @@ jobs:
           namespace: platform-monitoring-cd
           workflow_template: crossplane-provider-grafana
           parameters: |
-            imageName=crossplane/provider-grafana
             dockertag=${{ steps.version.outputs.version }}
             prCommentContext= Triggered by release ${{ steps.version.outputs.version }} in crossplane/crossplane-provider-grafana
             commit_author=grafana-delivery-bot
