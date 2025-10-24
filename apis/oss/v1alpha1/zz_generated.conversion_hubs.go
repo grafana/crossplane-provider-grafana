@@ -22,6 +22,9 @@ func (tr *DashboardPermissionItem) Hub() {}
 func (tr *DashboardPublic) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DashboardV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DataSource) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -47,6 +50,9 @@ func (tr *OrganizationPreferences) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Playlist) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PlaylistV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccount) Hub() {}

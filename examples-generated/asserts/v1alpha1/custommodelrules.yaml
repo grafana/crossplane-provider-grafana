@@ -1,0 +1,34 @@
+apiVersion: asserts.grafana.crossplane.io/v1alpha1
+kind: CustomModelRules
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/custommodelrules
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    name: test-anything
+    rules:
+    - entity:
+      - definedBy:
+        - disabled: false
+          labelValues:
+            job: job
+            service: service
+          literals:
+            _source: up_query
+          query: up{job!=''}
+        - disabled: true
+          query: up{job='disabled'}
+        lookup:
+          job: job
+          proxy_job: job
+          service: service
+          workload: workload | deployment | statefulset | daemonset | replicaset
+        name: workload | service | job
+        scope:
+          env: asserts_env
+          namespace: namespace
+          site: asserts_site
+        type: Service

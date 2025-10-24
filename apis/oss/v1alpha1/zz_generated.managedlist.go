@@ -52,6 +52,15 @@ func (l *DashboardPublicList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DashboardV1Beta1List.
+func (l *DashboardV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this DataSourceConfigList.
 func (l *DataSourceConfigList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -126,6 +135,15 @@ func (l *OrganizationPreferencesList) GetItems() []resource.Managed {
 
 // GetItems of this PlaylistList.
 func (l *PlaylistList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this PlaylistV0Alpha1List.
+func (l *PlaylistV0Alpha1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
