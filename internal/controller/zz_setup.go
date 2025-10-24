@@ -15,10 +15,14 @@ import (
 	mutetiming "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/notificationpolicy"
 	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/rulegroup"
+	custommodelrules "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/custommodelrules"
+	logconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/logconfig"
 	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/notificationalertsconfig"
 	suppressedassertionsconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/suppressedassertionsconfig"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicy"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/accesspolicytoken"
+	appo11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/appo11yconfigv1alpha1"
+	k8so11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/k8so11yconfigv1alpha1"
 	orgmember "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/orgmember"
 	plugininstallation "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/plugininstallation"
 	privatedatasourceconnectnetwork "github.com/grafana/crossplane-provider-grafana/internal/controller/cloud/privatedatasourceconnectnetwork"
@@ -66,6 +70,7 @@ import (
 	dashboardpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermission"
 	dashboardpermissionitem "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpermissionitem"
 	dashboardpublic "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardpublic"
+	dashboardv1beta1 "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/dashboardv1beta1"
 	datasource "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/datasource"
 	datasourceconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/datasourceconfig"
 	folder "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/folder"
@@ -75,6 +80,7 @@ import (
 	organization "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organization"
 	organizationpreferences "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/organizationpreferences"
 	playlist "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/playlist"
+	playlistv0alpha1 "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/playlistv0alpha1"
 	serviceaccount "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccount"
 	serviceaccountpermission "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccountpermission"
 	serviceaccountpermissionitem "github.com/grafana/crossplane-provider-grafana/internal/controller/oss/serviceaccountpermissionitem"
@@ -100,10 +106,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		mutetiming.Setup,
 		notificationpolicy.Setup,
 		rulegroup.Setup,
+		custommodelrules.Setup,
+		logconfig.Setup,
 		notificationalertsconfig.Setup,
 		suppressedassertionsconfig.Setup,
 		accesspolicy.Setup,
 		accesspolicytoken.Setup,
+		appo11yconfigv1alpha1.Setup,
+		k8so11yconfigv1alpha1.Setup,
 		orgmember.Setup,
 		plugininstallation.Setup,
 		privatedatasourceconnectnetwork.Setup,
@@ -151,6 +161,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		dashboardpermission.Setup,
 		dashboardpermissionitem.Setup,
 		dashboardpublic.Setup,
+		dashboardv1beta1.Setup,
 		datasource.Setup,
 		datasourceconfig.Setup,
 		folder.Setup,
@@ -160,6 +171,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		organization.Setup,
 		organizationpreferences.Setup,
 		playlist.Setup,
+		playlistv0alpha1.Setup,
 		serviceaccount.Setup,
 		serviceaccountpermission.Setup,
 		serviceaccountpermissionitem.Setup,

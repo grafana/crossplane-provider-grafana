@@ -127,6 +127,126 @@ func (mg *AccessPolicyToken) SetWriteConnectionSecretToReference(r *xpv1.SecretR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this Appo11YconfigV1Alpha1.
+func (mg *Appo11YconfigV1Alpha1) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetPublishConnectionDetailsTo of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
+	return mg.Spec.PublishConnectionDetailsTo
+}
+
+// GetWriteConnectionSecretToReference of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetPublishConnectionDetailsTo of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
+	mg.Spec.PublishConnectionDetailsTo = r
+}
+
+// SetWriteConnectionSecretToReference of this K8So11YconfigV1Alpha1.
+func (mg *K8So11YconfigV1Alpha1) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this OrgMember.
 func (mg *OrgMember) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)

@@ -1,0 +1,10 @@
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: Appo11YconfigV1Alpha1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/appo11yconfigv1alpha1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider: {}

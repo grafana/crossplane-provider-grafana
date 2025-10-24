@@ -1,0 +1,37 @@
+apiVersion: asserts.grafana.crossplane.io/v1alpha1
+kind: LogConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/logconfig
+  labels:
+    testing.upbound.io/example-name: production
+  name: production
+spec:
+  forProvider:
+    dataSourceUid: grafanacloud-logs
+    defaultConfig: false
+    entityPropertyToLogLabelMapping:
+      environment: env
+      otel_namespace: service_namespace
+      otel_service: service_name
+      site: region
+    errorLabel: error
+    filterBySpanId: true
+    filterByTraceId: true
+    match:
+    - op: EQUALS
+      property: asserts_entity_type
+      values:
+      - Service
+    - op: EQUALS
+      property: environment
+      values:
+      - production
+      - staging
+    - op: EQUALS
+      property: site
+      values:
+      - us-east-1
+      - us-west-2
+    name: production
+    priority: 1000
