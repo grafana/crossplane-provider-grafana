@@ -1,0 +1,10 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DashboardV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardv1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider: {}

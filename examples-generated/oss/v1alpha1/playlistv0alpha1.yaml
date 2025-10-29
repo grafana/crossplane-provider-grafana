@@ -1,0 +1,10 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: PlaylistV0Alpha1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/playlistv0alpha1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider: {}
