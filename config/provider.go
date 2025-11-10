@@ -10,8 +10,8 @@ import (
 
 	"fmt"
 
-	ujconfig "github.com/crossplane/upjet/pkg/config"
-	conversiontfjson "github.com/crossplane/upjet/pkg/types/conversion/tfjson"
+	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -115,6 +115,47 @@ func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
+		grafana.ConfigureOrgIDRefs,
+		grafana.Configure,
+		grafana.ConfigureOnCallRefsAndSelectors,
+	} {
+		configure(pc)
+	}
+
+	pc.ConfigureResources()
+	return pc, nil
+}
+
+// GetProviderNamespaced returns provider configuration for the modern namespaced API group
+func GetProviderNamespaced(generationProvider bool) (*ujconfig.Provider, error) {
+	var p *schema.Provider
+	var err error
+	if generationProvider {
+		p, err = getProviderSchema(providerSchema)
+	} else {
+		p = grafanaProvider.Provider("crossplane")
+	}
+	if err != nil {
+		return nil, errors.Wrapf(err, "cannot get the Terraform provider schema with generation mode set to %t", generationProvider)
+	}
+
+	legacySDKResources, pluginFrameworkResources := resourcesByFramework()
+	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
+		ujconfig.WithShortName("grafana"),
+		ujconfig.WithRootGroup("grafana.m.crossplane.io"),
+		ujconfig.WithFeaturesPackage("internal/features"),
+		ujconfig.WithIncludeList([]string{}),
+		ujconfig.WithTerraformPluginSDKIncludeList(legacySDKResources),
+		ujconfig.WithTerraformPluginFrameworkIncludeList(pluginFrameworkResources),
+		ujconfig.WithTerraformProvider(p),
+		ujconfig.WithTerraformPluginFrameworkProvider(grafanaProvider.FrameworkProvider("crossplane")),
+		ujconfig.WithDefaultResourceOptions(
+			GroupKindOverrides(),
+			KindOverrides(),
+			ExternalNameConfigurations(),
+		))
+
+	for _, configure := range []func(provider *ujconfig.Provider){
 		grafana.ConfigureOrgIDRefs,
 		grafana.Configure,
 		grafana.ConfigureOnCallRefsAndSelectors,
