@@ -16,6 +16,15 @@ func (l *AlertenrichmentV1Beta1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this AlertruleV0Alpha1List.
+func (l *AlertruleV0Alpha1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ContactPointList.
 func (l *ContactPointList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -45,6 +54,15 @@ func (l *MuteTimingList) GetItems() []resource.Managed {
 
 // GetItems of this NotificationPolicyList.
 func (l *NotificationPolicyList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RecordingruleV0Alpha1List.
+func (l *RecordingruleV0Alpha1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

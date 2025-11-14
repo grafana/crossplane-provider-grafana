@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: LogConfig is the Schema for the LogConfigs API. Manages Asserts
-          Log Configuration through Grafana API.
+        description: LogConfig is the Schema for the LogConfigs API. Manages Knowledge
+          Graph Log Configuration through Grafana API.
         properties:
           apiVersion:
             description: |-
