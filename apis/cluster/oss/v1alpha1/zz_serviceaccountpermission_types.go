@@ -10,14 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type ServiceAccountPermissionInitParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -36,7 +36,7 @@ type ServiceAccountPermissionInitParameters struct {
 
 	// (String) The id of the service account.
 	// The id of the service account.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
@@ -72,7 +72,7 @@ type ServiceAccountPermissionParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional
@@ -93,7 +93,7 @@ type ServiceAccountPermissionParameters struct {
 
 	// (String) The id of the service account.
 	// The id of the service account.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional
@@ -116,7 +116,7 @@ type ServiceAccountPermissionPermissionsInitParameters struct {
 
 	// (String) ID of the team to manage permissions for. Defaults to 0.
 	// ID of the team to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Team
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
@@ -131,7 +131,7 @@ type ServiceAccountPermissionPermissionsInitParameters struct {
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
@@ -169,7 +169,7 @@ type ServiceAccountPermissionPermissionsParameters struct {
 
 	// (String) ID of the team to manage permissions for. Defaults to 0.
 	// ID of the team to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.Team
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
@@ -185,7 +185,7 @@ type ServiceAccountPermissionPermissionsParameters struct {
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional

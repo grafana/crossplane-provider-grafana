@@ -7,7 +7,7 @@ package v1alpha1
 
 import (
 	"context"
-	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
+	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -22,6 +22,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ActionToTrigger),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.ActionToTriggerRef,
 		Selector:     mg.Spec.ForProvider.ActionToTriggerSelector,
 		To: reference.To{
@@ -38,6 +39,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.EscalationChainRef,
 		Selector:     mg.Spec.ForProvider.EscalationChainSelector,
 		To: reference.To{
@@ -54,6 +56,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.NotifyOnCallFromScheduleRef,
 		Selector:     mg.Spec.ForProvider.NotifyOnCallFromScheduleSelector,
 		To: reference.To{
@@ -70,6 +73,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ActionToTrigger),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.ActionToTriggerRef,
 		Selector:     mg.Spec.InitProvider.ActionToTriggerSelector,
 		To: reference.To{
@@ -86,6 +90,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.EscalationChainRef,
 		Selector:     mg.Spec.InitProvider.EscalationChainSelector,
 		To: reference.To{
@@ -102,6 +107,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.NotifyOnCallFromScheduleRef,
 		Selector:     mg.Spec.InitProvider.NotifyOnCallFromScheduleSelector,
 		To: reference.To{
@@ -129,6 +135,7 @@ func (mg *Integration) ResolveReferences(ctx context.Context, c client.Reader) e
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainRef,
 			Selector:     mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainSelector,
 			To: reference.To{
@@ -147,6 +154,7 @@ func (mg *Integration) ResolveReferences(ctx context.Context, c client.Reader) e
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainRef,
 			Selector:     mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainSelector,
 			To: reference.To{
@@ -175,6 +183,7 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.EscalationChainRef,
 		Selector:     mg.Spec.ForProvider.EscalationChainSelector,
 		To: reference.To{
@@ -191,6 +200,7 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.IntegrationID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.IntegrationRef,
 		Selector:     mg.Spec.ForProvider.IntegrationSelector,
 		To: reference.To{
@@ -207,6 +217,7 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.EscalationChainRef,
 		Selector:     mg.Spec.InitProvider.EscalationChainSelector,
 		To: reference.To{
@@ -223,6 +234,7 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.IntegrationID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.IntegrationRef,
 		Selector:     mg.Spec.InitProvider.IntegrationSelector,
 		To: reference.To{
@@ -249,6 +261,7 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Shifts),
 		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.ShiftsRef,
 		Selector:      mg.Spec.ForProvider.ShiftsSelector,
 		To: reference.To{
@@ -265,6 +278,7 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Shifts),
 		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.ShiftsRef,
 		Selector:      mg.Spec.InitProvider.ShiftsSelector,
 		To: reference.To{

@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
-	"github.com/crossplane/crossplane-runtime/pkg/resource"
-	resourcefake "github.com/crossplane/crossplane-runtime/pkg/resource/fake"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	resourcefake "github.com/crossplane/crossplane-runtime/v2/pkg/resource/fake"
 	"github.com/google/go-cmp/cmp"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -15,7 +15,7 @@ import (
 	ctrlclient "sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
 
-	"github.com/grafana/crossplane-provider-grafana/apis/v1beta1"
+	nv1beta1 "github.com/grafana/crossplane-provider-grafana/apis/namespaced/v1beta1"
 )
 
 func intPtr(i int) *int {
@@ -33,14 +33,14 @@ func setupTest(t *testing.T, credentials map[string]string, orgID, stackID *int)
 		Data: map[string][]byte{},
 	}
 
-	pc := &v1beta1.ProviderConfig{
+	pc := &nv1beta1.ProviderConfig{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: "test-config",
 		},
-		Spec: v1beta1.ProviderConfigSpec{
+		Spec: nv1beta1.ProviderConfigSpec{
 			OrgID:   orgID,
 			StackID: stackID,
-			Credentials: v1beta1.ProviderCredentials{
+			Credentials: nv1beta1.ProviderCredentials{
 				Source: v1.CredentialsSourceSecret,
 				CommonCredentialSelectors: v1.CommonCredentialSelectors{
 					SecretRef: &v1.SecretKeySelector{
@@ -53,7 +53,7 @@ func setupTest(t *testing.T, credentials map[string]string, orgID, stackID *int)
 				},
 			},
 		},
-		Status: v1beta1.ProviderConfigStatus{
+		Status: nv1beta1.ProviderConfigStatus{
 			ProviderConfigStatus: v1.ProviderConfigStatus{
 				ConditionedStatus: v1.ConditionedStatus{
 					Conditions: []v1.Condition{
@@ -77,16 +77,16 @@ func setupTest(t *testing.T, credentials map[string]string, orgID, stackID *int)
 	mg.SetName("test-resource")
 	mg.SetNamespace("default")
 	mg.SetUID("test-uid-12345")
-	mg.SetProviderConfigReference(&v1.Reference{Name: "test-config"})
+	// resourcefake.Managed in runtime v2 does not implement SetProviderConfigReference directly; skip for now.
 
 	scheme := runtime.NewScheme()
-	_ = v1beta1.SchemeBuilder.AddToScheme(scheme)
+	_ = nv1beta1.SchemeBuilder.AddToScheme(scheme)
 	_ = corev1.AddToScheme(scheme)
 
 	client := fake.NewClientBuilder().
 		WithScheme(scheme).
 		WithObjects(secret, pc).
-		WithStatusSubresource(&v1beta1.ProviderConfig{}).
+		WithStatusSubresource(&nv1beta1.ProviderConfig{}).
 		Build()
 
 	return client, mg

@@ -5,7 +5,7 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 
 // GetCondition of this AwsAccount.
 func (mg *AwsAccount) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
@@ -25,11 +25,6 @@ func (mg *AwsAccount) GetManagementPolicies() xpv1.ManagementPolicies {
 // GetProviderConfigReference of this AwsAccount.
 func (mg *AwsAccount) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
-}
-
-// GetPublishConnectionDetailsTo of this AwsAccount.
-func (mg *AwsAccount) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
 }
 
 // GetWriteConnectionSecretToReference of this AwsAccount.
@@ -57,11 +52,6 @@ func (mg *AwsAccount) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this AwsAccount.
-func (mg *AwsAccount) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
-}
-
 // SetWriteConnectionSecretToReference of this AwsAccount.
 func (mg *AwsAccount) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
@@ -85,11 +75,6 @@ func (mg *AwsCloudwatchScrapeJob) GetManagementPolicies() xpv1.ManagementPolicie
 // GetProviderConfigReference of this AwsCloudwatchScrapeJob.
 func (mg *AwsCloudwatchScrapeJob) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
-}
-
-// GetPublishConnectionDetailsTo of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
 }
 
 // GetWriteConnectionSecretToReference of this AwsCloudwatchScrapeJob.
@@ -117,11 +102,6 @@ func (mg *AwsCloudwatchScrapeJob) SetProviderConfigReference(r *xpv1.Reference) 
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
-}
-
 // SetWriteConnectionSecretToReference of this AwsCloudwatchScrapeJob.
 func (mg *AwsCloudwatchScrapeJob) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
@@ -145,11 +125,6 @@ func (mg *AwsResourceMetadataScrapeJob) GetManagementPolicies() xpv1.ManagementP
 // GetProviderConfigReference of this AwsResourceMetadataScrapeJob.
 func (mg *AwsResourceMetadataScrapeJob) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
-}
-
-// GetPublishConnectionDetailsTo of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
 }
 
 // GetWriteConnectionSecretToReference of this AwsResourceMetadataScrapeJob.
@@ -177,11 +152,6 @@ func (mg *AwsResourceMetadataScrapeJob) SetProviderConfigReference(r *xpv1.Refer
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetPublishConnectionDetailsTo of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
-}
-
 // SetWriteConnectionSecretToReference of this AwsResourceMetadataScrapeJob.
 func (mg *AwsResourceMetadataScrapeJob) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
@@ -207,11 +177,6 @@ func (mg *AzureCredential) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetPublishConnectionDetailsTo of this AzureCredential.
-func (mg *AzureCredential) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
-}
-
 // GetWriteConnectionSecretToReference of this AzureCredential.
 func (mg *AzureCredential) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
@@ -235,11 +200,6 @@ func (mg *AzureCredential) SetManagementPolicies(r xpv1.ManagementPolicies) {
 // SetProviderConfigReference of this AzureCredential.
 func (mg *AzureCredential) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this AzureCredential.
-func (mg *AzureCredential) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this AzureCredential.

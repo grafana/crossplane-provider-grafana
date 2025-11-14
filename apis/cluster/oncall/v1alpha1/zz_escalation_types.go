@@ -10,14 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type EscalationInitParameters struct {
 
 	// (String) The ID of an Action for trigger_webhook type step.
 	// The ID of an Action for trigger_webhook type step.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OutgoingWebhook
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.OutgoingWebhook
 	// +crossplane:generate:reference:refFieldName=ActionToTriggerRef
 	// +crossplane:generate:reference:selectorFieldName=ActionToTriggerSelector
 	ActionToTrigger *string `json:"actionToTrigger,omitempty" tf:"action_to_trigger,omitempty"`
@@ -36,7 +36,7 @@ type EscalationInitParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
@@ -67,7 +67,7 @@ type EscalationInitParameters struct {
 
 	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
 	// ID of a Schedule for notify_on_call_from_schedule type step.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Schedule
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.Schedule
 	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
 	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
 	NotifyOnCallFromSchedule *string `json:"notifyOnCallFromSchedule,omitempty" tf:"notify_on_call_from_schedule,omitempty"`
@@ -175,7 +175,7 @@ type EscalationParameters struct {
 
 	// (String) The ID of an Action for trigger_webhook type step.
 	// The ID of an Action for trigger_webhook type step.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OutgoingWebhook
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.OutgoingWebhook
 	// +crossplane:generate:reference:refFieldName=ActionToTriggerRef
 	// +crossplane:generate:reference:selectorFieldName=ActionToTriggerSelector
 	// +kubebuilder:validation:Optional
@@ -196,7 +196,7 @@ type EscalationParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	// +kubebuilder:validation:Optional
@@ -232,7 +232,7 @@ type EscalationParameters struct {
 
 	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
 	// ID of a Schedule for notify_on_call_from_schedule type step.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.Schedule
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.Schedule
 	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
 	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
 	// +kubebuilder:validation:Optional

@@ -7,9 +7,9 @@ package v1alpha1
 
 import (
 	"context"
-	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1"
-	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
+	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1"
+	grafana "github.com/grafana/crossplane-provider-grafana/config/cluster/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -24,6 +24,7 @@ func (mg *Job) ResolveReferences(ctx context.Context, c client.Reader) error {
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.DataSourceRef,
 		Selector:     mg.Spec.ForProvider.DataSourceSelector,
 		To: reference.To{
@@ -40,6 +41,7 @@ func (mg *Job) ResolveReferences(ctx context.Context, c client.Reader) error {
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.DataSourceRef,
 		Selector:     mg.Spec.InitProvider.DataSourceSelector,
 		To: reference.To{
@@ -66,6 +68,7 @@ func (mg *OutlierDetector) ResolveReferences(ctx context.Context, c client.Reade
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.DataSourceRef,
 		Selector:     mg.Spec.ForProvider.DataSourceSelector,
 		To: reference.To{
@@ -82,6 +85,7 @@ func (mg *OutlierDetector) ResolveReferences(ctx context.Context, c client.Reade
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.DataSourceRef,
 		Selector:     mg.Spec.InitProvider.DataSourceSelector,
 		To: reference.To{

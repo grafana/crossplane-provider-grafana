@@ -5,7 +5,7 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 
 // GetCondition of this MetricsEndpointScrapeJob.
 func (mg *MetricsEndpointScrapeJob) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
@@ -25,11 +25,6 @@ func (mg *MetricsEndpointScrapeJob) GetManagementPolicies() xpv1.ManagementPolic
 // GetProviderConfigReference of this MetricsEndpointScrapeJob.
 func (mg *MetricsEndpointScrapeJob) GetProviderConfigReference() *xpv1.Reference {
 	return mg.Spec.ProviderConfigReference
-}
-
-// GetPublishConnectionDetailsTo of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) GetPublishConnectionDetailsTo() *xpv1.PublishConnectionDetailsTo {
-	return mg.Spec.PublishConnectionDetailsTo
 }
 
 // GetWriteConnectionSecretToReference of this MetricsEndpointScrapeJob.
@@ -55,11 +50,6 @@ func (mg *MetricsEndpointScrapeJob) SetManagementPolicies(r xpv1.ManagementPolic
 // SetProviderConfigReference of this MetricsEndpointScrapeJob.
 func (mg *MetricsEndpointScrapeJob) SetProviderConfigReference(r *xpv1.Reference) {
 	mg.Spec.ProviderConfigReference = r
-}
-
-// SetPublishConnectionDetailsTo of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) SetPublishConnectionDetailsTo(r *xpv1.PublishConnectionDetailsTo) {
-	mg.Spec.PublishConnectionDetailsTo = r
 }
 
 // SetWriteConnectionSecretToReference of this MetricsEndpointScrapeJob.

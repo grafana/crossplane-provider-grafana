@@ -7,9 +7,9 @@ package v1alpha1
 
 import (
 	"context"
-	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/oss/v1alpha1"
-	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
+	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1"
+	grafana "github.com/grafana/crossplane-provider-grafana/config/cluster/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -25,6 +25,7 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DestinationDatasource[i3].UID),
 			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.DestinationDatasource[i3].Ref,
 			Selector:     mg.Spec.ForProvider.DestinationDatasource[i3].Selector,
 			To: reference.To{
@@ -43,6 +44,7 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DestinationDatasource[i3].UID),
 			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.DestinationDatasource[i3].Ref,
 			Selector:     mg.Spec.InitProvider.DestinationDatasource[i3].Selector,
 			To: reference.To{

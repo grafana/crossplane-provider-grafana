@@ -1,0 +1,19 @@
+apiVersion: oncall.grafana.m.crossplane.io/v1alpha1
+kind: Schedule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/schedule
+  labels:
+    testing.upbound.io/example-name: example_schedule
+  name: example-schedule
+  namespace: upbound-system
+spec:
+  forProvider:
+    icalUrlOverrides: https://example.com/example_overrides_ical.ics
+    icalUrlPrimary: https://example.com/example_ical.ics
+    name: Example Ical Schadule
+    slack:
+    - channelId: ${data.grafana_oncall_slack_channel.example_slack_channel.slack_id}
+      userGroupId: ${data.grafana_oncall_user_group.example_user_group.slack_id}
+    teamId: ${data.grafana_oncall_team.my_team.id}
+    type: ical

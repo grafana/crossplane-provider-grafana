@@ -7,9 +7,9 @@ package v1alpha1
 
 import (
 	"context"
-	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1"
-	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
+	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/cloud/v1alpha1"
+	grafana "github.com/grafana/crossplane-provider-grafana/config/cluster/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -24,6 +24,7 @@ func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackID),
 		Extract:      grafana.ComputedFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
 		To: reference.To{
@@ -40,6 +41,7 @@ func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackID),
 		Extract:      grafana.ComputedFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
 		To: reference.To{

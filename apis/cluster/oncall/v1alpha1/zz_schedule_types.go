@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type ScheduleInitParameters struct {
@@ -33,7 +33,7 @@ type ScheduleInitParameters struct {
 
 	// call shifts.
 	// The list of ID's of on-call shifts.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OnCallShift
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.OnCallShift
 	// +crossplane:generate:reference:refFieldName=ShiftsRef
 	// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
 	// +listType=set
@@ -131,7 +131,7 @@ type ScheduleParameters struct {
 
 	// call shifts.
 	// The list of ID's of on-call shifts.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/oncall/v1alpha1.OnCallShift
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.OnCallShift
 	// +crossplane:generate:reference:refFieldName=ShiftsRef
 	// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
 	// +kubebuilder:validation:Optional

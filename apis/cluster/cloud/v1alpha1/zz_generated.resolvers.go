@@ -7,8 +7,8 @@ package v1alpha1
 
 import (
 	"context"
-	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
-	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
+	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	grafana "github.com/grafana/crossplane-provider-grafana/config/cluster/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -24,6 +24,7 @@ func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Realm[i3].Identifier),
 			Extract:      grafana.ComputedFieldExtractor("id"),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.Realm[i3].StackRef,
 			Selector:     mg.Spec.ForProvider.Realm[i3].StackSelector,
 			To: reference.To{
@@ -42,6 +43,7 @@ func (mg *AccessPolicy) ResolveReferences(ctx context.Context, c client.Reader) 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Realm[i3].Identifier),
 			Extract:      grafana.ComputedFieldExtractor("id"),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.Realm[i3].StackRef,
 			Selector:     mg.Spec.InitProvider.Realm[i3].StackSelector,
 			To: reference.To{
@@ -70,6 +72,7 @@ func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Rea
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AccessPolicyID),
 		Extract:      grafana.ComputedFieldExtractor("policyId"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.AccessPolicyRef,
 		Selector:     mg.Spec.ForProvider.AccessPolicySelector,
 		To: reference.To{
@@ -86,6 +89,7 @@ func (mg *AccessPolicyToken) ResolveReferences(ctx context.Context, c client.Rea
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AccessPolicyID),
 		Extract:      grafana.ComputedFieldExtractor("policyId"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.AccessPolicyRef,
 		Selector:     mg.Spec.InitProvider.AccessPolicySelector,
 		To: reference.To{
@@ -112,6 +116,7 @@ func (mg *PluginInstallation) ResolveReferences(ctx context.Context, c client.Re
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackSlug),
 		Extract:      grafana.FieldExtractor("slug"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
 		To: reference.To{
@@ -128,6 +133,7 @@ func (mg *PluginInstallation) ResolveReferences(ctx context.Context, c client.Re
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
 		Extract:      grafana.FieldExtractor("slug"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
 		To: reference.To{
@@ -154,6 +160,7 @@ func (mg *StackServiceAccount) ResolveReferences(ctx context.Context, c client.R
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackSlug),
 		Extract:      grafana.FieldExtractor("slug"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
 		To: reference.To{
@@ -170,6 +177,7 @@ func (mg *StackServiceAccount) ResolveReferences(ctx context.Context, c client.R
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
 		Extract:      grafana.FieldExtractor("slug"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
 		To: reference.To{
@@ -196,6 +204,7 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ServiceAccountID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.ServiceAccountRef,
 		Selector:     mg.Spec.ForProvider.ServiceAccountSelector,
 		To: reference.To{
@@ -212,6 +221,7 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackSlug),
 		Extract:      grafana.FieldExtractor("slug"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
 		To: reference.To{
@@ -228,6 +238,7 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ServiceAccountID),
 		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.ServiceAccountRef,
 		Selector:     mg.Spec.InitProvider.ServiceAccountSelector,
 		To: reference.To{
@@ -244,6 +255,7 @@ func (mg *StackServiceAccountToken) ResolveReferences(ctx context.Context, c cli
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackSlug),
 		Extract:      grafana.FieldExtractor("slug"),
+		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
 		To: reference.To{

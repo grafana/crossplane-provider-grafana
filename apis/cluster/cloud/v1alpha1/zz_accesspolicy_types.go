@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
 type AccessPolicyInitParameters struct {
@@ -166,8 +166,8 @@ type RealmInitParameters struct {
 
 	// (String) The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
 	// The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.ComputedFieldExtractor("id")
 	// +crossplane:generate:reference:refFieldName=StackRef
 	// +crossplane:generate:reference:selectorFieldName=StackSelector
 	Identifier *string `json:"identifier,omitempty" tf:"identifier,omitempty"`
@@ -206,8 +206,8 @@ type RealmParameters struct {
 
 	// (String) The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
 	// The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.ComputedFieldExtractor("id")
 	// +crossplane:generate:reference:refFieldName=StackRef
 	// +crossplane:generate:reference:selectorFieldName=StackSelector
 	// +kubebuilder:validation:Optional

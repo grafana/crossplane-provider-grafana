@@ -50,3 +50,6 @@ func init() {
 	SchemeBuilder.Register(&ProviderConfig{}, &ProviderConfigList{})
 	SchemeBuilder.Register(&ProviderConfigUsage{}, &ProviderConfigUsageList{})
 }
+
+// AddToScheme registers the types in the cluster v1beta1 API group into the supplied scheme.
+var AddToScheme = SchemeBuilder.AddToScheme

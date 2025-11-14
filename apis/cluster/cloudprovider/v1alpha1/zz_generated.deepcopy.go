@@ -1116,7 +1116,7 @@ func (in *AzureCredentialInitParameters) DeepCopyInto(out *AzureCredentialInitPa
 		*out = new(string)
 		**out = **in
 	}
-	out.ClientSecretSecretRef = in.ClientSecretSecretRef
+	in.ClientSecretSecretRef.DeepCopyInto(&out.ClientSecretSecretRef)
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
@@ -1279,7 +1279,7 @@ func (in *AzureCredentialParameters) DeepCopyInto(out *AzureCredentialParameters
 		*out = new(string)
 		**out = **in
 	}
-	out.ClientSecretSecretRef = in.ClientSecretSecretRef
+	in.ClientSecretSecretRef.DeepCopyInto(&out.ClientSecretSecretRef)
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)
