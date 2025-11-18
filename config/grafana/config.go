@@ -329,12 +329,12 @@ func Configure(p *ujconfig.Provider) {
 			// instanceConfig["url"] = fmt.Sprintf("https://%s.grafana.net", a)
 			if a, ok := attr["key"].(string); ok {
 				instanceConfig["auth"] = a
+				marshalled, err := json.Marshal(instanceConfig)
+				if err != nil {
+					return nil, err
+				}
+				conn["instanceCredentials"] = marshalled
 			}
-			marshalled, err := json.Marshal(instanceConfig)
-			if err != nil {
-				return nil, err
-			}
-			conn["instanceCredentials"] = marshalled
 
 			return conn, nil
 		}
