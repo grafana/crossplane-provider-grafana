@@ -15,11 +15,26 @@ import (
 	ctrlclient "sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
 
+	cv1beta1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/v1beta1"
 	nv1beta1 "github.com/grafana/crossplane-provider-grafana/apis/namespaced/v1beta1"
 )
 
 func intPtr(i int) *int {
 	return &i
+}
+
+// testManagedResource wraps fake.Managed and adds ProviderConfigReference support
+type testManagedResource struct {
+	*resourcefake.Managed
+	providerConfigRef *v1.ProviderConfigReference
+}
+
+func (t *testManagedResource) GetProviderConfigReference() *v1.ProviderConfigReference {
+	return t.providerConfigRef
+}
+
+func (t *testManagedResource) SetProviderConfigReference(r *v1.ProviderConfigReference) {
+	t.providerConfigRef = r
 }
 
 func setupTest(t *testing.T, credentials map[string]string, orgID, stackID *int) (ctrlclient.Client, resource.Managed) {
@@ -35,9 +50,11 @@ func setupTest(t *testing.T, credentials map[string]string, orgID, stackID *int)
 
 	pc := &nv1beta1.ProviderConfig{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "test-config",
+			Name:      "test-config",
+			Namespace: "default",
 		},
 		Spec: nv1beta1.ProviderConfigSpec{
+			URL:     "https://example.grafana.com",
 			OrgID:   orgID,
 			StackID: stackID,
 			Credentials: nv1beta1.ProviderCredentials{
@@ -73,14 +90,19 @@ func setupTest(t *testing.T, credentials map[string]string, orgID, stackID *int)
 	}
 	secret.Data["credentials"] = credData
 
-	mg := &resourcefake.Managed{}
-	mg.SetName("test-resource")
-	mg.SetNamespace("default")
-	mg.SetUID("test-uid-12345")
-	// resourcefake.Managed in runtime v2 does not implement SetProviderConfigReference directly; skip for now.
+	baseMg := &resourcefake.Managed{}
+	baseMg.SetName("test-resource")
+	baseMg.SetNamespace("default")
+	baseMg.SetUID("test-uid-12345")
+
+	mg := &testManagedResource{
+		Managed:           baseMg,
+		providerConfigRef: &v1.ProviderConfigReference{Name: "test-config"},
+	}
 
 	scheme := runtime.NewScheme()
 	_ = nv1beta1.SchemeBuilder.AddToScheme(scheme)
+	_ = cv1beta1.SchemeBuilder.AddToScheme(scheme)
 	_ = corev1.AddToScheme(scheme)
 
 	client := fake.NewClientBuilder().
