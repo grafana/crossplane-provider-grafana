@@ -69,12 +69,6 @@ func TerraformSetupBuilder() terraform.SetupFn {
 			}
 		}
 
-		// pcStatus conditions update will differ by type; capture minimal interface.
-		type statusSetter interface {
-			SetConditions(...v1.Condition)
-			GetCondition(v1.ConditionType) v1.Condition
-		}
-
 		// Prefer namespaced ProviderConfig when managed resource itself is namespaced.
 		if nsGetter, ok := mg.(interface{ GetNamespace() string }); ok && nsGetter.GetNamespace() != "" {
 			npc := &namespacedapis.ProviderConfig{}
