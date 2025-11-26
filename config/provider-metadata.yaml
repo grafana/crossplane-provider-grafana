@@ -24,12 +24,218 @@ resources:
             - |-
               terraform import grafana_annotation.name "{{ id }}"
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
-    grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana:
+    grafana_apps_alertenrichment_alertenrichment_v1beta1:
         subCategory: Alerting
-        description: Under development
-        name: grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana
+        description: Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is currently in private preview. Grafana Labs offers support on a best-effort basis, and breaking changes might occur prior to the feature being made generally available
+        name: grafana_apps_alertenrichment_alertenrichment_v1beta1
         title: grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana
-        argumentDocs: {}
+        examples:
+            - name: enrichment
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "test_enrichment"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "alert_rule_uids": [
+                        "alert-rule-1",
+                        "alert-rule-2"
+                      ],
+                      "annotation_matchers": [
+                        {
+                          "name": "runbook_url",
+                          "type": "!=",
+                          "value": ""
+                        }
+                      ],
+                      "description": "Demonstrates many enrichment steps and configurations",
+                      "label_matchers": [
+                        {
+                          "name": "severity",
+                          "type": "=",
+                          "value": "critical"
+                        },
+                        {
+                          "name": "team",
+                          "type": "=~",
+                          "value": "alerting|alerting-team"
+                        }
+                      ],
+                      "receivers": [
+                        "webhook",
+                        "slack-critical"
+                      ],
+                      "step": [
+                        {
+                          "assign": [
+                            {
+                              "annotations": {
+                                "priority": "high",
+                                "runbook_url": "https://runbooks.grafana.com/alert-handling"
+                              },
+                              "timeout": "30s"
+                            }
+                          ]
+                        },
+                        {
+                          "external": [
+                            {
+                              "url": "https://some-api.grafana.com/alert-enrichment"
+                            }
+                          ]
+                        },
+                        {
+                          "data_source": [
+                            {
+                              "logs_query": [
+                                {
+                                  "data_source_type": "loki",
+                                  "data_source_uid": "loki-uid-123",
+                                  "expr": "{job=\"my-app\"} |= \"error\"",
+                                  "max_lines": 5
+                                }
+                              ],
+                              "timeout": "30s"
+                            }
+                          ]
+                        },
+                        {
+                          "data_source": [
+                            {
+                              "raw_query": [
+                                {
+                                  "ref_id": "A",
+                                  "request": "${jsonencode({\n            datasource = {\n              type = \"prometheus\"\n              uid  = \"prometheus-uid-456\"\n            }\n            expr          = \"rate(http_requests_total[5m])\"\n            refId         = \"A\"\n            intervalMs    = 1000\n            maxDataPoints = 43200\n          })}"
+                                }
+                              ],
+                              "timeout": "30s"
+                            }
+                          ]
+                        },
+                        {
+                          "sift": [
+                            {}
+                          ]
+                        },
+                        {
+                          "explain": [
+                            {
+                              "annotation": "ai_explanation"
+                            }
+                          ]
+                        },
+                        {
+                          "assistant_investigations": [
+                            {}
+                          ]
+                        },
+                        {
+                          "conditional": [
+                            {
+                              "else": [
+                                {
+                                  "step": [
+                                    {
+                                      "assign": [
+                                        {
+                                          "annotations": {
+                                            "escalation_level": "standard"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "if": [
+                                {
+                                  "label_matchers": [
+                                    {
+                                      "name": "severity",
+                                      "type": "=",
+                                      "value": "critical"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "then": [
+                                {
+                                  "step": [
+                                    {
+                                      "assign": [
+                                        {
+                                          "annotations": {
+                                            "escalation_level": "immediate"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "external": [
+                                        {
+                                          "url": "https://irm.grafana.com/create-incident"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "title": "Comprehensive alert enrichment"
+                    }
+                  ]
+                }
+        argumentDocs:
+            alert_rule_uids: (List of String) UIDs of alert rules this enrichment applies to. If empty, applies to all alert rules.
+            annotation: (String) Annotation name to set the explanation in. Defaults to 'ai_explanation'.
+            annotation_matchers: '(List of Object) Annotation matchers that an alert must satisfy for this enrichment to apply. Each matcher is an object with: ''type'' (string, one of: =, !=, =~, !~), ''name'' (string, annotation key to match), ''value'' (string, annotation value to compare against, supports regex for =~/!~ operators). (see below for nested schema)'
+            annotations: (Map of String) Annotations of the resource.
+            asserts: (Block, Optional) Integrate with Grafana Asserts for enrichment. (see below for nested schema)
+            assign: (Block, Optional) Assign annotations to an alert. (see below for nested schema)
+            assistant_investigations: (Block, Optional) Use AI assistant to investigate alerts and add insights. (see below for nested schema)
+            conditional: (Block, Optional) Conditional step with if/then/else. (see below for nested schema)
+            data_source: (Block, Optional) Query Grafana data sources and add results to alerts. (see below for nested schema)
+            data_source_condition: (Block, Optional) Data source condition. (see below for nested schema)
+            data_source_type: (String) Data source type (e.g., 'loki').
+            data_source_uid: (String) UID of the data source to query.
+            description: (String) Description of the alert enrichment.
+            disable_provenance: (Boolean) Allow modifying alert enrichment outside of Terraform
+            else: (Block, Optional) Steps when condition is false. (see below for nested schema)
+            explain: (Block, Optional) Generate AI explanation and store in an annotation. (see below for nested schema)
+            expr: (String) Log query expression to execute.
+            external: (Block, Optional) Call an external HTTP service for enrichment. (see below for nested schema)
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            if: (Block, Optional) Condition to evaluate. (see below for nested schema)
+            label_matchers: '(List of Object) Label matchers that an alert must satisfy for this enrichment to apply. Each matcher is an object with: ''type'' (string, one of: =, !=, =~, !~), ''name'' (string, label key to match), ''value'' (string, label value to compare against, supports regex for =~/!~ operators). (see below for nested schema)'
+            logs_query: (Block, Optional) Logs query configuration for querying log data sources. (see below for nested schema)
+            max_lines: (Number) Maximum number of log lines to include. Defaults to 3.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            name: (String)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            raw_query: (Block, Optional) Raw query configuration for advanced data source queries. (see below for nested schema)
+            receivers: (List of String) Receiver names to match. If empty, applies to all receivers.
+            ref_id: (String) Reference ID for correlating queries.
+            request: (String) Raw request payload for the data source query.
+            sift: (Block, Optional) Analyze alerts for patterns and insights. (see below for nested schema)
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            step: (Block List) Enrichment step. Can be repeated multiple times to define a sequence of steps. Each step must contain exactly one enrichment block. (see below for nested schema)
+            then: (Block, Optional) Steps when condition is true. (see below for nested schema)
+            timeout: (String) Maximum execution time (e.g., '30s', '1m')
+            title: (String) The title of the alert enrichment.
+            type: (String)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            value: (String)
+            version: (String) The version of the resource.
         importStatements: []
     grafana_apps_dashboard_dashboard_v1beta1:
         subCategory: Grafana Apps
@@ -189,9 +395,238 @@ resources:
               #!/bin/bash
               # Import an existing Kubernetes observability config by its UID
               terraform import grafana_apps_productactivation_k8so11yconfig_v1alpha1.example my-k8s-o11y-config
+    grafana_apps_rules_alertrule_v0alpha1:
+        subCategory: Alerting
+        description: Manages Grafana Alert Rules.
+        name: grafana_apps_rules_alertrule_v0alpha1
+        title: grafana_apps_rules_alertrule_v0alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "folder_uid": "${grafana_folder.alertrule_folder.uid}",
+                      "uid": "example-alert-rule"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "annotations": {
+                        "runbook_url": "https://example.com"
+                      },
+                      "exec_err_state": "KeepLast",
+                      "expressions": {
+                        "A": {
+                          "datasource_uid": "ds_uid",
+                          "model": {
+                            "datasource": {
+                              "type": "prometheus",
+                              "uid": "ds_uid"
+                            },
+                            "editorMode": "code",
+                            "expr": "count(up{})",
+                            "instant": true,
+                            "intervalMs": 1000,
+                            "legendFormat": "__auto",
+                            "maxDataPoints": 43200,
+                            "range": false,
+                            "refId": "A"
+                          },
+                          "query_type": "",
+                          "relative_time_range": {
+                            "from": "600s",
+                            "to": "0s"
+                          },
+                          "source": true
+                        },
+                        "B": {
+                          "datasource_uid": "__expr__",
+                          "model": {
+                            "conditions": [
+                              {
+                                "evaluator": {
+                                  "params": [
+                                    1
+                                  ],
+                                  "type": "gt"
+                                },
+                                "operator": {
+                                  "type": "and"
+                                },
+                                "query": {
+                                  "params": [
+                                    "C"
+                                  ]
+                                },
+                                "reducer": {
+                                  "params": [],
+                                  "type": "last"
+                                },
+                                "type": "query"
+                              }
+                            ],
+                            "datasource": {
+                              "type": "__expr__",
+                              "uid": "__expr__"
+                            },
+                            "expression": "A",
+                            "intervalMs": 1000,
+                            "maxDataPoints": 43200,
+                            "refId": "C",
+                            "type": "threshold"
+                          },
+                          "query_type": "",
+                          "source": false
+                        }
+                      },
+                      "for": "5m",
+                      "labels": {
+                        "severity": "critical"
+                      },
+                      "missing_series_evals_to_resolve": 5,
+                      "no_data_state": "KeepLast",
+                      "notification_settings": [
+                        {
+                          "contact_point": "grafana-default-email"
+                        }
+                      ],
+                      "paused": true,
+                      "title": "Example Alert Rule",
+                      "trigger": [
+                        {
+                          "interval": "1m"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              references:
+                metadata.folder_uid: grafana_folder.alertrule_folder.uid
+              dependencies:
+                grafana_folder.alertrule_folder: |-
+                    {
+                      "title": "Alert Rule Folder"
+                    }
+        argumentDocs:
+            active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+            annotations: (Map of String) Annotations of the resource.
+            contact_point: (String) The contact point to route notifications that match this rule to.
+            exec_err_state: (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
+            expressions: (Dynamic) A sequence of stages that describe the contents of the rule.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            for: (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
+            group_by: (List of String) A list of alert labels to group alerts into notifications by.
+            group_interval: (String) Minimum time interval between two notifications for the same group.
+            group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification.
+            id: (String) The ID of the resource derived from UUID.
+            interval: (String) The interval at which the alert rule should be evaluated.
+            keep_firing_for: (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+            labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            missing_series_evals_to_resolve: (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+            mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
+            no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
+            notification_settings: (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            panel_ref: (Dynamic) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
+            paused: (Boolean) Sets whether the rule should be paused or not.
+            repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            title: (String) The title of the alert rule.
+            trigger: (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_rules_recordingrule_v0alpha1:
+        subCategory: Alerting
+        description: Manages Grafana Recording Rules.
+        name: grafana_apps_rules_recordingrule_v0alpha1
+        title: grafana_apps_rules_recordingrule_v0alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "folder_uid": "${grafana_folder.recordingrule_folder.uid}",
+                      "uid": "example-recording-rule"
+                    }
+                  ],
+                  "provider": "${grafana.local}",
+                  "spec": [
+                    {
+                      "expressions": {
+                        "A": {
+                          "datasource_uid": "ds_uid",
+                          "model": {
+                            "editorMode": "code",
+                            "expr": "count(up{})",
+                            "instant": true,
+                            "intervalMs": 1000,
+                            "legendFormat": "__auto",
+                            "maxDataPoints": 43200,
+                            "range": false,
+                            "refId": "A"
+                          },
+                          "query_type": "",
+                          "relative_time_range": {
+                            "from": "600s",
+                            "to": "0s"
+                          },
+                          "source": true
+                        }
+                      },
+                      "labels": {
+                        "foo": "bar"
+                      },
+                      "metric": "tf-metric",
+                      "paused": true,
+                      "target_datasource_uid": "target_ds_uid",
+                      "title": "Example Recording Rule",
+                      "trigger": [
+                        {
+                          "interval": "1m"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              references:
+                metadata.folder_uid: grafana_folder.recordingrule_folder.uid
+                provider: grafana.local
+              dependencies:
+                grafana_folder.recordingrule_folder: |-
+                    {
+                      "title": "Alert Rule Folder"
+                    }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            expressions: (Dynamic) A sequence of stages that describe the contents of the rule.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            interval: (String) The interval at which the recording rule should be evaluated.
+            labels: (Map of String) Key-value pairs to attach to the recorded metric.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            metric: (String) The name of the metric to write to.
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            paused: (Boolean) Sets whether the recording rule should be paused or not.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            target_datasource_uid: (String) The UID of the datasource to write the metric to.
+            title: (String) The title of the recording rule.
+            trigger: (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
     grafana_asserts_custom_model_rules:
-        subCategory: Asserts
-        description: Manages Asserts Custom Model Rules through the Grafana API.
+        subCategory: Knowledge Graph
+        description: Manages Knowledge Graph Custom Model Rules through the Grafana API.
         name: grafana_asserts_custom_model_rules
         title: grafana_asserts_custom_model_rules Resource - terraform-provider-grafana
         examples:
@@ -256,8 +691,8 @@ resources:
         importStatements:
             - terraform import grafana_asserts_custom_model_rules.name "{{ name }}"
     grafana_asserts_log_config:
-        subCategory: Asserts
-        description: Manages Asserts Log Configuration through Grafana API.
+        subCategory: Knowledge Graph
+        description: Manages Knowledge Graph Log Configuration through Grafana API.
         name: grafana_asserts_log_config
         title: grafana_asserts_log_config Resource - terraform-provider-grafana
         examples:
@@ -389,8 +824,8 @@ resources:
         importStatements:
             - terraform import grafana_asserts_log_config.name "{{ name }}"
     grafana_asserts_notification_alerts_config:
-        subCategory: Asserts
-        description: Manages Asserts Alert Configurations through Grafana API.
+        subCategory: Knowledge Graph
+        description: Manages Knowledge Graph Alert Configurations through Grafana API.
         name: grafana_asserts_notification_alerts_config
         title: grafana_asserts_notification_alerts_config Resource - terraform-provider-grafana
         examples:
@@ -483,8 +918,8 @@ resources:
         importStatements:
             - terraform import grafana_asserts_notification_alerts_config.name "{{ name }}"
     grafana_asserts_suppressed_assertions_config:
-        subCategory: Asserts
-        description: Manages Asserts Disabled Alert Configurations through Grafana API.
+        subCategory: Knowledge Graph
+        description: Manages Knowledge Graph Disabled Alert Configurations through Grafana API.
         name: grafana_asserts_suppressed_assertions_config
         title: grafana_asserts_suppressed_assertions_config Resource - terraform-provider-grafana
         examples:
@@ -522,6 +957,61 @@ resources:
             name: (String) The name of the disabled alert configuration.
         importStatements:
             - terraform import grafana_asserts_suppressed_assertions_config.name "{{ name }}"
+    grafana_asserts_thresholds:
+        subCategory: Knowledge Graph
+        description: Manages Knowledge Graph Thresholds configuration (request, resource, health) via bulk endpoints.
+        name: grafana_asserts_thresholds
+        title: grafana_asserts_thresholds Resource - terraform-provider-grafana
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "health_thresholds": [
+                    {
+                      "assertion_name": "ServiceDown",
+                      "entity_type": "Service",
+                      "expression": "up \u003c 1"
+                    }
+                  ],
+                  "request_thresholds": [
+                    {
+                      "assertion_name": "ErrorRatioBreach",
+                      "entity_name": "payment-service",
+                      "request_context": "/charge",
+                      "request_type": "inbound",
+                      "value": 0.01
+                    }
+                  ],
+                  "resource_thresholds": [
+                    {
+                      "assertion_name": "Saturation",
+                      "container_name": "worker",
+                      "resource_type": "container",
+                      "severity": "warning",
+                      "source": "metrics",
+                      "value": 75
+                    }
+                  ]
+                }
+        argumentDocs:
+            alert_category: (String) Optional alert category label for the health threshold.
+            assertion_name: (String) Assertion name.
+            container_name: (String) Container name.
+            entity_name: (String) Entity name the threshold applies to.
+            entity_type: (String) Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
+            expression: (String) Prometheus expression.
+            health_thresholds: (Block List) List of health thresholds. (see below for nested schema)
+            id: (String) The ID of this resource.
+            request_context: (String) Request context (e.g., path or context identifier).
+            request_thresholds: (Block List) List of request thresholds. (see below for nested schema)
+            request_type: (String) Request type (e.g., inbound/outbound).
+            resource_thresholds: (Block List) List of resource thresholds. (see below for nested schema)
+            resource_type: (String) Resource type (e.g., container/pod/node).
+            severity: (String) Severity (warning or critical).
+            source: (String) Data source for the threshold (e.g., metrics/logs).
+            value: (Number) Threshold value.
+        importStatements:
+            - terraform import grafana_asserts_thresholds.name "{{ id }}"
     grafana_cloud_access_policy:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
@@ -2639,7 +3129,7 @@ resources:
             recurrence_rule: (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
             schedule: '(String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.'
             starts: (String) The start time for the schedule (RFC3339 format).
-            timezone: (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+            timezone: (String) The timezone of the cron expression. For example, UTC or Europe/London.
             until: (String) The end time for the recurrence (RFC3339 format).
         importStatements:
             - terraform import grafana_k6_schedule.name "{{ load_test_id }}"
@@ -3251,11 +3741,13 @@ resources:
             notify_if_time_to: (String) The end of the time interval for notify_if_time_from_to type step in UTC (for example 18:00:00Z).
             notify_on_call_from_schedule: (String) ID of a Schedule for notify_on_call_from_schedule type step.
             notify_to_team_members: (String) The ID of a Team for a notify_team_members type step.
+            num_alerts_in_window: (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+            num_minutes_in_window: (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
             persons_to_notify: (Set of String) The list of ID's of users for notify_persons type step.
             persons_to_notify_next_each_time: (Set of String) The list of ID's of users for notify_person_next_each_time type step.
             position: (Number) The position of the escalation step (starts from 0).
             severity: (String) The severity of the incident for declare_incident type step.
-            type: (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+            type: (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
         importStatements:
             - terraform import grafana_oncall_escalation.name "{{ id }}"
     grafana_oncall_escalation_chain:
@@ -3572,7 +4064,7 @@ resources:
                 {
                   "ical_url_overrides": "https://example.com/example_overrides_ical.ics",
                   "ical_url_primary": "https://example.com/example_ical.ics",
-                  "name": "Example Ical Schadule",
+                  "name": "Example Ical Schedule",
                   "slack": [
                     {
                       "channel_id": "${data.grafana_oncall_slack_channel.example_slack_channel.slack_id}",
@@ -3590,11 +4082,21 @@ resources:
               manifest: |-
                 {
                   "ical_url_overrides": "https://example.com/example_overrides_ical.ics",
-                  "name": "Example Calendar Schadule",
+                  "name": "Example Calendar Schedule",
                   "shifts": [],
                   "team_id": "${data.grafana_oncall_team.my_team.id}",
                   "time_zone": "America/New_York",
                   "type": "calendar"
+                }
+              references:
+                team_id: data.grafana_oncall_team.my_team.id
+            - name: example_schedule
+              manifest: |-
+                {
+                  "name": "Example Web Schedule",
+                  "team_id": "${data.grafana_oncall_team.my_team.id}",
+                  "time_zone": "America/New_York",
+                  "type": "web"
                 }
               references:
                 team_id: data.grafana_oncall_team.my_team.id

@@ -82,7 +82,7 @@ type SuppressedAssertionsConfigStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// SuppressedAssertionsConfig is the Schema for the SuppressedAssertionsConfigs API. Manages Asserts Disabled Alert Configurations through Grafana API.
+// SuppressedAssertionsConfig is the Schema for the SuppressedAssertionsConfigs API. Manages Knowledge Graph Disabled Alert Configurations through Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

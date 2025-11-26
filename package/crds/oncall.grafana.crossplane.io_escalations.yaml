@@ -345,6 +345,16 @@ spec:
                       (String) The ID of a Team for a notify_team_members type step.
                       The ID of a Team for a notify_team_members type step.
                     type: string
+                  numAlertsInWindow:
+                    description: |-
+                      (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+                      Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+                    type: number
+                  numMinutesInWindow:
+                    description: |-
+                      (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+                      Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+                    type: number
                   personsToNotify:
                     description: |-
                       (Set of String) The list of ID's of users for notify_persons type step.
@@ -373,8 +383,8 @@ spec:
                     type: string
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
                     type: string
                 type: object
               initProvider:
@@ -661,6 +671,16 @@ spec:
                       (String) The ID of a Team for a notify_team_members type step.
                       The ID of a Team for a notify_team_members type step.
                     type: string
+                  numAlertsInWindow:
+                    description: |-
+                      (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+                      Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+                    type: number
+                  numMinutesInWindow:
+                    description: |-
+                      (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+                      Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+                    type: number
                   personsToNotify:
                     description: |-
                       (Set of String) The list of ID's of users for notify_persons type step.
@@ -689,8 +709,8 @@ spec:
                     type: string
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
                     type: string
                 type: object
               managementPolicies:
@@ -841,6 +861,16 @@ spec:
                       (String) The ID of a Team for a notify_team_members type step.
                       The ID of a Team for a notify_team_members type step.
                     type: string
+                  numAlertsInWindow:
+                    description: |-
+                      (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+                      Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+                    type: number
+                  numMinutesInWindow:
+                    description: |-
+                      (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+                      Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+                    type: number
                   personsToNotify:
                     description: |-
                       (Set of String) The list of ID's of users for notify_persons type step.
@@ -869,8 +899,8 @@ spec:
                     type: string
                   type:
                     description: |-
-                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
-                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+                      (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+                      The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
                     type: string
                 type: object
               conditions:

@@ -10,10 +10,12 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
 	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/alertenrichmentv1beta1"
+	alertrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/alertrulev0alpha1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/contactpoint"
 	messagetemplate "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/messagetemplate"
 	mutetiming "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/notificationpolicy"
+	recordingrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/recordingrulev0alpha1"
 	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/alerting/rulegroup"
 	custommodelrules "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/asserts/custommodelrules"
 	logconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced/asserts/logconfig"
@@ -101,10 +103,12 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		alertenrichmentv1beta1.Setup,
+		alertrulev0alpha1.Setup,
 		contactpoint.Setup,
 		messagetemplate.Setup,
 		mutetiming.Setup,
 		notificationpolicy.Setup,
+		recordingrulev0alpha1.Setup,
 		rulegroup.Setup,
 		custommodelrules.Setup,
 		logconfig.Setup,
@@ -198,10 +202,12 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		alertenrichmentv1beta1.SetupGated,
+		alertrulev0alpha1.SetupGated,
 		contactpoint.SetupGated,
 		messagetemplate.SetupGated,
 		mutetiming.SetupGated,
 		notificationpolicy.SetupGated,
+		recordingrulev0alpha1.SetupGated,
 		rulegroup.SetupGated,
 		custommodelrules.SetupGated,
 		logconfig.SetupGated,

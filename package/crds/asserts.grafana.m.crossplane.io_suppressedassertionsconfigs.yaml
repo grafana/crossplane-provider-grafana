@@ -35,7 +35,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: SuppressedAssertionsConfig is the Schema for the SuppressedAssertionsConfigs
-          API. Manages Asserts Disabled Alert Configurations through Grafana API.
+          API. Manages Knowledge Graph Disabled Alert Configurations through Grafana
+          API.
         properties:
           apiVersion:
             description: |-

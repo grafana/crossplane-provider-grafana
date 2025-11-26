@@ -17,34 +17,34 @@ import (
 type CronInitParameters struct {
 
 	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
-	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
-	// The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	// (String) The timezone of the cron expression. For example, UTC or Europe/London.
+	// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type CronObservation struct {
 
 	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
-	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
-	// The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	// (String) The timezone of the cron expression. For example, UTC or Europe/London.
+	// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
 
 type CronParameters struct {
 
 	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
-	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
 	// +kubebuilder:validation:Optional
 	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (String) The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
-	// The timezone of the cron expression. For example, 'UTC' or 'Europe/London'.
+	// (String) The timezone of the cron expression. For example, UTC or Europe/London.
+	// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
