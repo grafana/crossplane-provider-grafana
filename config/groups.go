@@ -65,6 +65,8 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_notification_policy":                          ReplaceGroupWords("alerting", 0),
 	"grafana_rule_group":                                   ReplaceGroupWords("alerting", 0),
 	"grafana_apps_alertenrichment_alertenrichment_v1beta1": ReplaceGroupWords("alerting", 2),
+	"grafana_apps_rules_alertrule_v0alpha1":                ReplaceGroupWords("alerting", 2),
+	"grafana_apps_rules_recordingrule_v0alpha1":            ReplaceGroupWords("alerting", 2),
 
 	// Cloud
 	"grafana_cloud_access_policy":                             ReplaceGroupWords("cloud", 1),

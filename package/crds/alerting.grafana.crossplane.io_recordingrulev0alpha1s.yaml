@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
-  name: logconfigs.asserts.grafana.crossplane.io
+  name: recordingrulev0alpha1s.alerting.grafana.crossplane.io
 spec:
-  group: asserts.grafana.crossplane.io
+  group: alerting.grafana.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - grafana
-    kind: LogConfig
-    listKind: LogConfigList
-    plural: logconfigs
-    singular: logconfig
+    kind: RecordingruleV0Alpha1
+    listKind: RecordingruleV0Alpha1List
+    plural: recordingrulev0alpha1s
+    singular: recordingrulev0alpha1
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: LogConfig is the Schema for the LogConfigs API. Manages Knowledge
-          Graph Log Configuration through Grafana API.
+        description: RecordingruleV0Alpha1 is the Schema for the RecordingruleV0Alpha1s
+          API. Manages Grafana Recording Rules.
         properties:
           apiVersion:
             description: |-
@@ -55,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: LogConfigSpec defines the desired state of LogConfig
+            description: RecordingruleV0Alpha1Spec defines the desired state of RecordingruleV0Alpha1
             properties:
               deletionPolicy:
                 default: Delete
@@ -73,74 +73,94 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  dataSourceUid:
+                  metadata:
                     description: |-
-                      (String) DataSource to be queried (e.g., a Loki instance).
-                      DataSource to be queried (e.g., a Loki instance).
-                    type: string
-                  defaultConfig:
-                    description: |-
-                      (Boolean) Is it the default config, therefore undeletable?
-                      Is it the default config, therefore undeletable?
-                    type: boolean
-                  entityPropertyToLogLabelMapping:
-                    additionalProperties:
-                      type: string
-                    description: |-
-                      (Map of String) Mapping of entity properties to log labels.
-                      Mapping of entity properties to log labels.
-                    type: object
-                    x-kubernetes-map-type: granular
-                  errorLabel:
-                    description: |-
-                      (String) Error label to filter logs.
-                      Error label to filter logs.
-                    type: string
-                  filterBySpanId:
-                    description: |-
-                      (Boolean) Filter logs by span ID.
-                      Filter logs by span ID.
-                    type: boolean
-                  filterByTraceId:
-                    description: |-
-                      (Boolean) Filter logs by trace ID.
-                      Filter logs by trace ID.
-                    type: boolean
-                  match:
-                    description: |-
-                      (Block List) List of match rules for entity properties. (see below for nested schema)
-                      List of match rules for entity properties.
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
                     items:
                       properties:
-                        op:
+                        folderUid:
                           description: |-
-                            (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-                            Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+                            (String) The UID of the folder to save the resource in.
+                            The UID of the folder to save the resource in.
                           type: string
-                        property:
+                        uid:
                           description: |-
-                            (String) Entity property to match.
-                            Entity property to match.
+                            (String) The unique identifier of the resource.
+                            The unique identifier of the resource.
                           type: string
-                        values:
+                      type: object
+                    type: array
+                  options:
+                    description: |-
+                      (Block, Optional) Options for applying the resource. (see below for nested schema)
+                      Options for applying the resource.
+                    items:
+                      properties:
+                        overwrite:
                           description: |-
-                            (List of String) Values to match against.
-                            Values to match against.
-                          items:
+                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          type: boolean
+                      type: object
+                    type: array
+                  spec:
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
+                    items:
+                      properties:
+                        expressions:
+                          additionalProperties:
                             type: string
+                          description: |-
+                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs to attach to the recorded metric.
+                            Key-value pairs to attach to the recorded metric.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        metric:
+                          description: |-
+                            (String) The name of the metric to write to.
+                            The name of the metric to write to.
+                          type: string
+                        paused:
+                          description: |-
+                            (Boolean) Sets whether the recording rule should be paused or not.
+                            Sets whether the recording rule should be paused or not.
+                          type: boolean
+                        targetDatasourceUid:
+                          description: |-
+                            (String) The UID of the datasource to write the metric to.
+                            The UID of the datasource to write the metric to.
+                          type: string
+                        title:
+                          description: |-
+                            (String) The title of the recording rule.
+                            The title of the recording rule.
+                          type: string
+                        trigger:
+                          description: |-
+                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                            The trigger configuration for the recording rule.
+                          items:
+                            properties:
+                              interval:
+                                description: |-
+                                  (String) The interval at which the recording rule should be evaluated.
+                                  The interval at which the recording rule should be evaluated.
+                                type: string
+                            type: object
                           type: array
                       type: object
                     type: array
-                  name:
-                    description: |-
-                      (String) The name of the log configuration.
-                      The name of the log configuration.
-                    type: string
-                  priority:
-                    description: |-
-                      (Number) Priority of the log configuration. A lower number means a higher priority.
-                      Priority of the log configuration. A lower number means a higher priority.
-                    type: number
                 type: object
               initProvider:
                 description: |-
@@ -155,74 +175,94 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  dataSourceUid:
+                  metadata:
                     description: |-
-                      (String) DataSource to be queried (e.g., a Loki instance).
-                      DataSource to be queried (e.g., a Loki instance).
-                    type: string
-                  defaultConfig:
-                    description: |-
-                      (Boolean) Is it the default config, therefore undeletable?
-                      Is it the default config, therefore undeletable?
-                    type: boolean
-                  entityPropertyToLogLabelMapping:
-                    additionalProperties:
-                      type: string
-                    description: |-
-                      (Map of String) Mapping of entity properties to log labels.
-                      Mapping of entity properties to log labels.
-                    type: object
-                    x-kubernetes-map-type: granular
-                  errorLabel:
-                    description: |-
-                      (String) Error label to filter logs.
-                      Error label to filter logs.
-                    type: string
-                  filterBySpanId:
-                    description: |-
-                      (Boolean) Filter logs by span ID.
-                      Filter logs by span ID.
-                    type: boolean
-                  filterByTraceId:
-                    description: |-
-                      (Boolean) Filter logs by trace ID.
-                      Filter logs by trace ID.
-                    type: boolean
-                  match:
-                    description: |-
-                      (Block List) List of match rules for entity properties. (see below for nested schema)
-                      List of match rules for entity properties.
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
                     items:
                       properties:
-                        op:
+                        folderUid:
                           description: |-
-                            (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-                            Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+                            (String) The UID of the folder to save the resource in.
+                            The UID of the folder to save the resource in.
                           type: string
-                        property:
+                        uid:
                           description: |-
-                            (String) Entity property to match.
-                            Entity property to match.
+                            (String) The unique identifier of the resource.
+                            The unique identifier of the resource.
                           type: string
-                        values:
+                      type: object
+                    type: array
+                  options:
+                    description: |-
+                      (Block, Optional) Options for applying the resource. (see below for nested schema)
+                      Options for applying the resource.
+                    items:
+                      properties:
+                        overwrite:
                           description: |-
-                            (List of String) Values to match against.
-                            Values to match against.
-                          items:
+                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          type: boolean
+                      type: object
+                    type: array
+                  spec:
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
+                    items:
+                      properties:
+                        expressions:
+                          additionalProperties:
                             type: string
+                          description: |-
+                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs to attach to the recorded metric.
+                            Key-value pairs to attach to the recorded metric.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        metric:
+                          description: |-
+                            (String) The name of the metric to write to.
+                            The name of the metric to write to.
+                          type: string
+                        paused:
+                          description: |-
+                            (Boolean) Sets whether the recording rule should be paused or not.
+                            Sets whether the recording rule should be paused or not.
+                          type: boolean
+                        targetDatasourceUid:
+                          description: |-
+                            (String) The UID of the datasource to write the metric to.
+                            The UID of the datasource to write the metric to.
+                          type: string
+                        title:
+                          description: |-
+                            (String) The title of the recording rule.
+                            The title of the recording rule.
+                          type: string
+                        trigger:
+                          description: |-
+                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                            The trigger configuration for the recording rule.
+                          items:
+                            properties:
+                              interval:
+                                description: |-
+                                  (String) The interval at which the recording rule should be evaluated.
+                                  The interval at which the recording rule should be evaluated.
+                                type: string
+                            type: object
                           type: array
                       type: object
                     type: array
-                  name:
-                    description: |-
-                      (String) The name of the log configuration.
-                      The name of the log configuration.
-                    type: string
-                  priority:
-                    description: |-
-                      (Number) Priority of the log configuration. A lower number means a higher priority.
-                      Priority of the log configuration. A lower number means a higher priority.
-                    type: number
                 type: object
               managementPolicies:
                 default:
@@ -392,98 +432,134 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.dataSourceUid is a required parameter
+            - message: spec.forProvider.metadata is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.dataSourceUid)
-                || (has(self.initProvider) && has(self.initProvider.dataSourceUid))'
-            - message: spec.forProvider.defaultConfig is a required parameter
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.metadata)
+                || (has(self.initProvider) && has(self.initProvider.metadata))'
+            - message: spec.forProvider.spec is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.defaultConfig)
-                || (has(self.initProvider) && has(self.initProvider.defaultConfig))'
-            - message: spec.forProvider.name is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
-                || (has(self.initProvider) && has(self.initProvider.name))'
-            - message: spec.forProvider.priority is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.priority)
-                || (has(self.initProvider) && has(self.initProvider.priority))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.spec)
+                || (has(self.initProvider) && has(self.initProvider.spec))'
           status:
-            description: LogConfigStatus defines the observed state of LogConfig.
+            description: RecordingruleV0Alpha1Status defines the observed state of
+              RecordingruleV0Alpha1.
             properties:
               atProvider:
                 properties:
-                  dataSourceUid:
-                    description: |-
-                      (String) DataSource to be queried (e.g., a Loki instance).
-                      DataSource to be queried (e.g., a Loki instance).
-                    type: string
-                  defaultConfig:
-                    description: |-
-                      (Boolean) Is it the default config, therefore undeletable?
-                      Is it the default config, therefore undeletable?
-                    type: boolean
-                  entityPropertyToLogLabelMapping:
-                    additionalProperties:
-                      type: string
-                    description: |-
-                      (Map of String) Mapping of entity properties to log labels.
-                      Mapping of entity properties to log labels.
-                    type: object
-                    x-kubernetes-map-type: granular
-                  errorLabel:
-                    description: |-
-                      (String) Error label to filter logs.
-                      Error label to filter logs.
-                    type: string
-                  filterBySpanId:
-                    description: |-
-                      (Boolean) Filter logs by span ID.
-                      Filter logs by span ID.
-                    type: boolean
-                  filterByTraceId:
-                    description: |-
-                      (Boolean) Filter logs by trace ID.
-                      Filter logs by trace ID.
-                    type: boolean
                   id:
-                    description: (String) The ID of this resource.
+                    description: (String) The ID of the resource derived from UUID.
                     type: string
-                  match:
+                  metadata:
                     description: |-
-                      (Block List) List of match rules for entity properties. (see below for nested schema)
-                      List of match rules for entity properties.
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
                     items:
                       properties:
-                        op:
-                          description: |-
-                            (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-                            Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-                          type: string
-                        property:
-                          description: |-
-                            (String) Entity property to match.
-                            Entity property to match.
-                          type: string
-                        values:
-                          description: |-
-                            (List of String) Values to match against.
-                            Values to match against.
-                          items:
+                        annotations:
+                          additionalProperties:
                             type: string
+                          description: |-
+                            (Map of String) Annotations of the resource.
+                            Annotations of the resource.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        folderUid:
+                          description: |-
+                            (String) The UID of the folder to save the resource in.
+                            The UID of the folder to save the resource in.
+                          type: string
+                        uid:
+                          description: |-
+                            (String) The unique identifier of the resource.
+                            The unique identifier of the resource.
+                          type: string
+                        url:
+                          description: |-
+                            (String) The full URL of the resource.
+                            The full URL of the resource.
+                          type: string
+                        uuid:
+                          description: |-
+                            (String) The globally unique identifier of a resource, used by the API for tracking.
+                            The globally unique identifier of a resource, used by the API for tracking.
+                          type: string
+                        version:
+                          description: |-
+                            (String) The version of the resource.
+                            The version of the resource.
+                          type: string
+                      type: object
+                    type: array
+                  options:
+                    description: |-
+                      (Block, Optional) Options for applying the resource. (see below for nested schema)
+                      Options for applying the resource.
+                    items:
+                      properties:
+                        overwrite:
+                          description: |-
+                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          type: boolean
+                      type: object
+                    type: array
+                  spec:
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
+                    items:
+                      properties:
+                        expressions:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs to attach to the recorded metric.
+                            Key-value pairs to attach to the recorded metric.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        metric:
+                          description: |-
+                            (String) The name of the metric to write to.
+                            The name of the metric to write to.
+                          type: string
+                        paused:
+                          description: |-
+                            (Boolean) Sets whether the recording rule should be paused or not.
+                            Sets whether the recording rule should be paused or not.
+                          type: boolean
+                        targetDatasourceUid:
+                          description: |-
+                            (String) The UID of the datasource to write the metric to.
+                            The UID of the datasource to write the metric to.
+                          type: string
+                        title:
+                          description: |-
+                            (String) The title of the recording rule.
+                            The title of the recording rule.
+                          type: string
+                        trigger:
+                          description: |-
+                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                            The trigger configuration for the recording rule.
+                          items:
+                            properties:
+                              interval:
+                                description: |-
+                                  (String) The interval at which the recording rule should be evaluated.
+                                  The interval at which the recording rule should be evaluated.
+                                type: string
+                            type: object
                           type: array
                       type: object
                     type: array
-                  name:
-                    description: |-
-                      (String) The name of the log configuration.
-                      The name of the log configuration.
-                    type: string
-                  priority:
-                    description: |-
-                      (Number) Priority of the log configuration. A lower number means a higher priority.
-                      Priority of the log configuration. A lower number means a higher priority.
-                    type: number
                 type: object
               conditions:
                 description: Conditions of the resource.

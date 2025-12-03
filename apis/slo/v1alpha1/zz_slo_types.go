@@ -839,7 +839,7 @@ type SLOStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// SLO is the Schema for the SLOs API. Resource manages Grafana SLOs. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/slo/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/slo/api/Additional Information On Alerting Rule Annotations and Labels https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#templating/
+// SLO is the Schema for the SLOs API. Resource manages Grafana SLOs (Service Level Objectives). Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/slo/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/slo/api/Additional Information On Alerting Rule Annotations and Labels https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/#templating/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

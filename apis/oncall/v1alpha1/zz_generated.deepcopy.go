@@ -515,6 +515,16 @@ func (in *EscalationInitParameters) DeepCopyInto(out *EscalationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.NumAlertsInWindow != nil {
+		in, out := &in.NumAlertsInWindow, &out.NumAlertsInWindow
+		*out = new(float64)
+		**out = **in
+	}
+	if in.NumMinutesInWindow != nil {
+		in, out := &in.NumMinutesInWindow, &out.NumMinutesInWindow
+		*out = new(float64)
+		**out = **in
+	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
 		*out = make([]*string, len(*in))
@@ -649,6 +659,16 @@ func (in *EscalationObservation) DeepCopyInto(out *EscalationObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.NumAlertsInWindow != nil {
+		in, out := &in.NumAlertsInWindow, &out.NumAlertsInWindow
+		*out = new(float64)
+		**out = **in
+	}
+	if in.NumMinutesInWindow != nil {
+		in, out := &in.NumMinutesInWindow, &out.NumMinutesInWindow
+		*out = new(float64)
+		**out = **in
+	}
 	if in.PersonsToNotify != nil {
 		in, out := &in.PersonsToNotify, &out.PersonsToNotify
 		*out = make([]*string, len(*in))
@@ -774,6 +794,16 @@ func (in *EscalationParameters) DeepCopyInto(out *EscalationParameters) {
 	if in.NotifyToTeamMembers != nil {
 		in, out := &in.NotifyToTeamMembers, &out.NotifyToTeamMembers
 		*out = new(string)
+		**out = **in
+	}
+	if in.NumAlertsInWindow != nil {
+		in, out := &in.NumAlertsInWindow, &out.NumAlertsInWindow
+		*out = new(float64)
+		**out = **in
+	}
+	if in.NumMinutesInWindow != nil {
+		in, out := &in.NumMinutesInWindow, &out.NumMinutesInWindow
+		*out = new(float64)
 		**out = **in
 	}
 	if in.PersonsToNotify != nil {
