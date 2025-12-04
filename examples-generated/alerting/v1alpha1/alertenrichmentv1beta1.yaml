@@ -1,0 +1,10 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: AlertenrichmentV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/alertenrichmentv1beta1
+  labels:
+    testing.upbound.io/example-name: enrichment
+  name: enrichment
+spec:
+  forProvider: {}

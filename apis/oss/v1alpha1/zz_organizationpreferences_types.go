@@ -34,12 +34,12 @@ type OrganizationPreferencesInitParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) The Organization theme. Available values are light, dark, system, or an empty string for the default.
-	// The Organization theme. Available values are `light`, `dark`, `system`, or an empty string for the default.
+	// (String) The Organization theme. Any string value is supported, including custom themes. Common values are light, dark, system, or an empty string for the default.
+	// The Organization theme. Any string value is supported, including custom themes. Common values are `light`, `dark`, `system`, or an empty string for the default.
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
-	// (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
-	// The Organization timezone. Available values are `utc`, `browser`, or an empty string for the default.
+	// (String) The Organization timezone. Any string value is supported, including IANA timezone names. Common values are utc, browser, or an empty string for the default.
+	// The Organization timezone. Any string value is supported, including IANA timezone names. Common values are `utc`, `browser`, or an empty string for the default.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
@@ -60,12 +60,12 @@ type OrganizationPreferencesObservation struct {
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) The Organization theme. Available values are light, dark, system, or an empty string for the default.
-	// The Organization theme. Available values are `light`, `dark`, `system`, or an empty string for the default.
+	// (String) The Organization theme. Any string value is supported, including custom themes. Common values are light, dark, system, or an empty string for the default.
+	// The Organization theme. Any string value is supported, including custom themes. Common values are `light`, `dark`, `system`, or an empty string for the default.
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
-	// (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
-	// The Organization timezone. Available values are `utc`, `browser`, or an empty string for the default.
+	// (String) The Organization timezone. Any string value is supported, including IANA timezone names. Common values are utc, browser, or an empty string for the default.
+	// The Organization timezone. Any string value is supported, including IANA timezone names. Common values are `utc`, `browser`, or an empty string for the default.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
 	// (String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.
@@ -96,13 +96,13 @@ type OrganizationPreferencesParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) The Organization theme. Available values are light, dark, system, or an empty string for the default.
-	// The Organization theme. Available values are `light`, `dark`, `system`, or an empty string for the default.
+	// (String) The Organization theme. Any string value is supported, including custom themes. Common values are light, dark, system, or an empty string for the default.
+	// The Organization theme. Any string value is supported, including custom themes. Common values are `light`, `dark`, `system`, or an empty string for the default.
 	// +kubebuilder:validation:Optional
 	Theme *string `json:"theme,omitempty" tf:"theme,omitempty"`
 
-	// (String) The Organization timezone. Available values are utc, browser, or an empty string for the default.
-	// The Organization timezone. Available values are `utc`, `browser`, or an empty string for the default.
+	// (String) The Organization timezone. Any string value is supported, including IANA timezone names. Common values are utc, browser, or an empty string for the default.
+	// The Organization timezone. Any string value is supported, including IANA timezone names. Common values are `utc`, `browser`, or an empty string for the default.
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 

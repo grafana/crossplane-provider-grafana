@@ -10,10 +10,12 @@ import (
 	"github.com/crossplane/upjet/pkg/controller"
 
 	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/alertenrichmentv1beta1"
+	alertrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/alertrulev0alpha1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/contactpoint"
 	messagetemplate "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/messagetemplate"
 	mutetiming "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/notificationpolicy"
+	recordingrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/recordingrulev0alpha1"
 	rulegroup "github.com/grafana/crossplane-provider-grafana/internal/controller/alerting/rulegroup"
 	custommodelrules "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/custommodelrules"
 	logconfig "github.com/grafana/crossplane-provider-grafana/internal/controller/asserts/logconfig"
@@ -101,10 +103,12 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		alertenrichmentv1beta1.Setup,
+		alertrulev0alpha1.Setup,
 		contactpoint.Setup,
 		messagetemplate.Setup,
 		mutetiming.Setup,
 		notificationpolicy.Setup,
+		recordingrulev0alpha1.Setup,
 		rulegroup.Setup,
 		custommodelrules.Setup,
 		logconfig.Setup,
