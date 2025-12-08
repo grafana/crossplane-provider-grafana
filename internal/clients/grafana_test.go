@@ -23,20 +23,6 @@ func intPtr(i int) *int {
 	return &i
 }
 
-// testManagedResource wraps fake.Managed and adds ProviderConfigReference support
-type testManagedResource struct {
-	*resourcefake.Managed
-	providerConfigRef *v1.ProviderConfigReference
-}
-
-func (t *testManagedResource) GetProviderConfigReference() *v1.ProviderConfigReference {
-	return t.providerConfigRef
-}
-
-func (t *testManagedResource) SetProviderConfigReference(r *v1.ProviderConfigReference) {
-	t.providerConfigRef = r
-}
-
 // setupTestNamespaced creates a namespaced ProviderConfig for testing the namespaced code path
 func setupTestNamespaced(t *testing.T, credentials map[string]string, orgID, stackID *int) (ctrlclient.Client, resource.Managed) {
 	t.Helper()
@@ -91,14 +77,18 @@ func setupTestNamespaced(t *testing.T, credentials map[string]string, orgID, sta
 	}
 	secret.Data["credentials"] = credData
 
-	baseMg := &resourcefake.Managed{}
-	baseMg.SetName("test-resource")
-	baseMg.SetNamespace("default")
-	baseMg.SetUID("test-uid-12345")
-
-	mg := &testManagedResource{
-		Managed:           baseMg,
-		providerConfigRef: &v1.ProviderConfigReference{Name: "test-config"},
+	mg := &resourcefake.ModernManaged{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "test-resource",
+			Namespace: "default",
+			UID:       "test-uid-12345",
+		},
+		TypedProviderConfigReferencer: resourcefake.TypedProviderConfigReferencer{
+			Ref: &v1.ProviderConfigReference{
+				Kind: "ProviderConfig",
+				Name: "test-config",
+			},
+		},
 	}
 
 	scheme := runtime.NewScheme()
@@ -168,14 +158,15 @@ func setupTestClusterScoped(t *testing.T, credentials map[string]string, orgID, 
 	}
 	secret.Data["credentials"] = credData
 
-	baseMg := &resourcefake.Managed{}
-	baseMg.SetName("test-resource")
-	baseMg.SetNamespace("default")
-	baseMg.SetUID("test-uid-12345")
-
-	mg := &testManagedResource{
-		Managed:           baseMg,
-		providerConfigRef: &v1.ProviderConfigReference{Name: "test-config"},
+	mg := &resourcefake.LegacyManaged{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      "test-resource",
+			Namespace: "default",
+			UID:       "test-uid-12345",
+		},
+		LegacyProviderConfigReferencer: resourcefake.LegacyProviderConfigReferencer{
+			Ref: &v1.Reference{Name: "test-config"},
+		},
 	}
 
 	scheme := runtime.NewScheme()

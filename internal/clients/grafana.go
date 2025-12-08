@@ -27,9 +27,139 @@ const (
 	errNoProviderConfig     = "no providerConfigRef provided"
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
+	errUpdateStatus         = "cannot update ProviderConfig status"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal grafana credentials as JSON"
 )
+
+type Credentials struct {
+	Source                       v1.CredentialsSource
+	v1.CommonCredentialSelectors `json:",inline"`
+}
+
+type Config struct {
+	URL                string
+	CloudAPIURL        string
+	CloudProviderURL   string
+	ConnectionsAPIURL  string
+	FleetManagementURL string
+	OnCallURL          string
+	SMURL              string
+	OrgID              *int
+	StackID            *int
+	Credentials        Credentials
+}
+
+func useLegacyProviderConfig(ctx context.Context, c client.Client, mg resource.LegacyManaged) (*Config, error) {
+	ref := mg.GetProviderConfigReference()
+	if ref == nil {
+		return nil, errors.New(errNoProviderConfig)
+	}
+
+	pc := &clusterapis.ProviderConfig{}
+	if err := c.Get(ctx, types.NamespacedName{Name: ref.Name}, pc); err != nil {
+		return nil, errors.Wrap(err, errGetProviderConfig)
+	}
+
+	tracker := resource.NewLegacyProviderConfigUsageTracker(c, &clusterapis.ProviderConfigUsage{})
+	if err := tracker.Track(ctx, mg); err != nil {
+		return nil, errors.Wrap(err, errTrackUsage)
+	}
+
+	if len(pc.Status.Conditions) == 0 {
+		pc.Status.SetConditions(v1.Available())
+		if err := c.Status().Update(ctx, pc); err != nil {
+			return nil, errors.Wrap(err, errUpdateStatus)
+		}
+	}
+
+	config := &Config{
+		URL:                pc.Spec.URL,
+		CloudAPIURL:        pc.Spec.CloudAPIURL,
+		CloudProviderURL:   pc.Spec.CloudProviderURL,
+		ConnectionsAPIURL:  pc.Spec.ConnectionsAPIURL,
+		FleetManagementURL: pc.Spec.FleetManagementURL,
+		OnCallURL:          pc.Spec.OnCallURL,
+		SMURL:              pc.Spec.SMURL,
+		OrgID:              pc.Spec.OrgID,
+		StackID:            pc.Spec.StackID,
+	}
+
+	// Convert v1 to v2 types explicitly
+	// Best-effort simple field copies (types differ between v1 and v2 runtime packages); we only use SecretRef today.
+	config.Credentials.Source = v1.CredentialsSource(string(pc.Spec.Credentials.Source))
+	if secret := pc.Spec.Credentials.SecretRef; secret != nil {
+		config.Credentials.SecretRef = &v1.SecretKeySelector{
+			SecretReference: v1.SecretReference{
+				Name:      secret.Name,
+				Namespace: secret.Namespace,
+			},
+			Key: secret.Key,
+		}
+	}
+
+	return config, nil
+}
+
+func useModernProviderConfig(ctx context.Context, c client.Client, mg resource.ModernManaged) (*Config, error) {
+	ref := mg.GetProviderConfigReference()
+	if ref == nil {
+		return nil, errors.New(errNoProviderConfig)
+	}
+
+	var spec *namespacedapis.ProviderConfigSpec
+	switch ref.Kind {
+	case "ProviderConfig":
+		pc := &namespacedapis.ProviderConfig{}
+		if err := c.Get(ctx, types.NamespacedName{Name: ref.Name, Namespace: mg.GetNamespace()}, pc); err != nil {
+			return nil, errors.Wrap(err, errGetProviderConfig)
+		}
+		spec = &pc.Spec
+
+		if len(pc.Status.Conditions) == 0 {
+			pc.Status.SetConditions(v1.Available())
+			if err := c.Status().Update(ctx, pc); err != nil {
+				return nil, errors.Wrap(err, errUpdateStatus)
+			}
+		}
+	case "ClusterProviderConfig":
+		cpc := &namespacedapis.ClusterProviderConfig{}
+		if err := c.Get(ctx, types.NamespacedName{Name: ref.Name, Namespace: mg.GetNamespace()}, cpc); err != nil {
+			return nil, errors.Wrap(err, errGetProviderConfig)
+		}
+		spec = &cpc.Spec
+
+		if len(cpc.Status.Conditions) == 0 {
+			cpc.Status.SetConditions(v1.Available())
+			if err := c.Status().Update(ctx, cpc); err != nil {
+				return nil, errors.Wrap(err, errUpdateStatus)
+			}
+		}
+	default:
+		return nil, fmt.Errorf("unsupported ProviderConfig kind: %s", ref.Kind)
+	}
+
+	tracker := resource.NewProviderConfigUsageTracker(c, &namespacedapis.ProviderConfigUsage{})
+	if err := tracker.Track(ctx, mg); err != nil {
+		return nil, errors.Wrap(err, errTrackUsage)
+	}
+
+	return &Config{
+		URL:                spec.URL,
+		CloudAPIURL:        spec.CloudAPIURL,
+		CloudProviderURL:   spec.CloudProviderURL,
+		ConnectionsAPIURL:  spec.ConnectionsAPIURL,
+		FleetManagementURL: spec.FleetManagementURL,
+		OnCallURL:          spec.OnCallURL,
+		SMURL:              spec.SMURL,
+		OrgID:              spec.OrgID,
+		StackID:            spec.StackID,
+		Credentials: Credentials{
+			Source:                    spec.Credentials.Source,
+			CommonCredentialSelectors: spec.Credentials.CommonCredentialSelectors,
+		},
+	}, nil
+}
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
@@ -37,76 +167,23 @@ func TerraformSetupBuilder() terraform.SetupFn {
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{}
 
-		// Attempt to resolve modern (namespaced) ProviderConfig first; fall back to legacy (cluster) ProviderConfig.
-		// ModernManaged exposes ProviderConfigReference (typed) for namespaced resources.
-		var pcURLName string
-		if mm, ok := mg.(resource.ModernManaged); ok && mm.GetProviderConfigReference() != nil {
-			pcURLName = mm.GetProviderConfigReference().Name
-		} else if legacy, ok := mg.(interface {
-			GetProviderConfigReference() *v1.ProviderConfigReference
-		}); ok && legacy.GetProviderConfigReference() != nil {
-			pcURLName = legacy.GetProviderConfigReference().Name
-		}
-		if pcURLName == "" {
-			return ps, errors.New(errNoProviderConfig)
-		}
+		var credSpec Config
 
-		// Prefer namespaced ProviderConfig if it exists in the namespace of the MR.
-		// We don't know the namespace of cluster-scoped MRs (they are cluster-scoped), so only attempt namespaced lookup when mg has a namespace.
-		var credSpec struct {
-			URL                string
-			CloudAPIURL        string
-			CloudProviderURL   string
-			ConnectionsAPIURL  string
-			FleetManagementURL string
-			OnCallURL          string
-			SMURL              string
-			OrgID              *int
-			StackID            *int
-			Credentials        struct {
-				Source                       v1.CredentialsSource
-				v1.CommonCredentialSelectors `json:",inline"`
+		switch mr := mg.(type) {
+		case resource.LegacyManaged:
+			config, err := useLegacyProviderConfig(ctx, client, mr)
+			if err != nil {
+				return ps, errors.Wrapf(err, "cannot use legacy provider config")
 			}
-		}
-
-		// Prefer namespaced ProviderConfig when managed resource itself is namespaced.
-		if nsGetter, ok := mg.(interface{ GetNamespace() string }); ok && nsGetter.GetNamespace() != "" {
-			npc := &namespacedapis.ProviderConfig{}
-			if err := client.Get(ctx, types.NamespacedName{Name: pcURLName, Namespace: nsGetter.GetNamespace()}, npc); err == nil {
-				credSpec.URL = npc.Spec.URL
-				credSpec.CloudAPIURL = npc.Spec.CloudAPIURL
-				credSpec.CloudProviderURL = npc.Spec.CloudProviderURL
-				credSpec.ConnectionsAPIURL = npc.Spec.ConnectionsAPIURL
-				credSpec.FleetManagementURL = npc.Spec.FleetManagementURL
-				credSpec.OnCallURL = npc.Spec.OnCallURL
-				credSpec.SMURL = npc.Spec.SMURL
-				credSpec.OrgID = npc.Spec.OrgID
-				credSpec.StackID = npc.Spec.StackID
-				credSpec.Credentials.Source = npc.Spec.Credentials.Source
-				credSpec.Credentials.CommonCredentialSelectors = npc.Spec.Credentials.CommonCredentialSelectors
+			credSpec = *config
+		case resource.ModernManaged:
+			config, err := useModernProviderConfig(ctx, client, mr)
+			if err != nil {
+				return ps, errors.Wrapf(err, "cannot use modern provider config")
 			}
-		}
-		// Fall back to cluster-scoped ProviderConfig if URL not set yet.
-		if credSpec.URL == "" {
-			cpc := &clusterapis.ProviderConfig{}
-			if err := client.Get(ctx, types.NamespacedName{Name: pcURLName}, cpc); err != nil {
-				return ps, errors.Wrap(err, errGetProviderConfig)
-			}
-			credSpec.URL = cpc.Spec.URL
-			credSpec.CloudAPIURL = cpc.Spec.CloudAPIURL
-			credSpec.CloudProviderURL = cpc.Spec.CloudProviderURL
-			credSpec.ConnectionsAPIURL = cpc.Spec.ConnectionsAPIURL
-			credSpec.FleetManagementURL = cpc.Spec.FleetManagementURL
-			credSpec.OnCallURL = cpc.Spec.OnCallURL
-			credSpec.SMURL = cpc.Spec.SMURL
-			credSpec.OrgID = cpc.Spec.OrgID
-			credSpec.StackID = cpc.Spec.StackID
-			// convert v1 to v2 types explicitly
-			// Best-effort simple field copies (types differ between v1 and v2 runtime packages); we only use SecretRef today.
-			credSpec.Credentials.Source = v1.CredentialsSource(string(cpc.Spec.Credentials.Source))
-			if cpc.Spec.Credentials.SecretRef != nil {
-				credSpec.Credentials.SecretRef = &v1.SecretKeySelector{SecretReference: v1.SecretReference{Name: cpc.Spec.Credentials.SecretRef.Name, Namespace: cpc.Spec.Credentials.SecretRef.Namespace}, Key: cpc.Spec.Credentials.SecretRef.Key}
-			}
+			credSpec = *config
+		default:
+			return ps, fmt.Errorf("unknown managed resource type %T", mg)
 		}
 
 		data, err := resource.CommonCredentialExtractor(ctx, credSpec.Credentials.Source, client, credSpec.Credentials.CommonCredentialSelectors)
