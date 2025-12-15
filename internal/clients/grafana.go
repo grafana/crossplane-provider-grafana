@@ -18,8 +18,8 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	clusterapis "github.com/grafana/crossplane-provider-grafana/apis/cluster/v1beta1"
-	namespacedapis "github.com/grafana/crossplane-provider-grafana/apis/namespaced/v1beta1"
+	clusterapis "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/v1beta1"
+	namespacedapis "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/v1beta1"
 )
 
 const (

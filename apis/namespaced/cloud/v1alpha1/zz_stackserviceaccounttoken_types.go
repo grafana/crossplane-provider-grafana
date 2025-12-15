@@ -31,7 +31,7 @@ type StackServiceAccountTokenInitParameters struct {
 	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 
 	// (String)
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.StackServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.StackServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
@@ -45,8 +45,8 @@ type StackServiceAccountTokenInitParameters struct {
 	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (String)
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.FieldExtractor("slug")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
@@ -95,7 +95,7 @@ type StackServiceAccountTokenParameters struct {
 	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 
 	// (String)
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.StackServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.StackServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional
@@ -110,8 +110,8 @@ type StackServiceAccountTokenParameters struct {
 	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (String)
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.FieldExtractor("slug")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional

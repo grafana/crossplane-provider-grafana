@@ -70,7 +70,7 @@ type PlaylistInitParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -121,7 +121,7 @@ type PlaylistParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional

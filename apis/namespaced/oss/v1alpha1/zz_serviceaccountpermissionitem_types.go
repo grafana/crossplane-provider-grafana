@@ -18,7 +18,7 @@ type ServiceAccountPermissionItemInitParameters struct {
 
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -78,7 +78,7 @@ type ServiceAccountPermissionItemParameters struct {
 
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional

@@ -17,7 +17,7 @@ type DefaultRouteInitParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
@@ -69,7 +69,7 @@ type DefaultRouteParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	// +kubebuilder:validation:Optional

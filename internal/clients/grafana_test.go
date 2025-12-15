@@ -15,8 +15,8 @@ import (
 	ctrlclient "sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
 
-	cv1beta1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/v1beta1"
-	nv1beta1 "github.com/grafana/crossplane-provider-grafana/apis/namespaced/v1beta1"
+	cv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/v1beta1"
+	nv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/v1beta1"
 )
 
 func intPtr(i int) *int {

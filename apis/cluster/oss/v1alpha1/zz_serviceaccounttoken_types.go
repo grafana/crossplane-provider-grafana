@@ -25,7 +25,7 @@ type ServiceAccountTokenInitParameters struct {
 
 	// (String) The ID of the service account to which the token belongs.
 	// The ID of the service account to which the token belongs.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
@@ -79,7 +79,7 @@ type ServiceAccountTokenParameters struct {
 
 	// (String) The ID of the service account to which the token belongs.
 	// The ID of the service account to which the token belongs.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional

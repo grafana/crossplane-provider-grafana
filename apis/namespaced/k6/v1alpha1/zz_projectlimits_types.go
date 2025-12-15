@@ -22,7 +22,7 @@ type ProjectLimitsInitParameters struct {
 
 	// (String) The identifier of the project to manage limits for.
 	// The identifier of the project to manage limits for.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/k6/v1alpha1.Project
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/k6/v1alpha1.Project
 	// +crossplane:generate:reference:refFieldName=ProjectRef
 	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -83,7 +83,7 @@ type ProjectLimitsParameters struct {
 
 	// (String) The identifier of the project to manage limits for.
 	// The identifier of the project to manage limits for.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/k6/v1alpha1.Project
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/k6/v1alpha1.Project
 	// +crossplane:generate:reference:refFieldName=ProjectRef
 	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	// +kubebuilder:validation:Optional

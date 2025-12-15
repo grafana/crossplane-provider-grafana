@@ -27,13 +27,13 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	apisCluster "github.com/grafana/crossplane-provider-grafana/apis/cluster"
-	apisNamespaced "github.com/grafana/crossplane-provider-grafana/apis/namespaced"
-	"github.com/grafana/crossplane-provider-grafana/config"
-	"github.com/grafana/crossplane-provider-grafana/internal/clients"
-	clustercontroller "github.com/grafana/crossplane-provider-grafana/internal/controller/cluster"
-	namespacedcontroller "github.com/grafana/crossplane-provider-grafana/internal/controller/namespaced"
-	"github.com/grafana/crossplane-provider-grafana/internal/features"
+	apisCluster "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster"
+	apisNamespaced "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced"
+	"github.com/grafana/crossplane-provider-grafana/v2/config"
+	"github.com/grafana/crossplane-provider-grafana/v2/internal/clients"
+	clustercontroller "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster"
+	namespacedcontroller "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced"
+	"github.com/grafana/crossplane-provider-grafana/v2/internal/features"
 )
 
 // Inspired by the Azure provider: https://github.com/crossplane-contrib/provider-upjet-azure/blob/d6a52c46e243fd70d6a2859ec97f29da0d67efa2/cmd/provider/dbformysql/zz_main.go

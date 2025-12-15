@@ -2,7 +2,7 @@
 # Setup Project
 
 PROJECT_NAME := provider-grafana
-PROJECT_REPO := github.com/grafana/crossplane-provider-grafana
+PROJECT_REPO := github.com/grafana/crossplane-provider-grafana/v2
 
 export TERRAFORM_VERSION := 1.7.5
 

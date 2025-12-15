@@ -1,4 +1,4 @@
-module github.com/grafana/crossplane-provider-grafana
+module github.com/grafana/crossplane-provider-grafana/v2
 
 go 1.24.7
 

@@ -8,8 +8,8 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1"
-	grafana "github.com/grafana/crossplane-provider-grafana/config/cluster/grafana"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1"
+	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )

@@ -167,8 +167,8 @@ type RealmInitParameters struct {
 
 	// (String) The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
 	// The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.ComputedFieldExtractor("id")
 	// +crossplane:generate:reference:refFieldName=StackRef
 	// +crossplane:generate:reference:selectorFieldName=StackSelector
 	Identifier *string `json:"identifier,omitempty" tf:"identifier,omitempty"`
@@ -207,8 +207,8 @@ type RealmParameters struct {
 
 	// (String) The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
 	// The identifier of the org or stack. For orgs, this is the slug, for stacks, this is the stack ID.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.ComputedFieldExtractor("id")
 	// +crossplane:generate:reference:refFieldName=StackRef
 	// +crossplane:generate:reference:selectorFieldName=StackSelector
 	// +kubebuilder:validation:Optional

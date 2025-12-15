@@ -36,8 +36,8 @@ type StackServiceAccountInitParameters struct {
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (String)
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("slug")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
@@ -90,8 +90,8 @@ type StackServiceAccountParameters struct {
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
 	// (String)
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("slug")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional

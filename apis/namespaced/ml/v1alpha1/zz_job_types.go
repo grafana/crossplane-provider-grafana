@@ -32,8 +32,8 @@ type JobInitParameters struct {
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
@@ -126,8 +126,8 @@ type JobParameters struct {
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
