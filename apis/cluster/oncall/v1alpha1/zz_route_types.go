@@ -17,7 +17,7 @@ type RouteInitParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
@@ -32,7 +32,7 @@ type RouteInitParameters struct {
 
 	// (String) The ID of the integration.
 	// The ID of the integration.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Integration
 	// +crossplane:generate:reference:refFieldName=IntegrationRef
 	// +crossplane:generate:reference:selectorFieldName=IntegrationSelector
 	IntegrationID *string `json:"integrationId,omitempty" tf:"integration_id,omitempty"`
@@ -147,7 +147,7 @@ type RouteParameters struct {
 
 	// (String) The ID of the escalation chain.
 	// The ID of the escalation chain.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.EscalationChain
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
 	// +kubebuilder:validation:Optional
@@ -163,7 +163,7 @@ type RouteParameters struct {
 
 	// (String) The ID of the integration.
 	// The ID of the integration.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Integration
 	// +crossplane:generate:reference:refFieldName=IntegrationRef
 	// +crossplane:generate:reference:selectorFieldName=IntegrationSelector
 	// +kubebuilder:validation:Optional

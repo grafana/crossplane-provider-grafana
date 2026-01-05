@@ -21,8 +21,8 @@ import (
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/alerting/v1alpha1"
-	features "github.com/grafana/crossplane-provider-grafana/internal/features"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1"
+	features "github.com/grafana/crossplane-provider-grafana/v2/internal/features"
 )
 
 // SetupGated adds a controller that reconciles MessageTemplate managed resources.

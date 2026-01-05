@@ -26,7 +26,7 @@ type FolderInitParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -41,8 +41,8 @@ type FolderInitParameters struct {
 
 	// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
 	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
@@ -102,7 +102,7 @@ type FolderParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional
@@ -118,8 +118,8 @@ type FolderParameters struct {
 
 	// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
 	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional

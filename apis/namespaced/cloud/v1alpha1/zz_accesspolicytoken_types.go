@@ -18,8 +18,8 @@ type AccessPolicyTokenInitParameters struct {
 
 	// (String) ID of the access policy for which to create a token.
 	// ID of the access policy for which to create a token.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.AccessPolicy
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.ComputedFieldExtractor("policyId")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.AccessPolicy
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.ComputedFieldExtractor("policyId")
 	// +crossplane:generate:reference:refFieldName=AccessPolicyRef
 	// +crossplane:generate:reference:selectorFieldName=AccessPolicySelector
 	AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
@@ -87,8 +87,8 @@ type AccessPolicyTokenParameters struct {
 
 	// (String) ID of the access policy for which to create a token.
 	// ID of the access policy for which to create a token.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/cloud/v1alpha1.AccessPolicy
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.ComputedFieldExtractor("policyId")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.AccessPolicy
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.ComputedFieldExtractor("policyId")
 	// +crossplane:generate:reference:refFieldName=AccessPolicyRef
 	// +crossplane:generate:reference:selectorFieldName=AccessPolicySelector
 	// +kubebuilder:validation:Optional

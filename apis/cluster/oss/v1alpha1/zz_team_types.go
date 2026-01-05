@@ -100,8 +100,8 @@ type TeamInitParameters struct {
 	// to the team. Note: users specified here must already exist in Grafana.
 	// A set of email addresses corresponding to users who should be given membership
 	// to the team. Note: users specified here must already exist in Grafana.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.FieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=MemberRefs
 	// +crossplane:generate:reference:selectorFieldName=MemberSelector
 	// +listType=set
@@ -113,7 +113,7 @@ type TeamInitParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -214,8 +214,8 @@ type TeamParameters struct {
 	// to the team. Note: users specified here must already exist in Grafana.
 	// A set of email addresses corresponding to users who should be given membership
 	// to the team. Note: users specified here must already exist in Grafana.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.FieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=MemberRefs
 	// +crossplane:generate:reference:selectorFieldName=MemberSelector
 	// +kubebuilder:validation:Optional
@@ -229,7 +229,7 @@ type TeamParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional

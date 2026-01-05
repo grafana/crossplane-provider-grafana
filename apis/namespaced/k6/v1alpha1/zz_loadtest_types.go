@@ -26,7 +26,7 @@ type LoadTestInitParameters struct {
 
 	// (String) The identifier of the project this load test belongs to.
 	// The identifier of the project this load test belongs to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/k6/v1alpha1.Project
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/k6/v1alpha1.Project
 	// +crossplane:generate:reference:refFieldName=ProjectRef
 	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
@@ -88,7 +88,7 @@ type LoadTestParameters struct {
 
 	// (String) The identifier of the project this load test belongs to.
 	// The identifier of the project this load test belongs to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/k6/v1alpha1.Project
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/k6/v1alpha1.Project
 	// +crossplane:generate:reference:refFieldName=ProjectRef
 	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	// +kubebuilder:validation:Optional

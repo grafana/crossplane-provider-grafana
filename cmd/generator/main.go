@@ -11,7 +11,7 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/pipeline"
 
-	"github.com/grafana/crossplane-provider-grafana/config"
+	"github.com/grafana/crossplane-provider-grafana/v2/config"
 )
 
 func main() {

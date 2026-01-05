@@ -17,13 +17,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/pkg/errors"
 
-	grafanaCluster "github.com/grafana/crossplane-provider-grafana/config/cluster/grafana"
-	grafanaNamespaced "github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana"
+	grafanaCluster "github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana"
+	grafanaNamespaced "github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana"
 )
 
 const (
 	resourcePrefix = "grafana"
-	modulePath     = "github.com/grafana/crossplane-provider-grafana"
+	modulePath     = "github.com/grafana/crossplane-provider-grafana/v2"
 )
 
 //go:embed schema.json

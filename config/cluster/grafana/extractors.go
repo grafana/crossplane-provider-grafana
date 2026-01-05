@@ -10,7 +10,7 @@ import (
 
 const (
 	// SelfPackagePath is the golang path for this package.
-	SelfPackagePath = "github.com/grafana/crossplane-provider-grafana/config/cluster/grafana"
+	SelfPackagePath = "github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana"
 )
 
 func computedFieldExtractor(field string) string {

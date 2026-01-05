@@ -25,15 +25,15 @@ type DataSourcePermissionInitParameters struct {
 
 	// (String) UID of the datasource to apply permissions to.
 	// UID of the datasource to apply permissions to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -81,8 +81,8 @@ type DataSourcePermissionParameters struct {
 
 	// (String) UID of the datasource to apply permissions to.
 	// UID of the datasource to apply permissions to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
@@ -90,7 +90,7 @@ type DataSourcePermissionParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional
@@ -122,7 +122,7 @@ type PermissionsInitParameters struct {
 
 	// (String) ID of the team to manage permissions for. Defaults to 0.
 	// ID of the team to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Team
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
@@ -137,7 +137,7 @@ type PermissionsInitParameters struct {
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
@@ -184,7 +184,7 @@ type PermissionsParameters struct {
 
 	// (String) ID of the team to manage permissions for. Defaults to 0.
 	// ID of the team to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.Team
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
@@ -200,7 +200,7 @@ type PermissionsParameters struct {
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional

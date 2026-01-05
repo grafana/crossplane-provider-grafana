@@ -88,8 +88,8 @@ type OutlierDetectorInitParameters struct {
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
@@ -160,8 +160,8 @@ type OutlierDetectorParameters struct {
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// The uid of the datasource to query.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/cluster/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/cluster/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=DataSourceRef
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional

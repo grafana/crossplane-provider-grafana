@@ -18,7 +18,7 @@ type RoleAssignmentInitParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -41,8 +41,8 @@ type RoleAssignmentInitParameters struct {
 
 	// (String) Grafana RBAC role UID.
 	// Grafana RBAC role UID.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/enterprise/v1alpha1.Role
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/enterprise/v1alpha1.Role
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=RoleRef
 	// +crossplane:generate:reference:selectorFieldName=RoleSelector
 	RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
@@ -57,7 +57,7 @@ type RoleAssignmentInitParameters struct {
 
 	// (Set of String) IDs of service accounts that the role should be assigned to.
 	// IDs of service accounts that the role should be assigned to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRefs
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +listType=set
@@ -73,7 +73,7 @@ type RoleAssignmentInitParameters struct {
 
 	// (Set of String) IDs of teams that the role should be assigned to.
 	// IDs of teams that the role should be assigned to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Team
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRefs
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +listType=set
@@ -89,7 +89,7 @@ type RoleAssignmentInitParameters struct {
 
 	// (Set of Number) IDs of users that the role should be assigned to.
 	// IDs of users that the role should be assigned to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRefs
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +listType=set
@@ -129,7 +129,7 @@ type RoleAssignmentParameters struct {
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional
@@ -153,8 +153,8 @@ type RoleAssignmentParameters struct {
 
 	// (String) Grafana RBAC role UID.
 	// Grafana RBAC role UID.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/enterprise/v1alpha1.Role
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/enterprise/v1alpha1.Role
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=RoleRef
 	// +crossplane:generate:reference:selectorFieldName=RoleSelector
 	// +kubebuilder:validation:Optional
@@ -170,7 +170,7 @@ type RoleAssignmentParameters struct {
 
 	// (Set of String) IDs of service accounts that the role should be assigned to.
 	// IDs of service accounts that the role should be assigned to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.ServiceAccount
 	// +crossplane:generate:reference:refFieldName=ServiceAccountRefs
 	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional
@@ -187,7 +187,7 @@ type RoleAssignmentParameters struct {
 
 	// (Set of String) IDs of teams that the role should be assigned to.
 	// IDs of teams that the role should be assigned to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.Team
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRefs
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
@@ -204,7 +204,7 @@ type RoleAssignmentParameters struct {
 
 	// (Set of Number) IDs of users that the role should be assigned to.
 	// IDs of users that the role should be assigned to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/apis/namespaced/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRefs
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional

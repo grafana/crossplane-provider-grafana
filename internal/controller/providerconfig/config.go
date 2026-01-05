@@ -11,7 +11,7 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/controller"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1beta1 "github.com/grafana/crossplane-provider-grafana/apis/cluster/v1beta1"
+	v1beta1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/v1beta1"
 )
 
 // Setup adds a controller that reconciles ProviderConfigs by accounting for
