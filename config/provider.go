@@ -10,19 +10,20 @@ import (
 
 	"fmt"
 
-	ujconfig "github.com/crossplane/upjet/pkg/config"
-	conversiontfjson "github.com/crossplane/upjet/pkg/types/conversion/tfjson"
+	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/pkg/errors"
 
-	grafana "github.com/grafana/crossplane-provider-grafana/config/grafana"
+	grafanaCluster "github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana"
+	grafanaNamespaced "github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana"
 )
 
 const (
 	resourcePrefix = "grafana"
-	modulePath     = "github.com/grafana/crossplane-provider-grafana"
+	modulePath     = "github.com/grafana/crossplane-provider-grafana/v2"
 )
 
 //go:embed schema.json
@@ -86,6 +87,26 @@ func resourcesByFramework() ([]string, []string) {
 
 // GetProvider returns provider configuration
 func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
+	return BuildProvider("grafana.crossplane.io", []func(provider *ujconfig.Provider){
+		// add custom config functions
+		grafanaCluster.ConfigureOrgIDRefs,
+		grafanaCluster.Configure,
+		grafanaCluster.ConfigureOnCallRefsAndSelectors,
+	}, generationProvider)
+}
+
+// GetProviderNamespaced returns provider configuration for the modern namespaced API group
+func GetProviderNamespaced(generationProvider bool) (*ujconfig.Provider, error) {
+	return BuildProvider("grafana.m.crossplane.io", []func(provider *ujconfig.Provider){
+		// add custom config functions
+		grafanaNamespaced.ConfigureOrgIDRefs,
+		grafanaNamespaced.Configure,
+		grafanaNamespaced.ConfigureOnCallRefsAndSelectors,
+	}, generationProvider)
+}
+
+// BuildProvider constructs a provider configuration for the given root API group.
+func BuildProvider(rootGroup string, providerConfigurators []func(provider *ujconfig.Provider), generationProvider bool) (*ujconfig.Provider, error) {
 	var p *schema.Provider
 	var err error
 	if generationProvider {
@@ -100,7 +121,7 @@ func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 	legacySDKResources, pluginFrameworkResources := resourcesByFramework()
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithShortName("grafana"),
-		ujconfig.WithRootGroup("grafana.crossplane.io"),
+		ujconfig.WithRootGroup(rootGroup),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithIncludeList([]string{}),
 		ujconfig.WithTerraformPluginSDKIncludeList(legacySDKResources),
@@ -113,12 +134,7 @@ func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 			ExternalNameConfigurations(),
 		))
 
-	for _, configure := range []func(provider *ujconfig.Provider){
-		// add custom config functions
-		grafana.ConfigureOrgIDRefs,
-		grafana.Configure,
-		grafana.ConfigureOnCallRefsAndSelectors,
-	} {
+	for _, configure := range providerConfigurators {
 		configure(pc)
 	}
 

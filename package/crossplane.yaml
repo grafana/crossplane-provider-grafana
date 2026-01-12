@@ -13,3 +13,6 @@ metadata:
       This provider is generated from https://github.com/grafana/terraform-provider-grafana by https://github.com/upbound/upjet.
 
       See the [examples directory in the source repository](https://github.com/grafana/crossplane-provider-grafana/tree/main/examples/) for examples on how to use this provider.
+spec:
+  capabilities:
+    - SafeStart
