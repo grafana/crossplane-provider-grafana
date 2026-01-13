@@ -71,6 +71,8 @@ XPKG_REG_ORGS ?= xpkg.upbound.io/grafana
 # inferred.
 XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/grafana
 XPKGS = $(PROJECT_NAME)
+# Allow version tags (v*) to trigger publish.artifacts
+RELEASE_BRANCH_FILTER := main master release-% v%
 -include build/makelib/xpkg.mk
 
 # ====================================================================================
