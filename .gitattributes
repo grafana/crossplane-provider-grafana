@@ -1,0 +1,5 @@
+config/provider-metadata.yaml linguist-generated=true
+config/schema.json linguist-generated=true
+examples-generated/** linguist-generated=true
+package/** linguist-generated=true
+zz_**.go linguist-generated=true
