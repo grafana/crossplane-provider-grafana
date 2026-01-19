@@ -10,7 +10,6 @@ on:
 
 env:
   # Common versions
-  GOLANGCI_VERSION: 'v1.64.6'
   DOCKER_BUILDX_VERSION: 'v0.8.2'
 
 jobs:
@@ -87,7 +86,7 @@ jobs:
       - name: Lint
         uses: golangci/golangci-lint-action@55c2c1448f86e01eaae002a5a3a9624417608d84 # v6
         with:
-          version: ${{ env.GOLANGCI_VERSION }}
+          version-file: .tool-versions
 
   check-diff:
     runs-on: ubuntu-24.04
