@@ -107,6 +107,10 @@ type ContactPointInitParameters struct {
 	// A contact point that sends notifications to Google Chat.
 	Googlechat []GooglechatInitParameters `json:"googlechat,omitempty" tf:"googlechat,omitempty"`
 
+	// (Block Set) A contact point that sends notifications to Jira. (see below for nested schema)
+	// A contact point that sends notifications to Jira.
+	Jira []JiraInitParameters `json:"jira,omitempty" tf:"jira,omitempty"`
+
 	// (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
 	// A contact point that publishes notifications to Apache Kafka topics.
 	Kafka []KafkaInitParameters `json:"kafka,omitempty" tf:"kafka,omitempty"`
@@ -219,6 +223,10 @@ type ContactPointObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block Set) A contact point that sends notifications to Jira. (see below for nested schema)
+	// A contact point that sends notifications to Jira.
+	Jira []JiraObservation `json:"jira,omitempty" tf:"jira,omitempty"`
+
 	// (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
 	// A contact point that publishes notifications to Apache Kafka topics.
 	Kafka []KafkaObservation `json:"kafka,omitempty" tf:"kafka,omitempty"`
@@ -322,6 +330,11 @@ type ContactPointParameters struct {
 	// A contact point that sends notifications to Google Chat.
 	// +kubebuilder:validation:Optional
 	Googlechat []GooglechatParameters `json:"googlechat,omitempty" tf:"googlechat,omitempty"`
+
+	// (Block Set) A contact point that sends notifications to Jira. (see below for nested schema)
+	// A contact point that sends notifications to Jira.
+	// +kubebuilder:validation:Optional
+	Jira []JiraParameters `json:"jira,omitempty" tf:"jira,omitempty"`
 
 	// (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
 	// A contact point that publishes notifications to Apache Kafka topics.
@@ -819,6 +832,238 @@ type HTTPConfigParameters struct {
 	Oauth2 []Oauth2Parameters `json:"oauth2,omitempty" tf:"oauth2,omitempty"`
 }
 
+type JiraInitParameters struct {
+
+	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
+	// Personal Access Token that is used as a bearer authorization header.
+	APITokenSecretRef *v1.LocalSecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
+
+	// (String) The URL of the Jira REST API (v2 or v3).
+	// The URL of the Jira REST API (v2 or v3).
+	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
+
+	// (String) Custom field ID for storing deduplication keys. Must be numeric.
+	// Custom field ID for storing deduplication keys. Must be numeric.
+	DedupKeyField *string `json:"dedupKeyField,omitempty" tf:"dedup_key_field,omitempty"`
+
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
+	// The templated description of the Jira issue. Maximum length is 32767 characters.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (Map of String) Custom Jira issue fields.
+	// Custom Jira issue fields.
+	// +mapType=granular
+	Fields map[string]*string `json:"fields,omitempty" tf:"fields,omitempty"`
+
+	// (String) The type of issue to create (e.g., Bug, Task, Story).
+	// The type of issue to create (e.g., Bug, Task, Story).
+	IssueType *string `json:"issueType,omitempty" tf:"issue_type,omitempty"`
+
+	// (List of String) Labels to assign to the Jira issue.
+	// Labels to assign to the Jira issue.
+	Labels []*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (String, Sensitive) Password to use for Jira authentication.
+	// Password to use for Jira authentication.
+	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// (String) The priority level of the issue (e.g., High, Medium, Low).
+	// The priority level of the issue (e.g., High, Medium, Low).
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
+
+	// (String) The project key in Jira.
+	// The project key in Jira.
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+
+	// (String) Duration to consider reopening issues (e.g., '10m').
+	// Duration to consider reopening issues (e.g., '10m').
+	ReopenDuration *string `json:"reopenDuration,omitempty" tf:"reopen_duration,omitempty"`
+
+	// (String) The name of the workflow transition to reopen an issue.
+	// The name of the workflow transition to reopen an issue.
+	ReopenTransition *string `json:"reopenTransition,omitempty" tf:"reopen_transition,omitempty"`
+
+	// (String) The name of the workflow transition to resolve an issue.
+	// The name of the workflow transition to resolve an issue.
+	ResolveTransition *string `json:"resolveTransition,omitempty" tf:"resolve_transition,omitempty"`
+
+	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String) The templated summary of the Jira issue. Maximum length is 255 characters.
+	// The templated summary of the Jira issue. Maximum length is 255 characters.
+	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
+
+	// (String, Sensitive) Username to use for Jira authentication.
+	// Username to use for Jira authentication.
+	UserSecretRef *v1.LocalSecretKeySelector `json:"userSecretRef,omitempty" tf:"-"`
+
+	// (String) Resolution status to exclude from reopening/updating.
+	// Resolution status to exclude from reopening/updating.
+	WontFixResolution *string `json:"wontFixResolution,omitempty" tf:"wont_fix_resolution,omitempty"`
+}
+
+type JiraObservation struct {
+
+	// (String) The URL of the Jira REST API (v2 or v3).
+	// The URL of the Jira REST API (v2 or v3).
+	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
+
+	// (String) Custom field ID for storing deduplication keys. Must be numeric.
+	// Custom field ID for storing deduplication keys. Must be numeric.
+	DedupKeyField *string `json:"dedupKeyField,omitempty" tf:"dedup_key_field,omitempty"`
+
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
+	// The templated description of the Jira issue. Maximum length is 32767 characters.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (Map of String) Custom Jira issue fields.
+	// Custom Jira issue fields.
+	// +mapType=granular
+	Fields map[string]*string `json:"fields,omitempty" tf:"fields,omitempty"`
+
+	// (String) The type of issue to create (e.g., Bug, Task, Story).
+	// The type of issue to create (e.g., Bug, Task, Story).
+	IssueType *string `json:"issueType,omitempty" tf:"issue_type,omitempty"`
+
+	// (List of String) Labels to assign to the Jira issue.
+	// Labels to assign to the Jira issue.
+	Labels []*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (String) The priority level of the issue (e.g., High, Medium, Low).
+	// The priority level of the issue (e.g., High, Medium, Low).
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
+
+	// (String) The project key in Jira.
+	// The project key in Jira.
+	Project *string `json:"project,omitempty" tf:"project,omitempty"`
+
+	// (String) Duration to consider reopening issues (e.g., '10m').
+	// Duration to consider reopening issues (e.g., '10m').
+	ReopenDuration *string `json:"reopenDuration,omitempty" tf:"reopen_duration,omitempty"`
+
+	// (String) The name of the workflow transition to reopen an issue.
+	// The name of the workflow transition to reopen an issue.
+	ReopenTransition *string `json:"reopenTransition,omitempty" tf:"reopen_transition,omitempty"`
+
+	// (String) The name of the workflow transition to resolve an issue.
+	// The name of the workflow transition to resolve an issue.
+	ResolveTransition *string `json:"resolveTransition,omitempty" tf:"resolve_transition,omitempty"`
+
+	// (String) The templated summary of the Jira issue. Maximum length is 255 characters.
+	// The templated summary of the Jira issue. Maximum length is 255 characters.
+	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
+
+	// (String) The UID of the contact point.
+	// The UID of the contact point.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+	// (String) Resolution status to exclude from reopening/updating.
+	// Resolution status to exclude from reopening/updating.
+	WontFixResolution *string `json:"wontFixResolution,omitempty" tf:"wont_fix_resolution,omitempty"`
+}
+
+type JiraParameters struct {
+
+	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
+	// Personal Access Token that is used as a bearer authorization header.
+	// +kubebuilder:validation:Optional
+	APITokenSecretRef *v1.LocalSecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
+
+	// (String) The URL of the Jira REST API (v2 or v3).
+	// The URL of the Jira REST API (v2 or v3).
+	// +kubebuilder:validation:Optional
+	APIURL *string `json:"apiUrl" tf:"api_url,omitempty"`
+
+	// (String) Custom field ID for storing deduplication keys. Must be numeric.
+	// Custom field ID for storing deduplication keys. Must be numeric.
+	// +kubebuilder:validation:Optional
+	DedupKeyField *string `json:"dedupKeyField,omitempty" tf:"dedup_key_field,omitempty"`
+
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
+	// The templated description of the Jira issue. Maximum length is 32767 characters.
+	// +kubebuilder:validation:Optional
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (Boolean) Whether to disable sending resolve messages. Defaults to false.
+	// Whether to disable sending resolve messages. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (Map of String) Custom Jira issue fields.
+	// Custom Jira issue fields.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Fields map[string]*string `json:"fields,omitempty" tf:"fields,omitempty"`
+
+	// (String) The type of issue to create (e.g., Bug, Task, Story).
+	// The type of issue to create (e.g., Bug, Task, Story).
+	// +kubebuilder:validation:Optional
+	IssueType *string `json:"issueType" tf:"issue_type,omitempty"`
+
+	// (List of String) Labels to assign to the Jira issue.
+	// Labels to assign to the Jira issue.
+	// +kubebuilder:validation:Optional
+	Labels []*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (String, Sensitive) Password to use for Jira authentication.
+	// Password to use for Jira authentication.
+	// +kubebuilder:validation:Optional
+	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+
+	// (String) The priority level of the issue (e.g., High, Medium, Low).
+	// The priority level of the issue (e.g., High, Medium, Low).
+	// +kubebuilder:validation:Optional
+	Priority *string `json:"priority,omitempty" tf:"priority,omitempty"`
+
+	// (String) The project key in Jira.
+	// The project key in Jira.
+	// +kubebuilder:validation:Optional
+	Project *string `json:"project" tf:"project,omitempty"`
+
+	// (String) Duration to consider reopening issues (e.g., '10m').
+	// Duration to consider reopening issues (e.g., '10m').
+	// +kubebuilder:validation:Optional
+	ReopenDuration *string `json:"reopenDuration,omitempty" tf:"reopen_duration,omitempty"`
+
+	// (String) The name of the workflow transition to reopen an issue.
+	// The name of the workflow transition to reopen an issue.
+	// +kubebuilder:validation:Optional
+	ReopenTransition *string `json:"reopenTransition,omitempty" tf:"reopen_transition,omitempty"`
+
+	// (String) The name of the workflow transition to resolve an issue.
+	// The name of the workflow transition to resolve an issue.
+	// +kubebuilder:validation:Optional
+	ResolveTransition *string `json:"resolveTransition,omitempty" tf:"resolve_transition,omitempty"`
+
+	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
+	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
+	// +kubebuilder:validation:Optional
+	SettingsSecretRef *v1.LocalSecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+
+	// (String) The templated summary of the Jira issue. Maximum length is 255 characters.
+	// The templated summary of the Jira issue. Maximum length is 255 characters.
+	// +kubebuilder:validation:Optional
+	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
+
+	// (String, Sensitive) Username to use for Jira authentication.
+	// Username to use for Jira authentication.
+	// +kubebuilder:validation:Optional
+	UserSecretRef *v1.LocalSecretKeySelector `json:"userSecretRef,omitempty" tf:"-"`
+
+	// (String) Resolution status to exclude from reopening/updating.
+	// Resolution status to exclude from reopening/updating.
+	// +kubebuilder:validation:Optional
+	WontFixResolution *string `json:"wontFixResolution,omitempty" tf:"wont_fix_resolution,omitempty"`
+}
+
 type KafkaInitParameters struct {
 
 	// (String) The API version to use when contacting the Kafka REST Server. Supported: v2 (default) and v3. Defaults to v2.
@@ -829,7 +1074,7 @@ type KafkaInitParameters struct {
 	// The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the Kafka message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -841,7 +1086,7 @@ type KafkaInitParameters struct {
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
-	// (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+	// (String, Sensitive) Password to use for Jira authentication.
 	// The password to use when making a call to the Kafka REST Proxy
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
@@ -870,7 +1115,7 @@ type KafkaObservation struct {
 	// The Id of cluster to use when contacting the Kafka REST Server. Required api_version to be 'v3'
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the Kafka message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -907,7 +1152,7 @@ type KafkaParameters struct {
 	// +kubebuilder:validation:Optional
 	ClusterID *string `json:"clusterId,omitempty" tf:"cluster_id,omitempty"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the Kafka message.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -922,7 +1167,7 @@ type KafkaParameters struct {
 	// +kubebuilder:validation:Optional
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
-	// (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+	// (String, Sensitive) Password to use for Jira authentication.
 	// The password to use when making a call to the Kafka REST Proxy
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
@@ -950,7 +1195,7 @@ type KafkaParameters struct {
 
 type LineInitParameters struct {
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -971,7 +1216,7 @@ type LineInitParameters struct {
 
 type LineObservation struct {
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -990,7 +1235,7 @@ type LineObservation struct {
 
 type LineParameters struct {
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -1267,7 +1512,7 @@ type OpsgenieInitParameters struct {
 	// Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
 	AutoClose *bool `json:"autoClose,omitempty" tf:"auto_close,omitempty"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// A templated high-level description to use for the alert.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -1304,7 +1549,7 @@ type OpsgenieObservation struct {
 	// Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
 	AutoClose *bool `json:"autoClose,omitempty" tf:"auto_close,omitempty"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// A templated high-level description to use for the alert.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -1349,7 +1594,7 @@ type OpsgenieParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoClose *bool `json:"autoClose,omitempty" tf:"auto_close,omitempty"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// A templated high-level description to use for the alert.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -1435,7 +1680,7 @@ type PagerdutyInitParameters struct {
 	// The unique location of the affected system.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// (String) The templated summary message of the event.
+	// (String) The templated summary of the Jira issue. Maximum length is 255 characters.
 	// The templated summary message of the event.
 	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
 
@@ -1483,7 +1728,7 @@ type PagerdutyObservation struct {
 	// The unique location of the affected system.
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// (String) The templated summary message of the event.
+	// (String) The templated summary of the Jira issue. Maximum length is 255 characters.
 	// The templated summary message of the event.
 	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
 
@@ -1554,7 +1799,7 @@ type PagerdutyParameters struct {
 	// +kubebuilder:validation:Optional
 	Source *string `json:"source,omitempty" tf:"source,omitempty"`
 
-	// (String) The templated summary message of the event.
+	// (String) The templated summary of the Jira issue. Maximum length is 255 characters.
 	// The templated summary message of the event.
 	// +kubebuilder:validation:Optional
 	Summary *string `json:"summary,omitempty" tf:"summary,omitempty"`
@@ -1669,7 +1914,7 @@ type ProxyConfigParameters struct {
 
 type PushoverInitParameters struct {
 
-	// (String, Sensitive) The Pushover API token.
+	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
 	// The Pushover API token.
 	APITokenSecretRef v1.LocalSecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
 
@@ -1697,7 +1942,7 @@ type PushoverInitParameters struct {
 	// The sound associated with the resolved notification.
 	OkSound *string `json:"okSound,omitempty" tf:"ok_sound,omitempty"`
 
-	// (Number) The priority level of the event.
+	// (String) The priority level of the issue (e.g., High, Medium, Low).
 	// The priority level of the event.
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
@@ -1750,7 +1995,7 @@ type PushoverObservation struct {
 	// The sound associated with the resolved notification.
 	OkSound *string `json:"okSound,omitempty" tf:"ok_sound,omitempty"`
 
-	// (Number) The priority level of the event.
+	// (String) The priority level of the issue (e.g., High, Medium, Low).
 	// The priority level of the event.
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 
@@ -1777,7 +2022,7 @@ type PushoverObservation struct {
 
 type PushoverParameters struct {
 
-	// (String, Sensitive) The Pushover API token.
+	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
 	// The Pushover API token.
 	// +kubebuilder:validation:Optional
 	APITokenSecretRef v1.LocalSecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
@@ -1812,7 +2057,7 @@ type PushoverParameters struct {
 	// +kubebuilder:validation:Optional
 	OkSound *string `json:"okSound,omitempty" tf:"ok_sound,omitempty"`
 
-	// (Number) The priority level of the event.
+	// (String) The priority level of the issue (e.g., High, Medium, Low).
 	// The priority level of the event.
 	// +kubebuilder:validation:Optional
 	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
@@ -2628,7 +2873,7 @@ type ThreemaInitParameters struct {
 	// The Threema API key.
 	APISecretSecretRef v1.LocalSecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -2653,7 +2898,7 @@ type ThreemaInitParameters struct {
 
 type ThreemaObservation struct {
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -2685,7 +2930,7 @@ type ThreemaParameters struct {
 	// +kubebuilder:validation:Optional
 	APISecretSecretRef v1.LocalSecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -2718,7 +2963,7 @@ type ThreemaParameters struct {
 
 type VictoropsInitParameters struct {
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// Templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -2743,7 +2988,7 @@ type VictoropsInitParameters struct {
 
 type VictoropsObservation struct {
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// Templated description of the message.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
@@ -2766,7 +3011,7 @@ type VictoropsObservation struct {
 
 type VictoropsParameters struct {
 
-	// (String) The templated description of the Kafka message.
+	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// Templated description of the message.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -2799,7 +3044,7 @@ type VictoropsParameters struct {
 
 type WebexInitParameters struct {
 
-	// (String) The URL to send webhook requests to.
+	// (String) The URL of the Jira REST API (v2 or v3).
 	// The URL to send webhook requests to.
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
@@ -2824,7 +3069,7 @@ type WebexInitParameters struct {
 
 type WebexObservation struct {
 
-	// (String) The URL to send webhook requests to.
+	// (String) The URL of the Jira REST API (v2 or v3).
 	// The URL to send webhook requests to.
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`
 
@@ -2847,7 +3092,7 @@ type WebexObservation struct {
 
 type WebexParameters struct {
 
-	// (String) The URL to send webhook requests to.
+	// (String) The URL of the Jira REST API (v2 or v3).
 	// The URL to send webhook requests to.
 	// +kubebuilder:validation:Optional
 	APIURL *string `json:"apiUrl,omitempty" tf:"api_url,omitempty"`

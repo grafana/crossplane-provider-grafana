@@ -65,10 +65,13 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_notification_policy":                          ReplaceGroupWords("alerting", 0),
 	"grafana_rule_group":                                   ReplaceGroupWords("alerting", 0),
 	"grafana_apps_alertenrichment_alertenrichment_v1beta1": ReplaceGroupWords("alerting", 2),
+	"grafana_apps_rules_alertrule_v0alpha1":                ReplaceGroupWords("alerting", 2),
+	"grafana_apps_rules_recordingrule_v0alpha1":            ReplaceGroupWords("alerting", 2),
 
 	// Cloud
 	"grafana_cloud_access_policy":                             ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_access_policy_token":                       ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_access_policy_rotating_token":              ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_org_member":                                ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_plugin_installation":                       ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_private_data_source_connect_network":       ReplaceGroupWords("cloud", 1),
@@ -76,6 +79,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_cloud_stack":                                     ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_stack_service_account":                     ReplaceGroupWords("cloud", 1),
 	"grafana_cloud_stack_service_account_token":               ReplaceGroupWords("cloud", 1),
+	"grafana_cloud_stack_service_account_rotating_token":      ReplaceGroupWords("cloud", 1),
 	"grafana_apps_productactivation_appo11yconfig_v1alpha1":   ReplaceGroupWords("cloud", 2),
 	"grafana_apps_productactivation_k8so11yconfig_v1alpha1":   ReplaceGroupWords("cloud", 2),
 
@@ -134,6 +138,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_service_account_permission":       ReplaceGroupWords("oss", 0),
 	"grafana_service_account_permission_item":  ReplaceGroupWords("oss", 0),
 	"grafana_service_account_token":            ReplaceGroupWords("oss", 0),
+	"grafana_service_account_rotating_token":   ReplaceGroupWords("oss", 0),
 	"grafana_sso_settings":                     ReplaceGroupWords("oss", 0),
 	"grafana_team":                             ReplaceGroupWords("oss", 0),
 	"grafana_user":                             ReplaceGroupWords("oss", 0),
@@ -168,6 +173,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_asserts_log_config":                   ReplaceGroupWords("asserts", 1),
 	"grafana_asserts_notification_alerts_config":   ReplaceGroupWords("asserts", 1),
 	"grafana_asserts_suppressed_assertions_config": ReplaceGroupWords("asserts", 1),
+	"grafana_asserts_thresholds":                   ReplaceGroupWords("asserts", 1),
 }
 
 // KindMap contains kind string overrides.

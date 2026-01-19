@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *AccessPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *AccessPolicyRotatingToken) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *AccessPolicyToken) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -35,6 +38,9 @@ func (tr *Stack) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *StackServiceAccount) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StackServiceAccountRotatingToken) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *StackServiceAccountToken) Hub() {}

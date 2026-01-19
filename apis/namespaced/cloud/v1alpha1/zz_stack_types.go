@@ -76,6 +76,10 @@ type StackObservation struct {
 	// User ID of the Alertmanager instance configured for this stack.
 	AlertmanagerUserID *float64 `json:"alertmanagerUserId,omitempty" tf:"alertmanager_user_id,omitempty"`
 
+	// (String) Name of the cluster where this stack resides.
+	// Name of the cluster where this stack resides.
+	ClusterName *string `json:"clusterName,omitempty" tf:"cluster_name,omitempty"`
+
 	// (String) Slug of the cluster where this stack resides.
 	// Slug of the cluster where this stack resides.
 	ClusterSlug *string `json:"clusterSlug,omitempty" tf:"cluster_slug,omitempty"`

@@ -64,6 +64,9 @@ func (tr *ServiceAccountPermission) Hub() {}
 func (tr *ServiceAccountPermissionItem) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *ServiceAccountRotatingToken) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *ServiceAccountToken) Hub() {}
 
 // Hub marks this type as a conversion hub.

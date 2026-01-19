@@ -1,0 +1,25 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: RecordingruleV0Alpha1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/recordingrulev0alpha1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    provider: ${grafana.local}
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/recordingrulev0alpha1
+  labels:
+    testing.upbound.io/example-name: recordingrule_folder
+  name: recordingrule-folder
+spec:
+  forProvider:
+    title: Alert Rule Folder

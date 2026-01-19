@@ -178,6 +178,15 @@ func (l *ServiceAccountPermissionList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this ServiceAccountRotatingTokenList.
+func (l *ServiceAccountRotatingTokenList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ServiceAccountTokenList.
 func (l *ServiceAccountTokenList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

@@ -57,6 +57,56 @@ func (mg *AccessPolicy) SetWriteConnectionSecretToReference(r *xpv1.SecretRefere
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AccessPolicyRotatingToken.
+func (mg *AccessPolicyRotatingToken) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this AccessPolicyToken.
 func (mg *AccessPolicyToken) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -504,6 +554,56 @@ func (mg *StackServiceAccount) SetProviderConfigReference(r *xpv1.Reference) {
 
 // SetWriteConnectionSecretToReference of this StackServiceAccount.
 func (mg *StackServiceAccount) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) GetDeletionPolicy() xpv1.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) GetProviderConfigReference() *xpv1.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) SetProviderConfigReference(r *xpv1.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this StackServiceAccountRotatingToken.
+func (mg *StackServiceAccountRotatingToken) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

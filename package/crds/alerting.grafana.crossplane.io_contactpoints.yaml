@@ -370,6 +370,161 @@ spec:
                           type: object
                       type: object
                     type: array
+                  jira:
+                    description: |-
+                      (Block Set) A contact point that sends notifications to Jira. (see below for nested schema)
+                      A contact point that sends notifications to Jira.
+                    items:
+                      properties:
+                        apiTokenSecretRef:
+                          description: |-
+                            (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
+                            Personal Access Token that is used as a bearer authorization header.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        apiUrl:
+                          description: |-
+                            (String) The URL of the Jira REST API (v2 or v3).
+                            The URL of the Jira REST API (v2 or v3).
+                          type: string
+                        dedupKeyField:
+                          description: |-
+                            (String) Custom field ID for storing deduplication keys. Must be numeric.
+                            Custom field ID for storing deduplication keys. Must be numeric.
+                          type: string
+                        description:
+                          description: |-
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
+                            The templated description of the Jira issue. Maximum length is 32767 characters.
+                          type: string
+                        disableResolveMessage:
+                          description: |-
+                            (Boolean) Whether to disable sending resolve messages. Defaults to false.
+                            Whether to disable sending resolve messages. Defaults to `false`.
+                          type: boolean
+                        fields:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Custom Jira issue fields.
+                            Custom Jira issue fields.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        issueType:
+                          description: |-
+                            (String) The type of issue to create (e.g., Bug, Task, Story).
+                            The type of issue to create (e.g., Bug, Task, Story).
+                          type: string
+                        labels:
+                          description: |-
+                            (List of String) Labels to assign to the Jira issue.
+                            Labels to assign to the Jira issue.
+                          items:
+                            type: string
+                          type: array
+                        passwordSecretRef:
+                          description: |-
+                            (String, Sensitive) Password to use for Jira authentication.
+                            Password to use for Jira authentication.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        priority:
+                          description: |-
+                            (String) The priority level of the issue (e.g., High, Medium, Low).
+                            The priority level of the issue (e.g., High, Medium, Low).
+                          type: string
+                        project:
+                          description: |-
+                            (String) The project key in Jira.
+                            The project key in Jira.
+                          type: string
+                        reopenDuration:
+                          description: |-
+                            (String) Duration to consider reopening issues (e.g., '10m').
+                            Duration to consider reopening issues (e.g., '10m').
+                          type: string
+                        reopenTransition:
+                          description: |-
+                            (String) The name of the workflow transition to reopen an issue.
+                            The name of the workflow transition to reopen an issue.
+                          type: string
+                        resolveTransition:
+                          description: |-
+                            (String) The name of the workflow transition to resolve an issue.
+                            The name of the workflow transition to resolve an issue.
+                          type: string
+                        settingsSecretRef:
+                          description: |-
+                            (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
+                            Additional custom properties to attach to the notifier. Defaults to `map[]`.
+                          properties:
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - name
+                          - namespace
+                          type: object
+                        summary:
+                          description: |-
+                            (String) The templated summary of the Jira issue. Maximum length is 255 characters.
+                            The templated summary of the Jira issue. Maximum length is 255 characters.
+                          type: string
+                        userSecretRef:
+                          description: |-
+                            (String, Sensitive) Username to use for Jira authentication.
+                            Username to use for Jira authentication.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        wontFixResolution:
+                          description: |-
+                            (String) Resolution status to exclude from reopening/updating.
+                            Resolution status to exclude from reopening/updating.
+                          type: string
+                      type: object
+                    type: array
                   kafka:
                     description: |-
                       (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
@@ -388,7 +543,7 @@ spec:
                           type: string
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the Kafka message.
                           type: string
                         details:
@@ -403,7 +558,7 @@ spec:
                           type: boolean
                         passwordSecretRef:
                           description: |-
-                            (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+                            (String, Sensitive) Password to use for Jira authentication.
                             The password to use when making a call to the Kafka REST Proxy
                           properties:
                             key:
@@ -474,7 +629,7 @@ spec:
                       properties:
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -661,7 +816,7 @@ spec:
                           type: boolean
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             A templated high-level description to use for the alert.
                           type: string
                         disableResolveMessage:
@@ -903,7 +1058,7 @@ spec:
                           type: string
                         summary:
                           description: |-
-                            (String) The templated summary message of the event.
+                            (String) The templated summary of the Jira issue. Maximum length is 255 characters.
                             The templated summary message of the event.
                           type: string
                         url:
@@ -921,7 +1076,7 @@ spec:
                       properties:
                         apiTokenSecretRef:
                           description: |-
-                            (String, Sensitive) The Pushover API token.
+                            (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
                             The Pushover API token.
                           properties:
                             key:
@@ -970,7 +1125,7 @@ spec:
                           type: string
                         priority:
                           description: |-
-                            (Number) The priority level of the event.
+                            (String) The priority level of the issue (e.g., High, Medium, Low).
                             The priority level of the event.
                           type: number
                         retry:
@@ -1496,7 +1651,7 @@ spec:
                           type: object
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -1544,7 +1699,7 @@ spec:
                       properties:
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             Templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -1606,7 +1761,7 @@ spec:
                       properties:
                         apiUrl:
                           description: |-
-                            (String) The URL to send webhook requests to.
+                            (String) The URL of the Jira REST API (v2 or v3).
                             The URL to send webhook requests to.
                           type: string
                         disableResolveMessage:
@@ -2360,6 +2515,150 @@ spec:
                       - urlSecretRef
                       type: object
                     type: array
+                  jira:
+                    description: |-
+                      (Block Set) A contact point that sends notifications to Jira. (see below for nested schema)
+                      A contact point that sends notifications to Jira.
+                    items:
+                      properties:
+                        apiTokenSecretRef:
+                          description: |-
+                            (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
+                            Personal Access Token that is used as a bearer authorization header.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        apiUrl:
+                          description: |-
+                            (String) The URL of the Jira REST API (v2 or v3).
+                            The URL of the Jira REST API (v2 or v3).
+                          type: string
+                        dedupKeyField:
+                          description: |-
+                            (String) Custom field ID for storing deduplication keys. Must be numeric.
+                            Custom field ID for storing deduplication keys. Must be numeric.
+                          type: string
+                        description:
+                          description: |-
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
+                            The templated description of the Jira issue. Maximum length is 32767 characters.
+                          type: string
+                        disableResolveMessage:
+                          description: |-
+                            (Boolean) Whether to disable sending resolve messages. Defaults to false.
+                            Whether to disable sending resolve messages. Defaults to `false`.
+                          type: boolean
+                        fields:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Custom Jira issue fields.
+                            Custom Jira issue fields.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        issueType:
+                          description: |-
+                            (String) The type of issue to create (e.g., Bug, Task, Story).
+                            The type of issue to create (e.g., Bug, Task, Story).
+                          type: string
+                        labels:
+                          description: |-
+                            (List of String) Labels to assign to the Jira issue.
+                            Labels to assign to the Jira issue.
+                          items:
+                            type: string
+                          type: array
+                        passwordSecretRef:
+                          description: |-
+                            (String, Sensitive) Password to use for Jira authentication.
+                            Password to use for Jira authentication.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        priority:
+                          description: |-
+                            (String) The priority level of the issue (e.g., High, Medium, Low).
+                            The priority level of the issue (e.g., High, Medium, Low).
+                          type: string
+                        project:
+                          description: |-
+                            (String) The project key in Jira.
+                            The project key in Jira.
+                          type: string
+                        reopenDuration:
+                          description: |-
+                            (String) Duration to consider reopening issues (e.g., '10m').
+                            Duration to consider reopening issues (e.g., '10m').
+                          type: string
+                        reopenTransition:
+                          description: |-
+                            (String) The name of the workflow transition to reopen an issue.
+                            The name of the workflow transition to reopen an issue.
+                          type: string
+                        resolveTransition:
+                          description: |-
+                            (String) The name of the workflow transition to resolve an issue.
+                            The name of the workflow transition to resolve an issue.
+                          type: string
+                        settingsSecretRef:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        summary:
+                          description: |-
+                            (String) The templated summary of the Jira issue. Maximum length is 255 characters.
+                            The templated summary of the Jira issue. Maximum length is 255 characters.
+                          type: string
+                        userSecretRef:
+                          description: |-
+                            (String, Sensitive) Username to use for Jira authentication.
+                            Username to use for Jira authentication.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        wontFixResolution:
+                          description: |-
+                            (String) Resolution status to exclude from reopening/updating.
+                            Resolution status to exclude from reopening/updating.
+                          type: string
+                      type: object
+                    type: array
                   kafka:
                     description: |-
                       (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
@@ -2378,7 +2677,7 @@ spec:
                           type: string
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the Kafka message.
                           type: string
                         details:
@@ -2393,7 +2692,7 @@ spec:
                           type: boolean
                         passwordSecretRef:
                           description: |-
-                            (String, Sensitive) The password to use when making a call to the Kafka REST Proxy
+                            (String, Sensitive) Password to use for Jira authentication.
                             The password to use when making a call to the Kafka REST Proxy
                           properties:
                             key:
@@ -2455,7 +2754,7 @@ spec:
                       properties:
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -2622,7 +2921,7 @@ spec:
                           type: boolean
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             A templated high-level description to use for the alert.
                           type: string
                         disableResolveMessage:
@@ -2844,7 +3143,7 @@ spec:
                           type: string
                         summary:
                           description: |-
-                            (String) The templated summary message of the event.
+                            (String) The templated summary of the Jira issue. Maximum length is 255 characters.
                             The templated summary message of the event.
                           type: string
                         url:
@@ -2864,7 +3163,7 @@ spec:
                       properties:
                         apiTokenSecretRef:
                           description: |-
-                            (String, Sensitive) The Pushover API token.
+                            (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
                             The Pushover API token.
                           properties:
                             key:
@@ -2913,7 +3212,7 @@ spec:
                           type: string
                         priority:
                           description: |-
-                            (Number) The priority level of the event.
+                            (String) The priority level of the issue (e.g., High, Medium, Low).
                             The priority level of the event.
                           type: number
                         retry:
@@ -3382,7 +3681,7 @@ spec:
                           type: object
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -3421,7 +3720,7 @@ spec:
                       properties:
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             Templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -3474,7 +3773,7 @@ spec:
                       properties:
                         apiUrl:
                           description: |-
-                            (String) The URL to send webhook requests to.
+                            (String) The URL of the Jira REST API (v2 or v3).
                             The URL to send webhook requests to.
                           type: string
                         disableResolveMessage:
@@ -4199,6 +4498,94 @@ spec:
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  jira:
+                    description: |-
+                      (Block Set) A contact point that sends notifications to Jira. (see below for nested schema)
+                      A contact point that sends notifications to Jira.
+                    items:
+                      properties:
+                        apiUrl:
+                          description: |-
+                            (String) The URL of the Jira REST API (v2 or v3).
+                            The URL of the Jira REST API (v2 or v3).
+                          type: string
+                        dedupKeyField:
+                          description: |-
+                            (String) Custom field ID for storing deduplication keys. Must be numeric.
+                            Custom field ID for storing deduplication keys. Must be numeric.
+                          type: string
+                        description:
+                          description: |-
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
+                            The templated description of the Jira issue. Maximum length is 32767 characters.
+                          type: string
+                        disableResolveMessage:
+                          description: |-
+                            (Boolean) Whether to disable sending resolve messages. Defaults to false.
+                            Whether to disable sending resolve messages. Defaults to `false`.
+                          type: boolean
+                        fields:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) Custom Jira issue fields.
+                            Custom Jira issue fields.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        issueType:
+                          description: |-
+                            (String) The type of issue to create (e.g., Bug, Task, Story).
+                            The type of issue to create (e.g., Bug, Task, Story).
+                          type: string
+                        labels:
+                          description: |-
+                            (List of String) Labels to assign to the Jira issue.
+                            Labels to assign to the Jira issue.
+                          items:
+                            type: string
+                          type: array
+                        priority:
+                          description: |-
+                            (String) The priority level of the issue (e.g., High, Medium, Low).
+                            The priority level of the issue (e.g., High, Medium, Low).
+                          type: string
+                        project:
+                          description: |-
+                            (String) The project key in Jira.
+                            The project key in Jira.
+                          type: string
+                        reopenDuration:
+                          description: |-
+                            (String) Duration to consider reopening issues (e.g., '10m').
+                            Duration to consider reopening issues (e.g., '10m').
+                          type: string
+                        reopenTransition:
+                          description: |-
+                            (String) The name of the workflow transition to reopen an issue.
+                            The name of the workflow transition to reopen an issue.
+                          type: string
+                        resolveTransition:
+                          description: |-
+                            (String) The name of the workflow transition to resolve an issue.
+                            The name of the workflow transition to resolve an issue.
+                          type: string
+                        summary:
+                          description: |-
+                            (String) The templated summary of the Jira issue. Maximum length is 255 characters.
+                            The templated summary of the Jira issue. Maximum length is 255 characters.
+                          type: string
+                        uid:
+                          description: |-
+                            (String) The UID of the contact point.
+                            The UID of the contact point.
+                          type: string
+                        wontFixResolution:
+                          description: |-
+                            (String) Resolution status to exclude from reopening/updating.
+                            Resolution status to exclude from reopening/updating.
+                          type: string
+                      type: object
+                    type: array
                   kafka:
                     description: |-
                       (Block Set) A contact point that publishes notifications to Apache Kafka topics. (see below for nested schema)
@@ -4217,7 +4604,7 @@ spec:
                           type: string
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the Kafka message.
                           type: string
                         details:
@@ -4255,7 +4642,7 @@ spec:
                       properties:
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -4346,7 +4733,7 @@ spec:
                           type: boolean
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             A templated high-level description to use for the alert.
                           type: string
                         disableResolveMessage:
@@ -4470,7 +4857,7 @@ spec:
                           type: string
                         summary:
                           description: |-
-                            (String) The templated summary message of the event.
+                            (String) The templated summary of the Jira issue. Maximum length is 255 characters.
                             The templated summary message of the event.
                           type: string
                         uid:
@@ -4523,7 +4910,7 @@ spec:
                           type: string
                         priority:
                           description: |-
-                            (Number) The priority level of the event.
+                            (String) The priority level of the issue (e.g., High, Medium, Low).
                             The priority level of the event.
                           type: number
                         retry:
@@ -4818,7 +5205,7 @@ spec:
                       properties:
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             The templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -4856,7 +5243,7 @@ spec:
                       properties:
                         description:
                           description: |-
-                            (String) The templated description of the Kafka message.
+                            (String) The templated description of the Jira issue. Maximum length is 32767 characters.
                             Templated description of the message.
                           type: string
                         disableResolveMessage:
@@ -4889,7 +5276,7 @@ spec:
                       properties:
                         apiUrl:
                           description: |-
-                            (String) The URL to send webhook requests to.
+                            (String) The URL of the Jira REST API (v2 or v3).
                             The URL to send webhook requests to.
                           type: string
                         disableResolveMessage:

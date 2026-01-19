@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: LogConfig is the Schema for the LogConfigs API. Manages Asserts
-          Log Configuration through Grafana API.
+        description: LogConfig is the Schema for the LogConfigs API. Manages Knowledge
+          Graph Log Configuration through Grafana API.
         properties:
           apiVersion:
             description: |-
@@ -100,8 +100,8 @@ spec:
                       properties:
                         op:
                           description: |-
-                            (String) Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
-                            Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
+                            (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+                            Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
                           type: string
                         property:
                           description: |-
@@ -182,8 +182,8 @@ spec:
                       properties:
                         op:
                           description: |-
-                            (String) Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
-                            Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
+                            (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+                            Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
                           type: string
                         property:
                           description: |-
@@ -334,8 +334,8 @@ spec:
                       properties:
                         op:
                           description: |-
-                            (String) Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
-                            Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
+                            (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+                            Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
                           type: string
                         property:
                           description: |-

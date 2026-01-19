@@ -35,7 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: NotificationAlertsConfig is the Schema for the NotificationAlertsConfigs
-          API. Manages Asserts Alert Configurations through Grafana API.
+          API. Manages Knowledge Graph Alert Configurations through Grafana API.
         properties:
           apiVersion:
             description: |-
