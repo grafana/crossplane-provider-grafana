@@ -304,7 +304,7 @@ jobs:
         uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3.11.1
         with:
           version: ${{ env.DOCKER_BUILDX_VERSION }}
-          install: true
+          install: 'true'
 
       - name: Get Upbound Credentials from Vault
         uses: grafana/shared-workflows/actions/get-vault-secrets@a37de51f3d713a30a9e4b21bcdfbd38170020593 # get-vault-secrets/v1.3.0
