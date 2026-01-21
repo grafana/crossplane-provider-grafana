@@ -85,6 +85,14 @@ type EscalationInitParameters struct {
 	// The ID of a Team for a notify_team_members type step.
 	NotifyToTeamMembers *string `json:"notifyToTeamMembers,omitempty" tf:"notify_to_team_members,omitempty"`
 
+	// (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+	// Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+	NumAlertsInWindow *float64 `json:"numAlertsInWindow,omitempty" tf:"num_alerts_in_window,omitempty"`
+
+	// (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+	// Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+	NumMinutesInWindow *float64 `json:"numMinutesInWindow,omitempty" tf:"num_minutes_in_window,omitempty"`
+
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
 	// +listType=set
@@ -103,8 +111,8 @@ type EscalationInitParameters struct {
 	// The severity of the incident for declare_incident type step.
 	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -149,6 +157,14 @@ type EscalationObservation struct {
 	// The ID of a Team for a notify_team_members type step.
 	NotifyToTeamMembers *string `json:"notifyToTeamMembers,omitempty" tf:"notify_to_team_members,omitempty"`
 
+	// (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+	// Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+	NumAlertsInWindow *float64 `json:"numAlertsInWindow,omitempty" tf:"num_alerts_in_window,omitempty"`
+
+	// (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+	// Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+	NumMinutesInWindow *float64 `json:"numMinutesInWindow,omitempty" tf:"num_minutes_in_window,omitempty"`
+
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
 	// +listType=set
@@ -167,8 +183,8 @@ type EscalationObservation struct {
 	// The severity of the incident for declare_incident type step.
 	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -252,6 +268,16 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	NotifyToTeamMembers *string `json:"notifyToTeamMembers,omitempty" tf:"notify_to_team_members,omitempty"`
 
+	// (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+	// Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
+	// +kubebuilder:validation:Optional
+	NumAlertsInWindow *float64 `json:"numAlertsInWindow,omitempty" tf:"num_alerts_in_window,omitempty"`
+
+	// (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+	// Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
+	// +kubebuilder:validation:Optional
+	NumMinutesInWindow *float64 `json:"numMinutesInWindow,omitempty" tf:"num_minutes_in_window,omitempty"`
+
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
 	// +kubebuilder:validation:Optional
@@ -274,8 +300,8 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, repeat_escalation, notify_team_members, declare_incident
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

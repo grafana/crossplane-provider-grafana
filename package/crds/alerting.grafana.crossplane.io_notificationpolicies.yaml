@@ -1160,6 +1160,83 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          policy:
+                                            description: |-
+                                              (Block List) Routing rules for specific label sets. (see below for nested schema)
+                                              Routing rules for specific label sets.
+                                            items:
+                                              properties:
+                                                activeTimings:
+                                                  description: |-
+                                                    (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                                    A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                contactPoint:
+                                                  description: |-
+                                                    (String) The default contact point to route all unmatched notifications to.
+                                                    The contact point to route notifications that match this rule to.
+                                                  type: string
+                                                continue:
+                                                  description: |-
+                                                    (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+                                                    Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+                                                  type: boolean
+                                                groupBy:
+                                                  description: |-
+                                                    (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+                                                    A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                groupInterval:
+                                                  description: |-
+                                                    (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                                    Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                                  type: string
+                                                groupWait:
+                                                  description: |-
+                                                    (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                                    Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                                  type: string
+                                                matcher:
+                                                  description: |-
+                                                    (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+                                                    Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+                                                  items:
+                                                    properties:
+                                                      label:
+                                                        description: |-
+                                                          (String) The name of the label to match against.
+                                                          The name of the label to match against.
+                                                        type: string
+                                                      match:
+                                                        description: |-
+                                                          (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+                                                          The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+                                                        type: string
+                                                      value:
+                                                        description: |-
+                                                          (String) The label value to match against.
+                                                          The label value to match against.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                muteTimings:
+                                                  description: |-
+                                                    (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+                                                    A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                repeatInterval:
+                                                  description: |-
+                                                    sending a notification if an alert is still firing. Default is 4 hours.
+                                                    Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+                                                  type: string
+                                              type: object
+                                            type: array
                                           repeatInterval:
                                             description: |-
                                               sending a notification if an alert is still firing. Default is 4 hours.
@@ -2290,6 +2367,83 @@ spec:
                                             items:
                                               type: string
                                             type: array
+                                          policy:
+                                            description: |-
+                                              (Block List) Routing rules for specific label sets. (see below for nested schema)
+                                              Routing rules for specific label sets.
+                                            items:
+                                              properties:
+                                                activeTimings:
+                                                  description: |-
+                                                    (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                                    A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                contactPoint:
+                                                  description: |-
+                                                    (String) The default contact point to route all unmatched notifications to.
+                                                    The contact point to route notifications that match this rule to.
+                                                  type: string
+                                                continue:
+                                                  description: |-
+                                                    (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+                                                    Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+                                                  type: boolean
+                                                groupBy:
+                                                  description: |-
+                                                    (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+                                                    A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                groupInterval:
+                                                  description: |-
+                                                    (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                                    Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                                  type: string
+                                                groupWait:
+                                                  description: |-
+                                                    (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                                    Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                                  type: string
+                                                matcher:
+                                                  description: |-
+                                                    (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+                                                    Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+                                                  items:
+                                                    properties:
+                                                      label:
+                                                        description: |-
+                                                          (String) The name of the label to match against.
+                                                          The name of the label to match against.
+                                                        type: string
+                                                      match:
+                                                        description: |-
+                                                          (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+                                                          The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+                                                        type: string
+                                                      value:
+                                                        description: |-
+                                                          (String) The label value to match against.
+                                                          The label value to match against.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                muteTimings:
+                                                  description: |-
+                                                    (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+                                                    A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                repeatInterval:
+                                                  description: |-
+                                                    sending a notification if an alert is still firing. Default is 4 hours.
+                                                    Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+                                                  type: string
+                                              type: object
+                                            type: array
                                           repeatInterval:
                                             description: |-
                                               sending a notification if an alert is still firing. Default is 4 hours.
@@ -2732,6 +2886,83 @@ spec:
                                               A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
                                             items:
                                               type: string
+                                            type: array
+                                          policy:
+                                            description: |-
+                                              (Block List) Routing rules for specific label sets. (see below for nested schema)
+                                              Routing rules for specific label sets.
+                                            items:
+                                              properties:
+                                                activeTimings:
+                                                  description: |-
+                                                    (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                                    A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                contactPoint:
+                                                  description: |-
+                                                    (String) The default contact point to route all unmatched notifications to.
+                                                    The contact point to route notifications that match this rule to.
+                                                  type: string
+                                                continue:
+                                                  description: |-
+                                                    (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+                                                    Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+                                                  type: boolean
+                                                groupBy:
+                                                  description: |-
+                                                    (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+                                                    A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                groupInterval:
+                                                  description: |-
+                                                    (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                                    Minimum time interval between two notifications for the same group. Default is 5 minutes.
+                                                  type: string
+                                                groupWait:
+                                                  description: |-
+                                                    (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                                    Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+                                                  type: string
+                                                matcher:
+                                                  description: |-
+                                                    (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+                                                    Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+                                                  items:
+                                                    properties:
+                                                      label:
+                                                        description: |-
+                                                          (String) The name of the label to match against.
+                                                          The name of the label to match against.
+                                                        type: string
+                                                      match:
+                                                        description: |-
+                                                          (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+                                                          The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+                                                        type: string
+                                                      value:
+                                                        description: |-
+                                                          (String) The label value to match against.
+                                                          The label value to match against.
+                                                        type: string
+                                                    type: object
+                                                  type: array
+                                                muteTimings:
+                                                  description: |-
+                                                    (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+                                                    A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+                                                  items:
+                                                    type: string
+                                                  type: array
+                                                repeatInterval:
+                                                  description: |-
+                                                    sending a notification if an alert is still firing. Default is 4 hours.
+                                                    Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+                                                  type: string
+                                              type: object
                                             type: array
                                           repeatInterval:
                                             description: |-

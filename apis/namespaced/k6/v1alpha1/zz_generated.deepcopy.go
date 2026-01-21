@@ -125,6 +125,11 @@ func (in *InstallationInitParameters) DeepCopyInto(out *InstallationInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.K6APIURL != nil {
+		in, out := &in.K6APIURL, &out.K6APIURL
+		*out = new(string)
+		**out = **in
+	}
 	if in.StackID != nil {
 		in, out := &in.StackID, &out.StackID
 		*out = new(string)
@@ -187,6 +192,11 @@ func (in *InstallationObservation) DeepCopyInto(out *InstallationObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.K6APIURL != nil {
+		in, out := &in.K6APIURL, &out.K6APIURL
+		*out = new(string)
+		**out = **in
+	}
 	if in.K6Organization != nil {
 		in, out := &in.K6Organization, &out.K6Organization
 		*out = new(string)
@@ -216,6 +226,11 @@ func (in *InstallationParameters) DeepCopyInto(out *InstallationParameters) {
 	in.GrafanaSaTokenSecretRef.DeepCopyInto(&out.GrafanaSaTokenSecretRef)
 	if in.GrafanaUser != nil {
 		in, out := &in.GrafanaUser, &out.GrafanaUser
+		*out = new(string)
+		**out = **in
+	}
+	if in.K6APIURL != nil {
+		in, out := &in.K6APIURL, &out.K6APIURL
 		*out = new(string)
 		**out = **in
 	}

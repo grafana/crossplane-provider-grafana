@@ -17,3 +17,6 @@ func (tr *NotificationAlertsConfig) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *SuppressedAssertionsConfig) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Thresholds) Hub() {}

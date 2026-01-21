@@ -37,7 +37,7 @@ jobs:
       contents: read
       id-token: write
       pull-requests: write
-    
+
     steps:
       - name: Extract version
         id: version

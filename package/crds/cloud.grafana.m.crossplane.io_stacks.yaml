@@ -268,6 +268,11 @@ spec:
                       (Number) User ID of the Alertmanager instance configured for this stack.
                       User ID of the Alertmanager instance configured for this stack.
                     type: number
+                  clusterName:
+                    description: |-
+                      (String) Name of the cluster where this stack resides.
+                      Name of the cluster where this stack resides.
+                    type: string
                   clusterSlug:
                     description: |-
                       (String) Slug of the cluster where this stack resides.

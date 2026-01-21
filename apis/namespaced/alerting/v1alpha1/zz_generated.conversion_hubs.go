@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *AlertenrichmentV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *AlertruleV0Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *ContactPoint) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -20,6 +23,9 @@ func (tr *MuteTiming) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *NotificationPolicy) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RecordingruleV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *RuleGroup) Hub() {}

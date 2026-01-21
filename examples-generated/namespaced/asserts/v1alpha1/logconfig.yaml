@@ -20,16 +20,16 @@ spec:
     filterBySpanId: true
     filterByTraceId: true
     match:
-    - op: EQUALS
+    - op: =
       property: asserts_entity_type
       values:
       - Service
-    - op: EQUALS
+    - op: =
       property: environment
       values:
       - production
       - staging
-    - op: EQUALS
+    - op: =
       property: site
       values:
       - us-east-1

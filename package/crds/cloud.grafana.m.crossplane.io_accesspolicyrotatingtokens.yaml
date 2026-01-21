@@ -1,0 +1,367 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: accesspolicyrotatingtokens.cloud.grafana.m.crossplane.io
+spec:
+  group: cloud.grafana.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - grafana
+    kind: AccessPolicyRotatingToken
+    listKind: AccessPolicyRotatingTokenList
+    plural: accesspolicyrotatingtokens
+    singular: accesspolicyrotatingtoken
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: 'AccessPolicyRotatingToken is the Schema for the AccessPolicyRotatingTokens
+          API. Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API
+          documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token
+          Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete
+          This is similar to the grafana_cloud_access_policy_token resource, but it
+          represents a token that will be rotated automatically over time.'
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: AccessPolicyRotatingTokenSpec defines the desired state of
+              AccessPolicyRotatingToken
+            properties:
+              forProvider:
+                properties:
+                  accessPolicyId:
+                    description: |-
+                      (String) ID of the access policy for which to create a token.
+                      ID of the access policy for which to create a token.
+                    type: string
+                  deleteOnDestroy:
+                    description: Use it with lifecycle { create_before_destroy = true
+                      } to make sure that the new token is created before the old
+                      one is deleted. Defaults to false. Use it with `lifecycle {
+                      create_before_destroy = true }` to make sure that the new token
+                      is created before the old one is deleted. Defaults to `false`.
+                    type: boolean
+                  displayName:
+                    description: |-
+                      (String) Display name of the access policy token. Defaults to the name.
+                      Display name of the access policy token. Defaults to the name.
+                    type: string
+                  earlyRotationWindow:
+                    description: |-
+                      (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+                      Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+                    type: string
+                  expireAfter:
+                    description: |-
+                      (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+                      Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+                    type: string
+                  namePrefix:
+                    description: |-
+                      <expiration_timestamp>'
+                      Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
+                    type: string
+                  region:
+                    description: |-
+                      cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                      Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  accessPolicyId:
+                    description: |-
+                      (String) ID of the access policy for which to create a token.
+                      ID of the access policy for which to create a token.
+                    type: string
+                  deleteOnDestroy:
+                    description: Use it with lifecycle { create_before_destroy = true
+                      } to make sure that the new token is created before the old
+                      one is deleted. Defaults to false. Use it with `lifecycle {
+                      create_before_destroy = true }` to make sure that the new token
+                      is created before the old one is deleted. Defaults to `false`.
+                    type: boolean
+                  displayName:
+                    description: |-
+                      (String) Display name of the access policy token. Defaults to the name.
+                      Display name of the access policy token. Defaults to the name.
+                    type: string
+                  earlyRotationWindow:
+                    description: |-
+                      (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+                      Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+                    type: string
+                  expireAfter:
+                    description: |-
+                      (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+                      Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+                    type: string
+                  namePrefix:
+                    description: |-
+                      <expiration_timestamp>'
+                      Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
+                    type: string
+                  region:
+                    description: |-
+                      cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                      Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.accessPolicyId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.accessPolicyId)
+                || (has(self.initProvider) && has(self.initProvider.accessPolicyId))'
+            - message: spec.forProvider.earlyRotationWindow is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.earlyRotationWindow)
+                || (has(self.initProvider) && has(self.initProvider.earlyRotationWindow))'
+            - message: spec.forProvider.expireAfter is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.expireAfter)
+                || (has(self.initProvider) && has(self.initProvider.expireAfter))'
+            - message: spec.forProvider.namePrefix is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.namePrefix)
+                || (has(self.initProvider) && has(self.initProvider.namePrefix))'
+            - message: spec.forProvider.region is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.region)
+                || (has(self.initProvider) && has(self.initProvider.region))'
+          status:
+            description: AccessPolicyRotatingTokenStatus defines the observed state
+              of AccessPolicyRotatingToken.
+            properties:
+              atProvider:
+                properties:
+                  accessPolicyId:
+                    description: |-
+                      (String) ID of the access policy for which to create a token.
+                      ID of the access policy for which to create a token.
+                    type: string
+                  createdAt:
+                    description: |-
+                      (String) Creation date of the access policy token.
+                      Creation date of the access policy token.
+                    type: string
+                  deleteOnDestroy:
+                    description: Use it with lifecycle { create_before_destroy = true
+                      } to make sure that the new token is created before the old
+                      one is deleted. Defaults to false. Use it with `lifecycle {
+                      create_before_destroy = true }` to make sure that the new token
+                      is created before the old one is deleted. Defaults to `false`.
+                    type: boolean
+                  displayName:
+                    description: |-
+                      (String) Display name of the access policy token. Defaults to the name.
+                      Display name of the access policy token. Defaults to the name.
+                    type: string
+                  earlyRotationWindow:
+                    description: |-
+                      (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+                      Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+                    type: string
+                  expireAfter:
+                    description: |-
+                      (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+                      Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+                    type: string
+                  expiresAt:
+                    description: |-
+                      (String) Expiration date of the access policy token.
+                      Expiration date of the access policy token.
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the access policy token.
+                      Name of the access policy token.
+                    type: string
+                  namePrefix:
+                    description: |-
+                      <expiration_timestamp>'
+                      Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
+                    type: string
+                  readyForRotation:
+                    description: |-
+                      (Boolean) Signals that the token is either expired or within the period to be early rotated.
+                      Signals that the token is either expired or within the period to be early rotated.
+                    type: boolean
+                  region:
+                    description: |-
+                      cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                      Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+                    type: string
+                  updatedAt:
+                    description: |-
+                      (String) Last update date of the access policy token.
+                      Last update date of the access policy token.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

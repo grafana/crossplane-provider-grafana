@@ -287,7 +287,7 @@ type CustomModelRulesStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// CustomModelRules is the Schema for the CustomModelRuless API. Manages Asserts Custom Model Rules through the Grafana API.
+// CustomModelRules is the Schema for the CustomModelRuless API. Manages Knowledge Graph Custom Model Rules through the Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

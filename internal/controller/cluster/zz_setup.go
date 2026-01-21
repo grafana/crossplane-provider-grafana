@@ -10,16 +10,20 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
 	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/alertenrichmentv1beta1"
+	alertrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/alertrulev0alpha1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/contactpoint"
 	messagetemplate "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/messagetemplate"
 	mutetiming "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/notificationpolicy"
+	recordingrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/recordingrulev0alpha1"
 	rulegroup "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/rulegroup"
 	custommodelrules "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/custommodelrules"
 	logconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/logconfig"
 	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/notificationalertsconfig"
 	suppressedassertionsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/suppressedassertionsconfig"
+	thresholds "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/thresholds"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicy"
+	accesspolicyrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicyrotatingtoken"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicytoken"
 	appo11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/appo11yconfigv1alpha1"
 	k8so11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/k8so11yconfigv1alpha1"
@@ -29,6 +33,7 @@ import (
 	privatedatasourceconnectnetworktoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/privatedatasourceconnectnetworktoken"
 	stack "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/stack"
 	stackserviceaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/stackserviceaccount"
+	stackserviceaccountrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/stackserviceaccountrotatingtoken"
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/stackserviceaccounttoken"
 	awsaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloudprovider/awsaccount"
 	awscloudwatchscrapejob "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloudprovider/awscloudwatchscrapejob"
@@ -84,6 +89,7 @@ import (
 	serviceaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccount"
 	serviceaccountpermission "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccountpermission"
 	serviceaccountpermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccountpermissionitem"
+	serviceaccountrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccountrotatingtoken"
 	serviceaccounttoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccounttoken"
 	ssosettings "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/ssosettings"
 	team "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/team"
@@ -101,16 +107,20 @@ import (
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		alertenrichmentv1beta1.Setup,
+		alertrulev0alpha1.Setup,
 		contactpoint.Setup,
 		messagetemplate.Setup,
 		mutetiming.Setup,
 		notificationpolicy.Setup,
+		recordingrulev0alpha1.Setup,
 		rulegroup.Setup,
 		custommodelrules.Setup,
 		logconfig.Setup,
 		notificationalertsconfig.Setup,
 		suppressedassertionsconfig.Setup,
+		thresholds.Setup,
 		accesspolicy.Setup,
+		accesspolicyrotatingtoken.Setup,
 		accesspolicytoken.Setup,
 		appo11yconfigv1alpha1.Setup,
 		k8so11yconfigv1alpha1.Setup,
@@ -120,6 +130,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		privatedatasourceconnectnetworktoken.Setup,
 		stack.Setup,
 		stackserviceaccount.Setup,
+		stackserviceaccountrotatingtoken.Setup,
 		stackserviceaccounttoken.Setup,
 		awsaccount.Setup,
 		awscloudwatchscrapejob.Setup,
@@ -175,6 +186,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		serviceaccount.Setup,
 		serviceaccountpermission.Setup,
 		serviceaccountpermissionitem.Setup,
+		serviceaccountrotatingtoken.Setup,
 		serviceaccounttoken.Setup,
 		ssosettings.Setup,
 		team.Setup,
@@ -198,16 +210,20 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		alertenrichmentv1beta1.SetupGated,
+		alertrulev0alpha1.SetupGated,
 		contactpoint.SetupGated,
 		messagetemplate.SetupGated,
 		mutetiming.SetupGated,
 		notificationpolicy.SetupGated,
+		recordingrulev0alpha1.SetupGated,
 		rulegroup.SetupGated,
 		custommodelrules.SetupGated,
 		logconfig.SetupGated,
 		notificationalertsconfig.SetupGated,
 		suppressedassertionsconfig.SetupGated,
+		thresholds.SetupGated,
 		accesspolicy.SetupGated,
+		accesspolicyrotatingtoken.SetupGated,
 		accesspolicytoken.SetupGated,
 		appo11yconfigv1alpha1.SetupGated,
 		k8so11yconfigv1alpha1.SetupGated,
@@ -217,6 +233,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		privatedatasourceconnectnetworktoken.SetupGated,
 		stack.SetupGated,
 		stackserviceaccount.SetupGated,
+		stackserviceaccountrotatingtoken.SetupGated,
 		stackserviceaccounttoken.SetupGated,
 		awsaccount.SetupGated,
 		awscloudwatchscrapejob.SetupGated,
@@ -272,6 +289,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		serviceaccount.SetupGated,
 		serviceaccountpermission.SetupGated,
 		serviceaccountpermissionitem.SetupGated,
+		serviceaccountrotatingtoken.SetupGated,
 		serviceaccounttoken.SetupGated,
 		ssosettings.SetupGated,
 		team.SetupGated,

@@ -148,8 +148,8 @@ type LogConfigParameters struct {
 
 type MatchInitParameters struct {
 
-	// (String) Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
-	// Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
+	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
 	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
 	// (String) Entity property to match.
@@ -163,8 +163,8 @@ type MatchInitParameters struct {
 
 type MatchObservation struct {
 
-	// (String) Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
-	// Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
+	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
 	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
 	// (String) Entity property to match.
@@ -178,8 +178,8 @@ type MatchObservation struct {
 
 type MatchParameters struct {
 
-	// (String) Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
-	// Operation to use for matching. One of: EQUALS, NOT_EQUALS, CONTAINS, DOES_NOT_CONTAIN, IS_NULL, IS_NOT_NULL.
+	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
 	// +kubebuilder:validation:Optional
 	Op *string `json:"op" tf:"op,omitempty"`
 
@@ -221,7 +221,7 @@ type LogConfigStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// LogConfig is the Schema for the LogConfigs API. Manages Asserts Log Configuration through Grafana API.
+// LogConfig is the Schema for the LogConfigs API. Manages Knowledge Graph Log Configuration through Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
