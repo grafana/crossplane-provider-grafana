@@ -1555,6 +1555,16 @@ func (in *RoleAssignmentItemInitParameters) DeepCopyInto(out *RoleAssignmentItem
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.RoleRef != nil {
+		in, out := &in.RoleRef, &out.RoleRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RoleSelector != nil {
+		in, out := &in.RoleSelector, &out.RoleSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleUID != nil {
 		in, out := &in.RoleUID, &out.RoleUID
 		*out = new(string)
@@ -1565,15 +1575,45 @@ func (in *RoleAssignmentItemInitParameters) DeepCopyInto(out *RoleAssignmentItem
 		*out = new(string)
 		**out = **in
 	}
+	if in.ServiceAccountRef != nil {
+		in, out := &in.ServiceAccountRef, &out.ServiceAccountRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ServiceAccountSelector != nil {
+		in, out := &in.ServiceAccountSelector, &out.ServiceAccountSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TeamID != nil {
 		in, out := &in.TeamID, &out.TeamID
 		*out = new(string)
 		**out = **in
 	}
+	if in.TeamRef != nil {
+		in, out := &in.TeamRef, &out.TeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TeamSelector != nil {
+		in, out := &in.TeamSelector, &out.TeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserRef != nil {
+		in, out := &in.UserRef, &out.UserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserSelector != nil {
+		in, out := &in.UserSelector, &out.UserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1682,6 +1722,16 @@ func (in *RoleAssignmentItemParameters) DeepCopyInto(out *RoleAssignmentItemPara
 		*out = new(v1.NamespacedSelector)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.RoleRef != nil {
+		in, out := &in.RoleRef, &out.RoleRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.RoleSelector != nil {
+		in, out := &in.RoleSelector, &out.RoleSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RoleUID != nil {
 		in, out := &in.RoleUID, &out.RoleUID
 		*out = new(string)
@@ -1692,15 +1742,45 @@ func (in *RoleAssignmentItemParameters) DeepCopyInto(out *RoleAssignmentItemPara
 		*out = new(string)
 		**out = **in
 	}
+	if in.ServiceAccountRef != nil {
+		in, out := &in.ServiceAccountRef, &out.ServiceAccountRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ServiceAccountSelector != nil {
+		in, out := &in.ServiceAccountSelector, &out.ServiceAccountSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TeamID != nil {
 		in, out := &in.TeamID, &out.TeamID
 		*out = new(string)
 		**out = **in
 	}
+	if in.TeamRef != nil {
+		in, out := &in.TeamRef, &out.TeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TeamSelector != nil {
+		in, out := &in.TeamSelector, &out.TeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserRef != nil {
+		in, out := &in.UserRef, &out.UserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserSelector != nil {
+		in, out := &in.UserSelector, &out.UserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

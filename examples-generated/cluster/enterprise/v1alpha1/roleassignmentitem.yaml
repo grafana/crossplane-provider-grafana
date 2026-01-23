@@ -8,8 +8,12 @@ metadata:
   name: user
 spec:
   forProvider:
-    roleUid: superuseruid
-    userId: ${grafana_user.test_user.id}
+    roleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_role
+    userSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_user
 
 ---
 
