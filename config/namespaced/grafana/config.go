@@ -514,12 +514,27 @@ func Configure(p *ujconfig.Provider) {
 				if teamID, ok := tfstate["team_id"].(string); ok {
 					return fmt.Sprintf("%s:team:%s", roleUID, teamID), nil
 				}
-				if userID, ok := tfstate["team_id"].(string); ok {
+				if userID, ok := tfstate["user_id"].(string); ok {
 					return fmt.Sprintf("%s:user:%s", roleUID, userID), nil
 				}
 				return "", errors.New("cannot get either serviceAccountId, teamId or userId attribute")
 			},
-			GetIDFn:                ujconfig.ExternalNameAsID,
+			GetIDFn: func(_ context.Context, externalName string, parameters map[string]any, _ map[string]any) (string, error) {
+				roleUID, ok := parameters["role_uid"].(string)
+				if !ok {
+					return "", errors.New("cannot get role_uid attribute")
+				}
+				if serviceAccountID, ok := parameters["service_account_id"].(string); ok {
+					return fmt.Sprintf("%s:service_account:%s", roleUID, serviceAccountID), nil
+				}
+				if teamID, ok := parameters["team_id"].(string); ok {
+					return fmt.Sprintf("%s:team:%s", roleUID, teamID), nil
+				}
+				if userID, ok := parameters["user_id"].(string); ok {
+					return fmt.Sprintf("%s:user:%s", roleUID, userID), nil
+				}
+				return "", errors.New("cannot get either serviceAccountId, teamId or userId attribute")
+			},
 			DisableNameInitializer: true,
 		}
 	})
