@@ -5,6 +5,7 @@ Copyright 2021 Upbound Inc.
 package grafana
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
