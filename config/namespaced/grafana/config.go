@@ -5,6 +5,7 @@ Copyright 2021 Upbound Inc.
 package grafana
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -465,6 +466,77 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_user",
 			RefFieldName:      "UserRefs",
 			SelectorFieldName: "UserSelector",
+		}
+		r.ExternalName = ujconfig.ExternalName{
+			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
+			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
+				roleUID, ok := tfstate["role_uid"].(string)
+				if !ok {
+					return "", errors.New("cannot get role_uid attribute")
+				}
+				return roleUID, nil
+			},
+			GetIDFn:                ujconfig.ExternalNameAsID,
+			DisableNameInitializer: true,
+		}
+	})
+	p.AddResourceConfigurator("grafana_role_assignment_item", func(r *ujconfig.Resource) {
+		r.References["role_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_role",
+			RefFieldName:      "RoleRef",
+			SelectorFieldName: "RoleSelector",
+			Extractor:         optionalFieldExtractor("uid"),
+		}
+		r.References["service_account_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_service_account",
+			RefFieldName:      "ServiceAccountRef",
+			SelectorFieldName: "ServiceAccountSelector",
+		}
+		r.References["team_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}
+		r.References["user_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_user",
+			RefFieldName:      "UserRef",
+			SelectorFieldName: "UserSelector",
+		}
+		r.ExternalName = ujconfig.ExternalName{
+			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
+			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
+				roleUID, ok := tfstate["role_uid"].(string)
+				if !ok {
+					return "", errors.New("cannot get role_uid attribute")
+				}
+				if serviceAccountID, ok := tfstate["service_account_id"].(string); ok {
+					return fmt.Sprintf("%s:service_account:%s", roleUID, serviceAccountID), nil
+				}
+				if teamID, ok := tfstate["team_id"].(string); ok {
+					return fmt.Sprintf("%s:team:%s", roleUID, teamID), nil
+				}
+				if userID, ok := tfstate["user_id"].(string); ok {
+					return fmt.Sprintf("%s:user:%s", roleUID, userID), nil
+				}
+				return "", errors.New("cannot get either serviceAccountId, teamId or userId attribute")
+			},
+			GetIDFn: func(_ context.Context, externalName string, parameters map[string]any, _ map[string]any) (string, error) {
+				roleUID, ok := parameters["role_uid"].(string)
+				if !ok {
+					return "", errors.New("cannot get role_uid attribute")
+				}
+				if serviceAccountID, ok := parameters["service_account_id"].(string); ok {
+					return fmt.Sprintf("%s:service_account:%s", roleUID, serviceAccountID), nil
+				}
+				if teamID, ok := parameters["team_id"].(string); ok {
+					return fmt.Sprintf("%s:team:%s", roleUID, teamID), nil
+				}
+				if userID, ok := parameters["user_id"].(string); ok {
+					return fmt.Sprintf("%s:user:%s", roleUID, userID), nil
+				}
+				return "", errors.New("cannot get either serviceAccountId, teamId or userId attribute")
+			},
+			DisableNameInitializer: true,
 		}
 	})
 	p.AddResourceConfigurator("grafana_rule_group", func(r *ujconfig.Resource) {
