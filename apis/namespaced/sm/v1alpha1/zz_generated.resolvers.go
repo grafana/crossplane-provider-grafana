@@ -9,7 +9,7 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1"
-	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana"
+	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )

@@ -17,8 +17,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/pkg/errors"
 
-	grafanaCluster "github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana"
-	grafanaNamespaced "github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana"
+	"github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 )
 
 const (
@@ -89,9 +88,9 @@ func resourcesByFramework() ([]string, []string) {
 func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 	return BuildProvider("grafana.crossplane.io", []func(provider *ujconfig.Provider){
 		// add custom config functions
-		grafanaCluster.ConfigureOrgIDRefs,
-		grafanaCluster.Configure,
-		grafanaCluster.ConfigureOnCallRefsAndSelectors,
+		grafana.ConfigureOrgIDRefs,
+		grafana.Configure,
+		grafana.ConfigureOnCallRefsAndSelectors,
 	}, generationProvider)
 }
 
@@ -99,9 +98,9 @@ func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 func GetProviderNamespaced(generationProvider bool) (*ujconfig.Provider, error) {
 	return BuildProvider("grafana.m.crossplane.io", []func(provider *ujconfig.Provider){
 		// add custom config functions
-		grafanaNamespaced.ConfigureOrgIDRefs,
-		grafanaNamespaced.Configure,
-		grafanaNamespaced.ConfigureOnCallRefsAndSelectors,
+		grafana.ConfigureOrgIDRefs,
+		grafana.Configure,
+		grafana.ConfigureOnCallRefsAndSelectors,
 	}, generationProvider)
 }
 

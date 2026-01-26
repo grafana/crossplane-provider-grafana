@@ -26,7 +26,7 @@ type FolderPermissionInitParameters struct {
 	// (String) The UID of the folder.
 	// The UID of the folder.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
@@ -82,7 +82,7 @@ type FolderPermissionParameters struct {
 	// (String) The UID of the folder.
 	// The UID of the folder.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional

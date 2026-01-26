@@ -101,7 +101,7 @@ type TeamInitParameters struct {
 	// A set of email addresses corresponding to users who should be given membership
 	// to the team. Note: users specified here must already exist in Grafana.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("email")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=MemberRefs
 	// +crossplane:generate:reference:selectorFieldName=MemberSelector
 	// +listType=set
@@ -215,7 +215,7 @@ type TeamParameters struct {
 	// A set of email addresses corresponding to users who should be given membership
 	// to the team. Note: users specified here must already exist in Grafana.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("email")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=MemberRefs
 	// +crossplane:generate:reference:selectorFieldName=MemberSelector
 	// +kubebuilder:validation:Optional
