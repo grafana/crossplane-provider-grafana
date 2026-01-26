@@ -66,7 +66,7 @@ type NotificationPolicyInitParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The default contact point to route all unmatched notifications to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -160,7 +160,7 @@ type NotificationPolicyParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The default contact point to route all unmatched notifications to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	// +kubebuilder:validation:Optional
@@ -229,7 +229,7 @@ type PolicyInitParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -273,7 +273,7 @@ type PolicyInitParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
@@ -388,7 +388,7 @@ type PolicyParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	// +kubebuilder:validation:Optional
@@ -438,7 +438,7 @@ type PolicyParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	// +kubebuilder:validation:Optional
@@ -464,7 +464,7 @@ type PolicyPolicyInitParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -508,7 +508,7 @@ type PolicyPolicyInitParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
@@ -623,7 +623,7 @@ type PolicyPolicyParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	// +kubebuilder:validation:Optional
@@ -673,7 +673,7 @@ type PolicyPolicyParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	// +kubebuilder:validation:Optional
@@ -699,7 +699,7 @@ type PolicyPolicyPolicyInitParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -743,7 +743,7 @@ type PolicyPolicyPolicyInitParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
@@ -858,7 +858,7 @@ type PolicyPolicyPolicyParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	// +kubebuilder:validation:Optional
@@ -908,7 +908,7 @@ type PolicyPolicyPolicyParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	// +kubebuilder:validation:Optional
@@ -934,7 +934,7 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -978,7 +978,7 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
@@ -1093,7 +1093,7 @@ type PolicyPolicyPolicyPolicyParameters struct {
 	// (String) The default contact point to route all unmatched notifications to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	// +kubebuilder:validation:Optional
@@ -1143,7 +1143,7 @@ type PolicyPolicyPolicyPolicyParameters struct {
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/cluster/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=MuteTimingRef
 	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
 	// +kubebuilder:validation:Optional

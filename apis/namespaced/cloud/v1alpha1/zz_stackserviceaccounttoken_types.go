@@ -49,7 +49,7 @@ type StackServiceAccountTokenInitParameters struct {
 
 	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("slug")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
@@ -122,7 +122,7 @@ type StackServiceAccountTokenParameters struct {
 
 	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("slug")
 	// +crossplane:generate:reference:refFieldName=CloudStackRef
 	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional

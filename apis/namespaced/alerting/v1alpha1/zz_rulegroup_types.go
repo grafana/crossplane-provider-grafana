@@ -187,7 +187,7 @@ type RuleGroupInitParameters struct {
 	// (String) The UID of the folder that the group belongs to.
 	// The UID of the folder that the group belongs to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
@@ -266,7 +266,7 @@ type RuleGroupParameters struct {
 	// (String) The UID of the folder that the group belongs to.
 	// The UID of the folder that the group belongs to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
 	// +crossplane:generate:reference:refFieldName=FolderRef
 	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
@@ -374,7 +374,7 @@ type RuleNotificationSettingsInitParameters struct {
 	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
@@ -449,7 +449,7 @@ type RuleNotificationSettingsParameters struct {
 	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/namespaced/grafana.FieldExtractor("name")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
 	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
 	// +kubebuilder:validation:Optional
