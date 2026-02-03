@@ -15,8 +15,14 @@ import (
 
 type AlertruleV0Alpha1InitParameters struct {
 
+	// The metadata of the resource.
+	Metadata []AlertruleV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
 	// Options for applying the resource.
 	Options []AlertruleV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// The spec of the resource.
+	Spec []AlertruleV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertruleV0Alpha1MetadataInitParameters struct {
@@ -95,9 +101,17 @@ type AlertruleV0Alpha1OptionsParameters struct {
 
 type AlertruleV0Alpha1Parameters struct {
 
+	// The metadata of the resource.
+	// +kubebuilder:validation:Optional
+	Metadata []AlertruleV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
 	Options []AlertruleV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// The spec of the resource.
+	// +kubebuilder:validation:Optional
+	Spec []AlertruleV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertruleV0Alpha1SpecInitParameters struct {
@@ -129,6 +143,9 @@ type AlertruleV0Alpha1SpecInitParameters struct {
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
+	// Notification settings for the rule. If specified, it overrides the notification policies.
+	NotificationSettings []NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +mapType=granular
 	PanelRef map[string]*string `json:"panelRef,omitempty" tf:"panel_ref,omitempty"`
@@ -138,6 +155,9 @@ type AlertruleV0Alpha1SpecInitParameters struct {
 
 	// The title of the alert rule.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+	// The trigger configuration for the alert rule.
+	Trigger []TriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type AlertruleV0Alpha1SpecObservation struct {
@@ -223,6 +243,10 @@ type AlertruleV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	NoDataState *string `json:"noDataState" tf:"no_data_state,omitempty"`
 
+	// Notification settings for the rule. If specified, it overrides the notification policies.
+	// +kubebuilder:validation:Optional
+	NotificationSettings []NotificationSettingsParameters `json:"notificationSettings" tf:"notification_settings,omitempty"`
+
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
@@ -235,6 +259,10 @@ type AlertruleV0Alpha1SpecParameters struct {
 	// The title of the alert rule.
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title" tf:"title,omitempty"`
+
+	// The trigger configuration for the alert rule.
+	// +kubebuilder:validation:Optional
+	Trigger []TriggerParameters `json:"trigger" tf:"trigger,omitempty"`
 }
 
 type NotificationSettingsInitParameters struct {
@@ -371,8 +399,10 @@ type AlertruleV0Alpha1Status struct {
 type AlertruleV0Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AlertruleV0Alpha1Spec   `json:"spec"`
-	Status            AlertruleV0Alpha1Status `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
+	Spec   AlertruleV0Alpha1Spec   `json:"spec"`
+	Status AlertruleV0Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

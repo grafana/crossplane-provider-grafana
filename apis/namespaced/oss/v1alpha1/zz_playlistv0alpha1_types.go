@@ -45,9 +45,17 @@ type ItemsParameters struct {
 
 type PlaylistV0Alpha1InitParameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
+	// The metadata of the resource.
+	Metadata []PlaylistV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options []PlaylistV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
+	// The spec of the resource.
+	Spec []PlaylistV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type PlaylistV0Alpha1MetadataInitParameters struct {
@@ -144,10 +152,20 @@ type PlaylistV0Alpha1OptionsParameters struct {
 
 type PlaylistV0Alpha1Parameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
+	// The metadata of the resource.
+	// +kubebuilder:validation:Optional
+	Metadata []PlaylistV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
 	Options []PlaylistV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
+	// The spec of the resource.
+	// +kubebuilder:validation:Optional
+	Spec []PlaylistV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type PlaylistV0Alpha1SpecInitParameters struct {
@@ -234,8 +252,10 @@ type PlaylistV0Alpha1Status struct {
 type PlaylistV0Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              PlaylistV0Alpha1Spec   `json:"spec"`
-	Status            PlaylistV0Alpha1Status `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
+	Spec   PlaylistV0Alpha1Spec   `json:"spec"`
+	Status PlaylistV0Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

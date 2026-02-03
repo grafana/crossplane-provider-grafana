@@ -7,4 +7,12 @@ metadata:
     testing.upbound.io/example-name: example
   name: example
 spec:
-  forProvider: {}
+  forProvider:
+    metadata:
+    - uid: example-playlist
+    spec:
+    - interval: 5m
+      items:
+      - type: dashboard_by_uid
+        value: example-dashboard-uid
+      title: Example Playlist

@@ -8,4 +8,15 @@ metadata:
   name: example
   namespace: upbound-system
 spec:
-  forProvider: {}
+  forProvider:
+    metadata:
+    - uid: example-dashboard
+    spec:
+    - json: |-
+        ${jsonencode({
+              title         = "Example Dashboard"
+              uid           = "example-dashboard"
+              panels        = []
+              schemaVersion = 42
+            })}
+      title: Example Dashboard

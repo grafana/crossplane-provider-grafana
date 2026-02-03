@@ -7,4 +7,80 @@ metadata:
     testing.upbound.io/example-name: enrichment
   name: enrichment
 spec:
-  forProvider: {}
+  forProvider:
+    metadata:
+    - uid: test_enrichment
+    spec:
+    - alertRuleUids:
+      - alert-rule-1
+      - alert-rule-2
+      annotationMatchers:
+      - name: runbook_url
+        type: '!='
+        value: ""
+      description: Demonstrates many enrichment steps and configurations
+      labelMatchers:
+      - name: severity
+        type: =
+        value: critical
+      - name: team
+        type: =~
+        value: alerting|alerting-team
+      receivers:
+      - webhook
+      - slack-critical
+      step:
+      - assign:
+        - annotations:
+            priority: high
+            runbook_url: https://runbooks.grafana.com/alert-handling
+          timeout: 30s
+      - external:
+        - url: https://some-api.grafana.com/alert-enrichment
+      - dataSource:
+        - logsQuery:
+          - dataSourceType: loki
+            dataSourceUid: loki-uid-123
+            expr: '{job="my-app"} |= "error"'
+            maxLines: 5
+          timeout: 30s
+      - dataSource:
+        - rawQuery:
+          - refId: A
+            request: |-
+              ${jsonencode({
+                          datasource = {
+                            type = "prometheus"
+                            uid  = "prometheus-uid-456"
+                          }
+                          expr          = "rate(http_requests_total[5m])"
+                          refId         = "A"
+                          intervalMs    = 1000
+                          maxDataPoints = 43200
+                        })}
+          timeout: 30s
+      - sift:
+        - {}
+      - explain:
+        - annotation: ai_explanation
+      - assistantInvestigations:
+        - {}
+      - conditional:
+        - else:
+          - step:
+            - assign:
+              - annotations:
+                  escalation_level: standard
+          if:
+          - labelMatchers:
+            - name: severity
+              type: =
+              value: critical
+          then:
+          - step:
+            - assign:
+              - annotations:
+                  escalation_level: immediate
+            - external:
+              - url: https://irm.grafana.com/create-incident
+      title: Comprehensive alert enrichment

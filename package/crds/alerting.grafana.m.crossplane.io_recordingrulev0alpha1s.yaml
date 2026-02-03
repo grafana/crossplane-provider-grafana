@@ -59,6 +59,24 @@ spec:
             properties:
               forProvider:
                 properties:
+                  metadata:
+                    description: |-
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
+                    items:
+                      properties:
+                        folderUid:
+                          description: |-
+                            (String) The UID of the folder to save the resource in.
+                            The UID of the folder to save the resource in.
+                          type: string
+                        uid:
+                          description: |-
+                            (String) The unique identifier of the resource.
+                            The unique identifier of the resource.
+                          type: string
+                      type: object
+                    type: array
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
@@ -70,6 +88,63 @@ spec:
                             (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                             Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                           type: boolean
+                      type: object
+                    type: array
+                  spec:
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
+                    items:
+                      properties:
+                        expressions:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs to attach to the recorded metric.
+                            Key-value pairs to attach to the recorded metric.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        metric:
+                          description: |-
+                            (String) The name of the metric to write to.
+                            The name of the metric to write to.
+                          type: string
+                        paused:
+                          description: |-
+                            (Boolean) Sets whether the recording rule should be paused or not.
+                            Sets whether the recording rule should be paused or not.
+                          type: boolean
+                        targetDatasourceUid:
+                          description: |-
+                            (String) The UID of the datasource to write the metric to.
+                            The UID of the datasource to write the metric to.
+                          type: string
+                        title:
+                          description: |-
+                            (String) The title of the recording rule.
+                            The title of the recording rule.
+                          type: string
+                        trigger:
+                          description: |-
+                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                            The trigger configuration for the recording rule.
+                          items:
+                            properties:
+                              interval:
+                                description: |-
+                                  (String) The interval at which the recording rule should be evaluated.
+                                  The interval at which the recording rule should be evaluated.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -86,6 +161,24 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  metadata:
+                    description: |-
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
+                    items:
+                      properties:
+                        folderUid:
+                          description: |-
+                            (String) The UID of the folder to save the resource in.
+                            The UID of the folder to save the resource in.
+                          type: string
+                        uid:
+                          description: |-
+                            (String) The unique identifier of the resource.
+                            The unique identifier of the resource.
+                          type: string
+                      type: object
+                    type: array
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
@@ -97,6 +190,63 @@ spec:
                             (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                             Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                           type: boolean
+                      type: object
+                    type: array
+                  spec:
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
+                    items:
+                      properties:
+                        expressions:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            value pairs to attach to the recorded metric.
+                            Key-value pairs to attach to the recorded metric.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        metric:
+                          description: |-
+                            (String) The name of the metric to write to.
+                            The name of the metric to write to.
+                          type: string
+                        paused:
+                          description: |-
+                            (Boolean) Sets whether the recording rule should be paused or not.
+                            Sets whether the recording rule should be paused or not.
+                          type: boolean
+                        targetDatasourceUid:
+                          description: |-
+                            (String) The UID of the datasource to write the metric to.
+                            The UID of the datasource to write the metric to.
+                          type: string
+                        title:
+                          description: |-
+                            (String) The title of the recording rule.
+                            The title of the recording rule.
+                          type: string
+                        trigger:
+                          description: |-
+                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                            The trigger configuration for the recording rule.
+                          items:
+                            properties:
+                              interval:
+                                description: |-
+                                  (String) The interval at which the recording rule should be evaluated.
+                                  The interval at which the recording rule should be evaluated.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -158,6 +308,15 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.metadata is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.metadata)
+                || (has(self.initProvider) && has(self.initProvider.metadata))'
+            - message: spec.forProvider.spec is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.spec)
+                || (has(self.initProvider) && has(self.initProvider.spec))'
           status:
             description: RecordingruleV0Alpha1Status defines the observed state of
               RecordingruleV0Alpha1.
