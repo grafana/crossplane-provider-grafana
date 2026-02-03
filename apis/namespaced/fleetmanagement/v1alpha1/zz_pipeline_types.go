@@ -16,8 +16,12 @@ import (
 
 type PipelineInitParameters struct {
 
-	// (String) Configuration contents of the pipeline to be used by collectors
-	// Configuration contents of the pipeline to be used by collectors
+	// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
+
+	// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
 	Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
 
 	// (Boolean) Whether the pipeline is enabled for collectors
@@ -35,8 +39,12 @@ type PipelineInitParameters struct {
 
 type PipelineObservation struct {
 
-	// (String) Configuration contents of the pipeline to be used by collectors
-	// Configuration contents of the pipeline to be used by collectors
+	// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
+
+	// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
 	Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
 
 	// (Boolean) Whether the pipeline is enabled for collectors
@@ -57,8 +65,13 @@ type PipelineObservation struct {
 
 type PipelineParameters struct {
 
-	// (String) Configuration contents of the pipeline to be used by collectors
-	// Configuration contents of the pipeline to be used by collectors
+	// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// +kubebuilder:validation:Optional
+	ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
+
+	// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
 	// +kubebuilder:validation:Optional
 	Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
 
@@ -105,7 +118,7 @@ type PipelineStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Pipeline is the Schema for the Pipelines API. Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/ Required access policy scopes: fleet-management:readfleet-management:write
+// Pipeline is the Schema for the Pipelines API. Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step guide https://grafana
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

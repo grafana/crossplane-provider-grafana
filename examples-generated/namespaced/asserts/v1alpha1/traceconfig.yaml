@@ -1,0 +1,36 @@
+apiVersion: asserts.grafana.m.crossplane.io/v1alpha1
+kind: TraceConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/traceconfig
+  labels:
+    testing.upbound.io/example-name: production
+  name: production
+  namespace: upbound-system
+spec:
+  forProvider:
+    dataSourceUid: grafanacloud-traces
+    defaultConfig: false
+    entityPropertyToTraceLabelMapping:
+      cluster: resource.k8s.cluster.name
+      container: resource.container.name
+      namespace: resource.k8s.namespace
+      otel_namespace: resource.service.namespace
+      otel_service: resource.service.name
+    match:
+    - op: =
+      property: asserts_entity_type
+      values:
+      - Service
+    - op: =
+      property: deployment_environment
+      values:
+      - production
+      - staging
+    - op: =
+      property: asserts_site
+      values:
+      - us-east-1
+      - us-west-2
+    name: production
+    priority: 1000

@@ -20,8 +20,11 @@ import (
 	custommodelrules "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/custommodelrules"
 	logconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/logconfig"
 	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/notificationalertsconfig"
+	profileconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/profileconfig"
+	promrulefile "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/promrulefile"
 	suppressedassertionsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/suppressedassertionsconfig"
 	thresholds "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/thresholds"
+	traceconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/traceconfig"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/accesspolicy"
 	accesspolicyrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/accesspolicyrotatingtoken"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/accesspolicytoken"
@@ -117,8 +120,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		custommodelrules.Setup,
 		logconfig.Setup,
 		notificationalertsconfig.Setup,
+		profileconfig.Setup,
+		promrulefile.Setup,
 		suppressedassertionsconfig.Setup,
 		thresholds.Setup,
+		traceconfig.Setup,
 		accesspolicy.Setup,
 		accesspolicyrotatingtoken.Setup,
 		accesspolicytoken.Setup,
@@ -220,8 +226,11 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		custommodelrules.SetupGated,
 		logconfig.SetupGated,
 		notificationalertsconfig.SetupGated,
+		profileconfig.SetupGated,
+		promrulefile.SetupGated,
 		suppressedassertionsconfig.SetupGated,
 		thresholds.SetupGated,
+		traceconfig.SetupGated,
 		accesspolicy.SetupGated,
 		accesspolicyrotatingtoken.SetupGated,
 		accesspolicytoken.SetupGated,

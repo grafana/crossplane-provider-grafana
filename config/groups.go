@@ -174,6 +174,9 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_asserts_notification_alerts_config":   ReplaceGroupWords("asserts", 1),
 	"grafana_asserts_suppressed_assertions_config": ReplaceGroupWords("asserts", 1),
 	"grafana_asserts_thresholds":                   ReplaceGroupWords("asserts", 1),
+	"grafana_asserts_profile_config":               ReplaceGroupWords("asserts", 1),
+	"grafana_asserts_trace_config":                 ReplaceGroupWords("asserts", 1),
+	"grafana_asserts_prom_rule_file":               ReplaceGroupWords("asserts", 1),
 }
 
 // KindMap contains kind string overrides.

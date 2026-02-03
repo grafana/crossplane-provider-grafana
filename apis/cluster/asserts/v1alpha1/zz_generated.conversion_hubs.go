@@ -16,7 +16,16 @@ func (tr *LogConfig) Hub() {}
 func (tr *NotificationAlertsConfig) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *ProfileConfig) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *PromRuleFile) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *SuppressedAssertionsConfig) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Thresholds) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TraceConfig) Hub() {}

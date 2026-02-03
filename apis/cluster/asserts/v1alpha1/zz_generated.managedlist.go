@@ -34,6 +34,24 @@ func (l *NotificationAlertsConfigList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this ProfileConfigList.
+func (l *ProfileConfigList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this PromRuleFileList.
+func (l *PromRuleFileList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this SuppressedAssertionsConfigList.
 func (l *SuppressedAssertionsConfigList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -45,6 +63,15 @@ func (l *SuppressedAssertionsConfigList) GetItems() []resource.Managed {
 
 // GetItems of this ThresholdsList.
 func (l *ThresholdsList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this TraceConfigList.
+func (l *TraceConfigList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

@@ -26,12 +26,12 @@ type AccessPolicyRotatingTokenInitParameters struct {
 	// Display name of the access policy token. Defaults to the name.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
-	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
 	EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
 
-	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
-	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
 	ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
 
 	// <expiration_timestamp>'
@@ -60,12 +60,12 @@ type AccessPolicyRotatingTokenObservation struct {
 	// Display name of the access policy token. Defaults to the name.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
-	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
 	EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
 
-	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
-	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
 	ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
 
 	// (String) Expiration date of the access policy token.
@@ -112,13 +112,13 @@ type AccessPolicyRotatingTokenParameters struct {
 	// +kubebuilder:validation:Optional
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
-	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
+	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
 	// +kubebuilder:validation:Optional
 	EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
 
-	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
-	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
 	// +kubebuilder:validation:Optional
 	ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
 

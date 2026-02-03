@@ -760,6 +760,406 @@ resources:
             silenced: (Boolean) Whether this alert configuration is silenced. Defaults to false.
         importStatements:
             - terraform import grafana_asserts_notification_alerts_config.name "{{ name }}"
+    grafana_asserts_profile_config:
+        subCategory: Knowledge Graph
+        description: Manages Knowledge Graph Profile Configuration through Grafana API.
+        name: grafana_asserts_profile_config
+        title: grafana_asserts_profile_config Resource - terraform-provider-grafana
+        examples:
+            - name: production
+              manifest: |-
+                {
+                  "data_source_uid": "grafanacloud-profiles",
+                  "default_config": false,
+                  "entity_property_to_profile_label_mapping": {
+                    "cluster": "k8s_cluster_name",
+                    "container": "k8s_container_name",
+                    "namespace": "k8s_namespace_name",
+                    "otel_namespace": "service_namespace",
+                    "otel_service": "service_name"
+                  },
+                  "match": [
+                    {
+                      "op": "=",
+                      "property": "asserts_entity_type",
+                      "values": [
+                        "Service"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "deployment_environment",
+                      "values": [
+                        "production",
+                        "staging"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "asserts_site",
+                      "values": [
+                        "us-east-1",
+                        "us-west-2"
+                      ]
+                    }
+                  ],
+                  "name": "production",
+                  "priority": 1000
+                }
+            - name: development
+              manifest: |-
+                {
+                  "data_source_uid": "grafanacloud-profiles",
+                  "default_config": false,
+                  "entity_property_to_profile_label_mapping": {
+                    "cluster": "k8s_cluster_name",
+                    "container": "k8s_container_name",
+                    "namespace": "k8s_namespace_name",
+                    "otel_namespace": "service_namespace",
+                    "otel_service": "service_name",
+                    "pod": "k8s_pod_name"
+                  },
+                  "match": [
+                    {
+                      "op": "=",
+                      "property": "asserts_entity_type",
+                      "values": [
+                        "Service"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "deployment_environment",
+                      "values": [
+                        "development",
+                        "testing"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "asserts_site",
+                      "values": [
+                        "us-east-1"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "service",
+                      "values": [
+                        "my sample api"
+                      ]
+                    }
+                  ],
+                  "name": "development",
+                  "priority": 2000
+                }
+            - name: minimal
+              manifest: |-
+                {
+                  "data_source_uid": "pyroscope-minimal",
+                  "entity_property_to_profile_label_mapping": {
+                    "cluster": "k8s_cluster_name",
+                    "otel_namespace": "service_namespace",
+                    "otel_service": "service_name"
+                  },
+                  "match": [
+                    {
+                      "op": "IS NOT NULL",
+                      "property": "asserts_entity_type"
+                    }
+                  ],
+                  "name": "minimal",
+                  "priority": 3000
+                }
+        argumentDocs:
+            create: (String)
+            data_source_uid: (String) DataSource to be queried (e.g., a Pyroscope instance).
+            default_config: (Boolean) Is it the default config, therefore undeletable?
+            delete: (String)
+            entity_property_to_profile_label_mapping: (Map of String) Mapping of entity properties to profile labels.
+            id: (String) The ID of this resource.
+            match: (Block List) List of match rules for entity properties. (see below for nested schema)
+            name: (String) The name of the profile configuration.
+            op: '(String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.'
+            priority: (Number) Priority of the profile configuration. A lower number means a higher priority.
+            property: (String) Entity property to match.
+            read: (String)
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            values: (List of String) Values to match against.
+        importStatements:
+            - terraform import grafana_asserts_profile_config.name "{{ name }}"
+    grafana_asserts_prom_rule_file:
+        subCategory: Knowledge Graph
+        description: Manages Prometheus Rules configurations through Grafana Asserts API. Allows creation and management of custom Prometheus recording and alerting rules.
+        name: grafana_asserts_prom_rule_file
+        title: grafana_asserts_prom_rule_file Resource - terraform-provider-grafana
+        examples:
+            - name: latency_metrics
+              manifest: |-
+                {
+                  "active": true,
+                  "group": [
+                    {
+                      "interval": "30s",
+                      "name": "latency_recording_rules",
+                      "rule": [
+                        {
+                          "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+                          "labels": {
+                            "severity": "info",
+                            "source": "custom_instrumentation"
+                          },
+                          "record": "custom:latency:p95"
+                        },
+                        {
+                          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))",
+                          "labels": {
+                            "severity": "info",
+                            "source": "custom_instrumentation"
+                          },
+                          "record": "custom:latency:p99"
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "custom-latency-metrics"
+                }
+            - name: latency_alerts
+              manifest: |-
+                {
+                  "active": true,
+                  "group": [
+                    {
+                      "interval": "30s",
+                      "name": "latency_alerting",
+                      "rule": [
+                        {
+                          "alert": "HighLatency",
+                          "annotations": {
+                            "description": "P99 latency is above 500ms for 5 minutes",
+                            "summary": "High latency detected"
+                          },
+                          "duration": "5m",
+                          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) \u003e 0.5",
+                          "labels": {
+                            "category": "Latency",
+                            "severity": "warning"
+                          }
+                        },
+                        {
+                          "alert": "VeryHighLatency",
+                          "annotations": {
+                            "description": "P99 latency is above 1 second",
+                            "summary": "Very high latency detected"
+                          },
+                          "duration": "2m",
+                          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) \u003e 1.0",
+                          "labels": {
+                            "category": "Latency",
+                            "severity": "critical"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "custom-latency-alerts"
+                }
+            - name: comprehensive_monitoring
+              manifest: |-
+                {
+                  "active": true,
+                  "group": [
+                    {
+                      "interval": "30s",
+                      "name": "latency_monitoring",
+                      "rule": [
+                        {
+                          "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))",
+                          "labels": {
+                            "source": "custom"
+                          },
+                          "record": "custom:latency:p99"
+                        },
+                        {
+                          "alert": "HighLatency",
+                          "annotations": {
+                            "summary": "High latency detected"
+                          },
+                          "duration": "5m",
+                          "expr": "custom:latency:p99 \u003e 0.5",
+                          "labels": {
+                            "severity": "warning"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "interval": "1m",
+                      "name": "error_monitoring",
+                      "rule": [
+                        {
+                          "expr": "rate(http_requests_total{status=~\"5..\"}[5m])",
+                          "labels": {
+                            "source": "custom"
+                          },
+                          "record": "custom:error:rate"
+                        },
+                        {
+                          "alert": "HighErrorRate",
+                          "annotations": {
+                            "description": "Error rate is above 10%",
+                            "summary": "High error rate detected"
+                          },
+                          "duration": "10m",
+                          "expr": "custom:error:rate \u003e 0.1",
+                          "labels": {
+                            "category": "Errors",
+                            "severity": "critical"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "interval": "1m",
+                      "name": "throughput_monitoring",
+                      "rule": [
+                        {
+                          "expr": "sum(rate(http_requests_total[5m]))",
+                          "labels": {
+                            "source": "custom"
+                          },
+                          "record": "custom:throughput:total"
+                        },
+                        {
+                          "alert": "LowThroughput",
+                          "annotations": {
+                            "description": "Request throughput is below 10 requests/second",
+                            "summary": "Low throughput detected"
+                          },
+                          "duration": "5m",
+                          "expr": "custom:throughput:total \u003c 10",
+                          "labels": {
+                            "category": "Throughput",
+                            "severity": "warning"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "custom-comprehensive-monitoring"
+                }
+            - name: conditional_rules
+              manifest: |-
+                {
+                  "active": true,
+                  "group": [
+                    {
+                      "interval": "30s",
+                      "name": "environment_specific_rules",
+                      "rule": [
+                        {
+                          "alert": "TestAlert",
+                          "annotations": {
+                            "summary": "Test alert that is disabled in production"
+                          },
+                          "disable_in_groups": [
+                            "production"
+                          ],
+                          "duration": "1m",
+                          "expr": "up == 0",
+                          "labels": {
+                            "severity": "info"
+                          }
+                        },
+                        {
+                          "alert": "CriticalAlert",
+                          "annotations": {
+                            "summary": "Critical alert that fires in all environments"
+                          },
+                          "duration": "30s",
+                          "expr": "up == 0",
+                          "labels": {
+                            "severity": "critical"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "custom-conditional-rules"
+                }
+            - name: staging_rules
+              manifest: |-
+                {
+                  "active": false,
+                  "group": [
+                    {
+                      "interval": "1m",
+                      "name": "staging_tests",
+                      "rule": [
+                        {
+                          "expr": "up",
+                          "labels": {
+                            "environment": "staging"
+                          },
+                          "record": "staging:test:metric"
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "custom-staging-rules"
+                }
+            - name: slo_alerts
+              manifest: |-
+                {
+                  "active": true,
+                  "group": [
+                    {
+                      "interval": "1m",
+                      "name": "slo_monitoring",
+                      "rule": [
+                        {
+                          "expr": "sum(rate(http_requests_total{status!~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))",
+                          "labels": {
+                            "slo_type": "availability"
+                          },
+                          "record": "custom:slo:availability"
+                        },
+                        {
+                          "alert": "SLOAvailabilityBreach",
+                          "annotations": {
+                            "description": "Availability is below 99.5% SLO target",
+                            "runbook_url": "https://docs.example.com/runbooks/availability-breach",
+                            "summary": "SLO availability breach"
+                          },
+                          "duration": "5m",
+                          "expr": "custom:slo:availability \u003c 0.995",
+                          "labels": {
+                            "category": "SLO",
+                            "severity": "critical"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "custom-slo-alerts"
+                }
+        argumentDocs:
+            active: (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
+            alert: (String) The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
+            annotations: (Map of String) Annotations to add to alerts (e.g., summary, description).
+            disable_in_groups: (Set of String) List of group names where this rule should be disabled. Useful for conditional rule enablement.
+            duration: (String) How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
+            expr: (String) The PromQL expression to evaluate.
+            group: '(Block List, Min: 1) List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval. (see below for nested schema)'
+            id: (String) The ID of this resource.
+            interval: (String) Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
+            labels: (Map of String) Labels to attach to the resulting time series or alert.
+            name: (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+            record: (String) The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
+            rule: '(Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)'
+        importStatements:
+            - terraform import grafana_asserts_prom_rule_file.name "{{ name }}"
     grafana_asserts_suppressed_assertions_config:
         subCategory: Knowledge Graph
         description: Manages Knowledge Graph Disabled Alert Configurations through Grafana API.
@@ -855,6 +1255,135 @@ resources:
             value: (Number) Threshold value.
         importStatements:
             - terraform import grafana_asserts_thresholds.name "{{ id }}"
+    grafana_asserts_trace_config:
+        subCategory: Knowledge Graph
+        description: Manages Knowledge Graph Trace Configuration through Grafana API.
+        name: grafana_asserts_trace_config
+        title: grafana_asserts_trace_config Resource - terraform-provider-grafana
+        examples:
+            - name: production
+              manifest: |-
+                {
+                  "data_source_uid": "grafanacloud-traces",
+                  "default_config": false,
+                  "entity_property_to_trace_label_mapping": {
+                    "cluster": "resource.k8s.cluster.name",
+                    "container": "resource.container.name",
+                    "namespace": "resource.k8s.namespace",
+                    "otel_namespace": "resource.service.namespace",
+                    "otel_service": "resource.service.name"
+                  },
+                  "match": [
+                    {
+                      "op": "=",
+                      "property": "asserts_entity_type",
+                      "values": [
+                        "Service"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "deployment_environment",
+                      "values": [
+                        "production",
+                        "staging"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "asserts_site",
+                      "values": [
+                        "us-east-1",
+                        "us-west-2"
+                      ]
+                    }
+                  ],
+                  "name": "production",
+                  "priority": 1000
+                }
+            - name: development
+              manifest: |-
+                {
+                  "data_source_uid": "grafanacloud-traces",
+                  "default_config": false,
+                  "entity_property_to_trace_label_mapping": {
+                    "cluster": "resource.k8s.cluster.name",
+                    "container": "resource.container.name",
+                    "namespace": "resource.k8s.namespace",
+                    "otel_namespace": "resource.service.namespace",
+                    "otel_service": "resource.service.name",
+                    "pod": "span.k8s.pod.name"
+                  },
+                  "match": [
+                    {
+                      "op": "=",
+                      "property": "asserts_entity_type",
+                      "values": [
+                        "Service"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "deployment_environment",
+                      "values": [
+                        "development",
+                        "testing"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "asserts_site",
+                      "values": [
+                        "us-east-1"
+                      ]
+                    },
+                    {
+                      "op": "=",
+                      "property": "service",
+                      "values": [
+                        "my sample api"
+                      ]
+                    }
+                  ],
+                  "name": "development",
+                  "priority": 2000
+                }
+            - name: minimal
+              manifest: |-
+                {
+                  "data_source_uid": "tempo-minimal",
+                  "entity_property_to_trace_label_mapping": {
+                    "cluster": "resource.k8s.cluster.name",
+                    "otel_namespace": "resource.service.namespace",
+                    "otel_service": "resource.service.name"
+                  },
+                  "match": [
+                    {
+                      "op": "IS NOT NULL",
+                      "property": "asserts_entity_type"
+                    }
+                  ],
+                  "name": "minimal",
+                  "priority": 3000
+                }
+        argumentDocs:
+            create: (String)
+            data_source_uid: (String) DataSource to be queried (e.g., a Tempo instance).
+            default_config: (Boolean) Is it the default config, therefore undeletable?
+            delete: (String)
+            entity_property_to_trace_label_mapping: (Map of String) Mapping of entity properties to trace labels.
+            id: (String) The ID of this resource.
+            match: (Block List) List of match rules for entity properties. (see below for nested schema)
+            name: (String) The name of the trace configuration.
+            op: '(String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.'
+            priority: (Number) Priority of the trace configuration. A lower number means a higher priority.
+            property: (String) Entity property to match.
+            read: (String)
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+            values: (List of String) Values to match against.
+        importStatements:
+            - terraform import grafana_asserts_trace_config.name "{{ name }}"
     grafana_cloud_access_policy:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
@@ -924,7 +1453,7 @@ resources:
                   "access_policy_id": "${grafana_cloud_access_policy.test.policy_id}",
                   "display_name": "My Policy Rotating Token",
                   "early_rotation_window": "24h",
-                  "expire_after": "30d",
+                  "expire_after": "720h",
                   "name_prefix": "my-policy-rotating-token",
                   "region": "prod-us-east-0"
                 }
@@ -957,8 +1486,8 @@ resources:
             created_at: (String) Creation date of the access policy token.
             delete_on_destroy: (Boolean) Deletes the token in Grafana Cloud when the resource is destroyed in Terraform, instead of leaving it to expire at its expires_at time. Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false.
             display_name: (String) Display name of the access policy token. Defaults to the name.
-            early_rotation_window: (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m').
-            expire_after: (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m').
+            early_rotation_window: (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+            expire_after: (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
             expires_at: (String) Expiration date of the access policy token.
             id: (String) The ID of this resource.
             name: (String) Name of the access policy token.
@@ -2483,7 +3012,7 @@ resources:
               terraform import grafana_data_source_permission_item.name "{{ orgID }}:{{ datasourceUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_fleet_management_collector:
         subCategory: Fleet Management
-        description: 'Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/ Required access policy scopes: fleet-management:readfleet-management:write'
+        description: 'Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/as-code/infrastructure-as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
         name: grafana_fleet_management_collector
         title: grafana_fleet_management_collector Resource - terraform-provider-grafana
         examples:
@@ -2498,6 +3027,7 @@ resources:
                   }
                 }
         argumentDocs:
+            collector_type: '(String) Type of the collector. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.'
             enabled: (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
             id: (String) ID of the collector
             remote_attributes: (Map of String) Remote attributes for the collector
@@ -2505,7 +3035,7 @@ resources:
             - terraform import grafana_fleet_management_collector.name "{{ id }}"
     grafana_fleet_management_pipeline:
         subCategory: Fleet Management
-        description: 'Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/ Required access policy scopes: fleet-management:readfleet-management:write'
+        description: 'Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/as-code/infrastructure-as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
         name: grafana_fleet_management_pipeline
         title: grafana_fleet_management_pipeline Resource - terraform-provider-grafana
         examples:
@@ -2521,7 +3051,8 @@ resources:
                   "name": "my_pipeline"
                 }
         argumentDocs:
-            contents: (String) Configuration contents of the pipeline to be used by collectors
+            config_type: '(String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.'
+            contents: (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
             enabled: (Boolean) Whether the pipeline is enabled for collectors
             id: (String) Server-assigned ID of the pipeline
             matchers: (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers

@@ -34,10 +34,10 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Pipeline is the Schema for the Pipelines API. Manages Grafana
+        description: Pipeline is the Schema for the Pipelines API. Manages Grafana
           Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API
-          documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/
-          Required access policy scopes: fleet-management:readfleet-management:write'
+          documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step
+          guide https://grafana
         properties:
           apiVersion:
             description: |-
@@ -75,10 +75,15 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  configType:
+                    description: |-
+                      (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+                      Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+                    type: string
                   contents:
                     description: |-
-                      (String) Configuration contents of the pipeline to be used by collectors
-                      Configuration contents of the pipeline to be used by collectors
+                      (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+                      Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
                     type: string
                   enabled:
                     description: |-
@@ -111,10 +116,15 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  configType:
+                    description: |-
+                      (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+                      Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+                    type: string
                   contents:
                     description: |-
-                      (String) Configuration contents of the pipeline to be used by collectors
-                      Configuration contents of the pipeline to be used by collectors
+                      (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+                      Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
                     type: string
                   enabled:
                     description: |-
@@ -234,10 +244,15 @@ spec:
             properties:
               atProvider:
                 properties:
+                  configType:
+                    description: |-
+                      (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+                      Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+                    type: string
                   contents:
                     description: |-
-                      (String) Configuration contents of the pipeline to be used by collectors
-                      Configuration contents of the pipeline to be used by collectors
+                      (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+                      Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
                     type: string
                   enabled:
                     description: |-
