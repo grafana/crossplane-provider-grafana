@@ -16,6 +16,10 @@ import (
 
 type CollectorInitParameters struct {
 
+	// (String) Type of the collector. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the collector. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	CollectorType *string `json:"collectorType,omitempty" tf:"collector_type,omitempty"`
+
 	// (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
 	// Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -27,6 +31,10 @@ type CollectorInitParameters struct {
 }
 
 type CollectorObservation struct {
+
+	// (String) Type of the collector. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the collector. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	CollectorType *string `json:"collectorType,omitempty" tf:"collector_type,omitempty"`
 
 	// (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
 	// Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
@@ -42,6 +50,11 @@ type CollectorObservation struct {
 }
 
 type CollectorParameters struct {
+
+	// (String) Type of the collector. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the collector. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// +kubebuilder:validation:Optional
+	CollectorType *string `json:"collectorType,omitempty" tf:"collector_type,omitempty"`
 
 	// (Boolean) Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
 	// Whether remote configuration for the collector is enabled or not. If the collector is disabled, it will receive empty configurations from the Fleet Management service
@@ -82,7 +95,7 @@ type CollectorStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Collector is the Schema for the Collectors API. Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/ Required access policy scopes: fleet-management:readfleet-management:write
+// Collector is the Schema for the Collectors API. Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/Step-by-step guide https://grafana
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

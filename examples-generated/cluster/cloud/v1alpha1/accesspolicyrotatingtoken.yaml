@@ -11,7 +11,7 @@ spec:
     accessPolicyId: ${grafana_cloud_access_policy.test.policy_id}
     displayName: My Policy Rotating Token
     earlyRotationWindow: 24h
-    expireAfter: 30d
+    expireAfter: 720h
     namePrefix: my-policy-rotating-token
     region: prod-us-east-0
 
