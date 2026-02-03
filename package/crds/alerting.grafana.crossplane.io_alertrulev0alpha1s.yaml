@@ -73,6 +73,19 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  metadata:
+                    description: The metadata of the resource.
+                    items:
+                      properties:
+                        folderUid:
+                          description: The UID of the folder to save the resource
+                            in.
+                          type: string
+                        uid:
+                          description: The unique identifier of the resource.
+                          type: string
+                      type: object
+                    type: array
                   options:
                     description: Options for applying the resource.
                     items:
@@ -82,6 +95,128 @@ spec:
                             resource with newer version, same resource title in folder
                             or same resource uid.
                           type: boolean
+                      type: object
+                    type: array
+                  spec:
+                    description: The spec of the resource.
+                    items:
+                      properties:
+                        annotations:
+                          additionalProperties:
+                            type: string
+                          description: Key-value pairs of metadata to attach to the
+                            alert rule. They add additional information, such as a
+                            `summary` or `runbook_url`, to help identify and investigate
+                            alerts.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        execErrState:
+                          description: Describes what state to enter when the rule's
+                            query is invalid and the rule cannot be executed. Options
+                            are OK, Error, KeepLast, and Alerting.
+                          type: string
+                        expressions:
+                          additionalProperties:
+                            type: string
+                          description: A sequence of stages that describe the contents
+                            of the rule. Each value is a JSON string representing
+                            an expression object.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        for:
+                          description: The amount of time for which the rule must
+                            be breached for the rule to be considered to be Firing.
+                            Before this time has elapsed, the rule is only considered
+                            to be Pending.
+                          type: string
+                        keepFiringFor:
+                          description: The amount of time for which the rule will
+                            considered to be Recovering after initially Firing. Before
+                            this time has elapsed, the rule will continue to fire
+                            once it's been triggered.
+                          type: string
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: Key-value pairs to attach to the alert rule
+                            that can be used in matching, grouping, and routing.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        missingSeriesEvalsToResolve:
+                          description: The number of missing series evaluations that
+                            must occur before the rule is considered to be resolved.
+                          type: number
+                        noDataState:
+                          description: Describes what state to enter when the rule's
+                            query returns No Data. Options are OK, NoData, KeepLast,
+                            and Alerting.
+                          type: string
+                        notificationSettings:
+                          description: Notification settings for the rule. If specified,
+                            it overrides the notification policies.
+                          items:
+                            properties:
+                              activeTimings:
+                                description: A list of time interval names to apply
+                                  to alerts that match this policy to suppress them
+                                  unless they are sent at the specified time.
+                                items:
+                                  type: string
+                                type: array
+                              contactPoint:
+                                description: The contact point to route notifications
+                                  that match this rule to.
+                                type: string
+                              groupBy:
+                                description: A list of alert labels to group alerts
+                                  into notifications by.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: Minimum time interval between two notifications
+                                  for the same group.
+                                type: string
+                              groupWait:
+                                description: Time to wait to buffer alerts of the
+                                  same group before sending a notification.
+                                type: string
+                              muteTimings:
+                                description: A list of mute timing names to apply
+                                  to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: Minimum time interval for re-sending
+                                  a notification if an alert is still firing.
+                                type: string
+                            type: object
+                          type: array
+                        panelRef:
+                          additionalProperties:
+                            type: string
+                          description: Reference to a panel that this alert rule is
+                            associated with. Should be an object with 'dashboard_uid'
+                            (string) and 'panel_id' (number) fields.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        paused:
+                          description: Sets whether the rule should be paused or not.
+                          type: boolean
+                        title:
+                          description: The title of the alert rule.
+                          type: string
+                        trigger:
+                          description: The trigger configuration for the alert rule.
+                          items:
+                            properties:
+                              interval:
+                                description: The interval at which the alert rule
+                                  should be evaluated.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -98,6 +233,19 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  metadata:
+                    description: The metadata of the resource.
+                    items:
+                      properties:
+                        folderUid:
+                          description: The UID of the folder to save the resource
+                            in.
+                          type: string
+                        uid:
+                          description: The unique identifier of the resource.
+                          type: string
+                      type: object
+                    type: array
                   options:
                     description: Options for applying the resource.
                     items:
@@ -107,6 +255,128 @@ spec:
                             resource with newer version, same resource title in folder
                             or same resource uid.
                           type: boolean
+                      type: object
+                    type: array
+                  spec:
+                    description: The spec of the resource.
+                    items:
+                      properties:
+                        annotations:
+                          additionalProperties:
+                            type: string
+                          description: Key-value pairs of metadata to attach to the
+                            alert rule. They add additional information, such as a
+                            `summary` or `runbook_url`, to help identify and investigate
+                            alerts.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        execErrState:
+                          description: Describes what state to enter when the rule's
+                            query is invalid and the rule cannot be executed. Options
+                            are OK, Error, KeepLast, and Alerting.
+                          type: string
+                        expressions:
+                          additionalProperties:
+                            type: string
+                          description: A sequence of stages that describe the contents
+                            of the rule. Each value is a JSON string representing
+                            an expression object.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        for:
+                          description: The amount of time for which the rule must
+                            be breached for the rule to be considered to be Firing.
+                            Before this time has elapsed, the rule is only considered
+                            to be Pending.
+                          type: string
+                        keepFiringFor:
+                          description: The amount of time for which the rule will
+                            considered to be Recovering after initially Firing. Before
+                            this time has elapsed, the rule will continue to fire
+                            once it's been triggered.
+                          type: string
+                        labels:
+                          additionalProperties:
+                            type: string
+                          description: Key-value pairs to attach to the alert rule
+                            that can be used in matching, grouping, and routing.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        missingSeriesEvalsToResolve:
+                          description: The number of missing series evaluations that
+                            must occur before the rule is considered to be resolved.
+                          type: number
+                        noDataState:
+                          description: Describes what state to enter when the rule's
+                            query returns No Data. Options are OK, NoData, KeepLast,
+                            and Alerting.
+                          type: string
+                        notificationSettings:
+                          description: Notification settings for the rule. If specified,
+                            it overrides the notification policies.
+                          items:
+                            properties:
+                              activeTimings:
+                                description: A list of time interval names to apply
+                                  to alerts that match this policy to suppress them
+                                  unless they are sent at the specified time.
+                                items:
+                                  type: string
+                                type: array
+                              contactPoint:
+                                description: The contact point to route notifications
+                                  that match this rule to.
+                                type: string
+                              groupBy:
+                                description: A list of alert labels to group alerts
+                                  into notifications by.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: Minimum time interval between two notifications
+                                  for the same group.
+                                type: string
+                              groupWait:
+                                description: Time to wait to buffer alerts of the
+                                  same group before sending a notification.
+                                type: string
+                              muteTimings:
+                                description: A list of mute timing names to apply
+                                  to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: Minimum time interval for re-sending
+                                  a notification if an alert is still firing.
+                                type: string
+                            type: object
+                          type: array
+                        panelRef:
+                          additionalProperties:
+                            type: string
+                          description: Reference to a panel that this alert rule is
+                            associated with. Should be an object with 'dashboard_uid'
+                            (string) and 'panel_id' (number) fields.
+                          type: object
+                          x-kubernetes-map-type: granular
+                        paused:
+                          description: Sets whether the rule should be paused or not.
+                          type: boolean
+                        title:
+                          description: The title of the alert rule.
+                          type: string
+                        trigger:
+                          description: The trigger configuration for the alert rule.
+                          items:
+                            properties:
+                              interval:
+                                description: The interval at which the alert rule
+                                  should be evaluated.
+                                type: string
+                            type: object
+                          type: array
                       type: object
                     type: array
                 type: object
@@ -196,6 +466,15 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.metadata is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.metadata)
+                || (has(self.initProvider) && has(self.initProvider.metadata))'
+            - message: spec.forProvider.spec is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.spec)
+                || (has(self.initProvider) && has(self.initProvider.spec))'
           status:
             description: AlertruleV0Alpha1Status defines the observed state of AlertruleV0Alpha1.
             properties:

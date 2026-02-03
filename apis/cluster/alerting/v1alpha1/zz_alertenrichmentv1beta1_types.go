@@ -15,9 +15,17 @@ import (
 
 type AlertenrichmentV1Beta1InitParameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
+	// The metadata of the resource.
+	Metadata *MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
+	// The spec of the resource.
+	Spec *SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertenrichmentV1Beta1Observation struct {
@@ -40,10 +48,20 @@ type AlertenrichmentV1Beta1Observation struct {
 
 type AlertenrichmentV1Beta1Parameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
+	// The metadata of the resource.
+	// +kubebuilder:validation:Optional
+	Metadata *MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
 	Options *OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
+	// The spec of the resource.
+	// +kubebuilder:validation:Optional
+	Spec *SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AnnotationMatchersInitParameters struct {
@@ -1861,8 +1879,10 @@ type AlertenrichmentV1Beta1Status struct {
 type AlertenrichmentV1Beta1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AlertenrichmentV1Beta1Spec   `json:"spec"`
-	Status            AlertenrichmentV1Beta1Status `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
+	Spec   AlertenrichmentV1Beta1Spec   `json:"spec"`
+	Status AlertenrichmentV1Beta1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

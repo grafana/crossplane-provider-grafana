@@ -9,7 +9,40 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    metadata:
+    - folderUid: ${grafana_folder.recordingrule_folder.uid}
+      uid: example-recording-rule
     provider: ${grafana.local}
+    spec:
+    - expressions:
+        A: |-
+          ${jsonencode({
+                  model = {
+                    editorMode    = "code"
+                    expr          = "count(up{})"
+                    instant       = true
+                    intervalMs    = 1000
+                    legendFormat  = "__auto"
+                    maxDataPoints = 43200
+                    range         = false
+                    refId         = "A"
+                  }
+                  datasource_uid = "ds_uid"
+                  relative_time_range = {
+                    from = "600s"
+                    to   = "0s"
+                  }
+                  query_type = ""
+                  source     = true
+                })}
+      labels:
+        foo: bar
+      metric: tf-metric
+      paused: true
+      targetDatasourceUid: target_ds_uid
+      title: Example Recording Rule
+      trigger:
+      - interval: 1m
 
 ---
 
