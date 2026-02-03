@@ -434,6 +434,14 @@ func Configure(p *ujconfig.Provider) {
 			Extractor:         fieldExtractor("name"),
 		}
 	})
+	p.AddResourceConfigurator("grafana_contact_point", func(r *ujconfig.Resource) {
+		r.References["oncall.url"] = ujconfig.Reference{
+			TerraformName:     "grafana_oncall_integration",
+			RefFieldName:      "OncallIntegrationRef",
+			SelectorFieldName: "OncallIntegrationSelector",
+			Extractor:         fieldExtractor("link"),
+		}
+	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
