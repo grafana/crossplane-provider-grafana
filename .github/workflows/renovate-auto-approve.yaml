@@ -34,6 +34,6 @@ jobs:
 
       - name: Approve PR
         if: steps.check-labels.outputs.result == 'true'
-        uses: hmarr/auto-approve-action@8f929096a962e83ccdfa8afcf855f39f12d4dac7 # v4.0.0
+        uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
