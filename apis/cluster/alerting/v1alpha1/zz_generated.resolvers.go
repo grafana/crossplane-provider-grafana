@@ -8,7 +8,8 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1"
+	v1alpha11 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -21,6 +22,25 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	var rsp reference.ResolutionResponse
 	var err error
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Oncall); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Oncall[i3].URL),
+			Extract:      grafana.FieldExtractor("link"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Oncall[i3].OncallIntegrationRef,
+			Selector:     mg.Spec.ForProvider.Oncall[i3].OncallIntegrationSelector,
+			To: reference.To{
+				List:    &v1alpha1.IntegrationList{},
+				Managed: &v1alpha1.Integration{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Oncall[i3].URL")
+		}
+		mg.Spec.ForProvider.Oncall[i3].URL = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Oncall[i3].OncallIntegrationRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
@@ -28,8 +48,8 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -38,6 +58,25 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Oncall); i3++ {
+		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Oncall[i3].URL),
+			Extract:      grafana.FieldExtractor("link"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Oncall[i3].OncallIntegrationRef,
+			Selector:     mg.Spec.InitProvider.Oncall[i3].OncallIntegrationSelector,
+			To: reference.To{
+				List:    &v1alpha1.IntegrationList{},
+				Managed: &v1alpha1.Integration{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Oncall[i3].URL")
+		}
+		mg.Spec.InitProvider.Oncall[i3].URL = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Oncall[i3].OncallIntegrationRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
@@ -45,8 +84,8 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -72,8 +111,8 @@ func (mg *MessageTemplate) ResolveReferences(ctx context.Context, c client.Reade
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -89,8 +128,8 @@ func (mg *MessageTemplate) ResolveReferences(ctx context.Context, c client.Reade
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -116,8 +155,8 @@ func (mg *MuteTiming) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -133,8 +172,8 @@ func (mg *MuteTiming) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -178,8 +217,8 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -388,8 +427,8 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -592,8 +631,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
-			List:    &v1alpha1.FolderList{},
-			Managed: &v1alpha1.Folder{},
+			List:    &v1alpha11.FolderList{},
+			Managed: &v1alpha11.Folder{},
 		},
 	})
 	if err != nil {
@@ -609,8 +648,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {
@@ -647,8 +686,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
 		To: reference.To{
-			List:    &v1alpha1.FolderList{},
-			Managed: &v1alpha1.Folder{},
+			List:    &v1alpha11.FolderList{},
+			Managed: &v1alpha11.Folder{},
 		},
 	})
 	if err != nil {
@@ -664,8 +703,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha1.OrganizationList{},
-			Managed: &v1alpha1.Organization{},
+			List:    &v1alpha11.OrganizationList{},
+			Managed: &v1alpha11.Organization{},
 		},
 	})
 	if err != nil {

@@ -1393,6 +1393,14 @@ type OncallInitParameters struct {
 	// Custom message. You can use template variables.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// Reference to a Integration in oncall to populate url.
+	// +kubebuilder:validation:Optional
+	OncallIntegrationRef *v1.Reference `json:"oncallIntegrationRef,omitempty" tf:"-"`
+
+	// Selector for a Integration in oncall to populate url.
+	// +kubebuilder:validation:Optional
+	OncallIntegrationSelector *v1.Selector `json:"oncallIntegrationSelector,omitempty" tf:"-"`
+
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
@@ -1401,6 +1409,10 @@ type OncallInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The URL to send webhook requests to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("link")
+	// +crossplane:generate:reference:refFieldName=OncallIntegrationRef
+	// +crossplane:generate:reference:selectorFieldName=OncallIntegrationSelector
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
@@ -1485,6 +1497,14 @@ type OncallParameters struct {
 	// +kubebuilder:validation:Optional
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
+	// Reference to a Integration in oncall to populate url.
+	// +kubebuilder:validation:Optional
+	OncallIntegrationRef *v1.Reference `json:"oncallIntegrationRef,omitempty" tf:"-"`
+
+	// Selector for a Integration in oncall to populate url.
+	// +kubebuilder:validation:Optional
+	OncallIntegrationSelector *v1.Selector `json:"oncallIntegrationSelector,omitempty" tf:"-"`
+
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
@@ -1497,8 +1517,12 @@ type OncallParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The URL to send webhook requests to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("link")
+	// +crossplane:generate:reference:refFieldName=OncallIntegrationRef
+	// +crossplane:generate:reference:selectorFieldName=OncallIntegrationSelector
 	// +kubebuilder:validation:Optional
-	URL *string `json:"url" tf:"url,omitempty"`
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
 type OpsgenieInitParameters struct {
