@@ -1,9 +1,6 @@
 # Provider Grafana
 
-`provider-grafana` is a [Crossplane](https://crossplane.io/) provider that
-is built using [Upjet](https://github.com/upbound/upjet) code
-generation tools and exposes XRM-conformant managed resources for the
-Grafana API.
+`provider-grafana` is a [Crossplane](https://crossplane.io/) provider that is built using [Upjet](https://github.com/upbound/upjet) code generation tools and exposes XRM-conformant managed resources for the Grafana API.
 
 > **This tool is experimental**
 >
@@ -17,29 +14,28 @@ Grafana API.
 
 ## Getting Started
 
-Install the provider by using the following command after changing the image tag
-to the [latest release](https://marketplace.upbound.io/providers/grafana/provider-grafana):
+Install the provider by using the following command after changing the image tag to the [latest release](https://marketplace.upbound.io/providers/grafana/provider-grafana):
 
 ```
-up ctp provider install xpkg.upbound.io/grafana/provider-grafana:v0.24.0
+up ctp provider install xpkg.upbound.io/grafana/provider-grafana:v2.2.0
 ```
 
 Alternatively, you can use declarative installation:
 
-```
-cat <<EOF | kubectl apply -f -
+```yaml
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-grafana
 spec:
-  package: xpkg.upbound.io/grafana/provider-grafana:v0.24.0
-EOF
+  package: xpkg.upbound.io/grafana/provider-grafana:v2.2.0
 ```
 
-Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
+You can optionally customize the provider's runtime configuration using a [DeploymentRuntimeConfig](https://docs.crossplane.io/latest/packages/providers/#runtime-configuration) if you need to modify pod settings, add arguments, or configure resource limits.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/grafana/crossplane-provider-grafana).
+You can see the API reference [here](https://marketplace.upbound.io/providers/grafana/provider-grafana).
+
+For information on configuring provider credentials and ProviderConfig secret fields, see the [ProviderConfig Secret Fields documentation](docs/providerconfig-secret-fields.md).
 
 ## Developing
 
@@ -86,8 +82,7 @@ make build
 
 ### Possible issues when running locally
 
-Below are some issues that have been encountered and may be helpful in the future
-to others.
+Below are some issues that have been encountered and may be helpful in the future to others.
 
 ```bash
 ❯ make generate
@@ -96,8 +91,7 @@ make[1]: *** [config/schema.json] Error 1
 make: *** [generate] Error 2
 ```
 
-**Solution**: ensure that you do not have a `.terraformrc` defined somewhere. For example
-`~/.terraformrc`:
+**Solution**: ensure that you do not have a `.terraformrc` defined somewhere. For example `~/.terraformrc`:
 
 ```bash
 ❯ cat ~/.terraformrc
@@ -130,10 +124,9 @@ Steps to update resources from the latest Terraform provider version:
 1. Update terraform provider version in [go.mod](go.mod) file.
 2. Add your resource in the GroupMap in [groups.go](config/groups.go) file.
 3. Generate the resources with `go generate`.
-   * Output will show you missing resources to map if any. 
+   * Output will show you missing resources to map if any.
 4. Create a PR with the result.
 
 ## Report a Bug
 
-For filing bugs, suggesting improvements, or requesting new features, please
-open an [issue](https://github.com/grafana/crossplane-provider-grafana/issues).
+For filing bugs, suggesting improvements, or requesting new features, please open an [issue](https://github.com/grafana/crossplane-provider-grafana/issues).
