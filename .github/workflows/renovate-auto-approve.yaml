@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Check PR labels
         id: check-labels
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const { data: pr } = await github.rest.pulls.get({
@@ -34,6 +34,6 @@ jobs:
 
       - name: Approve PR
         if: steps.check-labels.outputs.result == 'true'
-        uses: hmarr/auto-approve-action@8f929096a962e83ccdfa8afcf855f39f12d4dac7 # v4
+        uses: hmarr/auto-approve-action@8f929096a962e83ccdfa8afcf855f39f12d4dac7 # v4.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
