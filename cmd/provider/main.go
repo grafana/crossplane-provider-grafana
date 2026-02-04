@@ -11,9 +11,13 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/gate"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/customresourcesgate"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
 	"go.uber.org/zap/zapcore"
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
 
@@ -83,6 +87,7 @@ func main() {
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apisCluster.AddToScheme(mgr.GetScheme()), "Cannot add Grafana cluster APIs to scheme")
 	kingpin.FatalIfError(apisNamespaced.AddToScheme(mgr.GetScheme()), "Cannot add Grafana namespaced APIs to scheme")
+	kingpin.FatalIfError(apiextensionsv1.AddToScheme(mgr.GetScheme()), "Cannot add CustomResourceDefinition to scheme")
 
 	mm := managed.NewMRMetricRecorder()
 	sm := statemetrics.NewMRStateMetrics()
@@ -109,6 +114,7 @@ func main() {
 			MaxConcurrentReconciles: *maxReconcileRate,
 			Features:                featureFlags,
 			MetricOptions:           mo,
+			Gate:                    new(gate.Gate[schema.GroupVersionKind]),
 		},
 
 		Provider:              provider,
@@ -131,6 +137,7 @@ func main() {
 	if *enableSafeStart {
 		kingpin.FatalIfError(clustercontroller.SetupGated(mgr, o), "Cannot setup gated cluster Grafana controllers")
 		kingpin.FatalIfError(namespacedcontroller.SetupGated(mgr, o), "Cannot setup gated namespaced Grafana controllers")
+		kingpin.FatalIfError(customresourcesgate.Setup(mgr, o.Options), "Cannot setup CRD gate controller")
 	} else {
 		kingpin.FatalIfError(clustercontroller.Setup(mgr, o), "Cannot setup cluster Grafana controllers")
 		kingpin.FatalIfError(namespacedcontroller.Setup(mgr, o), "Cannot setup namespaced Grafana controllers")
