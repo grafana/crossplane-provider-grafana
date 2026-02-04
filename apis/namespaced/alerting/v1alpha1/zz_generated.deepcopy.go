@@ -6490,6 +6490,16 @@ func (in *OncallInitParameters) DeepCopyInto(out *OncallInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OncallIntegrationRef != nil {
+		in, out := &in.OncallIntegrationRef, &out.OncallIntegrationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OncallIntegrationSelector != nil {
+		in, out := &in.OncallIntegrationSelector, &out.OncallIntegrationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Settings != nil {
 		in, out := &in.Settings, &out.Settings
 		*out = make(map[string]*string, len(*in))
@@ -6630,6 +6640,16 @@ func (in *OncallParameters) DeepCopyInto(out *OncallParameters) {
 		in, out := &in.Message, &out.Message
 		*out = new(string)
 		**out = **in
+	}
+	if in.OncallIntegrationRef != nil {
+		in, out := &in.OncallIntegrationRef, &out.OncallIntegrationRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OncallIntegrationSelector != nil {
+		in, out := &in.OncallIntegrationSelector, &out.OncallIntegrationSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
