@@ -280,6 +280,7 @@ jobs:
     permissions:
       id-token: write
       contents: write
+      packages: write
     needs:
       - detect-noop
       - report-breaking-changes
@@ -320,6 +321,13 @@ jobs:
           registry: xpkg.upbound.io
           username: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID }}
           password: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -369,6 +377,15 @@ jobs:
           name: output
           path: _output/**
 
-      - name: Publish Artifacts
+      - name: Publish Artifacts to Upbound
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
+        env:
+          REGISTRY_ORGS: xpkg.upbound.io/grafana
+          XPKG_REG_ORGS: xpkg.upbound.io/grafana
+
+      - name: Publish Artifacts to GHCR
+        run: make publish BRANCH_NAME=${GITHUB_REF##*/} RELEASE_BRANCH_FILTER="%"
+        env:
+          REGISTRY_ORGS: ghcr.io/${{ github.repository_owner }}
+          XPKG_REG_ORGS: ghcr.io/${{ github.repository_owner }}
