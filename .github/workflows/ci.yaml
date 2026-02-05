@@ -385,8 +385,7 @@ jobs:
           XPKG_REG_ORGS: xpkg.upbound.io/grafana
 
       - name: Publish Artifacts to GHCR
-        run: make publish BRANCH_NAME=${GITHUB_REF##*/}
+        run: make publish BRANCH_NAME=${GITHUB_REF##*/} RELEASE_BRANCH_FILTER="%"
         env:
           REGISTRY_ORGS: ghcr.io/${{ github.repository_owner }}
           XPKG_REG_ORGS: ghcr.io/${{ github.repository_owner }}
-          RELEASE_BRANCH_FILTER: "%"
