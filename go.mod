@@ -7,7 +7,7 @@ require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/crossplane/crossplane-runtime/v2 v2.1.0
 	github.com/crossplane/crossplane-tools v0.0.0-20251017183449-dd4517244339
-	github.com/crossplane/upjet/v2 v2.1.0
+	github.com/crossplane/upjet/v2 v2.2.0
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/terraform-provider-grafana/v4 v4.25.0
 	github.com/hashicorp/terraform-json v0.27.2
