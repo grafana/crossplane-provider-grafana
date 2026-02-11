@@ -1,0 +1,45 @@
+apiVersion: apiextensions.crossplane.io/v1alpha1
+kind: ManagedActivationResourcePolicy
+metadata:
+  name: grafana-test-policy
+spec:
+  # This policy activates only a small subset of Grafana resources for testing.
+  # All other resources (asserts, cloud, ml, oncall, etc.) will be disabled.
+  # This tests that disabled resources don't cause "no matches for kind" errors
+  # during provider shutdown.
+
+  activationRules:
+    # Activate only core OSS resources for basic testing
+    - apiGroups:
+        - "oss.grafana.crossplane.io"
+      resources:
+        - "dashboards"
+        - "datasources"
+        - "folders"
+        - "teams"
+        - "users"
+      action: Activate
+
+    # Activate alerting contact points for testing
+    - apiGroups:
+        - "alerting.grafana.crossplane.io"
+      resources:
+        - "contactpoints"
+      action: Activate
+
+    # Activate provider config (always needed)
+    - apiGroups:
+        - "grafana.crossplane.io"
+      resources:
+        - "providerconfigs"
+        - "providerconfigusages"
+      action: Activate
+
+    # Default: Deactivate everything else
+    # This will disable: asserts, cloud, cloudprovider, connections, enterprise,
+    # fleetmanagement, frontendobservability, k6, ml, oncall, slo, sm groups
+    - apiGroups:
+        - "*"
+      resources:
+        - "*"
+      action: Deactivate
