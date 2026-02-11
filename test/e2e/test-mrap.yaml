@@ -1,0 +1,13 @@
+apiVersion: apiextensions.crossplane.io/v1alpha1
+kind: ManagedResourceActivationPolicy
+metadata:
+  name: grafana-test-policy
+spec:
+  # This policy activates ONLY dashboards for testing.
+  # All other resources will be disabled.
+  # This tests that disabled resources don't cause "no matches for kind" errors
+  # during provider shutdown.
+
+  activate:
+    # Activate only dashboards
+    - "dashboards.oss.grafana.crossplane.io"
