@@ -31,8 +31,6 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	apisCluster "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster"
-	apisNamespaced "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced"
 	"github.com/grafana/crossplane-provider-grafana/v2/config"
 	"github.com/grafana/crossplane-provider-grafana/v2/internal/clients"
 	clustercontroller "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster"
@@ -85,8 +83,10 @@ func main() {
 		RenewDeadline:              func() *time.Duration { d := 50 * time.Second; return &d }(),
 	})
 	kingpin.FatalIfError(err, "Cannot create controller manager")
-	kingpin.FatalIfError(apisCluster.AddToScheme(mgr.GetScheme()), "Cannot add Grafana cluster APIs to scheme")
-	kingpin.FatalIfError(apisNamespaced.AddToScheme(mgr.GetScheme()), "Cannot add Grafana namespaced APIs to scheme")
+	// NOTE: API group schemes are now registered lazily by the wrapped Setup functions
+	// This prevents shutdown errors when using ManagedActivationResourcePolicies (MRAP)
+	// to disable certain resource types. Only the apiextensionsv1 scheme is needed upfront
+	// for the CRD gate controller.
 	kingpin.FatalIfError(apiextensionsv1.AddToScheme(mgr.GetScheme()), "Cannot add CustomResourceDefinition to scheme")
 
 	mm := managed.NewMRMetricRecorder()
@@ -134,13 +134,14 @@ func main() {
 	// Setup controllers for both legacy cluster-scoped and modern namespaced API groups.
 	// SafeStart gating selects the SetupGated variants which internally defer activation
 	// until feature flags permit.
+	// NOTE: Using SetupWrapped/SetupGatedWrapped to register API group schemes lazily.
 	if *enableSafeStart {
-		kingpin.FatalIfError(clustercontroller.SetupGated(mgr, o), "Cannot setup gated cluster Grafana controllers")
-		kingpin.FatalIfError(namespacedcontroller.SetupGated(mgr, o), "Cannot setup gated namespaced Grafana controllers")
+		kingpin.FatalIfError(clustercontroller.SetupGatedWrapped(mgr, o), "Cannot setup gated cluster Grafana controllers")
+		kingpin.FatalIfError(namespacedcontroller.SetupGatedWrapped(mgr, o), "Cannot setup gated namespaced Grafana controllers")
 		kingpin.FatalIfError(customresourcesgate.Setup(mgr, o.Options), "Cannot setup CRD gate controller")
 	} else {
-		kingpin.FatalIfError(clustercontroller.Setup(mgr, o), "Cannot setup cluster Grafana controllers")
-		kingpin.FatalIfError(namespacedcontroller.Setup(mgr, o), "Cannot setup namespaced Grafana controllers")
+		kingpin.FatalIfError(clustercontroller.SetupWrapped(mgr, o), "Cannot setup cluster Grafana controllers")
+		kingpin.FatalIfError(namespacedcontroller.SetupWrapped(mgr, o), "Cannot setup namespaced Grafana controllers")
 	}
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
 }
