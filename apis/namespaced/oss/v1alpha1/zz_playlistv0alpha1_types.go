@@ -47,15 +47,15 @@ type PlaylistV0Alpha1InitParameters struct {
 
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
-	Metadata []PlaylistV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *PlaylistV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
-	Options []PlaylistV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *PlaylistV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
-	Spec []PlaylistV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *PlaylistV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type PlaylistV0Alpha1MetadataInitParameters struct {
@@ -117,15 +117,15 @@ type PlaylistV0Alpha1Observation struct {
 
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
-	Metadata []PlaylistV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *PlaylistV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
-	Options []PlaylistV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+	Options *PlaylistV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
-	Spec []PlaylistV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *PlaylistV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type PlaylistV0Alpha1OptionsInitParameters struct {
@@ -155,17 +155,17 @@ type PlaylistV0Alpha1Parameters struct {
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
-	Metadata []PlaylistV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *PlaylistV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
-	Options []PlaylistV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *PlaylistV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
-	Spec []PlaylistV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *PlaylistV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type PlaylistV0Alpha1SpecInitParameters struct {

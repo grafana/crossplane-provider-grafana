@@ -847,24 +847,18 @@ func (in *Appo11YconfigV1Alpha1InitParameters) DeepCopyInto(out *Appo11YconfigV1
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -920,24 +914,18 @@ func (in *Appo11YconfigV1Alpha1Observation) DeepCopyInto(out *Appo11YconfigV1Alp
 	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -956,24 +944,18 @@ func (in *Appo11YconfigV1Alpha1Parameters) DeepCopyInto(out *Appo11YconfigV1Alph
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1132,24 +1114,18 @@ func (in *K8So11YconfigV1Alpha1InitParameters) DeepCopyInto(out *K8So11YconfigV1
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]K8So11YconfigV1Alpha1MetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1MetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]K8So11YconfigV1Alpha1OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]K8So11YconfigV1Alpha1SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1311,24 +1287,18 @@ func (in *K8So11YconfigV1Alpha1Observation) DeepCopyInto(out *K8So11YconfigV1Alp
 	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]K8So11YconfigV1Alpha1MetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1MetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]K8So11YconfigV1Alpha1OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]K8So11YconfigV1Alpha1SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1407,24 +1377,18 @@ func (in *K8So11YconfigV1Alpha1Parameters) DeepCopyInto(out *K8So11YconfigV1Alph
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]K8So11YconfigV1Alpha1MetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1MetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]K8So11YconfigV1Alpha1OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]K8So11YconfigV1Alpha1SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(K8So11YconfigV1Alpha1SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

@@ -18,15 +18,15 @@ type DashboardV1Beta1InitParameters struct {
 
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
-	Metadata []MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
-	Options []OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
-	Spec []SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type DashboardV1Beta1Observation struct {
@@ -36,15 +36,15 @@ type DashboardV1Beta1Observation struct {
 
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
-	Metadata []MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
-	Options []OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+	Options *OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
-	Spec []SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type DashboardV1Beta1Parameters struct {
@@ -52,17 +52,17 @@ type DashboardV1Beta1Parameters struct {
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
-	Metadata []MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
-	Options []OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
-	Spec []SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type MetadataInitParameters struct {

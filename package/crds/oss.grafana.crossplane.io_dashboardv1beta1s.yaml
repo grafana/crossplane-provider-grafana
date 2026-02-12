@@ -78,58 +78,52 @@ spec:
                     description: |-
                       (Block, Optional) The metadata of the resource. (see below for nested schema)
                       The metadata of the resource.
-                    items:
-                      properties:
-                        folderUid:
-                          description: |-
-                            (String) The UID of the folder to save the resource in.
-                            The UID of the folder to save the resource in.
-                          type: string
-                        uid:
-                          description: |-
-                            (String) The unique identifier of the resource.
-                            The unique identifier of the resource.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      folderUid:
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
+                        type: string
+                      uid:
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
+                        type: string
+                    type: object
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
-                    items:
-                      properties:
-                        overwrite:
-                          description: |-
-                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      overwrite:
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        type: boolean
+                    type: object
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
-                    items:
-                      properties:
-                        json:
-                          description: |-
-                            (String) The JSON representation of the dashboard spec.
-                            The JSON representation of the dashboard spec.
+                    properties:
+                      json:
+                        description: |-
+                          (String) The JSON representation of the dashboard spec.
+                          The JSON representation of the dashboard spec.
+                        type: string
+                      tags:
+                        description: |-
+                          (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+                          The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+                        items:
                           type: string
-                        tags:
-                          description: |-
-                            (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                            The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                          items:
-                            type: string
-                          type: array
-                        title:
-                          description: |-
-                            (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                            The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      title:
+                        description: |-
+                          (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                          The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                        type: string
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -148,58 +142,52 @@ spec:
                     description: |-
                       (Block, Optional) The metadata of the resource. (see below for nested schema)
                       The metadata of the resource.
-                    items:
-                      properties:
-                        folderUid:
-                          description: |-
-                            (String) The UID of the folder to save the resource in.
-                            The UID of the folder to save the resource in.
-                          type: string
-                        uid:
-                          description: |-
-                            (String) The unique identifier of the resource.
-                            The unique identifier of the resource.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      folderUid:
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
+                        type: string
+                      uid:
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
+                        type: string
+                    type: object
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
-                    items:
-                      properties:
-                        overwrite:
-                          description: |-
-                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      overwrite:
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        type: boolean
+                    type: object
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
-                    items:
-                      properties:
-                        json:
-                          description: |-
-                            (String) The JSON representation of the dashboard spec.
-                            The JSON representation of the dashboard spec.
+                    properties:
+                      json:
+                        description: |-
+                          (String) The JSON representation of the dashboard spec.
+                          The JSON representation of the dashboard spec.
+                        type: string
+                      tags:
+                        description: |-
+                          (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+                          The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+                        items:
                           type: string
-                        tags:
-                          description: |-
-                            (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                            The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                          items:
-                            type: string
-                          type: array
-                        title:
-                          description: |-
-                            (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                            The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      title:
+                        description: |-
+                          (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                          The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                        type: string
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -308,81 +296,75 @@ spec:
                     description: |-
                       (Block, Optional) The metadata of the resource. (see below for nested schema)
                       The metadata of the resource.
-                    items:
-                      properties:
-                        annotations:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            (Map of String) Annotations of the resource.
-                            Annotations of the resource.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        folderUid:
-                          description: |-
-                            (String) The UID of the folder to save the resource in.
-                            The UID of the folder to save the resource in.
+                    properties:
+                      annotations:
+                        additionalProperties:
                           type: string
-                        uid:
-                          description: |-
-                            (String) The unique identifier of the resource.
-                            The unique identifier of the resource.
-                          type: string
-                        url:
-                          description: |-
-                            (String) The full URL of the resource.
-                            The full URL of the resource.
-                          type: string
-                        uuid:
-                          description: |-
-                            (String) The globally unique identifier of a resource, used by the API for tracking.
-                            The globally unique identifier of a resource, used by the API for tracking.
-                          type: string
-                        version:
-                          description: |-
-                            (String) The version of the resource.
-                            The version of the resource.
-                          type: string
-                      type: object
-                    type: array
+                        description: |-
+                          (Map of String) Annotations of the resource.
+                          Annotations of the resource.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      folderUid:
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
+                        type: string
+                      uid:
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
+                        type: string
+                      url:
+                        description: |-
+                          (String) The full URL of the resource.
+                          The full URL of the resource.
+                        type: string
+                      uuid:
+                        description: |-
+                          (String) The globally unique identifier of a resource, used by the API for tracking.
+                          The globally unique identifier of a resource, used by the API for tracking.
+                        type: string
+                      version:
+                        description: |-
+                          (String) The version of the resource.
+                          The version of the resource.
+                        type: string
+                    type: object
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
-                    items:
-                      properties:
-                        overwrite:
-                          description: |-
-                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      overwrite:
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        type: boolean
+                    type: object
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
-                    items:
-                      properties:
-                        json:
-                          description: |-
-                            (String) The JSON representation of the dashboard spec.
-                            The JSON representation of the dashboard spec.
+                    properties:
+                      json:
+                        description: |-
+                          (String) The JSON representation of the dashboard spec.
+                          The JSON representation of the dashboard spec.
+                        type: string
+                      tags:
+                        description: |-
+                          (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+                          The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+                        items:
                           type: string
-                        tags:
-                          description: |-
-                            (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                            The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                          items:
-                            type: string
-                          type: array
-                        title:
-                          description: |-
-                            (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                            The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                          type: string
-                      type: object
-                    type: array
+                        type: array
+                      title:
+                        description: |-
+                          (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                          The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                        type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

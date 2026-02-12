@@ -360,24 +360,18 @@ func (in *AlertruleV0Alpha1InitParameters) DeepCopyInto(out *AlertruleV0Alpha1In
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]AlertruleV0Alpha1MetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1MetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]AlertruleV0Alpha1OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]AlertruleV0Alpha1SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -539,24 +533,18 @@ func (in *AlertruleV0Alpha1Observation) DeepCopyInto(out *AlertruleV0Alpha1Obser
 	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]AlertruleV0Alpha1MetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1MetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]AlertruleV0Alpha1OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]AlertruleV0Alpha1SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -635,24 +623,18 @@ func (in *AlertruleV0Alpha1Parameters) DeepCopyInto(out *AlertruleV0Alpha1Parame
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]AlertruleV0Alpha1MetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1MetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]AlertruleV0Alpha1OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]AlertruleV0Alpha1SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AlertruleV0Alpha1SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -762,10 +744,8 @@ func (in *AlertruleV0Alpha1SpecInitParameters) DeepCopyInto(out *AlertruleV0Alph
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = make([]NotificationSettingsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationSettingsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PanelRef != nil {
 		in, out := &in.PanelRef, &out.PanelRef
@@ -795,10 +775,8 @@ func (in *AlertruleV0Alpha1SpecInitParameters) DeepCopyInto(out *AlertruleV0Alph
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = make([]TriggerInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TriggerInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -890,10 +868,8 @@ func (in *AlertruleV0Alpha1SpecObservation) DeepCopyInto(out *AlertruleV0Alpha1S
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = make([]NotificationSettingsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationSettingsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PanelRef != nil {
 		in, out := &in.PanelRef, &out.PanelRef
@@ -923,10 +899,8 @@ func (in *AlertruleV0Alpha1SpecObservation) DeepCopyInto(out *AlertruleV0Alpha1S
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = make([]TriggerObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TriggerObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1018,10 +992,8 @@ func (in *AlertruleV0Alpha1SpecParameters) DeepCopyInto(out *AlertruleV0Alpha1Sp
 	}
 	if in.NotificationSettings != nil {
 		in, out := &in.NotificationSettings, &out.NotificationSettings
-		*out = make([]NotificationSettingsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NotificationSettingsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.PanelRef != nil {
 		in, out := &in.PanelRef, &out.PanelRef
@@ -1051,10 +1023,8 @@ func (in *AlertruleV0Alpha1SpecParameters) DeepCopyInto(out *AlertruleV0Alpha1Sp
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = make([]TriggerParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(TriggerParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -9711,24 +9681,18 @@ func (in *RecordingruleV0Alpha1InitParameters) DeepCopyInto(out *RecordingruleV0
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]RecordingruleV0Alpha1MetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1MetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]RecordingruleV0Alpha1OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]RecordingruleV0Alpha1SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -9890,24 +9854,18 @@ func (in *RecordingruleV0Alpha1Observation) DeepCopyInto(out *RecordingruleV0Alp
 	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]RecordingruleV0Alpha1MetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1MetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]RecordingruleV0Alpha1OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]RecordingruleV0Alpha1SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -9986,24 +9944,18 @@ func (in *RecordingruleV0Alpha1Parameters) DeepCopyInto(out *RecordingruleV0Alph
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]RecordingruleV0Alpha1MetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1MetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]RecordingruleV0Alpha1OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]RecordingruleV0Alpha1SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecordingruleV0Alpha1SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -10092,10 +10044,8 @@ func (in *RecordingruleV0Alpha1SpecInitParameters) DeepCopyInto(out *Recordingru
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = make([]SpecTriggerInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecTriggerInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -10166,10 +10116,8 @@ func (in *RecordingruleV0Alpha1SpecObservation) DeepCopyInto(out *RecordingruleV
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = make([]SpecTriggerObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecTriggerObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -10240,10 +10188,8 @@ func (in *RecordingruleV0Alpha1SpecParameters) DeepCopyInto(out *RecordingruleV0
 	}
 	if in.Trigger != nil {
 		in, out := &in.Trigger, &out.Trigger
-		*out = make([]SpecTriggerParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecTriggerParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
