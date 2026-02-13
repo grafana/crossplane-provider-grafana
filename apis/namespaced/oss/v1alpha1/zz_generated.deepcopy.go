@@ -1490,24 +1490,18 @@ func (in *DashboardV1Beta1InitParameters) DeepCopyInto(out *DashboardV1Beta1Init
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1563,24 +1557,18 @@ func (in *DashboardV1Beta1Observation) DeepCopyInto(out *DashboardV1Beta1Observa
 	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1599,24 +1587,18 @@ func (in *DashboardV1Beta1Parameters) DeepCopyInto(out *DashboardV1Beta1Paramete
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]MetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(MetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -5710,24 +5692,18 @@ func (in *PlaylistV0Alpha1InitParameters) DeepCopyInto(out *PlaylistV0Alpha1Init
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]PlaylistV0Alpha1MetadataInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1MetadataInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]PlaylistV0Alpha1OptionsInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1OptionsInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]PlaylistV0Alpha1SpecInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1SpecInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -5889,24 +5865,18 @@ func (in *PlaylistV0Alpha1Observation) DeepCopyInto(out *PlaylistV0Alpha1Observa
 	}
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]PlaylistV0Alpha1MetadataObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1MetadataObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]PlaylistV0Alpha1OptionsObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1OptionsObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]PlaylistV0Alpha1SpecObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1SpecObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -5985,24 +5955,18 @@ func (in *PlaylistV0Alpha1Parameters) DeepCopyInto(out *PlaylistV0Alpha1Paramete
 	*out = *in
 	if in.Metadata != nil {
 		in, out := &in.Metadata, &out.Metadata
-		*out = make([]PlaylistV0Alpha1MetadataParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1MetadataParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Options != nil {
 		in, out := &in.Options, &out.Options
-		*out = make([]PlaylistV0Alpha1OptionsParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1OptionsParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Spec != nil {
 		in, out := &in.Spec, &out.Spec
-		*out = make([]PlaylistV0Alpha1SpecParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(PlaylistV0Alpha1SpecParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

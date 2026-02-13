@@ -18,15 +18,15 @@ type K8So11YconfigV1Alpha1InitParameters struct {
 
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
-	Metadata []K8So11YconfigV1Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *K8So11YconfigV1Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
-	Options []K8So11YconfigV1Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *K8So11YconfigV1Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
-	Spec []K8So11YconfigV1Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *K8So11YconfigV1Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type K8So11YconfigV1Alpha1MetadataInitParameters struct {
@@ -88,15 +88,15 @@ type K8So11YconfigV1Alpha1Observation struct {
 
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
-	Metadata []K8So11YconfigV1Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *K8So11YconfigV1Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
-	Options []K8So11YconfigV1Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+	Options *K8So11YconfigV1Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
-	Spec []K8So11YconfigV1Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *K8So11YconfigV1Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type K8So11YconfigV1Alpha1OptionsInitParameters struct {
@@ -126,17 +126,17 @@ type K8So11YconfigV1Alpha1Parameters struct {
 	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
-	Metadata []K8So11YconfigV1Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *K8So11YconfigV1Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
-	Options []K8So11YconfigV1Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *K8So11YconfigV1Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
-	Spec []K8So11YconfigV1Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *K8So11YconfigV1Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type K8So11YconfigV1Alpha1SpecInitParameters struct {

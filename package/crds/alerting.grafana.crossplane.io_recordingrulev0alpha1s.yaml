@@ -77,90 +77,82 @@ spec:
                     description: |-
                       (Block, Optional) The metadata of the resource. (see below for nested schema)
                       The metadata of the resource.
-                    items:
-                      properties:
-                        folderUid:
-                          description: |-
-                            (String) The UID of the folder to save the resource in.
-                            The UID of the folder to save the resource in.
-                          type: string
-                        uid:
-                          description: |-
-                            (String) The unique identifier of the resource.
-                            The unique identifier of the resource.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      folderUid:
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
+                        type: string
+                      uid:
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
+                        type: string
+                    type: object
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
-                    items:
-                      properties:
-                        overwrite:
-                          description: |-
-                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      overwrite:
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        type: boolean
+                    type: object
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
-                    items:
-                      properties:
-                        expressions:
-                          additionalProperties:
+                    properties:
+                      expressions:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          value pairs to attach to the recorded metric.
+                          Key-value pairs to attach to the recorded metric.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      metric:
+                        description: |-
+                          (String) The name of the metric to write to.
+                          The name of the metric to write to.
+                        type: string
+                      paused:
+                        description: |-
+                          (Boolean) Sets whether the recording rule should be paused or not.
+                          Sets whether the recording rule should be paused or not.
+                        type: boolean
+                      targetDatasourceUid:
+                        description: |-
+                          (String) The UID of the datasource to write the metric to.
+                          The UID of the datasource to write the metric to.
+                        type: string
+                      title:
+                        description: |-
+                          (String) The title of the recording rule.
+                          The title of the recording rule.
+                        type: string
+                      trigger:
+                        description: |-
+                          (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                          The trigger configuration for the recording rule.
+                        properties:
+                          interval:
+                            description: |-
+                              (String) The interval at which the recording rule should be evaluated.
+                              The interval at which the recording rule should be evaluated.
                             type: string
-                          description: |-
-                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        labels:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to attach to the recorded metric.
-                            Key-value pairs to attach to the recorded metric.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        metric:
-                          description: |-
-                            (String) The name of the metric to write to.
-                            The name of the metric to write to.
-                          type: string
-                        paused:
-                          description: |-
-                            (Boolean) Sets whether the recording rule should be paused or not.
-                            Sets whether the recording rule should be paused or not.
-                          type: boolean
-                        targetDatasourceUid:
-                          description: |-
-                            (String) The UID of the datasource to write the metric to.
-                            The UID of the datasource to write the metric to.
-                          type: string
-                        title:
-                          description: |-
-                            (String) The title of the recording rule.
-                            The title of the recording rule.
-                          type: string
-                        trigger:
-                          description: |-
-                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
-                            The trigger configuration for the recording rule.
-                          items:
-                            properties:
-                              interval:
-                                description: |-
-                                  (String) The interval at which the recording rule should be evaluated.
-                                  The interval at which the recording rule should be evaluated.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                    type: object
                 type: object
               initProvider:
                 description: |-
@@ -179,90 +171,82 @@ spec:
                     description: |-
                       (Block, Optional) The metadata of the resource. (see below for nested schema)
                       The metadata of the resource.
-                    items:
-                      properties:
-                        folderUid:
-                          description: |-
-                            (String) The UID of the folder to save the resource in.
-                            The UID of the folder to save the resource in.
-                          type: string
-                        uid:
-                          description: |-
-                            (String) The unique identifier of the resource.
-                            The unique identifier of the resource.
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      folderUid:
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
+                        type: string
+                      uid:
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
+                        type: string
+                    type: object
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
-                    items:
-                      properties:
-                        overwrite:
-                          description: |-
-                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      overwrite:
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        type: boolean
+                    type: object
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
-                    items:
-                      properties:
-                        expressions:
-                          additionalProperties:
+                    properties:
+                      expressions:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          value pairs to attach to the recorded metric.
+                          Key-value pairs to attach to the recorded metric.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      metric:
+                        description: |-
+                          (String) The name of the metric to write to.
+                          The name of the metric to write to.
+                        type: string
+                      paused:
+                        description: |-
+                          (Boolean) Sets whether the recording rule should be paused or not.
+                          Sets whether the recording rule should be paused or not.
+                        type: boolean
+                      targetDatasourceUid:
+                        description: |-
+                          (String) The UID of the datasource to write the metric to.
+                          The UID of the datasource to write the metric to.
+                        type: string
+                      title:
+                        description: |-
+                          (String) The title of the recording rule.
+                          The title of the recording rule.
+                        type: string
+                      trigger:
+                        description: |-
+                          (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                          The trigger configuration for the recording rule.
+                        properties:
+                          interval:
+                            description: |-
+                              (String) The interval at which the recording rule should be evaluated.
+                              The interval at which the recording rule should be evaluated.
                             type: string
-                          description: |-
-                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        labels:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to attach to the recorded metric.
-                            Key-value pairs to attach to the recorded metric.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        metric:
-                          description: |-
-                            (String) The name of the metric to write to.
-                            The name of the metric to write to.
-                          type: string
-                        paused:
-                          description: |-
-                            (Boolean) Sets whether the recording rule should be paused or not.
-                            Sets whether the recording rule should be paused or not.
-                          type: boolean
-                        targetDatasourceUid:
-                          description: |-
-                            (String) The UID of the datasource to write the metric to.
-                            The UID of the datasource to write the metric to.
-                          type: string
-                        title:
-                          description: |-
-                            (String) The title of the recording rule.
-                            The title of the recording rule.
-                          type: string
-                        trigger:
-                          description: |-
-                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
-                            The trigger configuration for the recording rule.
-                          items:
-                            properties:
-                              interval:
-                                description: |-
-                                  (String) The interval at which the recording rule should be evaluated.
-                                  The interval at which the recording rule should be evaluated.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                    type: object
                 type: object
               managementPolicies:
                 default:
@@ -372,113 +356,105 @@ spec:
                     description: |-
                       (Block, Optional) The metadata of the resource. (see below for nested schema)
                       The metadata of the resource.
-                    items:
-                      properties:
-                        annotations:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            (Map of String) Annotations of the resource.
-                            Annotations of the resource.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        folderUid:
-                          description: |-
-                            (String) The UID of the folder to save the resource in.
-                            The UID of the folder to save the resource in.
+                    properties:
+                      annotations:
+                        additionalProperties:
                           type: string
-                        uid:
-                          description: |-
-                            (String) The unique identifier of the resource.
-                            The unique identifier of the resource.
-                          type: string
-                        url:
-                          description: |-
-                            (String) The full URL of the resource.
-                            The full URL of the resource.
-                          type: string
-                        uuid:
-                          description: |-
-                            (String) The globally unique identifier of a resource, used by the API for tracking.
-                            The globally unique identifier of a resource, used by the API for tracking.
-                          type: string
-                        version:
-                          description: |-
-                            (String) The version of the resource.
-                            The version of the resource.
-                          type: string
-                      type: object
-                    type: array
+                        description: |-
+                          (Map of String) Annotations of the resource.
+                          Annotations of the resource.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      folderUid:
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
+                        type: string
+                      uid:
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
+                        type: string
+                      url:
+                        description: |-
+                          (String) The full URL of the resource.
+                          The full URL of the resource.
+                        type: string
+                      uuid:
+                        description: |-
+                          (String) The globally unique identifier of a resource, used by the API for tracking.
+                          The globally unique identifier of a resource, used by the API for tracking.
+                        type: string
+                      version:
+                        description: |-
+                          (String) The version of the resource.
+                          The version of the resource.
+                        type: string
+                    type: object
                   options:
                     description: |-
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
-                    items:
-                      properties:
-                        overwrite:
-                          description: |-
-                            (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                            Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          type: boolean
-                      type: object
-                    type: array
+                    properties:
+                      overwrite:
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        type: boolean
+                    type: object
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
-                    items:
-                      properties:
-                        expressions:
-                          additionalProperties:
+                    properties:
+                      expressions:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      labels:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          value pairs to attach to the recorded metric.
+                          Key-value pairs to attach to the recorded metric.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      metric:
+                        description: |-
+                          (String) The name of the metric to write to.
+                          The name of the metric to write to.
+                        type: string
+                      paused:
+                        description: |-
+                          (Boolean) Sets whether the recording rule should be paused or not.
+                          Sets whether the recording rule should be paused or not.
+                        type: boolean
+                      targetDatasourceUid:
+                        description: |-
+                          (String) The UID of the datasource to write the metric to.
+                          The UID of the datasource to write the metric to.
+                        type: string
+                      title:
+                        description: |-
+                          (String) The title of the recording rule.
+                          The title of the recording rule.
+                        type: string
+                      trigger:
+                        description: |-
+                          (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+                          The trigger configuration for the recording rule.
+                        properties:
+                          interval:
+                            description: |-
+                              (String) The interval at which the recording rule should be evaluated.
+                              The interval at which the recording rule should be evaluated.
                             type: string
-                          description: |-
-                            (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                            A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        labels:
-                          additionalProperties:
-                            type: string
-                          description: |-
-                            value pairs to attach to the recorded metric.
-                            Key-value pairs to attach to the recorded metric.
-                          type: object
-                          x-kubernetes-map-type: granular
-                        metric:
-                          description: |-
-                            (String) The name of the metric to write to.
-                            The name of the metric to write to.
-                          type: string
-                        paused:
-                          description: |-
-                            (Boolean) Sets whether the recording rule should be paused or not.
-                            Sets whether the recording rule should be paused or not.
-                          type: boolean
-                        targetDatasourceUid:
-                          description: |-
-                            (String) The UID of the datasource to write the metric to.
-                            The UID of the datasource to write the metric to.
-                          type: string
-                        title:
-                          description: |-
-                            (String) The title of the recording rule.
-                            The title of the recording rule.
-                          type: string
-                        trigger:
-                          description: |-
-                            (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
-                            The trigger configuration for the recording rule.
-                          items:
-                            properties:
-                              interval:
-                                description: |-
-                                  (String) The interval at which the recording rule should be evaluated.
-                                  The interval at which the recording rule should be evaluated.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                        type: object
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

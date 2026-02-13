@@ -1300,10 +1300,8 @@ func (in *ScheduleInitParameters) DeepCopyInto(out *ScheduleInitParameters) {
 	*out = *in
 	if in.Cron != nil {
 		in, out := &in.Cron, &out.Cron
-		*out = make([]CronInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CronInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LoadTestID != nil {
 		in, out := &in.LoadTestID, &out.LoadTestID
@@ -1312,10 +1310,8 @@ func (in *ScheduleInitParameters) DeepCopyInto(out *ScheduleInitParameters) {
 	}
 	if in.RecurrenceRule != nil {
 		in, out := &in.RecurrenceRule, &out.RecurrenceRule
-		*out = make([]RecurrenceRuleInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecurrenceRuleInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Starts != nil {
 		in, out := &in.Starts, &out.Starts
@@ -1376,10 +1372,8 @@ func (in *ScheduleObservation) DeepCopyInto(out *ScheduleObservation) {
 	}
 	if in.Cron != nil {
 		in, out := &in.Cron, &out.Cron
-		*out = make([]CronObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CronObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Deactivated != nil {
 		in, out := &in.Deactivated, &out.Deactivated
@@ -1403,10 +1397,8 @@ func (in *ScheduleObservation) DeepCopyInto(out *ScheduleObservation) {
 	}
 	if in.RecurrenceRule != nil {
 		in, out := &in.RecurrenceRule, &out.RecurrenceRule
-		*out = make([]RecurrenceRuleObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecurrenceRuleObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Starts != nil {
 		in, out := &in.Starts, &out.Starts
@@ -1430,10 +1422,8 @@ func (in *ScheduleParameters) DeepCopyInto(out *ScheduleParameters) {
 	*out = *in
 	if in.Cron != nil {
 		in, out := &in.Cron, &out.Cron
-		*out = make([]CronParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CronParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.LoadTestID != nil {
 		in, out := &in.LoadTestID, &out.LoadTestID
@@ -1442,10 +1432,8 @@ func (in *ScheduleParameters) DeepCopyInto(out *ScheduleParameters) {
 	}
 	if in.RecurrenceRule != nil {
 		in, out := &in.RecurrenceRule, &out.RecurrenceRule
-		*out = make([]RecurrenceRuleParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RecurrenceRuleParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Starts != nil {
 		in, out := &in.Starts, &out.Starts

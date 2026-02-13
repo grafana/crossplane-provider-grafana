@@ -228,6 +228,8 @@ github.com/grafana/synthetic-monitoring-api-go-client v0.17.1 h1:6ZQoQVD0sASxe5O
 github.com/grafana/synthetic-monitoring-api-go-client v0.17.1/go.mod h1:3XfDhlxYkC/Apaug0e0vd4wHx8JZJ4k+v5ybny8ZGfc=
 github.com/grafana/terraform-provider-grafana/v4 v4.25.0 h1:1V+H4ILdtPSwdneiet6jjOXAsSanXJC0dLTauW88+w0=
 github.com/grafana/terraform-provider-grafana/v4 v4.25.0/go.mod h1:wtrkN2v6iZ/Rb8LZhGa/8Omm3shtEjUL73E5lx0icHo=
+github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9 h1:Pxh+hnc5vuZWnoh5M2GkBJ3OWo9tR985JHDtOfqbdgs=
+github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9/go.mod h1:jDCqvAFLrVEzqE+pywmQ5u18HbJK5j5Jj4cTQpqOLqY=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 h1:QGLs/O40yoNK9vmy4rhUGBVyMf1lISBGtXRpsu/Qu/o=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0/go.mod h1:hM2alZsMUni80N33RBe6J0e423LB+odMj7d3EMP9l20=
 github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.2 h1:sGm2vDRFUrQJO/Veii4h4zG2vvqG6uWNkBHSTqXOZk0=
@@ -430,8 +432,6 @@ github.com/rs/zerolog v1.34.0/go.mod h1:bJsvje4Z08ROH4Nhs5iH600c3IkWhwp44iRc54W6
 github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/russross/blackfriday/v2 v2.1.0 h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf35Ld67mk=
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
-github.com/rwwiv/upjet/v2 v2.1.1-0.20260130154016-5bea6888b4c8 h1:Ctl2NUi14lFv3h+jVdvDNz404+aVzWIH3rP34gmkY+Y=
-github.com/rwwiv/upjet/v2 v2.1.1-0.20260130154016-5bea6888b4c8/go.mod h1:jDCqvAFLrVEzqE+pywmQ5u18HbJK5j5Jj4cTQpqOLqY=
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=
 github.com/smartystreets/assertions v0.0.0-20190116191733-b6c0e53d7304 h1:Jpy1PXuP99tXNrhbq2BaPz9B+jNAvH1JPQQpG/9GCXY=
 github.com/smartystreets/assertions v0.0.0-20190116191733-b6c0e53d7304/go.mod h1:OnSkiWE9lh6wB0YB77sQom3nweQdgAjqCqsofrRNTgc=

@@ -126,7 +126,7 @@ type ScheduleInitParameters struct {
 
 	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	Cron []CronInitParameters `json:"cron,omitempty" tf:"cron,omitempty"`
+	Cron *CronInitParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
 	// (String) The identifier of the load test to schedule.
 	// The identifier of the load test to schedule.
@@ -134,7 +134,7 @@ type ScheduleInitParameters struct {
 
 	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	RecurrenceRule []RecurrenceRuleInitParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+	RecurrenceRule *RecurrenceRuleInitParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
 
 	// (String) The start time for the schedule (RFC3339 format).
 	// The start time for the schedule (RFC3339 format).
@@ -149,7 +149,7 @@ type ScheduleObservation struct {
 
 	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	Cron []CronObservation `json:"cron,omitempty" tf:"cron,omitempty"`
+	Cron *CronObservation `json:"cron,omitempty" tf:"cron,omitempty"`
 
 	// (Boolean) Whether the schedule is deactivated.
 	// Whether the schedule is deactivated.
@@ -168,7 +168,7 @@ type ScheduleObservation struct {
 
 	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	RecurrenceRule []RecurrenceRuleObservation `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+	RecurrenceRule *RecurrenceRuleObservation `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
 
 	// (String) The start time for the schedule (RFC3339 format).
 	// The start time for the schedule (RFC3339 format).
@@ -180,7 +180,7 @@ type ScheduleParameters struct {
 	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
 	// +kubebuilder:validation:Optional
-	Cron []CronParameters `json:"cron,omitempty" tf:"cron,omitempty"`
+	Cron *CronParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
 	// (String) The identifier of the load test to schedule.
 	// The identifier of the load test to schedule.
@@ -190,7 +190,7 @@ type ScheduleParameters struct {
 	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
 	// +kubebuilder:validation:Optional
-	RecurrenceRule []RecurrenceRuleParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+	RecurrenceRule *RecurrenceRuleParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
 
 	// (String) The start time for the schedule (RFC3339 format).
 	// The start time for the schedule (RFC3339 format).

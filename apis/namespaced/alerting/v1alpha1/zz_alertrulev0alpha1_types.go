@@ -17,13 +17,13 @@ import (
 type AlertruleV0Alpha1InitParameters struct {
 
 	// The metadata of the resource.
-	Metadata []AlertruleV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *AlertruleV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Options for applying the resource.
-	Options []AlertruleV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *AlertruleV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The spec of the resource.
-	Spec []AlertruleV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *AlertruleV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertruleV0Alpha1MetadataInitParameters struct {
@@ -72,13 +72,13 @@ type AlertruleV0Alpha1Observation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// The metadata of the resource.
-	Metadata []AlertruleV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *AlertruleV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Options for applying the resource.
-	Options []AlertruleV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+	Options *AlertruleV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The spec of the resource.
-	Spec []AlertruleV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *AlertruleV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertruleV0Alpha1OptionsInitParameters struct {
@@ -104,15 +104,15 @@ type AlertruleV0Alpha1Parameters struct {
 
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
-	Metadata []AlertruleV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	Metadata *AlertruleV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
-	Options []AlertruleV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+	Options *AlertruleV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
-	Spec []AlertruleV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	Spec *AlertruleV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertruleV0Alpha1SpecInitParameters struct {
@@ -145,7 +145,7 @@ type AlertruleV0Alpha1SpecInitParameters struct {
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
 	// Notification settings for the rule. If specified, it overrides the notification policies.
-	NotificationSettings []NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +mapType=granular
@@ -158,7 +158,7 @@ type AlertruleV0Alpha1SpecInitParameters struct {
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// The trigger configuration for the alert rule.
-	Trigger []TriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger *TriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type AlertruleV0Alpha1SpecObservation struct {
@@ -191,7 +191,7 @@ type AlertruleV0Alpha1SpecObservation struct {
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
 	// Notification settings for the rule. If specified, it overrides the notification policies.
-	NotificationSettings []NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+	NotificationSettings *NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +mapType=granular
@@ -204,7 +204,7 @@ type AlertruleV0Alpha1SpecObservation struct {
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
 	// The trigger configuration for the alert rule.
-	Trigger []TriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
+	Trigger *TriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type AlertruleV0Alpha1SpecParameters struct {
@@ -246,7 +246,7 @@ type AlertruleV0Alpha1SpecParameters struct {
 
 	// Notification settings for the rule. If specified, it overrides the notification policies.
 	// +kubebuilder:validation:Optional
-	NotificationSettings []NotificationSettingsParameters `json:"notificationSettings" tf:"notification_settings,omitempty"`
+	NotificationSettings *NotificationSettingsParameters `json:"notificationSettings" tf:"notification_settings,omitempty"`
 
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +kubebuilder:validation:Optional
@@ -263,7 +263,7 @@ type AlertruleV0Alpha1SpecParameters struct {
 
 	// The trigger configuration for the alert rule.
 	// +kubebuilder:validation:Optional
-	Trigger []TriggerParameters `json:"trigger" tf:"trigger,omitempty"`
+	Trigger *TriggerParameters `json:"trigger" tf:"trigger,omitempty"`
 }
 
 type NotificationSettingsInitParameters struct {
