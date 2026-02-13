@@ -6,7 +6,7 @@ on:
 
 env:
   # Common versions
-  DOCKER_BUILDX_VERSION: 'v0.8.2'
+  DOCKER_BUILDX_VERSION: 'v0.31.1'
 
 jobs:
   detect-noop:
@@ -305,7 +305,6 @@ jobs:
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
         with:
           version: ${{ env.DOCKER_BUILDX_VERSION }}
-          install: 'true'
 
       - name: Get Upbound Credentials from Vault
         uses: grafana/shared-workflows/actions/get-vault-secrets@a37de51f3d713a30a9e4b21bcdfbd38170020593 # get-vault-secrets/v1.3.0

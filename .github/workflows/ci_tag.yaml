@@ -10,7 +10,7 @@ on:
 
 env:
   # Common versions
-  DOCKER_BUILDX_VERSION: 'v0.8.2'
+  DOCKER_BUILDX_VERSION: 'v0.31.1'
 
 jobs:
   detect-noop:
