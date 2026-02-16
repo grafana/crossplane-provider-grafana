@@ -76,7 +76,7 @@ func TestResolveProbeNames(t *testing.T) {
 			},
 			probeNames:    []string{"Amsterdam", "NonExistent"},
 			wantErr:       true,
-			wantErrSubstr: "probe names not found: [NonExistent]",
+			wantErrSubstr: "Probes not found: [NonExistent]",
 		},
 		{
 			name: "returns error for all missing probe names",
@@ -85,7 +85,7 @@ func TestResolveProbeNames(t *testing.T) {
 			},
 			probeNames:    []string{"NonExistent1", "NonExistent2"},
 			wantErr:       true,
-			wantErrSubstr: "probe names not found:",
+			wantErrSubstr: "Probes not found:",
 		},
 		{
 			name:       "handles empty probe names list",
@@ -326,6 +326,177 @@ func TestResolveSMCheckProbeNames_SMURLFromCredSpec(t *testing.T) {
 	err := resolveSMCheckProbeNames(context.Background(), client, check, creds, credSpec)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
+	}
+}
+
+// TestResolveSMCheckProbeNames_AnnotationHash verifies that the annotation hash optimization
+// skips API calls when probeNames hasn't changed.
+func TestResolveSMCheckProbeNames_AnnotationHash(t *testing.T) {
+	apiCallCount := 0
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		apiCallCount++
+		if r.URL.Path == "/api/v1/probe/list" {
+			probes := []synthetic_monitoring.Probe{{Id: 1, Name: "Amsterdam"}}
+			w.Header().Set("Content-Type", "application/json")
+			if err := json.NewEncoder(w).Encode(probes); err != nil {
+				t.Fatalf("failed to encode probes: %v", err)
+			}
+			return
+		}
+		http.NotFound(w, r)
+	}))
+	defer server.Close()
+
+	check := &clustersm.Check{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "test-check",
+		},
+		Spec: clustersm.CheckSpec{
+			ForProvider: clustersm.CheckParameters{
+				ProbeNames: []string{"Amsterdam"},
+			},
+		},
+	}
+
+	scheme := createSMScheme(t)
+	client := fake.NewClientBuilder().
+		WithScheme(scheme).
+		WithObjects(check).
+		Build()
+
+	creds := map[string]string{
+		"sm_url":          server.URL,
+		"sm_access_token": "test-token",
+	}
+
+	// First call - should make API call and set annotation
+	err := resolveSMCheckProbeNames(context.Background(), client, check, creds, Config{})
+	if err != nil {
+		t.Fatalf("first call: unexpected error: %v", err)
+	}
+	if apiCallCount != 1 {
+		t.Errorf("first call: expected 1 API call, got %d", apiCallCount)
+	}
+
+	// Fetch the updated check with annotation
+	updatedCheck := &clustersm.Check{}
+	if err := client.Get(context.Background(), types.NamespacedName{Name: "test-check"}, updatedCheck); err != nil {
+		t.Fatalf("failed to get updated check: %v", err)
+	}
+
+	// Verify annotation was set
+	ann := updatedCheck.GetAnnotations()
+	if ann == nil || ann[probeNamesHashAnnotation] == "" {
+		t.Error("expected probe-names-hash annotation to be set")
+	}
+
+	// Second call with same probeNames - should skip API call
+	err = resolveSMCheckProbeNames(context.Background(), client, updatedCheck, creds, Config{})
+	if err != nil {
+		t.Fatalf("second call: unexpected error: %v", err)
+	}
+	if apiCallCount != 1 {
+		t.Errorf("second call: expected 1 API call (cached), got %d", apiCallCount)
+	}
+
+	// Third call with changed probeNames - should make API call
+	updatedCheck.Spec.ForProvider.ProbeNames = []string{"Amsterdam"} // Same, but let's change the hash
+	// Actually modify probeNames to trigger a new API call
+	updatedCheck.Spec.ForProvider.ProbeNames = []string{"Amsterdam"}
+	// Clear the annotation to simulate a probeNames change
+	ann = updatedCheck.GetAnnotations()
+	ann[probeNamesHashAnnotation] = "different-hash"
+	updatedCheck.SetAnnotations(ann)
+	if err := client.Update(context.Background(), updatedCheck); err != nil {
+		t.Fatalf("failed to update check: %v", err)
+	}
+
+	err = resolveSMCheckProbeNames(context.Background(), client, updatedCheck, creds, Config{})
+	if err != nil {
+		t.Fatalf("third call: unexpected error: %v", err)
+	}
+	if apiCallCount != 2 {
+		t.Errorf("third call: expected 2 API calls (hash changed), got %d", apiCallCount)
+	}
+}
+
+// TestHashProbeNames verifies the hash function produces consistent results.
+func TestHashProbeNames(t *testing.T) {
+	cases := []struct {
+		name    string
+		input1  []string
+		input2  []string
+		wantEq  bool
+	}{
+		{
+			name:   "same names same order",
+			input1: []string{"a", "b", "c"},
+			input2: []string{"a", "b", "c"},
+			wantEq: true,
+		},
+		{
+			name:   "same names different order",
+			input1: []string{"c", "a", "b"},
+			input2: []string{"a", "b", "c"},
+			wantEq: true, // Should be equal after sorting
+		},
+		{
+			name:   "different names",
+			input1: []string{"a", "b"},
+			input2: []string{"a", "c"},
+			wantEq: false,
+		},
+		{
+			name:   "empty slices",
+			input1: []string{},
+			input2: []string{},
+			wantEq: true,
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			hash1 := hashProbeNames(tc.input1)
+			hash2 := hashProbeNames(tc.input2)
+			if tc.wantEq && hash1 != hash2 {
+				t.Errorf("expected hashes to be equal: %s != %s", hash1, hash2)
+			}
+			if !tc.wantEq && hash1 == hash2 {
+				t.Errorf("expected hashes to be different: %s == %s", hash1, hash2)
+			}
+		})
+	}
+}
+
+// TestResolveSMCheckProbeNames_ErrorMessageFormat verifies the comprehensive error message format.
+func TestResolveSMCheckProbeNames_ErrorMessageFormat(t *testing.T) {
+	probes := []synthetic_monitoring.Probe{
+		{Id: 1, Name: "Amsterdam"},
+		{Id: 2, Name: "Atlanta"},
+		{Id: 3, Name: "Frankfurt"},
+	}
+	server := createMockSMServer(t, probes)
+	defer server.Close()
+
+	_, err := resolveProbeNames(context.Background(), server.URL, "test-token", []string{"Amsterdam", "NonExistent", "AlsoMissing"})
+	if err == nil {
+		t.Fatal("expected error, got nil")
+	}
+
+	errMsg := err.Error()
+	// Verify all components are present
+	if !containsSubstring(errMsg, "Requested probe names:") {
+		t.Error("error should contain 'Requested probe names:'")
+	}
+	if !containsSubstring(errMsg, "Probes not found:") {
+		t.Error("error should contain 'Probes not found:'")
+	}
+	if !containsSubstring(errMsg, "Available probes:") {
+		t.Error("error should contain 'Available probes:'")
+	}
+	// Verify available probes are listed
+	if !containsSubstring(errMsg, "Amsterdam") || !containsSubstring(errMsg, "Atlanta") || !containsSubstring(errMsg, "Frankfurt") {
+		t.Errorf("error should list all available probes, got: %s", errMsg)
 	}
 }
 
