@@ -218,6 +218,12 @@ type CheckInitParameters struct {
 	// +listType=set
 	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
 
+	// CUSTOM FIELD: List of probe names to resolve to probe IDs.
+	// If set, this will override the Probes field with the resolved probe IDs on every reconciliation.
+	// This field is excluded from Terraform via tf:"-" tag.
+	// +kubebuilder:validation:Optional
+	ProbeNames []string `json:"probeNames,omitempty" tf:"-"`
+
 	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
 	// Check settings. Should contain exactly one nested block.
 	Settings []SettingsInitParameters `json:"settings,omitempty" tf:"settings,omitempty"`
@@ -265,6 +271,12 @@ type CheckObservation struct {
 	// List of probe location IDs where this target will be checked from.
 	// +listType=set
 	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
+
+	// CUSTOM FIELD: List of probe names to resolve to probe IDs.
+	// If set, this will override the Probes field with the resolved probe IDs on every reconciliation.
+	// This field is excluded from Terraform via tf:"-" tag.
+	// +kubebuilder:validation:Optional
+	ProbeNames []string `json:"probeNames,omitempty" tf:"-"`
 
 	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
 	// Check settings. Should contain exactly one nested block.
@@ -321,6 +333,12 @@ type CheckParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Probes []*float64 `json:"probes,omitempty" tf:"probes,omitempty"`
+
+	// CUSTOM FIELD: List of probe names to resolve to probe IDs.
+	// If set, this will override the Probes field with the resolved probe IDs on every reconciliation.
+	// This field is excluded from Terraform via tf:"-" tag.
+	// +kubebuilder:validation:Optional
+	ProbeNames []string `json:"probeNames,omitempty" tf:"-"`
 
 	// (Block Set, Min: 1, Max: 1) Check settings. Should contain exactly one nested block. (see below for nested schema)
 	// Check settings. Should contain exactly one nested block.

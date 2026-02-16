@@ -97,6 +97,14 @@ spec:
                       Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
                     type: object
                     x-kubernetes-map-type: granular
+                  probeNames:
+                    description: |-
+                      CUSTOM FIELD: List of probe names to resolve to probe IDs.
+                      If set, this will override the Probes field with the resolved probe IDs on every reconciliation.
+                      This field is excluded from Terraform via tf:"-" tag.
+                    items:
+                      type: string
+                    type: array
                   probes:
                     description: |-
                       (Set of Number) List of probe location IDs where this target will be checked from.
@@ -896,6 +904,14 @@ spec:
                       Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
                     type: object
                     x-kubernetes-map-type: granular
+                  probeNames:
+                    description: |-
+                      CUSTOM FIELD: List of probe names to resolve to probe IDs.
+                      If set, this will override the Probes field with the resolved probe IDs on every reconciliation.
+                      This field is excluded from Terraform via tf:"-" tag.
+                    items:
+                      type: string
+                    type: array
                   probes:
                     description: |-
                       (Set of Number) List of probe location IDs where this target will be checked from.
@@ -1767,6 +1783,14 @@ spec:
                       Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
                     type: object
                     x-kubernetes-map-type: granular
+                  probeNames:
+                    description: |-
+                      CUSTOM FIELD: List of probe names to resolve to probe IDs.
+                      If set, this will override the Probes field with the resolved probe IDs on every reconciliation.
+                      This field is excluded from Terraform via tf:"-" tag.
+                    items:
+                      type: string
+                    type: array
                   probes:
                     description: |-
                       (Set of Number) List of probe location IDs where this target will be checked from.

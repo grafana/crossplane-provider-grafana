@@ -195,6 +195,11 @@ func TerraformSetupBuilder() terraform.SetupFn {
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
+		// Resolve ProbeNames to Probes for SM Check resources
+		if err := resolveSMCheckProbeNames(ctx, client, mg, creds, credSpec); err != nil {
+			return ps, errors.Wrap(err, "failed to resolve probe names")
+		}
+
 		// Set credentials in Terraform provider configuration.
 		// https://registry.terraform.io/providers/grafana/grafana/latest/docs
 		ps.Configuration = map[string]any{}

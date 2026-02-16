@@ -28,6 +28,9 @@ Copyright 2021 Upbound Inc.
 // Patch OnCall contact point types to add URLSecretRef field
 //go:generate bash ../hack/patch-oncall-urlsecretref.sh
 
+// Patch SM Check types to add custom ProbeNames field
+//go:generate bash ../hack/patch-sm-check-probenames.sh
+
 // Generate deepcopy methodsets and CRD manifests
 //go:generate go run -tags generate sigs.k8s.io/controller-tools/cmd/controller-gen object:headerFile=../hack/boilerplate.go.txt paths=./... crd:allowDangerousTypes=true,crdVersions=v1 output:artifacts:config=../package/crds
 
