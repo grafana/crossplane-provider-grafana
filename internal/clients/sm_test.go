@@ -380,8 +380,8 @@ func TestResolveSMCheckProbeNames_AnnotationHash(t *testing.T) {
 
 	// Fetch the updated check with annotation
 	updatedCheck := &clustersm.Check{}
-	if err := client.Get(context.Background(), types.NamespacedName{Name: "test-check"}, updatedCheck); err != nil {
-		t.Fatalf("failed to get updated check: %v", err)
+	if getErr := client.Get(context.Background(), types.NamespacedName{Name: "test-check"}, updatedCheck); getErr != nil {
+		t.Fatalf("failed to get updated check: %v", getErr)
 	}
 
 	// Verify annotation was set
@@ -407,8 +407,8 @@ func TestResolveSMCheckProbeNames_AnnotationHash(t *testing.T) {
 	ann = updatedCheck.GetAnnotations()
 	ann[probeNamesHashAnnotation] = "different-hash"
 	updatedCheck.SetAnnotations(ann)
-	if err := client.Update(context.Background(), updatedCheck); err != nil {
-		t.Fatalf("failed to update check: %v", err)
+	if updateErr := client.Update(context.Background(), updatedCheck); updateErr != nil {
+		t.Fatalf("failed to update check: %v", updateErr)
 	}
 
 	err = resolveSMCheckProbeNames(context.Background(), client, updatedCheck, creds, Config{})
@@ -423,10 +423,10 @@ func TestResolveSMCheckProbeNames_AnnotationHash(t *testing.T) {
 // TestHashProbeNames verifies the hash function produces consistent results.
 func TestHashProbeNames(t *testing.T) {
 	cases := []struct {
-		name    string
-		input1  []string
-		input2  []string
-		wantEq  bool
+		name   string
+		input1 []string
+		input2 []string
+		wantEq bool
 	}{
 		{
 			name:   "same names same order",
