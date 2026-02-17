@@ -439,7 +439,7 @@ func Configure(p *ujconfig.Provider) {
 			TerraformName:     "grafana_oncall_integration",
 			RefFieldName:      "OncallIntegrationRef",
 			SelectorFieldName: "OncallIntegrationSelector",
-			Extractor:         fieldExtractor("link"),
+			Extractor:         computedFieldExtractor("link"),
 		}
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {

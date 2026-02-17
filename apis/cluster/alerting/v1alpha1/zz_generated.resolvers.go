@@ -25,7 +25,7 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Oncall); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Oncall[i3].URL),
-			Extract:      grafana.FieldExtractor("link"),
+			Extract:      grafana.ComputedFieldExtractor("link"),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.Oncall[i3].OncallIntegrationRef,
 			Selector:     mg.Spec.ForProvider.Oncall[i3].OncallIntegrationSelector,
@@ -61,7 +61,7 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Oncall); i3++ {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Oncall[i3].URL),
-			Extract:      grafana.FieldExtractor("link"),
+			Extract:      grafana.ComputedFieldExtractor("link"),
 			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.Oncall[i3].OncallIntegrationRef,
 			Selector:     mg.Spec.InitProvider.Oncall[i3].OncallIntegrationSelector,
