@@ -1414,6 +1414,10 @@ type OncallInitParameters struct {
 	// +crossplane:generate:reference:refFieldName=OncallIntegrationRef
 	// +crossplane:generate:reference:selectorFieldName=OncallIntegrationSelector
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// The OnCall webhook URL (from secret).
+	// +kubebuilder:validation:Optional
+	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 type OncallObservation struct {
@@ -1523,6 +1527,10 @@ type OncallParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=OncallIntegrationSelector
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+	// The OnCall webhook URL (from secret).
+	// +kubebuilder:validation:Optional
+	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 type OpsgenieInitParameters struct {
