@@ -1,0 +1,50 @@
+---
+# Provider package and installation
+# NOTE: The package reference will be updated by the test script with the built xpkg
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-grafana
+spec:
+  package: xpkg.upbound.io/grafana/provider-grafana:v0.0.0-0.sha.local
+  packagePullPolicy: IfNotPresent
+  controllerConfigRef:
+    name: grafana-provider-config
+
+---
+# Controller configuration with SafeStart enabled
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: grafana-provider-config
+spec:
+  args:
+    - --debug
+    - --enable-safe-start
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+---
+# DeploymentRuntimeConfig for additional provider settings
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
+metadata:
+  name: grafana-runtime-config
+spec:
+  deploymentTemplate:
+    spec:
+      selector: {}
+      template:
+        spec:
+          containers:
+            - name: package-runtime
+              args:
+                - --debug
+                - --enable-safe-start
+                - --poll=5m
+                - --max-reconcile-rate=10
