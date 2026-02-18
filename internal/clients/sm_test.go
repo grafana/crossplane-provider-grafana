@@ -289,6 +289,68 @@ func TestResolveSMCheckProbeNames_NoProbeNames(t *testing.T) {
 	}
 }
 
+// TestResolveSMCheckProbeNames_BothProbesAndProbeNames verifies that ProbeNames takes precedence
+// and overwrites the Probes field when both are set.
+func TestResolveSMCheckProbeNames_BothProbesAndProbeNames(t *testing.T) {
+	probes := []synthetic_monitoring.Probe{
+		{Id: 1, Name: "Amsterdam"},
+		{Id: 2, Name: "New York"},
+	}
+	server := createMockSMServer(t, probes)
+	defer server.Close()
+
+	// Create a check with BOTH Probes and ProbeNames set
+	existingProbeID1 := float64Ptr(99.0)
+	existingProbeID2 := float64Ptr(88.0)
+
+	check := &clustersm.Check{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "test-check",
+		},
+		Spec: clustersm.CheckSpec{
+			ForProvider: clustersm.CheckParameters{
+				Probes:     []*float64{existingProbeID1, existingProbeID2}, // Existing probe IDs
+				ProbeNames: []string{"Amsterdam", "New York"},              // Will be resolved to IDs 1 and 2
+			},
+		},
+	}
+
+	scheme := createSMScheme(t)
+	client := fake.NewClientBuilder().
+		WithScheme(scheme).
+		WithObjects(check).
+		Build()
+
+	creds := map[string]string{
+		"sm_url":          server.URL,
+		"sm_access_token": "test-token",
+	}
+
+	err := resolveSMCheckProbeNames(context.Background(), client, check, creds, Config{})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	// Verify that ProbeNames took precedence and overwrote the Probes field
+	updatedCheck := &clustersm.Check{}
+	if err := client.Get(context.Background(), types.NamespacedName{Name: "test-check"}, updatedCheck); err != nil {
+		t.Fatalf("failed to get updated check: %v", err)
+	}
+
+	// The Probes field should now contain the resolved IDs from ProbeNames (1, 2),
+	// NOT the original values (99, 88)
+	wantProbes := []*float64{float64Ptr(1.0), float64Ptr(2.0)}
+	if diff := cmp.Diff(wantProbes, updatedCheck.Spec.ForProvider.Probes); diff != "" {
+		t.Errorf("probes mismatch (-want +got):\n%s", diff)
+	}
+
+	// Verify that ProbeNames is still set
+	wantProbeNames := []string{"Amsterdam", "New York"}
+	if diff := cmp.Diff(wantProbeNames, updatedCheck.Spec.ForProvider.ProbeNames); diff != "" {
+		t.Errorf("probeNames mismatch (-want +got):\n%s", diff)
+	}
+}
+
 // TestResolveSMCheckProbeNames_SMURLFromCredSpec verifies that SM URL from Config overrides the credentials map.
 func TestResolveSMCheckProbeNames_SMURLFromCredSpec(t *testing.T) {
 	probes := []synthetic_monitoring.Probe{
