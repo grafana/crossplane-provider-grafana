@@ -9,6 +9,8 @@ require (
 	github.com/crossplane/crossplane-tools v0.0.0-20251017183449-dd4517244339
 	github.com/crossplane/upjet/v2 v2.2.0
 	github.com/google/go-cmp v0.7.0
+	github.com/grafana/synthetic-monitoring-agent v0.43.1
+	github.com/grafana/synthetic-monitoring-api-go-client v0.17.1
 	github.com/grafana/terraform-provider-grafana/v4 v4.25.0
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.2
@@ -101,8 +103,6 @@ require (
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.8 // indirect
 	github.com/grafana/river v0.3.0 // indirect
 	github.com/grafana/slo-openapi-client/go/slo v0.0.0-20250218172929-ab9cae090da6 // indirect
-	github.com/grafana/synthetic-monitoring-agent v0.43.1 // indirect
-	github.com/grafana/synthetic-monitoring-api-go-client v0.17.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.2 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.2 // indirect

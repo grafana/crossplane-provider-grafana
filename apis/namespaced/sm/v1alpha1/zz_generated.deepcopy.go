@@ -712,6 +712,11 @@ func (in *CheckInitParameters) DeepCopyInto(out *CheckInitParameters) {
 			}
 		}
 	}
+	if in.ProbeNames != nil {
+		in, out := &in.ProbeNames, &out.ProbeNames
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	if in.Settings != nil {
 		in, out := &in.Settings, &out.Settings
 		*out = make([]SettingsInitParameters, len(*in))
@@ -833,6 +838,11 @@ func (in *CheckObservation) DeepCopyInto(out *CheckObservation) {
 			}
 		}
 	}
+	if in.ProbeNames != nil {
+		in, out := &in.ProbeNames, &out.ProbeNames
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	if in.Settings != nil {
 		in, out := &in.Settings, &out.Settings
 		*out = make([]SettingsObservation, len(*in))
@@ -921,6 +931,11 @@ func (in *CheckParameters) DeepCopyInto(out *CheckParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.ProbeNames != nil {
+		in, out := &in.ProbeNames, &out.ProbeNames
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.Settings != nil {
 		in, out := &in.Settings, &out.Settings
