@@ -1411,7 +1411,7 @@ type OncallInitParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The URL to send webhook requests to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oncall/v1alpha1.Integration
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("link")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("link")
 	// +crossplane:generate:reference:refFieldName=OncallIntegrationRef
 	// +crossplane:generate:reference:selectorFieldName=OncallIntegrationSelector
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -1519,7 +1519,7 @@ type OncallParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The URL to send webhook requests to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oncall/v1alpha1.Integration
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("link")
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("link")
 	// +crossplane:generate:reference:refFieldName=OncallIntegrationRef
 	// +crossplane:generate:reference:selectorFieldName=OncallIntegrationSelector
 	// +kubebuilder:validation:Optional
