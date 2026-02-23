@@ -10,7 +10,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v1common "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 )
 
 type RecordingruleV0Alpha1InitParameters struct {
@@ -140,10 +141,9 @@ type RecordingruleV0Alpha1Parameters struct {
 
 type RecordingruleV0Alpha1SpecInitParameters struct {
 
-	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
+	// (Dynamic) A sequence of stages that describe the contents of the rule.
+	// A sequence of stages that describe the contents of the rule.
+	Expressions *v1.JSON `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
 	// value pairs to attach to the recorded metric.
 	// Key-value pairs to attach to the recorded metric.
@@ -173,10 +173,9 @@ type RecordingruleV0Alpha1SpecInitParameters struct {
 
 type RecordingruleV0Alpha1SpecObservation struct {
 
-	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
+	// (Dynamic) A sequence of stages that describe the contents of the rule.
+	// A sequence of stages that describe the contents of the rule.
+	Expressions *v1.JSON `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
 	// value pairs to attach to the recorded metric.
 	// Key-value pairs to attach to the recorded metric.
@@ -206,11 +205,10 @@ type RecordingruleV0Alpha1SpecObservation struct {
 
 type RecordingruleV0Alpha1SpecParameters struct {
 
-	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+	// (Dynamic) A sequence of stages that describe the contents of the rule.
+	// A sequence of stages that describe the contents of the rule.
 	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions" tf:"expressions,omitempty"`
+	Expressions *v1.JSON `json:"expressions" tf:"expressions,omitempty"`
 
 	// value pairs to attach to the recorded metric.
 	// Key-value pairs to attach to the recorded metric.
@@ -268,8 +266,8 @@ type SpecTriggerParameters struct {
 
 // RecordingruleV0Alpha1Spec defines the desired state of RecordingruleV0Alpha1
 type RecordingruleV0Alpha1Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     RecordingruleV0Alpha1Parameters `json:"forProvider"`
+	v1common.ResourceSpec `json:",inline"`
+	ForProvider           RecordingruleV0Alpha1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -285,8 +283,8 @@ type RecordingruleV0Alpha1Spec struct {
 
 // RecordingruleV0Alpha1Status defines the observed state of RecordingruleV0Alpha1.
 type RecordingruleV0Alpha1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RecordingruleV0Alpha1Observation `json:"atProvider,omitempty"`
+	v1common.ResourceStatus `json:",inline"`
+	AtProvider              RecordingruleV0Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

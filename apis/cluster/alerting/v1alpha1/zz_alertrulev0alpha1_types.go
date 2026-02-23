@@ -10,7 +10,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v1common "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 )
 
 type AlertruleV0Alpha1InitParameters struct {
@@ -123,9 +124,8 @@ type AlertruleV0Alpha1SpecInitParameters struct {
 	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
+	// A sequence of stages that describe the contents of the rule.
+	Expressions *v1.JSON `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
 	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
@@ -169,9 +169,8 @@ type AlertruleV0Alpha1SpecObservation struct {
 	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
+	// A sequence of stages that describe the contents of the rule.
+	Expressions *v1.JSON `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
 	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
@@ -217,10 +216,9 @@ type AlertruleV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	ExecErrState *string `json:"execErrState" tf:"exec_err_state,omitempty"`
 
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+	// A sequence of stages that describe the contents of the rule.
 	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions" tf:"expressions,omitempty"`
+	Expressions *v1.JSON `json:"expressions" tf:"expressions,omitempty"`
 
 	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	// +kubebuilder:validation:Optional
@@ -365,8 +363,8 @@ type TriggerParameters struct {
 
 // AlertruleV0Alpha1Spec defines the desired state of AlertruleV0Alpha1
 type AlertruleV0Alpha1Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AlertruleV0Alpha1Parameters `json:"forProvider"`
+	v1common.ResourceSpec `json:",inline"`
+	ForProvider           AlertruleV0Alpha1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -382,8 +380,8 @@ type AlertruleV0Alpha1Spec struct {
 
 // AlertruleV0Alpha1Status defines the observed state of AlertruleV0Alpha1.
 type AlertruleV0Alpha1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AlertruleV0Alpha1Observation `json:"atProvider,omitempty"`
+	v1common.ResourceStatus `json:",inline"`
+	AtProvider              AlertruleV0Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

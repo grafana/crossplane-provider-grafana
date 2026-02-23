@@ -83,12 +83,12 @@ require (
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
-	github.com/grafana/amixr-api-go-client v0.0.27 // indirect
+	github.com/grafana/amixr-api-go-client v0.0.28 // indirect
 	github.com/grafana/authlib/claims v0.0.0-20250120084028-e3328c576437 // indirect
 	github.com/grafana/fleet-management-api v1.2.0 // indirect
 	github.com/grafana/grafana-app-sdk v0.48.1 // indirect
 	github.com/grafana/grafana-app-sdk/logging v0.48.1 // indirect
-	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260118214857-d2d6ad8fdcf2 // indirect
+	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 // indirect
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20251216082918-50bdab3538ca // indirect
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20250617151817-c0f8cbb88d5c // indirect
 	github.com/grafana/grafana-plugin-sdk-go v0.275.0 // indirect
@@ -112,7 +112,7 @@ require (
 	github.com/hashicorp/go-hclog v1.6.3 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-plugin v1.7.0 // indirect
-	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
+	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/hashicorp/go-version v1.8.0 // indirect
 	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
@@ -243,3 +243,5 @@ require (
 )
 
 replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9
+
+replace github.com/grafana/terraform-provider-grafana/v4 => ../terraform-provider-grafana

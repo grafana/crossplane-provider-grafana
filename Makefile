@@ -8,7 +8,7 @@ export TERRAFORM_VERSION := 1.7.5
 
 export TERRAFORM_PROVIDER_SOURCE := grafana/grafana
 export TERRAFORM_PROVIDER_REPO := https://github.com/grafana/terraform-provider-grafana
-export TERRAFORM_PROVIDER_VERSION := $(shell grep terraform-provider-grafana go.mod | awk '{print $$2}' | sed 's/v//')
+export TERRAFORM_PROVIDER_VERSION := 4.25.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-grafana
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX := https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/v$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY := $(TERRAFORM_PROVIDER_DOWNLOAD_NAME)_v$(TERRAFORM_PROVIDER_VERSION)
@@ -103,6 +103,10 @@ TERRAFORM := $(TOOLS_HOST_DIR)/terraform-$(TERRAFORM_VERSION)
 TERRAFORM_WORKDIR := $(WORK_DIR)/terraform
 TERRAFORM_PROVIDER_SCHEMA := config/schema.json
 
+# Set LOCAL_TERRAFORM_PROVIDER_PATH to use a local terraform provider build
+# e.g. make generate LOCAL_TERRAFORM_PROVIDER_PATH=../terraform-provider-grafana
+LOCAL_TERRAFORM_PROVIDER_PATH ?= ../terraform-provider-grafana
+
 $(TERRAFORM):
 	@$(INFO) installing terraform $(HOSTOS)-$(HOSTARCH)
 	@mkdir -p $(TOOLS_HOST_DIR)/tmp-terraform
@@ -113,19 +117,39 @@ $(TERRAFORM):
 	@$(OK) installing terraform $(HOSTOS)-$(HOSTARCH)
 
 $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
+ifdef LOCAL_TERRAFORM_PROVIDER_PATH
+	@$(INFO) generating provider schema using LOCAL provider at $(LOCAL_TERRAFORM_PROVIDER_PATH)
+	@mkdir -p $(TERRAFORM_WORKDIR)
+	@LOCAL_PROVIDER_ABS=$$(cd $(LOCAL_TERRAFORM_PROVIDER_PATH) && pwd) && \
+	echo '{"terraform":[{"required_providers":[{"provider":{"source":"'"$(TERRAFORM_PROVIDER_SOURCE)"'"}}]}]}' > $(TERRAFORM_WORKDIR)/main.tf.json && \
+	echo 'provider_installation { dev_overrides { "$(TERRAFORM_PROVIDER_SOURCE)" = "'"$$LOCAL_PROVIDER_ABS"'" } direct {} }' > $(TERRAFORM_WORKDIR)/dev.tfrc && \
+	TF_CLI_CONFIG_FILE=$(TERRAFORM_WORKDIR)/dev.tfrc $(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2> $(TERRAFORM_WORKDIR)/terraform-logs.txt
+	@$(OK) generating provider schema using LOCAL provider at $(LOCAL_TERRAFORM_PROVIDER_PATH)
+else
 	@$(INFO) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
 	@mkdir -p $(TERRAFORM_WORKDIR)
 	@echo '{"terraform":[{"required_providers":[{"provider":{"source":"'"$(TERRAFORM_PROVIDER_SOURCE)"'","version":"'"$(TERRAFORM_PROVIDER_VERSION)"'"}}],"required_version":"'"$(TERRAFORM_VERSION)"'"}]}' > $(TERRAFORM_WORKDIR)/main.tf.json
 	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) init > $(TERRAFORM_WORKDIR)/terraform-logs.txt 2>&1
+	@$(OK) "terraform initialized"
 	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2>> $(TERRAFORM_WORKDIR)/terraform-logs.txt
 	@$(OK) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
+endif
 
 pull-docs:
+ifdef LOCAL_TERRAFORM_PROVIDER_PATH
+	@$(INFO) using local docs from $(LOCAL_TERRAFORM_PROVIDER_PATH)/$(TERRAFORM_DOCS_PATH)
+	@mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"
+	@rm -rf "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)/$(TERRAFORM_DOCS_PATH)"
+	@mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)/$(TERRAFORM_DOCS_PATH)"
+	@cp -r "$(LOCAL_TERRAFORM_PROVIDER_PATH)/$(TERRAFORM_DOCS_PATH)/." "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)/$(TERRAFORM_DOCS_PATH)/"
+	@$(OK) using local docs from $(LOCAL_TERRAFORM_PROVIDER_PATH)/$(TERRAFORM_DOCS_PATH)
+else
 	@if [ ! -d "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" ]; then \
   		mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" && \
 		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
 	fi
 	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
+endif
 
 generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 

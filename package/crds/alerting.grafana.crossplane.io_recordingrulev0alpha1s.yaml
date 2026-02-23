@@ -106,13 +106,10 @@ spec:
                       The spec of the resource.
                     properties:
                       expressions:
-                        additionalProperties:
-                          type: string
                         description: |-
-                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                        type: object
-                        x-kubernetes-map-type: granular
+                          (Dynamic) A sequence of stages that describe the contents of the rule.
+                          A sequence of stages that describe the contents of the rule.
+                        x-kubernetes-preserve-unknown-fields: true
                       labels:
                         additionalProperties:
                           type: string
@@ -200,13 +197,10 @@ spec:
                       The spec of the resource.
                     properties:
                       expressions:
-                        additionalProperties:
-                          type: string
                         description: |-
-                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                        type: object
-                        x-kubernetes-map-type: granular
+                          (Dynamic) A sequence of stages that describe the contents of the rule.
+                          A sequence of stages that describe the contents of the rule.
+                        x-kubernetes-preserve-unknown-fields: true
                       labels:
                         additionalProperties:
                           type: string
@@ -408,13 +402,10 @@ spec:
                       The spec of the resource.
                     properties:
                       expressions:
-                        additionalProperties:
-                          type: string
                         description: |-
-                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-                        type: object
-                        x-kubernetes-map-type: granular
+                          (Dynamic) A sequence of stages that describe the contents of the rule.
+                          A sequence of stages that describe the contents of the rule.
+                        x-kubernetes-preserve-unknown-fields: true
                       labels:
                         additionalProperties:
                           type: string

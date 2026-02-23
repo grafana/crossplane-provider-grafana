@@ -85,7 +85,6 @@ github.com/evanw/esbuild v0.25.10/go.mod h1:D2vIQZqV/vIf/VRHtViaUtViZmG7o+kKmlBf
 github.com/fatih/camelcase v1.0.0 h1:hxNvNX/xYBp0ovncs8WyWZrOrpBNub/JfaMvbURyft8=
 github.com/fatih/camelcase v1.0.0/go.mod h1:yN2Sb0lFhZJUdVvtELVWefmrXpuZESvPmqwoZc+/fpc=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
-github.com/fatih/color v1.16.0/go.mod h1:fL2Sau1YI5c0pdGEVCbKQbLXB6edEj1ZgiY4NijnWvE=
 github.com/fatih/color v1.18.0 h1:S8gINlzdQ840/4pfAwic/ZE0djQEH3wM94VfqLTZcOM=
 github.com/fatih/color v1.18.0/go.mod h1:4FelSpRwEGDpQ12mAdzqdOukCy4u8WUtOY6lkT/6HfU=
 github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2Wg=
@@ -168,7 +167,6 @@ github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
-github.com/google/go-querystring v1.0.0/go.mod h1:odCYkC5MyYFN7vkCjXpyrEuKhc/BUO6wN/zVPAxq5ck=
 github.com/google/go-querystring v1.1.0 h1:AnCroh3fv4ZBgVIf1Iwtovgjaw/GiKJo8M8yD/fhyJ8=
 github.com/google/go-querystring v1.1.0/go.mod h1:Kcdr2DB4koayq7X8pmAG4sNG59So17icRSOU623lUBU=
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
@@ -182,8 +180,8 @@ github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e h1:JKmoR8x90Iww1
 github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e/go.mod h1:wJfORRmW1u3UXTncJ5qlYoELFm8eSnnEO6hX4iZ3EWY=
 github.com/gorilla/mux v1.8.1 h1:TuBL49tXwgrFYWhqrNgrUNEY92u81SPhu7sTdzQEiWY=
 github.com/gorilla/mux v1.8.1/go.mod h1:AKf9I4AEqPTmMytcMc0KkNouC66V3BtZ4qD5fmWSiMQ=
-github.com/grafana/amixr-api-go-client v0.0.27 h1:tmw7JcbX3D0N52mK60kYvAdRNFKH0aOb+9FKPaye2sc=
-github.com/grafana/amixr-api-go-client v0.0.27/go.mod h1:ihgLhTVimmjASuZ06y/mQxPcYH3toAIuUVGK6flHsMU=
+github.com/grafana/amixr-api-go-client v0.0.28 h1:wh4aeEFVVJPv68YpxJAoP03BTUkLk6yLVSqPpF6yPYc=
+github.com/grafana/amixr-api-go-client v0.0.28/go.mod h1:hU0Hq74HITX7RfcP0uZ7+F0/L+TL3N6JSzofBm2vzco=
 github.com/grafana/authlib/claims v0.0.0-20250120084028-e3328c576437 h1:OlwbIVFcYgMjnQhpbZwRPVNrvZKTodvPMqwb8yEqVW0=
 github.com/grafana/authlib/claims v0.0.0-20250120084028-e3328c576437/go.mod h1:r+F8H6awwjNQt/KPZ2GNwjk8TvsJ7/gxzkXN26GlL/A=
 github.com/grafana/fleet-management-api v1.2.0 h1:nVTXK+3iwTL0aPSNlYiVagzumJ+E8DyhlZvqhpgs9Gg=
@@ -192,8 +190,8 @@ github.com/grafana/grafana-app-sdk v0.48.1 h1:bKJadWH18WCpJ+Zk8AezRFXCcZgGredRv+
 github.com/grafana/grafana-app-sdk v0.48.1/go.mod h1:5LljCz+wvmGfkQ8ZKTOfserhtXNEF0cSFthoWShvN6c=
 github.com/grafana/grafana-app-sdk/logging v0.48.1 h1:veM0X5LAPyN3KsDLglWjIofndbGuf7MqnrDuDN+F/Ng=
 github.com/grafana/grafana-app-sdk/logging v0.48.1/go.mod h1:Gh/nBWnspK3oDNWtiM5qUF/fardHzOIEez+SPI3JeHA=
-github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260118214857-d2d6ad8fdcf2 h1:Nb2yMCFa8FkfHc+dUzIF4JnXuqoz6zkZQdEGw2/KkqM=
-github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260118214857-d2d6ad8fdcf2/go.mod h1:piOOzeZUPg0tP4sfe1y+MFp5+jGVPri4WOVV4oSJS30=
+github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 h1:AnLo+NlmGY4lJaZvH4Mzb8eng9byn/hbl1WuMthY9QQ=
+github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996/go.mod h1:piOOzeZUPg0tP4sfe1y+MFp5+jGVPri4WOVV4oSJS30=
 github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20251216082918-50bdab3538ca h1:Dv1VgBgediAYhbCXEWP5HMj1rZxLbIrXMRlQPrGqjDw=
 github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20251216082918-50bdab3538ca/go.mod h1:M4Y79J2TYgmcNwvVKVlHrGM9nWfSmfzJNhUHrwGJe2M=
 github.com/grafana/grafana-openapi-client-go v0.0.0-20250617151817-c0f8cbb88d5c h1:jox7J0BnJmcZJp8lp631u4gjDEoIfpi6O3yrpiXNTtg=
@@ -226,8 +224,6 @@ github.com/grafana/synthetic-monitoring-agent v0.43.1 h1:Qejsuf25yZzdImVLZ6K1f5c
 github.com/grafana/synthetic-monitoring-agent v0.43.1/go.mod h1:HO4es33UF/5b3i4JdUhVcvs9abUXESMjFxnWP8y6KG0=
 github.com/grafana/synthetic-monitoring-api-go-client v0.17.1 h1:6ZQoQVD0sASxe5OVEk/T/YEOYOuilSA434bX4n3SJLQ=
 github.com/grafana/synthetic-monitoring-api-go-client v0.17.1/go.mod h1:3XfDhlxYkC/Apaug0e0vd4wHx8JZJ4k+v5ybny8ZGfc=
-github.com/grafana/terraform-provider-grafana/v4 v4.25.0 h1:1V+H4ILdtPSwdneiet6jjOXAsSanXJC0dLTauW88+w0=
-github.com/grafana/terraform-provider-grafana/v4 v4.25.0/go.mod h1:wtrkN2v6iZ/Rb8LZhGa/8Omm3shtEjUL73E5lx0icHo=
 github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9 h1:Pxh+hnc5vuZWnoh5M2GkBJ3OWo9tR985JHDtOfqbdgs=
 github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9/go.mod h1:jDCqvAFLrVEzqE+pywmQ5u18HbJK5j5Jj4cTQpqOLqY=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 h1:QGLs/O40yoNK9vmy4rhUGBVyMf1lISBGtXRpsu/Qu/o=
@@ -251,8 +247,8 @@ github.com/hashicorp/go-multierror v1.1.1 h1:H5DkEtf6CXdFp0N0Em5UCwQpXMWke8IA0+l
 github.com/hashicorp/go-multierror v1.1.1/go.mod h1:iw975J/qwKPdAO1clOe2L8331t/9/fmwbPZ6JB6eMoM=
 github.com/hashicorp/go-plugin v1.7.0 h1:YghfQH/0QmPNc/AZMTFE3ac8fipZyZECHdDPshfk+mA=
 github.com/hashicorp/go-plugin v1.7.0/go.mod h1:BExt6KEaIYx804z8k4gRzRLEvxKVb+kn0NMcihqOqb8=
-github.com/hashicorp/go-retryablehttp v0.7.7 h1:C8hUCYzor8PIfXHa4UrZkU4VvK8o9ISHxT2Q8+VepXU=
-github.com/hashicorp/go-retryablehttp v0.7.7/go.mod h1:pkQpWZeYWskR+D1tR2O5OcBFOxfA7DoAO6xtkuQnHTk=
+github.com/hashicorp/go-retryablehttp v0.7.8 h1:ylXZWnqa7Lhqpk0L1P1LzDtGcCR0rPVUrx/c8Unxc48=
+github.com/hashicorp/go-retryablehttp v0.7.8/go.mod h1:rjiScheydd+CxvumBsIrFKlx3iS0jrZ7LvzFGFmuKbw=
 github.com/hashicorp/go-uuid v1.0.3 h1:2gKiV6YVmrJ1i2CKKa9obLvRieoRGviZFL26PcT/Co8=
 github.com/hashicorp/go-uuid v1.0.3/go.mod h1:6SBZvOh/SIDV7/2o3Jml5SYk/TvGqwFJ/bN7x4byOro=
 github.com/hashicorp/go-version v1.8.0 h1:KAkNb1HAiZd1ukkxDFGmokVZe1Xy9HG6NUp+bPle2i4=
@@ -604,7 +600,6 @@ golang.org/x/sys v0.5.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.12.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.14.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
-golang.org/x/sys v0.20.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
 golang.org/x/sys v0.40.0 h1:DBZZqJ2Rkml6QMQsZywtnjnnGvHza6BTfYFWY9kjEWQ=
 golang.org/x/sys v0.40.0/go.mod h1:OgkHotnGiDImocRcuBABYBEXf8A9a87e/uXjp9XT3ks=
 golang.org/x/telemetry v0.0.0-20251203150158-8fff8a5912fc h1:bH6xUXay0AIFMElXG2rQ4uiE+7ncwtiOdPfYK1NK2XA=

@@ -421,7 +421,25 @@ resources:
                   "spec": [
                     {
                       "expressions": {
-                        "A": "${jsonencode({\n        model = {\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        }\n        datasource_uid = \"ds_uid\"\n        relative_time_range = {\n          from = \"600s\"\n          to   = \"0s\"\n        }\n        query_type = \"\"\n        source     = true\n      })}"
+                        "A": {
+                          "datasource_uid": "ds_uid",
+                          "model": {
+                            "editorMode": "code",
+                            "expr": "count(up{})",
+                            "instant": true,
+                            "intervalMs": 1000,
+                            "legendFormat": "__auto",
+                            "maxDataPoints": 43200,
+                            "range": false,
+                            "refId": "A"
+                          },
+                          "query_type": "",
+                          "relative_time_range": {
+                            "from": "600s",
+                            "to": "0s"
+                          },
+                          "source": true
+                        }
                       },
                       "labels": {
                         "foo": "bar"
@@ -448,7 +466,7 @@ resources:
                     }
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
-            expressions: (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+            expressions: (Dynamic) A sequence of stages that describe the contents of the rule.
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from UUID.
             interval: (String) The interval at which the recording rule should be evaluated.
@@ -1160,6 +1178,165 @@ resources:
             rule: '(Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)'
         importStatements:
             - terraform import grafana_asserts_prom_rule_file.name "{{ name }}"
+    grafana_asserts_stack:
+        subCategory: Knowledge Graph
+        description: 'Manages the Asserts Stack configuration. This resource configures the Asserts stack with the required API tokens for integration with Grafana Cloud services. It performs the full onboarding flow: Provisions API tokensConfigures datasets (auto-detected or manually specified)Enables the stack By default, datasets are auto-configured based on detected metrics. To manually configure datasets (e.g., when using non-standard label names), use the dataset block. The cloud_access_policy_token is used internally for GCom API access, Mimir metrics authentication, and assertion detector webhook authentication. Create a Cloud Access Policy with the following scopes: stacks:read, metrics:read, metrics:write. The grafana_token is a Grafana Service Account token used for installing dashboards and Grafana Managed Alerts.'
+        name: grafana_asserts_stack
+        title: grafana_asserts_stack Resource - terraform-provider-grafana
+        examples:
+            - name: main
+              manifest: |-
+                {
+                  "cloud_access_policy_token": "${grafana_cloud_access_policy_token.asserts.token}",
+                  "grafana_token": "${grafana_cloud_stack_service_account_token.asserts.key}"
+                }
+              references:
+                cloud_access_policy_token: grafana_cloud_access_policy_token.asserts.token
+                grafana_token: grafana_cloud_stack_service_account_token.asserts.key
+              dependencies:
+                grafana_cloud_access_policy.asserts: |-
+                    {
+                      "display_name": "Asserts Stack Policy",
+                      "name": "asserts-stack-policy",
+                      "realm": [
+                        {
+                          "identifier": "${var.stack_id}",
+                          "type": "stack"
+                        }
+                      ],
+                      "scopes": [
+                        "stacks:read",
+                        "metrics:read",
+                        "metrics:write"
+                      ]
+                    }
+                grafana_cloud_access_policy_token.asserts: |-
+                    {
+                      "access_policy_id": "${grafana_cloud_access_policy.asserts.policy_id}",
+                      "name": "asserts-stack-token"
+                    }
+                grafana_cloud_stack_service_account.asserts: |-
+                    {
+                      "is_disabled": false,
+                      "name": "asserts-managed-alerts-sa",
+                      "role": "Admin",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+                grafana_cloud_stack_service_account_token.asserts: |-
+                    {
+                      "name": "asserts-managed-alerts-token",
+                      "service_account_id": "${grafana_cloud_stack_service_account.asserts.id}",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+            - name: custom
+              manifest: |-
+                {
+                  "cloud_access_policy_token": "${grafana_cloud_access_policy_token.asserts.token}",
+                  "dataset": [
+                    {
+                      "filter_group": [
+                        {
+                          "env_label": "deployment_environment",
+                          "env_label_values": [
+                            "production",
+                            "staging"
+                          ],
+                          "site_label": "cluster",
+                          "site_label_values": [
+                            "us-east-1",
+                            "eu-west-1"
+                          ]
+                        }
+                      ],
+                      "type": "kubernetes"
+                    },
+                    {
+                      "filter_group": [
+                        {
+                          "env_label": "environment",
+                          "env_name": "prod",
+                          "filter": [
+                            {
+                              "name": "region",
+                              "operator": "=~",
+                              "values": [
+                                "us-.*",
+                                "eu-.*"
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "type": "prometheus"
+                    }
+                  ],
+                  "grafana_token": "${grafana_cloud_stack_service_account_token.asserts.key}"
+                }
+              references:
+                cloud_access_policy_token: grafana_cloud_access_policy_token.asserts.token
+                grafana_token: grafana_cloud_stack_service_account_token.asserts.key
+              dependencies:
+                grafana_cloud_access_policy.asserts: |-
+                    {
+                      "display_name": "Asserts Stack Policy",
+                      "name": "asserts-stack-policy",
+                      "realm": [
+                        {
+                          "identifier": "${var.stack_id}",
+                          "type": "stack"
+                        }
+                      ],
+                      "scopes": [
+                        "stacks:read",
+                        "metrics:read",
+                        "metrics:write"
+                      ]
+                    }
+                grafana_cloud_access_policy_token.asserts: |-
+                    {
+                      "access_policy_id": "${grafana_cloud_access_policy.asserts.policy_id}",
+                      "name": "asserts-stack-token"
+                    }
+                grafana_cloud_stack_service_account.asserts: |-
+                    {
+                      "is_disabled": false,
+                      "name": "asserts-managed-alerts-sa",
+                      "role": "Admin",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+                grafana_cloud_stack_service_account_token.asserts: |-
+                    {
+                      "name": "asserts-managed-alerts-token",
+                      "service_account_id": "${grafana_cloud_stack_service_account.asserts.id}",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+        argumentDocs:
+            cloud_access_policy_token: '(String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.'
+            create: (String)
+            dataset: (Block List) Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
+            delete: (String)
+            disabled_vendors: (List of String) List of vendors to disable for this dataset.
+            enabled: (Boolean) Whether the stack is currently enabled.
+            env_label: (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
+            env_label_values: (List of String) Specific values of the environment label to match.
+            env_name: (String) A friendly name for the environment.
+            filter: (Block List) Additional metric filters. (see below for nested schema)
+            filter_group: (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
+            grafana_token: '(String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.'
+            id: (String) The ID of this resource.
+            name: (String) The label name to filter on.
+            operator: (String) The filter operator (e.g., =, !=, =~, !~).
+            read: (String)
+            site_label: (String) The metric label name used for site/cluster.
+            site_label_values: (List of String) Specific values of the site label to match.
+            status: (String) Current onboarding status of the stack.
+            timeouts: (Block, Optional) (see below for nested schema)
+            type: '(String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.'
+            update: (String)
+            values: (List of String) The values to match.
+            version: (Number) Configuration version number.
+        importStatements:
+            - terraform import grafana_asserts_stack.name "{{ id }}"
     grafana_asserts_suppressed_assertions_config:
         subCategory: Knowledge Graph
         description: Manages Knowledge Graph Disabled Alert Configurations through Grafana API.
@@ -4349,7 +4526,7 @@ resources:
             telegram: '(Block List, Max: 1) Telegram-specific settings for a route. (see below for nested schema)'
             templates: '(Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)'
             title: (String) Template for Alert title.
-            type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, heartbeat, demo, manual, stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel, inbound_email, direct_paging, jira, zendesk.
+            type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, stackdriver, uptimerobot, sentry, zabbix, prtg, inbound_email, direct_paging, jira, zendesk.
             web: '(Block List, Max: 1) Templates for Web. (see below for nested schema)'
         importStatements:
             - terraform import grafana_oncall_integration.name "{{ id }}"

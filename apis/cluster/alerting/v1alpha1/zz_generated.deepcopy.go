@@ -9,7 +9,8 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	commonv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -207,7 +208,7 @@ func (in *AlertmanagerInitParameters) DeepCopyInto(out *AlertmanagerInitParamete
 	*out = *in
 	if in.BasicAuthPasswordSecretRef != nil {
 		in, out := &in.BasicAuthPasswordSecretRef, &out.BasicAuthPasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BasicAuthUser != nil {
@@ -293,7 +294,7 @@ func (in *AlertmanagerParameters) DeepCopyInto(out *AlertmanagerParameters) {
 	*out = *in
 	if in.BasicAuthPasswordSecretRef != nil {
 		in, out := &in.BasicAuthPasswordSecretRef, &out.BasicAuthPasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BasicAuthUser != nil {
@@ -308,7 +309,7 @@ func (in *AlertmanagerParameters) DeepCopyInto(out *AlertmanagerParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.URL != nil {
@@ -692,19 +693,8 @@ func (in *AlertruleV0Alpha1SpecInitParameters) DeepCopyInto(out *AlertruleV0Alph
 	}
 	if in.Expressions != nil {
 		in, out := &in.Expressions, &out.Expressions
-		*out = make(map[string]*string, len(*in))
-		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
-		}
+		*out = new(v1.JSON)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.For != nil {
 		in, out := &in.For, &out.For
@@ -816,19 +806,8 @@ func (in *AlertruleV0Alpha1SpecObservation) DeepCopyInto(out *AlertruleV0Alpha1S
 	}
 	if in.Expressions != nil {
 		in, out := &in.Expressions, &out.Expressions
-		*out = make(map[string]*string, len(*in))
-		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
-		}
+		*out = new(v1.JSON)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.For != nil {
 		in, out := &in.For, &out.For
@@ -940,19 +919,8 @@ func (in *AlertruleV0Alpha1SpecParameters) DeepCopyInto(out *AlertruleV0Alpha1Sp
 	}
 	if in.Expressions != nil {
 		in, out := &in.Expressions, &out.Expressions
-		*out = make(map[string]*string, len(*in))
-		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
-		}
+		*out = new(v1.JSON)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.For != nil {
 		in, out := &in.For, &out.For
@@ -1595,12 +1563,12 @@ func (in *ContactPointInitParameters) DeepCopyInto(out *ContactPointInitParamete
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
@@ -2010,12 +1978,12 @@ func (in *ContactPointParameters) DeepCopyInto(out *ContactPointParameters) {
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Pagerduty != nil {
@@ -2717,7 +2685,7 @@ func (in *DingdingParameters) DeepCopyInto(out *DingdingParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -2860,7 +2828,7 @@ func (in *DiscordParameters) DeepCopyInto(out *DiscordParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -3241,7 +3209,7 @@ func (in *EmailParameters) DeepCopyInto(out *EmailParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.SingleEmail != nil {
@@ -3513,7 +3481,7 @@ func (in *GooglechatParameters) DeepCopyInto(out *GooglechatParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -4177,7 +4145,7 @@ func (in *JiraInitParameters) DeepCopyInto(out *JiraInitParameters) {
 	*out = *in
 	if in.APITokenSecretRef != nil {
 		in, out := &in.APITokenSecretRef, &out.APITokenSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.APIURL != nil {
@@ -4234,7 +4202,7 @@ func (in *JiraInitParameters) DeepCopyInto(out *JiraInitParameters) {
 	}
 	if in.PasswordSecretRef != nil {
 		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Priority != nil {
@@ -4285,7 +4253,7 @@ func (in *JiraInitParameters) DeepCopyInto(out *JiraInitParameters) {
 	}
 	if in.UserSecretRef != nil {
 		in, out := &in.UserSecretRef, &out.UserSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.WontFixResolution != nil {
@@ -4417,7 +4385,7 @@ func (in *JiraParameters) DeepCopyInto(out *JiraParameters) {
 	*out = *in
 	if in.APITokenSecretRef != nil {
 		in, out := &in.APITokenSecretRef, &out.APITokenSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.APIURL != nil {
@@ -4474,7 +4442,7 @@ func (in *JiraParameters) DeepCopyInto(out *JiraParameters) {
 	}
 	if in.PasswordSecretRef != nil {
 		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Priority != nil {
@@ -4504,7 +4472,7 @@ func (in *JiraParameters) DeepCopyInto(out *JiraParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Summary != nil {
@@ -4514,7 +4482,7 @@ func (in *JiraParameters) DeepCopyInto(out *JiraParameters) {
 	}
 	if in.UserSecretRef != nil {
 		in, out := &in.UserSecretRef, &out.UserSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.WontFixResolution != nil {
@@ -4564,7 +4532,7 @@ func (in *KafkaInitParameters) DeepCopyInto(out *KafkaInitParameters) {
 	}
 	if in.PasswordSecretRef != nil {
 		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	in.RestProxyURLSecretRef.DeepCopyInto(&out.RestProxyURLSecretRef)
@@ -4691,13 +4659,13 @@ func (in *KafkaParameters) DeepCopyInto(out *KafkaParameters) {
 	}
 	if in.PasswordSecretRef != nil {
 		in, out := &in.PasswordSecretRef, &out.PasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	in.RestProxyURLSecretRef.DeepCopyInto(&out.RestProxyURLSecretRef)
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Topic != nil {
@@ -4909,7 +4877,7 @@ func (in *LineParameters) DeepCopyInto(out *LineParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -5172,12 +5140,12 @@ func (in *MessageTemplateInitParameters) DeepCopyInto(out *MessageTemplateInitPa
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Template != nil {
@@ -5289,12 +5257,12 @@ func (in *MessageTemplateParameters) DeepCopyInto(out *MessageTemplateParameters
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Template != nil {
@@ -5509,12 +5477,12 @@ func (in *MuteTimingInitParameters) DeepCopyInto(out *MuteTimingInitParameters) 
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 }
@@ -5630,12 +5598,12 @@ func (in *MuteTimingParameters) DeepCopyInto(out *MuteTimingParameters) {
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 }
@@ -5722,12 +5690,12 @@ func (in *NotificationPolicyInitParameters) DeepCopyInto(out *NotificationPolicy
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.DisableProvenance != nil {
@@ -5763,12 +5731,12 @@ func (in *NotificationPolicyInitParameters) DeepCopyInto(out *NotificationPolicy
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Policy != nil {
@@ -5905,12 +5873,12 @@ func (in *NotificationPolicyParameters) DeepCopyInto(out *NotificationPolicyPara
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.DisableProvenance != nil {
@@ -5946,12 +5914,12 @@ func (in *NotificationPolicyParameters) DeepCopyInto(out *NotificationPolicyPara
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Policy != nil {
@@ -6422,7 +6390,7 @@ func (in *OncallInitParameters) DeepCopyInto(out *OncallInitParameters) {
 	*out = *in
 	if in.AuthorizationCredentialsSecretRef != nil {
 		in, out := &in.AuthorizationCredentialsSecretRef, &out.AuthorizationCredentialsSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AuthorizationScheme != nil {
@@ -6432,7 +6400,7 @@ func (in *OncallInitParameters) DeepCopyInto(out *OncallInitParameters) {
 	}
 	if in.BasicAuthPasswordSecretRef != nil {
 		in, out := &in.BasicAuthPasswordSecretRef, &out.BasicAuthPasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BasicAuthUser != nil {
@@ -6462,12 +6430,12 @@ func (in *OncallInitParameters) DeepCopyInto(out *OncallInitParameters) {
 	}
 	if in.OncallIntegrationRef != nil {
 		in, out := &in.OncallIntegrationRef, &out.OncallIntegrationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OncallIntegrationSelector != nil {
 		in, out := &in.OncallIntegrationSelector, &out.OncallIntegrationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Settings != nil {
@@ -6578,7 +6546,7 @@ func (in *OncallParameters) DeepCopyInto(out *OncallParameters) {
 	*out = *in
 	if in.AuthorizationCredentialsSecretRef != nil {
 		in, out := &in.AuthorizationCredentialsSecretRef, &out.AuthorizationCredentialsSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AuthorizationScheme != nil {
@@ -6588,7 +6556,7 @@ func (in *OncallParameters) DeepCopyInto(out *OncallParameters) {
 	}
 	if in.BasicAuthPasswordSecretRef != nil {
 		in, out := &in.BasicAuthPasswordSecretRef, &out.BasicAuthPasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BasicAuthUser != nil {
@@ -6618,17 +6586,17 @@ func (in *OncallParameters) DeepCopyInto(out *OncallParameters) {
 	}
 	if in.OncallIntegrationRef != nil {
 		in, out := &in.OncallIntegrationRef, &out.OncallIntegrationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OncallIntegrationSelector != nil {
 		in, out := &in.OncallIntegrationSelector, &out.OncallIntegrationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -6837,7 +6805,7 @@ func (in *OpsgenieParameters) DeepCopyInto(out *OpsgenieParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.URL != nil {
@@ -7153,7 +7121,7 @@ func (in *PagerdutyParameters) DeepCopyInto(out *PagerdutyParameters) {
 	in.IntegrationKeySecretRef.DeepCopyInto(&out.IntegrationKeySecretRef)
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Severity != nil {
@@ -7317,12 +7285,12 @@ func (in *PolicyInitParameters) DeepCopyInto(out *PolicyInitParameters) {
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -7360,14 +7328,14 @@ func (in *PolicyInitParameters) DeepCopyInto(out *PolicyInitParameters) {
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -7603,12 +7571,12 @@ func (in *PolicyParameters) DeepCopyInto(out *PolicyParameters) {
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -7646,14 +7614,14 @@ func (in *PolicyParameters) DeepCopyInto(out *PolicyParameters) {
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -7712,12 +7680,12 @@ func (in *PolicyPolicyInitParameters) DeepCopyInto(out *PolicyPolicyInitParamete
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -7755,14 +7723,14 @@ func (in *PolicyPolicyInitParameters) DeepCopyInto(out *PolicyPolicyInitParamete
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -7998,12 +7966,12 @@ func (in *PolicyPolicyParameters) DeepCopyInto(out *PolicyPolicyParameters) {
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -8041,14 +8009,14 @@ func (in *PolicyPolicyParameters) DeepCopyInto(out *PolicyPolicyParameters) {
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -8107,12 +8075,12 @@ func (in *PolicyPolicyPolicyInitParameters) DeepCopyInto(out *PolicyPolicyPolicy
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -8150,14 +8118,14 @@ func (in *PolicyPolicyPolicyInitParameters) DeepCopyInto(out *PolicyPolicyPolicy
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -8393,12 +8361,12 @@ func (in *PolicyPolicyPolicyParameters) DeepCopyInto(out *PolicyPolicyPolicyPara
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -8436,14 +8404,14 @@ func (in *PolicyPolicyPolicyParameters) DeepCopyInto(out *PolicyPolicyPolicyPara
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -8502,12 +8470,12 @@ func (in *PolicyPolicyPolicyPolicyInitParameters) DeepCopyInto(out *PolicyPolicy
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -8545,14 +8513,14 @@ func (in *PolicyPolicyPolicyPolicyInitParameters) DeepCopyInto(out *PolicyPolicy
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -8788,12 +8756,12 @@ func (in *PolicyPolicyPolicyPolicyParameters) DeepCopyInto(out *PolicyPolicyPoli
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Continue != nil {
@@ -8831,14 +8799,14 @@ func (in *PolicyPolicyPolicyPolicyParameters) DeepCopyInto(out *PolicyPolicyPoli
 	}
 	if in.MuteTimingRef != nil {
 		in, out := &in.MuteTimingRef, &out.MuteTimingRef
-		*out = make([]v1.Reference, len(*in))
+		*out = make([]commonv1.Reference, len(*in))
 		for i := range *in {
 			(*in)[i].DeepCopyInto(&(*out)[i])
 		}
 	}
 	if in.MuteTimingSelector != nil {
 		in, out := &in.MuteTimingSelector, &out.MuteTimingSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.MuteTimings != nil {
@@ -9463,7 +9431,7 @@ func (in *PushoverParameters) DeepCopyInto(out *PushoverParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Sound != nil {
@@ -10002,19 +9970,8 @@ func (in *RecordingruleV0Alpha1SpecInitParameters) DeepCopyInto(out *Recordingru
 	*out = *in
 	if in.Expressions != nil {
 		in, out := &in.Expressions, &out.Expressions
-		*out = make(map[string]*string, len(*in))
-		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
-		}
+		*out = new(v1.JSON)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
@@ -10074,19 +10031,8 @@ func (in *RecordingruleV0Alpha1SpecObservation) DeepCopyInto(out *RecordingruleV
 	*out = *in
 	if in.Expressions != nil {
 		in, out := &in.Expressions, &out.Expressions
-		*out = make(map[string]*string, len(*in))
-		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
-		}
+		*out = new(v1.JSON)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
@@ -10146,19 +10092,8 @@ func (in *RecordingruleV0Alpha1SpecParameters) DeepCopyInto(out *RecordingruleV0
 	*out = *in
 	if in.Expressions != nil {
 		in, out := &in.Expressions, &out.Expressions
-		*out = make(map[string]*string, len(*in))
-		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
-		}
+		*out = new(v1.JSON)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
@@ -10447,12 +10382,12 @@ func (in *RuleGroupInitParameters) DeepCopyInto(out *RuleGroupInitParameters) {
 	}
 	if in.FolderRef != nil {
 		in, out := &in.FolderRef, &out.FolderRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.FolderSelector != nil {
 		in, out := &in.FolderSelector, &out.FolderSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.FolderUID != nil {
@@ -10477,12 +10412,12 @@ func (in *RuleGroupInitParameters) DeepCopyInto(out *RuleGroupInitParameters) {
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Rule != nil {
@@ -10598,12 +10533,12 @@ func (in *RuleGroupParameters) DeepCopyInto(out *RuleGroupParameters) {
 	}
 	if in.FolderRef != nil {
 		in, out := &in.FolderRef, &out.FolderRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.FolderSelector != nil {
 		in, out := &in.FolderSelector, &out.FolderSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.FolderUID != nil {
@@ -10628,12 +10563,12 @@ func (in *RuleGroupParameters) DeepCopyInto(out *RuleGroupParameters) {
 	}
 	if in.OrganizationRef != nil {
 		in, out := &in.OrganizationRef, &out.OrganizationRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.OrganizationSelector != nil {
 		in, out := &in.OrganizationSelector, &out.OrganizationSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Rule != nil {
@@ -10824,12 +10759,12 @@ func (in *RuleNotificationSettingsInitParameters) DeepCopyInto(out *RuleNotifica
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.GroupBy != nil {
@@ -10970,12 +10905,12 @@ func (in *RuleNotificationSettingsParameters) DeepCopyInto(out *RuleNotification
 	}
 	if in.ContactPointRef != nil {
 		in, out := &in.ContactPointRef, &out.ContactPointRef
-		*out = new(v1.Reference)
+		*out = new(commonv1.Reference)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ContactPointSelector != nil {
 		in, out := &in.ContactPointSelector, &out.ContactPointSelector
-		*out = new(v1.Selector)
+		*out = new(commonv1.Selector)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.GroupBy != nil {
@@ -11411,7 +11346,7 @@ func (in *SensugoParameters) DeepCopyInto(out *SensugoParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.URL != nil {
@@ -11567,12 +11502,12 @@ func (in *SlackInitParameters) DeepCopyInto(out *SlackInitParameters) {
 	}
 	if in.TokenSecretRef != nil {
 		in, out := &in.TokenSecretRef, &out.TokenSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.URLSecretRef != nil {
 		in, out := &in.URLSecretRef, &out.URLSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Username != nil {
@@ -11722,7 +11657,7 @@ func (in *SlackParameters) DeepCopyInto(out *SlackParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Text != nil {
@@ -11737,12 +11672,12 @@ func (in *SlackParameters) DeepCopyInto(out *SlackParameters) {
 	}
 	if in.TokenSecretRef != nil {
 		in, out := &in.TokenSecretRef, &out.TokenSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.URLSecretRef != nil {
 		in, out := &in.URLSecretRef, &out.URLSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Username != nil {
@@ -11767,7 +11702,7 @@ func (in *SnsInitParameters) DeepCopyInto(out *SnsInitParameters) {
 	*out = *in
 	if in.AccessKeySecretRef != nil {
 		in, out := &in.AccessKeySecretRef, &out.AccessKeySecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AssumeRoleArn != nil {
@@ -11802,7 +11737,7 @@ func (in *SnsInitParameters) DeepCopyInto(out *SnsInitParameters) {
 	}
 	if in.SecretKeySecretRef != nil {
 		in, out := &in.SecretKeySecretRef, &out.SecretKeySecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Settings != nil {
@@ -11908,7 +11843,7 @@ func (in *SnsParameters) DeepCopyInto(out *SnsParameters) {
 	*out = *in
 	if in.AccessKeySecretRef != nil {
 		in, out := &in.AccessKeySecretRef, &out.AccessKeySecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AssumeRoleArn != nil {
@@ -11943,12 +11878,12 @@ func (in *SnsParameters) DeepCopyInto(out *SnsParameters) {
 	}
 	if in.SecretKeySecretRef != nil {
 		in, out := &in.SecretKeySecretRef, &out.SecretKeySecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Subject != nil {
@@ -13430,17 +13365,17 @@ func (in *TLSConfigInitParameters) DeepCopyInto(out *TLSConfigInitParameters) {
 	*out = *in
 	if in.CACertificateSecretRef != nil {
 		in, out := &in.CACertificateSecretRef, &out.CACertificateSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.ClientCertificateSecretRef != nil {
 		in, out := &in.ClientCertificateSecretRef, &out.ClientCertificateSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.ClientKeySecretRef != nil {
 		in, out := &in.ClientKeySecretRef, &out.ClientKeySecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.InsecureSkipVerify != nil {
@@ -13485,17 +13420,17 @@ func (in *TLSConfigParameters) DeepCopyInto(out *TLSConfigParameters) {
 	*out = *in
 	if in.CACertificateSecretRef != nil {
 		in, out := &in.CACertificateSecretRef, &out.CACertificateSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.ClientCertificateSecretRef != nil {
 		in, out := &in.ClientCertificateSecretRef, &out.ClientCertificateSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.ClientKeySecretRef != nil {
 		in, out := &in.ClientKeySecretRef, &out.ClientKeySecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.InsecureSkipVerify != nil {
@@ -13627,7 +13562,7 @@ func (in *TeamsParameters) DeepCopyInto(out *TeamsParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -13825,7 +13760,7 @@ func (in *TelegramParameters) DeepCopyInto(out *TelegramParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	in.TokenSecretRef.DeepCopyInto(&out.TokenSecretRef)
@@ -14413,7 +14348,7 @@ func (in *ThreemaParameters) DeepCopyInto(out *ThreemaParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -14680,7 +14615,7 @@ func (in *VictoropsParameters) DeepCopyInto(out *VictoropsParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -14818,7 +14753,7 @@ func (in *WebexParameters) DeepCopyInto(out *WebexParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	in.TokenSecretRef.DeepCopyInto(&out.TokenSecretRef)
@@ -14839,7 +14774,7 @@ func (in *WebhookInitParameters) DeepCopyInto(out *WebhookInitParameters) {
 	*out = *in
 	if in.AuthorizationCredentialsSecretRef != nil {
 		in, out := &in.AuthorizationCredentialsSecretRef, &out.AuthorizationCredentialsSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AuthorizationScheme != nil {
@@ -14849,7 +14784,7 @@ func (in *WebhookInitParameters) DeepCopyInto(out *WebhookInitParameters) {
 	}
 	if in.BasicAuthPasswordSecretRef != nil {
 		in, out := &in.BasicAuthPasswordSecretRef, &out.BasicAuthPasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BasicAuthUser != nil {
@@ -15070,7 +15005,7 @@ func (in *WebhookParameters) DeepCopyInto(out *WebhookParameters) {
 	*out = *in
 	if in.AuthorizationCredentialsSecretRef != nil {
 		in, out := &in.AuthorizationCredentialsSecretRef, &out.AuthorizationCredentialsSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.AuthorizationScheme != nil {
@@ -15080,7 +15015,7 @@ func (in *WebhookParameters) DeepCopyInto(out *WebhookParameters) {
 	}
 	if in.BasicAuthPasswordSecretRef != nil {
 		in, out := &in.BasicAuthPasswordSecretRef, &out.BasicAuthPasswordSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.BasicAuthUser != nil {
@@ -15147,12 +15082,12 @@ func (in *WebhookParameters) DeepCopyInto(out *WebhookParameters) {
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.TLSConfigSecretRef != nil {
 		in, out := &in.TLSConfigSecretRef, &out.TLSConfigSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -15207,7 +15142,7 @@ func (in *WecomInitParameters) DeepCopyInto(out *WecomInitParameters) {
 	}
 	if in.SecretSecretRef != nil {
 		in, out := &in.SecretSecretRef, &out.SecretSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.Settings != nil {
@@ -15238,7 +15173,7 @@ func (in *WecomInitParameters) DeepCopyInto(out *WecomInitParameters) {
 	}
 	if in.URLSecretRef != nil {
 		in, out := &in.URLSecretRef, &out.URLSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 }
@@ -15338,12 +15273,12 @@ func (in *WecomParameters) DeepCopyInto(out *WecomParameters) {
 	}
 	if in.SecretSecretRef != nil {
 		in, out := &in.SecretSecretRef, &out.SecretSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 	if in.SettingsSecretRef != nil {
 		in, out := &in.SettingsSecretRef, &out.SettingsSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(commonv1.SecretReference)
 		**out = **in
 	}
 	if in.Title != nil {
@@ -15358,7 +15293,7 @@ func (in *WecomParameters) DeepCopyInto(out *WecomParameters) {
 	}
 	if in.URLSecretRef != nil {
 		in, out := &in.URLSecretRef, &out.URLSecretRef
-		*out = new(v1.SecretKeySelector)
+		*out = new(commonv1.SecretKeySelector)
 		**out = **in
 	}
 }

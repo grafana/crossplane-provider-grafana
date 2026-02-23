@@ -15,26 +15,22 @@ spec:
     provider: ${grafana.local}
     spec:
     - expressions:
-        A: |-
-          ${jsonencode({
-                  model = {
-                    editorMode    = "code"
-                    expr          = "count(up{})"
-                    instant       = true
-                    intervalMs    = 1000
-                    legendFormat  = "__auto"
-                    maxDataPoints = 43200
-                    range         = false
-                    refId         = "A"
-                  }
-                  datasource_uid = "ds_uid"
-                  relative_time_range = {
-                    from = "600s"
-                    to   = "0s"
-                  }
-                  query_type = ""
-                  source     = true
-                })}
+        A:
+          datasource_uid: ds_uid
+          model:
+            editorMode: code
+            expr: count(up{})
+            instant: true
+            intervalMs: 1000
+            legendFormat: __auto
+            maxDataPoints: 43200
+            range: false
+            refId: A
+          query_type: ""
+          relative_time_range:
+            from: 600s
+            to: 0s
+          source: true
       labels:
         foo: bar
       metric: tf-metric

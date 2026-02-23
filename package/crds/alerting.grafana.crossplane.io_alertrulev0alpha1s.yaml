@@ -109,13 +109,9 @@ spec:
                           are OK, Error, KeepLast, and Alerting.
                         type: string
                       expressions:
-                        additionalProperties:
-                          type: string
                         description: A sequence of stages that describe the contents
-                          of the rule. Each value is a JSON string representing an
-                          expression object.
-                        type: object
-                        x-kubernetes-map-type: granular
+                          of the rule.
+                        x-kubernetes-preserve-unknown-fields: true
                       for:
                         description: The amount of time for which the rule must be
                           breached for the rule to be considered to be Firing. Before
@@ -257,13 +253,9 @@ spec:
                           are OK, Error, KeepLast, and Alerting.
                         type: string
                       expressions:
-                        additionalProperties:
-                          type: string
                         description: A sequence of stages that describe the contents
-                          of the rule. Each value is a JSON string representing an
-                          expression object.
-                        type: object
-                        x-kubernetes-map-type: granular
+                          of the rule.
+                        x-kubernetes-preserve-unknown-fields: true
                       for:
                         description: The amount of time for which the rule must be
                           breached for the rule to be considered to be Firing. Before
@@ -510,13 +502,9 @@ spec:
                           are OK, Error, KeepLast, and Alerting.
                         type: string
                       expressions:
-                        additionalProperties:
-                          type: string
                         description: A sequence of stages that describe the contents
-                          of the rule. Each value is a JSON string representing an
-                          expression object.
-                        type: object
-                        x-kubernetes-map-type: granular
+                          of the rule.
+                        x-kubernetes-preserve-unknown-fields: true
                       for:
                         description: The amount of time for which the rule must be
                           breached for the rule to be considered to be Firing. Before
