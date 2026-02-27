@@ -175,7 +175,6 @@ func Configure(p *ujconfig.Provider) {
 		r.References["policy.policy.mute_timings"] = muteTimingRef
 		r.References["policy.policy.policy.mute_timings"] = muteTimingRef
 		r.References["policy.policy.policy.policy.mute_timings"] = muteTimingRef
-
 	})
 	p.AddResourceConfigurator("grafana_cloud_access_policy", func(r *ujconfig.Resource) {
 		r.References["realm.identifier"] = ujconfig.Reference{
@@ -662,4 +661,16 @@ func Configure(p *ujconfig.Provider) {
 			SelectorFieldName: "ProjectSelector",
 		}
 	})
+
+	// CheckAlerts is a separate API call then checks and requires the check ID
+	// This allows crossplane to figure that out with a patch selector
+	p.AddResourceConfigurator("grafana_synthetic_monitoring_check_alerts",
+		func(r *ujconfig.Resource) {
+			r.References["check_id"] = ujconfig.Reference{
+				TerraformName:     "grafana_synthetic_monitoring_check",
+				RefFieldName:      "CheckRef",
+				SelectorFieldName: "CheckSelector",
+				Extractor:         optionalFieldExtractor("id"),
+			}
+		})
 }

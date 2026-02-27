@@ -70,7 +70,19 @@ type CheckAlertsInitParameters struct {
 
 	// (Number) The ID of the check to manage alerts for.
 	// The ID of the check to manage alerts for.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/sm/v1alpha1.Check
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CheckRef
+	// +crossplane:generate:reference:selectorFieldName=CheckSelector
 	CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
+
+	// Reference to a Check in sm to populate checkId.
+	// +kubebuilder:validation:Optional
+	CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+
+	// Selector for a Check in sm to populate checkId.
+	// +kubebuilder:validation:Optional
+	CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
 }
 
 type CheckAlertsObservation struct {
@@ -96,8 +108,20 @@ type CheckAlertsParameters struct {
 
 	// (Number) The ID of the check to manage alerts for.
 	// The ID of the check to manage alerts for.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/sm/v1alpha1.Check
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CheckRef
+	// +crossplane:generate:reference:selectorFieldName=CheckSelector
 	// +kubebuilder:validation:Optional
 	CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
+
+	// Reference to a Check in sm to populate checkId.
+	// +kubebuilder:validation:Optional
+	CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+
+	// Selector for a Check in sm to populate checkId.
+	// +kubebuilder:validation:Optional
+	CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
 }
 
 // CheckAlertsSpec defines the desired state of CheckAlerts
@@ -137,7 +161,6 @@ type CheckAlerts struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.alerts) || (has(self.initProvider) && has(self.initProvider.alerts))",message="spec.forProvider.alerts is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.checkId) || (has(self.initProvider) && has(self.initProvider.checkId))",message="spec.forProvider.checkId is a required parameter"
 	Spec   CheckAlertsSpec   `json:"spec"`
 	Status CheckAlertsStatus `json:"status,omitempty"`
 }
