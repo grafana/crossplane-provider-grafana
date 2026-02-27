@@ -21,7 +21,9 @@ spec:
       period: 10m
       runbookUrl: https://wiki.company.com/runbooks/http-duration
       threshold: 5000
-    checkId: ${grafana_synthetic_monitoring_check.main.id}
+    checkSelector:
+      matchLabels:
+        testing.upbound.io/example-name: main
 
 ---
 

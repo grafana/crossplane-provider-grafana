@@ -14,6 +14,50 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// ResolveReferences of this CheckAlerts.
+func (mg *CheckAlerts) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromFloatPtrValue(mg.Spec.ForProvider.CheckID),
+		Extract:      grafana.OptionalFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.CheckRef,
+		Selector:     mg.Spec.ForProvider.CheckSelector,
+		To: reference.To{
+			List:    &CheckList{},
+			Managed: &Check{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.CheckID")
+	}
+	mg.Spec.ForProvider.CheckID = reference.ToFloatPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.CheckRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromFloatPtrValue(mg.Spec.InitProvider.CheckID),
+		Extract:      grafana.OptionalFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.CheckRef,
+		Selector:     mg.Spec.InitProvider.CheckSelector,
+		To: reference.To{
+			List:    &CheckList{},
+			Managed: &Check{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.CheckID")
+	}
+	mg.Spec.InitProvider.CheckID = reference.ToFloatPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.CheckRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this Installation.
 func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
