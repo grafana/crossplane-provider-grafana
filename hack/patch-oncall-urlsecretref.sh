@@ -20,7 +20,7 @@ if [[ -f "${CLUSTER_TYPES}" ]]; then
     # This ensures we only patch the Oncall URL field, not other contact point types
 
     # Patch OncallInitParameters and OncallParameters: Find the URL field that comes after OncallIntegrationSelector comment
-    sed -i '/OncallIntegrationSelector$/,/^	URL \*string.*url,omitempty/ {
+    sed -i.bak '/OncallIntegrationSelector$/,/^	URL \*string.*url,omitempty/ {
       /^	URL \*string.*url,omitempty/ {
         a\
 \
@@ -46,7 +46,7 @@ if [[ -f "${NAMESPACED_TYPES}" ]]; then
     # Use the same unique marker approach
 
     # Patch both OncallInitParameters and OncallParameters
-    sed -i '/OncallIntegrationSelector$/,/^	URL \*string.*url,omitempty/ {
+    sed -i.bak '/OncallIntegrationSelector$/,/^	URL \*string.*url,omitempty/ {
       /^	URL \*string.*url,omitempty/ {
         a\
 \
