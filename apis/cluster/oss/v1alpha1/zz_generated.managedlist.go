@@ -61,6 +61,24 @@ func (l *DashboardV1Beta1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this DashboardV2Beta1List.
+func (l *DashboardV2Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this DataSourceCacheConfigList.
+func (l *DataSourceCacheConfigList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this DataSourceConfigList.
 func (l *DataSourceConfigList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -106,6 +124,33 @@ func (l *FolderPermissionList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this InhibitionruleV0Alpha1List.
+func (l *InhibitionruleV0Alpha1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this KeeperActivationV1Beta1List.
+func (l *KeeperActivationV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this KeeperV1Beta1List.
+func (l *KeeperV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this LibraryPanelList.
 func (l *LibraryPanelList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -144,6 +189,15 @@ func (l *PlaylistList) GetItems() []resource.Managed {
 
 // GetItems of this PlaylistV0Alpha1List.
 func (l *PlaylistV0Alpha1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecurevalueV1Beta1List.
+func (l *SecurevalueV1Beta1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

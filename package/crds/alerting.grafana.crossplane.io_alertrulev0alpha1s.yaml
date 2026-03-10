@@ -35,7 +35,9 @@ spec:
     schema:
       openAPIV3Schema:
         description: AlertruleV0Alpha1 is the Schema for the AlertruleV0Alpha1s API.
-          <no value>
+          Manages Grafana Alert Rules. This resource is currently in alpha and is
+          subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules
+          feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
         properties:
           apiVersion:
             description: |-
@@ -74,136 +76,160 @@ spec:
               forProvider:
                 properties:
                   metadata:
-                    description: The metadata of the resource.
+                    description: |-
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
                     properties:
                       folderUid:
-                        description: The UID of the folder to save the resource in.
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
                         type: string
                       uid:
-                        description: The unique identifier of the resource.
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
                         type: string
                     type: object
                   options:
-                    description: Options for applying the resource.
+                    description: |-
+                      (Block, Optional) Options for applying the resource. (see below for nested schema)
+                      Options for applying the resource.
                     properties:
                       overwrite:
-                        description: Set to true if you want to overwrite existing
-                          resource with newer version, same resource title in folder
-                          or same resource uid.
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                         type: boolean
                     type: object
                   spec:
-                    description: The spec of the resource.
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Key-value pairs of metadata to attach to the
-                          alert rule. They add additional information, such as a `summary`
-                          or `runbook_url`, to help identify and investigate alerts.
+                        description: |-
+                          (Map of String) Annotations of the resource.
+                          Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts.
                         type: object
                         x-kubernetes-map-type: granular
                       execErrState:
-                        description: Describes what state to enter when the rule's
-                          query is invalid and the rule cannot be executed. Options
-                          are OK, Error, KeepLast, and Alerting.
+                        description: |-
+                          (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
+                          Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
                         type: string
                       expressions:
                         additionalProperties:
                           type: string
-                        description: A sequence of stages that describe the contents
-                          of the rule. Each value is a JSON string representing an
-                          expression object.
+                        description: |-
+                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
                         type: object
                         x-kubernetes-map-type: granular
                       for:
-                        description: The amount of time for which the rule must be
-                          breached for the rule to be considered to be Firing. Before
-                          this time has elapsed, the rule is only considered to be
-                          Pending.
+                        description: |-
+                          (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
+                          The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
                         type: string
                       keepFiringFor:
-                        description: The amount of time for which the rule will considered
-                          to be Recovering after initially Firing. Before this time
-                          has elapsed, the rule will continue to fire once it's been
-                          triggered.
+                        description: |-
+                          (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                          The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
                         type: string
                       labels:
                         additionalProperties:
                           type: string
-                        description: Key-value pairs to attach to the alert rule that
-                          can be used in matching, grouping, and routing.
+                        description: |-
+                          value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
+                          Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
                         type: object
                         x-kubernetes-map-type: granular
                       missingSeriesEvalsToResolve:
-                        description: The number of missing series evaluations that
-                          must occur before the rule is considered to be resolved.
+                        description: |-
+                          (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                          The number of missing series evaluations that must occur before the rule is considered to be resolved.
                         type: number
                       noDataState:
-                        description: Describes what state to enter when the rule's
-                          query returns No Data. Options are OK, NoData, KeepLast,
-                          and Alerting.
+                        description: |-
+                          (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
+                          Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
                         type: string
                       notificationSettings:
-                        description: Notification settings for the rule. If specified,
-                          it overrides the notification policies.
+                        description: |-
+                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
+                          Notification settings for the rule. If specified, it overrides the notification policies.
                         properties:
                           activeTimings:
-                            description: A list of time interval names to apply to
-                              alerts that match this policy to suppress them unless
-                              they are sent at the specified time.
+                            description: |-
+                              (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                              A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
                             items:
                               type: string
                             type: array
                           contactPoint:
-                            description: The contact point to route notifications
-                              that match this rule to.
+                            description: |-
+                              (String) The contact point to route notifications that match this rule to.
+                              The contact point to route notifications that match this rule to.
                             type: string
                           groupBy:
-                            description: A list of alert labels to group alerts into
-                              notifications by.
+                            description: |-
+                              (List of String) A list of alert labels to group alerts into notifications by.
+                              A list of alert labels to group alerts into notifications by.
                             items:
                               type: string
                             type: array
                           groupInterval:
-                            description: Minimum time interval between two notifications
-                              for the same group.
+                            description: |-
+                              (String) Minimum time interval between two notifications for the same group.
+                              Minimum time interval between two notifications for the same group.
                             type: string
                           groupWait:
-                            description: Time to wait to buffer alerts of the same
-                              group before sending a notification.
+                            description: |-
+                              (String) Time to wait to buffer alerts of the same group before sending a notification.
+                              Time to wait to buffer alerts of the same group before sending a notification.
                             type: string
                           muteTimings:
-                            description: A list of mute timing names to apply to alerts
-                              that match this policy.
+                            description: |-
+                              (List of String) A list of mute timing names to apply to alerts that match this policy.
+                              A list of mute timing names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
                           repeatInterval:
-                            description: Minimum time interval for re-sending a notification
-                              if an alert is still firing.
+                            description: |-
+                              sending a notification if an alert is still firing.
+                              Minimum time interval for re-sending a notification if an alert is still firing.
                             type: string
                         type: object
                       panelRef:
                         additionalProperties:
                           type: string
-                        description: Reference to a panel that this alert rule is
-                          associated with. Should be an object with 'dashboard_uid'
-                          (string) and 'panel_id' (number) fields.
+                        description: |-
+                          (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
+                          Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
                         type: object
                         x-kubernetes-map-type: granular
                       paused:
-                        description: Sets whether the rule should be paused or not.
+                        description: |-
+                          (Boolean) Sets whether the rule should be paused or not.
+                          Sets whether the rule should be paused or not.
                         type: boolean
                       title:
-                        description: The title of the alert rule.
+                        description: |-
+                          (String) The title of the alert rule.
+                          The title of the alert rule.
                         type: string
                       trigger:
-                        description: The trigger configuration for the alert rule.
+                        description: |-
+                          (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
+                          The trigger configuration for the alert rule.
                         properties:
                           interval:
-                            description: The interval at which the alert rule should
-                              be evaluated.
+                            description: |-
+                              (String) The interval at which the alert rule should be evaluated.
+                              The interval at which the alert rule should be evaluated.
                             type: string
                         type: object
                     type: object
@@ -222,136 +248,160 @@ spec:
                   autoscaler.
                 properties:
                   metadata:
-                    description: The metadata of the resource.
+                    description: |-
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
                     properties:
                       folderUid:
-                        description: The UID of the folder to save the resource in.
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
                         type: string
                       uid:
-                        description: The unique identifier of the resource.
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
                         type: string
                     type: object
                   options:
-                    description: Options for applying the resource.
+                    description: |-
+                      (Block, Optional) Options for applying the resource. (see below for nested schema)
+                      Options for applying the resource.
                     properties:
                       overwrite:
-                        description: Set to true if you want to overwrite existing
-                          resource with newer version, same resource title in folder
-                          or same resource uid.
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                         type: boolean
                     type: object
                   spec:
-                    description: The spec of the resource.
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Key-value pairs of metadata to attach to the
-                          alert rule. They add additional information, such as a `summary`
-                          or `runbook_url`, to help identify and investigate alerts.
+                        description: |-
+                          (Map of String) Annotations of the resource.
+                          Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts.
                         type: object
                         x-kubernetes-map-type: granular
                       execErrState:
-                        description: Describes what state to enter when the rule's
-                          query is invalid and the rule cannot be executed. Options
-                          are OK, Error, KeepLast, and Alerting.
+                        description: |-
+                          (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
+                          Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
                         type: string
                       expressions:
                         additionalProperties:
                           type: string
-                        description: A sequence of stages that describe the contents
-                          of the rule. Each value is a JSON string representing an
-                          expression object.
+                        description: |-
+                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
                         type: object
                         x-kubernetes-map-type: granular
                       for:
-                        description: The amount of time for which the rule must be
-                          breached for the rule to be considered to be Firing. Before
-                          this time has elapsed, the rule is only considered to be
-                          Pending.
+                        description: |-
+                          (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
+                          The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
                         type: string
                       keepFiringFor:
-                        description: The amount of time for which the rule will considered
-                          to be Recovering after initially Firing. Before this time
-                          has elapsed, the rule will continue to fire once it's been
-                          triggered.
+                        description: |-
+                          (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                          The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
                         type: string
                       labels:
                         additionalProperties:
                           type: string
-                        description: Key-value pairs to attach to the alert rule that
-                          can be used in matching, grouping, and routing.
+                        description: |-
+                          value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
+                          Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
                         type: object
                         x-kubernetes-map-type: granular
                       missingSeriesEvalsToResolve:
-                        description: The number of missing series evaluations that
-                          must occur before the rule is considered to be resolved.
+                        description: |-
+                          (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                          The number of missing series evaluations that must occur before the rule is considered to be resolved.
                         type: number
                       noDataState:
-                        description: Describes what state to enter when the rule's
-                          query returns No Data. Options are OK, NoData, KeepLast,
-                          and Alerting.
+                        description: |-
+                          (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
+                          Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
                         type: string
                       notificationSettings:
-                        description: Notification settings for the rule. If specified,
-                          it overrides the notification policies.
+                        description: |-
+                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
+                          Notification settings for the rule. If specified, it overrides the notification policies.
                         properties:
                           activeTimings:
-                            description: A list of time interval names to apply to
-                              alerts that match this policy to suppress them unless
-                              they are sent at the specified time.
+                            description: |-
+                              (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                              A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
                             items:
                               type: string
                             type: array
                           contactPoint:
-                            description: The contact point to route notifications
-                              that match this rule to.
+                            description: |-
+                              (String) The contact point to route notifications that match this rule to.
+                              The contact point to route notifications that match this rule to.
                             type: string
                           groupBy:
-                            description: A list of alert labels to group alerts into
-                              notifications by.
+                            description: |-
+                              (List of String) A list of alert labels to group alerts into notifications by.
+                              A list of alert labels to group alerts into notifications by.
                             items:
                               type: string
                             type: array
                           groupInterval:
-                            description: Minimum time interval between two notifications
-                              for the same group.
+                            description: |-
+                              (String) Minimum time interval between two notifications for the same group.
+                              Minimum time interval between two notifications for the same group.
                             type: string
                           groupWait:
-                            description: Time to wait to buffer alerts of the same
-                              group before sending a notification.
+                            description: |-
+                              (String) Time to wait to buffer alerts of the same group before sending a notification.
+                              Time to wait to buffer alerts of the same group before sending a notification.
                             type: string
                           muteTimings:
-                            description: A list of mute timing names to apply to alerts
-                              that match this policy.
+                            description: |-
+                              (List of String) A list of mute timing names to apply to alerts that match this policy.
+                              A list of mute timing names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
                           repeatInterval:
-                            description: Minimum time interval for re-sending a notification
-                              if an alert is still firing.
+                            description: |-
+                              sending a notification if an alert is still firing.
+                              Minimum time interval for re-sending a notification if an alert is still firing.
                             type: string
                         type: object
                       panelRef:
                         additionalProperties:
                           type: string
-                        description: Reference to a panel that this alert rule is
-                          associated with. Should be an object with 'dashboard_uid'
-                          (string) and 'panel_id' (number) fields.
+                        description: |-
+                          (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
+                          Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
                         type: object
                         x-kubernetes-map-type: granular
                       paused:
-                        description: Sets whether the rule should be paused or not.
+                        description: |-
+                          (Boolean) Sets whether the rule should be paused or not.
+                          Sets whether the rule should be paused or not.
                         type: boolean
                       title:
-                        description: The title of the alert rule.
+                        description: |-
+                          (String) The title of the alert rule.
+                          The title of the alert rule.
                         type: string
                       trigger:
-                        description: The trigger configuration for the alert rule.
+                        description: |-
+                          (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
+                          The trigger configuration for the alert rule.
                         properties:
                           interval:
-                            description: The interval at which the alert rule should
-                              be evaluated.
+                            description: |-
+                              (String) The interval at which the alert rule should be evaluated.
+                              The interval at which the alert rule should be evaluated.
                             type: string
                         type: object
                     type: object
@@ -457,154 +507,186 @@ spec:
               atProvider:
                 properties:
                   id:
+                    description: (String) The ID of the resource derived from UUID.
                     type: string
                   metadata:
-                    description: The metadata of the resource.
+                    description: |-
+                      (Block, Optional) The metadata of the resource. (see below for nested schema)
+                      The metadata of the resource.
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Annotations of the resource.
+                        description: |-
+                          (Map of String) Annotations of the resource.
+                          Annotations of the resource.
                         type: object
                         x-kubernetes-map-type: granular
                       folderUid:
-                        description: The UID of the folder to save the resource in.
+                        description: |-
+                          (String) The UID of the folder to save the resource in.
+                          The UID of the folder to save the resource in.
                         type: string
                       uid:
-                        description: The unique identifier of the resource.
+                        description: |-
+                          (String) The unique identifier of the resource.
+                          The unique identifier of the resource.
                         type: string
                       url:
-                        description: The full URL of the resource.
+                        description: |-
+                          (String) The full URL of the resource.
+                          The full URL of the resource.
                         type: string
                       uuid:
-                        description: The globally unique identifier of a resource,
-                          used by the API for tracking.
+                        description: |-
+                          (String) The globally unique identifier of a resource, used by the API for tracking.
+                          The globally unique identifier of a resource, used by the API for tracking.
                         type: string
                       version:
-                        description: The version of the resource.
+                        description: |-
+                          (String) The version of the resource.
+                          The version of the resource.
                         type: string
                     type: object
                   options:
-                    description: Options for applying the resource.
+                    description: |-
+                      (Block, Optional) Options for applying the resource. (see below for nested schema)
+                      Options for applying the resource.
                     properties:
                       overwrite:
-                        description: Set to true if you want to overwrite existing
-                          resource with newer version, same resource title in folder
-                          or same resource uid.
+                        description: |-
+                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                         type: boolean
                     type: object
                   spec:
-                    description: The spec of the resource.
+                    description: |-
+                      (Block, Optional) The spec of the resource. (see below for nested schema)
+                      The spec of the resource.
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: Key-value pairs of metadata to attach to the
-                          alert rule. They add additional information, such as a `summary`
-                          or `runbook_url`, to help identify and investigate alerts.
+                        description: |-
+                          (Map of String) Annotations of the resource.
+                          Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts.
                         type: object
                         x-kubernetes-map-type: granular
                       execErrState:
-                        description: Describes what state to enter when the rule's
-                          query is invalid and the rule cannot be executed. Options
-                          are OK, Error, KeepLast, and Alerting.
+                        description: |-
+                          (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
+                          Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
                         type: string
                       expressions:
                         additionalProperties:
                           type: string
-                        description: A sequence of stages that describe the contents
-                          of the rule. Each value is a JSON string representing an
-                          expression object.
+                        description: |-
+                          (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+                          A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
                         type: object
                         x-kubernetes-map-type: granular
                       for:
-                        description: The amount of time for which the rule must be
-                          breached for the rule to be considered to be Firing. Before
-                          this time has elapsed, the rule is only considered to be
-                          Pending.
+                        description: |-
+                          (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
+                          The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
                         type: string
                       keepFiringFor:
-                        description: The amount of time for which the rule will considered
-                          to be Recovering after initially Firing. Before this time
-                          has elapsed, the rule will continue to fire once it's been
-                          triggered.
+                        description: |-
+                          (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+                          The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
                         type: string
                       labels:
                         additionalProperties:
                           type: string
-                        description: Key-value pairs to attach to the alert rule that
-                          can be used in matching, grouping, and routing.
+                        description: |-
+                          value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
+                          Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
                         type: object
                         x-kubernetes-map-type: granular
                       missingSeriesEvalsToResolve:
-                        description: The number of missing series evaluations that
-                          must occur before the rule is considered to be resolved.
+                        description: |-
+                          (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+                          The number of missing series evaluations that must occur before the rule is considered to be resolved.
                         type: number
                       noDataState:
-                        description: Describes what state to enter when the rule's
-                          query returns No Data. Options are OK, NoData, KeepLast,
-                          and Alerting.
+                        description: |-
+                          (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
+                          Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
                         type: string
                       notificationSettings:
-                        description: Notification settings for the rule. If specified,
-                          it overrides the notification policies.
+                        description: |-
+                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
+                          Notification settings for the rule. If specified, it overrides the notification policies.
                         properties:
                           activeTimings:
-                            description: A list of time interval names to apply to
-                              alerts that match this policy to suppress them unless
-                              they are sent at the specified time.
+                            description: |-
+                              (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                              A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
                             items:
                               type: string
                             type: array
                           contactPoint:
-                            description: The contact point to route notifications
-                              that match this rule to.
+                            description: |-
+                              (String) The contact point to route notifications that match this rule to.
+                              The contact point to route notifications that match this rule to.
                             type: string
                           groupBy:
-                            description: A list of alert labels to group alerts into
-                              notifications by.
+                            description: |-
+                              (List of String) A list of alert labels to group alerts into notifications by.
+                              A list of alert labels to group alerts into notifications by.
                             items:
                               type: string
                             type: array
                           groupInterval:
-                            description: Minimum time interval between two notifications
-                              for the same group.
+                            description: |-
+                              (String) Minimum time interval between two notifications for the same group.
+                              Minimum time interval between two notifications for the same group.
                             type: string
                           groupWait:
-                            description: Time to wait to buffer alerts of the same
-                              group before sending a notification.
+                            description: |-
+                              (String) Time to wait to buffer alerts of the same group before sending a notification.
+                              Time to wait to buffer alerts of the same group before sending a notification.
                             type: string
                           muteTimings:
-                            description: A list of mute timing names to apply to alerts
-                              that match this policy.
+                            description: |-
+                              (List of String) A list of mute timing names to apply to alerts that match this policy.
+                              A list of mute timing names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
                           repeatInterval:
-                            description: Minimum time interval for re-sending a notification
-                              if an alert is still firing.
+                            description: |-
+                              sending a notification if an alert is still firing.
+                              Minimum time interval for re-sending a notification if an alert is still firing.
                             type: string
                         type: object
                       panelRef:
                         additionalProperties:
                           type: string
-                        description: Reference to a panel that this alert rule is
-                          associated with. Should be an object with 'dashboard_uid'
-                          (string) and 'panel_id' (number) fields.
+                        description: |-
+                          (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
+                          Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
                         type: object
                         x-kubernetes-map-type: granular
                       paused:
-                        description: Sets whether the rule should be paused or not.
+                        description: |-
+                          (Boolean) Sets whether the rule should be paused or not.
+                          Sets whether the rule should be paused or not.
                         type: boolean
                       title:
-                        description: The title of the alert rule.
+                        description: |-
+                          (String) The title of the alert rule.
+                          The title of the alert rule.
                         type: string
                       trigger:
-                        description: The trigger configuration for the alert rule.
+                        description: |-
+                          (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
+                          The trigger configuration for the alert rule.
                         properties:
                           interval:
-                            description: The interval at which the alert rule should
-                              be evaluated.
+                            description: |-
+                              (String) The interval at which the alert rule should be evaluated.
+                              The interval at which the alert rule should be evaluated.
                             type: string
                         type: object
                     type: object

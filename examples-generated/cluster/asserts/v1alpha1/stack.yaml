@@ -1,0 +1,98 @@
+apiVersion: asserts.grafana.crossplane.io/v1alpha1
+kind: Stack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/stack
+  labels:
+    testing.upbound.io/example-name: main
+  name: main
+spec:
+  forProvider:
+    cloudAccessPolicyTokenSecretRef:
+      key: attribute.token
+      name: example-cloud-access-policy-token
+      namespace: upbound-system
+    grafanaTokenSecretRef:
+      key: attribute.key
+      name: example-cloud-stack-service-account-token
+      namespace: upbound-system
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/stack
+  labels:
+    testing.upbound.io/example-name: asserts
+  name: asserts
+spec:
+  forProvider:
+    displayName: Asserts Stack Policy
+    name: asserts-stack-policy
+    realm:
+    - stackSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+      type: stack
+    scopes:
+    - stacks:read
+    - metrics:read
+    - metrics:write
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicyToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/stack
+  labels:
+    testing.upbound.io/example-name: asserts
+  name: asserts
+spec:
+  forProvider:
+    accessPolicySelector:
+      matchLabels:
+        testing.upbound.io/example-name: asserts
+    name: asserts-stack-token
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: StackServiceAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/stack
+  labels:
+    testing.upbound.io/example-name: asserts
+  name: asserts
+spec:
+  forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    isDisabled: false
+    name: asserts-managed-alerts-sa
+    role: Admin
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: StackServiceAccountToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/stack
+  labels:
+    testing.upbound.io/example-name: asserts
+  name: asserts
+spec:
+  forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: asserts-managed-alerts-token
+    serviceAccountSelector:
+      matchLabels:
+        testing.upbound.io/example-name: asserts

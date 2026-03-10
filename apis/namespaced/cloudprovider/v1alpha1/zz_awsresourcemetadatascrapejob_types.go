@@ -237,7 +237,7 @@ type AwsResourceMetadataScrapeJobStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AwsResourceMetadataScrapeJob is the Schema for the AwsResourceMetadataScrapeJobs API.
+// AwsResourceMetadataScrapeJob is the Schema for the AwsResourceMetadataScrapeJobs API. This resource allows you to scrape AWS resource metadata such as ARN and tags as info metrics in Grafana Cloud without needing to run your own infrastructure. Use this resource if you aren't using grafana_cloud_provider_aws_cloudwatch_scrape_job, but still want to have AWS resource metadata available in Grafana Cloud, for example for use with our AWS Metrics Streams integration and/or Knowledge Graph features. See the Grafana Provider configuration docs https://registry.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

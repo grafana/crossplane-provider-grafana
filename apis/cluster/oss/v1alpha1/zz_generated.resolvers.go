@@ -490,6 +490,50 @@ func (mg *DataSource) ResolveReferences(ctx context.Context, c client.Reader) er
 	return nil
 }
 
+// ResolveReferences of this DataSourceCacheConfig.
+func (mg *DataSourceCacheConfig) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.OrganizationRef,
+		Selector:     mg.Spec.ForProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrgID")
+	}
+	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.OrganizationRef,
+		Selector:     mg.Spec.InitProvider.OrganizationSelector,
+		To: reference.To{
+			List:    &OrganizationList{},
+			Managed: &Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrgID")
+	}
+	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this DataSourceConfig.
 func (mg *DataSourceConfig) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)

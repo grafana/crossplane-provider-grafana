@@ -41,10 +41,11 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	var initializers managed.InitializerChain
 	eventHandler := handler.NewEventHandler(handler.WithLogger(o.Logger.WithValues("gvk", v1alpha1.Annotation_GroupVersionKind)))
 	opts := []managed.ReconcilerOption{
-		managed.WithExternalConnecter(tjcontroller.NewTerraformPluginSDKConnector(mgr.GetClient(), o.SetupFn, o.Provider.Resources["grafana_annotation"], o.OperationTrackerStore,
-			tjcontroller.WithTerraformPluginSDKLogger(o.Logger),
-			tjcontroller.WithTerraformPluginSDKMetricRecorder(metrics.NewMetricRecorder(v1alpha1.Annotation_GroupVersionKind, mgr, o.PollInterval)),
-			tjcontroller.WithTerraformPluginSDKManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
+		managed.WithExternalConnecter(
+			tjcontroller.NewTerraformPluginFrameworkConnector(mgr.GetClient(), o.SetupFn, o.Provider.Resources["grafana_annotation"], o.OperationTrackerStore,
+				tjcontroller.WithTerraformPluginFrameworkLogger(o.Logger),
+				tjcontroller.WithTerraformPluginFrameworkMetricRecorder(metrics.NewMetricRecorder(v1alpha1.Annotation_GroupVersionKind, mgr, o.PollInterval)),
+				tjcontroller.WithTerraformPluginFrameworkManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
 		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
 		managed.WithFinalizer(tjcontroller.NewOperationTrackerFinalizer(o.OperationTrackerStore, xpresource.NewAPIFinalizer(mgr.GetClient(), managed.FinalizerName))),

@@ -1870,7 +1870,7 @@ type AlertenrichmentV1Beta1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AlertenrichmentV1Beta1 is the Schema for the AlertenrichmentV1Beta1s API. Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is currently in private preview. Grafana Labs offers support on a best-effort basis, and breaking changes might occur prior to the feature being made generally available
+// AlertenrichmentV1Beta1 is the Schema for the AlertenrichmentV1Beta1s API. Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is currently in public preview. Grafana Labs offers limited support, and breaking changes might occur prior to the feature being made generally available.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

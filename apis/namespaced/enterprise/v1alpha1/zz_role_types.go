@@ -197,8 +197,8 @@ type RolePermissionsInitParameters struct {
 	// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
+	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 }
 
@@ -208,8 +208,8 @@ type RolePermissionsObservation struct {
 	// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
 	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
+	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 }
 
@@ -220,8 +220,8 @@ type RolePermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Action *string `json:"action" tf:"action,omitempty"`
 
-	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
+	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
 	// +kubebuilder:validation:Optional
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 }

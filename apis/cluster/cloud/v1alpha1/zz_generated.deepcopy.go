@@ -2943,10 +2943,32 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.FleetManagementPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.FleetManagementPrivateConnectivityInfoAvailabilityZones, &out.FleetManagementPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.FleetManagementPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.FleetManagementPrivateConnectivityInfoPrivateDNS, &out.FleetManagementPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.FleetManagementPrivateConnectivityInfoRegions != nil {
+		in, out := &in.FleetManagementPrivateConnectivityInfoRegions, &out.FleetManagementPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.FleetManagementPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.FleetManagementPrivateConnectivityInfoServiceName, &out.FleetManagementPrivateConnectivityInfoServiceName
@@ -2983,10 +3005,32 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.GraphitePrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.GraphitePrivateConnectivityInfoAvailabilityZones, &out.GraphitePrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.GraphitePrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.GraphitePrivateConnectivityInfoPrivateDNS, &out.GraphitePrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.GraphitePrivateConnectivityInfoRegions != nil {
+		in, out := &in.GraphitePrivateConnectivityInfoRegions, &out.GraphitePrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.GraphitePrivateConnectivityInfoServiceName != nil {
 		in, out := &in.GraphitePrivateConnectivityInfoServiceName, &out.GraphitePrivateConnectivityInfoServiceName
@@ -3044,10 +3088,32 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.LogsPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.LogsPrivateConnectivityInfoAvailabilityZones, &out.LogsPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.LogsPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.LogsPrivateConnectivityInfoPrivateDNS, &out.LogsPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.LogsPrivateConnectivityInfoRegions != nil {
+		in, out := &in.LogsPrivateConnectivityInfoRegions, &out.LogsPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.LogsPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.LogsPrivateConnectivityInfoServiceName, &out.LogsPrivateConnectivityInfoServiceName
@@ -3094,10 +3160,32 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OtlpPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.OtlpPrivateConnectivityInfoAvailabilityZones, &out.OtlpPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.OtlpPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.OtlpPrivateConnectivityInfoPrivateDNS, &out.OtlpPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.OtlpPrivateConnectivityInfoRegions != nil {
+		in, out := &in.OtlpPrivateConnectivityInfoRegions, &out.OtlpPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.OtlpPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.OtlpPrivateConnectivityInfoServiceName, &out.OtlpPrivateConnectivityInfoServiceName
@@ -3109,20 +3197,64 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PdcAPIPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.PdcAPIPrivateConnectivityInfoAvailabilityZones, &out.PdcAPIPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.PdcAPIPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.PdcAPIPrivateConnectivityInfoPrivateDNS, &out.PdcAPIPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.PdcAPIPrivateConnectivityInfoRegions != nil {
+		in, out := &in.PdcAPIPrivateConnectivityInfoRegions, &out.PdcAPIPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.PdcAPIPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.PdcAPIPrivateConnectivityInfoServiceName, &out.PdcAPIPrivateConnectivityInfoServiceName
 		*out = new(string)
 		**out = **in
 	}
+	if in.PdcGatewayPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.PdcGatewayPrivateConnectivityInfoAvailabilityZones, &out.PdcGatewayPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.PdcGatewayPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.PdcGatewayPrivateConnectivityInfoPrivateDNS, &out.PdcGatewayPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.PdcGatewayPrivateConnectivityInfoRegions != nil {
+		in, out := &in.PdcGatewayPrivateConnectivityInfoRegions, &out.PdcGatewayPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.PdcGatewayPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.PdcGatewayPrivateConnectivityInfoServiceName, &out.PdcGatewayPrivateConnectivityInfoServiceName
@@ -3139,10 +3271,32 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProfilesPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.ProfilesPrivateConnectivityInfoAvailabilityZones, &out.ProfilesPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.ProfilesPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.ProfilesPrivateConnectivityInfoPrivateDNS, &out.ProfilesPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProfilesPrivateConnectivityInfoRegions != nil {
+		in, out := &in.ProfilesPrivateConnectivityInfoRegions, &out.ProfilesPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.ProfilesPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.ProfilesPrivateConnectivityInfoServiceName, &out.ProfilesPrivateConnectivityInfoServiceName
@@ -3174,10 +3328,32 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.PrometheusPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.PrometheusPrivateConnectivityInfoAvailabilityZones, &out.PrometheusPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.PrometheusPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.PrometheusPrivateConnectivityInfoPrivateDNS, &out.PrometheusPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.PrometheusPrivateConnectivityInfoRegions != nil {
+		in, out := &in.PrometheusPrivateConnectivityInfoRegions, &out.PrometheusPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.PrometheusPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.PrometheusPrivateConnectivityInfoServiceName, &out.PrometheusPrivateConnectivityInfoServiceName
@@ -3234,10 +3410,32 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TracesPrivateConnectivityInfoAvailabilityZones != nil {
+		in, out := &in.TracesPrivateConnectivityInfoAvailabilityZones, &out.TracesPrivateConnectivityInfoAvailabilityZones
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
 	if in.TracesPrivateConnectivityInfoPrivateDNS != nil {
 		in, out := &in.TracesPrivateConnectivityInfoPrivateDNS, &out.TracesPrivateConnectivityInfoPrivateDNS
 		*out = new(string)
 		**out = **in
+	}
+	if in.TracesPrivateConnectivityInfoRegions != nil {
+		in, out := &in.TracesPrivateConnectivityInfoRegions, &out.TracesPrivateConnectivityInfoRegions
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
 	}
 	if in.TracesPrivateConnectivityInfoServiceName != nil {
 		in, out := &in.TracesPrivateConnectivityInfoServiceName, &out.TracesPrivateConnectivityInfoServiceName

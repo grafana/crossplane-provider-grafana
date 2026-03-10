@@ -25,7 +25,13 @@ func (tr *DashboardPublic) Hub() {}
 func (tr *DashboardV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DashboardV2Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DataSource) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *DataSourceCacheConfig) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *DataSourceConfig) Hub() {}
@@ -38,6 +44,15 @@ func (tr *FolderPermission) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *FolderPermissionItem) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *InhibitionruleV0Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *KeeperActivationV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *KeeperV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *LibraryPanel) Hub() {}
@@ -53,6 +68,9 @@ func (tr *Playlist) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *PlaylistV0Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecurevalueV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccount) Hub() {}

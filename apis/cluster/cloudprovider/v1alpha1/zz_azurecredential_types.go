@@ -297,7 +297,7 @@ type AzureCredentialStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AzureCredential is the Schema for the AzureCredentials API.
+// AzureCredential is the Schema for the AzureCredentials API. This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
