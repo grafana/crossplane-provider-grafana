@@ -50,8 +50,6 @@ GO_SUBDIRS += cmd internal apis
 # Setup Kubernetes tools
 
 KIND_VERSION = v0.30.0
-UP_VERSION = v0.41.0
-UP_CHANNEL = stable
 UPTEST_VERSION = v2.1.0
 CRDDIFF_VERSION = v0.12.1
 -include build/makelib/k8s_tools.mk
@@ -95,7 +93,7 @@ xpkg.build.provider-grafana: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
-build.init: $(CROSSPLANE_CLI) $(UP)
+build.init: $(CROSSPLANE_CLI)
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema
