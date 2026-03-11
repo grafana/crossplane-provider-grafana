@@ -1,0 +1,22 @@
+apiVersion: frontendobservability.grafana.crossplane.io/v1alpha1
+kind: App
+metadata:
+  annotations:
+    meta.upbound.io/example-id: frontendobservability/v1alpha1/app
+  labels:
+    testing.upbound.io/example-name: test-app
+  name: test-app
+spec:
+  forProvider:
+    allowedOrigins:
+    - https://grafana.com
+    extraLogAttributes:
+      terraform: "true"
+    name: test-app
+    provider: ${grafana.cloud}
+    settings:
+      combineLabData: "1"
+      geolocation.country_denylist: DE,GR
+      geolocation.enabled: "1"
+      geolocation.level: "3"
+    stackId: ${data.grafana_cloud_stack.teststack.id}

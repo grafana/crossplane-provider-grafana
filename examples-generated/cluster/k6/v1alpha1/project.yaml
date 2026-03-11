@@ -1,0 +1,11 @@
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/project
+  labels:
+    testing.upbound.io/example-name: test_project
+  name: test-project
+spec:
+  forProvider:
+    name: Terraform Test Project

@@ -1,0 +1,94 @@
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: Installation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: k6_installation
+  name: k6-installation
+spec:
+  forProvider:
+    cloudAccessPolicyTokenSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    grafanaSaTokenSecretRef:
+      key: attribute.key
+      name: example-cloud-stack-service-account-token
+      namespace: upbound-system
+    grafanaUser: admin
+    provider: ${grafana.cloud}
+    stackId: ${grafana_cloud_stack.k6_stack.id}
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: Stack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: k6_stack
+  name: k6-stack
+spec:
+  forProvider:
+    name: ${var.stack_slug}
+    provider: ${grafana.cloud}
+    regionSlug: ${var.cloud_region}
+    slug: ${var.stack_slug}
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: StackServiceAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: k6_sa
+  name: k6-sa
+spec:
+  forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    isDisabled: false
+    name: ${var.stack_slug}-k6-app
+    provider: ${grafana.cloud}
+    role: Admin
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: StackServiceAccountToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: k6_sa_token
+  name: k6-sa-token
+spec:
+  forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    name: ${var.stack_slug}-k6-app-token
+    provider: ${grafana.cloud}
+    serviceAccountSelector:
+      matchLabels:
+        testing.upbound.io/example-name: k6_sa
+
+---
+
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: my_k6_project
+  name: my-k6-project
+spec:
+  forProvider:
+    name: k6 Project created with TF
+    provider: ${grafana.k6}

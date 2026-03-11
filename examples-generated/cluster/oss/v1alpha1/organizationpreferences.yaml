@@ -1,0 +1,13 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: OrganizationPreferences
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/organizationpreferences
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    theme: light
+    timezone: utc
+    weekStart: sunday

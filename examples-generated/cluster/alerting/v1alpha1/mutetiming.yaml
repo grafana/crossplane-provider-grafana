@@ -1,0 +1,28 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: MuteTiming
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/mutetiming
+  labels:
+    testing.upbound.io/example-name: my_mute_timing
+  name: my-mute-timing
+spec:
+  forProvider:
+    intervals:
+    - daysOfMonth:
+      - "1:7"
+      - "-1"
+      location: America/New_York
+      months:
+      - "1:3"
+      - december
+      times:
+      - end: "14:17"
+        start: "04:56"
+      weekdays:
+      - monday
+      - tuesday:thursday
+      years:
+      - "2030"
+      - 2025:2026
+    name: My Mute Timing

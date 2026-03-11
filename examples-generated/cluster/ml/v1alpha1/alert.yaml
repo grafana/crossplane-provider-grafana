@@ -1,0 +1,37 @@
+apiVersion: ml.grafana.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ml/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: test_job_alert
+  name: test-job-alert
+spec:
+  forProvider:
+    anomalyCondition: any
+    jobId: ${grafana_machine_learning_job.test_alert_job.id}
+    noDataState: OK
+    threshold: '>0.8'
+    title: Test Alert
+    window: 15m
+
+---
+
+apiVersion: ml.grafana.crossplane.io/v1alpha1
+kind: Job
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ml/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: test_alert_job
+  name: test-alert-job
+spec:
+  forProvider:
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    datasourceType: prometheus
+    metric: tf_test_alert_job
+    name: Test Job
+    queryParams:
+      expr: grafanacloud_grafana_instance_active_user_count

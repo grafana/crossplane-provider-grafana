@@ -1,0 +1,24 @@
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: OnCallShift
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/oncallshift
+  labels:
+    testing.upbound.io/example-name: example_shift
+  name: example-shift
+spec:
+  forProvider:
+    byDay:
+    - MO
+    - FR
+    duration: ${60 * 30}
+    frequency: weekly
+    interval: 2
+    name: Example Shift
+    start: 2020-09-07T14:00:00
+    teamId: ${data.grafana_oncall_team.my_team.id}
+    timeZone: UTC
+    type: recurrent_event
+    users:
+    - ${data.grafana_oncall_user.alex.id}
+    weekStart: MO

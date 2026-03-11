@@ -1,0 +1,80 @@
+apiVersion: sm.grafana.crossplane.io/v1alpha1
+kind: Installation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_stack
+  name: sm-stack
+spec:
+  forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: sm_stack
+    metricsPublisherKeySecretRef:
+      key: attribute.token
+      name: example-cloud-access-policy-token
+      namespace: upbound-system
+    provider: ${grafana.cloud}
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_metrics_publish
+  name: sm-metrics-publish
+spec:
+  forProvider:
+    name: metric-publisher-for-sm
+    provider: ${grafana.cloud}
+    realm:
+    - stackSelector:
+        matchLabels:
+          testing.upbound.io/example-name: sm_stack
+      type: stack
+    region: ${var.cloud_region}
+    scopes:
+    - metrics:write
+    - stacks:read
+    - logs:write
+    - traces:write
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicyToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_metrics_publish
+  name: sm-metrics-publish
+spec:
+  forProvider:
+    accessPolicySelector:
+      matchLabels:
+        testing.upbound.io/example-name: sm_metrics_publish
+    name: metric-publisher-for-sm
+    provider: ${grafana.cloud}
+    region: ${var.cloud_region}
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: Stack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sm/v1alpha1/installation
+  labels:
+    testing.upbound.io/example-name: sm_stack
+  name: sm-stack
+spec:
+  forProvider:
+    name: ${var.stack_slug}
+    provider: ${grafana.cloud}
+    regionSlug: ${var.cloud_region}
+    slug: ${var.stack_slug}

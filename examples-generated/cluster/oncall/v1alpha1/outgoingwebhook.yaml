@@ -1,0 +1,14 @@
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: OutgoingWebhook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/outgoingwebhook
+  labels:
+    testing.upbound.io/example-name: test-acc-outgoing_webhook
+  name: test-acc-outgoing-webhook
+spec:
+  forProvider:
+    name: my outgoing webhook
+    provider: ${grafana.oncall}
+    teamId: ${data.grafana_oncall_team.my_team.id}
+    url: https://example.com/

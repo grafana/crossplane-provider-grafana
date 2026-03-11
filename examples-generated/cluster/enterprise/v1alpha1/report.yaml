@@ -1,0 +1,36 @@
+apiVersion: enterprise.grafana.crossplane.io/v1alpha1
+kind: Report
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/report
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    dashboards:
+    - uid: ${grafana_dashboard.test.uid}
+    name: my report
+    recipients:
+    - some@email.com
+    schedule:
+    - frequency: hourly
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/report
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    configJson: |
+      {
+        "uid": "report-dashboard",
+        "title": "report-dashboard"
+      }
+    message: inital commit.

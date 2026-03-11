@@ -1,0 +1,31 @@
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: ProjectLimits
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/projectlimits
+  labels:
+    testing.upbound.io/example-name: test_limits
+  name: test-limits
+spec:
+  forProvider:
+    durationMaxPerTest: 3600
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_project_limits
+    vuBrowserMaxPerTest: 10
+    vuMaxPerTest: 100
+    vuhMaxPerMonth: 1000
+
+---
+
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/projectlimits
+  labels:
+    testing.upbound.io/example-name: test_project_limits
+  name: test-project-limits
+spec:
+  forProvider:
+    name: Terraform Project Test Limits

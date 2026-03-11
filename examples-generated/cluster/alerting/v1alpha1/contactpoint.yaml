@@ -1,0 +1,19 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: ContactPoint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/contactpoint
+  labels:
+    testing.upbound.io/example-name: my_contact_point
+  name: my-contact-point
+spec:
+  forProvider:
+    email:
+    - addresses:
+      - one@company.org
+      - two@company.org
+      disableResolveMessage: false
+      message: '{{ len .Alerts.Firing }} firing.'
+      singleEmail: true
+      subject: '{{ template "default.title" .}}'
+    name: My Contact Point

@@ -1,0 +1,55 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DataSourceConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/datasourceconfig
+  labels:
+    testing.upbound.io/example-name: loki
+  name: loki
+spec:
+  forProvider:
+    jsonDataEncoded: |-
+      ${jsonencode({
+          derivedFields = [
+            {
+              datasourceUid = grafana_data_source.tempo.uid
+              matcherRegex  = "[tT]race_?[iI][dD]\"?[:=]\"?(\\w+)"
+              matcherType   = "regex"
+              name          = "traceID"
+              url           = "$${__value.raw}"
+            }
+          ]
+        })}
+    uid: ${grafana_data_source.loki.uid}
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DataSource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/datasourceconfig
+  labels:
+    testing.upbound.io/example-name: loki
+  name: loki
+spec:
+  forProvider:
+    name: loki
+    type: loki
+    url: http://localhost:3100
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: DataSource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/datasourceconfig
+  labels:
+    testing.upbound.io/example-name: tempo
+  name: tempo
+spec:
+  forProvider:
+    name: tempo
+    type: tempo
+    url: http://localhost:3200

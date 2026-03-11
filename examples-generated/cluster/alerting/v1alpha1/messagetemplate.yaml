@@ -1,0 +1,15 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: MessageTemplate
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/messagetemplate
+  labels:
+    testing.upbound.io/example-name: my_template
+  name: my-template
+spec:
+  forProvider:
+    name: My Notification Template Group
+    template: |-
+      {{define "custom.message" }}
+       template content
+      {{ end }}

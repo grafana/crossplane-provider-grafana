@@ -1,0 +1,43 @@
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicyToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/accesspolicytoken
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    accessPolicySelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    displayName: My Policy Token
+    expiresAt: "2023-01-01T00:00:00Z"
+    name: my-policy-token
+    region: prod-us-east-0
+
+---
+
+apiVersion: cloud.grafana.crossplane.io/v1alpha1
+kind: AccessPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/accesspolicytoken
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    displayName: My Policy
+    name: my-policy
+    realm:
+    - labelPolicy:
+      - selector: '{namespace="default"}'
+      stackSelector:
+        matchLabels:
+          testing.upbound.io/example-name: grafana_cloud_organization
+      type: org
+    region: prod-us-east-0
+    scopes:
+    - metrics:read
+    - logs:read

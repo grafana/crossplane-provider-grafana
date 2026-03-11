@@ -1,0 +1,58 @@
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: Route
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/route
+  labels:
+    testing.upbound.io/example-name: example_route
+  name: example-route
+spec:
+  forProvider:
+    escalationChainSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
+    integrationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example_integration
+    msteams:
+    - enabled: false
+      id: ONCALLMSTEAMSID
+    position: 0
+    routingRegex: us-(east|west)
+    slack:
+    - channelId: ${data.grafana_oncall_slack_channel.example_slack_channel.slack_id}
+      enabled: true
+    telegram:
+    - enabled: true
+      id: ONCALLTELEGRAMID
+
+---
+
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: EscalationChain
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/route
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    name: default
+
+---
+
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: Integration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/route
+  labels:
+    testing.upbound.io/example-name: example_integration
+  name: example-integration
+spec:
+  forProvider:
+    defaultRoute:
+    - {}
+    name: Grafana Integration
+    type: grafana

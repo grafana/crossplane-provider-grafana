@@ -67,6 +67,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_apps_alertenrichment_alertenrichment_v1beta1": ReplaceGroupWords("alerting", 2),
 	"grafana_apps_rules_alertrule_v0alpha1":                ReplaceGroupWords("alerting", 2),
 	"grafana_apps_rules_recordingrule_v0alpha1":            ReplaceGroupWords("alerting", 2),
+	"grafana_apps_notifications_inhibitionrule_v0alpha1":   ReplaceGroupWords("alerting", 2),
 
 	// Cloud
 	"grafana_cloud_access_policy":                             ReplaceGroupWords("cloud", 1),
@@ -144,6 +145,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_user":                             ReplaceGroupWords("oss", 0),
 	"grafana_apps_playlist_playlist_v0alpha1":  ReplaceGroupWords("oss", 2),
 	"grafana_apps_dashboard_dashboard_v1beta1": ReplaceGroupWords("oss", 2),
+	"grafana_apps_dashboard_dashboard_v2beta1": ReplaceGroupWords("oss", 2),
 
 	// SLO
 	"grafana_slo": ReplaceGroupWords("slo", 0),
@@ -177,6 +179,12 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_asserts_profile_config":               ReplaceGroupWords("asserts", 1),
 	"grafana_asserts_trace_config":                 ReplaceGroupWords("asserts", 1),
 	"grafana_asserts_prom_rule_file":               ReplaceGroupWords("asserts", 1),
+	"grafana_asserts_stack":                        ReplaceGroupWords("asserts", 1),
+
+	// Secret
+	"grafana_apps_secret_keeper_v1beta1":            ReplaceGroupWords("secret", 2),
+	"grafana_apps_secret_securevalue_v1beta1":       ReplaceGroupWords("secret", 2),
+	"grafana_apps_secret_keeper_activation_v1beta1": ReplaceGroupWords("secret", 2),
 }
 
 // KindMap contains kind string overrides.

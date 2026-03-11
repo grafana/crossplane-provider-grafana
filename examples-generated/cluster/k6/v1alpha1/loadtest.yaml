@@ -1,0 +1,32 @@
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: LoadTest
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/loadtest
+  labels:
+    testing.upbound.io/example-name: test_load_test
+  name: test-load-test
+spec:
+  forProvider:
+    name: Terraform Test Load Test
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: load_test_project
+    script: |
+      export default function() {
+        console.log('Hello from k6!');
+      }
+
+---
+
+apiVersion: k6.grafana.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  annotations:
+    meta.upbound.io/example-id: k6/v1alpha1/loadtest
+  labels:
+    testing.upbound.io/example-name: load_test_project
+  name: load-test-project
+spec:
+  forProvider:
+    name: Terraform Load Test Project

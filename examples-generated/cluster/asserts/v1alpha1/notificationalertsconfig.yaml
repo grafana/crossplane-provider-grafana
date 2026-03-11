@@ -1,0 +1,16 @@
+apiVersion: asserts.grafana.crossplane.io/v1alpha1
+kind: NotificationAlertsConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/notificationalertsconfig
+  labels:
+    testing.upbound.io/example-name: prometheus_remote_storage_failures
+  name: prometheus-remote-storage-failures
+spec:
+  forProvider:
+    matchLabels:
+      alertgroup: prometheus.alerts
+      alertname: PrometheusRemoteStorageFailures
+      asserts_env: prod
+    name: PrometheusRemoteStorageFailures
+    silenced: true

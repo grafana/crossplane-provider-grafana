@@ -1,0 +1,59 @@
+apiVersion: cloudprovider.grafana.crossplane.io/v1alpha1
+kind: AwsCloudwatchScrapeJob
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudprovider/v1alpha1/awscloudwatchscrapejob
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    awsAccountResourceId: ${grafana_cloud_provider_aws_account.test.resource_id}
+    customNamespace:
+    - metric:
+      - name: CoolMetric
+        statistics:
+        - Maximum
+        - Sum
+      name: CoolApp
+      scrapeIntervalSeconds: 300
+    exportTags: true
+    name: my-cloudwatch-scrape-job
+    service:
+    - metric:
+      - name: CPUUtilization
+        statistics:
+        - Average
+      - name: StatusCheckFailed
+        statistics:
+        - Maximum
+      name: AWS/EC2
+      resourceDiscoveryTagFilter:
+      - key: k8s.io/cluster-autoscaler/enabled
+        value: "true"
+      scrapeIntervalSeconds: 300
+      tagsToAddToMetrics:
+      - eks:cluster-name
+    stackId: ${data.grafana_cloud_stack.test.id}
+    staticLabels:
+      label1: value1
+      label2: value2
+
+---
+
+apiVersion: cloudprovider.grafana.crossplane.io/v1alpha1
+kind: AwsAccount
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudprovider/v1alpha1/awscloudwatchscrapejob
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    regions:
+    - us-east-1
+    - us-east-2
+    - us-west-1
+    roleArn: ${data.aws_iam_role.test.arn}
+    stackId: ${data.grafana_cloud_stack.test.id}

@@ -1,0 +1,43 @@
+apiVersion: slo.grafana.crossplane.io/v1alpha1
+kind: SLO
+metadata:
+  annotations:
+    meta.upbound.io/example-id: slo/v1alpha1/slo
+  labels:
+    testing.upbound.io/example-name: ratio
+  name: ratio
+spec:
+  forProvider:
+    alerting:
+    - fastburn:
+      - annotation:
+        - key: name
+          value: SLO Burn Rate Very High
+        - key: description
+          value: Error budget is burning too fast
+      slowburn:
+      - annotation:
+        - key: name
+          value: SLO Burn Rate High
+        - key: description
+          value: Error budget is burning too fast
+    description: Terraform Description - Ratio Query
+    destinationDatasource:
+    - selector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+    label:
+    - key: slo
+      value: terraform
+    name: Terraform Testing - Ratio Query
+    objectives:
+    - value: 0.995
+      window: 30d
+    query:
+    - ratio:
+      - groupByLabels:
+        - job
+        - instance
+        successMetric: kubelet_http_requests_total{status!~"5.."}
+        totalMetric: kubelet_http_requests_total
+      type: ratio

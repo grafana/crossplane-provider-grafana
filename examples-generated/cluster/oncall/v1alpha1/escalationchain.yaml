@@ -1,0 +1,13 @@
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: EscalationChain
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/escalationchain
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    name: default
+    provider: ${grafana.oncall}
+    teamId: ${data.grafana_oncall_team.my_team.id}

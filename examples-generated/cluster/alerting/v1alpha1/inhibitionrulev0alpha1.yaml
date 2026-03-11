@@ -1,0 +1,24 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: InhibitionruleV0Alpha1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/inhibitionrulev0alpha1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+    - uid: example-inhibition-rule
+    spec:
+    - equal:
+      - namespace
+      - pod
+      sourceMatchers:
+      - label: alertname
+        type: =
+        value: TargetDown
+      targetMatchers:
+      - label: severity
+        type: =
+        value: warning

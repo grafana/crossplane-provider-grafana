@@ -1,0 +1,32 @@
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: Escalation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/escalation
+  labels:
+    testing.upbound.io/example-name: example_notify_step
+  name: example-notify-step
+spec:
+  forProvider:
+    escalationChainSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
+    personsToNotify:
+    - ${data.grafana_oncall_user.alex.id}
+    position: 0
+    type: notify_persons
+
+---
+
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: EscalationChain
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/escalation
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    name: default
+    provider: ${grafana.oncall}

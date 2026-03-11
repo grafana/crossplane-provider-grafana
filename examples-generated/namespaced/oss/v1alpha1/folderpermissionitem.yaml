@@ -1,0 +1,63 @@
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: FolderPermissionItem
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/folderpermissionitem
+  labels:
+    testing.upbound.io/example-name: on_role
+  name: on-role
+  namespace: upbound-system
+spec:
+  forProvider:
+    folderUid: ${grafana_folder.collection.uid}
+    permission: Edit
+    role: Viewer
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/folderpermissionitem
+  labels:
+    testing.upbound.io/example-name: collection
+  name: collection
+  namespace: upbound-system
+spec:
+  forProvider:
+    title: Folder Title
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/folderpermissionitem
+  labels:
+    testing.upbound.io/example-name: team
+  name: team
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Team Name
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/folderpermissionitem
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+  namespace: upbound-system
+spec:
+  forProvider:
+    email: user.name@example.com
+    login: user.name
+    passwordSecretRef:
+      key: example-key
+      name: example-secret

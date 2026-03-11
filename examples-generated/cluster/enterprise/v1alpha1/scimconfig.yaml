@@ -1,0 +1,13 @@
+apiVersion: enterprise.grafana.crossplane.io/v1alpha1
+kind: ScimConfig
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/scimconfig
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    enableGroupSync: false
+    enableUserSync: true
+    rejectNonProvisionedUsers: false

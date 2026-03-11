@@ -1,0 +1,16 @@
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: Integration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/integration
+  labels:
+    testing.upbound.io/example-name: test-acc-integration
+  name: test-acc-integration
+spec:
+  forProvider:
+    defaultRoute:
+    - {}
+    name: my integration
+    provider: ${grafana.oncall}
+    teamId: ${data.grafana_oncall_team.my_team.id}
+    type: grafana

@@ -1,0 +1,14 @@
+apiVersion: oncall.grafana.crossplane.io/v1alpha1
+kind: UserNotificationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/usernotificationrule
+  labels:
+    testing.upbound.io/example-name: my_user_step_1
+  name: my-user-step-1
+spec:
+  forProvider:
+    position: 0
+    provider: ${grafana.oncall}
+    type: notify_by_mobile_app
+    userId: ${data.grafana_oncall_user.my_user.id}

@@ -1,0 +1,14 @@
+apiVersion: fleetmanagement.grafana.crossplane.io/v1alpha1
+kind: Collector
+metadata:
+  annotations:
+    meta.upbound.io/example-id: fleetmanagement/v1alpha1/collector
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    enabled: true
+    remoteAttributes:
+      env: PROD
+      owner: TEAM-A
