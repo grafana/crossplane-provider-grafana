@@ -43,6 +43,24 @@ func (l *DataSourcePermissionList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this KeeperActivationV1Beta1List.
+func (l *KeeperActivationV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this KeeperV1Beta1List.
+func (l *KeeperV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ReportList.
 func (l *ReportList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -81,6 +99,15 @@ func (l *RoleList) GetItems() []resource.Managed {
 
 // GetItems of this ScimConfigList.
 func (l *ScimConfigList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecurevalueV1Beta1List.
+func (l *SecurevalueV1Beta1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

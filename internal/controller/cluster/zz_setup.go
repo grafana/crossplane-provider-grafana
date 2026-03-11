@@ -49,11 +49,14 @@ import (
 	datasourceconfiglbacrules "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/datasourceconfiglbacrules"
 	datasourcepermission "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/datasourcepermission"
 	datasourcepermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/datasourcepermissionitem"
+	keeperactivationv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/keeperactivationv1beta1"
+	keeperv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/keeperv1beta1"
 	report "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/report"
 	role "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/role"
 	roleassignment "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/roleassignment"
 	roleassignmentitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/roleassignmentitem"
 	scimconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/scimconfig"
+	securevaluev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/securevaluev1beta1"
 	teamexternalgroup "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/enterprise/teamexternalgroup"
 	collector "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/fleetmanagement/collector"
 	pipeline "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/fleetmanagement/pipeline"
@@ -102,9 +105,6 @@ import (
 	team "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/providerconfig"
-	keeperactivationv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/secret/keeperactivationv1beta1"
-	keeperv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/secret/keeperv1beta1"
-	securevaluev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/secret/securevaluev1beta1"
 	slo "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/slo/slo"
 	check "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/sm/check"
 	checkalerts "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/sm/checkalerts"
@@ -156,11 +156,14 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		datasourceconfiglbacrules.Setup,
 		datasourcepermission.Setup,
 		datasourcepermissionitem.Setup,
+		keeperactivationv1beta1.Setup,
+		keeperv1beta1.Setup,
 		report.Setup,
 		role.Setup,
 		roleassignment.Setup,
 		roleassignmentitem.Setup,
 		scimconfig.Setup,
+		securevaluev1beta1.Setup,
 		teamexternalgroup.Setup,
 		collector.Setup,
 		pipeline.Setup,
@@ -209,9 +212,6 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,
-		keeperactivationv1beta1.Setup,
-		keeperv1beta1.Setup,
-		securevaluev1beta1.Setup,
 		slo.Setup,
 		check.Setup,
 		checkalerts.Setup,
@@ -269,11 +269,14 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		datasourceconfiglbacrules.SetupGated,
 		datasourcepermission.SetupGated,
 		datasourcepermissionitem.SetupGated,
+		keeperactivationv1beta1.SetupGated,
+		keeperv1beta1.SetupGated,
 		report.SetupGated,
 		role.SetupGated,
 		roleassignment.SetupGated,
 		roleassignmentitem.SetupGated,
 		scimconfig.SetupGated,
+		securevaluev1beta1.SetupGated,
 		teamexternalgroup.SetupGated,
 		collector.SetupGated,
 		pipeline.SetupGated,
@@ -322,9 +325,6 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		team.SetupGated,
 		user.SetupGated,
 		providerconfig.SetupGated,
-		keeperactivationv1beta1.SetupGated,
-		keeperv1beta1.SetupGated,
-		securevaluev1beta1.SetupGated,
 		slo.SetupGated,
 		check.SetupGated,
 		checkalerts.SetupGated,

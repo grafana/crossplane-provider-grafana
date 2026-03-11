@@ -21,7 +21,7 @@ import (
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/secret/v1alpha1"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/enterprise/v1alpha1"
 	features "github.com/grafana/crossplane-provider-grafana/v2/internal/features"
 )
 
