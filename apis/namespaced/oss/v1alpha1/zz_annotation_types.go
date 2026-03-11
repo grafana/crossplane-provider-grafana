@@ -32,8 +32,8 @@ type AnnotationInitParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
@@ -78,8 +78,8 @@ type AnnotationObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// (Number) The ID of the dashboard panel on which to create the annotation.
@@ -123,8 +123,8 @@ type AnnotationParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
@@ -193,7 +193,7 @@ type AnnotationStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Annotation is the Schema for the Annotations API. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+// Annotation is the Schema for the Annotations API. Manages Grafana annotations. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

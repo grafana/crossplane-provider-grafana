@@ -11,7 +11,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.43.1
 	github.com/grafana/synthetic-monitoring-api-go-client v0.17.1
-	github.com/grafana/terraform-provider-grafana/v4 v4.27.0
+	github.com/grafana/terraform-provider-grafana/v4 v4.27.1
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.39.0
 	github.com/pkg/errors v0.9.1
@@ -100,7 +100,7 @@ require (
 	github.com/grafana/grafana-app-sdk v0.51.4 // indirect
 	github.com/grafana/grafana-app-sdk/logging v0.51.4 // indirect
 	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 // indirect
-	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20251216082918-50bdab3538ca // indirect
+	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260306090535-0b052cdc9559 // indirect
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20250617151817-c0f8cbb88d5c // indirect
 	github.com/grafana/grafana-plugin-sdk-go v0.289.0 // indirect
 	github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.0-20250925121631-89b988ca553e // indirect

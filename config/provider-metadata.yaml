@@ -2,7 +2,7 @@ name: grafana/grafana
 resources:
     grafana_annotation:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+        description: Manages Grafana annotations. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
         name: grafana_annotation
         title: grafana_annotation Resource - terraform-provider-grafana
         examples:
@@ -14,7 +14,7 @@ resources:
         argumentDocs:
             dashboard_uid: (String) The UID of the dashboard on which to create the annotation.
             id: (String) The ID of this resource.
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
             panel_id: (Number) The ID of the dashboard panel on which to create the annotation.
             tags: (Set of String) The tags to associate with the annotation.
             text: (String) The text to associate with the annotation.
@@ -488,12 +488,95 @@ resources:
               #!/bin/bash
               # Import an existing Kubernetes observability config by its UID
               terraform import grafana_apps_productactivation_k8so11yconfig_v1alpha1.example my-k8s-o11y-config
-    grafana_apps_rules_alertrule_v0alpha1 Resource - terraform-provider-grafana:
+    grafana_apps_rules_alertrule_v0alpha1:
         subCategory: Alerting
-        description: Under development
-        name: grafana_apps_rules_alertrule_v0alpha1 Resource - terraform-provider-grafana
+        description: Manages Grafana Alert Rules. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
+        name: grafana_apps_rules_alertrule_v0alpha1
         title: grafana_apps_rules_alertrule_v0alpha1 Resource - terraform-provider-grafana
-        argumentDocs: {}
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "folder_uid": "${grafana_folder.alertrule_folder.uid}",
+                      "uid": "example-alert-rule"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "annotations": {
+                        "runbook_url": "https://example.com"
+                      },
+                      "exec_err_state": "KeepLast",
+                      "expressions": {
+                        "A": "${jsonencode({\n        model = {\n          datasource = {\n            type = \"prometheus\"\n            uid  = \"ds_uid\"\n          }\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        }\n        datasource_uid = \"ds_uid\"\n        relative_time_range = {\n          from = \"600s\"\n          to   = \"0s\"\n        }\n        query_type = \"\"\n        source     = true\n      })}",
+                        "B": "${jsonencode({\n        model = {\n          conditions = [\n            {\n              evaluator = {\n                params = [1]\n                type   = \"gt\"\n              }\n              operator = {\n                type = \"and\"\n              }\n              query = {\n                params = [\"C\"]\n              }\n              reducer = {\n                params = []\n                type   = \"last\"\n              }\n              type = \"query\"\n            }\n          ]\n          datasource = {\n            type = \"__expr__\"\n            uid  = \"__expr__\"\n          }\n          expression    = \"A\"\n          intervalMs    = 1000\n          maxDataPoints = 43200\n          refId         = \"C\"\n          type          = \"threshold\"\n        }\n        datasource_uid = \"__expr__\"\n        query_type     = \"\"\n        source         = false\n      })}"
+                      },
+                      "for": "5m",
+                      "labels": {
+                        "severity": "critical"
+                      },
+                      "missing_series_evals_to_resolve": 5,
+                      "no_data_state": "KeepLast",
+                      "notification_settings": [
+                        {
+                          "contact_point": "grafana-default-email"
+                        }
+                      ],
+                      "panel_ref": {
+                        "dashboard_uid": "dashboard123",
+                        "panel_id": "5"
+                      },
+                      "paused": true,
+                      "title": "Example Alert Rule",
+                      "trigger": [
+                        {
+                          "interval": "1m"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              references:
+                metadata.folder_uid: grafana_folder.alertrule_folder.uid
+              dependencies:
+                grafana_folder.alertrule_folder: |-
+                    {
+                      "title": "Alert Rule Folder"
+                    }
+        argumentDocs:
+            active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+            annotations: (Map of String) Annotations of the resource.
+            contact_point: (String) The contact point to route notifications that match this rule to.
+            exec_err_state: (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
+            expressions: (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            for: (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
+            group_by: (List of String) A list of alert labels to group alerts into notifications by.
+            group_interval: (String) Minimum time interval between two notifications for the same group.
+            group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification.
+            id: (String) The ID of the resource derived from UUID.
+            interval: (String) The interval at which the alert rule should be evaluated.
+            keep_firing_for: (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+            labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            missing_series_evals_to_resolve: (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+            mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
+            no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
+            notification_settings: (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            panel_ref: (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
+            paused: (Boolean) Sets whether the rule should be paused or not.
+            repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            title: (String) The title of the alert rule.
+            trigger: (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
         importStatements: []
     grafana_apps_rules_recordingrule_v0alpha1:
         subCategory: Alerting
@@ -2258,7 +2341,9 @@ resources:
             delete_protection: (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
             description: (String) Description of stack.
             fleet_management_name: (String) Name of the Fleet Management instance configured for this stack.
+            fleet_management_private_connectivity_info_availability_zones: (List of String) Availability Zones for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_private_connectivity_info_private_dns: (String) Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+            fleet_management_private_connectivity_info_regions: (List of String) Regions for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_private_connectivity_info_service_name: (String) Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_status: (String) Status of the Fleet Management instance configured for this stack.
             fleet_management_url: (String) Base URL of the Fleet Management instance configured for this stack.
@@ -2266,7 +2351,9 @@ resources:
             grafanas_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
             graphite_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Graphite instance (Optional)
             graphite_name: (String)
+            graphite_private_connectivity_info_availability_zones: (List of String) Availability Zones for Graphite when using AWS PrivateLink (only for AWS stacks)
             graphite_private_connectivity_info_private_dns: (String) Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
+            graphite_private_connectivity_info_regions: (List of String) Regions for Graphite when using AWS PrivateLink (only for AWS stacks)
             graphite_private_connectivity_info_service_name: (String) Service Name for Graphite when using AWS PrivateLink (only for AWS stacks)
             graphite_status: (String)
             graphite_url: (String)
@@ -2276,7 +2363,9 @@ resources:
             labels: '(Map of String) A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\-._]+$" and stacks cannot have more than 10 labels.'
             logs_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
             logs_name: (String)
+            logs_private_connectivity_info_availability_zones: (List of String) Availability Zones for Logs when using AWS PrivateLink (only for AWS stacks)
             logs_private_connectivity_info_private_dns: (String) Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
+            logs_private_connectivity_info_regions: (List of String) Regions for Logs when using AWS PrivateLink (only for AWS stacks)
             logs_private_connectivity_info_service_name: (String) Service Name for Logs when using AWS PrivateLink (only for AWS stacks)
             logs_status: (String)
             logs_url: (String)
@@ -2286,23 +2375,33 @@ resources:
             org_id: (Number) Organization id to assign to this stack.
             org_name: (String) Organization name to assign to this stack.
             org_slug: (String) Organization slug to assign to this stack.
+            otlp_private_connectivity_info_availability_zones: (List of String) Availability Zones for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_private_connectivity_info_private_dns: (String) Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
+            otlp_private_connectivity_info_regions: (List of String) Regions for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_private_connectivity_info_service_name: (String) Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_url: (String) Base URL of the OTLP instance configured for this stack. The username is the stack's ID (id attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
+            pdc_api_private_connectivity_info_availability_zones: (List of String) Availability Zones for PDC's API when using AWS PrivateLink (only for AWS stacks)
             pdc_api_private_connectivity_info_private_dns: (String) Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
+            pdc_api_private_connectivity_info_regions: (List of String) Regions for PDC's API when using AWS PrivateLink (only for AWS stacks)
             pdc_api_private_connectivity_info_service_name: (String) Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
+            pdc_gateway_private_connectivity_info_availability_zones: (List of String) Availability Zones for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_private_dns: (String) Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+            pdc_gateway_private_connectivity_info_regions: (List of String) Regions for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_service_name: (String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             profiles_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)
             profiles_name: (String)
+            profiles_private_connectivity_info_availability_zones: (List of String) Availability Zones for Profiles when using AWS PrivateLink (only for AWS stacks)
             profiles_private_connectivity_info_private_dns: (String) Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
+            profiles_private_connectivity_info_regions: (List of String) Regions for Profiles when using AWS PrivateLink (only for AWS stacks)
             profiles_private_connectivity_info_service_name: (String) Service Name for Profiles when using AWS PrivateLink (only for AWS stacks)
             profiles_status: (String)
             profiles_url: (String)
             profiles_user_id: (Number)
             prometheus_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)
             prometheus_name: (String) Prometheus name for this instance.
+            prometheus_private_connectivity_info_availability_zones: (List of String) Availability Zones for Prometheus when using AWS PrivateLink (only for AWS stacks)
             prometheus_private_connectivity_info_private_dns: (String) Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
+            prometheus_private_connectivity_info_regions: (List of String) Regions for Prometheus when using AWS PrivateLink (only for AWS stacks)
             prometheus_private_connectivity_info_service_name: (String) Service Name for Prometheus when using AWS PrivateLink (only for AWS stacks)
             prometheus_remote_endpoint: (String) Use this URL to query hosted metrics data e.g. Prometheus data source in Grafana
             prometheus_remote_write_endpoint: (String) Use this URL to send prometheus metrics to Grafana cloud
@@ -2314,7 +2413,9 @@ resources:
             status: (String) Status of the stack.
             traces_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
             traces_name: (String)
+            traces_private_connectivity_info_availability_zones: (List of String) Availability Zones for Traces when using AWS PrivateLink (only for AWS stacks)
             traces_private_connectivity_info_private_dns: (String) Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
+            traces_private_connectivity_info_regions: (List of String) Regions for Traces when using AWS PrivateLink (only for AWS stacks)
             traces_private_connectivity_info_service_name: (String) Service Name for Traces when using AWS PrivateLink (only for AWS stacks)
             traces_status: (String)
             traces_url: (String) Base URL of the Traces instance configured for this stack. To use this in the Tempo data source in Grafana, append /tempo to the URL.
@@ -2976,6 +3077,42 @@ resources:
             - |-
               terraform import grafana_data_source.name "{{ uid }}"
               terraform import grafana_data_source.name "{{ orgID }}:{{ uid }}"
+    grafana_data_source_cache_config:
+        subCategory: Grafana Enterprise
+        description: Manages cache configuration for a data source (Grafana Enterprise). Use this resource to enable or disable caching for a particular data source. You can also tune the TTL settings for the cache behaviour, or choose to use defaults. Deleting this resource will cause the cache to be disabled for the target data source.
+        name: grafana_data_source_cache_config
+        title: grafana_data_source_cache_config Resource - terraform-provider-grafana
+        examples:
+            - name: loki_cache
+              manifest: |-
+                {
+                  "datasource_uid": "${grafana_data_source.loki.uid}",
+                  "enabled": true,
+                  "ttl_queries_ms": 60000,
+                  "ttl_resources_ms": 300000,
+                  "use_default_ttl": false
+                }
+              references:
+                datasource_uid: grafana_data_source.loki.uid
+              dependencies:
+                grafana_data_source.loki: |-
+                    {
+                      "name": "loki",
+                      "type": "loki",
+                      "url": "http://localhost:3100"
+                    }
+        argumentDocs:
+            datasource_uid: (String) UID of the data source to configure.
+            enabled: (Boolean) Whether caching is enabled for this data source.
+            id: (String) The ID of this resource.
+            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            ttl_queries_ms: (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+            ttl_resources_ms: (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+            use_default_ttl: (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
+        importStatements:
+            - |-
+              terraform import grafana_data_source_cache_config.name "{{ datasource_uid }}"
+              terraform import grafana_data_source_cache_config.name "{{ orgID }}:{{ datasource_uid }}"
     grafana_data_source_config:
         subCategory: Grafana OSS
         description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). Use this resource for configuring multiple datasources, when that configuration (json_data_encoded field) requires circular references like in the example below. When using the

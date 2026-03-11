@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: annotations.oss.grafana.crossplane.io
+  name: datasourcecacheconfigs.enterprise.grafana.crossplane.io
 spec:
-  group: oss.grafana.crossplane.io
+  group: enterprise.grafana.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - grafana
-    kind: Annotation
-    listKind: AnnotationList
-    plural: annotations
-    singular: annotation
+    kind: DataSourceCacheConfig
+    listKind: DataSourceCacheConfigList
+    plural: datasourcecacheconfigs
+    singular: datasourcecacheconfig
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,9 +34,12 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Annotation is the Schema for the Annotations API. Manages Grafana
-          annotations. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP
-          API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+        description: DataSourceCacheConfig is the Schema for the DataSourceCacheConfigs
+          API. Manages cache configuration for a data source (Grafana Enterprise).
+          Use this resource to enable or disable caching for a particular data source.
+          You can also tune the TTL settings for the cache behaviour, or choose to
+          use defaults. Deleting this resource will cause the cache to be disabled
+          for the target data source.
         properties:
           apiVersion:
             description: |-
@@ -56,7 +59,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: AnnotationSpec defines the desired state of Annotation
+            description: DataSourceCacheConfigSpec defines the desired state of DataSourceCacheConfig
             properties:
               deletionPolicy:
                 default: Delete
@@ -74,89 +77,20 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  dashboardRef:
-                    description: Reference to a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  dashboardSelector:
-                    description: Selector for a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  dashboardUid:
+                  datasourceUid:
                     description: |-
-                      (String) The UID of the dashboard on which to create the annotation.
-                      The UID of the dashboard on which to create the annotation.
+                      (String) UID of the data source to configure.
+                      UID of the data source to configure.
                     type: string
+                  enabled:
+                    description: |-
+                      (Boolean) Whether caching is enabled for this data source.
+                      Whether caching is enabled for this data source.
+                    type: boolean
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -232,34 +166,21 @@ spec:
                             type: string
                         type: object
                     type: object
-                  panelId:
+                  ttlQueriesMs:
                     description: |-
-                      (Number) The ID of the dashboard panel on which to create the annotation.
-                      The ID of the dashboard panel on which to create the annotation.
+                      (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+                      TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
                     type: number
-                  tags:
+                  ttlResourcesMs:
                     description: |-
-                      (Set of String) The tags to associate with the annotation.
-                      The tags to associate with the annotation.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
-                  text:
+                      (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+                      TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+                    type: number
+                  useDefaultTtl:
                     description: |-
-                      (String) The text to associate with the annotation.
-                      The text to associate with the annotation.
-                    type: string
-                  time:
-                    description: |-
-                      formatted time string indicating the annotation's time.
-                      The RFC 3339-formatted time string indicating the annotation's time.
-                    type: string
-                  timeEnd:
-                    description: |-
-                      formatted time string indicating the annotation's end time.
-                      The RFC 3339-formatted time string indicating the annotation's end time.
-                    type: string
+                      (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
+                      If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -274,89 +195,20 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  dashboardRef:
-                    description: Reference to a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      name:
-                        description: Name of the referenced object.
-                        type: string
-                      policy:
-                        description: Policies for referencing.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    required:
-                    - name
-                    type: object
-                  dashboardSelector:
-                    description: Selector for a Dashboard in oss to populate dashboardUid.
-                    properties:
-                      matchControllerRef:
-                        description: |-
-                          MatchControllerRef ensures an object with the same controller reference
-                          as the selecting object is selected.
-                        type: boolean
-                      matchLabels:
-                        additionalProperties:
-                          type: string
-                        description: MatchLabels ensures an object with matching labels
-                          is selected.
-                        type: object
-                      policy:
-                        description: Policies for selection.
-                        properties:
-                          resolution:
-                            default: Required
-                            description: |-
-                              Resolution specifies whether resolution of this reference is required.
-                              The default is 'Required', which means the reconcile will fail if the
-                              reference cannot be resolved. 'Optional' means this reference will be
-                              a no-op if it cannot be resolved.
-                            enum:
-                            - Required
-                            - Optional
-                            type: string
-                          resolve:
-                            description: |-
-                              Resolve specifies when this reference should be resolved. The default
-                              is 'IfNotPresent', which will attempt to resolve the reference only when
-                              the corresponding field is not present. Use 'Always' to resolve the
-                              reference on every reconcile.
-                            enum:
-                            - Always
-                            - IfNotPresent
-                            type: string
-                        type: object
-                    type: object
-                  dashboardUid:
+                  datasourceUid:
                     description: |-
-                      (String) The UID of the dashboard on which to create the annotation.
-                      The UID of the dashboard on which to create the annotation.
+                      (String) UID of the data source to configure.
+                      UID of the data source to configure.
                     type: string
+                  enabled:
+                    description: |-
+                      (Boolean) Whether caching is enabled for this data source.
+                      Whether caching is enabled for this data source.
+                    type: boolean
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -432,34 +284,21 @@ spec:
                             type: string
                         type: object
                     type: object
-                  panelId:
+                  ttlQueriesMs:
                     description: |-
-                      (Number) The ID of the dashboard panel on which to create the annotation.
-                      The ID of the dashboard panel on which to create the annotation.
+                      (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+                      TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
                     type: number
-                  tags:
+                  ttlResourcesMs:
                     description: |-
-                      (Set of String) The tags to associate with the annotation.
-                      The tags to associate with the annotation.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
-                  text:
+                      (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+                      TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+                    type: number
+                  useDefaultTtl:
                     description: |-
-                      (String) The text to associate with the annotation.
-                      The text to associate with the annotation.
-                    type: string
-                  time:
-                    description: |-
-                      formatted time string indicating the annotation's time.
-                      The RFC 3339-formatted time string indicating the annotation's time.
-                    type: string
-                  timeEnd:
-                    description: |-
-                      formatted time string indicating the annotation's end time.
-                      The RFC 3339-formatted time string indicating the annotation's end time.
-                    type: string
+                      (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
+                      If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -548,56 +387,49 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.text is a required parameter
+            - message: spec.forProvider.datasourceUid is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.text)
-                || (has(self.initProvider) && has(self.initProvider.text))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.datasourceUid)
+                || (has(self.initProvider) && has(self.initProvider.datasourceUid))'
           status:
-            description: AnnotationStatus defines the observed state of Annotation.
+            description: DataSourceCacheConfigStatus defines the observed state of
+              DataSourceCacheConfig.
             properties:
               atProvider:
                 properties:
-                  dashboardUid:
+                  datasourceUid:
                     description: |-
-                      (String) The UID of the dashboard on which to create the annotation.
-                      The UID of the dashboard on which to create the annotation.
+                      (String) UID of the data source to configure.
+                      UID of the data source to configure.
                     type: string
+                  enabled:
+                    description: |-
+                      (Boolean) Whether caching is enabled for this data source.
+                      Whether caching is enabled for this data source.
+                    type: boolean
                   id:
                     description: (String) The ID of this resource.
                     type: string
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
                     type: string
-                  panelId:
+                  ttlQueriesMs:
                     description: |-
-                      (Number) The ID of the dashboard panel on which to create the annotation.
-                      The ID of the dashboard panel on which to create the annotation.
+                      (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+                      TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
                     type: number
-                  tags:
+                  ttlResourcesMs:
                     description: |-
-                      (Set of String) The tags to associate with the annotation.
-                      The tags to associate with the annotation.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
-                  text:
+                      (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+                      TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+                    type: number
+                  useDefaultTtl:
                     description: |-
-                      (String) The text to associate with the annotation.
-                      The text to associate with the annotation.
-                    type: string
-                  time:
-                    description: |-
-                      formatted time string indicating the annotation's time.
-                      The RFC 3339-formatted time string indicating the annotation's time.
-                    type: string
-                  timeEnd:
-                    description: |-
-                      formatted time string indicating the annotation's end time.
-                      The RFC 3339-formatted time string indicating the annotation's end time.
-                    type: string
+                      (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
+                      If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.
