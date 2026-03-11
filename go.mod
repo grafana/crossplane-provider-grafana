@@ -13,7 +13,7 @@ require (
 	github.com/grafana/synthetic-monitoring-api-go-client v0.17.1
 	github.com/grafana/terraform-provider-grafana/v4 v4.27.1
 	github.com/hashicorp/terraform-json v0.27.2
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.2
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.39.0
 	github.com/pkg/errors v0.9.1
 	go.uber.org/zap v1.27.1
 	k8s.io/api v0.35.2
@@ -135,7 +135,7 @@ require (
 	github.com/hashicorp/terraform-plugin-framework v1.15.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-jsontypes v0.2.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-validators v0.17.0 // indirect
-	github.com/hashicorp/terraform-plugin-go v0.29.0 // indirect
+	github.com/hashicorp/terraform-plugin-go v0.30.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.10.0 // indirect
 	github.com/hashicorp/terraform-plugin-mux v0.21.0 // indirect
 	github.com/hashicorp/terraform-registry-address v0.4.0 // indirect
