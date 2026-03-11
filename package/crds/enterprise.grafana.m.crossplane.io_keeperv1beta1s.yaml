@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: keeperactivationv1beta1s.secret.grafana.m.crossplane.io
+  name: keeperv1beta1s.enterprise.grafana.m.crossplane.io
 spec:
-  group: secret.grafana.m.crossplane.io
+  group: enterprise.grafana.m.crossplane.io
   names:
     categories:
     - crossplane
     - managed
     - grafana
-    kind: KeeperActivationV1Beta1
-    listKind: KeeperActivationV1Beta1List
-    plural: keeperactivationv1beta1s
-    singular: keeperactivationv1beta1
+    kind: KeeperV1Beta1
+    listKind: KeeperV1Beta1List
+    plural: keeperv1beta1s
+    singular: keeperv1beta1
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -34,8 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: KeeperActivationV1Beta1 is the Schema for the KeeperActivationV1Beta1s
-          API. <no value>
+        description: KeeperV1Beta1 is the Schema for the KeeperV1Beta1s API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -55,8 +54,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: KeeperActivationV1Beta1Spec defines the desired state of
-              KeeperActivationV1Beta1
+            description: KeeperV1Beta1Spec defines the desired state of KeeperV1Beta1
             properties:
               forProvider:
                 properties:
@@ -68,6 +66,39 @@ spec:
                         type: string
                       uid:
                         description: The unique identifier of the resource.
+                        type: string
+                    type: object
+                  options:
+                    description: Options for applying the resource.
+                    properties:
+                      overwrite:
+                        description: Set to true if you want to overwrite existing
+                          resource with newer version, same resource title in folder
+                          or same resource uid.
+                        type: boolean
+                    type: object
+                  spec:
+                    description: The spec of the resource.
+                    properties:
+                      aws:
+                        description: AWS Secrets Manager configuration.
+                        properties:
+                          assumeRole:
+                            description: IAM role assumption configuration.
+                            properties:
+                              assumeRoleArn:
+                                description: Assume role ARN.
+                                type: string
+                              externalId:
+                                description: Assume role external ID.
+                                type: string
+                            type: object
+                          region:
+                            description: AWS region.
+                            type: string
+                        type: object
+                      description:
+                        description: Keeper description.
                         type: string
                     type: object
                 type: object
@@ -92,6 +123,39 @@ spec:
                         type: string
                       uid:
                         description: The unique identifier of the resource.
+                        type: string
+                    type: object
+                  options:
+                    description: Options for applying the resource.
+                    properties:
+                      overwrite:
+                        description: Set to true if you want to overwrite existing
+                          resource with newer version, same resource title in folder
+                          or same resource uid.
+                        type: boolean
+                    type: object
+                  spec:
+                    description: The spec of the resource.
+                    properties:
+                      aws:
+                        description: AWS Secrets Manager configuration.
+                        properties:
+                          assumeRole:
+                            description: IAM role assumption configuration.
+                            properties:
+                              assumeRoleArn:
+                                description: Assume role ARN.
+                                type: string
+                              externalId:
+                                description: Assume role external ID.
+                                type: string
+                            type: object
+                          region:
+                            description: AWS region.
+                            type: string
+                        type: object
+                      description:
+                        description: Keeper description.
                         type: string
                     type: object
                 type: object
@@ -158,9 +222,12 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.metadata)
                 || (has(self.initProvider) && has(self.initProvider.metadata))'
+            - message: spec.forProvider.spec is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.spec)
+                || (has(self.initProvider) && has(self.initProvider.spec))'
           status:
-            description: KeeperActivationV1Beta1Status defines the observed state
-              of KeeperActivationV1Beta1.
+            description: KeeperV1Beta1Status defines the observed state of KeeperV1Beta1.
             properties:
               atProvider:
                 properties:
@@ -190,6 +257,39 @@ spec:
                         type: string
                       version:
                         description: The version of the resource.
+                        type: string
+                    type: object
+                  options:
+                    description: Options for applying the resource.
+                    properties:
+                      overwrite:
+                        description: Set to true if you want to overwrite existing
+                          resource with newer version, same resource title in folder
+                          or same resource uid.
+                        type: boolean
+                    type: object
+                  spec:
+                    description: The spec of the resource.
+                    properties:
+                      aws:
+                        description: AWS Secrets Manager configuration.
+                        properties:
+                          assumeRole:
+                            description: IAM role assumption configuration.
+                            properties:
+                              assumeRoleArn:
+                                description: Assume role ARN.
+                                type: string
+                              externalId:
+                                description: Assume role external ID.
+                                type: string
+                            type: object
+                          region:
+                            description: AWS region.
+                            type: string
+                        type: object
+                      description:
+                        description: Keeper description.
                         type: string
                     type: object
                 type: object

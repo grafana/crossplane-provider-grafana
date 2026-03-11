@@ -122,10 +122,10 @@ export PATH="$PATH:$HOME/go/bin"
 Steps to update resources from the latest Terraform provider version:
 
 1. Update terraform provider version in [go.mod](go.mod) file.
-2. Add your resource in the GroupMap in [groups.go](config/groups.go) file.
-3. Generate the resources with `go generate`.
-   * Output will show you missing resources to map if any.
-4. Create a PR with the result.
+2. Generate the resources with `go generate`.
+   * Resources are automatically picked up from the upstream provider's category metadata.
+   * If a new category was added upstream, `go generate` will panic with a message telling you to add an entry to `categoryConfig` in [groups.go](config/groups.go).
+3. Create a PR with the result.
 
 ## Report a Bug
 

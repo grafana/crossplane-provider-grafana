@@ -19,6 +19,12 @@ func (tr *DataSourcePermission) Hub() {}
 func (tr *DataSourcePermissionItem) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *KeeperActivationV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *KeeperV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Report) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -32,6 +38,9 @@ func (tr *RoleAssignmentItem) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ScimConfig) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecurevalueV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *TeamExternalGroup) Hub() {}
