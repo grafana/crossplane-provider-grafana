@@ -5,10 +5,12 @@ Copyright 2021 Upbound Inc.
 package config
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/crossplane/upjet/v2/pkg/types/name"
+	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
 )
 
 // GroupKindOverrides overrides the group and kind of the resource if it matches
@@ -55,137 +57,61 @@ func ReplaceGroupWords(group string, count int) GroupKindCalculator {
 	}
 }
 
+type categoryInfo struct {
+	ShortGroup string
+	WordCount  int
+}
+
+// categoryConfig maps each upstream ResourceCategory string to the short group
+// name and the number of prefix words to strip when computing the Kind.
+// Category string values match common.ResourceCategory constants from the
+// upstream Terraform provider.
+var categoryConfig = map[string]categoryInfo{
+	"Alerting":               {"alerting", 0},
+	"Cloud":                  {"cloud", 1},
+	"Grafana Enterprise":     {"enterprise", 0},
+	"Grafana OSS":            {"oss", 0},
+	"Grafana Apps":           {"oss", 0},
+	"Machine Learning":       {"ml", 2},
+	"OnCall":                 {"oncall", 1},
+	"SLO":                    {"slo", 0},
+	"Synthetic Monitoring":   {"sm", 2},
+	"Cloud Provider":         {"cloudprovider", 2},
+	"Connections":            {"connections", 1},
+	"Fleet Management":       {"fleetmanagement", 2},
+	"Frontend Observability": {"frontendobservability", 2},
+	"k6":                     {"k6", 1},
+	"Knowledge Graph":        {"asserts", 1},
+}
+
 // GroupMap contains all overrides we'd like to make to the default group search.
-// Keep the same structure as in the Terraform docs: https://registry.terraform.io/providers/grafana/grafana/latest/docs
-var GroupMap = map[string]GroupKindCalculator{
-	// Alerting
-	"grafana_contact_point":                                ReplaceGroupWords("alerting", 0),
-	"grafana_message_template":                             ReplaceGroupWords("alerting", 0),
-	"grafana_mute_timing":                                  ReplaceGroupWords("alerting", 0),
-	"grafana_notification_policy":                          ReplaceGroupWords("alerting", 0),
-	"grafana_rule_group":                                   ReplaceGroupWords("alerting", 0),
-	"grafana_apps_alertenrichment_alertenrichment_v1beta1": ReplaceGroupWords("alerting", 2),
-	"grafana_apps_rules_alertrule_v0alpha1":                ReplaceGroupWords("alerting", 2),
-	"grafana_apps_rules_recordingrule_v0alpha1":            ReplaceGroupWords("alerting", 2),
-	"grafana_apps_notifications_inhibitionrule_v0alpha1":   ReplaceGroupWords("alerting", 2),
+// It is populated dynamically from the upstream provider's resource categories.
+var GroupMap = map[string]GroupKindCalculator{}
 
-	// Cloud
-	"grafana_cloud_access_policy":                             ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_access_policy_token":                       ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_access_policy_rotating_token":              ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_org_member":                                ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_plugin_installation":                       ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_private_data_source_connect_network":       ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_private_data_source_connect_network_token": ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack":                                     ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack_service_account":                     ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack_service_account_token":               ReplaceGroupWords("cloud", 1),
-	"grafana_cloud_stack_service_account_rotating_token":      ReplaceGroupWords("cloud", 1),
-	"grafana_apps_productactivation_appo11yconfig_v1alpha1":   ReplaceGroupWords("cloud", 2),
-	"grafana_apps_productactivation_k8so11yconfig_v1alpha1":   ReplaceGroupWords("cloud", 2),
-
-	// Cloud Provider
-	"grafana_cloud_provider_aws_account":                      ReplaceGroupWords("cloudprovider", 2),
-	"grafana_cloud_provider_aws_cloudwatch_scrape_job":        ReplaceGroupWords("cloudprovider", 2),
-	"grafana_cloud_provider_azure_credential":                 ReplaceGroupWords("cloudprovider", 2),
-	"grafana_cloud_provider_aws_resource_metadata_scrape_job": ReplaceGroupWords("cloudprovider", 2),
-
-	// Connections
-	"grafana_connections_metrics_endpoint_scrape_job": ReplaceGroupWords("connections", 1),
-
-	// Enterprise
-	"grafana_data_source_config_lbac_rules": ReplaceGroupWords("enterprise", 0),
-	"grafana_data_source_permission":        ReplaceGroupWords("enterprise", 0),
-	"grafana_data_source_permission_item":   ReplaceGroupWords("enterprise", 0),
-	"grafana_data_source_cache_config":      ReplaceGroupWords("enterprise", 0),
-	"grafana_report":                        ReplaceGroupWords("enterprise", 0),
-	"grafana_role":                          ReplaceGroupWords("enterprise", 0),
-	"grafana_role_assignment":               ReplaceGroupWords("enterprise", 0),
-	"grafana_role_assignment_item":          ReplaceGroupWords("enterprise", 0),
-	"grafana_team_external_group":           ReplaceGroupWords("enterprise", 0),
-	"grafana_scim_config":                   ReplaceGroupWords("enterprise", 0),
-
-	// Machine Learning
-	"grafana_machine_learning_alert":            ReplaceGroupWords("ml", 2),
-	"grafana_machine_learning_holiday":          ReplaceGroupWords("ml", 2),
-	"grafana_machine_learning_job":              ReplaceGroupWords("ml", 2),
-	"grafana_machine_learning_outlier_detector": ReplaceGroupWords("ml", 2),
-
-	// OnCall
-	"grafana_oncall_escalation":             ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_escalation_chain":       ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_integration":            ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_on_call_shift":          ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_outgoing_webhook":       ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_route":                  ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_schedule":               ReplaceGroupWords("oncall", 1),
-	"grafana_oncall_user_notification_rule": ReplaceGroupWords("oncall", 1),
-
-	// OSS
-	"grafana_annotation":                       ReplaceGroupWords("oss", 0),
-	"grafana_dashboard":                        ReplaceGroupWords("oss", 0),
-	"grafana_dashboard_permission":             ReplaceGroupWords("oss", 0),
-	"grafana_dashboard_permission_item":        ReplaceGroupWords("oss", 0),
-	"grafana_dashboard_public":                 ReplaceGroupWords("oss", 0),
-	"grafana_data_source":                      ReplaceGroupWords("oss", 0),
-	"grafana_data_source_config":               ReplaceGroupWords("oss", 0),
-	"grafana_folder":                           ReplaceGroupWords("oss", 0),
-	"grafana_folder_permission":                ReplaceGroupWords("oss", 0),
-	"grafana_folder_permission_item":           ReplaceGroupWords("oss", 0),
-	"grafana_library_panel":                    ReplaceGroupWords("oss", 0),
-	"grafana_organization":                     ReplaceGroupWords("oss", 0),
-	"grafana_organization_preferences":         ReplaceGroupWords("oss", 0),
-	"grafana_playlist":                         ReplaceGroupWords("oss", 0),
-	"grafana_service_account":                  ReplaceGroupWords("oss", 0),
-	"grafana_service_account_permission":       ReplaceGroupWords("oss", 0),
-	"grafana_service_account_permission_item":  ReplaceGroupWords("oss", 0),
-	"grafana_service_account_token":            ReplaceGroupWords("oss", 0),
-	"grafana_service_account_rotating_token":   ReplaceGroupWords("oss", 0),
-	"grafana_sso_settings":                     ReplaceGroupWords("oss", 0),
-	"grafana_team":                             ReplaceGroupWords("oss", 0),
-	"grafana_user":                             ReplaceGroupWords("oss", 0),
-	"grafana_apps_playlist_playlist_v0alpha1":  ReplaceGroupWords("oss", 2),
-	"grafana_apps_dashboard_dashboard_v1beta1": ReplaceGroupWords("oss", 2),
-	"grafana_apps_dashboard_dashboard_v2beta1": ReplaceGroupWords("oss", 2),
-
-	// SLO
-	"grafana_slo": ReplaceGroupWords("slo", 0),
-
-	// Synthetic Monitoring
-	"grafana_synthetic_monitoring_check":        ReplaceGroupWords("sm", 2),
-	"grafana_synthetic_monitoring_installation": ReplaceGroupWords("sm", 2),
-	"grafana_synthetic_monitoring_probe":        ReplaceGroupWords("sm", 2),
-	"grafana_synthetic_monitoring_check_alerts": ReplaceGroupWords("sm", 2),
-
-	// Fleet Management
-	"grafana_fleet_management_collector": ReplaceGroupWords("fleetmanagement", 2),
-	"grafana_fleet_management_pipeline":  ReplaceGroupWords("fleetmanagement", 2),
-
-	// Frontend Observability
-	"grafana_frontend_o11y_app": ReplaceGroupWords("frontendobservability", 2),
-
-	"grafana_k6_installation":               ReplaceGroupWords("k6", 1),
-	"grafana_k6_load_test":                  ReplaceGroupWords("k6", 1),
-	"grafana_k6_project":                    ReplaceGroupWords("k6", 1),
-	"grafana_k6_project_limits":             ReplaceGroupWords("k6", 1),
-	"grafana_k6_project_allowed_load_zones": ReplaceGroupWords("k6", 1),
-	"grafana_k6_schedule":                   ReplaceGroupWords("k6", 1),
-
-	// Asserts
-	"grafana_asserts_custom_model_rules":           ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_log_config":                   ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_notification_alerts_config":   ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_suppressed_assertions_config": ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_thresholds":                   ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_profile_config":               ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_trace_config":                 ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_prom_rule_file":               ReplaceGroupWords("asserts", 1),
-	"grafana_asserts_stack":                        ReplaceGroupWords("asserts", 1),
-
-	// Secret
-	"grafana_apps_secret_keeper_v1beta1":            ReplaceGroupWords("secret", 2),
-	"grafana_apps_secret_securevalue_v1beta1":       ReplaceGroupWords("secret", 2),
-	"grafana_apps_secret_keeper_activation_v1beta1": ReplaceGroupWords("secret", 2),
+func init() {
+	for _, r := range grafanaProvider.Resources() {
+		cat := string(r.Category)
+		cfg, ok := categoryConfig[cat]
+		if !ok {
+			panic(fmt.Sprintf(
+				"unknown category %q for resource %s\n"+
+					"Add an entry to categoryConfig in config/groups.go",
+				cat, r.Name))
+		}
+		GroupMap[r.Name] = ReplaceGroupWords(cfg.ShortGroup, cfg.WordCount)
+	}
+	for _, r := range grafanaProvider.AppPlatformResources() {
+		cat := string(r.Category)
+		cfg, ok := categoryConfig[cat]
+		if !ok {
+			panic(fmt.Sprintf(
+				"unknown category %q for resource %s\n"+
+					"Add an entry to categoryConfig in config/groups.go",
+				cat, r.Name))
+		}
+		// App platform resources always strip 2 prefix words (apps_{appname}).
+		GroupMap[r.Name] = ReplaceGroupWords(cfg.ShortGroup, 2)
+	}
 }
 
 // KindMap contains kind string overrides.

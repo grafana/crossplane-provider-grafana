@@ -8,8 +8,6 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
-	"fmt"
-
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
@@ -61,18 +59,6 @@ func resourcesByFramework() ([]string, []string) {
 
 	for _, r := range grafanaProvider.AppPlatformResources() {
 		resourcesMap[r.Name] = true
-	}
-
-	hasMissingFromGroupMap := false
-	for name := range resourcesMap {
-		if _, ok := GroupMap[name]; !ok {
-			hasMissingFromGroupMap = true
-			// list resource not yet included in config/groups.go
-			fmt.Printf("Not in groupMap: %s\n", name)
-		}
-	}
-	if hasMissingFromGroupMap {
-		panic("Some resource are missing from the group map in config/groups.go")
 	}
 
 	var legacySDKResources, pluginFrameworkResources []string
