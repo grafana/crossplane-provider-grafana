@@ -95,9 +95,17 @@ type StackObservation struct {
 	// Name of the Fleet Management instance configured for this stack.
 	FleetManagementName *string `json:"fleetManagementName,omitempty" tf:"fleet_management_name,omitempty"`
 
+	// (List of String) Availability Zones for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	FleetManagementPrivateConnectivityInfoAvailabilityZones []*string `json:"fleetManagementPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"fleet_management_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
 	FleetManagementPrivateConnectivityInfoPrivateDNS *string `json:"fleetManagementPrivateConnectivityInfoPrivateDns,omitempty" tf:"fleet_management_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	// Regions for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	FleetManagementPrivateConnectivityInfoRegions []*string `json:"fleetManagementPrivateConnectivityInfoRegions,omitempty" tf:"fleet_management_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for Fleet Management when using AWS PrivateLink (only for AWS stacks)
@@ -126,9 +134,17 @@ type StackObservation struct {
 	// (String)
 	GraphiteName *string `json:"graphiteName,omitempty" tf:"graphite_name,omitempty"`
 
+	// (List of String) Availability Zones for Graphite when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for Graphite when using AWS PrivateLink (only for AWS stacks)
+	GraphitePrivateConnectivityInfoAvailabilityZones []*string `json:"graphitePrivateConnectivityInfoAvailabilityZones,omitempty" tf:"graphite_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
 	GraphitePrivateConnectivityInfoPrivateDNS *string `json:"graphitePrivateConnectivityInfoPrivateDns,omitempty" tf:"graphite_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for Graphite when using AWS PrivateLink (only for AWS stacks)
+	// Regions for Graphite when using AWS PrivateLink (only for AWS stacks)
+	GraphitePrivateConnectivityInfoRegions []*string `json:"graphitePrivateConnectivityInfoRegions,omitempty" tf:"graphite_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for Graphite when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for Graphite when using AWS PrivateLink (only for AWS stacks)
@@ -162,9 +178,17 @@ type StackObservation struct {
 	// (String)
 	LogsName *string `json:"logsName,omitempty" tf:"logs_name,omitempty"`
 
+	// (List of String) Availability Zones for Logs when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for Logs when using AWS PrivateLink (only for AWS stacks)
+	LogsPrivateConnectivityInfoAvailabilityZones []*string `json:"logsPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"logs_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
 	LogsPrivateConnectivityInfoPrivateDNS *string `json:"logsPrivateConnectivityInfoPrivateDns,omitempty" tf:"logs_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for Logs when using AWS PrivateLink (only for AWS stacks)
+	// Regions for Logs when using AWS PrivateLink (only for AWS stacks)
+	LogsPrivateConnectivityInfoRegions []*string `json:"logsPrivateConnectivityInfoRegions,omitempty" tf:"logs_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for Logs when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for Logs when using AWS PrivateLink (only for AWS stacks)
@@ -199,9 +223,17 @@ type StackObservation struct {
 	// Organization slug to assign to this stack.
 	OrgSlug *string `json:"orgSlug,omitempty" tf:"org_slug,omitempty"`
 
+	// (List of String) Availability Zones for OTLP when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for OTLP when using AWS PrivateLink (only for AWS stacks)
+	OtlpPrivateConnectivityInfoAvailabilityZones []*string `json:"otlpPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"otlp_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
 	OtlpPrivateConnectivityInfoPrivateDNS *string `json:"otlpPrivateConnectivityInfoPrivateDns,omitempty" tf:"otlp_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for OTLP when using AWS PrivateLink (only for AWS stacks)
+	// Regions for OTLP when using AWS PrivateLink (only for AWS stacks)
+	OtlpPrivateConnectivityInfoRegions []*string `json:"otlpPrivateConnectivityInfoRegions,omitempty" tf:"otlp_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
@@ -211,17 +243,33 @@ type StackObservation struct {
 	// Base URL of the OTLP instance configured for this stack. The username is the stack's ID (`id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
 	OtlpURL *string `json:"otlpUrl,omitempty" tf:"otlp_url,omitempty"`
 
+	// (List of String) Availability Zones for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	PdcAPIPrivateConnectivityInfoAvailabilityZones []*string `json:"pdcApiPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"pdc_api_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
 	PdcAPIPrivateConnectivityInfoPrivateDNS *string `json:"pdcApiPrivateConnectivityInfoPrivateDns,omitempty" tf:"pdc_api_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	// Regions for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	PdcAPIPrivateConnectivityInfoRegions []*string `json:"pdcApiPrivateConnectivityInfoRegions,omitempty" tf:"pdc_api_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
 	PdcAPIPrivateConnectivityInfoServiceName *string `json:"pdcApiPrivateConnectivityInfoServiceName,omitempty" tf:"pdc_api_private_connectivity_info_service_name,omitempty"`
 
+	// (List of String) Availability Zones for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	PdcGatewayPrivateConnectivityInfoAvailabilityZones []*string `json:"pdcGatewayPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"pdc_gateway_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
 	PdcGatewayPrivateConnectivityInfoPrivateDNS *string `json:"pdcGatewayPrivateConnectivityInfoPrivateDns,omitempty" tf:"pdc_gateway_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	// Regions for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	PdcGatewayPrivateConnectivityInfoRegions []*string `json:"pdcGatewayPrivateConnectivityInfoRegions,omitempty" tf:"pdc_gateway_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
@@ -234,9 +282,17 @@ type StackObservation struct {
 	// (String)
 	ProfilesName *string `json:"profilesName,omitempty" tf:"profiles_name,omitempty"`
 
+	// (List of String) Availability Zones for Profiles when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for Profiles when using AWS PrivateLink (only for AWS stacks)
+	ProfilesPrivateConnectivityInfoAvailabilityZones []*string `json:"profilesPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"profiles_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
 	ProfilesPrivateConnectivityInfoPrivateDNS *string `json:"profilesPrivateConnectivityInfoPrivateDns,omitempty" tf:"profiles_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for Profiles when using AWS PrivateLink (only for AWS stacks)
+	// Regions for Profiles when using AWS PrivateLink (only for AWS stacks)
+	ProfilesPrivateConnectivityInfoRegions []*string `json:"profilesPrivateConnectivityInfoRegions,omitempty" tf:"profiles_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for Profiles when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for Profiles when using AWS PrivateLink (only for AWS stacks)
@@ -259,9 +315,17 @@ type StackObservation struct {
 	// Prometheus name for this instance.
 	PrometheusName *string `json:"prometheusName,omitempty" tf:"prometheus_name,omitempty"`
 
+	// (List of String) Availability Zones for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	PrometheusPrivateConnectivityInfoAvailabilityZones []*string `json:"prometheusPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"prometheus_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
 	PrometheusPrivateConnectivityInfoPrivateDNS *string `json:"prometheusPrivateConnectivityInfoPrivateDns,omitempty" tf:"prometheus_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	// Regions for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	PrometheusPrivateConnectivityInfoRegions []*string `json:"prometheusPrivateConnectivityInfoRegions,omitempty" tf:"prometheus_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for Prometheus when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for Prometheus when using AWS PrivateLink (only for AWS stacks)
@@ -306,9 +370,17 @@ type StackObservation struct {
 	// (String)
 	TracesName *string `json:"tracesName,omitempty" tf:"traces_name,omitempty"`
 
+	// (List of String) Availability Zones for Traces when using AWS PrivateLink (only for AWS stacks)
+	// Availability Zones for Traces when using AWS PrivateLink (only for AWS stacks)
+	TracesPrivateConnectivityInfoAvailabilityZones []*string `json:"tracesPrivateConnectivityInfoAvailabilityZones,omitempty" tf:"traces_private_connectivity_info_availability_zones,omitempty"`
+
 	// (String) Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
 	// Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
 	TracesPrivateConnectivityInfoPrivateDNS *string `json:"tracesPrivateConnectivityInfoPrivateDns,omitempty" tf:"traces_private_connectivity_info_private_dns,omitempty"`
+
+	// (List of String) Regions for Traces when using AWS PrivateLink (only for AWS stacks)
+	// Regions for Traces when using AWS PrivateLink (only for AWS stacks)
+	TracesPrivateConnectivityInfoRegions []*string `json:"tracesPrivateConnectivityInfoRegions,omitempty" tf:"traces_private_connectivity_info_regions,omitempty"`
 
 	// (String) Service Name for Traces when using AWS PrivateLink (only for AWS stacks)
 	// Service Name for Traces when using AWS PrivateLink (only for AWS stacks)

@@ -97,6 +97,7 @@ var GroupMap = map[string]GroupKindCalculator{
 	"grafana_data_source_config_lbac_rules": ReplaceGroupWords("enterprise", 0),
 	"grafana_data_source_permission":        ReplaceGroupWords("enterprise", 0),
 	"grafana_data_source_permission_item":   ReplaceGroupWords("enterprise", 0),
+	"grafana_data_source_cache_config":      ReplaceGroupWords("enterprise", 0),
 	"grafana_report":                        ReplaceGroupWords("enterprise", 0),
 	"grafana_role":                          ReplaceGroupWords("enterprise", 0),
 	"grafana_role_assignment":               ReplaceGroupWords("enterprise", 0),

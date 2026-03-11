@@ -16,85 +16,106 @@ import (
 
 type AlertruleV0Alpha1InitParameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *AlertruleV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *AlertruleV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *AlertruleV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertruleV0Alpha1MetadataInitParameters struct {
 
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type AlertruleV0Alpha1MetadataObservation struct {
 
+	// (Map of String) Annotations of the resource.
 	// Annotations of the resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The full URL of the resource.
 	// The full URL of the resource.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// (String) The globally unique identifier of a resource, used by the API for tracking.
 	// The globally unique identifier of a resource, used by the API for tracking.
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
+	// (String) The version of the resource.
 	// The version of the resource.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type AlertruleV0Alpha1MetadataParameters struct {
 
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
 }
 
 type AlertruleV0Alpha1Observation struct {
+
+	// (String) The ID of the resource derived from UUID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *AlertruleV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *AlertruleV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *AlertruleV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type AlertruleV0Alpha1OptionsInitParameters struct {
 
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type AlertruleV0Alpha1OptionsObservation struct {
 
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type AlertruleV0Alpha1OptionsParameters struct {
 
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -102,14 +123,17 @@ type AlertruleV0Alpha1OptionsParameters struct {
 
 type AlertruleV0Alpha1Parameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
 	Metadata *AlertruleV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
 	Options *AlertruleV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
 	Spec *AlertruleV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
@@ -117,150 +141,189 @@ type AlertruleV0Alpha1Parameters struct {
 
 type AlertruleV0Alpha1SpecInitParameters struct {
 
+	// (Map of String) Annotations of the resource.
 	// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
+	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
 	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
 	// +mapType=granular
 	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
+	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
+	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
 	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
 	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
+	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
 	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
 	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
+	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
+	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
 	// Notification settings for the rule. If specified, it overrides the notification policies.
 	NotificationSettings *NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
+	// (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +mapType=granular
 	PanelRef map[string]*string `json:"panelRef,omitempty" tf:"panel_ref,omitempty"`
 
+	// (Boolean) Sets whether the rule should be paused or not.
 	// Sets whether the rule should be paused or not.
 	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
+	// (String) The title of the alert rule.
 	// The title of the alert rule.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
+	// (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
 	// The trigger configuration for the alert rule.
 	Trigger *TriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type AlertruleV0Alpha1SpecObservation struct {
 
+	// (Map of String) Annotations of the resource.
 	// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
+	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
 	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
 	// +mapType=granular
 	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
+	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
+	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
 	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
 	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
+	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
 	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
 	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
+	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
+	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
 	// Notification settings for the rule. If specified, it overrides the notification policies.
 	NotificationSettings *NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
+	// (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +mapType=granular
 	PanelRef map[string]*string `json:"panelRef,omitempty" tf:"panel_ref,omitempty"`
 
+	// (Boolean) Sets whether the rule should be paused or not.
 	// Sets whether the rule should be paused or not.
 	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
+	// (String) The title of the alert rule.
 	// The title of the alert rule.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
+	// (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
 	// The trigger configuration for the alert rule.
 	Trigger *TriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type AlertruleV0Alpha1SpecParameters struct {
 
+	// (Map of String) Annotations of the resource.
 	// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
 	// +kubebuilder:validation:Optional
 	ExecErrState *string `json:"execErrState" tf:"exec_err_state,omitempty"`
 
+	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
 	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Expressions map[string]*string `json:"expressions" tf:"expressions,omitempty"`
 
+	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
 	// +kubebuilder:validation:Optional
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
+	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
 	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
 	// +kubebuilder:validation:Optional
 	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
+	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
 	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
+	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
 	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
 	// +kubebuilder:validation:Optional
 	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
+	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	// +kubebuilder:validation:Optional
 	NoDataState *string `json:"noDataState" tf:"no_data_state,omitempty"`
 
+	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
 	// Notification settings for the rule. If specified, it overrides the notification policies.
 	// +kubebuilder:validation:Optional
 	NotificationSettings *NotificationSettingsParameters `json:"notificationSettings" tf:"notification_settings,omitempty"`
 
+	// (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	PanelRef map[string]*string `json:"panelRef,omitempty" tf:"panel_ref,omitempty"`
 
+	// (Boolean) Sets whether the rule should be paused or not.
 	// Sets whether the rule should be paused or not.
 	// +kubebuilder:validation:Optional
 	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
+	// (String) The title of the alert rule.
 	// The title of the alert rule.
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title" tf:"title,omitempty"`
 
+	// (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
 	// The trigger configuration for the alert rule.
 	// +kubebuilder:validation:Optional
 	Trigger *TriggerParameters `json:"trigger" tf:"trigger,omitempty"`
@@ -268,78 +331,99 @@ type AlertruleV0Alpha1SpecParameters struct {
 
 type NotificationSettingsInitParameters struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
+	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
+	// (List of String) A list of alert labels to group alerts into notifications by.
 	// A list of alert labels to group alerts into notifications by.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
+	// (String) Minimum time interval between two notifications for the same group.
 	// Minimum time interval between two notifications for the same group.
 	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
+	// (String) Time to wait to buffer alerts of the same group before sending a notification.
 	// Time to wait to buffer alerts of the same group before sending a notification.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
 	// A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
+	// sending a notification if an alert is still firing.
 	// Minimum time interval for re-sending a notification if an alert is still firing.
 	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
 
 type NotificationSettingsObservation struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
+	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
+	// (List of String) A list of alert labels to group alerts into notifications by.
 	// A list of alert labels to group alerts into notifications by.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
+	// (String) Minimum time interval between two notifications for the same group.
 	// Minimum time interval between two notifications for the same group.
 	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
+	// (String) Time to wait to buffer alerts of the same group before sending a notification.
 	// Time to wait to buffer alerts of the same group before sending a notification.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
 	// A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
+	// sending a notification if an alert is still firing.
 	// Minimum time interval for re-sending a notification if an alert is still firing.
 	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
 
 type NotificationSettingsParameters struct {
 
+	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	// +kubebuilder:validation:Optional
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
+	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	// +kubebuilder:validation:Optional
 	ContactPoint *string `json:"contactPoint" tf:"contact_point,omitempty"`
 
+	// (List of String) A list of alert labels to group alerts into notifications by.
 	// A list of alert labels to group alerts into notifications by.
 	// +kubebuilder:validation:Optional
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
+	// (String) Minimum time interval between two notifications for the same group.
 	// Minimum time interval between two notifications for the same group.
 	// +kubebuilder:validation:Optional
 	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
+	// (String) Time to wait to buffer alerts of the same group before sending a notification.
 	// Time to wait to buffer alerts of the same group before sending a notification.
 	// +kubebuilder:validation:Optional
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
+	// (List of String) A list of mute timing names to apply to alerts that match this policy.
 	// A list of mute timing names to apply to alerts that match this policy.
 	// +kubebuilder:validation:Optional
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
+	// sending a notification if an alert is still firing.
 	// Minimum time interval for re-sending a notification if an alert is still firing.
 	// +kubebuilder:validation:Optional
 	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
@@ -347,18 +431,21 @@ type NotificationSettingsParameters struct {
 
 type TriggerInitParameters struct {
 
+	// (String) The interval at which the alert rule should be evaluated.
 	// The interval at which the alert rule should be evaluated.
 	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type TriggerObservation struct {
 
+	// (String) The interval at which the alert rule should be evaluated.
 	// The interval at which the alert rule should be evaluated.
 	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type TriggerParameters struct {
 
+	// (String) The interval at which the alert rule should be evaluated.
 	// The interval at which the alert rule should be evaluated.
 	// +kubebuilder:validation:Optional
 	Interval *string `json:"interval" tf:"interval,omitempty"`
@@ -391,7 +478,7 @@ type AlertruleV0Alpha1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AlertruleV0Alpha1 is the Schema for the AlertruleV0Alpha1s API. <no value>
+// AlertruleV0Alpha1 is the Schema for the AlertruleV0Alpha1s API. Manages Grafana Alert Rules. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

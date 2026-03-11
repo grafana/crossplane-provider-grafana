@@ -45,6 +45,7 @@ import (
 	awsresourcemetadatascrapejob "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloudprovider/awsresourcemetadatascrapejob"
 	azurecredential "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloudprovider/azurecredential"
 	metricsendpointscrapejob "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/connections/metricsendpointscrapejob"
+	datasourcecacheconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/enterprise/datasourcecacheconfig"
 	datasourceconfiglbacrules "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/enterprise/datasourceconfiglbacrules"
 	datasourcepermission "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/enterprise/datasourcepermission"
 	datasourcepermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/enterprise/datasourcepermissionitem"
@@ -151,6 +152,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		awsresourcemetadatascrapejob.Setup,
 		azurecredential.Setup,
 		metricsendpointscrapejob.Setup,
+		datasourcecacheconfig.Setup,
 		datasourceconfiglbacrules.Setup,
 		datasourcepermission.Setup,
 		datasourcepermissionitem.Setup,
@@ -263,6 +265,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		awsresourcemetadatascrapejob.SetupGated,
 		azurecredential.SetupGated,
 		metricsendpointscrapejob.SetupGated,
+		datasourcecacheconfig.SetupGated,
 		datasourceconfiglbacrules.SetupGated,
 		datasourcepermission.SetupGated,
 		datasourcepermissionitem.SetupGated,
