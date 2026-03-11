@@ -269,22 +269,24 @@ jobs:
         run: make local-deploy
 
   build-artifacts:
-    runs-on: ubuntu-24.04
+    runs-on: ${{ matrix.runner }}
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     permissions:
       contents: read
+    strategy:
+      matrix:
+        include:
+          - platform: linux_amd64
+            runner: ubuntu-24.04
+          - platform: linux_arm64
+            runner: ubuntu-24.04-arm
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc # v2.15.1
         with:
           egress-policy: audit
-
-      - name: Setup QEMU
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
-        with:
-          platforms: all
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
@@ -313,21 +315,21 @@ jobs:
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
           path: ${{ steps.go.outputs.cache }}
-          key: ${{ runner.os }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
-          restore-keys: ${{ runner.os }}-build-publish-artifacts-
+          key: ${{ runner.os }}-${{ runner.arch }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-${{ runner.arch }}-build-publish-artifacts-
 
       - name: Cache Go Dependencies
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
           path: .work/pkg
-          key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
-          restore-keys: ${{ runner.os }}-pkg-
+          key: ${{ runner.os }}-${{ runner.arch }}-pkg-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-${{ runner.arch }}-pkg-
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
       - name: Build Artifacts
-        run: make -j2 build.all
+        run: make -j2 build.all PLATFORMS=${{ matrix.platform }}
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
@@ -336,7 +338,7 @@ jobs:
       - name: Upload Artifacts to GitHub
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
-          name: output
+          name: output-${{ matrix.platform }}
           path: _output/**
 
   publish-artifacts:
@@ -374,8 +376,9 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
-          name: output
+          pattern: output-*
           path: _output
+          merge-multiple: true
 
       - name: Install Crossplane CLI
         run: make build.init
