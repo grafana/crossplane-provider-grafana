@@ -22,6 +22,7 @@ import (
 	v1alpha1ml "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/ml/v1alpha1"
 	v1alpha1oncall "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1"
 	v1alpha1oss "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1"
+	v1alpha1secret "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/secret/v1alpha1"
 	v1alpha1slo "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/slo/v1alpha1"
 	v1alpha1sm "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/sm/v1alpha1"
 	v1alpha1cluster "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/v1alpha1"
@@ -43,6 +44,7 @@ func init() {
 		v1alpha1ml.SchemeBuilder.AddToScheme,
 		v1alpha1oncall.SchemeBuilder.AddToScheme,
 		v1alpha1oss.SchemeBuilder.AddToScheme,
+		v1alpha1secret.SchemeBuilder.AddToScheme,
 		v1alpha1slo.SchemeBuilder.AddToScheme,
 		v1alpha1sm.SchemeBuilder.AddToScheme,
 		v1alpha1cluster.SchemeBuilder.AddToScheme,

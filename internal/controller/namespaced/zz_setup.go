@@ -12,6 +12,7 @@ import (
 	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertenrichmentv1beta1"
 	alertrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertrulev0alpha1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/contactpoint"
+	inhibitionrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/inhibitionrulev0alpha1"
 	messagetemplate "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/messagetemplate"
 	mutetiming "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/notificationpolicy"
@@ -22,6 +23,7 @@ import (
 	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/notificationalertsconfig"
 	profileconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/profileconfig"
 	promrulefile "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/promrulefile"
+	stack "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/stack"
 	suppressedassertionsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/suppressedassertionsconfig"
 	thresholds "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/thresholds"
 	traceconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/traceconfig"
@@ -34,7 +36,7 @@ import (
 	plugininstallation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/plugininstallation"
 	privatedatasourceconnectnetwork "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/privatedatasourceconnectnetwork"
 	privatedatasourceconnectnetworktoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/privatedatasourceconnectnetworktoken"
-	stack "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/stack"
+	stackcloud "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/stack"
 	stackserviceaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/stackserviceaccount"
 	stackserviceaccountrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/stackserviceaccountrotatingtoken"
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/stackserviceaccounttoken"
@@ -79,6 +81,7 @@ import (
 	dashboardpermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/dashboardpermissionitem"
 	dashboardpublic "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/dashboardpublic"
 	dashboardv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/dashboardv1beta1"
+	dashboardv2beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/dashboardv2beta1"
 	datasource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/datasource"
 	datasourceconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/datasourceconfig"
 	folder "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/folder"
@@ -98,6 +101,9 @@ import (
 	team "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/team"
 	user "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/user"
 	providerconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/providerconfig"
+	keeperactivationv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/secret/keeperactivationv1beta1"
+	keeperv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/secret/keeperv1beta1"
+	securevaluev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/secret/securevaluev1beta1"
 	slo "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/slo/slo"
 	check "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/sm/check"
 	checkalerts "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/sm/checkalerts"
@@ -112,6 +118,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		alertenrichmentv1beta1.Setup,
 		alertrulev0alpha1.Setup,
 		contactpoint.Setup,
+		inhibitionrulev0alpha1.Setup,
 		messagetemplate.Setup,
 		mutetiming.Setup,
 		notificationpolicy.Setup,
@@ -122,6 +129,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		notificationalertsconfig.Setup,
 		profileconfig.Setup,
 		promrulefile.Setup,
+		stack.Setup,
 		suppressedassertionsconfig.Setup,
 		thresholds.Setup,
 		traceconfig.Setup,
@@ -134,7 +142,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		plugininstallation.Setup,
 		privatedatasourceconnectnetwork.Setup,
 		privatedatasourceconnectnetworktoken.Setup,
-		stack.Setup,
+		stackcloud.Setup,
 		stackserviceaccount.Setup,
 		stackserviceaccountrotatingtoken.Setup,
 		stackserviceaccounttoken.Setup,
@@ -179,6 +187,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		dashboardpermissionitem.Setup,
 		dashboardpublic.Setup,
 		dashboardv1beta1.Setup,
+		dashboardv2beta1.Setup,
 		datasource.Setup,
 		datasourceconfig.Setup,
 		folder.Setup,
@@ -198,6 +207,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		team.Setup,
 		user.Setup,
 		providerconfig.Setup,
+		keeperactivationv1beta1.Setup,
+		keeperv1beta1.Setup,
+		securevaluev1beta1.Setup,
 		slo.Setup,
 		check.Setup,
 		checkalerts.Setup,
@@ -218,6 +230,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		alertenrichmentv1beta1.SetupGated,
 		alertrulev0alpha1.SetupGated,
 		contactpoint.SetupGated,
+		inhibitionrulev0alpha1.SetupGated,
 		messagetemplate.SetupGated,
 		mutetiming.SetupGated,
 		notificationpolicy.SetupGated,
@@ -228,6 +241,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		notificationalertsconfig.SetupGated,
 		profileconfig.SetupGated,
 		promrulefile.SetupGated,
+		stack.SetupGated,
 		suppressedassertionsconfig.SetupGated,
 		thresholds.SetupGated,
 		traceconfig.SetupGated,
@@ -240,7 +254,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		plugininstallation.SetupGated,
 		privatedatasourceconnectnetwork.SetupGated,
 		privatedatasourceconnectnetworktoken.SetupGated,
-		stack.SetupGated,
+		stackcloud.SetupGated,
 		stackserviceaccount.SetupGated,
 		stackserviceaccountrotatingtoken.SetupGated,
 		stackserviceaccounttoken.SetupGated,
@@ -285,6 +299,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		dashboardpermissionitem.SetupGated,
 		dashboardpublic.SetupGated,
 		dashboardv1beta1.SetupGated,
+		dashboardv2beta1.SetupGated,
 		datasource.SetupGated,
 		datasourceconfig.SetupGated,
 		folder.SetupGated,
@@ -304,6 +319,9 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		team.SetupGated,
 		user.SetupGated,
 		providerconfig.SetupGated,
+		keeperactivationv1beta1.SetupGated,
+		keeperv1beta1.SetupGated,
+		securevaluev1beta1.SetupGated,
 		slo.SetupGated,
 		check.SetupGated,
 		checkalerts.SetupGated,

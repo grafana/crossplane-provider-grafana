@@ -26,7 +26,7 @@ resources:
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
     grafana_apps_alertenrichment_alertenrichment_v1beta1:
         subCategory: Alerting
-        description: Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is currently in private preview. Grafana Labs offers support on a best-effort basis, and breaking changes might occur prior to the feature being made generally available
+        description: Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is currently in public preview. Grafana Labs offers limited support, and breaking changes might occur prior to the feature being made generally available.
         name: grafana_apps_alertenrichment_alertenrichment_v1beta1
         title: grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana
         examples:
@@ -274,6 +274,99 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
         importStatements: []
+    grafana_apps_dashboard_dashboard_v2beta1:
+        subCategory: Grafana Apps
+        description: Manages Grafana dashboards using the v2beta1 (Dynamic Dashboards) schema. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/#new-dashboard-apis
+        name: grafana_apps_dashboard_dashboard_v2beta1
+        title: grafana_apps_dashboard_dashboard_v2beta1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-dashboard-v2"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "json": "${jsonencode({\n      title       = \"Example Dashboard V2\"\n      cursorSync  = \"Off\"\n      elements    = {}\n      layout      = { kind = \"GridLayout\", spec = { items = [] } }\n      links       = []\n      preload     = false\n      annotations = []\n      variables   = []\n      timeSettings = {\n        timezone = \"browser\"\n        from     = \"now-6h\"\n        to       = \"now\"\n      }\n    })}",
+                      "title": "Example Dashboard V2"
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            json: (String) The JSON representation of the dashboard v2beta1 spec.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+            title: (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_notifications_inhibitionrule_v0alpha1:
+        subCategory: Alerting
+        description: Manages Grafana Inhibition Rules.
+        name: grafana_apps_notifications_inhibitionrule_v0alpha1
+        title: grafana_apps_notifications_inhibitionrule_v0alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-inhibition-rule"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "equal": [
+                        "namespace",
+                        "pod"
+                      ],
+                      "source_matchers": [
+                        {
+                          "label": "alertname",
+                          "type": "=",
+                          "value": "TargetDown"
+                        }
+                      ],
+                      "target_matchers": [
+                        {
+                          "label": "severity",
+                          "type": "=",
+                          "value": "warning"
+                        }
+                      ]
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            equal: (List of String) Labels that must have equal values in source and target alerts for the inhibition to take effect.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            label: (String)
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            source_matchers: (List of Object) Matchers that must be satisfied for an alert to be a source of inhibition. (see below for nested schema)
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            target_matchers: (List of Object) Matchers that must be satisfied for an alert to be inhibited. (see below for nested schema)
+            type: (String)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            value: (String)
+            version: (String) The version of the resource.
+        importStatements: []
     grafana_apps_playlist_playlist_v0alpha1:
         subCategory: Grafana Apps
         description: Manages Grafana playlists using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/apis/
@@ -465,6 +558,68 @@ resources:
             uid: (String) The unique identifier of the resource.
             url: (String) The full URL of the resource.
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_secret_keeper_activation_v1beta1 Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: Sets the active keeper for a namespace. Only one keeper can be active at a time.
+        name: grafana_apps_secret_keeper_activation_v1beta1 Resource - terraform-provider-grafana
+        title: grafana_apps_secret_keeper_activation_v1beta1 Resource - terraform-provider-grafana
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from the keeper name.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_secret_keeper_v1beta1 Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: Manages a Secrets Management keeper.
+        name: grafana_apps_secret_keeper_v1beta1 Resource - terraform-provider-grafana
+        title: grafana_apps_secret_keeper_v1beta1 Resource - terraform-provider-grafana
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            assume_role: (Block, Optional) IAM role assumption configuration. (see below for nested schema)
+            assume_role_arn: (String) Assume role ARN.
+            aws: (Block, Optional) AWS Secrets Manager configuration. (see below for nested schema)
+            description: (String) Keeper description.
+            external_id: (String) Assume role external ID.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            region: (String) AWS region.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_secret_securevalue_v1beta1 Resource - terraform-provider-grafana:
+        subCategory: Grafana Enterprise
+        description: Manages a Secrets Management secure value.
+        name: grafana_apps_secret_securevalue_v1beta1 Resource - terraform-provider-grafana
+        title: grafana_apps_secret_securevalue_v1beta1 Resource - terraform-provider-grafana
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            decrypters: (List of String) List of decrypters allowed to read this secure value.
+            description: (String) Secure value description.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            ref: (String) Reference to an existing secret managed by the keeper.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            value: (String, Sensitive, Write-only) Plaintext value to store. This value is write-only.
+            value_hash: (String, Sensitive) Hash of the stored plaintext value.
             version: (String) The version of the resource.
         importStatements: []
     grafana_asserts_custom_model_rules:
@@ -1160,6 +1315,165 @@ resources:
             rule: '(Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)'
         importStatements:
             - terraform import grafana_asserts_prom_rule_file.name "{{ name }}"
+    grafana_asserts_stack:
+        subCategory: Knowledge Graph
+        description: 'Manages the Asserts Stack configuration. This resource configures the Asserts stack with the required API tokens for integration with Grafana Cloud services. It performs the full onboarding flow: Provisions API tokensConfigures datasets (auto-detected or manually specified)Enables the stack By default, datasets are auto-configured based on detected metrics. To manually configure datasets (e.g., when using non-standard label names), use the dataset block. The cloud_access_policy_token is used internally for GCom API access, Mimir metrics authentication, and assertion detector webhook authentication. Create a Cloud Access Policy with the following scopes: stacks:read, metrics:read, metrics:write. The grafana_token is a Grafana Service Account token used for installing dashboards and Grafana Managed Alerts.'
+        name: grafana_asserts_stack
+        title: grafana_asserts_stack Resource - terraform-provider-grafana
+        examples:
+            - name: main
+              manifest: |-
+                {
+                  "cloud_access_policy_token": "${grafana_cloud_access_policy_token.asserts.token}",
+                  "grafana_token": "${grafana_cloud_stack_service_account_token.asserts.key}"
+                }
+              references:
+                cloud_access_policy_token: grafana_cloud_access_policy_token.asserts.token
+                grafana_token: grafana_cloud_stack_service_account_token.asserts.key
+              dependencies:
+                grafana_cloud_access_policy.asserts: |-
+                    {
+                      "display_name": "Asserts Stack Policy",
+                      "name": "asserts-stack-policy",
+                      "realm": [
+                        {
+                          "identifier": "${var.stack_id}",
+                          "type": "stack"
+                        }
+                      ],
+                      "scopes": [
+                        "stacks:read",
+                        "metrics:read",
+                        "metrics:write"
+                      ]
+                    }
+                grafana_cloud_access_policy_token.asserts: |-
+                    {
+                      "access_policy_id": "${grafana_cloud_access_policy.asserts.policy_id}",
+                      "name": "asserts-stack-token"
+                    }
+                grafana_cloud_stack_service_account.asserts: |-
+                    {
+                      "is_disabled": false,
+                      "name": "asserts-managed-alerts-sa",
+                      "role": "Admin",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+                grafana_cloud_stack_service_account_token.asserts: |-
+                    {
+                      "name": "asserts-managed-alerts-token",
+                      "service_account_id": "${grafana_cloud_stack_service_account.asserts.id}",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+            - name: custom
+              manifest: |-
+                {
+                  "cloud_access_policy_token": "${grafana_cloud_access_policy_token.asserts.token}",
+                  "dataset": [
+                    {
+                      "filter_group": [
+                        {
+                          "env_label": "deployment_environment",
+                          "env_label_values": [
+                            "production",
+                            "staging"
+                          ],
+                          "site_label": "cluster",
+                          "site_label_values": [
+                            "us-east-1",
+                            "eu-west-1"
+                          ]
+                        }
+                      ],
+                      "type": "kubernetes"
+                    },
+                    {
+                      "filter_group": [
+                        {
+                          "env_label": "environment",
+                          "env_name": "prod",
+                          "filter": [
+                            {
+                              "name": "region",
+                              "operator": "=~",
+                              "values": [
+                                "us-.*",
+                                "eu-.*"
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "type": "prometheus"
+                    }
+                  ],
+                  "grafana_token": "${grafana_cloud_stack_service_account_token.asserts.key}"
+                }
+              references:
+                cloud_access_policy_token: grafana_cloud_access_policy_token.asserts.token
+                grafana_token: grafana_cloud_stack_service_account_token.asserts.key
+              dependencies:
+                grafana_cloud_access_policy.asserts: |-
+                    {
+                      "display_name": "Asserts Stack Policy",
+                      "name": "asserts-stack-policy",
+                      "realm": [
+                        {
+                          "identifier": "${var.stack_id}",
+                          "type": "stack"
+                        }
+                      ],
+                      "scopes": [
+                        "stacks:read",
+                        "metrics:read",
+                        "metrics:write"
+                      ]
+                    }
+                grafana_cloud_access_policy_token.asserts: |-
+                    {
+                      "access_policy_id": "${grafana_cloud_access_policy.asserts.policy_id}",
+                      "name": "asserts-stack-token"
+                    }
+                grafana_cloud_stack_service_account.asserts: |-
+                    {
+                      "is_disabled": false,
+                      "name": "asserts-managed-alerts-sa",
+                      "role": "Admin",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+                grafana_cloud_stack_service_account_token.asserts: |-
+                    {
+                      "name": "asserts-managed-alerts-token",
+                      "service_account_id": "${grafana_cloud_stack_service_account.asserts.id}",
+                      "stack_slug": "${var.stack_slug}"
+                    }
+        argumentDocs:
+            cloud_access_policy_token: '(String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.'
+            create: (String)
+            dataset: (Block List) Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
+            delete: (String)
+            disabled_vendors: (List of String) List of vendors to disable for this dataset.
+            enabled: (Boolean) Whether the stack is currently enabled.
+            env_label: (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
+            env_label_values: (List of String) Specific values of the environment label to match.
+            env_name: (String) A friendly name for the environment.
+            filter: (Block List) Additional metric filters. (see below for nested schema)
+            filter_group: (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
+            grafana_token: '(String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.'
+            id: (String) The ID of this resource.
+            name: (String) The label name to filter on.
+            operator: (String) The filter operator (e.g., =, !=, =~, !~).
+            read: (String)
+            site_label: (String) The metric label name used for site/cluster.
+            site_label_values: (List of String) Specific values of the site label to match.
+            status: (String) Current onboarding status of the stack.
+            timeouts: (Block, Optional) (see below for nested schema)
+            type: '(String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.'
+            update: (String)
+            values: (List of String) The values to match.
+            version: (Number) Configuration version number.
+        importStatements:
+            - terraform import grafana_asserts_stack.name "{{ id }}"
     grafana_asserts_suppressed_assertions_config:
         subCategory: Knowledge Graph
         description: Manages Knowledge Graph Disabled Alert Configurations through Grafana API.
@@ -1656,6 +1970,7 @@ resources:
             - terraform import grafana_cloud_private_data_source_connect_network_token.name "{{ region }}:{{ tokenId }}"
     grafana_cloud_provider_aws_account:
         subCategory: Cloud Provider
+        description: This resource allows you to link your AWS Account to Grafana Cloud for use in creating Cloud Provider resources. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_account
         title: grafana_cloud_provider_aws_account Resource - terraform-provider-grafana
         examples:
@@ -1684,6 +1999,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_account.name "{{ stack_id }}:{{ resource_id }}"
     grafana_cloud_provider_aws_cloudwatch_scrape_job:
         subCategory: Cloud Provider
+        description: This resource allows you to scrape AWS CloudWatch metrics in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_cloudwatch_scrape_job
         title: grafana_cloud_provider_aws_cloudwatch_scrape_job Resource - terraform-provider-grafana
         examples:
@@ -1780,6 +2096,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_cloudwatch_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_provider_aws_resource_metadata_scrape_job:
         subCategory: Cloud Provider
+        description: This resource allows you to scrape AWS resource metadata such as ARN and tags as info metrics in Grafana Cloud without needing to run your own infrastructure. Use this resource if you aren't using grafana_cloud_provider_aws_cloudwatch_scrape_job, but still want to have AWS resource metadata available in Grafana Cloud, for example for use with our AWS Metrics Streams integration and/or Knowledge Graph features. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_resource_metadata_scrape_job
         title: grafana_cloud_provider_aws_resource_metadata_scrape_job Resource - terraform-provider-grafana
         examples:
@@ -1838,6 +2155,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_resource_metadata_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_provider_azure_credential:
         subCategory: Cloud Provider
+        description: This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/
         name: grafana_cloud_provider_azure_credential
         title: grafana_cloud_provider_azure_credential Resource - terraform-provider-grafana
         examples:
@@ -4349,7 +4667,7 @@ resources:
             telegram: '(Block List, Max: 1) Telegram-specific settings for a route. (see below for nested schema)'
             templates: '(Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)'
             title: (String) Template for Alert title.
-            type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, heartbeat, demo, manual, stackdriver, uptimerobot, sentry_platform, zabbix, prtg, slack_channel, inbound_email, direct_paging, jira, zendesk.
+            type: (String) The type of integration. Can be grafana, grafana_alerting, webhook, alertmanager, kapacitor, fabric, newrelic, datadog, pagerduty, pingdom, elastalert, amazon_sns, curler, sentry, formatted_webhook, stackdriver, uptimerobot, sentry, zabbix, prtg, inbound_email, direct_paging, jira, zendesk.
             web: '(Block List, Max: 1) Templates for Web. (see below for nested schema)'
         importStatements:
             - terraform import grafana_oncall_integration.name "{{ id }}"

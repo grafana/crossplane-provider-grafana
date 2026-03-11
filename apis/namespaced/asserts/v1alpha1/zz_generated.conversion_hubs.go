@@ -22,6 +22,9 @@ func (tr *ProfileConfig) Hub() {}
 func (tr *PromRuleFile) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *Stack) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *SuppressedAssertionsConfig) Hub() {}
 
 // Hub marks this type as a conversion hub.

@@ -111,7 +111,7 @@ type AwsAccountStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AwsAccount is the Schema for the AwsAccounts API.
+// AwsAccount is the Schema for the AwsAccounts API. This resource allows you to link your AWS Account to Grafana Cloud for use in creating Cloud Provider resources. See the Grafana Provider configuration docs https://registry.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
