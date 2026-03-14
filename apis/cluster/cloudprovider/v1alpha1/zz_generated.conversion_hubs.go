@@ -6,14 +6,16 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-// Hub marks this type as a conversion hub.
-func (tr *AwsAccount) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *AwsCloudwatchScrapeJob) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *AwsAccount) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *AwsResourceMetadataScrapeJob) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *AwsCloudwatchScrapeJob) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *AzureCredential) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *AwsResourceMetadataScrapeJob) Hub() {}
+
+    // Hub marks this type as a conversion hub.
+    func (tr *AzureCredential) Hub() {}
+

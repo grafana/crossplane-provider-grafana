@@ -11,285 +11,313 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type HealthThresholdsInitParameters struct {
 
-	// (String) Optional alert category label for the health threshold.
-	// Optional alert category label for the health threshold.
-	AlertCategory *string `json:"alertCategory,omitempty" tf:"alert_category,omitempty"`
 
-	// (String) Assertion name.
-	// Assertion name.
-	AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
+// (String) Optional alert category label for the health threshold.
+// Optional alert category label for the health threshold.
+AlertCategory *string `json:"alertCategory,omitempty" tf:"alert_category,omitempty"`
 
-	// (String) Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
-	// Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
-	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+// (String) Assertion name.
+// Assertion name.
+AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Prometheus expression.
-	// Prometheus expression.
-	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+// (String) Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
+// Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
+EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+// (String) Prometheus expression.
+// Prometheus expression.
+Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
 }
+
 
 type HealthThresholdsObservation struct {
 
-	// (String) Optional alert category label for the health threshold.
-	// Optional alert category label for the health threshold.
-	AlertCategory *string `json:"alertCategory,omitempty" tf:"alert_category,omitempty"`
 
-	// (String) Assertion name.
-	// Assertion name.
-	AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
+// (String) Optional alert category label for the health threshold.
+// Optional alert category label for the health threshold.
+AlertCategory *string `json:"alertCategory,omitempty" tf:"alert_category,omitempty"`
 
-	// (String) Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
-	// Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
-	EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+// (String) Assertion name.
+// Assertion name.
+AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Prometheus expression.
-	// Prometheus expression.
-	Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
+// (String) Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
+// Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
+EntityType *string `json:"entityType,omitempty" tf:"entity_type,omitempty"`
+
+// (String) Prometheus expression.
+// Prometheus expression.
+Expression *string `json:"expression,omitempty" tf:"expression,omitempty"`
 }
+
 
 type HealthThresholdsParameters struct {
 
-	// (String) Optional alert category label for the health threshold.
-	// Optional alert category label for the health threshold.
-	// +kubebuilder:validation:Optional
-	AlertCategory *string `json:"alertCategory,omitempty" tf:"alert_category,omitempty"`
 
-	// (String) Assertion name.
-	// Assertion name.
-	// +kubebuilder:validation:Optional
-	AssertionName *string `json:"assertionName" tf:"assertion_name,omitempty"`
+// (String) Optional alert category label for the health threshold.
+// Optional alert category label for the health threshold.
+// +kubebuilder:validation:Optional
+AlertCategory *string `json:"alertCategory,omitempty" tf:"alert_category,omitempty"`
 
-	// (String) Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
-	// Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
-	// +kubebuilder:validation:Optional
-	EntityType *string `json:"entityType" tf:"entity_type,omitempty"`
+// (String) Assertion name.
+// Assertion name.
+// +kubebuilder:validation:Optional
+AssertionName *string `json:"assertionName" tf:"assertion_name,omitempty"`
 
-	// (String) Prometheus expression.
-	// Prometheus expression.
-	// +kubebuilder:validation:Optional
-	Expression *string `json:"expression" tf:"expression,omitempty"`
+// (String) Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
+// Entity type for the health threshold (e.g., Service, Pod, Namespace, Volume).
+// +kubebuilder:validation:Optional
+EntityType *string `json:"entityType" tf:"entity_type,omitempty"`
+
+// (String) Prometheus expression.
+// Prometheus expression.
+// +kubebuilder:validation:Optional
+Expression *string `json:"expression" tf:"expression,omitempty"`
 }
+
 
 type RequestThresholdsInitParameters struct {
 
-	// (String) Assertion name.
-	// Assertion name (e.g., RequestRateAnomaly, ErrorRatioBreach).
-	AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Entity name the threshold applies to.
-	// Entity name the threshold applies to.
-	EntityName *string `json:"entityName,omitempty" tf:"entity_name,omitempty"`
+// (String) Assertion name.
+// Assertion name (e.g., RequestRateAnomaly, ErrorRatioBreach).
+AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Request context (e.g., path or context identifier).
-	// Request context (e.g., path or context identifier).
-	RequestContext *string `json:"requestContext,omitempty" tf:"request_context,omitempty"`
+// (String) Entity name the threshold applies to.
+// Entity name the threshold applies to.
+EntityName *string `json:"entityName,omitempty" tf:"entity_name,omitempty"`
 
-	// (String) Request type (e.g., inbound/outbound).
-	// Request type (e.g., inbound/outbound).
-	RequestType *string `json:"requestType,omitempty" tf:"request_type,omitempty"`
+// (String) Request context (e.g., path or context identifier).
+// Request context (e.g., path or context identifier).
+RequestContext *string `json:"requestContext,omitempty" tf:"request_context,omitempty"`
 
-	// (Number) Threshold value.
-	// Threshold value.
-	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
+// (String) Request type (e.g., inbound/outbound).
+// Request type (e.g., inbound/outbound).
+RequestType *string `json:"requestType,omitempty" tf:"request_type,omitempty"`
+
+// (Number) Threshold value.
+// Threshold value.
+Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type RequestThresholdsObservation struct {
 
-	// (String) Assertion name.
-	// Assertion name (e.g., RequestRateAnomaly, ErrorRatioBreach).
-	AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Entity name the threshold applies to.
-	// Entity name the threshold applies to.
-	EntityName *string `json:"entityName,omitempty" tf:"entity_name,omitempty"`
+// (String) Assertion name.
+// Assertion name (e.g., RequestRateAnomaly, ErrorRatioBreach).
+AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Request context (e.g., path or context identifier).
-	// Request context (e.g., path or context identifier).
-	RequestContext *string `json:"requestContext,omitempty" tf:"request_context,omitempty"`
+// (String) Entity name the threshold applies to.
+// Entity name the threshold applies to.
+EntityName *string `json:"entityName,omitempty" tf:"entity_name,omitempty"`
 
-	// (String) Request type (e.g., inbound/outbound).
-	// Request type (e.g., inbound/outbound).
-	RequestType *string `json:"requestType,omitempty" tf:"request_type,omitempty"`
+// (String) Request context (e.g., path or context identifier).
+// Request context (e.g., path or context identifier).
+RequestContext *string `json:"requestContext,omitempty" tf:"request_context,omitempty"`
 
-	// (Number) Threshold value.
-	// Threshold value.
-	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
+// (String) Request type (e.g., inbound/outbound).
+// Request type (e.g., inbound/outbound).
+RequestType *string `json:"requestType,omitempty" tf:"request_type,omitempty"`
+
+// (Number) Threshold value.
+// Threshold value.
+Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type RequestThresholdsParameters struct {
 
-	// (String) Assertion name.
-	// Assertion name (e.g., RequestRateAnomaly, ErrorRatioBreach).
-	// +kubebuilder:validation:Optional
-	AssertionName *string `json:"assertionName" tf:"assertion_name,omitempty"`
 
-	// (String) Entity name the threshold applies to.
-	// Entity name the threshold applies to.
-	// +kubebuilder:validation:Optional
-	EntityName *string `json:"entityName" tf:"entity_name,omitempty"`
+// (String) Assertion name.
+// Assertion name (e.g., RequestRateAnomaly, ErrorRatioBreach).
+// +kubebuilder:validation:Optional
+AssertionName *string `json:"assertionName" tf:"assertion_name,omitempty"`
 
-	// (String) Request context (e.g., path or context identifier).
-	// Request context (e.g., path or context identifier).
-	// +kubebuilder:validation:Optional
-	RequestContext *string `json:"requestContext" tf:"request_context,omitempty"`
+// (String) Entity name the threshold applies to.
+// Entity name the threshold applies to.
+// +kubebuilder:validation:Optional
+EntityName *string `json:"entityName" tf:"entity_name,omitempty"`
 
-	// (String) Request type (e.g., inbound/outbound).
-	// Request type (e.g., inbound/outbound).
-	// +kubebuilder:validation:Optional
-	RequestType *string `json:"requestType" tf:"request_type,omitempty"`
+// (String) Request context (e.g., path or context identifier).
+// Request context (e.g., path or context identifier).
+// +kubebuilder:validation:Optional
+RequestContext *string `json:"requestContext" tf:"request_context,omitempty"`
 
-	// (Number) Threshold value.
-	// Threshold value.
-	// +kubebuilder:validation:Optional
-	Value *float64 `json:"value" tf:"value,omitempty"`
+// (String) Request type (e.g., inbound/outbound).
+// Request type (e.g., inbound/outbound).
+// +kubebuilder:validation:Optional
+RequestType *string `json:"requestType" tf:"request_type,omitempty"`
+
+// (Number) Threshold value.
+// Threshold value.
+// +kubebuilder:validation:Optional
+Value *float64 `json:"value" tf:"value,omitempty"`
 }
+
 
 type ResourceThresholdsInitParameters struct {
 
-	// (String) Assertion name.
-	// Assertion name (e.g., Saturation, ResourceRateBreach).
-	AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Container name.
-	// Container name.
-	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
+// (String) Assertion name.
+// Assertion name (e.g., Saturation, ResourceRateBreach).
+AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Resource type (e.g., container/pod/node).
-	// Resource type (e.g., container/pod/node).
-	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+// (String) Container name.
+// Container name.
+ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
 
-	// (String) Severity (warning or critical).
-	// Severity (warning or critical).
-	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+// (String) Resource type (e.g., container/pod/node).
+// Resource type (e.g., container/pod/node).
+ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
 
-	// (String) Data source for the threshold (e.g., metrics/logs).
-	// Data source for the threshold (e.g., metrics/logs).
-	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+// (String) Severity (warning or critical).
+// Severity (warning or critical).
+Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
 
-	// (Number) Threshold value.
-	// Threshold value.
-	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
+// (String) Data source for the threshold (e.g., metrics/logs).
+// Data source for the threshold (e.g., metrics/logs).
+Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+// (Number) Threshold value.
+// Threshold value.
+Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type ResourceThresholdsObservation struct {
 
-	// (String) Assertion name.
-	// Assertion name (e.g., Saturation, ResourceRateBreach).
-	AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Container name.
-	// Container name.
-	ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
+// (String) Assertion name.
+// Assertion name (e.g., Saturation, ResourceRateBreach).
+AssertionName *string `json:"assertionName,omitempty" tf:"assertion_name,omitempty"`
 
-	// (String) Resource type (e.g., container/pod/node).
-	// Resource type (e.g., container/pod/node).
-	ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
+// (String) Container name.
+// Container name.
+ContainerName *string `json:"containerName,omitempty" tf:"container_name,omitempty"`
 
-	// (String) Severity (warning or critical).
-	// Severity (warning or critical).
-	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+// (String) Resource type (e.g., container/pod/node).
+// Resource type (e.g., container/pod/node).
+ResourceType *string `json:"resourceType,omitempty" tf:"resource_type,omitempty"`
 
-	// (String) Data source for the threshold (e.g., metrics/logs).
-	// Data source for the threshold (e.g., metrics/logs).
-	Source *string `json:"source,omitempty" tf:"source,omitempty"`
+// (String) Severity (warning or critical).
+// Severity (warning or critical).
+Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
 
-	// (Number) Threshold value.
-	// Threshold value.
-	Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
+// (String) Data source for the threshold (e.g., metrics/logs).
+// Data source for the threshold (e.g., metrics/logs).
+Source *string `json:"source,omitempty" tf:"source,omitempty"`
+
+// (Number) Threshold value.
+// Threshold value.
+Value *float64 `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type ResourceThresholdsParameters struct {
 
-	// (String) Assertion name.
-	// Assertion name (e.g., Saturation, ResourceRateBreach).
-	// +kubebuilder:validation:Optional
-	AssertionName *string `json:"assertionName" tf:"assertion_name,omitempty"`
 
-	// (String) Container name.
-	// Container name.
-	// +kubebuilder:validation:Optional
-	ContainerName *string `json:"containerName" tf:"container_name,omitempty"`
+// (String) Assertion name.
+// Assertion name (e.g., Saturation, ResourceRateBreach).
+// +kubebuilder:validation:Optional
+AssertionName *string `json:"assertionName" tf:"assertion_name,omitempty"`
 
-	// (String) Resource type (e.g., container/pod/node).
-	// Resource type (e.g., container/pod/node).
-	// +kubebuilder:validation:Optional
-	ResourceType *string `json:"resourceType" tf:"resource_type,omitempty"`
+// (String) Container name.
+// Container name.
+// +kubebuilder:validation:Optional
+ContainerName *string `json:"containerName" tf:"container_name,omitempty"`
 
-	// (String) Severity (warning or critical).
-	// Severity (warning or critical).
-	// +kubebuilder:validation:Optional
-	Severity *string `json:"severity" tf:"severity,omitempty"`
+// (String) Resource type (e.g., container/pod/node).
+// Resource type (e.g., container/pod/node).
+// +kubebuilder:validation:Optional
+ResourceType *string `json:"resourceType" tf:"resource_type,omitempty"`
 
-	// (String) Data source for the threshold (e.g., metrics/logs).
-	// Data source for the threshold (e.g., metrics/logs).
-	// +kubebuilder:validation:Optional
-	Source *string `json:"source" tf:"source,omitempty"`
+// (String) Severity (warning or critical).
+// Severity (warning or critical).
+// +kubebuilder:validation:Optional
+Severity *string `json:"severity" tf:"severity,omitempty"`
 
-	// (Number) Threshold value.
-	// Threshold value.
-	// +kubebuilder:validation:Optional
-	Value *float64 `json:"value" tf:"value,omitempty"`
+// (String) Data source for the threshold (e.g., metrics/logs).
+// Data source for the threshold (e.g., metrics/logs).
+// +kubebuilder:validation:Optional
+Source *string `json:"source" tf:"source,omitempty"`
+
+// (Number) Threshold value.
+// Threshold value.
+// +kubebuilder:validation:Optional
+Value *float64 `json:"value" tf:"value,omitempty"`
 }
+
 
 type ThresholdsInitParameters struct {
 
-	// (Block List) List of health thresholds. (see below for nested schema)
-	// List of health thresholds.
-	HealthThresholds []HealthThresholdsInitParameters `json:"healthThresholds,omitempty" tf:"health_thresholds,omitempty"`
 
-	// (Block List) List of request thresholds. (see below for nested schema)
-	// List of request thresholds.
-	RequestThresholds []RequestThresholdsInitParameters `json:"requestThresholds,omitempty" tf:"request_thresholds,omitempty"`
+// (Block List) List of health thresholds. (see below for nested schema)
+// List of health thresholds.
+HealthThresholds []HealthThresholdsInitParameters `json:"healthThresholds,omitempty" tf:"health_thresholds,omitempty"`
 
-	// (Block List) List of resource thresholds. (see below for nested schema)
-	// List of resource thresholds.
-	ResourceThresholds []ResourceThresholdsInitParameters `json:"resourceThresholds,omitempty" tf:"resource_thresholds,omitempty"`
+// (Block List) List of request thresholds. (see below for nested schema)
+// List of request thresholds.
+RequestThresholds []RequestThresholdsInitParameters `json:"requestThresholds,omitempty" tf:"request_thresholds,omitempty"`
+
+// (Block List) List of resource thresholds. (see below for nested schema)
+// List of resource thresholds.
+ResourceThresholds []ResourceThresholdsInitParameters `json:"resourceThresholds,omitempty" tf:"resource_thresholds,omitempty"`
 }
+
 
 type ThresholdsObservation struct {
 
-	// (Block List) List of health thresholds. (see below for nested schema)
-	// List of health thresholds.
-	HealthThresholds []HealthThresholdsObservation `json:"healthThresholds,omitempty" tf:"health_thresholds,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Block List) List of health thresholds. (see below for nested schema)
+// List of health thresholds.
+HealthThresholds []HealthThresholdsObservation `json:"healthThresholds,omitempty" tf:"health_thresholds,omitempty"`
 
-	// (Block List) List of request thresholds. (see below for nested schema)
-	// List of request thresholds.
-	RequestThresholds []RequestThresholdsObservation `json:"requestThresholds,omitempty" tf:"request_thresholds,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List) List of resource thresholds. (see below for nested schema)
-	// List of resource thresholds.
-	ResourceThresholds []ResourceThresholdsObservation `json:"resourceThresholds,omitempty" tf:"resource_thresholds,omitempty"`
+// (Block List) List of request thresholds. (see below for nested schema)
+// List of request thresholds.
+RequestThresholds []RequestThresholdsObservation `json:"requestThresholds,omitempty" tf:"request_thresholds,omitempty"`
+
+// (Block List) List of resource thresholds. (see below for nested schema)
+// List of resource thresholds.
+ResourceThresholds []ResourceThresholdsObservation `json:"resourceThresholds,omitempty" tf:"resource_thresholds,omitempty"`
 }
+
 
 type ThresholdsParameters struct {
 
-	// (Block List) List of health thresholds. (see below for nested schema)
-	// List of health thresholds.
-	// +kubebuilder:validation:Optional
-	HealthThresholds []HealthThresholdsParameters `json:"healthThresholds,omitempty" tf:"health_thresholds,omitempty"`
 
-	// (Block List) List of request thresholds. (see below for nested schema)
-	// List of request thresholds.
-	// +kubebuilder:validation:Optional
-	RequestThresholds []RequestThresholdsParameters `json:"requestThresholds,omitempty" tf:"request_thresholds,omitempty"`
+// (Block List) List of health thresholds. (see below for nested schema)
+// List of health thresholds.
+// +kubebuilder:validation:Optional
+HealthThresholds []HealthThresholdsParameters `json:"healthThresholds,omitempty" tf:"health_thresholds,omitempty"`
 
-	// (Block List) List of resource thresholds. (see below for nested schema)
-	// List of resource thresholds.
-	// +kubebuilder:validation:Optional
-	ResourceThresholds []ResourceThresholdsParameters `json:"resourceThresholds,omitempty" tf:"resource_thresholds,omitempty"`
+// (Block List) List of request thresholds. (see below for nested schema)
+// List of request thresholds.
+// +kubebuilder:validation:Optional
+RequestThresholds []RequestThresholdsParameters `json:"requestThresholds,omitempty" tf:"request_thresholds,omitempty"`
+
+// (Block List) List of resource thresholds. (see below for nested schema)
+// List of resource thresholds.
+// +kubebuilder:validation:Optional
+ResourceThresholds []ResourceThresholdsParameters `json:"resourceThresholds,omitempty" tf:"resource_thresholds,omitempty"`
 }
 
 // ThresholdsSpec defines the desired state of Thresholds
 type ThresholdsSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     ThresholdsParameters `json:"forProvider"`
+	ForProvider       ThresholdsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -300,18 +328,19 @@ type ThresholdsSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider ThresholdsInitParameters `json:"initProvider,omitempty"`
+	InitProvider       ThresholdsInitParameters `json:"initProvider,omitempty"`
 }
 
 // ThresholdsStatus defines the observed state of Thresholds.
 type ThresholdsStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        ThresholdsObservation `json:"atProvider,omitempty"`
+	AtProvider          ThresholdsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // Thresholds is the Schema for the Thresholdss API. Manages Knowledge Graph Thresholds configuration (request, resource, health) via bulk endpoints.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"

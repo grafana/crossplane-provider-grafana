@@ -11,153 +11,169 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type ProfileConfigInitParameters struct {
 
-	// (String) DataSource to be queried (e.g., a Pyroscope instance).
-	// DataSource to be queried (e.g., a Pyroscope instance).
-	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Boolean) Is it the default config, therefore undeletable?
-	// Is it the default config, therefore undeletable?
-	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+// (String) DataSource to be queried (e.g., a Pyroscope instance).
+// DataSource to be queried (e.g., a Pyroscope instance).
+DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Map of String) Mapping of entity properties to profile labels.
-	// Mapping of entity properties to profile labels.
-	// +mapType=granular
-	EntityPropertyToProfileLabelMapping map[string]*string `json:"entityPropertyToProfileLabelMapping,omitempty" tf:"entity_property_to_profile_label_mapping,omitempty"`
+// (Boolean) Is it the default config, therefore undeletable?
+// Is it the default config, therefore undeletable?
+DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-	// (Block List) List of match rules for entity properties. (see below for nested schema)
-	// List of match rules for entity properties.
-	Match []ProfileConfigMatchInitParameters `json:"match,omitempty" tf:"match,omitempty"`
+// (Map of String) Mapping of entity properties to profile labels.
+// Mapping of entity properties to profile labels.
+// +mapType=granular
+EntityPropertyToProfileLabelMapping map[string]*string `json:"entityPropertyToProfileLabelMapping,omitempty" tf:"entity_property_to_profile_label_mapping,omitempty"`
 
-	// (String) The name of the profile configuration.
-	// The name of the profile configuration.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) List of match rules for entity properties. (see below for nested schema)
+// List of match rules for entity properties.
+Match []ProfileConfigMatchInitParameters `json:"match,omitempty" tf:"match,omitempty"`
 
-	// (Number) Priority of the profile configuration. A lower number means a higher priority.
-	// Priority of the profile configuration. A lower number means a higher priority.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+// (String) The name of the profile configuration.
+// The name of the profile configuration.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Number) Priority of the profile configuration. A lower number means a higher priority.
+// Priority of the profile configuration. A lower number means a higher priority.
+Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
+
 
 type ProfileConfigMatchInitParameters struct {
 
-	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (String) Entity property to match.
-	// Entity property to match.
-	Property *string `json:"property,omitempty" tf:"property,omitempty"`
+// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
-	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+// (String) Entity property to match.
+// Entity property to match.
+Property *string `json:"property,omitempty" tf:"property,omitempty"`
+
+// (List of String) Values to match against.
+// Values to match against.
+Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
+
 
 type ProfileConfigMatchObservation struct {
 
-	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (String) Entity property to match.
-	// Entity property to match.
-	Property *string `json:"property,omitempty" tf:"property,omitempty"`
+// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
-	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+// (String) Entity property to match.
+// Entity property to match.
+Property *string `json:"property,omitempty" tf:"property,omitempty"`
+
+// (List of String) Values to match against.
+// Values to match against.
+Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
+
 
 type ProfileConfigMatchParameters struct {
 
-	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// +kubebuilder:validation:Optional
-	Op *string `json:"op" tf:"op,omitempty"`
 
-	// (String) Entity property to match.
-	// Entity property to match.
-	// +kubebuilder:validation:Optional
-	Property *string `json:"property" tf:"property,omitempty"`
+// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// +kubebuilder:validation:Optional
+Op *string `json:"op" tf:"op,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
-	// +kubebuilder:validation:Optional
-	Values []*string `json:"values" tf:"values,omitempty"`
+// (String) Entity property to match.
+// Entity property to match.
+// +kubebuilder:validation:Optional
+Property *string `json:"property" tf:"property,omitempty"`
+
+// (List of String) Values to match against.
+// Values to match against.
+// +kubebuilder:validation:Optional
+Values []*string `json:"values" tf:"values,omitempty"`
 }
+
 
 type ProfileConfigObservation struct {
 
-	// (String) DataSource to be queried (e.g., a Pyroscope instance).
-	// DataSource to be queried (e.g., a Pyroscope instance).
-	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Boolean) Is it the default config, therefore undeletable?
-	// Is it the default config, therefore undeletable?
-	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+// (String) DataSource to be queried (e.g., a Pyroscope instance).
+// DataSource to be queried (e.g., a Pyroscope instance).
+DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Map of String) Mapping of entity properties to profile labels.
-	// Mapping of entity properties to profile labels.
-	// +mapType=granular
-	EntityPropertyToProfileLabelMapping map[string]*string `json:"entityPropertyToProfileLabelMapping,omitempty" tf:"entity_property_to_profile_label_mapping,omitempty"`
+// (Boolean) Is it the default config, therefore undeletable?
+// Is it the default config, therefore undeletable?
+DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Map of String) Mapping of entity properties to profile labels.
+// Mapping of entity properties to profile labels.
+// +mapType=granular
+EntityPropertyToProfileLabelMapping map[string]*string `json:"entityPropertyToProfileLabelMapping,omitempty" tf:"entity_property_to_profile_label_mapping,omitempty"`
 
-	// (Block List) List of match rules for entity properties. (see below for nested schema)
-	// List of match rules for entity properties.
-	Match []ProfileConfigMatchObservation `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the profile configuration.
-	// The name of the profile configuration.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) List of match rules for entity properties. (see below for nested schema)
+// List of match rules for entity properties.
+Match []ProfileConfigMatchObservation `json:"match,omitempty" tf:"match,omitempty"`
 
-	// (Number) Priority of the profile configuration. A lower number means a higher priority.
-	// Priority of the profile configuration. A lower number means a higher priority.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+// (String) The name of the profile configuration.
+// The name of the profile configuration.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Number) Priority of the profile configuration. A lower number means a higher priority.
+// Priority of the profile configuration. A lower number means a higher priority.
+Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
+
 
 type ProfileConfigParameters struct {
 
-	// (String) DataSource to be queried (e.g., a Pyroscope instance).
-	// DataSource to be queried (e.g., a Pyroscope instance).
-	// +kubebuilder:validation:Optional
-	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Boolean) Is it the default config, therefore undeletable?
-	// Is it the default config, therefore undeletable?
-	// +kubebuilder:validation:Optional
-	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+// (String) DataSource to be queried (e.g., a Pyroscope instance).
+// DataSource to be queried (e.g., a Pyroscope instance).
+// +kubebuilder:validation:Optional
+DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Map of String) Mapping of entity properties to profile labels.
-	// Mapping of entity properties to profile labels.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	EntityPropertyToProfileLabelMapping map[string]*string `json:"entityPropertyToProfileLabelMapping,omitempty" tf:"entity_property_to_profile_label_mapping,omitempty"`
+// (Boolean) Is it the default config, therefore undeletable?
+// Is it the default config, therefore undeletable?
+// +kubebuilder:validation:Optional
+DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-	// (Block List) List of match rules for entity properties. (see below for nested schema)
-	// List of match rules for entity properties.
-	// +kubebuilder:validation:Optional
-	Match []ProfileConfigMatchParameters `json:"match,omitempty" tf:"match,omitempty"`
+// (Map of String) Mapping of entity properties to profile labels.
+// Mapping of entity properties to profile labels.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+EntityPropertyToProfileLabelMapping map[string]*string `json:"entityPropertyToProfileLabelMapping,omitempty" tf:"entity_property_to_profile_label_mapping,omitempty"`
 
-	// (String) The name of the profile configuration.
-	// The name of the profile configuration.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) List of match rules for entity properties. (see below for nested schema)
+// List of match rules for entity properties.
+// +kubebuilder:validation:Optional
+Match []ProfileConfigMatchParameters `json:"match,omitempty" tf:"match,omitempty"`
 
-	// (Number) Priority of the profile configuration. A lower number means a higher priority.
-	// Priority of the profile configuration. A lower number means a higher priority.
-	// +kubebuilder:validation:Optional
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+// (String) The name of the profile configuration.
+// The name of the profile configuration.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Number) Priority of the profile configuration. A lower number means a higher priority.
+// Priority of the profile configuration. A lower number means a higher priority.
+// +kubebuilder:validation:Optional
+Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
 
 // ProfileConfigSpec defines the desired state of ProfileConfig
 type ProfileConfigSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     ProfileConfigParameters `json:"forProvider"`
+	ForProvider       ProfileConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -168,18 +184,19 @@ type ProfileConfigSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider ProfileConfigInitParameters `json:"initProvider,omitempty"`
+	InitProvider       ProfileConfigInitParameters `json:"initProvider,omitempty"`
 }
 
 // ProfileConfigStatus defines the observed state of ProfileConfig.
 type ProfileConfigStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        ProfileConfigObservation `json:"atProvider,omitempty"`
+	AtProvider          ProfileConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // ProfileConfig is the Schema for the ProfileConfigs API. Manages Knowledge Graph Profile Configuration through Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -190,12 +207,12 @@ type ProfileConfigStatus struct {
 type ProfileConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceUid) || (has(self.initProvider) && has(self.initProvider.dataSourceUid))",message="spec.forProvider.dataSourceUid is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultConfig) || (has(self.initProvider) && has(self.initProvider.defaultConfig))",message="spec.forProvider.defaultConfig is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"
-	Spec   ProfileConfigSpec   `json:"spec"`
-	Status ProfileConfigStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceUid) || (has(self.initProvider) && has(self.initProvider.dataSourceUid))",message="spec.forProvider.dataSourceUid is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultConfig) || (has(self.initProvider) && has(self.initProvider.defaultConfig))",message="spec.forProvider.defaultConfig is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"
+	Spec              ProfileConfigSpec   `json:"spec"`
+	Status            ProfileConfigStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

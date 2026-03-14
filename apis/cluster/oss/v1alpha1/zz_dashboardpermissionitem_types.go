@@ -11,124 +11,134 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type DashboardPermissionItemInitParameters struct {
 
-	// (String) The UID of the dashboard.
-	// The UID of the dashboard.
-	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The UID of the dashboard.
+// The UID of the dashboard.
+DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (String) the permission to be assigned
-	// the permission to be assigned
-	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) the role onto which the permission is to be assigned
-	// the role onto which the permission is to be assigned
-	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+// (String) the permission to be assigned
+// the permission to be assigned
+Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) the team onto which the permission is to be assigned
-	// the team onto which the permission is to be assigned
-	Team *string `json:"team,omitempty" tf:"team,omitempty"`
+// (String) the role onto which the permission is to be assigned
+// the role onto which the permission is to be assigned
+Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-	// (String) the user or service account onto which the permission is to be assigned
-	// the user or service account onto which the permission is to be assigned
-	User *string `json:"user,omitempty" tf:"user,omitempty"`
+// (String) the team onto which the permission is to be assigned
+// the team onto which the permission is to be assigned
+Team *string `json:"team,omitempty" tf:"team,omitempty"`
+
+// (String) the user or service account onto which the permission is to be assigned
+// the user or service account onto which the permission is to be assigned
+User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
+
 
 type DashboardPermissionItemObservation struct {
 
-	// (String) The UID of the dashboard.
-	// The UID of the dashboard.
-	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) The UID of the dashboard.
+// The UID of the dashboard.
+DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) the permission to be assigned
-	// the permission to be assigned
-	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) the role onto which the permission is to be assigned
-	// the role onto which the permission is to be assigned
-	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+// (String) the permission to be assigned
+// the permission to be assigned
+Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) the team onto which the permission is to be assigned
-	// the team onto which the permission is to be assigned
-	Team *string `json:"team,omitempty" tf:"team,omitempty"`
+// (String) the role onto which the permission is to be assigned
+// the role onto which the permission is to be assigned
+Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-	// (String) the user or service account onto which the permission is to be assigned
-	// the user or service account onto which the permission is to be assigned
-	User *string `json:"user,omitempty" tf:"user,omitempty"`
+// (String) the team onto which the permission is to be assigned
+// the team onto which the permission is to be assigned
+Team *string `json:"team,omitempty" tf:"team,omitempty"`
+
+// (String) the user or service account onto which the permission is to be assigned
+// the user or service account onto which the permission is to be assigned
+User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
+
 
 type DashboardPermissionItemParameters struct {
 
-	// (String) The UID of the dashboard.
-	// The UID of the dashboard.
-	// +kubebuilder:validation:Optional
-	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The UID of the dashboard.
+// The UID of the dashboard.
+// +kubebuilder:validation:Optional
+DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (String) the permission to be assigned
-	// the permission to be assigned
-	// +kubebuilder:validation:Optional
-	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) the role onto which the permission is to be assigned
-	// the role onto which the permission is to be assigned
-	// +kubebuilder:validation:Optional
-	Role *string `json:"role,omitempty" tf:"role,omitempty"`
+// (String) the permission to be assigned
+// the permission to be assigned
+// +kubebuilder:validation:Optional
+Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) the team onto which the permission is to be assigned
-	// the team onto which the permission is to be assigned
-	// +kubebuilder:validation:Optional
-	Team *string `json:"team,omitempty" tf:"team,omitempty"`
+// (String) the role onto which the permission is to be assigned
+// the role onto which the permission is to be assigned
+// +kubebuilder:validation:Optional
+Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-	// (String) the user or service account onto which the permission is to be assigned
-	// the user or service account onto which the permission is to be assigned
-	// +kubebuilder:validation:Optional
-	User *string `json:"user,omitempty" tf:"user,omitempty"`
+// (String) the team onto which the permission is to be assigned
+// the team onto which the permission is to be assigned
+// +kubebuilder:validation:Optional
+Team *string `json:"team,omitempty" tf:"team,omitempty"`
+
+// (String) the user or service account onto which the permission is to be assigned
+// the user or service account onto which the permission is to be assigned
+// +kubebuilder:validation:Optional
+User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
 
 // DashboardPermissionItemSpec defines the desired state of DashboardPermissionItem
 type DashboardPermissionItemSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     DashboardPermissionItemParameters `json:"forProvider"`
+	ForProvider       DashboardPermissionItemParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -139,18 +149,19 @@ type DashboardPermissionItemSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider DashboardPermissionItemInitParameters `json:"initProvider,omitempty"`
+	InitProvider       DashboardPermissionItemInitParameters `json:"initProvider,omitempty"`
 }
 
 // DashboardPermissionItemStatus defines the observed state of DashboardPermissionItem.
 type DashboardPermissionItemStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        DashboardPermissionItemObservation `json:"atProvider,omitempty"`
+	AtProvider          DashboardPermissionItemObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // DashboardPermissionItem is the Schema for the DashboardPermissionItems API. Manages a single permission item for a dashboard. Conflicts with the "grafana_dashboard_permission" resource which manages the entire set of permissions for a dashboard.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -161,10 +172,10 @@ type DashboardPermissionItemStatus struct {
 type DashboardPermissionItem struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dashboardUid) || (has(self.initProvider) && has(self.initProvider.dashboardUid))",message="spec.forProvider.dashboardUid is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
-	Spec   DashboardPermissionItemSpec   `json:"spec"`
-	Status DashboardPermissionItemStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dashboardUid) || (has(self.initProvider) && has(self.initProvider.dashboardUid))",message="spec.forProvider.dashboardUid is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
+	Spec              DashboardPermissionItemSpec   `json:"spec"`
+	Status            DashboardPermissionItemStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

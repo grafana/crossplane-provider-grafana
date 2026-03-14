@@ -11,74 +11,91 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type KeeperActivationV1Beta1InitParameters struct {
 
-	// The metadata of the resource.
-	Metadata *MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
+// The metadata of the resource.
+Metadata *MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 }
+
 
 type KeeperActivationV1Beta1Observation struct {
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The metadata of the resource.
-	Metadata *MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+// The metadata of the resource.
+Metadata *MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 }
+
 
 type KeeperActivationV1Beta1Parameters struct {
 
-	// The metadata of the resource.
-	// +kubebuilder:validation:Optional
-	Metadata *MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
+// The metadata of the resource.
+// +kubebuilder:validation:Optional
+Metadata *MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 }
+
 
 type MetadataInitParameters struct {
 
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
+
 
 type MetadataObservation struct {
 
-	// Annotations of the resource.
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+// Annotations of the resource.
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// The full URL of the resource.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// The globally unique identifier of a resource, used by the API for tracking.
-	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+// The full URL of the resource.
+URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// The version of the resource.
-	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+// The globally unique identifier of a resource, used by the API for tracking.
+UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+// The version of the resource.
+Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type MetadataParameters struct {
 
-	// The UID of the folder to save the resource in.
-	// +kubebuilder:validation:Optional
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// The unique identifier of the resource.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid" tf:"uid,omitempty"`
+// The UID of the folder to save the resource in.
+// +kubebuilder:validation:Optional
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// The unique identifier of the resource.
+// +kubebuilder:validation:Optional
+UID *string `json:"uid" tf:"uid,omitempty"`
 }
 
 // KeeperActivationV1Beta1Spec defines the desired state of KeeperActivationV1Beta1
 type KeeperActivationV1Beta1Spec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     KeeperActivationV1Beta1Parameters `json:"forProvider"`
+	ForProvider       KeeperActivationV1Beta1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -89,18 +106,19 @@ type KeeperActivationV1Beta1Spec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider KeeperActivationV1Beta1InitParameters `json:"initProvider,omitempty"`
+	InitProvider       KeeperActivationV1Beta1InitParameters `json:"initProvider,omitempty"`
 }
 
 // KeeperActivationV1Beta1Status defines the observed state of KeeperActivationV1Beta1.
 type KeeperActivationV1Beta1Status struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        KeeperActivationV1Beta1Observation `json:"atProvider,omitempty"`
+	AtProvider          KeeperActivationV1Beta1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // KeeperActivationV1Beta1 is the Schema for the KeeperActivationV1Beta1s API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -111,9 +129,9 @@ type KeeperActivationV1Beta1Status struct {
 type KeeperActivationV1Beta1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	Spec   KeeperActivationV1Beta1Spec   `json:"spec"`
-	Status KeeperActivationV1Beta1Status `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+	Spec              KeeperActivationV1Beta1Spec   `json:"spec"`
+	Status            KeeperActivationV1Beta1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

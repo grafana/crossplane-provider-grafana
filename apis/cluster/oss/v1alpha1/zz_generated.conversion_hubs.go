@@ -6,77 +6,79 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-// Hub marks this type as a conversion hub.
-func (tr *Annotation) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Dashboard) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Annotation) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DashboardPermission) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Dashboard) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DashboardPermissionItem) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DashboardPermission) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DashboardPublic) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DashboardPermissionItem) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DashboardV1Beta1) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DashboardPublic) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DashboardV2Beta1) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DashboardV1Beta1) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DataSource) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DashboardV2Beta1) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DataSourceConfig) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DataSource) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Folder) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DataSourceConfig) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *FolderPermission) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Folder) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *FolderPermissionItem) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *FolderPermission) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *LibraryPanel) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *FolderPermissionItem) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Organization) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *LibraryPanel) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *OrganizationPreferences) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Organization) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Playlist) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *OrganizationPreferences) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *PlaylistV0Alpha1) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Playlist) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ServiceAccount) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *PlaylistV0Alpha1) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ServiceAccountPermission) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ServiceAccount) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ServiceAccountPermissionItem) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ServiceAccountPermission) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ServiceAccountRotatingToken) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ServiceAccountPermissionItem) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ServiceAccountToken) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ServiceAccountRotatingToken) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *SsoSettings) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ServiceAccountToken) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Team) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *SsoSettings) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *User) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Team) Hub() {}
+
+    // Hub marks this type as a conversion hub.
+    func (tr *User) Hub() {}
+

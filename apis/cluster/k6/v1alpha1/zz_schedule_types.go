@@ -11,197 +11,219 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type CronInitParameters struct {
 
-	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
-	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
-	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (String) The timezone of the cron expression. For example, UTC or Europe/London.
-	// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
-	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
+Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+// (String) The timezone of the cron expression. For example, UTC or Europe/London.
+// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
+Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
+
 
 type CronObservation struct {
 
-	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
-	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
-	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (String) The timezone of the cron expression. For example, UTC or Europe/London.
-	// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
-	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
+Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+// (String) The timezone of the cron expression. For example, UTC or Europe/London.
+// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
+Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
+
 
 type CronParameters struct {
 
-	// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
-	// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
-	// +kubebuilder:validation:Optional
-	Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
 
-	// (String) The timezone of the cron expression. For example, UTC or Europe/London.
-	// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
-	// +kubebuilder:validation:Optional
-	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
+// (String) A cron expression with exactly 5 entries, or an alias. The allowed aliases are: @yearly, @annually, @monthly, @weekly, @daily, @hourly.
+// A cron expression with exactly 5 entries, or an alias. The allowed aliases are: `@yearly`, `@annually`, `@monthly`, `@weekly`, `@daily`, `@hourly`.
+// +kubebuilder:validation:Optional
+Schedule *string `json:"schedule,omitempty" tf:"schedule,omitempty"`
+
+// (String) The timezone of the cron expression. For example, UTC or Europe/London.
+// The timezone of the cron expression. For example, `UTC` or `Europe/London`.
+// +kubebuilder:validation:Optional
+Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 }
+
 
 type RecurrenceRuleInitParameters struct {
 
-	// (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
-	// The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
-	Byday []*string `json:"byday,omitempty" tf:"byday,omitempty"`
 
-	// (Number) How many times the recurrence will repeat.
-	// How many times the recurrence will repeat.
-	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+// (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+// The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+Byday []*string `json:"byday,omitempty" tf:"byday,omitempty"`
 
-	// (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
-	// The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
-	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
+// (Number) How many times the recurrence will repeat.
+// How many times the recurrence will repeat.
+Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
-	// The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+// (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+// The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
-	// (String) The end time for the recurrence (RFC3339 format).
-	// The end time for the recurrence (RFC3339 format).
-	Until *string `json:"until,omitempty" tf:"until,omitempty"`
+// (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+// The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+// (String) The end time for the recurrence (RFC3339 format).
+// The end time for the recurrence (RFC3339 format).
+Until *string `json:"until,omitempty" tf:"until,omitempty"`
 }
+
 
 type RecurrenceRuleObservation struct {
 
-	// (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
-	// The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
-	Byday []*string `json:"byday,omitempty" tf:"byday,omitempty"`
 
-	// (Number) How many times the recurrence will repeat.
-	// How many times the recurrence will repeat.
-	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+// (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+// The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+Byday []*string `json:"byday,omitempty" tf:"byday,omitempty"`
 
-	// (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
-	// The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
-	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
+// (Number) How many times the recurrence will repeat.
+// How many times the recurrence will repeat.
+Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
-	// The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+// (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+// The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
-	// (String) The end time for the recurrence (RFC3339 format).
-	// The end time for the recurrence (RFC3339 format).
-	Until *string `json:"until,omitempty" tf:"until,omitempty"`
+// (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+// The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+// (String) The end time for the recurrence (RFC3339 format).
+// The end time for the recurrence (RFC3339 format).
+Until *string `json:"until,omitempty" tf:"until,omitempty"`
 }
+
 
 type RecurrenceRuleParameters struct {
 
-	// (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
-	// The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
-	// +kubebuilder:validation:Optional
-	Byday []*string `json:"byday,omitempty" tf:"byday,omitempty"`
 
-	// (Number) How many times the recurrence will repeat.
-	// How many times the recurrence will repeat.
-	// +kubebuilder:validation:Optional
-	Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
+// (List of String) The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+// The weekdays when the 'WEEKLY' recurrence will be applied (e.g., ['MO', 'WE', 'FR']). Cannot be set for other frequencies.
+// +kubebuilder:validation:Optional
+Byday []*string `json:"byday,omitempty" tf:"byday,omitempty"`
 
-	// (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
-	// The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
-	// +kubebuilder:validation:Optional
-	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
+// (Number) How many times the recurrence will repeat.
+// How many times the recurrence will repeat.
+// +kubebuilder:validation:Optional
+Count *float64 `json:"count,omitempty" tf:"count,omitempty"`
 
-	// (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
-	// The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
-	// +kubebuilder:validation:Optional
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+// (String) The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+// The frequency of the schedule (HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY).
+// +kubebuilder:validation:Optional
+Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
-	// (String) The end time for the recurrence (RFC3339 format).
-	// The end time for the recurrence (RFC3339 format).
-	// +kubebuilder:validation:Optional
-	Until *string `json:"until,omitempty" tf:"until,omitempty"`
+// (Number) The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+// The interval between each frequency iteration (e.g., 2 = every 2 hours for HOURLY). Defaults to 1.
+// +kubebuilder:validation:Optional
+Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+
+// (String) The end time for the recurrence (RFC3339 format).
+// The end time for the recurrence (RFC3339 format).
+// +kubebuilder:validation:Optional
+Until *string `json:"until,omitempty" tf:"until,omitempty"`
 }
+
 
 type ScheduleInitParameters struct {
 
-	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
-	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	Cron *CronInitParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
-	// (String) The identifier of the load test to schedule.
-	// The identifier of the load test to schedule.
-	LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
+// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+Cron *CronInitParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
-	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
-	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	RecurrenceRule *RecurrenceRuleInitParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+// (String) The identifier of the load test to schedule.
+// The identifier of the load test to schedule.
+LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
 
-	// (String) The start time for the schedule (RFC3339 format).
-	// The start time for the schedule (RFC3339 format).
-	Starts *string `json:"starts,omitempty" tf:"starts,omitempty"`
+// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+RecurrenceRule *RecurrenceRuleInitParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+
+// (String) The start time for the schedule (RFC3339 format).
+// The start time for the schedule (RFC3339 format).
+Starts *string `json:"starts,omitempty" tf:"starts,omitempty"`
 }
+
 
 type ScheduleObservation struct {
 
-	// (String) The email of the user who created the schedule.
-	// The email of the user who created the schedule.
-	CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
-	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
-	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	Cron *CronObservation `json:"cron,omitempty" tf:"cron,omitempty"`
+// (String) The email of the user who created the schedule.
+// The email of the user who created the schedule.
+CreatedBy *string `json:"createdBy,omitempty" tf:"created_by,omitempty"`
 
-	// (Boolean) Whether the schedule is deactivated.
-	// Whether the schedule is deactivated.
-	Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
+// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+Cron *CronObservation `json:"cron,omitempty" tf:"cron,omitempty"`
 
-	// (String) Numeric identifier of the schedule.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Boolean) Whether the schedule is deactivated.
+// Whether the schedule is deactivated.
+Deactivated *bool `json:"deactivated,omitempty" tf:"deactivated,omitempty"`
 
-	// (String) The identifier of the load test to schedule.
-	// The identifier of the load test to schedule.
-	LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
+// (String) Numeric identifier of the schedule.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The next scheduled execution time.
-	// The next scheduled execution time.
-	NextRun *string `json:"nextRun,omitempty" tf:"next_run,omitempty"`
+// (String) The identifier of the load test to schedule.
+// The identifier of the load test to schedule.
+LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
 
-	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
-	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	RecurrenceRule *RecurrenceRuleObservation `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+// (String) The next scheduled execution time.
+// The next scheduled execution time.
+NextRun *string `json:"nextRun,omitempty" tf:"next_run,omitempty"`
 
-	// (String) The start time for the schedule (RFC3339 format).
-	// The start time for the schedule (RFC3339 format).
-	Starts *string `json:"starts,omitempty" tf:"starts,omitempty"`
+// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+RecurrenceRule *RecurrenceRuleObservation `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+
+// (String) The start time for the schedule (RFC3339 format).
+// The start time for the schedule (RFC3339 format).
+Starts *string `json:"starts,omitempty" tf:"starts,omitempty"`
 }
+
 
 type ScheduleParameters struct {
 
-	// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
-	// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	// +kubebuilder:validation:Optional
-	Cron *CronParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
-	// (String) The identifier of the load test to schedule.
-	// The identifier of the load test to schedule.
-	// +kubebuilder:validation:Optional
-	LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
+// (Block, Optional) The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+// The cron schedule to trigger the test periodically. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+// +kubebuilder:validation:Optional
+Cron *CronParameters `json:"cron,omitempty" tf:"cron,omitempty"`
 
-	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
-	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
-	// +kubebuilder:validation:Optional
-	RecurrenceRule *RecurrenceRuleParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+// (String) The identifier of the load test to schedule.
+// The identifier of the load test to schedule.
+// +kubebuilder:validation:Optional
+LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
 
-	// (String) The start time for the schedule (RFC3339 format).
-	// The start time for the schedule (RFC3339 format).
-	// +kubebuilder:validation:Optional
-	Starts *string `json:"starts,omitempty" tf:"starts,omitempty"`
+// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
+// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
+// +kubebuilder:validation:Optional
+RecurrenceRule *RecurrenceRuleParameters `json:"recurrenceRule,omitempty" tf:"recurrence_rule,omitempty"`
+
+// (String) The start time for the schedule (RFC3339 format).
+// The start time for the schedule (RFC3339 format).
+// +kubebuilder:validation:Optional
+Starts *string `json:"starts,omitempty" tf:"starts,omitempty"`
 }
 
 // ScheduleSpec defines the desired state of Schedule
 type ScheduleSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     ScheduleParameters `json:"forProvider"`
+	ForProvider       ScheduleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -212,18 +234,19 @@ type ScheduleSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider ScheduleInitParameters `json:"initProvider,omitempty"`
+	InitProvider       ScheduleInitParameters `json:"initProvider,omitempty"`
 }
 
 // ScheduleStatus defines the observed state of Schedule.
 type ScheduleStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        ScheduleObservation `json:"atProvider,omitempty"`
+	AtProvider          ScheduleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // Schedule is the Schema for the Schedules API. Manages a k6 schedule for automated test execution.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -234,10 +257,10 @@ type ScheduleStatus struct {
 type Schedule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.loadTestId) || (has(self.initProvider) && has(self.initProvider.loadTestId))",message="spec.forProvider.loadTestId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.starts) || (has(self.initProvider) && has(self.initProvider.starts))",message="spec.forProvider.starts is a required parameter"
-	Spec   ScheduleSpec   `json:"spec"`
-	Status ScheduleStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.loadTestId) || (has(self.initProvider) && has(self.initProvider.loadTestId))",message="spec.forProvider.loadTestId is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.starts) || (has(self.initProvider) && has(self.initProvider.starts))",message="spec.forProvider.starts is a required parameter"
+	Spec              ScheduleSpec   `json:"spec"`
+	Status            ScheduleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

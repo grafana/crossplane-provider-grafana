@@ -15,14 +15,16 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	xpresource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
-	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
 	"github.com/crossplane/upjet/v2/pkg/controller/handler"
+	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
 	"github.com/crossplane/upjet/v2/pkg/metrics"
+	"github.com/crossplane/upjet/v2/pkg/terraform"
 	"github.com/pkg/errors"
 	ctrl "sigs.k8s.io/controller-runtime"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/enterprise/v1alpha1"
-	features "github.com/grafana/crossplane-provider-grafana/v2/internal/features"
+features "github.com/grafana/crossplane-provider-grafana/v2/internal/features"
+
 )
 
 // SetupGated adds a controller that reconciles Role managed resources.
@@ -40,23 +42,23 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	name := managed.ControllerName(v1alpha1.Role_GroupVersionKind.String())
 	var initializers managed.InitializerChain
 	for _, i := range o.Provider.Resources["grafana_role"].InitializerFns {
-		initializers = append(initializers, i(mgr.GetClient()))
+	    initializers = append(initializers,i(mgr.GetClient()))
 	}
 	eventHandler := handler.NewEventHandler(handler.WithLogger(o.Logger.WithValues("gvk", v1alpha1.Role_GroupVersionKind)))
 	opts := []managed.ReconcilerOption{
 		managed.WithExternalConnecter(tjcontroller.NewTerraformPluginSDKConnector(mgr.GetClient(), o.SetupFn, o.Provider.Resources["grafana_role"], o.OperationTrackerStore,
-			tjcontroller.WithTerraformPluginSDKLogger(o.Logger),
-			tjcontroller.WithTerraformPluginSDKMetricRecorder(metrics.NewMetricRecorder(v1alpha1.Role_GroupVersionKind, mgr, o.PollInterval)),
-			tjcontroller.WithTerraformPluginSDKManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
+				tjcontroller.WithTerraformPluginSDKLogger(o.Logger),
+				tjcontroller.WithTerraformPluginSDKMetricRecorder(metrics.NewMetricRecorder(v1alpha1.Role_GroupVersionKind, mgr, o.PollInterval)),
+				tjcontroller.WithTerraformPluginSDKManagementPolicies(o.Features.Enabled(features.EnableBetaManagementPolicies)))),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
 		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
 		managed.WithFinalizer(tjcontroller.NewOperationTrackerFinalizer(o.OperationTrackerStore, xpresource.NewAPIFinalizer(mgr.GetClient(), managed.FinalizerName))),
-		managed.WithTimeout(3 * time.Minute),
+		managed.WithTimeout(3*time.Minute),
 		managed.WithInitializers(initializers),
 		managed.WithPollInterval(o.PollInterval),
 	}
 	if o.PollJitter != 0 {
-		opts = append(opts, managed.WithPollJitterHook(o.PollJitter))
+	    opts = append(opts, managed.WithPollJitterHook(o.PollJitter))
 	}
 	if o.Features.Enabled(features.EnableBetaManagementPolicies) {
 		opts = append(opts, managed.WithManagementPolicies())

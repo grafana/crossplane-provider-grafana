@@ -11,123 +11,139 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type AlertsInitParameters struct {
 
-	// (String)
-	Name *string `json:"name,omitempty" tf:"name"`
 
-	// (String)
-	Period *string `json:"period,omitempty" tf:"period"`
+// (String)
+Name *string `json:"name,omitempty" tf:"name"`
 
-	// (String)
-	RunbookURL *string `json:"runbookUrl,omitempty" tf:"runbook_url"`
+// (String)
+Period *string `json:"period,omitempty" tf:"period"`
 
-	// (Number)
-	Threshold *float64 `json:"threshold,omitempty" tf:"threshold"`
+// (String)
+RunbookURL *string `json:"runbookUrl,omitempty" tf:"runbook_url"`
+
+// (Number)
+Threshold *float64 `json:"threshold,omitempty" tf:"threshold"`
 }
+
 
 type AlertsObservation struct {
 
-	// (String)
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String)
-	Period *string `json:"period,omitempty" tf:"period,omitempty"`
+// (String)
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String)
-	RunbookURL *string `json:"runbookUrl,omitempty" tf:"runbook_url,omitempty"`
+// (String)
+Period *string `json:"period,omitempty" tf:"period,omitempty"`
 
-	// (Number)
-	Threshold *float64 `json:"threshold,omitempty" tf:"threshold,omitempty"`
+// (String)
+RunbookURL *string `json:"runbookUrl,omitempty" tf:"runbook_url,omitempty"`
+
+// (Number)
+Threshold *float64 `json:"threshold,omitempty" tf:"threshold,omitempty"`
 }
+
 
 type AlertsParameters struct {
 
-	// (String)
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name"`
 
-	// (String)
-	// +kubebuilder:validation:Optional
-	Period *string `json:"period" tf:"period"`
+// (String)
+// +kubebuilder:validation:Optional
+Name *string `json:"name" tf:"name"`
 
-	// (String)
-	// +kubebuilder:validation:Optional
-	RunbookURL *string `json:"runbookUrl" tf:"runbook_url"`
+// (String)
+// +kubebuilder:validation:Optional
+Period *string `json:"period" tf:"period"`
 
-	// (Number)
-	// +kubebuilder:validation:Optional
-	Threshold *float64 `json:"threshold" tf:"threshold"`
+// (String)
+// +kubebuilder:validation:Optional
+RunbookURL *string `json:"runbookUrl" tf:"runbook_url"`
+
+// (Number)
+// +kubebuilder:validation:Optional
+Threshold *float64 `json:"threshold" tf:"threshold"`
 }
+
 
 type CheckAlertsInitParameters struct {
 
-	// (Set of Object) List of alerts for the check. (see below for nested schema)
-	// List of alerts for the check.
-	Alerts []AlertsInitParameters `json:"alerts,omitempty" tf:"alerts,omitempty"`
 
-	// (Number) The ID of the check to manage alerts for.
-	// The ID of the check to manage alerts for.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/sm/v1alpha1.Check
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("id")
-	// +crossplane:generate:reference:refFieldName=CheckRef
-	// +crossplane:generate:reference:selectorFieldName=CheckSelector
-	CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
+// (Set of Object) List of alerts for the check. (see below for nested schema)
+// List of alerts for the check.
+Alerts []AlertsInitParameters `json:"alerts,omitempty" tf:"alerts,omitempty"`
 
-	// Reference to a Check in sm to populate checkId.
-	// +kubebuilder:validation:Optional
-	CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+// (Number) The ID of the check to manage alerts for.
+// The ID of the check to manage alerts for.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/sm/v1alpha1.Check
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("id")
+// +crossplane:generate:reference:refFieldName=CheckRef
+// +crossplane:generate:reference:selectorFieldName=CheckSelector
+CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
 
-	// Selector for a Check in sm to populate checkId.
-	// +kubebuilder:validation:Optional
-	CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
+// Reference to a Check in sm to populate checkId.
+// +kubebuilder:validation:Optional
+CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+
+// Selector for a Check in sm to populate checkId.
+// +kubebuilder:validation:Optional
+CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
 }
+
 
 type CheckAlertsObservation struct {
 
-	// (Set of Object) List of alerts for the check. (see below for nested schema)
-	// List of alerts for the check.
-	Alerts []AlertsObservation `json:"alerts,omitempty" tf:"alerts,omitempty"`
 
-	// (Number) The ID of the check to manage alerts for.
-	// The ID of the check to manage alerts for.
-	CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
+// (Set of Object) List of alerts for the check. (see below for nested schema)
+// List of alerts for the check.
+Alerts []AlertsObservation `json:"alerts,omitempty" tf:"alerts,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Number) The ID of the check to manage alerts for.
+// The ID of the check to manage alerts for.
+CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
+
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
+
 
 type CheckAlertsParameters struct {
 
-	// (Set of Object) List of alerts for the check. (see below for nested schema)
-	// List of alerts for the check.
-	// +kubebuilder:validation:Optional
-	Alerts []AlertsParameters `json:"alerts,omitempty" tf:"alerts,omitempty"`
 
-	// (Number) The ID of the check to manage alerts for.
-	// The ID of the check to manage alerts for.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/sm/v1alpha1.Check
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("id")
-	// +crossplane:generate:reference:refFieldName=CheckRef
-	// +crossplane:generate:reference:selectorFieldName=CheckSelector
-	// +kubebuilder:validation:Optional
-	CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
+// (Set of Object) List of alerts for the check. (see below for nested schema)
+// List of alerts for the check.
+// +kubebuilder:validation:Optional
+Alerts []AlertsParameters `json:"alerts,omitempty" tf:"alerts,omitempty"`
 
-	// Reference to a Check in sm to populate checkId.
-	// +kubebuilder:validation:Optional
-	CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+// (Number) The ID of the check to manage alerts for.
+// The ID of the check to manage alerts for.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/sm/v1alpha1.Check
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("id")
+// +crossplane:generate:reference:refFieldName=CheckRef
+// +crossplane:generate:reference:selectorFieldName=CheckSelector
+// +kubebuilder:validation:Optional
+CheckID *float64 `json:"checkId,omitempty" tf:"check_id,omitempty"`
 
-	// Selector for a Check in sm to populate checkId.
-	// +kubebuilder:validation:Optional
-	CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
+// Reference to a Check in sm to populate checkId.
+// +kubebuilder:validation:Optional
+CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+
+// Selector for a Check in sm to populate checkId.
+// +kubebuilder:validation:Optional
+CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
 }
 
 // CheckAlertsSpec defines the desired state of CheckAlerts
 type CheckAlertsSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     CheckAlertsParameters `json:"forProvider"`
+	ForProvider       CheckAlertsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -138,18 +154,19 @@ type CheckAlertsSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider CheckAlertsInitParameters `json:"initProvider,omitempty"`
+	InitProvider       CheckAlertsInitParameters `json:"initProvider,omitempty"`
 }
 
 // CheckAlertsStatus defines the observed state of CheckAlerts.
 type CheckAlertsStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        CheckAlertsObservation `json:"atProvider,omitempty"`
+	AtProvider          CheckAlertsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // CheckAlerts is the Schema for the CheckAlertss API. Manages alerts for a check in Grafana Synthetic Monitoring. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/configure-alerts/configure-per-check-alerts/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -160,9 +177,9 @@ type CheckAlertsStatus struct {
 type CheckAlerts struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.alerts) || (has(self.initProvider) && has(self.initProvider.alerts))",message="spec.forProvider.alerts is a required parameter"
-	Spec   CheckAlertsSpec   `json:"spec"`
-	Status CheckAlertsStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.alerts) || (has(self.initProvider) && has(self.initProvider.alerts))",message="spec.forProvider.alerts is a required parameter"
+	Spec              CheckAlertsSpec   `json:"spec"`
+	Status            CheckAlertsStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

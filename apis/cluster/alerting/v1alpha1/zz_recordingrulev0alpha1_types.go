@@ -11,265 +11,299 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type RecordingruleV0Alpha1InitParameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
-	// The metadata of the resource.
-	Metadata *RecordingruleV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
-	// Options for applying the resource.
-	Options *RecordingruleV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+// (Block, Optional) The metadata of the resource. (see below for nested schema)
+// The metadata of the resource.
+Metadata *RecordingruleV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
-	// The spec of the resource.
-	Spec *RecordingruleV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+// (Block, Optional) Options for applying the resource. (see below for nested schema)
+// Options for applying the resource.
+Options *RecordingruleV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+// (Block, Optional) The spec of the resource. (see below for nested schema)
+// The spec of the resource.
+Spec *RecordingruleV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The unique identifier of the resource.
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (String) The UID of the folder to save the resource in.
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// (String) The unique identifier of the resource.
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1MetadataObservation struct {
 
-	// (Map of String) Annotations of the resource.
-	// Annotations of the resource.
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+// (Map of String) Annotations of the resource.
+// Annotations of the resource.
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The unique identifier of the resource.
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (String) The UID of the folder to save the resource in.
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The full URL of the resource.
-	// The full URL of the resource.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+// (String) The unique identifier of the resource.
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The globally unique identifier of a resource, used by the API for tracking.
-	// The globally unique identifier of a resource, used by the API for tracking.
-	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+// (String) The full URL of the resource.
+// The full URL of the resource.
+URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String) The version of the resource.
-	// The version of the resource.
-	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+// (String) The globally unique identifier of a resource, used by the API for tracking.
+// The globally unique identifier of a resource, used by the API for tracking.
+UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+// (String) The version of the resource.
+// The version of the resource.
+Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
-	// +kubebuilder:validation:Optional
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The unique identifier of the resource.
-	// The unique identifier of the resource.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid" tf:"uid,omitempty"`
+// (String) The UID of the folder to save the resource in.
+// The UID of the folder to save the resource in.
+// +kubebuilder:validation:Optional
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// (String) The unique identifier of the resource.
+// The unique identifier of the resource.
+// +kubebuilder:validation:Optional
+UID *string `json:"uid" tf:"uid,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1Observation struct {
 
-	// (String) The ID of the resource derived from UUID.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
-	// The metadata of the resource.
-	Metadata *RecordingruleV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+// (String) The ID of the resource derived from UUID.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
-	// Options for applying the resource.
-	Options *RecordingruleV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+// (Block, Optional) The metadata of the resource. (see below for nested schema)
+// The metadata of the resource.
+Metadata *RecordingruleV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
-	// The spec of the resource.
-	Spec *RecordingruleV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+// (Block, Optional) Options for applying the resource. (see below for nested schema)
+// Options for applying the resource.
+Options *RecordingruleV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+
+// (Block, Optional) The spec of the resource. (see below for nested schema)
+// The spec of the resource.
+Spec *RecordingruleV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1OptionsInitParameters struct {
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1OptionsObservation struct {
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1OptionsParameters struct {
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// +kubebuilder:validation:Optional
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// +kubebuilder:validation:Optional
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1Parameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
-	// The metadata of the resource.
-	// +kubebuilder:validation:Optional
-	Metadata *RecordingruleV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
-	// Options for applying the resource.
-	// +kubebuilder:validation:Optional
-	Options *RecordingruleV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+// (Block, Optional) The metadata of the resource. (see below for nested schema)
+// The metadata of the resource.
+// +kubebuilder:validation:Optional
+Metadata *RecordingruleV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
-	// The spec of the resource.
-	// +kubebuilder:validation:Optional
-	Spec *RecordingruleV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+// (Block, Optional) Options for applying the resource. (see below for nested schema)
+// Options for applying the resource.
+// +kubebuilder:validation:Optional
+Options *RecordingruleV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+// (Block, Optional) The spec of the resource. (see below for nested schema)
+// The spec of the resource.
+// +kubebuilder:validation:Optional
+Spec *RecordingruleV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1SpecInitParameters struct {
 
-	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
-	// value pairs to attach to the recorded metric.
-	// Key-value pairs to attach to the recorded metric.
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+// +mapType=granular
+Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
-	// (String) The name of the metric to write to.
-	// The name of the metric to write to.
-	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+// value pairs to attach to the recorded metric.
+// Key-value pairs to attach to the recorded metric.
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (Boolean) Sets whether the recording rule should be paused or not.
-	// Sets whether the recording rule should be paused or not.
-	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+// (String) The name of the metric to write to.
+// The name of the metric to write to.
+Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The UID of the datasource to write the metric to.
-	// The UID of the datasource to write the metric to.
-	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
+// (Boolean) Sets whether the recording rule should be paused or not.
+// Sets whether the recording rule should be paused or not.
+Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
-	// (String) The title of the recording rule.
-	// The title of the recording rule.
-	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+// (String) The UID of the datasource to write the metric to.
+// The UID of the datasource to write the metric to.
+TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 
-	// (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
-	// The trigger configuration for the recording rule.
-	Trigger *SpecTriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
+// (String) The title of the recording rule.
+// The title of the recording rule.
+Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+// (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+// The trigger configuration for the recording rule.
+Trigger *SpecTriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1SpecObservation struct {
 
-	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
-	// value pairs to attach to the recorded metric.
-	// Key-value pairs to attach to the recorded metric.
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+// +mapType=granular
+Expressions map[string]*string `json:"expressions,omitempty" tf:"expressions,omitempty"`
 
-	// (String) The name of the metric to write to.
-	// The name of the metric to write to.
-	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+// value pairs to attach to the recorded metric.
+// Key-value pairs to attach to the recorded metric.
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (Boolean) Sets whether the recording rule should be paused or not.
-	// Sets whether the recording rule should be paused or not.
-	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+// (String) The name of the metric to write to.
+// The name of the metric to write to.
+Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
-	// (String) The UID of the datasource to write the metric to.
-	// The UID of the datasource to write the metric to.
-	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
+// (Boolean) Sets whether the recording rule should be paused or not.
+// Sets whether the recording rule should be paused or not.
+Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
-	// (String) The title of the recording rule.
-	// The title of the recording rule.
-	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+// (String) The UID of the datasource to write the metric to.
+// The UID of the datasource to write the metric to.
+TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 
-	// (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
-	// The trigger configuration for the recording rule.
-	Trigger *SpecTriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
+// (String) The title of the recording rule.
+// The title of the recording rule.
+Title *string `json:"title,omitempty" tf:"title,omitempty"`
+
+// (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+// The trigger configuration for the recording rule.
+Trigger *SpecTriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
+
 
 type RecordingruleV0Alpha1SpecParameters struct {
 
-	// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Expressions map[string]*string `json:"expressions" tf:"expressions,omitempty"`
 
-	// value pairs to attach to the recorded metric.
-	// Key-value pairs to attach to the recorded metric.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+// A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Expressions map[string]*string `json:"expressions" tf:"expressions,omitempty"`
 
-	// (String) The name of the metric to write to.
-	// The name of the metric to write to.
-	// +kubebuilder:validation:Optional
-	Metric *string `json:"metric" tf:"metric,omitempty"`
+// value pairs to attach to the recorded metric.
+// Key-value pairs to attach to the recorded metric.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (Boolean) Sets whether the recording rule should be paused or not.
-	// Sets whether the recording rule should be paused or not.
-	// +kubebuilder:validation:Optional
-	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
+// (String) The name of the metric to write to.
+// The name of the metric to write to.
+// +kubebuilder:validation:Optional
+Metric *string `json:"metric" tf:"metric,omitempty"`
 
-	// (String) The UID of the datasource to write the metric to.
-	// The UID of the datasource to write the metric to.
-	// +kubebuilder:validation:Optional
-	TargetDatasourceUID *string `json:"targetDatasourceUid" tf:"target_datasource_uid,omitempty"`
+// (Boolean) Sets whether the recording rule should be paused or not.
+// Sets whether the recording rule should be paused or not.
+// +kubebuilder:validation:Optional
+Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
-	// (String) The title of the recording rule.
-	// The title of the recording rule.
-	// +kubebuilder:validation:Optional
-	Title *string `json:"title" tf:"title,omitempty"`
+// (String) The UID of the datasource to write the metric to.
+// The UID of the datasource to write the metric to.
+// +kubebuilder:validation:Optional
+TargetDatasourceUID *string `json:"targetDatasourceUid" tf:"target_datasource_uid,omitempty"`
 
-	// (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
-	// The trigger configuration for the recording rule.
-	// +kubebuilder:validation:Optional
-	Trigger *SpecTriggerParameters `json:"trigger" tf:"trigger,omitempty"`
+// (String) The title of the recording rule.
+// The title of the recording rule.
+// +kubebuilder:validation:Optional
+Title *string `json:"title" tf:"title,omitempty"`
+
+// (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
+// The trigger configuration for the recording rule.
+// +kubebuilder:validation:Optional
+Trigger *SpecTriggerParameters `json:"trigger" tf:"trigger,omitempty"`
 }
+
 
 type SpecTriggerInitParameters struct {
 
-	// (String) The interval at which the recording rule should be evaluated.
-	// The interval at which the recording rule should be evaluated.
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
+
+// (String) The interval at which the recording rule should be evaluated.
+// The interval at which the recording rule should be evaluated.
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 }
+
 
 type SpecTriggerObservation struct {
 
-	// (String) The interval at which the recording rule should be evaluated.
-	// The interval at which the recording rule should be evaluated.
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
+
+// (String) The interval at which the recording rule should be evaluated.
+// The interval at which the recording rule should be evaluated.
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 }
+
 
 type SpecTriggerParameters struct {
 
-	// (String) The interval at which the recording rule should be evaluated.
-	// The interval at which the recording rule should be evaluated.
-	// +kubebuilder:validation:Optional
-	Interval *string `json:"interval" tf:"interval,omitempty"`
+
+// (String) The interval at which the recording rule should be evaluated.
+// The interval at which the recording rule should be evaluated.
+// +kubebuilder:validation:Optional
+Interval *string `json:"interval" tf:"interval,omitempty"`
 }
 
 // RecordingruleV0Alpha1Spec defines the desired state of RecordingruleV0Alpha1
 type RecordingruleV0Alpha1Spec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RecordingruleV0Alpha1Parameters `json:"forProvider"`
+	ForProvider       RecordingruleV0Alpha1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -280,18 +314,19 @@ type RecordingruleV0Alpha1Spec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RecordingruleV0Alpha1InitParameters `json:"initProvider,omitempty"`
+	InitProvider       RecordingruleV0Alpha1InitParameters `json:"initProvider,omitempty"`
 }
 
 // RecordingruleV0Alpha1Status defines the observed state of RecordingruleV0Alpha1.
 type RecordingruleV0Alpha1Status struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RecordingruleV0Alpha1Observation `json:"atProvider,omitempty"`
+	AtProvider          RecordingruleV0Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // RecordingruleV0Alpha1 is the Schema for the RecordingruleV0Alpha1s API. Manages Grafana Recording Rules.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -302,10 +337,10 @@ type RecordingruleV0Alpha1Status struct {
 type RecordingruleV0Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec   RecordingruleV0Alpha1Spec   `json:"spec"`
-	Status RecordingruleV0Alpha1Status `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
+	Spec              RecordingruleV0Alpha1Spec   `json:"spec"`
+	Status            RecordingruleV0Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

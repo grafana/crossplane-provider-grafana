@@ -6,20 +6,22 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-// Hub marks this type as a conversion hub.
-func (tr *Installation) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *LoadTest) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Installation) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Project) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *LoadTest) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ProjectAllowedLoadZones) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Project) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ProjectLimits) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ProjectAllowedLoadZones) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Schedule) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ProjectLimits) Hub() {}
+
+    // Hub marks this type as a conversion hub.
+    func (tr *Schedule) Hub() {}
+

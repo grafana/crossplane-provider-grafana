@@ -11,89 +11,99 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type UserNotificationRuleInitParameters struct {
 
-	// (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
-	// A time in seconds to wait (when `type=wait`). Can be 60, 300, 900, 1800, 3600
-	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Boolean) Boolean value which indicates if a rule is “important”
-	// Boolean value which indicates if a rule is “important”
-	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
+// (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
+// A time in seconds to wait (when `type=wait`). Can be 60, 300, 900, 1800, 3600
+Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
+// (Boolean) Boolean value which indicates if a rule is “important”
+// Boolean value which indicates if a rule is “important”
+Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
-	// (String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.
-	// The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: `notify_by_msteams` is only available for Grafana Cloud customers.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) User ID
-	// User ID
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// (String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.
+// The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: `notify_by_msteams` is only available for Grafana Cloud customers.
+Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+// (String) User ID
+// User ID
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
+
 
 type UserNotificationRuleObservation struct {
 
-	// (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
-	// A time in seconds to wait (when `type=wait`). Can be 60, 300, 900, 1800, 3600
-	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
+// A time in seconds to wait (when `type=wait`). Can be 60, 300, 900, 1800, 3600
+Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Boolean) Boolean value which indicates if a rule is “important”
-	// Boolean value which indicates if a rule is “important”
-	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
+// (Boolean) Boolean value which indicates if a rule is “important”
+// Boolean value which indicates if a rule is “important”
+Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
-	// (String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.
-	// The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: `notify_by_msteams` is only available for Grafana Cloud customers.
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) User ID
-	// User ID
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// (String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.
+// The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: `notify_by_msteams` is only available for Grafana Cloud customers.
+Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+// (String) User ID
+// User ID
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
+
 
 type UserNotificationRuleParameters struct {
 
-	// (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
-	// A time in seconds to wait (when `type=wait`). Can be 60, 300, 900, 1800, 3600
-	// +kubebuilder:validation:Optional
-	Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Boolean) Boolean value which indicates if a rule is “important”
-	// Boolean value which indicates if a rule is “important”
-	// +kubebuilder:validation:Optional
-	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
+// (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
+// A time in seconds to wait (when `type=wait`). Can be 60, 300, 900, 1800, 3600
+// +kubebuilder:validation:Optional
+Duration *float64 `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-	// +kubebuilder:validation:Optional
-	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
+// (Boolean) Boolean value which indicates if a rule is “important”
+// Boolean value which indicates if a rule is “important”
+// +kubebuilder:validation:Optional
+Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
-	// (String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.
-	// The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: `notify_by_msteams` is only available for Grafana Cloud customers.
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+// +kubebuilder:validation:Optional
+Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
-	// (String) User ID
-	// User ID
-	// +kubebuilder:validation:Optional
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// (String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.
+// The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: `notify_by_msteams` is only available for Grafana Cloud customers.
+// +kubebuilder:validation:Optional
+Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+// (String) User ID
+// User ID
+// +kubebuilder:validation:Optional
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 // UserNotificationRuleSpec defines the desired state of UserNotificationRule
 type UserNotificationRuleSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     UserNotificationRuleParameters `json:"forProvider"`
+	ForProvider       UserNotificationRuleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -104,18 +114,19 @@ type UserNotificationRuleSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider UserNotificationRuleInitParameters `json:"initProvider,omitempty"`
+	InitProvider       UserNotificationRuleInitParameters `json:"initProvider,omitempty"`
 }
 
 // UserNotificationRuleStatus defines the observed state of UserNotificationRule.
 type UserNotificationRuleStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        UserNotificationRuleObservation `json:"atProvider,omitempty"`
+	AtProvider          UserNotificationRuleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // UserNotificationRule is the Schema for the UserNotificationRules API. HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/personal_notification_rules/ Note: you must be running Grafana OnCall >= v1.8.0 to use this resource.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -126,10 +137,10 @@ type UserNotificationRuleStatus struct {
 type UserNotificationRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
-	Spec   UserNotificationRuleSpec   `json:"spec"`
-	Status UserNotificationRuleStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
+	Spec              UserNotificationRuleSpec   `json:"spec"`
+	Status            UserNotificationRuleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

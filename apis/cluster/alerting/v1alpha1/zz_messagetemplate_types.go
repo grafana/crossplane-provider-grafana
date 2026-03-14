@@ -11,95 +11,105 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type MessageTemplateInitParameters struct {
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The name of the notification template group.
-	// The name of the notification template group.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the notification template group.
+// The name of the notification template group.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (String) The content of the notification template group.
-	// The content of the notification template group.
-	Template *string `json:"template,omitempty" tf:"template,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (String) The content of the notification template group.
+// The content of the notification template group.
+Template *string `json:"template,omitempty" tf:"template,omitempty"`
 }
+
 
 type MessageTemplateObservation struct {
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The name of the notification template group.
-	// The name of the notification template group.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the notification template group.
+// The name of the notification template group.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The content of the notification template group.
-	// The content of the notification template group.
-	Template *string `json:"template,omitempty" tf:"template,omitempty"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+// (String) The content of the notification template group.
+// The content of the notification template group.
+Template *string `json:"template,omitempty" tf:"template,omitempty"`
 }
+
 
 type MessageTemplateParameters struct {
 
-	// Defaults to false. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The name of the notification template group.
-	// The name of the notification template group.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// Defaults to false. Defaults to `false`.
+// +kubebuilder:validation:Optional
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the notification template group.
+// The name of the notification template group.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (String) The content of the notification template group.
-	// The content of the notification template group.
-	// +kubebuilder:validation:Optional
-	Template *string `json:"template,omitempty" tf:"template,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (String) The content of the notification template group.
+// The content of the notification template group.
+// +kubebuilder:validation:Optional
+Template *string `json:"template,omitempty" tf:"template,omitempty"`
 }
 
 // MessageTemplateSpec defines the desired state of MessageTemplate
 type MessageTemplateSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     MessageTemplateParameters `json:"forProvider"`
+	ForProvider       MessageTemplateParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -110,18 +120,19 @@ type MessageTemplateSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider MessageTemplateInitParameters `json:"initProvider,omitempty"`
+	InitProvider       MessageTemplateInitParameters `json:"initProvider,omitempty"`
 }
 
 // MessageTemplateStatus defines the observed state of MessageTemplate.
 type MessageTemplateStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        MessageTemplateObservation `json:"atProvider,omitempty"`
+	AtProvider          MessageTemplateObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // MessageTemplate is the Schema for the MessageTemplates API. Manages Grafana Alerting notification template groups, including notification templates. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-template-groups This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -132,10 +143,10 @@ type MessageTemplateStatus struct {
 type MessageTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.template) || (has(self.initProvider) && has(self.initProvider.template))",message="spec.forProvider.template is a required parameter"
-	Spec   MessageTemplateSpec   `json:"spec"`
-	Status MessageTemplateStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.template) || (has(self.initProvider) && has(self.initProvider.template))",message="spec.forProvider.template is a required parameter"
+	Spec              MessageTemplateSpec   `json:"spec"`
+	Status            MessageTemplateStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

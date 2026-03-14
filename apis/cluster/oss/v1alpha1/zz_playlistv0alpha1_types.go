@@ -11,214 +11,248 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type ItemsInitParameters struct {
 
-	// (String)
-	Type *string `json:"type,omitempty" tf:"type"`
 
-	// (String)
-	Value *string `json:"value,omitempty" tf:"value"`
+// (String)
+Type *string `json:"type,omitempty" tf:"type"`
+
+// (String)
+Value *string `json:"value,omitempty" tf:"value"`
 }
+
 
 type ItemsObservation struct {
 
-	// (String)
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String)
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String)
+Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+// (String)
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type ItemsParameters struct {
 
-	// (String)
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type" tf:"type"`
 
-	// (String)
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value"`
+// (String)
+// +kubebuilder:validation:Optional
+Type *string `json:"type" tf:"type"`
+
+// (String)
+// +kubebuilder:validation:Optional
+Value *string `json:"value" tf:"value"`
 }
+
 
 type PlaylistV0Alpha1InitParameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
-	// The metadata of the resource.
-	Metadata *PlaylistV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
-	// Options for applying the resource.
-	Options *PlaylistV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+// (Block, Optional) The metadata of the resource. (see below for nested schema)
+// The metadata of the resource.
+Metadata *PlaylistV0Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
-	// The spec of the resource.
-	Spec *PlaylistV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+// (Block, Optional) Options for applying the resource. (see below for nested schema)
+// Options for applying the resource.
+Options *PlaylistV0Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+// (Block, Optional) The spec of the resource. (see below for nested schema)
+// The spec of the resource.
+Spec *PlaylistV0Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type PlaylistV0Alpha1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The unique identifier of the resource.
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (String) The UID of the folder to save the resource in.
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// (String) The unique identifier of the resource.
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
+
 
 type PlaylistV0Alpha1MetadataObservation struct {
 
-	// (Map of String) Annotations of the resource.
-	// Annotations of the resource.
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+// (Map of String) Annotations of the resource.
+// Annotations of the resource.
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The unique identifier of the resource.
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (String) The UID of the folder to save the resource in.
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The full URL of the resource.
-	// The full URL of the resource.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+// (String) The unique identifier of the resource.
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The globally unique identifier of a resource, used by the API for tracking.
-	// The globally unique identifier of a resource, used by the API for tracking.
-	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+// (String) The full URL of the resource.
+// The full URL of the resource.
+URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String) The version of the resource.
-	// The version of the resource.
-	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+// (String) The globally unique identifier of a resource, used by the API for tracking.
+// The globally unique identifier of a resource, used by the API for tracking.
+UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+// (String) The version of the resource.
+// The version of the resource.
+Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type PlaylistV0Alpha1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
-	// +kubebuilder:validation:Optional
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The unique identifier of the resource.
-	// The unique identifier of the resource.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid" tf:"uid,omitempty"`
+// (String) The UID of the folder to save the resource in.
+// The UID of the folder to save the resource in.
+// +kubebuilder:validation:Optional
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// (String) The unique identifier of the resource.
+// The unique identifier of the resource.
+// +kubebuilder:validation:Optional
+UID *string `json:"uid" tf:"uid,omitempty"`
 }
+
 
 type PlaylistV0Alpha1Observation struct {
 
-	// (String) The ID of the resource derived from UUID.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
-	// The metadata of the resource.
-	Metadata *PlaylistV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+// (String) The ID of the resource derived from UUID.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
-	// Options for applying the resource.
-	Options *PlaylistV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+// (Block, Optional) The metadata of the resource. (see below for nested schema)
+// The metadata of the resource.
+Metadata *PlaylistV0Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
-	// The spec of the resource.
-	Spec *PlaylistV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+// (Block, Optional) Options for applying the resource. (see below for nested schema)
+// Options for applying the resource.
+Options *PlaylistV0Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+
+// (Block, Optional) The spec of the resource. (see below for nested schema)
+// The spec of the resource.
+Spec *PlaylistV0Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type PlaylistV0Alpha1OptionsInitParameters struct {
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type PlaylistV0Alpha1OptionsObservation struct {
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type PlaylistV0Alpha1OptionsParameters struct {
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// +kubebuilder:validation:Optional
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// +kubebuilder:validation:Optional
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type PlaylistV0Alpha1Parameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
-	// The metadata of the resource.
-	// +kubebuilder:validation:Optional
-	Metadata *PlaylistV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
-	// Options for applying the resource.
-	// +kubebuilder:validation:Optional
-	Options *PlaylistV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+// (Block, Optional) The metadata of the resource. (see below for nested schema)
+// The metadata of the resource.
+// +kubebuilder:validation:Optional
+Metadata *PlaylistV0Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
-	// The spec of the resource.
-	// +kubebuilder:validation:Optional
-	Spec *PlaylistV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+// (Block, Optional) Options for applying the resource. (see below for nested schema)
+// Options for applying the resource.
+// +kubebuilder:validation:Optional
+Options *PlaylistV0Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+// (Block, Optional) The spec of the resource. (see below for nested schema)
+// The spec of the resource.
+// +kubebuilder:validation:Optional
+Spec *PlaylistV0Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type PlaylistV0Alpha1SpecInitParameters struct {
 
-	// (String) The interval of the playlist.
-	// The interval of the playlist.
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (List of Object) The items of the playlist. (see below for nested schema)
-	// The items of the playlist.
-	Items []ItemsInitParameters `json:"items,omitempty" tf:"items,omitempty"`
+// (String) The interval of the playlist.
+// The interval of the playlist.
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (String) The title of the playlist.
-	// The title of the playlist.
-	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+// (List of Object) The items of the playlist. (see below for nested schema)
+// The items of the playlist.
+Items []ItemsInitParameters `json:"items,omitempty" tf:"items,omitempty"`
+
+// (String) The title of the playlist.
+// The title of the playlist.
+Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
+
 
 type PlaylistV0Alpha1SpecObservation struct {
 
-	// (String) The interval of the playlist.
-	// The interval of the playlist.
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (List of Object) The items of the playlist. (see below for nested schema)
-	// The items of the playlist.
-	Items []ItemsObservation `json:"items,omitempty" tf:"items,omitempty"`
+// (String) The interval of the playlist.
+// The interval of the playlist.
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (String) The title of the playlist.
-	// The title of the playlist.
-	Title *string `json:"title,omitempty" tf:"title,omitempty"`
+// (List of Object) The items of the playlist. (see below for nested schema)
+// The items of the playlist.
+Items []ItemsObservation `json:"items,omitempty" tf:"items,omitempty"`
+
+// (String) The title of the playlist.
+// The title of the playlist.
+Title *string `json:"title,omitempty" tf:"title,omitempty"`
 }
+
 
 type PlaylistV0Alpha1SpecParameters struct {
 
-	// (String) The interval of the playlist.
-	// The interval of the playlist.
-	// +kubebuilder:validation:Optional
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (List of Object) The items of the playlist. (see below for nested schema)
-	// The items of the playlist.
-	// +kubebuilder:validation:Optional
-	Items []ItemsParameters `json:"items" tf:"items,omitempty"`
+// (String) The interval of the playlist.
+// The interval of the playlist.
+// +kubebuilder:validation:Optional
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (String) The title of the playlist.
-	// The title of the playlist.
-	// +kubebuilder:validation:Optional
-	Title *string `json:"title" tf:"title,omitempty"`
+// (List of Object) The items of the playlist. (see below for nested schema)
+// The items of the playlist.
+// +kubebuilder:validation:Optional
+Items []ItemsParameters `json:"items" tf:"items,omitempty"`
+
+// (String) The title of the playlist.
+// The title of the playlist.
+// +kubebuilder:validation:Optional
+Title *string `json:"title" tf:"title,omitempty"`
 }
 
 // PlaylistV0Alpha1Spec defines the desired state of PlaylistV0Alpha1
 type PlaylistV0Alpha1Spec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     PlaylistV0Alpha1Parameters `json:"forProvider"`
+	ForProvider       PlaylistV0Alpha1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -229,18 +263,19 @@ type PlaylistV0Alpha1Spec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider PlaylistV0Alpha1InitParameters `json:"initProvider,omitempty"`
+	InitProvider       PlaylistV0Alpha1InitParameters `json:"initProvider,omitempty"`
 }
 
 // PlaylistV0Alpha1Status defines the observed state of PlaylistV0Alpha1.
 type PlaylistV0Alpha1Status struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        PlaylistV0Alpha1Observation `json:"atProvider,omitempty"`
+	AtProvider          PlaylistV0Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // PlaylistV0Alpha1 is the Schema for the PlaylistV0Alpha1s API. Manages Grafana playlists using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/apis/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -251,10 +286,10 @@ type PlaylistV0Alpha1Status struct {
 type PlaylistV0Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec   PlaylistV0Alpha1Spec   `json:"spec"`
-	Status PlaylistV0Alpha1Status `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
+	Spec              PlaylistV0Alpha1Spec   `json:"spec"`
+	Status            PlaylistV0Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

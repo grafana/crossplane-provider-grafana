@@ -11,159 +11,188 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type SecurevalueV1Beta1InitParameters struct {
 
-	// The metadata of the resource.
-	Metadata *SecurevalueV1Beta1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// Options for applying the resource.
-	Options *SecurevalueV1Beta1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+// The metadata of the resource.
+Metadata *SecurevalueV1Beta1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// The spec of the resource.
-	Spec *SecurevalueV1Beta1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+// Options for applying the resource.
+Options *SecurevalueV1Beta1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+// The spec of the resource.
+Spec *SecurevalueV1Beta1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type SecurevalueV1Beta1MetadataInitParameters struct {
 
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
+
 
 type SecurevalueV1Beta1MetadataObservation struct {
 
-	// Annotations of the resource.
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// The UID of the folder to save the resource in.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+// Annotations of the resource.
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// The unique identifier of the resource.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// The UID of the folder to save the resource in.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// The full URL of the resource.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+// The unique identifier of the resource.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// The globally unique identifier of a resource, used by the API for tracking.
-	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+// The full URL of the resource.
+URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// The version of the resource.
-	Version *string `json:"version,omitempty" tf:"version,omitempty"`
+// The globally unique identifier of a resource, used by the API for tracking.
+UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
+
+// The version of the resource.
+Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type SecurevalueV1Beta1MetadataParameters struct {
 
-	// The UID of the folder to save the resource in.
-	// +kubebuilder:validation:Optional
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// The unique identifier of the resource.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid" tf:"uid,omitempty"`
+// The UID of the folder to save the resource in.
+// +kubebuilder:validation:Optional
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+// The unique identifier of the resource.
+// +kubebuilder:validation:Optional
+UID *string `json:"uid" tf:"uid,omitempty"`
 }
+
 
 type SecurevalueV1Beta1Observation struct {
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The metadata of the resource.
-	Metadata *SecurevalueV1Beta1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// Options for applying the resource.
-	Options *SecurevalueV1Beta1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// The spec of the resource.
-	Spec *SecurevalueV1Beta1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+// The metadata of the resource.
+Metadata *SecurevalueV1Beta1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+
+// Options for applying the resource.
+Options *SecurevalueV1Beta1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
+
+// The spec of the resource.
+Spec *SecurevalueV1Beta1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type SecurevalueV1Beta1OptionsInitParameters struct {
 
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type SecurevalueV1Beta1OptionsObservation struct {
 
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type SecurevalueV1Beta1OptionsParameters struct {
 
-	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-	// +kubebuilder:validation:Optional
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+
+// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+// +kubebuilder:validation:Optional
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type SecurevalueV1Beta1Parameters struct {
 
-	// The metadata of the resource.
-	// +kubebuilder:validation:Optional
-	Metadata *SecurevalueV1Beta1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// Options for applying the resource.
-	// +kubebuilder:validation:Optional
-	Options *SecurevalueV1Beta1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+// The metadata of the resource.
+// +kubebuilder:validation:Optional
+Metadata *SecurevalueV1Beta1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// The spec of the resource.
-	// +kubebuilder:validation:Optional
-	Spec *SecurevalueV1Beta1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+// Options for applying the resource.
+// +kubebuilder:validation:Optional
+Options *SecurevalueV1Beta1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
+
+// The spec of the resource.
+// +kubebuilder:validation:Optional
+Spec *SecurevalueV1Beta1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
+
 
 type SecurevalueV1Beta1SpecInitParameters struct {
 
-	// List of decrypters allowed to read this secure value.
-	Decrypters []*string `json:"decrypters,omitempty" tf:"decrypters,omitempty"`
 
-	// Secure value description.
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+// List of decrypters allowed to read this secure value.
+Decrypters []*string `json:"decrypters,omitempty" tf:"decrypters,omitempty"`
 
-	// Reference to an existing secret managed by the keeper.
-	Ref *string `json:"ref,omitempty" tf:"ref,omitempty"`
+// Secure value description.
+Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Plaintext value to store. This value is write-only.
-	ValueSecretRef *v1.SecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
+// Reference to an existing secret managed by the keeper.
+Ref *string `json:"ref,omitempty" tf:"ref,omitempty"`
+
+// Plaintext value to store. This value is write-only.
+ValueSecretRef *v1.SecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
 }
+
 
 type SecurevalueV1Beta1SpecObservation struct {
 
-	// List of decrypters allowed to read this secure value.
-	Decrypters []*string `json:"decrypters,omitempty" tf:"decrypters,omitempty"`
 
-	// Secure value description.
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+// List of decrypters allowed to read this secure value.
+Decrypters []*string `json:"decrypters,omitempty" tf:"decrypters,omitempty"`
 
-	// Reference to an existing secret managed by the keeper.
-	Ref *string `json:"ref,omitempty" tf:"ref,omitempty"`
+// Secure value description.
+Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+// Reference to an existing secret managed by the keeper.
+Ref *string `json:"ref,omitempty" tf:"ref,omitempty"`
 }
+
 
 type SecurevalueV1Beta1SpecParameters struct {
 
-	// List of decrypters allowed to read this secure value.
-	// +kubebuilder:validation:Optional
-	Decrypters []*string `json:"decrypters,omitempty" tf:"decrypters,omitempty"`
 
-	// Secure value description.
-	// +kubebuilder:validation:Optional
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+// List of decrypters allowed to read this secure value.
+// +kubebuilder:validation:Optional
+Decrypters []*string `json:"decrypters,omitempty" tf:"decrypters,omitempty"`
 
-	// Reference to an existing secret managed by the keeper.
-	// +kubebuilder:validation:Optional
-	Ref *string `json:"ref,omitempty" tf:"ref,omitempty"`
+// Secure value description.
+// +kubebuilder:validation:Optional
+Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// Plaintext value to store. This value is write-only.
-	// +kubebuilder:validation:Optional
-	ValueSecretRef *v1.SecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
+// Reference to an existing secret managed by the keeper.
+// +kubebuilder:validation:Optional
+Ref *string `json:"ref,omitempty" tf:"ref,omitempty"`
+
+// Plaintext value to store. This value is write-only.
+// +kubebuilder:validation:Optional
+ValueSecretRef *v1.SecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
 }
 
 // SecurevalueV1Beta1Spec defines the desired state of SecurevalueV1Beta1
 type SecurevalueV1Beta1Spec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     SecurevalueV1Beta1Parameters `json:"forProvider"`
+	ForProvider       SecurevalueV1Beta1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -174,18 +203,19 @@ type SecurevalueV1Beta1Spec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider SecurevalueV1Beta1InitParameters `json:"initProvider,omitempty"`
+	InitProvider       SecurevalueV1Beta1InitParameters `json:"initProvider,omitempty"`
 }
 
 // SecurevalueV1Beta1Status defines the observed state of SecurevalueV1Beta1.
 type SecurevalueV1Beta1Status struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecurevalueV1Beta1Observation `json:"atProvider,omitempty"`
+	AtProvider          SecurevalueV1Beta1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // SecurevalueV1Beta1 is the Schema for the SecurevalueV1Beta1s API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -196,9 +226,9 @@ type SecurevalueV1Beta1Status struct {
 type SecurevalueV1Beta1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	Spec   SecurevalueV1Beta1Spec   `json:"spec"`
-	Status SecurevalueV1Beta1Status `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+	Spec              SecurevalueV1Beta1Spec   `json:"spec"`
+	Status            SecurevalueV1Beta1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

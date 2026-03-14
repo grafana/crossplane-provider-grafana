@@ -11,132 +11,142 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type AccessPolicyRotatingTokenInitParameters struct {
 
-	// (String) ID of the access policy for which to create a token.
-	// ID of the access policy for which to create a token.
-	AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
 
-	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
-	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
+// (String) ID of the access policy for which to create a token.
+// ID of the access policy for which to create a token.
+AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
 
-	// (String) Display name of the access policy token. Defaults to the name.
-	// Display name of the access policy token. Defaults to the name.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
+DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
+// (String) Display name of the access policy token. Defaults to the name.
+// Display name of the access policy token. Defaults to the name.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
+// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
 
-	// <expiration_timestamp>'
-	// Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
-	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// <expiration_timestamp>'
+// Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
+NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+
+// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
+
 
 type AccessPolicyRotatingTokenObservation struct {
 
-	// (String) ID of the access policy for which to create a token.
-	// ID of the access policy for which to create a token.
-	AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
 
-	// (String) Creation date of the access policy token.
-	// Creation date of the access policy token.
-	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
+// (String) ID of the access policy for which to create a token.
+// ID of the access policy for which to create a token.
+AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
 
-	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
-	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
+// (String) Creation date of the access policy token.
+// Creation date of the access policy token.
+CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// (String) Display name of the access policy token. Defaults to the name.
-	// Display name of the access policy token. Defaults to the name.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
+DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
+// (String) Display name of the access policy token. Defaults to the name.
+// Display name of the access policy token. Defaults to the name.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
+// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
 
-	// (String) Expiration date of the access policy token.
-	// Expiration date of the access policy token.
-	ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
+// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) Expiration date of the access policy token.
+// Expiration date of the access policy token.
+ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
 
-	// (String) Name of the access policy token.
-	// Name of the access policy token.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// <expiration_timestamp>'
-	// Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
-	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+// (String) Name of the access policy token.
+// Name of the access policy token.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Boolean) Signals that the token is either expired or within the period to be early rotated.
-	// Signals that the token is either expired or within the period to be early rotated.
-	ReadyForRotation *bool `json:"readyForRotation,omitempty" tf:"ready_for_rotation,omitempty"`
+// <expiration_timestamp>'
+// Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
+NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// (Boolean) Signals that the token is either expired or within the period to be early rotated.
+// Signals that the token is either expired or within the period to be early rotated.
+ReadyForRotation *bool `json:"readyForRotation,omitempty" tf:"ready_for_rotation,omitempty"`
 
-	// (String) Last update date of the access policy token.
-	// Last update date of the access policy token.
-	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+// (String) Last update date of the access policy token.
+// Last update date of the access policy token.
+UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
+
 
 type AccessPolicyRotatingTokenParameters struct {
 
-	// (String) ID of the access policy for which to create a token.
-	// ID of the access policy for which to create a token.
-	// +kubebuilder:validation:Optional
-	AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
 
-	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
+// (String) ID of the access policy for which to create a token.
+// ID of the access policy for which to create a token.
+// +kubebuilder:validation:Optional
+AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
 
-	// (String) Display name of the access policy token. Defaults to the name.
-	// Display name of the access policy token. Defaults to the name.
-	// +kubebuilder:validation:Optional
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
+// +kubebuilder:validation:Optional
+DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// +kubebuilder:validation:Optional
-	EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
+// (String) Display name of the access policy token. Defaults to the name.
+// Display name of the access policy token. Defaults to the name.
+// +kubebuilder:validation:Optional
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
-	// +kubebuilder:validation:Optional
-	ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
+// (String) Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// Duration of the window before expiring where the token can be rotated (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// +kubebuilder:validation:Optional
+EarlyRotationWindow *string `json:"earlyRotationWindow,omitempty" tf:"early_rotation_window,omitempty"`
 
-	// <expiration_timestamp>'
-	// Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
-	// +kubebuilder:validation:Optional
-	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+// (String) Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// Duration after which the token will expire (e.g. '24h', '30m', '1h30m'). Valid units are 's' (seconds), 'm' (minutes) and 'h' (hours).
+// +kubebuilder:validation:Optional
+ExpireAfter *string `json:"expireAfter,omitempty" tf:"expire_after,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// +kubebuilder:validation:Optional
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// <expiration_timestamp>'
+// Prefix for the name of the access policy token. The actual name will be stored in the computed field `name`, which will be in the format '<name_prefix>-<expiration_timestamp>'
+// +kubebuilder:validation:Optional
+NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+
+// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// Region of the access policy. Should be set to the same region as the access policy. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// +kubebuilder:validation:Optional
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 // AccessPolicyRotatingTokenSpec defines the desired state of AccessPolicyRotatingToken
 type AccessPolicyRotatingTokenSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccessPolicyRotatingTokenParameters `json:"forProvider"`
+	ForProvider       AccessPolicyRotatingTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -147,18 +157,19 @@ type AccessPolicyRotatingTokenSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider AccessPolicyRotatingTokenInitParameters `json:"initProvider,omitempty"`
+	InitProvider       AccessPolicyRotatingTokenInitParameters `json:"initProvider,omitempty"`
 }
 
 // AccessPolicyRotatingTokenStatus defines the observed state of AccessPolicyRotatingToken.
 type AccessPolicyRotatingTokenStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccessPolicyRotatingTokenObservation `json:"atProvider,omitempty"`
+	AtProvider          AccessPolicyRotatingTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // AccessPolicyRotatingToken is the Schema for the AccessPolicyRotatingTokens API. Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete This is similar to the grafana_cloud_access_policy_token resource, but it represents a token that will be rotated automatically over time.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -169,13 +180,13 @@ type AccessPolicyRotatingTokenStatus struct {
 type AccessPolicyRotatingToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.accessPolicyId) || (has(self.initProvider) && has(self.initProvider.accessPolicyId))",message="spec.forProvider.accessPolicyId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.earlyRotationWindow) || (has(self.initProvider) && has(self.initProvider.earlyRotationWindow))",message="spec.forProvider.earlyRotationWindow is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.expireAfter) || (has(self.initProvider) && has(self.initProvider.expireAfter))",message="spec.forProvider.expireAfter is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namePrefix) || (has(self.initProvider) && has(self.initProvider.namePrefix))",message="spec.forProvider.namePrefix is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
-	Spec   AccessPolicyRotatingTokenSpec   `json:"spec"`
-	Status AccessPolicyRotatingTokenStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.accessPolicyId) || (has(self.initProvider) && has(self.initProvider.accessPolicyId))",message="spec.forProvider.accessPolicyId is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.earlyRotationWindow) || (has(self.initProvider) && has(self.initProvider.earlyRotationWindow))",message="spec.forProvider.earlyRotationWindow is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.expireAfter) || (has(self.initProvider) && has(self.initProvider.expireAfter))",message="spec.forProvider.expireAfter is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namePrefix) || (has(self.initProvider) && has(self.initProvider.namePrefix))",message="spec.forProvider.namePrefix is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
+	Spec              AccessPolicyRotatingTokenSpec   `json:"spec"`
+	Status            AccessPolicyRotatingTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

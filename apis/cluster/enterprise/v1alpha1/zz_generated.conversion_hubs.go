@@ -6,41 +6,43 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-// Hub marks this type as a conversion hub.
-func (tr *DataSourceCacheConfig) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DataSourceConfigLbacRules) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DataSourceCacheConfig) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DataSourcePermission) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DataSourceConfigLbacRules) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *DataSourcePermissionItem) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DataSourcePermission) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *KeeperActivationV1Beta1) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *DataSourcePermissionItem) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *KeeperV1Beta1) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *KeeperActivationV1Beta1) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Report) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *KeeperV1Beta1) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Role) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Report) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *RoleAssignment) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Role) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *RoleAssignmentItem) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *RoleAssignment) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *ScimConfig) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *RoleAssignmentItem) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *SecurevalueV1Beta1) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *ScimConfig) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *TeamExternalGroup) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *SecurevalueV1Beta1) Hub() {}
+
+    // Hub marks this type as a conversion hub.
+    func (tr *TeamExternalGroup) Hub() {}
+

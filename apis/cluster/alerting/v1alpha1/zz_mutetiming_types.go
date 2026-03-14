@@ -11,217 +11,239 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type IntervalsInitParameters struct {
 
-	// 31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
-	// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
-	DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
 
-	// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
-	// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
-	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+// 31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
+// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
+DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
 
-	// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
-	// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
-	Months []*string `json:"months,omitempty" tf:"months,omitempty"`
+// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
-	// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
-	// The time ranges, represented in minutes, during which to mute in a given day.
-	Times []TimesInitParameters `json:"times,omitempty" tf:"times,omitempty"`
+// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
+// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
+Months []*string `json:"months,omitempty" tf:"months,omitempty"`
 
-	// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
-	// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
-	Weekdays []*string `json:"weekdays,omitempty" tf:"weekdays,omitempty"`
+// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
+// The time ranges, represented in minutes, during which to mute in a given day.
+Times []TimesInitParameters `json:"times,omitempty" tf:"times,omitempty"`
 
-	// (List of String) A positive inclusive range of years, e.g. "2030" or "2025:2026".
-	// A positive inclusive range of years, e.g. "2030" or "2025:2026".
-	Years []*string `json:"years,omitempty" tf:"years,omitempty"`
+// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
+// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
+Weekdays []*string `json:"weekdays,omitempty" tf:"weekdays,omitempty"`
+
+// (List of String) A positive inclusive range of years, e.g. "2030" or "2025:2026".
+// A positive inclusive range of years, e.g. "2030" or "2025:2026".
+Years []*string `json:"years,omitempty" tf:"years,omitempty"`
 }
+
 
 type IntervalsObservation struct {
 
-	// 31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
-	// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
-	DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
 
-	// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
-	// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
-	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+// 31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
+// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
+DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
 
-	// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
-	// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
-	Months []*string `json:"months,omitempty" tf:"months,omitempty"`
+// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
-	// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
-	// The time ranges, represented in minutes, during which to mute in a given day.
-	Times []TimesObservation `json:"times,omitempty" tf:"times,omitempty"`
+// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
+// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
+Months []*string `json:"months,omitempty" tf:"months,omitempty"`
 
-	// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
-	// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
-	Weekdays []*string `json:"weekdays,omitempty" tf:"weekdays,omitempty"`
+// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
+// The time ranges, represented in minutes, during which to mute in a given day.
+Times []TimesObservation `json:"times,omitempty" tf:"times,omitempty"`
 
-	// (List of String) A positive inclusive range of years, e.g. "2030" or "2025:2026".
-	// A positive inclusive range of years, e.g. "2030" or "2025:2026".
-	Years []*string `json:"years,omitempty" tf:"years,omitempty"`
+// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
+// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
+Weekdays []*string `json:"weekdays,omitempty" tf:"weekdays,omitempty"`
+
+// (List of String) A positive inclusive range of years, e.g. "2030" or "2025:2026".
+// A positive inclusive range of years, e.g. "2030" or "2025:2026".
+Years []*string `json:"years,omitempty" tf:"years,omitempty"`
 }
+
 
 type IntervalsParameters struct {
 
-	// 31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
-	// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
-	// +kubebuilder:validation:Optional
-	DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
 
-	// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
-	// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
-	// +kubebuilder:validation:Optional
-	Location *string `json:"location,omitempty" tf:"location,omitempty"`
+// 31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
+// An inclusive range of days, 1-31, within a month, e.g. "1" or "14:16". Negative values can be used to represent days counting from the end of a month, e.g. "-1".
+// +kubebuilder:validation:Optional
+DaysOfMonth []*string `json:"daysOfMonth,omitempty" tf:"days_of_month,omitempty"`
 
-	// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
-	// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
-	// +kubebuilder:validation:Optional
-	Months []*string `json:"months,omitempty" tf:"months,omitempty"`
+// (String) Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+// Provides the time zone for the time interval. Must be a location in the IANA time zone database, e.g "America/New_York"
+// +kubebuilder:validation:Optional
+Location *string `json:"location,omitempty" tf:"location,omitempty"`
 
-	// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
-	// The time ranges, represented in minutes, during which to mute in a given day.
-	// +kubebuilder:validation:Optional
-	Times []TimesParameters `json:"times,omitempty" tf:"times,omitempty"`
+// (List of String) An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
+// An inclusive range of months, either numerical or full calendar month, e.g. "1:3", "december", or "may:august".
+// +kubebuilder:validation:Optional
+Months []*string `json:"months,omitempty" tf:"months,omitempty"`
 
-	// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
-	// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
-	// +kubebuilder:validation:Optional
-	Weekdays []*string `json:"weekdays,omitempty" tf:"weekdays,omitempty"`
+// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
+// The time ranges, represented in minutes, during which to mute in a given day.
+// +kubebuilder:validation:Optional
+Times []TimesParameters `json:"times,omitempty" tf:"times,omitempty"`
 
-	// (List of String) A positive inclusive range of years, e.g. "2030" or "2025:2026".
-	// A positive inclusive range of years, e.g. "2030" or "2025:2026".
-	// +kubebuilder:validation:Optional
-	Years []*string `json:"years,omitempty" tf:"years,omitempty"`
+// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
+// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
+// +kubebuilder:validation:Optional
+Weekdays []*string `json:"weekdays,omitempty" tf:"weekdays,omitempty"`
+
+// (List of String) A positive inclusive range of years, e.g. "2030" or "2025:2026".
+// A positive inclusive range of years, e.g. "2030" or "2025:2026".
+// +kubebuilder:validation:Optional
+Years []*string `json:"years,omitempty" tf:"years,omitempty"`
 }
+
 
 type MuteTimingInitParameters struct {
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
-	// The time intervals at which to mute notifications. Use an empty block to mute all the time.
-	Intervals []IntervalsInitParameters `json:"intervals,omitempty" tf:"intervals,omitempty"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The name of the mute timing.
-	// The name of the mute timing.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
+// The time intervals at which to mute notifications. Use an empty block to mute all the time.
+Intervals []IntervalsInitParameters `json:"intervals,omitempty" tf:"intervals,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the mute timing.
+// The name of the mute timing.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 }
+
 
 type MuteTimingObservation struct {
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
-	// The time intervals at which to mute notifications. Use an empty block to mute all the time.
-	Intervals []IntervalsObservation `json:"intervals,omitempty" tf:"intervals,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the mute timing.
-	// The name of the mute timing.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
+// The time intervals at which to mute notifications. Use an empty block to mute all the time.
+Intervals []IntervalsObservation `json:"intervals,omitempty" tf:"intervals,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the mute timing.
+// The name of the mute timing.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 }
+
 
 type MuteTimingParameters struct {
 
-	// Defaults to false. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
-	// The time intervals at which to mute notifications. Use an empty block to mute all the time.
-	// +kubebuilder:validation:Optional
-	Intervals []IntervalsParameters `json:"intervals,omitempty" tf:"intervals,omitempty"`
+// Defaults to false. Defaults to `false`.
+// +kubebuilder:validation:Optional
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The name of the mute timing.
-	// The name of the mute timing.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) The time intervals at which to mute notifications. Use an empty block to mute all the time. (see below for nested schema)
+// The time intervals at which to mute notifications. Use an empty block to mute all the time.
+// +kubebuilder:validation:Optional
+Intervals []IntervalsParameters `json:"intervals,omitempty" tf:"intervals,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the mute timing.
+// The name of the mute timing.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 }
+
 
 type TimesInitParameters struct {
 
-	// (String) The time, in hh:mm format, of when the interval should end exclusively.
-	// The time, in hh:mm format, of when the interval should end exclusively.
-	End *string `json:"end,omitempty" tf:"end,omitempty"`
 
-	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
-	// The time, in hh:mm format, of when the interval should begin inclusively.
-	Start *string `json:"start,omitempty" tf:"start,omitempty"`
+// (String) The time, in hh:mm format, of when the interval should end exclusively.
+// The time, in hh:mm format, of when the interval should end exclusively.
+End *string `json:"end,omitempty" tf:"end,omitempty"`
+
+// (String) The time, in hh:mm format, of when the interval should begin inclusively.
+// The time, in hh:mm format, of when the interval should begin inclusively.
+Start *string `json:"start,omitempty" tf:"start,omitempty"`
 }
+
 
 type TimesObservation struct {
 
-	// (String) The time, in hh:mm format, of when the interval should end exclusively.
-	// The time, in hh:mm format, of when the interval should end exclusively.
-	End *string `json:"end,omitempty" tf:"end,omitempty"`
 
-	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
-	// The time, in hh:mm format, of when the interval should begin inclusively.
-	Start *string `json:"start,omitempty" tf:"start,omitempty"`
+// (String) The time, in hh:mm format, of when the interval should end exclusively.
+// The time, in hh:mm format, of when the interval should end exclusively.
+End *string `json:"end,omitempty" tf:"end,omitempty"`
+
+// (String) The time, in hh:mm format, of when the interval should begin inclusively.
+// The time, in hh:mm format, of when the interval should begin inclusively.
+Start *string `json:"start,omitempty" tf:"start,omitempty"`
 }
+
 
 type TimesParameters struct {
 
-	// (String) The time, in hh:mm format, of when the interval should end exclusively.
-	// The time, in hh:mm format, of when the interval should end exclusively.
-	// +kubebuilder:validation:Optional
-	End *string `json:"end" tf:"end,omitempty"`
 
-	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
-	// The time, in hh:mm format, of when the interval should begin inclusively.
-	// +kubebuilder:validation:Optional
-	Start *string `json:"start" tf:"start,omitempty"`
+// (String) The time, in hh:mm format, of when the interval should end exclusively.
+// The time, in hh:mm format, of when the interval should end exclusively.
+// +kubebuilder:validation:Optional
+End *string `json:"end" tf:"end,omitempty"`
+
+// (String) The time, in hh:mm format, of when the interval should begin inclusively.
+// The time, in hh:mm format, of when the interval should begin inclusively.
+// +kubebuilder:validation:Optional
+Start *string `json:"start" tf:"start,omitempty"`
 }
 
 // MuteTimingSpec defines the desired state of MuteTiming
 type MuteTimingSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     MuteTimingParameters `json:"forProvider"`
+	ForProvider       MuteTimingParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -232,18 +254,19 @@ type MuteTimingSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider MuteTimingInitParameters `json:"initProvider,omitempty"`
+	InitProvider       MuteTimingInitParameters `json:"initProvider,omitempty"`
 }
 
 // MuteTimingStatus defines the observed state of MuteTiming.
 type MuteTimingStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        MuteTimingObservation `json:"atProvider,omitempty"`
+	AtProvider          MuteTimingObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // MuteTiming is the Schema for the MuteTimings API. Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -254,9 +277,9 @@ type MuteTimingStatus struct {
 type MuteTiming struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   MuteTimingSpec   `json:"spec"`
-	Status MuteTimingStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec              MuteTimingSpec   `json:"spec"`
+	Status            MuteTimingStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

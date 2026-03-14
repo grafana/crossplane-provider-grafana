@@ -11,233 +11,255 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type GroupInitParameters struct {
 
-	// (String) Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
-	// Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	// The name of the rule group (e.g., 'latency_monitoring').
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
+// Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)
-	// List of Prometheus rules in this group.
-	Rule []RuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
+// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+// The name of the rule group (e.g., 'latency_monitoring').
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)
+// List of Prometheus rules in this group.
+Rule []RuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 }
+
 
 type GroupObservation struct {
 
-	// (String) Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
-	// Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	// The name of the rule group (e.g., 'latency_monitoring').
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
+// Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)
-	// List of Prometheus rules in this group.
-	Rule []RuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
+// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+// The name of the rule group (e.g., 'latency_monitoring').
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)
+// List of Prometheus rules in this group.
+Rule []RuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
 }
+
 
 type GroupParameters struct {
 
-	// (String) Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
-	// Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
-	// +kubebuilder:validation:Optional
-	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	// The name of the rule group (e.g., 'latency_monitoring').
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
+// (String) Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
+// Evaluation interval for this group (e.g., '30s', '1m'). If not specified, uses the global evaluation interval.
+// +kubebuilder:validation:Optional
+Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)
-	// List of Prometheus rules in this group.
-	// +kubebuilder:validation:Optional
-	Rule []RuleParameters `json:"rule" tf:"rule,omitempty"`
+// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+// The name of the rule group (e.g., 'latency_monitoring').
+// +kubebuilder:validation:Optional
+Name *string `json:"name" tf:"name,omitempty"`
+
+// (Block List, Min: 1) List of Prometheus rules in this group. (see below for nested schema)
+// List of Prometheus rules in this group.
+// +kubebuilder:validation:Optional
+Rule []RuleParameters `json:"rule" tf:"rule,omitempty"`
 }
+
 
 type PromRuleFileInitParameters struct {
 
-	// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
-	// Whether the rules file is active. Inactive rules are not evaluated. Defaults to `true`.
-	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (Block List, Min: 1) List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval. (see below for nested schema)
-	// List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval.
-	Group []GroupInitParameters `json:"group,omitempty" tf:"group,omitempty"`
+// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
+// Whether the rules file is active. Inactive rules are not evaluated. Defaults to `true`.
+Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	// The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List, Min: 1) List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval. (see below for nested schema)
+// List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval.
+Group []GroupInitParameters `json:"group,omitempty" tf:"group,omitempty"`
+
+// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+// The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
+
 
 type PromRuleFileObservation struct {
 
-	// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
-	// Whether the rules file is active. Inactive rules are not evaluated. Defaults to `true`.
-	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (Block List, Min: 1) List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval. (see below for nested schema)
-	// List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval.
-	Group []GroupObservation `json:"group,omitempty" tf:"group,omitempty"`
+// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
+// Whether the rules file is active. Inactive rules are not evaluated. Defaults to `true`.
+Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Block List, Min: 1) List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval. (see below for nested schema)
+// List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval.
+Group []GroupObservation `json:"group,omitempty" tf:"group,omitempty"`
 
-	// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	// The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+// The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
+
 
 type PromRuleFileParameters struct {
 
-	// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
-	// Whether the rules file is active. Inactive rules are not evaluated. Defaults to `true`.
-	// +kubebuilder:validation:Optional
-	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (Block List, Min: 1) List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval. (see below for nested schema)
-	// List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval.
-	// +kubebuilder:validation:Optional
-	Group []GroupParameters `json:"group,omitempty" tf:"group,omitempty"`
+// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
+// Whether the rules file is active. Inactive rules are not evaluated. Defaults to `true`.
+// +kubebuilder:validation:Optional
+Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	// The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List, Min: 1) List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval. (see below for nested schema)
+// List of Prometheus rule groups. Each group contains one or more rules and can have its own evaluation interval.
+// +kubebuilder:validation:Optional
+Group []GroupParameters `json:"group,omitempty" tf:"group,omitempty"`
+
+// (String) The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+// The name of the Prometheus rules file. This will be stored with a .custom extension. Must follow naming validation rules (alphanumeric, hyphens, underscores).
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
+
 
 type RuleInitParameters struct {
 
-	// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
-	// Whether this specific rule is active. This field is read-only and controlled by the API.
-	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (String) The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
-	// The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
-	Alert *string `json:"alert,omitempty" tf:"alert,omitempty"`
+// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
+// Whether this specific rule is active. This field is read-only and controlled by the API.
+Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (Map of String) Annotations to add to alerts (e.g., summary, description).
-	// Annotations to add to alerts (e.g., summary, description).
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+// (String) The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
+// The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
+Alert *string `json:"alert,omitempty" tf:"alert,omitempty"`
 
-	// (Set of String) List of group names where this rule should be disabled. Useful for conditional rule enablement.
-	// List of group names where this rule should be disabled. Useful for conditional rule enablement.
-	// +listType=set
-	DisableInGroups []*string `json:"disableInGroups,omitempty" tf:"disable_in_groups,omitempty"`
+// (Map of String) Annotations to add to alerts (e.g., summary, description).
+// Annotations to add to alerts (e.g., summary, description).
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
-	// How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
-	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
+// (Set of String) List of group names where this rule should be disabled. Useful for conditional rule enablement.
+// List of group names where this rule should be disabled. Useful for conditional rule enablement.
+// +listType=set
+DisableInGroups []*string `json:"disableInGroups,omitempty" tf:"disable_in_groups,omitempty"`
 
-	// (String) The PromQL expression to evaluate.
-	// The PromQL expression to evaluate.
-	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+// (String) How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
+// How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
+Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Map of String) Labels to attach to the resulting time series or alert.
-	// Labels to attach to the resulting time series or alert.
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (String) The PromQL expression to evaluate.
+// The PromQL expression to evaluate.
+Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
 
-	// (String) The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
-	// The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
-	Record *string `json:"record,omitempty" tf:"record,omitempty"`
+// (Map of String) Labels to attach to the resulting time series or alert.
+// Labels to attach to the resulting time series or alert.
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+// (String) The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
+// The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
+Record *string `json:"record,omitempty" tf:"record,omitempty"`
 }
+
 
 type RuleObservation struct {
 
-	// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
-	// Whether this specific rule is active. This field is read-only and controlled by the API.
-	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (String) The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
-	// The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
-	Alert *string `json:"alert,omitempty" tf:"alert,omitempty"`
+// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
+// Whether this specific rule is active. This field is read-only and controlled by the API.
+Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (Map of String) Annotations to add to alerts (e.g., summary, description).
-	// Annotations to add to alerts (e.g., summary, description).
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+// (String) The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
+// The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
+Alert *string `json:"alert,omitempty" tf:"alert,omitempty"`
 
-	// (Set of String) List of group names where this rule should be disabled. Useful for conditional rule enablement.
-	// List of group names where this rule should be disabled. Useful for conditional rule enablement.
-	// +listType=set
-	DisableInGroups []*string `json:"disableInGroups,omitempty" tf:"disable_in_groups,omitempty"`
+// (Map of String) Annotations to add to alerts (e.g., summary, description).
+// Annotations to add to alerts (e.g., summary, description).
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
-	// How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
-	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
+// (Set of String) List of group names where this rule should be disabled. Useful for conditional rule enablement.
+// List of group names where this rule should be disabled. Useful for conditional rule enablement.
+// +listType=set
+DisableInGroups []*string `json:"disableInGroups,omitempty" tf:"disable_in_groups,omitempty"`
 
-	// (String) The PromQL expression to evaluate.
-	// The PromQL expression to evaluate.
-	Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
+// (String) How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
+// How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
+Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Map of String) Labels to attach to the resulting time series or alert.
-	// Labels to attach to the resulting time series or alert.
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (String) The PromQL expression to evaluate.
+// The PromQL expression to evaluate.
+Expr *string `json:"expr,omitempty" tf:"expr,omitempty"`
 
-	// (String) The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
-	// The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
-	Record *string `json:"record,omitempty" tf:"record,omitempty"`
+// (Map of String) Labels to attach to the resulting time series or alert.
+// Labels to attach to the resulting time series or alert.
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+// (String) The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
+// The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
+Record *string `json:"record,omitempty" tf:"record,omitempty"`
 }
+
 
 type RuleParameters struct {
 
-	// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
-	// Whether this specific rule is active. This field is read-only and controlled by the API.
-	// +kubebuilder:validation:Optional
-	Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (String) The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
-	// The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
-	// +kubebuilder:validation:Optional
-	Alert *string `json:"alert,omitempty" tf:"alert,omitempty"`
+// (Boolean) Whether the rules file is active. Inactive rules are not evaluated. Defaults to true.
+// Whether this specific rule is active. This field is read-only and controlled by the API.
+// +kubebuilder:validation:Optional
+Active *bool `json:"active,omitempty" tf:"active,omitempty"`
 
-	// (Map of String) Annotations to add to alerts (e.g., summary, description).
-	// Annotations to add to alerts (e.g., summary, description).
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+// (String) The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
+// The name of the alert for alerting rules. Either 'record' or 'alert' must be specified, but not both.
+// +kubebuilder:validation:Optional
+Alert *string `json:"alert,omitempty" tf:"alert,omitempty"`
 
-	// (Set of String) List of group names where this rule should be disabled. Useful for conditional rule enablement.
-	// List of group names where this rule should be disabled. Useful for conditional rule enablement.
-	// +kubebuilder:validation:Optional
-	// +listType=set
-	DisableInGroups []*string `json:"disableInGroups,omitempty" tf:"disable_in_groups,omitempty"`
+// (Map of String) Annotations to add to alerts (e.g., summary, description).
+// Annotations to add to alerts (e.g., summary, description).
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
-	// How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
-	// +kubebuilder:validation:Optional
-	Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
+// (Set of String) List of group names where this rule should be disabled. Useful for conditional rule enablement.
+// List of group names where this rule should be disabled. Useful for conditional rule enablement.
+// +kubebuilder:validation:Optional
+// +listType=set
+DisableInGroups []*string `json:"disableInGroups,omitempty" tf:"disable_in_groups,omitempty"`
 
-	// (String) The PromQL expression to evaluate.
-	// The PromQL expression to evaluate.
-	// +kubebuilder:validation:Optional
-	Expr *string `json:"expr" tf:"expr,omitempty"`
+// (String) How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
+// How long the condition must be true before firing the alert (e.g., '5m'). Only applicable for alerting rules. Maps to 'for' in Prometheus.
+// +kubebuilder:validation:Optional
+Duration *string `json:"duration,omitempty" tf:"duration,omitempty"`
 
-	// (Map of String) Labels to attach to the resulting time series or alert.
-	// Labels to attach to the resulting time series or alert.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (String) The PromQL expression to evaluate.
+// The PromQL expression to evaluate.
+// +kubebuilder:validation:Optional
+Expr *string `json:"expr" tf:"expr,omitempty"`
 
-	// (String) The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
-	// The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
-	// +kubebuilder:validation:Optional
-	Record *string `json:"record,omitempty" tf:"record,omitempty"`
+// (Map of String) Labels to attach to the resulting time series or alert.
+// Labels to attach to the resulting time series or alert.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+// (String) The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
+// The name of the time series to output for recording rules. Either 'record' or 'alert' must be specified, but not both.
+// +kubebuilder:validation:Optional
+Record *string `json:"record,omitempty" tf:"record,omitempty"`
 }
 
 // PromRuleFileSpec defines the desired state of PromRuleFile
 type PromRuleFileSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     PromRuleFileParameters `json:"forProvider"`
+	ForProvider       PromRuleFileParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -248,18 +270,19 @@ type PromRuleFileSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider PromRuleFileInitParameters `json:"initProvider,omitempty"`
+	InitProvider       PromRuleFileInitParameters `json:"initProvider,omitempty"`
 }
 
 // PromRuleFileStatus defines the observed state of PromRuleFile.
 type PromRuleFileStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        PromRuleFileObservation `json:"atProvider,omitempty"`
+	AtProvider          PromRuleFileObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // PromRuleFile is the Schema for the PromRuleFiles API. Manages Prometheus Rules configurations through Grafana Asserts API. Allows creation and management of custom Prometheus recording and alerting rules.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -270,10 +293,10 @@ type PromRuleFileStatus struct {
 type PromRuleFile struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.group) || (has(self.initProvider) && has(self.initProvider.group))",message="spec.forProvider.group is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   PromRuleFileSpec   `json:"spec"`
-	Status PromRuleFileStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.group) || (has(self.initProvider) && has(self.initProvider.group))",message="spec.forProvider.group is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec              PromRuleFileSpec   `json:"spec"`
+	Status            PromRuleFileStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

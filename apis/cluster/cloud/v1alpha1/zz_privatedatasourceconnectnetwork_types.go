@@ -11,88 +11,98 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type PrivateDataSourceConnectNetworkInitParameters struct {
 
-	// (String) Display name of the PDC network. Defaults to the name.
-	// Display name of the PDC network. Defaults to the name.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#request-body
-	// Name of the PDC network.**Note:** The name must be lowercase and can contain hyphens or underscores. See full requirements here: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#request-body
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) Display name of the PDC network. Defaults to the name.
+// Display name of the PDC network. Defaults to the name.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
-	// The region where your stack is deployed. Use the instances list API to get the region for your instance - use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// cloud/developer-resources/api-reference/cloud-api/#request-body
+// Name of the PDC network.**Note:** The name must be lowercase and can contain hyphens or underscores. See full requirements here: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#request-body
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The identifier of the stack.
-	// The identifier of the stack.
-	StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
+// use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
+// The region where your stack is deployed. Use the instances list API to get the region for your instance - use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+// (String) The identifier of the stack.
+// The identifier of the stack.
+StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
 }
+
 
 type PrivateDataSourceConnectNetworkObservation struct {
 
-	// (String) Creation date of the private data source connect network.
-	// Creation date of the private data source connect network.
-	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// (String) Display name of the PDC network. Defaults to the name.
-	// Display name of the PDC network. Defaults to the name.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// (String) Creation date of the private data source connect network.
+// Creation date of the private data source connect network.
+CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) Display name of the PDC network. Defaults to the name.
+// Display name of the PDC network. Defaults to the name.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#request-body
-	// Name of the PDC network.**Note:** The name must be lowercase and can contain hyphens or underscores. See full requirements here: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#request-body
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) ID of the private data source connect network.
-	// ID of the private data source connect network.
-	PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+// cloud/developer-resources/api-reference/cloud-api/#request-body
+// Name of the PDC network.**Note:** The name must be lowercase and can contain hyphens or underscores. See full requirements here: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#request-body
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
-	// The region where your stack is deployed. Use the instances list API to get the region for your instance - use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// (String) ID of the private data source connect network.
+// ID of the private data source connect network.
+PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
 
-	// (String) The identifier of the stack.
-	// The identifier of the stack.
-	StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
+// use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
+// The region where your stack is deployed. Use the instances list API to get the region for your instance - use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-	// (String) Last update date of the private data source connect network.
-	// Last update date of the private data source connect network.
-	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+// (String) The identifier of the stack.
+// The identifier of the stack.
+StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
+
+// (String) Last update date of the private data source connect network.
+// Last update date of the private data source connect network.
+UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
+
 
 type PrivateDataSourceConnectNetworkParameters struct {
 
-	// (String) Display name of the PDC network. Defaults to the name.
-	// Display name of the PDC network. Defaults to the name.
-	// +kubebuilder:validation:Optional
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#request-body
-	// Name of the PDC network.**Note:** The name must be lowercase and can contain hyphens or underscores. See full requirements here: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#request-body
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) Display name of the PDC network. Defaults to the name.
+// Display name of the PDC network. Defaults to the name.
+// +kubebuilder:validation:Optional
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
-	// The region where your stack is deployed. Use the instances list API to get the region for your instance - use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
-	// +kubebuilder:validation:Optional
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// cloud/developer-resources/api-reference/cloud-api/#request-body
+// Name of the PDC network.**Note:** The name must be lowercase and can contain hyphens or underscores. See full requirements here: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#request-body
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The identifier of the stack.
-	// The identifier of the stack.
-	// +kubebuilder:validation:Optional
-	StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
+// use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
+// The region where your stack is deployed. Use the instances list API to get the region for your instance - use the regionSlug property: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-stacks
+// +kubebuilder:validation:Optional
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+// (String) The identifier of the stack.
+// The identifier of the stack.
+// +kubebuilder:validation:Optional
+StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
 }
 
 // PrivateDataSourceConnectNetworkSpec defines the desired state of PrivateDataSourceConnectNetwork
 type PrivateDataSourceConnectNetworkSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     PrivateDataSourceConnectNetworkParameters `json:"forProvider"`
+	ForProvider       PrivateDataSourceConnectNetworkParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -103,18 +113,19 @@ type PrivateDataSourceConnectNetworkSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider PrivateDataSourceConnectNetworkInitParameters `json:"initProvider,omitempty"`
+	InitProvider       PrivateDataSourceConnectNetworkInitParameters `json:"initProvider,omitempty"`
 }
 
 // PrivateDataSourceConnectNetworkStatus defines the observed state of PrivateDataSourceConnectNetwork.
 type PrivateDataSourceConnectNetworkStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        PrivateDataSourceConnectNetworkObservation `json:"atProvider,omitempty"`
+	AtProvider          PrivateDataSourceConnectNetworkObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // PrivateDataSourceConnectNetwork is the Schema for the PrivateDataSourceConnectNetworks API. Official documentation https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -125,11 +136,11 @@ type PrivateDataSourceConnectNetworkStatus struct {
 type PrivateDataSourceConnectNetwork struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackIdentifier) || (has(self.initProvider) && has(self.initProvider.stackIdentifier))",message="spec.forProvider.stackIdentifier is a required parameter"
-	Spec   PrivateDataSourceConnectNetworkSpec   `json:"spec"`
-	Status PrivateDataSourceConnectNetworkStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackIdentifier) || (has(self.initProvider) && has(self.initProvider.stackIdentifier))",message="spec.forProvider.stackIdentifier is a required parameter"
+	Spec              PrivateDataSourceConnectNetworkSpec   `json:"spec"`
+	Status            PrivateDataSourceConnectNetworkStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

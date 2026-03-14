@@ -11,102 +11,112 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type ServiceAccountRotatingTokenInitParameters struct {
 
-	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
-	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// (Number) Duration of the time window before expiring where the token can be rotated, in seconds.
-	// Duration of the time window before expiring where the token can be rotated, in seconds.
-	EarlyRotationWindowSeconds *float64 `json:"earlyRotationWindowSeconds,omitempty" tf:"early_rotation_window_seconds,omitempty"`
+// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
+DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// <additional_characters>.
-	// Prefix for the name of the service account tokens created by this resource. The actual name will be stored in the computed field `name`, which will be in the format `<name_prefix>-<additional_characters>`.
-	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+// (Number) Duration of the time window before expiring where the token can be rotated, in seconds.
+// Duration of the time window before expiring where the token can be rotated, in seconds.
+EarlyRotationWindowSeconds *float64 `json:"earlyRotationWindowSeconds,omitempty" tf:"early_rotation_window_seconds,omitempty"`
 
-	// (Number) The token expiration in seconds.
-	// The token expiration in seconds.
-	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+// <additional_characters>.
+// Prefix for the name of the service account tokens created by this resource. The actual name will be stored in the computed field `name`, which will be in the format `<name_prefix>-<additional_characters>`.
+NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 
-	// (String) The ID of the service account to which the token belongs.
-	// The ID of the service account to which the token belongs.
-	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+// (Number) The token expiration in seconds.
+// The token expiration in seconds.
+SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+
+// (String) The ID of the service account to which the token belongs.
+// The ID of the service account to which the token belongs.
+ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 }
+
 
 type ServiceAccountRotatingTokenObservation struct {
 
-	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
-	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// (Number) Duration of the time window before expiring where the token can be rotated, in seconds.
-	// Duration of the time window before expiring where the token can be rotated, in seconds.
-	EarlyRotationWindowSeconds *float64 `json:"earlyRotationWindowSeconds,omitempty" tf:"early_rotation_window_seconds,omitempty"`
+// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
+DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// (String) The expiration date of the service account token.
-	// The expiration date of the service account token.
-	Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
+// (Number) Duration of the time window before expiring where the token can be rotated, in seconds.
+// Duration of the time window before expiring where the token can be rotated, in seconds.
+EarlyRotationWindowSeconds *float64 `json:"earlyRotationWindowSeconds,omitempty" tf:"early_rotation_window_seconds,omitempty"`
 
-	// (Boolean) The status of the service account token.
-	// The status of the service account token.
-	HasExpired *bool `json:"hasExpired,omitempty" tf:"has_expired,omitempty"`
+// (String) The expiration date of the service account token.
+// The expiration date of the service account token.
+Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Boolean) The status of the service account token.
+// The status of the service account token.
+HasExpired *bool `json:"hasExpired,omitempty" tf:"has_expired,omitempty"`
 
-	// and will have characters appended to it to make the name unique.
-	// The name of the service account token. It will start with `<name_prefix>-` and will have characters appended to it to make the name unique.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// <additional_characters>.
-	// Prefix for the name of the service account tokens created by this resource. The actual name will be stored in the computed field `name`, which will be in the format `<name_prefix>-<additional_characters>`.
-	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+// and will have characters appended to it to make the name unique.
+// The name of the service account token. It will start with `<name_prefix>-` and will have characters appended to it to make the name unique.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Boolean) Signals that the service account token is expired or within the period to be early rotated.
-	// Signals that the service account token is expired or within the period to be early rotated.
-	ReadyForRotation *bool `json:"readyForRotation,omitempty" tf:"ready_for_rotation,omitempty"`
+// <additional_characters>.
+// Prefix for the name of the service account tokens created by this resource. The actual name will be stored in the computed field `name`, which will be in the format `<name_prefix>-<additional_characters>`.
+NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 
-	// (Number) The token expiration in seconds.
-	// The token expiration in seconds.
-	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+// (Boolean) Signals that the service account token is expired or within the period to be early rotated.
+// Signals that the service account token is expired or within the period to be early rotated.
+ReadyForRotation *bool `json:"readyForRotation,omitempty" tf:"ready_for_rotation,omitempty"`
 
-	// (String) The ID of the service account to which the token belongs.
-	// The ID of the service account to which the token belongs.
-	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+// (Number) The token expiration in seconds.
+// The token expiration in seconds.
+SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+
+// (String) The ID of the service account to which the token belongs.
+// The ID of the service account to which the token belongs.
+ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 }
+
 
 type ServiceAccountRotatingTokenParameters struct {
 
-	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// (Number) Duration of the time window before expiring where the token can be rotated, in seconds.
-	// Duration of the time window before expiring where the token can be rotated, in seconds.
-	// +kubebuilder:validation:Optional
-	EarlyRotationWindowSeconds *float64 `json:"earlyRotationWindowSeconds,omitempty" tf:"early_rotation_window_seconds,omitempty"`
+// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
+// +kubebuilder:validation:Optional
+DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
-	// <additional_characters>.
-	// Prefix for the name of the service account tokens created by this resource. The actual name will be stored in the computed field `name`, which will be in the format `<name_prefix>-<additional_characters>`.
-	// +kubebuilder:validation:Optional
-	NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
+// (Number) Duration of the time window before expiring where the token can be rotated, in seconds.
+// Duration of the time window before expiring where the token can be rotated, in seconds.
+// +kubebuilder:validation:Optional
+EarlyRotationWindowSeconds *float64 `json:"earlyRotationWindowSeconds,omitempty" tf:"early_rotation_window_seconds,omitempty"`
 
-	// (Number) The token expiration in seconds.
-	// The token expiration in seconds.
-	// +kubebuilder:validation:Optional
-	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+// <additional_characters>.
+// Prefix for the name of the service account tokens created by this resource. The actual name will be stored in the computed field `name`, which will be in the format `<name_prefix>-<additional_characters>`.
+// +kubebuilder:validation:Optional
+NamePrefix *string `json:"namePrefix,omitempty" tf:"name_prefix,omitempty"`
 
-	// (String) The ID of the service account to which the token belongs.
-	// The ID of the service account to which the token belongs.
-	// +kubebuilder:validation:Optional
-	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+// (Number) The token expiration in seconds.
+// The token expiration in seconds.
+// +kubebuilder:validation:Optional
+SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+
+// (String) The ID of the service account to which the token belongs.
+// The ID of the service account to which the token belongs.
+// +kubebuilder:validation:Optional
+ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 }
 
 // ServiceAccountRotatingTokenSpec defines the desired state of ServiceAccountRotatingToken
 type ServiceAccountRotatingTokenSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     ServiceAccountRotatingTokenParameters `json:"forProvider"`
+	ForProvider       ServiceAccountRotatingTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -117,18 +127,19 @@ type ServiceAccountRotatingTokenSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider ServiceAccountRotatingTokenInitParameters `json:"initProvider,omitempty"`
+	InitProvider       ServiceAccountRotatingTokenInitParameters `json:"initProvider,omitempty"`
 }
 
 // ServiceAccountRotatingTokenStatus defines the observed state of ServiceAccountRotatingToken.
 type ServiceAccountRotatingTokenStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServiceAccountRotatingTokenObservation `json:"atProvider,omitempty"`
+	AtProvider          ServiceAccountRotatingTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // ServiceAccountRotatingToken is the Schema for the ServiceAccountRotatingTokens API. Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -139,12 +150,12 @@ type ServiceAccountRotatingTokenStatus struct {
 type ServiceAccountRotatingToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.earlyRotationWindowSeconds) || (has(self.initProvider) && has(self.initProvider.earlyRotationWindowSeconds))",message="spec.forProvider.earlyRotationWindowSeconds is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namePrefix) || (has(self.initProvider) && has(self.initProvider.namePrefix))",message="spec.forProvider.namePrefix is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.secondsToLive) || (has(self.initProvider) && has(self.initProvider.secondsToLive))",message="spec.forProvider.secondsToLive is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.serviceAccountId) || (has(self.initProvider) && has(self.initProvider.serviceAccountId))",message="spec.forProvider.serviceAccountId is a required parameter"
-	Spec   ServiceAccountRotatingTokenSpec   `json:"spec"`
-	Status ServiceAccountRotatingTokenStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.earlyRotationWindowSeconds) || (has(self.initProvider) && has(self.initProvider.earlyRotationWindowSeconds))",message="spec.forProvider.earlyRotationWindowSeconds is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namePrefix) || (has(self.initProvider) && has(self.initProvider.namePrefix))",message="spec.forProvider.namePrefix is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.secondsToLive) || (has(self.initProvider) && has(self.initProvider.secondsToLive))",message="spec.forProvider.secondsToLive is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.serviceAccountId) || (has(self.initProvider) && has(self.initProvider.serviceAccountId))",message="spec.forProvider.serviceAccountId is a required parameter"
+	Spec              ServiceAccountRotatingTokenSpec   `json:"spec"`
+	Status            ServiceAccountRotatingTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -11,53 +11,63 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type ProjectInitParameters struct {
 
-	// friendly identifier of the project.
-	// Human-friendly identifier of the project.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// friendly identifier of the project.
+// Human-friendly identifier of the project.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
+
 
 type ProjectObservation struct {
 
-	// (String) The date when the project was created.
-	// The date when the project was created.
-	Created *string `json:"created,omitempty" tf:"created,omitempty"`
 
-	// (String) The Grafana folder uid.
-	// The Grafana folder uid.
-	GrafanaFolderUID *string `json:"grafanaFolderUid,omitempty" tf:"grafana_folder_uid,omitempty"`
+// (String) The date when the project was created.
+// The date when the project was created.
+Created *string `json:"created,omitempty" tf:"created,omitempty"`
 
-	// (String) Numeric identifier of the project.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) The Grafana folder uid.
+// The Grafana folder uid.
+GrafanaFolderUID *string `json:"grafanaFolderUid,omitempty" tf:"grafana_folder_uid,omitempty"`
 
-	// (Boolean) Use this project as default for running tests when no explicit project identifier is provided.
-	// Use this project as default for running tests when no explicit project identifier is provided.
-	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
+// (String) Numeric identifier of the project.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// friendly identifier of the project.
-	// Human-friendly identifier of the project.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Boolean) Use this project as default for running tests when no explicit project identifier is provided.
+// Use this project as default for running tests when no explicit project identifier is provided.
+IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
-	// (String) The date when the project was last updated.
-	// The date when the project was last updated.
-	Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`
+// friendly identifier of the project.
+// Human-friendly identifier of the project.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (String) The date when the project was last updated.
+// The date when the project was last updated.
+Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`
 }
+
 
 type ProjectParameters struct {
 
-	// friendly identifier of the project.
-	// Human-friendly identifier of the project.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// friendly identifier of the project.
+// Human-friendly identifier of the project.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 // ProjectSpec defines the desired state of Project
 type ProjectSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     ProjectParameters `json:"forProvider"`
+	ForProvider       ProjectParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -68,18 +78,19 @@ type ProjectSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider ProjectInitParameters `json:"initProvider,omitempty"`
+	InitProvider       ProjectInitParameters `json:"initProvider,omitempty"`
 }
 
 // ProjectStatus defines the observed state of Project.
 type ProjectStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        ProjectObservation `json:"atProvider,omitempty"`
+	AtProvider          ProjectObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // Project is the Schema for the Projects API. Manages a k6 project.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -90,9 +101,9 @@ type ProjectStatus struct {
 type Project struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   ProjectSpec   `json:"spec"`
-	Status ProjectStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec              ProjectSpec   `json:"spec"`
+	Status            ProjectStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -11,97 +11,107 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type PrivateDataSourceConnectNetworkTokenInitParameters struct {
 
-	// (String) Display name of the private data source network token. Defaults to the name.
-	// Display name of the private data source network token. Defaults to the name.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Expiration date of the private data source network token. Does not expire by default.
-	// Expiration date of the private data source network token. Does not expire by default.
-	ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
+// (String) Display name of the private data source network token. Defaults to the name.
+// Display name of the private data source network token. Defaults to the name.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Name of the private data source network token.
-	// Name of the private data source network token.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) Expiration date of the private data source network token. Does not expire by default.
+// Expiration date of the private data source network token. Does not expire by default.
+ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
 
-	// (String) ID of the private data source network for which to create a token.
-	// ID of the private data source network for which to create a token.
-	PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+// (String) Name of the private data source network token.
+// Name of the private data source network token.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// (String) ID of the private data source network for which to create a token.
+// ID of the private data source network for which to create a token.
+PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+
+// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
+
 
 type PrivateDataSourceConnectNetworkTokenObservation struct {
 
-	// (String) Creation date of the private data source network token.
-	// Creation date of the private data source network token.
-	CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// (String) Display name of the private data source network token. Defaults to the name.
-	// Display name of the private data source network token. Defaults to the name.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// (String) Creation date of the private data source network token.
+// Creation date of the private data source network token.
+CreatedAt *string `json:"createdAt,omitempty" tf:"created_at,omitempty"`
 
-	// (String) Expiration date of the private data source network token. Does not expire by default.
-	// Expiration date of the private data source network token. Does not expire by default.
-	ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
+// (String) Display name of the private data source network token. Defaults to the name.
+// Display name of the private data source network token. Defaults to the name.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) Expiration date of the private data source network token. Does not expire by default.
+// Expiration date of the private data source network token. Does not expire by default.
+ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
 
-	// (String) Name of the private data source network token.
-	// Name of the private data source network token.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) ID of the private data source network for which to create a token.
-	// ID of the private data source network for which to create a token.
-	PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+// (String) Name of the private data source network token.
+// Name of the private data source network token.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// (String) ID of the private data source network for which to create a token.
+// ID of the private data source network for which to create a token.
+PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
 
-	// (String) Last update date of the private data source network token.
-	// Last update date of the private data source network token.
-	UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
+// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
+
+// (String) Last update date of the private data source network token.
+// Last update date of the private data source network token.
+UpdatedAt *string `json:"updatedAt,omitempty" tf:"updated_at,omitempty"`
 }
+
 
 type PrivateDataSourceConnectNetworkTokenParameters struct {
 
-	// (String) Display name of the private data source network token. Defaults to the name.
-	// Display name of the private data source network token. Defaults to the name.
-	// +kubebuilder:validation:Optional
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Expiration date of the private data source network token. Does not expire by default.
-	// Expiration date of the private data source network token. Does not expire by default.
-	// +kubebuilder:validation:Optional
-	ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
+// (String) Display name of the private data source network token. Defaults to the name.
+// Display name of the private data source network token. Defaults to the name.
+// +kubebuilder:validation:Optional
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Name of the private data source network token.
-	// Name of the private data source network token.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) Expiration date of the private data source network token. Does not expire by default.
+// Expiration date of the private data source network token. Does not expire by default.
+// +kubebuilder:validation:Optional
+ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
 
-	// (String) ID of the private data source network for which to create a token.
-	// ID of the private data source network for which to create a token.
-	// +kubebuilder:validation:Optional
-	PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+// (String) Name of the private data source network token.
+// Name of the private data source network token.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
-	// +kubebuilder:validation:Optional
-	Region *string `json:"region,omitempty" tf:"region,omitempty"`
+// (String) ID of the private data source network for which to create a token.
+// ID of the private data source network for which to create a token.
+// +kubebuilder:validation:Optional
+PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+
+// cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
+// +kubebuilder:validation:Optional
+Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 // PrivateDataSourceConnectNetworkTokenSpec defines the desired state of PrivateDataSourceConnectNetworkToken
 type PrivateDataSourceConnectNetworkTokenSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     PrivateDataSourceConnectNetworkTokenParameters `json:"forProvider"`
+	ForProvider       PrivateDataSourceConnectNetworkTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -112,18 +122,19 @@ type PrivateDataSourceConnectNetworkTokenSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider PrivateDataSourceConnectNetworkTokenInitParameters `json:"initProvider,omitempty"`
+	InitProvider       PrivateDataSourceConnectNetworkTokenInitParameters `json:"initProvider,omitempty"`
 }
 
 // PrivateDataSourceConnectNetworkTokenStatus defines the observed state of PrivateDataSourceConnectNetworkToken.
 type PrivateDataSourceConnectNetworkTokenStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        PrivateDataSourceConnectNetworkTokenObservation `json:"atProvider,omitempty"`
+	AtProvider          PrivateDataSourceConnectNetworkTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // PrivateDataSourceConnectNetworkToken is the Schema for the PrivateDataSourceConnectNetworkTokens API. Official documentation https://grafana.com/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-a-token Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -134,11 +145,11 @@ type PrivateDataSourceConnectNetworkTokenStatus struct {
 type PrivateDataSourceConnectNetworkToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.pdcNetworkId) || (has(self.initProvider) && has(self.initProvider.pdcNetworkId))",message="spec.forProvider.pdcNetworkId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
-	Spec   PrivateDataSourceConnectNetworkTokenSpec   `json:"spec"`
-	Status PrivateDataSourceConnectNetworkTokenStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.pdcNetworkId) || (has(self.initProvider) && has(self.initProvider.pdcNetworkId))",message="spec.forProvider.pdcNetworkId is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
+	Spec              PrivateDataSourceConnectNetworkTokenSpec   `json:"spec"`
+	Status            PrivateDataSourceConnectNetworkTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

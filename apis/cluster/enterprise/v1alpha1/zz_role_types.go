@@ -11,224 +11,240 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type RoleInitParameters struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
-	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
-	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
-	// (String) Description of the role.
-	// Description of the role.
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
+// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
+AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
-	// (String) Display name of the role. Available with Grafana 8.5+.
-	// Display name of the role. Available with Grafana 8.5+.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// (String) Description of the role.
+// Description of the role.
+Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
-	// Boolean to state whether the role is available across all organizations or not. Defaults to `false`.
-	Global *bool `json:"global,omitempty" tf:"global,omitempty"`
+// (String) Display name of the role. Available with Grafana 8.5+.
+// Display name of the role. Available with Grafana 8.5+.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Group of the role. Available with Grafana 8.5+.
-	// Group of the role. Available with Grafana 8.5+.
-	Group *string `json:"group,omitempty" tf:"group,omitempty"`
+// (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
+// Boolean to state whether the role is available across all organizations or not. Defaults to `false`.
+Global *bool `json:"global,omitempty" tf:"global,omitempty"`
 
-	// (Boolean) Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to false.
-	// Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to `false`.
-	Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
+// (String) Group of the role. Available with Grafana 8.5+.
+// Group of the role. Available with Grafana 8.5+.
+Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
-	// (String) Name of the role
-	// Name of the role
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Boolean) Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to false.
+// Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to `false`.
+Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Name of the role
+// Name of the role
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block Set) Specific set of actions granted by the role. (see below for nested schema)
-	// Specific set of actions granted by the role.
-	Permissions []RolePermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) Unique identifier of the role. Used for assignments.
-	// Unique identifier of the role. Used for assignments.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (Block Set) Specific set of actions granted by the role. (see below for nested schema)
+// Specific set of actions granted by the role.
+Permissions []RolePermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
-	// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
-	// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
-	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+// (String) Unique identifier of the role. Used for assignments.
+// Unique identifier of the role. Used for assignments.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
+// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
+Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type RoleObservation struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
-	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
-	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
-	// (String) Description of the role.
-	// Description of the role.
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
+// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
+AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
-	// (String) Display name of the role. Available with Grafana 8.5+.
-	// Display name of the role. Available with Grafana 8.5+.
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// (String) Description of the role.
+// Description of the role.
+Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
-	// Boolean to state whether the role is available across all organizations or not. Defaults to `false`.
-	Global *bool `json:"global,omitempty" tf:"global,omitempty"`
+// (String) Display name of the role. Available with Grafana 8.5+.
+// Display name of the role. Available with Grafana 8.5+.
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Group of the role. Available with Grafana 8.5+.
-	// Group of the role. Available with Grafana 8.5+.
-	Group *string `json:"group,omitempty" tf:"group,omitempty"`
+// (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
+// Boolean to state whether the role is available across all organizations or not. Defaults to `false`.
+Global *bool `json:"global,omitempty" tf:"global,omitempty"`
 
-	// (Boolean) Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to false.
-	// Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to `false`.
-	Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
+// (String) Group of the role. Available with Grafana 8.5+.
+// Group of the role. Available with Grafana 8.5+.
+Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Boolean) Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to false.
+// Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to `false`.
+Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
 
-	// (String) Name of the role
-	// Name of the role
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Name of the role
+// Name of the role
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block Set) Specific set of actions granted by the role. (see below for nested schema)
-	// Specific set of actions granted by the role.
-	Permissions []RolePermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) Unique identifier of the role. Used for assignments.
-	// Unique identifier of the role. Used for assignments.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (Block Set) Specific set of actions granted by the role. (see below for nested schema)
+// Specific set of actions granted by the role.
+Permissions []RolePermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
-	// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
-	// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
-	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+// (String) Unique identifier of the role. Used for assignments.
+// Unique identifier of the role. Used for assignments.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
+// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
+Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type RoleParameters struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
-	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
-	// +kubebuilder:validation:Optional
-	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
-	// (String) Description of the role.
-	// Description of the role.
-	// +kubebuilder:validation:Optional
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
+// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
+// +kubebuilder:validation:Optional
+AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
-	// (String) Display name of the role. Available with Grafana 8.5+.
-	// Display name of the role. Available with Grafana 8.5+.
-	// +kubebuilder:validation:Optional
-	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
+// (String) Description of the role.
+// Description of the role.
+// +kubebuilder:validation:Optional
+Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
-	// Boolean to state whether the role is available across all organizations or not. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	Global *bool `json:"global,omitempty" tf:"global,omitempty"`
+// (String) Display name of the role. Available with Grafana 8.5+.
+// Display name of the role. Available with Grafana 8.5+.
+// +kubebuilder:validation:Optional
+DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
 
-	// (String) Group of the role. Available with Grafana 8.5+.
-	// Group of the role. Available with Grafana 8.5+.
-	// +kubebuilder:validation:Optional
-	Group *string `json:"group,omitempty" tf:"group,omitempty"`
+// (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
+// Boolean to state whether the role is available across all organizations or not. Defaults to `false`.
+// +kubebuilder:validation:Optional
+Global *bool `json:"global,omitempty" tf:"global,omitempty"`
 
-	// (Boolean) Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to false.
-	// Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
+// (String) Group of the role. Available with Grafana 8.5+.
+// Group of the role. Available with Grafana 8.5+.
+// +kubebuilder:validation:Optional
+Group *string `json:"group,omitempty" tf:"group,omitempty"`
 
-	// (String) Name of the role
-	// Name of the role
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Boolean) Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to false.
+// Boolean to state whether the role should be visible in the Grafana UI or not. Available with Grafana 8.5+. Defaults to `false`.
+// +kubebuilder:validation:Optional
+Hidden *bool `json:"hidden,omitempty" tf:"hidden,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Name of the role
+// Name of the role
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block Set) Specific set of actions granted by the role. (see below for nested schema)
-	// Specific set of actions granted by the role.
-	// +kubebuilder:validation:Optional
-	Permissions []RolePermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) Unique identifier of the role. Used for assignments.
-	// Unique identifier of the role. Used for assignments.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (Block Set) Specific set of actions granted by the role. (see below for nested schema)
+// Specific set of actions granted by the role.
+// +kubebuilder:validation:Optional
+Permissions []RolePermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
 
-	// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
-	// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
-	// +kubebuilder:validation:Optional
-	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+// (String) Unique identifier of the role. Used for assignments.
+// Unique identifier of the role. Used for assignments.
+// +kubebuilder:validation:Optional
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+
+// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
+// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
+// +kubebuilder:validation:Optional
+Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type RolePermissionsInitParameters struct {
 
-	// (String) Specific action users granted with the role will be allowed to perform (for example: users:read)
-	// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
-	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
-	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+// (String) Specific action users granted with the role will be allowed to perform (for example: users:read)
+// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
+Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
+Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 }
+
 
 type RolePermissionsObservation struct {
 
-	// (String) Specific action users granted with the role will be allowed to perform (for example: users:read)
-	// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
-	Action *string `json:"action,omitempty" tf:"action,omitempty"`
 
-	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
-	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+// (String) Specific action users granted with the role will be allowed to perform (for example: users:read)
+// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
+Action *string `json:"action,omitempty" tf:"action,omitempty"`
+
+// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
+Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 }
+
 
 type RolePermissionsParameters struct {
 
-	// (String) Specific action users granted with the role will be allowed to perform (for example: users:read)
-	// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
-	// +kubebuilder:validation:Optional
-	Action *string `json:"action" tf:"action,omitempty"`
 
-	// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.
-	// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.
-	// +kubebuilder:validation:Optional
-	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
+// (String) Specific action users granted with the role will be allowed to perform (for example: users:read)
+// Specific action users granted with the role will be allowed to perform (for example: `users:read`)
+// +kubebuilder:validation:Optional
+Action *string `json:"action" tf:"action,omitempty"`
+
+// (String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.
+// Scope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.
+// +kubebuilder:validation:Optional
+Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 }
 
 // RoleSpec defines the desired state of Role
 type RoleSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RoleParameters `json:"forProvider"`
+	ForProvider       RoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -239,18 +255,19 @@ type RoleSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RoleInitParameters `json:"initProvider,omitempty"`
+	InitProvider       RoleInitParameters `json:"initProvider,omitempty"`
 }
 
 // RoleStatus defines the observed state of Role.
 type RoleStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RoleObservation `json:"atProvider,omitempty"`
+	AtProvider          RoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // Role is the Schema for the Roles API. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -261,9 +278,9 @@ type RoleStatus struct {
 type Role struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   RoleSpec   `json:"spec"`
-	Status RoleStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec              RoleSpec   `json:"spec"`
+	Status            RoleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

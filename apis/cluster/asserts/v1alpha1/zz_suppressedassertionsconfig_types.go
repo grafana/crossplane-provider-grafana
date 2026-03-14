@@ -11,53 +11,63 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type SuppressedAssertionsConfigInitParameters struct {
 
-	// (Map of String) Labels to match for this disabled alert configuration.
-	// Labels to match for this disabled alert configuration.
-	// +mapType=granular
-	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 
-	// (String) The name of the disabled alert configuration.
-	// The name of the disabled alert configuration.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Map of String) Labels to match for this disabled alert configuration.
+// Labels to match for this disabled alert configuration.
+// +mapType=granular
+MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
+
+// (String) The name of the disabled alert configuration.
+// The name of the disabled alert configuration.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
+
 
 type SuppressedAssertionsConfigObservation struct {
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Map of String) Labels to match for this disabled alert configuration.
-	// Labels to match for this disabled alert configuration.
-	// +mapType=granular
-	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the disabled alert configuration.
-	// The name of the disabled alert configuration.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Map of String) Labels to match for this disabled alert configuration.
+// Labels to match for this disabled alert configuration.
+// +mapType=granular
+MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
+
+// (String) The name of the disabled alert configuration.
+// The name of the disabled alert configuration.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
+
 
 type SuppressedAssertionsConfigParameters struct {
 
-	// (Map of String) Labels to match for this disabled alert configuration.
-	// Labels to match for this disabled alert configuration.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
 
-	// (String) The name of the disabled alert configuration.
-	// The name of the disabled alert configuration.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Map of String) Labels to match for this disabled alert configuration.
+// Labels to match for this disabled alert configuration.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+MatchLabels map[string]*string `json:"matchLabels,omitempty" tf:"match_labels,omitempty"`
+
+// (String) The name of the disabled alert configuration.
+// The name of the disabled alert configuration.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 // SuppressedAssertionsConfigSpec defines the desired state of SuppressedAssertionsConfig
 type SuppressedAssertionsConfigSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     SuppressedAssertionsConfigParameters `json:"forProvider"`
+	ForProvider       SuppressedAssertionsConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -68,18 +78,19 @@ type SuppressedAssertionsConfigSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider SuppressedAssertionsConfigInitParameters `json:"initProvider,omitempty"`
+	InitProvider       SuppressedAssertionsConfigInitParameters `json:"initProvider,omitempty"`
 }
 
 // SuppressedAssertionsConfigStatus defines the observed state of SuppressedAssertionsConfig.
 type SuppressedAssertionsConfigStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        SuppressedAssertionsConfigObservation `json:"atProvider,omitempty"`
+	AtProvider          SuppressedAssertionsConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // SuppressedAssertionsConfig is the Schema for the SuppressedAssertionsConfigs API. Manages Knowledge Graph Disabled Alert Configurations through Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -90,9 +101,9 @@ type SuppressedAssertionsConfigStatus struct {
 type SuppressedAssertionsConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec   SuppressedAssertionsConfigSpec   `json:"spec"`
-	Status SuppressedAssertionsConfigStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec              SuppressedAssertionsConfigSpec   `json:"spec"`
+	Status            SuppressedAssertionsConfigStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

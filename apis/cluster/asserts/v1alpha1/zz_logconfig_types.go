@@ -11,192 +11,208 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type LogConfigInitParameters struct {
 
-	// (String) DataSource to be queried (e.g., a Loki instance).
-	// DataSource to be queried (e.g., a Loki instance).
-	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Boolean) Is it the default config, therefore undeletable?
-	// Is it the default config, therefore undeletable?
-	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+// (String) DataSource to be queried (e.g., a Loki instance).
+// DataSource to be queried (e.g., a Loki instance).
+DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Map of String) Mapping of entity properties to log labels.
-	// Mapping of entity properties to log labels.
-	// +mapType=granular
-	EntityPropertyToLogLabelMapping map[string]*string `json:"entityPropertyToLogLabelMapping,omitempty" tf:"entity_property_to_log_label_mapping,omitempty"`
+// (Boolean) Is it the default config, therefore undeletable?
+// Is it the default config, therefore undeletable?
+DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-	// (String) Error label to filter logs.
-	// Error label to filter logs.
-	ErrorLabel *string `json:"errorLabel,omitempty" tf:"error_label,omitempty"`
+// (Map of String) Mapping of entity properties to log labels.
+// Mapping of entity properties to log labels.
+// +mapType=granular
+EntityPropertyToLogLabelMapping map[string]*string `json:"entityPropertyToLogLabelMapping,omitempty" tf:"entity_property_to_log_label_mapping,omitempty"`
 
-	// (Boolean) Filter logs by span ID.
-	// Filter logs by span ID.
-	FilterBySpanID *bool `json:"filterBySpanId,omitempty" tf:"filter_by_span_id,omitempty"`
+// (String) Error label to filter logs.
+// Error label to filter logs.
+ErrorLabel *string `json:"errorLabel,omitempty" tf:"error_label,omitempty"`
 
-	// (Boolean) Filter logs by trace ID.
-	// Filter logs by trace ID.
-	FilterByTraceID *bool `json:"filterByTraceId,omitempty" tf:"filter_by_trace_id,omitempty"`
+// (Boolean) Filter logs by span ID.
+// Filter logs by span ID.
+FilterBySpanID *bool `json:"filterBySpanId,omitempty" tf:"filter_by_span_id,omitempty"`
 
-	// (Block List) List of match rules for entity properties. (see below for nested schema)
-	// List of match rules for entity properties.
-	Match []MatchInitParameters `json:"match,omitempty" tf:"match,omitempty"`
+// (Boolean) Filter logs by trace ID.
+// Filter logs by trace ID.
+FilterByTraceID *bool `json:"filterByTraceId,omitempty" tf:"filter_by_trace_id,omitempty"`
 
-	// (String) The name of the log configuration.
-	// The name of the log configuration.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) List of match rules for entity properties. (see below for nested schema)
+// List of match rules for entity properties.
+Match []MatchInitParameters `json:"match,omitempty" tf:"match,omitempty"`
 
-	// (Number) Priority of the log configuration. A lower number means a higher priority.
-	// Priority of the log configuration. A lower number means a higher priority.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+// (String) The name of the log configuration.
+// The name of the log configuration.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Number) Priority of the log configuration. A lower number means a higher priority.
+// Priority of the log configuration. A lower number means a higher priority.
+Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
+
 
 type LogConfigObservation struct {
 
-	// (String) DataSource to be queried (e.g., a Loki instance).
-	// DataSource to be queried (e.g., a Loki instance).
-	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Boolean) Is it the default config, therefore undeletable?
-	// Is it the default config, therefore undeletable?
-	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+// (String) DataSource to be queried (e.g., a Loki instance).
+// DataSource to be queried (e.g., a Loki instance).
+DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Map of String) Mapping of entity properties to log labels.
-	// Mapping of entity properties to log labels.
-	// +mapType=granular
-	EntityPropertyToLogLabelMapping map[string]*string `json:"entityPropertyToLogLabelMapping,omitempty" tf:"entity_property_to_log_label_mapping,omitempty"`
+// (Boolean) Is it the default config, therefore undeletable?
+// Is it the default config, therefore undeletable?
+DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-	// (String) Error label to filter logs.
-	// Error label to filter logs.
-	ErrorLabel *string `json:"errorLabel,omitempty" tf:"error_label,omitempty"`
+// (Map of String) Mapping of entity properties to log labels.
+// Mapping of entity properties to log labels.
+// +mapType=granular
+EntityPropertyToLogLabelMapping map[string]*string `json:"entityPropertyToLogLabelMapping,omitempty" tf:"entity_property_to_log_label_mapping,omitempty"`
 
-	// (Boolean) Filter logs by span ID.
-	// Filter logs by span ID.
-	FilterBySpanID *bool `json:"filterBySpanId,omitempty" tf:"filter_by_span_id,omitempty"`
+// (String) Error label to filter logs.
+// Error label to filter logs.
+ErrorLabel *string `json:"errorLabel,omitempty" tf:"error_label,omitempty"`
 
-	// (Boolean) Filter logs by trace ID.
-	// Filter logs by trace ID.
-	FilterByTraceID *bool `json:"filterByTraceId,omitempty" tf:"filter_by_trace_id,omitempty"`
+// (Boolean) Filter logs by span ID.
+// Filter logs by span ID.
+FilterBySpanID *bool `json:"filterBySpanId,omitempty" tf:"filter_by_span_id,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Boolean) Filter logs by trace ID.
+// Filter logs by trace ID.
+FilterByTraceID *bool `json:"filterByTraceId,omitempty" tf:"filter_by_trace_id,omitempty"`
 
-	// (Block List) List of match rules for entity properties. (see below for nested schema)
-	// List of match rules for entity properties.
-	Match []MatchObservation `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the log configuration.
-	// The name of the log configuration.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) List of match rules for entity properties. (see below for nested schema)
+// List of match rules for entity properties.
+Match []MatchObservation `json:"match,omitempty" tf:"match,omitempty"`
 
-	// (Number) Priority of the log configuration. A lower number means a higher priority.
-	// Priority of the log configuration. A lower number means a higher priority.
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+// (String) The name of the log configuration.
+// The name of the log configuration.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Number) Priority of the log configuration. A lower number means a higher priority.
+// Priority of the log configuration. A lower number means a higher priority.
+Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
+
 
 type LogConfigParameters struct {
 
-	// (String) DataSource to be queried (e.g., a Loki instance).
-	// DataSource to be queried (e.g., a Loki instance).
-	// +kubebuilder:validation:Optional
-	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Boolean) Is it the default config, therefore undeletable?
-	// Is it the default config, therefore undeletable?
-	// +kubebuilder:validation:Optional
-	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+// (String) DataSource to be queried (e.g., a Loki instance).
+// DataSource to be queried (e.g., a Loki instance).
+// +kubebuilder:validation:Optional
+DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-	// (Map of String) Mapping of entity properties to log labels.
-	// Mapping of entity properties to log labels.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	EntityPropertyToLogLabelMapping map[string]*string `json:"entityPropertyToLogLabelMapping,omitempty" tf:"entity_property_to_log_label_mapping,omitempty"`
+// (Boolean) Is it the default config, therefore undeletable?
+// Is it the default config, therefore undeletable?
+// +kubebuilder:validation:Optional
+DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-	// (String) Error label to filter logs.
-	// Error label to filter logs.
-	// +kubebuilder:validation:Optional
-	ErrorLabel *string `json:"errorLabel,omitempty" tf:"error_label,omitempty"`
+// (Map of String) Mapping of entity properties to log labels.
+// Mapping of entity properties to log labels.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+EntityPropertyToLogLabelMapping map[string]*string `json:"entityPropertyToLogLabelMapping,omitempty" tf:"entity_property_to_log_label_mapping,omitempty"`
 
-	// (Boolean) Filter logs by span ID.
-	// Filter logs by span ID.
-	// +kubebuilder:validation:Optional
-	FilterBySpanID *bool `json:"filterBySpanId,omitempty" tf:"filter_by_span_id,omitempty"`
+// (String) Error label to filter logs.
+// Error label to filter logs.
+// +kubebuilder:validation:Optional
+ErrorLabel *string `json:"errorLabel,omitempty" tf:"error_label,omitempty"`
 
-	// (Boolean) Filter logs by trace ID.
-	// Filter logs by trace ID.
-	// +kubebuilder:validation:Optional
-	FilterByTraceID *bool `json:"filterByTraceId,omitempty" tf:"filter_by_trace_id,omitempty"`
+// (Boolean) Filter logs by span ID.
+// Filter logs by span ID.
+// +kubebuilder:validation:Optional
+FilterBySpanID *bool `json:"filterBySpanId,omitempty" tf:"filter_by_span_id,omitempty"`
 
-	// (Block List) List of match rules for entity properties. (see below for nested schema)
-	// List of match rules for entity properties.
-	// +kubebuilder:validation:Optional
-	Match []MatchParameters `json:"match,omitempty" tf:"match,omitempty"`
+// (Boolean) Filter logs by trace ID.
+// Filter logs by trace ID.
+// +kubebuilder:validation:Optional
+FilterByTraceID *bool `json:"filterByTraceId,omitempty" tf:"filter_by_trace_id,omitempty"`
 
-	// (String) The name of the log configuration.
-	// The name of the log configuration.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Block List) List of match rules for entity properties. (see below for nested schema)
+// List of match rules for entity properties.
+// +kubebuilder:validation:Optional
+Match []MatchParameters `json:"match,omitempty" tf:"match,omitempty"`
 
-	// (Number) Priority of the log configuration. A lower number means a higher priority.
-	// Priority of the log configuration. A lower number means a higher priority.
-	// +kubebuilder:validation:Optional
-	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+// (String) The name of the log configuration.
+// The name of the log configuration.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Number) Priority of the log configuration. A lower number means a higher priority.
+// Priority of the log configuration. A lower number means a higher priority.
+// +kubebuilder:validation:Optional
+Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
+
 
 type MatchInitParameters struct {
 
-	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (String) Entity property to match.
-	// Entity property to match.
-	Property *string `json:"property,omitempty" tf:"property,omitempty"`
+// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
-	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+// (String) Entity property to match.
+// Entity property to match.
+Property *string `json:"property,omitempty" tf:"property,omitempty"`
+
+// (List of String) Values to match against.
+// Values to match against.
+Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
+
 
 type MatchObservation struct {
 
-	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (String) Entity property to match.
-	// Entity property to match.
-	Property *string `json:"property,omitempty" tf:"property,omitempty"`
+// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
-	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+// (String) Entity property to match.
+// Entity property to match.
+Property *string `json:"property,omitempty" tf:"property,omitempty"`
+
+// (List of String) Values to match against.
+// Values to match against.
+Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
+
 
 type MatchParameters struct {
 
-	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-	// +kubebuilder:validation:Optional
-	Op *string `json:"op" tf:"op,omitempty"`
 
-	// (String) Entity property to match.
-	// Entity property to match.
-	// +kubebuilder:validation:Optional
-	Property *string `json:"property" tf:"property,omitempty"`
+// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+// +kubebuilder:validation:Optional
+Op *string `json:"op" tf:"op,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
-	// +kubebuilder:validation:Optional
-	Values []*string `json:"values" tf:"values,omitempty"`
+// (String) Entity property to match.
+// Entity property to match.
+// +kubebuilder:validation:Optional
+Property *string `json:"property" tf:"property,omitempty"`
+
+// (List of String) Values to match against.
+// Values to match against.
+// +kubebuilder:validation:Optional
+Values []*string `json:"values" tf:"values,omitempty"`
 }
 
 // LogConfigSpec defines the desired state of LogConfig
 type LogConfigSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     LogConfigParameters `json:"forProvider"`
+	ForProvider       LogConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -207,18 +223,19 @@ type LogConfigSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider LogConfigInitParameters `json:"initProvider,omitempty"`
+	InitProvider       LogConfigInitParameters `json:"initProvider,omitempty"`
 }
 
 // LogConfigStatus defines the observed state of LogConfig.
 type LogConfigStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        LogConfigObservation `json:"atProvider,omitempty"`
+	AtProvider          LogConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // LogConfig is the Schema for the LogConfigs API. Manages Knowledge Graph Log Configuration through Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -229,12 +246,12 @@ type LogConfigStatus struct {
 type LogConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceUid) || (has(self.initProvider) && has(self.initProvider.dataSourceUid))",message="spec.forProvider.dataSourceUid is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultConfig) || (has(self.initProvider) && has(self.initProvider.defaultConfig))",message="spec.forProvider.defaultConfig is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"
-	Spec   LogConfigSpec   `json:"spec"`
-	Status LogConfigStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceUid) || (has(self.initProvider) && has(self.initProvider.dataSourceUid))",message="spec.forProvider.dataSourceUid is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultConfig) || (has(self.initProvider) && has(self.initProvider.defaultConfig))",message="spec.forProvider.defaultConfig is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"
+	Spec              LogConfigSpec   `json:"spec"`
+	Status            LogConfigStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

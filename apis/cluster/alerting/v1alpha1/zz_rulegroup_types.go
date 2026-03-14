@@ -11,623 +11,663 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type DataInitParameters struct {
 
-	// 100" if this stage is an expression stage.
-	// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) Custom JSON data to send to the specified datasource when querying.
-	// Custom JSON data to send to the specified datasource when querying.
-	Model *string `json:"model,omitempty" tf:"model,omitempty"`
+// 100" if this stage is an expression stage.
+// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
-	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
+// (String) Custom JSON data to send to the specified datasource when querying.
+// Custom JSON data to send to the specified datasource when querying.
+Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) A unique string to identify this query stage within a rule.
-	// A unique string to identify this query stage within a rule.
-	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+// (String) An optional identifier for the type of query being executed. Defaults to ``.
+// An optional identifier for the type of query being executed. Defaults to ``.
+QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
-	// The time range, relative to when the query is executed, across which to query.
-	RelativeTimeRange []RelativeTimeRangeInitParameters `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
+// (String) A unique string to identify this query stage within a rule.
+// A unique string to identify this query stage within a rule.
+RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
+// The time range, relative to when the query is executed, across which to query.
+RelativeTimeRange []RelativeTimeRangeInitParameters `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
 }
+
 
 type DataObservation struct {
 
-	// 100" if this stage is an expression stage.
-	// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) Custom JSON data to send to the specified datasource when querying.
-	// Custom JSON data to send to the specified datasource when querying.
-	Model *string `json:"model,omitempty" tf:"model,omitempty"`
+// 100" if this stage is an expression stage.
+// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
-	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
+// (String) Custom JSON data to send to the specified datasource when querying.
+// Custom JSON data to send to the specified datasource when querying.
+Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) A unique string to identify this query stage within a rule.
-	// A unique string to identify this query stage within a rule.
-	RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+// (String) An optional identifier for the type of query being executed. Defaults to ``.
+// An optional identifier for the type of query being executed. Defaults to ``.
+QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
-	// The time range, relative to when the query is executed, across which to query.
-	RelativeTimeRange []RelativeTimeRangeObservation `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
+// (String) A unique string to identify this query stage within a rule.
+// A unique string to identify this query stage within a rule.
+RefID *string `json:"refId,omitempty" tf:"ref_id,omitempty"`
+
+// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
+// The time range, relative to when the query is executed, across which to query.
+RelativeTimeRange []RelativeTimeRangeObservation `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
 }
+
 
 type DataParameters struct {
 
-	// 100" if this stage is an expression stage.
-	// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
-	// +kubebuilder:validation:Optional
-	DatasourceUID *string `json:"datasourceUid" tf:"datasource_uid,omitempty"`
 
-	// (String) Custom JSON data to send to the specified datasource when querying.
-	// Custom JSON data to send to the specified datasource when querying.
-	// +kubebuilder:validation:Optional
-	Model *string `json:"model" tf:"model,omitempty"`
+// 100" if this stage is an expression stage.
+// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+// +kubebuilder:validation:Optional
+DatasourceUID *string `json:"datasourceUid" tf:"datasource_uid,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
-	// +kubebuilder:validation:Optional
-	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
+// (String) Custom JSON data to send to the specified datasource when querying.
+// Custom JSON data to send to the specified datasource when querying.
+// +kubebuilder:validation:Optional
+Model *string `json:"model" tf:"model,omitempty"`
 
-	// (String) A unique string to identify this query stage within a rule.
-	// A unique string to identify this query stage within a rule.
-	// +kubebuilder:validation:Optional
-	RefID *string `json:"refId" tf:"ref_id,omitempty"`
+// (String) An optional identifier for the type of query being executed. Defaults to ``.
+// An optional identifier for the type of query being executed. Defaults to ``.
+// +kubebuilder:validation:Optional
+QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
-	// The time range, relative to when the query is executed, across which to query.
-	// +kubebuilder:validation:Optional
-	RelativeTimeRange []RelativeTimeRangeParameters `json:"relativeTimeRange" tf:"relative_time_range,omitempty"`
+// (String) A unique string to identify this query stage within a rule.
+// A unique string to identify this query stage within a rule.
+// +kubebuilder:validation:Optional
+RefID *string `json:"refId" tf:"ref_id,omitempty"`
+
+// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
+// The time range, relative to when the query is executed, across which to query.
+// +kubebuilder:validation:Optional
+RelativeTimeRange []RelativeTimeRangeParameters `json:"relativeTimeRange" tf:"relative_time_range,omitempty"`
 }
+
 
 type RecordInitParameters struct {
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The ref id of the query node in the data field to use as the source of the metric.
-	From *string `json:"from,omitempty" tf:"from,omitempty"`
 
-	// (String) The name of the metric to write to.
-	// The name of the metric to write to.
-	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+// The ref id of the query node in the data field to use as the source of the metric.
+From *string `json:"from,omitempty" tf:"from,omitempty"`
 
-	// (String) The UID of the datasource to write the metric to.
-	// The UID of the datasource to write the metric to.
-	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
+// (String) The name of the metric to write to.
+// The name of the metric to write to.
+Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+// (String) The UID of the datasource to write the metric to.
+// The UID of the datasource to write the metric to.
+TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
+
 
 type RecordObservation struct {
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The ref id of the query node in the data field to use as the source of the metric.
-	From *string `json:"from,omitempty" tf:"from,omitempty"`
 
-	// (String) The name of the metric to write to.
-	// The name of the metric to write to.
-	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+// The ref id of the query node in the data field to use as the source of the metric.
+From *string `json:"from,omitempty" tf:"from,omitempty"`
 
-	// (String) The UID of the datasource to write the metric to.
-	// The UID of the datasource to write the metric to.
-	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
+// (String) The name of the metric to write to.
+// The name of the metric to write to.
+Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
+
+// (String) The UID of the datasource to write the metric to.
+// The UID of the datasource to write the metric to.
+TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
+
 
 type RecordParameters struct {
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The ref id of the query node in the data field to use as the source of the metric.
-	// +kubebuilder:validation:Optional
-	From *string `json:"from" tf:"from,omitempty"`
 
-	// (String) The name of the metric to write to.
-	// The name of the metric to write to.
-	// +kubebuilder:validation:Optional
-	Metric *string `json:"metric" tf:"metric,omitempty"`
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+// The ref id of the query node in the data field to use as the source of the metric.
+// +kubebuilder:validation:Optional
+From *string `json:"from" tf:"from,omitempty"`
 
-	// (String) The UID of the datasource to write the metric to.
-	// The UID of the datasource to write the metric to.
-	// +kubebuilder:validation:Optional
-	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
+// (String) The name of the metric to write to.
+// The name of the metric to write to.
+// +kubebuilder:validation:Optional
+Metric *string `json:"metric" tf:"metric,omitempty"`
+
+// (String) The UID of the datasource to write the metric to.
+// The UID of the datasource to write the metric to.
+// +kubebuilder:validation:Optional
+TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
+
 
 type RelativeTimeRangeInitParameters struct {
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+From *float64 `json:"from,omitempty" tf:"from,omitempty"`
+
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+To *float64 `json:"to,omitempty" tf:"to,omitempty"`
 }
+
 
 type RelativeTimeRangeObservation struct {
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+From *float64 `json:"from,omitempty" tf:"from,omitempty"`
+
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+To *float64 `json:"to,omitempty" tf:"to,omitempty"`
 }
+
 
 type RelativeTimeRangeParameters struct {
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// +kubebuilder:validation:Optional
-	From *float64 `json:"from" tf:"from,omitempty"`
 
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// +kubebuilder:validation:Optional
-	To *float64 `json:"to" tf:"to,omitempty"`
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+// +kubebuilder:validation:Optional
+From *float64 `json:"from" tf:"from,omitempty"`
+
+// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+// +kubebuilder:validation:Optional
+To *float64 `json:"to" tf:"to,omitempty"`
 }
+
 
 type RuleGroupInitParameters struct {
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// Reference to a Folder in oss to populate folderUid.
-	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// Selector for a Folder in oss to populate folderUid.
-	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+// Reference to a Folder in oss to populate folderUid.
+// +kubebuilder:validation:Optional
+FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-	// (String) The UID of the folder that the group belongs to.
-	// The UID of the folder that the group belongs to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=FolderRef
-	// +crossplane:generate:reference:selectorFieldName=FolderSelector
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+// Selector for a Folder in oss to populate folderUid.
+// +kubebuilder:validation:Optional
+FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-	// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
-	// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
-	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
+// (String) The UID of the folder that the group belongs to.
+// The UID of the folder that the group belongs to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=FolderRef
+// +crossplane:generate:reference:selectorFieldName=FolderSelector
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The name of the rule group.
-	// The name of the rule group.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the rule group.
+// The name of the rule group.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block List, Min: 1) The rules within the group. (see below for nested schema)
-	// The rules within the group.
-	Rule []RuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (Block List, Min: 1) The rules within the group. (see below for nested schema)
+// The rules within the group.
+Rule []RuleInitParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 }
+
 
 type RuleGroupObservation struct {
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The UID of the folder that the group belongs to.
-	// The UID of the folder that the group belongs to.
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) The UID of the folder that the group belongs to.
+// The UID of the folder that the group belongs to.
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
-	// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
-	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the rule group.
-	// The name of the rule group.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the rule group.
+// The name of the rule group.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Min: 1) The rules within the group. (see below for nested schema)
-	// The rules within the group.
-	Rule []RuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+// (Block List, Min: 1) The rules within the group. (see below for nested schema)
+// The rules within the group.
+Rule []RuleObservation `json:"rule,omitempty" tf:"rule,omitempty"`
 }
+
 
 type RuleGroupParameters struct {
 
-	// Defaults to false. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// Reference to a Folder in oss to populate folderUid.
-	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+// Defaults to false. Defaults to `false`.
+// +kubebuilder:validation:Optional
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// Selector for a Folder in oss to populate folderUid.
-	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+// Reference to a Folder in oss to populate folderUid.
+// +kubebuilder:validation:Optional
+FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-	// (String) The UID of the folder that the group belongs to.
-	// The UID of the folder that the group belongs to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=FolderRef
-	// +crossplane:generate:reference:selectorFieldName=FolderSelector
-	// +kubebuilder:validation:Optional
-	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+// Selector for a Folder in oss to populate folderUid.
+// +kubebuilder:validation:Optional
+FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-	// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
-	// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
-	// +kubebuilder:validation:Optional
-	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
+// (String) The UID of the folder that the group belongs to.
+// The UID of the folder that the group belongs to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=FolderRef
+// +crossplane:generate:reference:selectorFieldName=FolderSelector
+// +kubebuilder:validation:Optional
+FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The name of the rule group.
-	// The name of the rule group.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Number) The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+// The interval, in seconds, at which all rules in the group are evaluated. If a group contains many rules, the rules are evaluated sequentially.
+// +kubebuilder:validation:Optional
+IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The name of the rule group.
+// The name of the rule group.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block List, Min: 1) The rules within the group. (see below for nested schema)
-	// The rules within the group.
-	// +kubebuilder:validation:Optional
-	Rule []RuleParameters `json:"rule,omitempty" tf:"rule,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (Block List, Min: 1) The rules within the group. (see below for nested schema)
+// The rules within the group.
+// +kubebuilder:validation:Optional
+Rule []RuleParameters `json:"rule,omitempty" tf:"rule,omitempty"`
 }
+
 
 type RuleInitParameters struct {
 
-	// value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
-	// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts. The `__dashboardUid__` and `__panelId__` annotations, which link alerts to a panel, must be set together. Defaults to `map[]`.
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The ref_id of the query node in the data field to use as the alert condition.
-	// The `ref_id` of the query node in the `data` field to use as the alert condition.
-	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+// value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
+// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts. The `__dashboardUid__` and `__panelId__` annotations, which link alerts to a panel, must be set together. Defaults to `map[]`.
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)
-	// A sequence of stages that describe the contents of the rule.
-	Data []DataInitParameters `json:"data,omitempty" tf:"data,omitempty"`
+// (String) The ref_id of the query node in the data field to use as the alert condition.
+// The `ref_id` of the query node in the `data` field to use as the alert condition.
+Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
-	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
-	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
+// (Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)
+// A sequence of stages that describe the contents of the rule.
+Data []DataInitParameters `json:"data,omitempty" tf:"data,omitempty"`
 
-	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
-	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to `0`.
-	For *string `json:"for,omitempty" tf:"for,omitempty"`
+// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
-	// (Boolean) Sets whether the alert should be paused or not. Defaults to false.
-	// Sets whether the alert should be paused or not. Defaults to `false`.
-	IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
+// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
+// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to `0`.
+For *string `json:"for,omitempty" tf:"for,omitempty"`
 
-	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
-	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
-	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
+// (Boolean) Sets whether the alert should be paused or not. Defaults to false.
+// Sets whether the alert should be paused or not. Defaults to `false`.
+IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
 
-	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
-	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
-	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
-	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
-	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
+// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
+// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) The name of the rule group.
-	// The name of the alert rule.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+// The number of missing series evaluations that must occur before the rule is considered to be resolved.
+MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
-	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
-	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+// (String) The name of the rule group.
+// The name of the alert rule.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
-	NotificationSettings []RuleNotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
-	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
-	Record []RecordInitParameters `json:"record,omitempty" tf:"record,omitempty"`
+// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
+// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
+NotificationSettings []RuleNotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
-	// (String) The unique identifier of the alert rule.
-	// The unique identifier of the alert rule.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
+// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
+Record []RecordInitParameters `json:"record,omitempty" tf:"record,omitempty"`
+
+// (String) The unique identifier of the alert rule.
+// The unique identifier of the alert rule.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
+
 
 type RuleNotificationSettingsInitParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The contact point to route notifications that match this rule to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (List of String) A list of mute timing names to apply to alerts that match this policy.
+// A list of mute timing names to apply to alerts that match this policy.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type RuleNotificationSettingsObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
-	// The contact point to route notifications that match this rule to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (String) The contact point to route notifications that match this rule to.
+// The contact point to route notifications that match this rule to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (List of String) A list of mute timing names to apply to alerts that match this policy.
+// A list of mute timing names to apply to alerts that match this policy.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type RuleNotificationSettingsParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// +kubebuilder:validation:Optional
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// +kubebuilder:validation:Optional
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The contact point to route notifications that match this rule to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+// +kubebuilder:validation:Optional
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
-	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// +kubebuilder:validation:Optional
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
+// +kubebuilder:validation:Optional
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// +kubebuilder:validation:Optional
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// +kubebuilder:validation:Optional
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
-	// +kubebuilder:validation:Optional
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// +kubebuilder:validation:Optional
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	// +kubebuilder:validation:Optional
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (List of String) A list of mute timing names to apply to alerts that match this policy.
+// A list of mute timing names to apply to alerts that match this policy.
+// +kubebuilder:validation:Optional
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+// +kubebuilder:validation:Optional
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type RuleObservation struct {
 
-	// value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
-	// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts. The `__dashboardUid__` and `__panelId__` annotations, which link alerts to a panel, must be set together. Defaults to `map[]`.
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The ref_id of the query node in the data field to use as the alert condition.
-	// The `ref_id` of the query node in the `data` field to use as the alert condition.
-	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+// value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
+// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts. The `__dashboardUid__` and `__panelId__` annotations, which link alerts to a panel, must be set together. Defaults to `map[]`.
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)
-	// A sequence of stages that describe the contents of the rule.
-	Data []DataObservation `json:"data,omitempty" tf:"data,omitempty"`
+// (String) The ref_id of the query node in the data field to use as the alert condition.
+// The `ref_id` of the query node in the `data` field to use as the alert condition.
+Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
-	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
-	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
+// (Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)
+// A sequence of stages that describe the contents of the rule.
+Data []DataObservation `json:"data,omitempty" tf:"data,omitempty"`
 
-	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
-	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to `0`.
-	For *string `json:"for,omitempty" tf:"for,omitempty"`
+// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
-	// (Boolean) Sets whether the alert should be paused or not. Defaults to false.
-	// Sets whether the alert should be paused or not. Defaults to `false`.
-	IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
+// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
+// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to `0`.
+For *string `json:"for,omitempty" tf:"for,omitempty"`
 
-	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
-	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
-	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
+// (Boolean) Sets whether the alert should be paused or not. Defaults to false.
+// Sets whether the alert should be paused or not. Defaults to `false`.
+IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
 
-	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
-	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
-	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
-	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
-	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
+// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
+// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) The name of the rule group.
-	// The name of the alert rule.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+// The number of missing series evaluations that must occur before the rule is considered to be resolved.
+MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
-	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
-	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+// (String) The name of the rule group.
+// The name of the alert rule.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
-	NotificationSettings []RuleNotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
-	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
-	Record []RecordObservation `json:"record,omitempty" tf:"record,omitempty"`
+// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
+// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
+NotificationSettings []RuleNotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
-	// (String) The unique identifier of the alert rule.
-	// The unique identifier of the alert rule.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
+// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
+Record []RecordObservation `json:"record,omitempty" tf:"record,omitempty"`
+
+// (String) The unique identifier of the alert rule.
+// The unique identifier of the alert rule.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
+
 
 type RuleParameters struct {
 
-	// value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
-	// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts. The `__dashboardUid__` and `__panelId__` annotations, which link alerts to a panel, must be set together. Defaults to `map[]`.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The ref_id of the query node in the data field to use as the alert condition.
-	// The `ref_id` of the query node in the `data` field to use as the alert condition.
-	// +kubebuilder:validation:Optional
-	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
+// value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
+// Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a `summary` or `runbook_url`, to help identify and investigate alerts. The `__dashboardUid__` and `__panelId__` annotations, which link alerts to a panel, must be set together. Defaults to `map[]`.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)
-	// A sequence of stages that describe the contents of the rule.
-	// +kubebuilder:validation:Optional
-	Data []DataParameters `json:"data" tf:"data,omitempty"`
+// (String) The ref_id of the query node in the data field to use as the alert condition.
+// The `ref_id` of the query node in the `data` field to use as the alert condition.
+// +kubebuilder:validation:Optional
+Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
-	// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
-	// +kubebuilder:validation:Optional
-	ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
+// (Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)
+// A sequence of stages that describe the contents of the rule.
+// +kubebuilder:validation:Optional
+Data []DataParameters `json:"data" tf:"data,omitempty"`
 
-	// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
-	// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to `0`.
-	// +kubebuilder:validation:Optional
-	For *string `json:"for,omitempty" tf:"for,omitempty"`
+// (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+// Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.  Defaults to Alerting if not set.
+// +kubebuilder:validation:Optional
+ExecErrState *string `json:"execErrState,omitempty" tf:"exec_err_state,omitempty"`
 
-	// (Boolean) Sets whether the alert should be paused or not. Defaults to false.
-	// Sets whether the alert should be paused or not. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
+// (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to 0.
+// The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending. Defaults to `0`.
+// +kubebuilder:validation:Optional
+For *string `json:"for,omitempty" tf:"for,omitempty"`
 
-	// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
-	// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
-	// +kubebuilder:validation:Optional
-	KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
+// (Boolean) Sets whether the alert should be paused or not. Defaults to false.
+// Sets whether the alert should be paused or not. Defaults to `false`.
+// +kubebuilder:validation:Optional
+IsPaused *bool `json:"isPaused,omitempty" tf:"is_paused,omitempty"`
 
-	// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
-	// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+// (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+// The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
+// +kubebuilder:validation:Optional
+KeepFiringFor *string `json:"keepFiringFor,omitempty" tf:"keep_firing_for,omitempty"`
 
-	// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
-	// The number of missing series evaluations that must occur before the rule is considered to be resolved.
-	// +kubebuilder:validation:Optional
-	MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
+// value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to map[].
+// Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing. Defaults to `map[]`.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// (String) The name of the rule group.
-	// The name of the alert rule.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
+// (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
+// The number of missing series evaluations that must occur before the rule is considered to be resolved.
+// +kubebuilder:validation:Optional
+MissingSeriesEvalsToResolve *float64 `json:"missingSeriesEvalsToResolve,omitempty" tf:"missing_series_evals_to_resolve,omitempty"`
 
-	// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
-	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
-	// +kubebuilder:validation:Optional
-	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+// (String) The name of the rule group.
+// The name of the alert rule.
+// +kubebuilder:validation:Optional
+Name *string `json:"name" tf:"name,omitempty"`
 
-	// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
-	// +kubebuilder:validation:Optional
-	NotificationSettings []RuleNotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
+// (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
+// +kubebuilder:validation:Optional
+NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
-	// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
-	// +kubebuilder:validation:Optional
-	Record []RecordParameters `json:"record,omitempty" tf:"record,omitempty"`
+// (Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled. (see below for nested schema)
+// Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag 'alertingSimplifiedRouting' to be enabled.
+// +kubebuilder:validation:Optional
+NotificationSettings []RuleNotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
-	// (String) The unique identifier of the alert rule.
-	// The unique identifier of the alert rule.
-	// +kubebuilder:validation:Optional
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled. (see below for nested schema)
+// Settings for a recording rule. Available since Grafana 11.2, requires feature flag 'grafanaManagedRecordingRules' to be enabled.
+// +kubebuilder:validation:Optional
+Record []RecordParameters `json:"record,omitempty" tf:"record,omitempty"`
+
+// (String) The unique identifier of the alert rule.
+// The unique identifier of the alert rule.
+// +kubebuilder:validation:Optional
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 // RuleGroupSpec defines the desired state of RuleGroup
 type RuleGroupSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RuleGroupParameters `json:"forProvider"`
+	ForProvider       RuleGroupParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -638,18 +678,19 @@ type RuleGroupSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RuleGroupInitParameters `json:"initProvider,omitempty"`
+	InitProvider       RuleGroupInitParameters `json:"initProvider,omitempty"`
 }
 
 // RuleGroupStatus defines the observed state of RuleGroup.
 type RuleGroupStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RuleGroupObservation `json:"atProvider,omitempty"`
+	AtProvider          RuleGroupObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // RuleGroup is the Schema for the RuleGroups API. Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -660,11 +701,11 @@ type RuleGroupStatus struct {
 type RuleGroup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.intervalSeconds) || (has(self.initProvider) && has(self.initProvider.intervalSeconds))",message="spec.forProvider.intervalSeconds is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rule) || (has(self.initProvider) && has(self.initProvider.rule))",message="spec.forProvider.rule is a required parameter"
-	Spec   RuleGroupSpec   `json:"spec"`
-	Status RuleGroupStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.intervalSeconds) || (has(self.initProvider) && has(self.initProvider.intervalSeconds))",message="spec.forProvider.intervalSeconds is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rule) || (has(self.initProvider) && has(self.initProvider.rule))",message="spec.forProvider.rule is a required parameter"
+	Spec              RuleGroupSpec   `json:"spec"`
+	Status            RuleGroupStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

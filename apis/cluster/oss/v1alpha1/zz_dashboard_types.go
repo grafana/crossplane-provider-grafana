@@ -11,151 +11,161 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type DashboardInitParameters struct {
 
-	// (String) The complete dashboard model JSON.
-	// The complete dashboard model JSON.
-	ConfigJSON *string `json:"configJson,omitempty" tf:"config_json,omitempty"`
 
-	// (String) The id or UID of the folder to save the dashboard in.
-	// The id or UID of the folder to save the dashboard in.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=FolderRef
-	// +crossplane:generate:reference:selectorFieldName=FolderSelector
-	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
+// (String) The complete dashboard model JSON.
+// The complete dashboard model JSON.
+ConfigJSON *string `json:"configJson,omitempty" tf:"config_json,omitempty"`
 
-	// Reference to a Folder in oss to populate folder.
-	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+// (String) The id or UID of the folder to save the dashboard in.
+// The id or UID of the folder to save the dashboard in.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=FolderRef
+// +crossplane:generate:reference:selectorFieldName=FolderSelector
+Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
-	// Selector for a Folder in oss to populate folder.
-	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+// Reference to a Folder in oss to populate folder.
+// +kubebuilder:validation:Optional
+FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-	// (String) Set a commit message for the version history.
-	// Set a commit message for the version history.
-	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+// Selector for a Folder in oss to populate folder.
+// +kubebuilder:validation:Optional
+FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Set a commit message for the version history.
+// Set a commit message for the version history.
+Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
-	// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
+// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
+
 
 type DashboardObservation struct {
 
-	// (String) The complete dashboard model JSON.
-	// The complete dashboard model JSON.
-	ConfigJSON *string `json:"configJson,omitempty" tf:"config_json,omitempty"`
 
-	// (Number) The numeric ID of the dashboard computed by Grafana.
-	// The numeric ID of the dashboard computed by Grafana.
-	DashboardID *float64 `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
+// (String) The complete dashboard model JSON.
+// The complete dashboard model JSON.
+ConfigJSON *string `json:"configJson,omitempty" tf:"config_json,omitempty"`
 
-	// (String) The id or UID of the folder to save the dashboard in.
-	// The id or UID of the folder to save the dashboard in.
-	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
+// (Number) The numeric ID of the dashboard computed by Grafana.
+// The numeric ID of the dashboard computed by Grafana.
+DashboardID *float64 `json:"dashboardId,omitempty" tf:"dashboard_id,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) The id or UID of the folder to save the dashboard in.
+// The id or UID of the folder to save the dashboard in.
+Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
-	// (String) Set a commit message for the version history.
-	// Set a commit message for the version history.
-	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Set a commit message for the version history.
+// Set a commit message for the version history.
+Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
-	// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) The unique identifier of a dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a dashboard. The uid allows having consistent URLs for accessing dashboards and when syncing dashboards between multiple Grafana installs.
-	// The unique identifier of a dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a dashboard. The uid allows having consistent URLs for accessing dashboards and when syncing dashboards between multiple Grafana installs.
-	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
+// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 
-	// (String) The full URL of the dashboard.
-	// The full URL of the dashboard.
-	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+// (String) The unique identifier of a dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a dashboard. The uid allows having consistent URLs for accessing dashboards and when syncing dashboards between multiple Grafana installs.
+// The unique identifier of a dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a dashboard. The uid allows having consistent URLs for accessing dashboards and when syncing dashboards between multiple Grafana installs.
+UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Number) Whenever you save a version of your dashboard, a copy of that version is saved so that previous versions of your dashboard are not lost.
-	// Whenever you save a version of your dashboard, a copy of that version is saved so that previous versions of your dashboard are not lost.
-	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+// (String) The full URL of the dashboard.
+// The full URL of the dashboard.
+URL *string `json:"url,omitempty" tf:"url,omitempty"`
+
+// (Number) Whenever you save a version of your dashboard, a copy of that version is saved so that previous versions of your dashboard are not lost.
+// Whenever you save a version of your dashboard, a copy of that version is saved so that previous versions of your dashboard are not lost.
+Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
+
 
 type DashboardParameters struct {
 
-	// (String) The complete dashboard model JSON.
-	// The complete dashboard model JSON.
-	// +kubebuilder:validation:Optional
-	ConfigJSON *string `json:"configJson,omitempty" tf:"config_json,omitempty"`
 
-	// (String) The id or UID of the folder to save the dashboard in.
-	// The id or UID of the folder to save the dashboard in.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=FolderRef
-	// +crossplane:generate:reference:selectorFieldName=FolderSelector
-	// +kubebuilder:validation:Optional
-	Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
+// (String) The complete dashboard model JSON.
+// The complete dashboard model JSON.
+// +kubebuilder:validation:Optional
+ConfigJSON *string `json:"configJson,omitempty" tf:"config_json,omitempty"`
 
-	// Reference to a Folder in oss to populate folder.
-	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+// (String) The id or UID of the folder to save the dashboard in.
+// The id or UID of the folder to save the dashboard in.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=FolderRef
+// +crossplane:generate:reference:selectorFieldName=FolderSelector
+// +kubebuilder:validation:Optional
+Folder *string `json:"folder,omitempty" tf:"folder,omitempty"`
 
-	// Selector for a Folder in oss to populate folder.
-	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+// Reference to a Folder in oss to populate folder.
+// +kubebuilder:validation:Optional
+FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-	// (String) Set a commit message for the version history.
-	// Set a commit message for the version history.
-	// +kubebuilder:validation:Optional
-	Message *string `json:"message,omitempty" tf:"message,omitempty"`
+// Selector for a Folder in oss to populate folder.
+// +kubebuilder:validation:Optional
+FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Set a commit message for the version history.
+// Set a commit message for the version history.
+// +kubebuilder:validation:Optional
+Message *string `json:"message,omitempty" tf:"message,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
-	// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
-	// +kubebuilder:validation:Optional
-	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
+// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
+// +kubebuilder:validation:Optional
+Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 // DashboardSpec defines the desired state of Dashboard
 type DashboardSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     DashboardParameters `json:"forProvider"`
+	ForProvider       DashboardParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -166,18 +176,19 @@ type DashboardSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider DashboardInitParameters `json:"initProvider,omitempty"`
+	InitProvider       DashboardInitParameters `json:"initProvider,omitempty"`
 }
 
 // DashboardStatus defines the observed state of Dashboard.
 type DashboardStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        DashboardObservation `json:"atProvider,omitempty"`
+	AtProvider          DashboardObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // Dashboard is the Schema for the Dashboards API. Manages Grafana dashboards. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -188,9 +199,9 @@ type DashboardStatus struct {
 type Dashboard struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.configJson) || (has(self.initProvider) && has(self.initProvider.configJson))",message="spec.forProvider.configJson is a required parameter"
-	Spec   DashboardSpec   `json:"spec"`
-	Status DashboardStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.configJson) || (has(self.initProvider) && has(self.initProvider.configJson))",message="spec.forProvider.configJson is a required parameter"
+	Spec              DashboardSpec   `json:"spec"`
+	Status            DashboardStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

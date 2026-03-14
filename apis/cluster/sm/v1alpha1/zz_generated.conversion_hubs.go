@@ -6,14 +6,16 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-// Hub marks this type as a conversion hub.
-func (tr *Check) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *CheckAlerts) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Check) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Installation) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *CheckAlerts) Hub() {}
 
-// Hub marks this type as a conversion hub.
-func (tr *Probe) Hub() {}
+    // Hub marks this type as a conversion hub.
+    func (tr *Installation) Hub() {}
+
+    // Hub marks this type as a conversion hub.
+    func (tr *Probe) Hub() {}
+

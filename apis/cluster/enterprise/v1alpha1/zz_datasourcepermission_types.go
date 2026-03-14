@@ -11,214 +11,230 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type DataSourcePermissionInitParameters struct {
 
-	// Reference to a DataSource in oss to populate datasourceUid.
-	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
-	// Selector for a DataSource in oss to populate datasourceUid.
-	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+// Reference to a DataSource in oss to populate datasourceUid.
+// +kubebuilder:validation:Optional
+DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
-	// (String) UID of the datasource to apply permissions to.
-	// UID of the datasource to apply permissions to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=DataSourceRef
-	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
+// Selector for a DataSource in oss to populate datasourceUid.
+// +kubebuilder:validation:Optional
+DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) UID of the datasource to apply permissions to.
+// UID of the datasource to apply permissions to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=DataSourceRef
+// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
-	// The permission items to add/update. Items that are omitted from the list will be removed.
-	Permissions []PermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+// The permission items to add/update. Items that are omitted from the list will be removed.
+Permissions []PermissionsInitParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
 }
+
 
 type DataSourcePermissionObservation struct {
 
-	// (String) UID of the datasource to apply permissions to.
-	// UID of the datasource to apply permissions to.
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) UID of the datasource to apply permissions to.
+// UID of the datasource to apply permissions to.
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
-	// The permission items to add/update. Items that are omitted from the list will be removed.
-	Permissions []PermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+// The permission items to add/update. Items that are omitted from the list will be removed.
+Permissions []PermissionsObservation `json:"permissions,omitempty" tf:"permissions,omitempty"`
 }
+
 
 type DataSourcePermissionParameters struct {
 
-	// Reference to a DataSource in oss to populate datasourceUid.
-	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
-	// Selector for a DataSource in oss to populate datasourceUid.
-	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+// Reference to a DataSource in oss to populate datasourceUid.
+// +kubebuilder:validation:Optional
+DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
-	// (String) UID of the datasource to apply permissions to.
-	// UID of the datasource to apply permissions to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=DataSourceRef
-	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
-	// +kubebuilder:validation:Optional
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
+// Selector for a DataSource in oss to populate datasourceUid.
+// +kubebuilder:validation:Optional
+DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) UID of the datasource to apply permissions to.
+// UID of the datasource to apply permissions to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=DataSourceRef
+// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
+// +kubebuilder:validation:Optional
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
-	// The permission items to add/update. Items that are omitted from the list will be removed.
-	// +kubebuilder:validation:Optional
-	Permissions []PermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+
+// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
+// The permission items to add/update. Items that are omitted from the list will be removed.
+// +kubebuilder:validation:Optional
+Permissions []PermissionsParameters `json:"permissions,omitempty" tf:"permissions,omitempty"`
 }
+
 
 type PermissionsInitParameters struct {
 
-	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
-	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
-	BuiltInRole *string `json:"builtInRole,omitempty" tf:"built_in_role,omitempty"`
 
-	// (String) Permission to associate with item. Options: Query, Edit or Admin (Admin can only be used with Grafana v10.3.0+).
-	// Permission to associate with item. Options: `Query`, `Edit` or `Admin` (`Admin` can only be used with Grafana v10.3.0+).
-	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
+BuiltInRole *string `json:"builtInRole,omitempty" tf:"built_in_role,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Defaults to 0.
-	// ID of the team to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
-	// +crossplane:generate:reference:refFieldName=TeamRef
-	// +crossplane:generate:reference:selectorFieldName=TeamSelector
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+// (String) Permission to associate with item. Options: Query, Edit or Admin (Admin can only be used with Grafana v10.3.0+).
+// Permission to associate with item. Options: `Query`, `Edit` or `Admin` (`Admin` can only be used with Grafana v10.3.0+).
+Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// Reference to a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+// (String) ID of the team to manage permissions for. Defaults to 0.
+// ID of the team to manage permissions for. Defaults to `0`.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
+// +crossplane:generate:reference:refFieldName=TeamRef
+// +crossplane:generate:reference:selectorFieldName=TeamSelector
+TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// Selector for a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+// Reference to a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
 
-	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:refFieldName=UserRef
-	// +crossplane:generate:reference:selectorFieldName=UserSelector
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// Selector for a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// Reference to a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+// ID of the user or service account to manage permissions for. Defaults to `0`.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+// +crossplane:generate:reference:refFieldName=UserRef
+// +crossplane:generate:reference:selectorFieldName=UserSelector
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// Selector for a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+// Reference to a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+// Selector for a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
+
 
 type PermissionsObservation struct {
 
-	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
-	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
-	BuiltInRole *string `json:"builtInRole,omitempty" tf:"built_in_role,omitempty"`
 
-	// (String) Permission to associate with item. Options: Query, Edit or Admin (Admin can only be used with Grafana v10.3.0+).
-	// Permission to associate with item. Options: `Query`, `Edit` or `Admin` (`Admin` can only be used with Grafana v10.3.0+).
-	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
+BuiltInRole *string `json:"builtInRole,omitempty" tf:"built_in_role,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Defaults to 0.
-	// ID of the team to manage permissions for. Defaults to `0`.
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+// (String) Permission to associate with item. Options: Query, Edit or Admin (Admin can only be used with Grafana v10.3.0+).
+// Permission to associate with item. Options: `Query`, `Edit` or `Admin` (`Admin` can only be used with Grafana v10.3.0+).
+Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// (String) ID of the team to manage permissions for. Defaults to 0.
+// ID of the team to manage permissions for. Defaults to `0`.
+TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+// ID of the user or service account to manage permissions for. Defaults to `0`.
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
+
 
 type PermissionsParameters struct {
 
-	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
-	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
-	// +kubebuilder:validation:Optional
-	BuiltInRole *string `json:"builtInRole,omitempty" tf:"built_in_role,omitempty"`
 
-	// (String) Permission to associate with item. Options: Query, Edit or Admin (Admin can only be used with Grafana v10.3.0+).
-	// Permission to associate with item. Options: `Query`, `Edit` or `Admin` (`Admin` can only be used with Grafana v10.3.0+).
-	// +kubebuilder:validation:Optional
-	Permission *string `json:"permission" tf:"permission,omitempty"`
+// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
+// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
+// +kubebuilder:validation:Optional
+BuiltInRole *string `json:"builtInRole,omitempty" tf:"built_in_role,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Defaults to 0.
-	// ID of the team to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
-	// +crossplane:generate:reference:refFieldName=TeamRef
-	// +crossplane:generate:reference:selectorFieldName=TeamSelector
-	// +kubebuilder:validation:Optional
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+// (String) Permission to associate with item. Options: Query, Edit or Admin (Admin can only be used with Grafana v10.3.0+).
+// Permission to associate with item. Options: `Query`, `Edit` or `Admin` (`Admin` can only be used with Grafana v10.3.0+).
+// +kubebuilder:validation:Optional
+Permission *string `json:"permission" tf:"permission,omitempty"`
 
-	// Reference to a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+// (String) ID of the team to manage permissions for. Defaults to 0.
+// ID of the team to manage permissions for. Defaults to `0`.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
+// +crossplane:generate:reference:refFieldName=TeamRef
+// +crossplane:generate:reference:selectorFieldName=TeamSelector
+// +kubebuilder:validation:Optional
+TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// Selector for a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+// Reference to a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
 
-	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Defaults to `0`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:refFieldName=UserRef
-	// +crossplane:generate:reference:selectorFieldName=UserSelector
-	// +kubebuilder:validation:Optional
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// Selector for a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// Reference to a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+// (String) ID of the user or service account to manage permissions for. Defaults to 0.
+// ID of the user or service account to manage permissions for. Defaults to `0`.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+// +crossplane:generate:reference:refFieldName=UserRef
+// +crossplane:generate:reference:selectorFieldName=UserSelector
+// +kubebuilder:validation:Optional
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// Selector for a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+// Reference to a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+// Selector for a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // DataSourcePermissionSpec defines the desired state of DataSourcePermission
 type DataSourcePermissionSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     DataSourcePermissionParameters `json:"forProvider"`
+	ForProvider       DataSourcePermissionParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -229,18 +245,19 @@ type DataSourcePermissionSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider DataSourcePermissionInitParameters `json:"initProvider,omitempty"`
+	InitProvider       DataSourcePermissionInitParameters `json:"initProvider,omitempty"`
 }
 
 // DataSourcePermissionStatus defines the observed state of DataSourcePermission.
 type DataSourcePermissionStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        DataSourcePermissionObservation `json:"atProvider,omitempty"`
+	AtProvider          DataSourcePermissionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // DataSourcePermission is the Schema for the DataSourcePermissions API. Manages the entire set of permissions for a datasource. Permissions that aren't specified when applying this resource will be removed. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"

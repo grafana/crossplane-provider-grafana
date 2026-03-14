@@ -11,201 +11,211 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type RoleAssignmentItemInitParameters struct {
 
-	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// Reference to a Role in enterprise to populate roleUid.
-	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// Selector for a Role in enterprise to populate roleUid.
-	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+// Reference to a Role in enterprise to populate roleUid.
+// +kubebuilder:validation:Optional
+RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
 
-	// (String) the role UID onto which to assign an actor
-	// the role UID onto which to assign an actor
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/enterprise/v1alpha1.Role
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=RoleRef
-	// +crossplane:generate:reference:selectorFieldName=RoleSelector
-	RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
+// Selector for a Role in enterprise to populate roleUid.
+// +kubebuilder:validation:Optional
+RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
 
-	// (String) the service account onto which the role is to be assigned
-	// the service account onto which the role is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
-	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
-	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
-	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+// (String) the role UID onto which to assign an actor
+// the role UID onto which to assign an actor
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/enterprise/v1alpha1.Role
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=RoleRef
+// +crossplane:generate:reference:selectorFieldName=RoleSelector
+RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
 
-	// Reference to a ServiceAccount in oss to populate serviceAccountId.
-	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+// (String) the service account onto which the role is to be assigned
+// the service account onto which the role is to be assigned
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
+ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
-	// Selector for a ServiceAccount in oss to populate serviceAccountId.
-	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+// Reference to a ServiceAccount in oss to populate serviceAccountId.
+// +kubebuilder:validation:Optional
+ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
 
-	// (String) the team onto which the role is to be assigned
-	// the team onto which the role is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
-	// +crossplane:generate:reference:refFieldName=TeamRef
-	// +crossplane:generate:reference:selectorFieldName=TeamSelector
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+// Selector for a ServiceAccount in oss to populate serviceAccountId.
+// +kubebuilder:validation:Optional
+ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
-	// Reference to a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+// (String) the team onto which the role is to be assigned
+// the team onto which the role is to be assigned
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
+// +crossplane:generate:reference:refFieldName=TeamRef
+// +crossplane:generate:reference:selectorFieldName=TeamSelector
+TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// Selector for a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+// Reference to a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
 
-	// (String) the user onto which the role is to be assigned
-	// the user onto which the role is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:refFieldName=UserRef
-	// +crossplane:generate:reference:selectorFieldName=UserSelector
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// Selector for a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// Reference to a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+// (String) the user onto which the role is to be assigned
+// the user onto which the role is to be assigned
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+// +crossplane:generate:reference:refFieldName=UserRef
+// +crossplane:generate:reference:selectorFieldName=UserSelector
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// Selector for a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+// Reference to a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+// Selector for a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
+
 
 type RoleAssignmentItemObservation struct {
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) the role UID onto which to assign an actor
-	// the role UID onto which to assign an actor
-	RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
+// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) the service account onto which the role is to be assigned
-	// the service account onto which the role is to be assigned
-	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+// (String) the role UID onto which to assign an actor
+// the role UID onto which to assign an actor
+RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
 
-	// (String) the team onto which the role is to be assigned
-	// the team onto which the role is to be assigned
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+// (String) the service account onto which the role is to be assigned
+// the service account onto which the role is to be assigned
+ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
-	// (String) the user onto which the role is to be assigned
-	// the user onto which the role is to be assigned
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// (String) the team onto which the role is to be assigned
+// the team onto which the role is to be assigned
+TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+// (String) the user onto which the role is to be assigned
+// the user onto which the role is to be assigned
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
+
 
 type RoleAssignmentItemParameters struct {
 
-	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// Reference to a Role in enterprise to populate roleUid.
-	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// Selector for a Role in enterprise to populate roleUid.
-	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+// Reference to a Role in enterprise to populate roleUid.
+// +kubebuilder:validation:Optional
+RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
 
-	// (String) the role UID onto which to assign an actor
-	// the role UID onto which to assign an actor
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/enterprise/v1alpha1.Role
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-	// +crossplane:generate:reference:refFieldName=RoleRef
-	// +crossplane:generate:reference:selectorFieldName=RoleSelector
-	// +kubebuilder:validation:Optional
-	RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
+// Selector for a Role in enterprise to populate roleUid.
+// +kubebuilder:validation:Optional
+RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
 
-	// (String) the service account onto which the role is to be assigned
-	// the service account onto which the role is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
-	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
-	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
-	// +kubebuilder:validation:Optional
-	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+// (String) the role UID onto which to assign an actor
+// the role UID onto which to assign an actor
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/enterprise/v1alpha1.Role
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+// +crossplane:generate:reference:refFieldName=RoleRef
+// +crossplane:generate:reference:selectorFieldName=RoleSelector
+// +kubebuilder:validation:Optional
+RoleUID *string `json:"roleUid,omitempty" tf:"role_uid,omitempty"`
 
-	// Reference to a ServiceAccount in oss to populate serviceAccountId.
-	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+// (String) the service account onto which the role is to be assigned
+// the service account onto which the role is to be assigned
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
+// +kubebuilder:validation:Optional
+ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
-	// Selector for a ServiceAccount in oss to populate serviceAccountId.
-	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+// Reference to a ServiceAccount in oss to populate serviceAccountId.
+// +kubebuilder:validation:Optional
+ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
 
-	// (String) the team onto which the role is to be assigned
-	// the team onto which the role is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
-	// +crossplane:generate:reference:refFieldName=TeamRef
-	// +crossplane:generate:reference:selectorFieldName=TeamSelector
-	// +kubebuilder:validation:Optional
-	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+// Selector for a ServiceAccount in oss to populate serviceAccountId.
+// +kubebuilder:validation:Optional
+ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
-	// Reference to a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+// (String) the team onto which the role is to be assigned
+// the team onto which the role is to be assigned
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
+// +crossplane:generate:reference:refFieldName=TeamRef
+// +crossplane:generate:reference:selectorFieldName=TeamSelector
+// +kubebuilder:validation:Optional
+TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// Selector for a Team in oss to populate teamId.
-	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+// Reference to a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
 
-	// (String) the user onto which the role is to be assigned
-	// the user onto which the role is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
-	// +crossplane:generate:reference:refFieldName=UserRef
-	// +crossplane:generate:reference:selectorFieldName=UserSelector
-	// +kubebuilder:validation:Optional
-	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+// Selector for a Team in oss to populate teamId.
+// +kubebuilder:validation:Optional
+TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// Reference to a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+// (String) the user onto which the role is to be assigned
+// the user onto which the role is to be assigned
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+// +crossplane:generate:reference:refFieldName=UserRef
+// +crossplane:generate:reference:selectorFieldName=UserSelector
+// +kubebuilder:validation:Optional
+UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 
-	// Selector for a User in oss to populate userId.
-	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+// Reference to a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+// Selector for a User in oss to populate userId.
+// +kubebuilder:validation:Optional
+UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // RoleAssignmentItemSpec defines the desired state of RoleAssignmentItem
 type RoleAssignmentItemSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     RoleAssignmentItemParameters `json:"forProvider"`
+	ForProvider       RoleAssignmentItemParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -216,18 +226,19 @@ type RoleAssignmentItemSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider RoleAssignmentItemInitParameters `json:"initProvider,omitempty"`
+	InitProvider       RoleAssignmentItemInitParameters `json:"initProvider,omitempty"`
 }
 
 // RoleAssignmentItemStatus defines the observed state of RoleAssignmentItem.
 type RoleAssignmentItemStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        RoleAssignmentItemObservation `json:"atProvider,omitempty"`
+	AtProvider          RoleAssignmentItemObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // RoleAssignmentItem is the Schema for the RoleAssignmentItems API. Manages a single assignment for a role. Conflicts with the "grafana_role_assignment" resource which manages the entire set of assignments for a role.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"

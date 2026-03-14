@@ -11,1285 +11,1355 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type MatcherInitParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type MatcherObservation struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type MatcherParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	// +kubebuilder:validation:Optional
-	Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	// +kubebuilder:validation:Optional
-	Match *string `json:"match" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+// +kubebuilder:validation:Optional
+Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+// +kubebuilder:validation:Optional
+Match *string `json:"match" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+// +kubebuilder:validation:Optional
+Value *string `json:"value" tf:"value,omitempty"`
 }
+
 
 type NotificationPolicyInitParameters struct {
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The default contact point to route all unmatched notifications to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The default contact point to route all unmatched notifications to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type NotificationPolicyObservation struct {
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The default contact point to route all unmatched notifications to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Defaults to false. Defaults to `false`.
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The default contact point to route all unmatched notifications to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// Defaults to false. Defaults to `false`.
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type NotificationPolicyParameters struct {
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The default contact point to route all unmatched notifications to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The default contact point to route all unmatched notifications to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+// +kubebuilder:validation:Optional
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// Defaults to false. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
-	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// Defaults to false. Defaults to `false`.
+// +kubebuilder:validation:Optional
+DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// +kubebuilder:validation:Optional
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping.
+// +kubebuilder:validation:Optional
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// +kubebuilder:validation:Optional
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// +kubebuilder:validation:Optional
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// +kubebuilder:validation:Optional
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	// +kubebuilder:validation:Optional
-	Policy []PolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	// +kubebuilder:validation:Optional
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+// +kubebuilder:validation:Optional
+Policy []PolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+// +kubebuilder:validation:Optional
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyInitParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []MatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []MatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyMatcherInitParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyMatcherObservation struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyMatcherParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	// +kubebuilder:validation:Optional
-	Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	// +kubebuilder:validation:Optional
-	Match *string `json:"match" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+// +kubebuilder:validation:Optional
+Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+// +kubebuilder:validation:Optional
+Match *string `json:"match" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+// +kubebuilder:validation:Optional
+Value *string `json:"value" tf:"value,omitempty"`
 }
+
 
 type PolicyObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []MatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []MatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// +kubebuilder:validation:Optional
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// +kubebuilder:validation:Optional
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+// +kubebuilder:validation:Optional
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// +kubebuilder:validation:Optional
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// +kubebuilder:validation:Optional
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// +kubebuilder:validation:Optional
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+// +kubebuilder:validation:Optional
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// +kubebuilder:validation:Optional
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// +kubebuilder:validation:Optional
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	// +kubebuilder:validation:Optional
-	Matcher []MatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// +kubebuilder:validation:Optional
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+// +kubebuilder:validation:Optional
+Matcher []MatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	// +kubebuilder:validation:Optional
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	// +kubebuilder:validation:Optional
-	Policy []PolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+// +kubebuilder:validation:Optional
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	// +kubebuilder:validation:Optional
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+// +kubebuilder:validation:Optional
+Policy []PolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+// +kubebuilder:validation:Optional
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyInitParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyMatcherInitParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyMatcherObservation struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyMatcherParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	// +kubebuilder:validation:Optional
-	Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	// +kubebuilder:validation:Optional
-	Match *string `json:"match" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+// +kubebuilder:validation:Optional
+Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+// +kubebuilder:validation:Optional
+Match *string `json:"match" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+// +kubebuilder:validation:Optional
+Value *string `json:"value" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// +kubebuilder:validation:Optional
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// +kubebuilder:validation:Optional
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+// +kubebuilder:validation:Optional
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// +kubebuilder:validation:Optional
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// +kubebuilder:validation:Optional
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// +kubebuilder:validation:Optional
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+// +kubebuilder:validation:Optional
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// +kubebuilder:validation:Optional
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// +kubebuilder:validation:Optional
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	// +kubebuilder:validation:Optional
-	Matcher []PolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// +kubebuilder:validation:Optional
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+// +kubebuilder:validation:Optional
+Matcher []PolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	// +kubebuilder:validation:Optional
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	// +kubebuilder:validation:Optional
-	Policy []PolicyPolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+// +kubebuilder:validation:Optional
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	// +kubebuilder:validation:Optional
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+// +kubebuilder:validation:Optional
+Policy []PolicyPolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+// +kubebuilder:validation:Optional
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyInitParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyPolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyPolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyMatcherInitParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyPolicyMatcherObservation struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyPolicyMatcherParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	// +kubebuilder:validation:Optional
-	Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	// +kubebuilder:validation:Optional
-	Match *string `json:"match" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+// +kubebuilder:validation:Optional
+Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+// +kubebuilder:validation:Optional
+Match *string `json:"match" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+// +kubebuilder:validation:Optional
+Value *string `json:"value" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyPolicyObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyPolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyPolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// +kubebuilder:validation:Optional
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// +kubebuilder:validation:Optional
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+// +kubebuilder:validation:Optional
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// +kubebuilder:validation:Optional
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// +kubebuilder:validation:Optional
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// +kubebuilder:validation:Optional
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+// +kubebuilder:validation:Optional
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// +kubebuilder:validation:Optional
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// +kubebuilder:validation:Optional
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	// +kubebuilder:validation:Optional
-	Matcher []PolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// +kubebuilder:validation:Optional
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+// +kubebuilder:validation:Optional
+Matcher []PolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	// +kubebuilder:validation:Optional
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	// +kubebuilder:validation:Optional
-	Policy []PolicyPolicyPolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+// +kubebuilder:validation:Optional
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	// +kubebuilder:validation:Optional
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+// +kubebuilder:validation:Optional
+Policy []PolicyPolicyPolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+// +kubebuilder:validation:Optional
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyInitParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyPolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyPolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyPolicyPolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyPolicyPolicyPolicyInitParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyMatcherInitParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyMatcherObservation struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	Match *string `json:"match,omitempty" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+Match *string `json:"match,omitempty" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyMatcherParameters struct {
 
-	// (String) The name of the label to match against.
-	// The name of the label to match against.
-	// +kubebuilder:validation:Optional
-	Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
-	// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
-	// +kubebuilder:validation:Optional
-	Match *string `json:"match" tf:"match,omitempty"`
+// (String) The name of the label to match against.
+// The name of the label to match against.
+// +kubebuilder:validation:Optional
+Label *string `json:"label" tf:"label,omitempty"`
 
-	// (String) The label value to match against.
-	// The label value to match against.
-	// +kubebuilder:validation:Optional
-	Value *string `json:"value" tf:"value,omitempty"`
+// (String) The operator to apply when matching values of the given label. Allowed operators are = for equality, != for negated equality, =~ for regex equality, and !~ for negated regex equality.
+// The operator to apply when matching values of the given label. Allowed operators are `=` for equality, `!=` for negated equality, `=~` for regex equality, and `!~` for negated regex equality.
+// +kubebuilder:validation:Optional
+Match *string `json:"match" tf:"match,omitempty"`
+
+// (String) The label value to match against.
+// The label value to match against.
+// +kubebuilder:validation:Optional
+Value *string `json:"value" tf:"value,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyPolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyPolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	Policy []PolicyPolicyPolicyPolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+Policy []PolicyPolicyPolicyPolicyPolicyObservation `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// +kubebuilder:validation:Optional
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=ContactPointRef
-	// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
-	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// +kubebuilder:validation:Optional
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// Reference to a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.ContactPoint
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=ContactPointRef
+// +crossplane:generate:reference:selectorFieldName=ContactPointSelector
+// +kubebuilder:validation:Optional
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// Selector for a ContactPoint in alerting to populate contactPoint.
-	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+// Reference to a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// +kubebuilder:validation:Optional
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// Selector for a ContactPoint in alerting to populate contactPoint.
+// +kubebuilder:validation:Optional
+ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// +kubebuilder:validation:Optional
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// +kubebuilder:validation:Optional
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+// +kubebuilder:validation:Optional
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// +kubebuilder:validation:Optional
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// +kubebuilder:validation:Optional
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	// +kubebuilder:validation:Optional
-	Matcher []PolicyPolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// +kubebuilder:validation:Optional
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// References to MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+// +kubebuilder:validation:Optional
+Matcher []PolicyPolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// Selector for a list of MuteTiming in alerting to populate muteTimings.
-	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+// References to MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
-	// +crossplane:generate:reference:refFieldName=MuteTimingRef
-	// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
-	// +kubebuilder:validation:Optional
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// Selector for a list of MuteTiming in alerting to populate muteTimings.
+// +kubebuilder:validation:Optional
+MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
-	// (Block List) Routing rules for specific label sets. (see below for nested schema)
-	// Routing rules for specific label sets.
-	// +kubebuilder:validation:Optional
-	Policy []PolicyPolicyPolicyPolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/alerting/v1alpha1.MuteTiming
+// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
+// +crossplane:generate:reference:refFieldName=MuteTimingRef
+// +crossplane:generate:reference:selectorFieldName=MuteTimingSelector
+// +kubebuilder:validation:Optional
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	// +kubebuilder:validation:Optional
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (Block List) Routing rules for specific label sets. (see below for nested schema)
+// Routing rules for specific label sets.
+// +kubebuilder:validation:Optional
+Policy []PolicyPolicyPolicyPolicyPolicyParameters `json:"policy,omitempty" tf:"policy,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+// +kubebuilder:validation:Optional
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyPolicyInitParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyPolicyPolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyPolicyPolicyPolicyMatcherInitParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyPolicyObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	Matcher []PolicyPolicyPolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+Matcher []PolicyPolicyPolicyPolicyMatcherObservation `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
+
 
 type PolicyPolicyPolicyPolicyPolicyParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
-	// +kubebuilder:validation:Optional
-	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The default contact point to route all unmatched notifications to.
-	// The contact point to route notifications that match this rule to.
-	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
+// +kubebuilder:validation:Optional
+ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
-	// +kubebuilder:validation:Optional
-	Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
+// (String) The default contact point to route all unmatched notifications to.
+// The contact point to route notifications that match this rule to.
+// +kubebuilder:validation:Optional
+ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
-	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
-	// +kubebuilder:validation:Optional
-	GroupBy []*string `json:"groupBy" tf:"group_by,omitempty"`
+// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
+// +kubebuilder:validation:Optional
+Continue *bool `json:"continue,omitempty" tf:"continue,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// Minimum time interval between two notifications for the same group. Default is 5 minutes.
-	// +kubebuilder:validation:Optional
-	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping.
+// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. Required for root policy only. If empty, the parent grouping is used.
+// +kubebuilder:validation:Optional
+GroupBy []*string `json:"groupBy" tf:"group_by,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
-	// +kubebuilder:validation:Optional
-	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+// (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// Minimum time interval between two notifications for the same group. Default is 5 minutes.
+// +kubebuilder:validation:Optional
+GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
-	// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
-	// +kubebuilder:validation:Optional
-	Matcher []PolicyPolicyPolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
+// (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+// +kubebuilder:validation:Optional
+GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
-	// +kubebuilder:validation:Optional
-	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+// (Block Set) Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances. (see below for nested schema)
+// Describes which labels this rule should match. When multiple matchers are supplied, an alert must match ALL matchers to be accepted by this policy. When no matchers are supplied, the rule will match all alert instances.
+// +kubebuilder:validation:Optional
+Matcher []PolicyPolicyPolicyPolicyMatcherParameters `json:"matcher,omitempty" tf:"matcher,omitempty"`
 
-	// sending a notification if an alert is still firing. Default is 4 hours.
-	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
-	// +kubebuilder:validation:Optional
-	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
+// +kubebuilder:validation:Optional
+MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+// sending a notification if an alert is still firing. Default is 4 hours.
+// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+// +kubebuilder:validation:Optional
+RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
 
 // NotificationPolicySpec defines the desired state of NotificationPolicy
 type NotificationPolicySpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     NotificationPolicyParameters `json:"forProvider"`
+	ForProvider       NotificationPolicyParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1300,18 +1370,19 @@ type NotificationPolicySpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider NotificationPolicyInitParameters `json:"initProvider,omitempty"`
+	InitProvider       NotificationPolicyInitParameters `json:"initProvider,omitempty"`
 }
 
 // NotificationPolicyStatus defines the observed state of NotificationPolicy.
 type NotificationPolicyStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        NotificationPolicyObservation `json:"atProvider,omitempty"`
+	AtProvider          NotificationPolicyObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // NotificationPolicy is the Schema for the NotificationPolicys API. Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree and overwrites its policies. However, it does not overwrite internal policies created when alert rules directly set a contact point for notifications. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -1322,9 +1393,9 @@ type NotificationPolicyStatus struct {
 type NotificationPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupBy) || (has(self.initProvider) && has(self.initProvider.groupBy))",message="spec.forProvider.groupBy is a required parameter"
-	Spec   NotificationPolicySpec   `json:"spec"`
-	Status NotificationPolicyStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.groupBy) || (has(self.initProvider) && has(self.initProvider.groupBy))",message="spec.forProvider.groupBy is a required parameter"
+	Spec              NotificationPolicySpec   `json:"spec"`
+	Status            NotificationPolicyStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

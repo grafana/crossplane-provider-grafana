@@ -11,89 +11,99 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type UserInitParameters struct {
 
-	// (String) The email address of the Grafana user.
-	// The email address of the Grafana user.
-	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (Boolean) Whether to make user an admin. Defaults to false.
-	// Whether to make user an admin. Defaults to `false`.
-	IsAdmin *bool `json:"isAdmin,omitempty" tf:"is_admin,omitempty"`
+// (String) The email address of the Grafana user.
+// The email address of the Grafana user.
+Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) The username for the Grafana user.
-	// The username for the Grafana user.
-	Login *string `json:"login,omitempty" tf:"login,omitempty"`
+// (Boolean) Whether to make user an admin. Defaults to false.
+// Whether to make user an admin. Defaults to `false`.
+IsAdmin *bool `json:"isAdmin,omitempty" tf:"is_admin,omitempty"`
 
-	// (String) The display name for the Grafana user.
-	// The display name for the Grafana user.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The username for the Grafana user.
+// The username for the Grafana user.
+Login *string `json:"login,omitempty" tf:"login,omitempty"`
 
-	// (String, Sensitive) The password for the Grafana user.
-	// The password for the Grafana user.
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+// (String) The display name for the Grafana user.
+// The display name for the Grafana user.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (String, Sensitive) The password for the Grafana user.
+// The password for the Grafana user.
+PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 }
+
 
 type UserObservation struct {
 
-	// (String) The email address of the Grafana user.
-	// The email address of the Grafana user.
-	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (String) The email address of the Grafana user.
+// The email address of the Grafana user.
+Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (Boolean) Whether to make user an admin. Defaults to false.
-	// Whether to make user an admin. Defaults to `false`.
-	IsAdmin *bool `json:"isAdmin,omitempty" tf:"is_admin,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The username for the Grafana user.
-	// The username for the Grafana user.
-	Login *string `json:"login,omitempty" tf:"login,omitempty"`
+// (Boolean) Whether to make user an admin. Defaults to false.
+// Whether to make user an admin. Defaults to `false`.
+IsAdmin *bool `json:"isAdmin,omitempty" tf:"is_admin,omitempty"`
 
-	// (String) The display name for the Grafana user.
-	// The display name for the Grafana user.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The username for the Grafana user.
+// The username for the Grafana user.
+Login *string `json:"login,omitempty" tf:"login,omitempty"`
 
-	// (Number) The numerical ID of the Grafana user.
-	// The numerical ID of the Grafana user.
-	UserID *float64 `json:"userId,omitempty" tf:"user_id,omitempty"`
+// (String) The display name for the Grafana user.
+// The display name for the Grafana user.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Number) The numerical ID of the Grafana user.
+// The numerical ID of the Grafana user.
+UserID *float64 `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
+
 
 type UserParameters struct {
 
-	// (String) The email address of the Grafana user.
-	// The email address of the Grafana user.
-	// +kubebuilder:validation:Optional
-	Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (Boolean) Whether to make user an admin. Defaults to false.
-	// Whether to make user an admin. Defaults to `false`.
-	// +kubebuilder:validation:Optional
-	IsAdmin *bool `json:"isAdmin,omitempty" tf:"is_admin,omitempty"`
+// (String) The email address of the Grafana user.
+// The email address of the Grafana user.
+// +kubebuilder:validation:Optional
+Email *string `json:"email,omitempty" tf:"email,omitempty"`
 
-	// (String) The username for the Grafana user.
-	// The username for the Grafana user.
-	// +kubebuilder:validation:Optional
-	Login *string `json:"login,omitempty" tf:"login,omitempty"`
+// (Boolean) Whether to make user an admin. Defaults to false.
+// Whether to make user an admin. Defaults to `false`.
+// +kubebuilder:validation:Optional
+IsAdmin *bool `json:"isAdmin,omitempty" tf:"is_admin,omitempty"`
 
-	// (String) The display name for the Grafana user.
-	// The display name for the Grafana user.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The username for the Grafana user.
+// The username for the Grafana user.
+// +kubebuilder:validation:Optional
+Login *string `json:"login,omitempty" tf:"login,omitempty"`
 
-	// (String, Sensitive) The password for the Grafana user.
-	// The password for the Grafana user.
-	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+// (String) The display name for the Grafana user.
+// The display name for the Grafana user.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (String, Sensitive) The password for the Grafana user.
+// The password for the Grafana user.
+// +kubebuilder:validation:Optional
+PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 }
 
 // UserSpec defines the desired state of User
 type UserSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     UserParameters `json:"forProvider"`
+	ForProvider       UserParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -104,18 +114,19 @@ type UserSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider UserInitParameters `json:"initProvider,omitempty"`
+	InitProvider       UserInitParameters `json:"initProvider,omitempty"`
 }
 
 // UserStatus defines the observed state of User.
 type UserStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        UserObservation `json:"atProvider,omitempty"`
+	AtProvider          UserObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // User is the Schema for the Users API. Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/user/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth. This resource is also not compatible with Grafana Cloud, as it does not allow basic auth.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -126,10 +137,10 @@ type UserStatus struct {
 type User struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.email) || (has(self.initProvider) && has(self.initProvider.email))",message="spec.forProvider.email is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.passwordSecretRef)",message="spec.forProvider.passwordSecretRef is a required parameter"
-	Spec   UserSpec   `json:"spec"`
-	Status UserStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.email) || (has(self.initProvider) && has(self.initProvider.email))",message="spec.forProvider.email is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.passwordSecretRef)",message="spec.forProvider.passwordSecretRef is a required parameter"
+	Spec              UserSpec   `json:"spec"`
+	Status            UserStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

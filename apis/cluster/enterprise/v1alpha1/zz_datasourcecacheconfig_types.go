@@ -11,124 +11,134 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type DataSourceCacheConfigInitParameters struct {
 
-	// (String) UID of the data source to configure.
-	// UID of the data source to configure.
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (Boolean) Whether caching is enabled for this data source.
-	// Whether caching is enabled for this data source.
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+// (String) UID of the data source to configure.
+// UID of the data source to configure.
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (Boolean) Whether caching is enabled for this data source.
+// Whether caching is enabled for this data source.
+Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
-	// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
-	TTLQueriesMs *float64 `json:"ttlQueriesMs,omitempty" tf:"ttl_queries_ms,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
-	// TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
-	TTLResourcesMs *float64 `json:"ttlResourcesMs,omitempty" tf:"ttl_resources_ms,omitempty"`
+// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+TTLQueriesMs *float64 `json:"ttlQueriesMs,omitempty" tf:"ttl_queries_ms,omitempty"`
 
-	// (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
-	// If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
-	UseDefaultTTL *bool `json:"useDefaultTtl,omitempty" tf:"use_default_ttl,omitempty"`
+// (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+// TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+TTLResourcesMs *float64 `json:"ttlResourcesMs,omitempty" tf:"ttl_resources_ms,omitempty"`
+
+// (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
+// If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
+UseDefaultTTL *bool `json:"useDefaultTtl,omitempty" tf:"use_default_ttl,omitempty"`
 }
+
 
 type DataSourceCacheConfigObservation struct {
 
-	// (String) UID of the data source to configure.
-	// UID of the data source to configure.
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (Boolean) Whether caching is enabled for this data source.
-	// Whether caching is enabled for this data source.
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+// (String) UID of the data source to configure.
+// UID of the data source to configure.
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Boolean) Whether caching is enabled for this data source.
+// Whether caching is enabled for this data source.
+Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
-	// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
-	TTLQueriesMs *float64 `json:"ttlQueriesMs,omitempty" tf:"ttl_queries_ms,omitempty"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
-	// TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
-	TTLResourcesMs *float64 `json:"ttlResourcesMs,omitempty" tf:"ttl_resources_ms,omitempty"`
+// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+TTLQueriesMs *float64 `json:"ttlQueriesMs,omitempty" tf:"ttl_queries_ms,omitempty"`
 
-	// (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
-	// If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
-	UseDefaultTTL *bool `json:"useDefaultTtl,omitempty" tf:"use_default_ttl,omitempty"`
+// (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+// TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+TTLResourcesMs *float64 `json:"ttlResourcesMs,omitempty" tf:"ttl_resources_ms,omitempty"`
+
+// (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
+// If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
+UseDefaultTTL *bool `json:"useDefaultTtl,omitempty" tf:"use_default_ttl,omitempty"`
 }
+
 
 type DataSourceCacheConfigParameters struct {
 
-	// (String) UID of the data source to configure.
-	// UID of the data source to configure.
-	// +kubebuilder:validation:Optional
-	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (Boolean) Whether caching is enabled for this data source.
-	// Whether caching is enabled for this data source.
-	// +kubebuilder:validation:Optional
-	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+// (String) UID of the data source to configure.
+// UID of the data source to configure.
+// +kubebuilder:validation:Optional
+DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-	// +crossplane:generate:reference:refFieldName=OrganizationRef
-	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-	// +kubebuilder:validation:Optional
-	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+// (Boolean) Whether caching is enabled for this data source.
+// Whether caching is enabled for this data source.
+// +kubebuilder:validation:Optional
+Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// Reference to a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+// +crossplane:generate:reference:refFieldName=OrganizationRef
+// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+// +kubebuilder:validation:Optional
+OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// Selector for a Organization in oss to populate orgId.
-	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+// Reference to a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-	// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
-	// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
-	// +kubebuilder:validation:Optional
-	TTLQueriesMs *float64 `json:"ttlQueriesMs,omitempty" tf:"ttl_queries_ms,omitempty"`
+// Selector for a Organization in oss to populate orgId.
+// +kubebuilder:validation:Optional
+OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
-	// TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
-	// +kubebuilder:validation:Optional
-	TTLResourcesMs *float64 `json:"ttlResourcesMs,omitempty" tf:"ttl_resources_ms,omitempty"`
+// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
+// +kubebuilder:validation:Optional
+TTLQueriesMs *float64 `json:"ttlQueriesMs,omitempty" tf:"ttl_queries_ms,omitempty"`
 
-	// (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
-	// If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
-	// +kubebuilder:validation:Optional
-	UseDefaultTTL *bool `json:"useDefaultTtl,omitempty" tf:"use_default_ttl,omitempty"`
+// (Number) TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+// TTL for resource caching, in milliseconds. Ignored if use_default_ttl is true.
+// +kubebuilder:validation:Optional
+TTLResourcesMs *float64 `json:"ttlResourcesMs,omitempty" tf:"ttl_resources_ms,omitempty"`
+
+// (Boolean) If true, use Grafana's default TTLs instead of custom values. Defaults to true.
+// If true, use Grafana's default TTLs instead of custom values. Defaults to `true`.
+// +kubebuilder:validation:Optional
+UseDefaultTTL *bool `json:"useDefaultTtl,omitempty" tf:"use_default_ttl,omitempty"`
 }
 
 // DataSourceCacheConfigSpec defines the desired state of DataSourceCacheConfig
 type DataSourceCacheConfigSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     DataSourceCacheConfigParameters `json:"forProvider"`
+	ForProvider       DataSourceCacheConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -139,18 +149,19 @@ type DataSourceCacheConfigSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider DataSourceCacheConfigInitParameters `json:"initProvider,omitempty"`
+	InitProvider       DataSourceCacheConfigInitParameters `json:"initProvider,omitempty"`
 }
 
 // DataSourceCacheConfigStatus defines the observed state of DataSourceCacheConfig.
 type DataSourceCacheConfigStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        DataSourceCacheConfigObservation `json:"atProvider,omitempty"`
+	AtProvider          DataSourceCacheConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // DataSourceCacheConfig is the Schema for the DataSourceCacheConfigs API. Manages cache configuration for a data source (Grafana Enterprise). Use this resource to enable or disable caching for a particular data source. You can also tune the TTL settings for the cache behaviour, or choose to use defaults. Deleting this resource will cause the cache to be disabled for the target data source.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -161,9 +172,9 @@ type DataSourceCacheConfigStatus struct {
 type DataSourceCacheConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.datasourceUid) || (has(self.initProvider) && has(self.initProvider.datasourceUid))",message="spec.forProvider.datasourceUid is a required parameter"
-	Spec   DataSourceCacheConfigSpec   `json:"spec"`
-	Status DataSourceCacheConfigStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.datasourceUid) || (has(self.initProvider) && has(self.initProvider.datasourceUid))",message="spec.forProvider.datasourceUid is a required parameter"
+	Spec              DataSourceCacheConfigSpec   `json:"spec"`
+	Status            DataSourceCacheConfigStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

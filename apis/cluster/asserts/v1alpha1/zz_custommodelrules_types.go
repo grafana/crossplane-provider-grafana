@@ -11,258 +11,286 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type CustomModelRulesInitParameters struct {
 
-	// (String) The name of the custom model rules.
-	// The name of the custom model rules.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) The rules configuration for the custom model rules. (see below for nested schema)
-	// The rules configuration for the custom model rules.
-	Rules []RulesInitParameters `json:"rules,omitempty" tf:"rules,omitempty"`
+// (String) The name of the custom model rules.
+// The name of the custom model rules.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Block List, Min: 1, Max: 1) The rules configuration for the custom model rules. (see below for nested schema)
+// The rules configuration for the custom model rules.
+Rules []RulesInitParameters `json:"rules,omitempty" tf:"rules,omitempty"`
 }
+
 
 type CustomModelRulesObservation struct {
 
-	// (String) The ID of this resource.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the custom model rules.
-	// The name of the custom model rules.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (String) The ID of this resource.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) The rules configuration for the custom model rules. (see below for nested schema)
-	// The rules configuration for the custom model rules.
-	Rules []RulesObservation `json:"rules,omitempty" tf:"rules,omitempty"`
+// (String) The name of the custom model rules.
+// The name of the custom model rules.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Block List, Min: 1, Max: 1) The rules configuration for the custom model rules. (see below for nested schema)
+// The rules configuration for the custom model rules.
+Rules []RulesObservation `json:"rules,omitempty" tf:"rules,omitempty"`
 }
+
 
 type CustomModelRulesParameters struct {
 
-	// (String) The name of the custom model rules.
-	// The name of the custom model rules.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) The rules configuration for the custom model rules. (see below for nested schema)
-	// The rules configuration for the custom model rules.
-	// +kubebuilder:validation:Optional
-	Rules []RulesParameters `json:"rules,omitempty" tf:"rules,omitempty"`
+// (String) The name of the custom model rules.
+// The name of the custom model rules.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+// (Block List, Min: 1, Max: 1) The rules configuration for the custom model rules. (see below for nested schema)
+// The rules configuration for the custom model rules.
+// +kubebuilder:validation:Optional
+Rules []RulesParameters `json:"rules,omitempty" tf:"rules,omitempty"`
 }
+
 
 type DefinedByInitParameters struct {
 
-	// (Boolean) Whether this entity is disabled.
-	// Whether this rule is disabled. When true, only the 'query' field is used to match an existing rule to disable; other fields are ignored.
-	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Label value mappings for the query.
-	// Label value mappings for the query.
-	// +mapType=granular
-	LabelValues map[string]*string `json:"labelValues,omitempty" tf:"label_values,omitempty"`
+// (Boolean) Whether this entity is disabled.
+// Whether this rule is disabled. When true, only the 'query' field is used to match an existing rule to disable; other fields are ignored.
+Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Literal value mappings for the query.
-	// Literal value mappings for the query.
-	// +mapType=granular
-	Literals map[string]*string `json:"literals,omitempty" tf:"literals,omitempty"`
+// (Map of String) Label value mappings for the query.
+// Label value mappings for the query.
+// +mapType=granular
+LabelValues map[string]*string `json:"labelValues,omitempty" tf:"label_values,omitempty"`
 
-	// (String) Metric value for the query.
-	// Metric value for the query.
-	MetricValue *string `json:"metricValue,omitempty" tf:"metric_value,omitempty"`
+// (Map of String) Literal value mappings for the query.
+// Literal value mappings for the query.
+// +mapType=granular
+Literals map[string]*string `json:"literals,omitempty" tf:"literals,omitempty"`
 
-	// (String) The Prometheus query that defines this entity.
-	// The Prometheus query that defines this entity.
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+// (String) Metric value for the query.
+// Metric value for the query.
+MetricValue *string `json:"metricValue,omitempty" tf:"metric_value,omitempty"`
+
+// (String) The Prometheus query that defines this entity.
+// The Prometheus query that defines this entity.
+Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
+
 
 type DefinedByObservation struct {
 
-	// (Boolean) Whether this entity is disabled.
-	// Whether this rule is disabled. When true, only the 'query' field is used to match an existing rule to disable; other fields are ignored.
-	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Label value mappings for the query.
-	// Label value mappings for the query.
-	// +mapType=granular
-	LabelValues map[string]*string `json:"labelValues,omitempty" tf:"label_values,omitempty"`
+// (Boolean) Whether this entity is disabled.
+// Whether this rule is disabled. When true, only the 'query' field is used to match an existing rule to disable; other fields are ignored.
+Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Literal value mappings for the query.
-	// Literal value mappings for the query.
-	// +mapType=granular
-	Literals map[string]*string `json:"literals,omitempty" tf:"literals,omitempty"`
+// (Map of String) Label value mappings for the query.
+// Label value mappings for the query.
+// +mapType=granular
+LabelValues map[string]*string `json:"labelValues,omitempty" tf:"label_values,omitempty"`
 
-	// (String) Metric value for the query.
-	// Metric value for the query.
-	MetricValue *string `json:"metricValue,omitempty" tf:"metric_value,omitempty"`
+// (Map of String) Literal value mappings for the query.
+// Literal value mappings for the query.
+// +mapType=granular
+Literals map[string]*string `json:"literals,omitempty" tf:"literals,omitempty"`
 
-	// (String) The Prometheus query that defines this entity.
-	// The Prometheus query that defines this entity.
-	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+// (String) Metric value for the query.
+// Metric value for the query.
+MetricValue *string `json:"metricValue,omitempty" tf:"metric_value,omitempty"`
+
+// (String) The Prometheus query that defines this entity.
+// The Prometheus query that defines this entity.
+Query *string `json:"query,omitempty" tf:"query,omitempty"`
 }
+
 
 type DefinedByParameters struct {
 
-	// (Boolean) Whether this entity is disabled.
-	// Whether this rule is disabled. When true, only the 'query' field is used to match an existing rule to disable; other fields are ignored.
-	// +kubebuilder:validation:Optional
-	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Label value mappings for the query.
-	// Label value mappings for the query.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	LabelValues map[string]*string `json:"labelValues,omitempty" tf:"label_values,omitempty"`
+// (Boolean) Whether this entity is disabled.
+// Whether this rule is disabled. When true, only the 'query' field is used to match an existing rule to disable; other fields are ignored.
+// +kubebuilder:validation:Optional
+Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Literal value mappings for the query.
-	// Literal value mappings for the query.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Literals map[string]*string `json:"literals,omitempty" tf:"literals,omitempty"`
+// (Map of String) Label value mappings for the query.
+// Label value mappings for the query.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+LabelValues map[string]*string `json:"labelValues,omitempty" tf:"label_values,omitempty"`
 
-	// (String) Metric value for the query.
-	// Metric value for the query.
-	// +kubebuilder:validation:Optional
-	MetricValue *string `json:"metricValue,omitempty" tf:"metric_value,omitempty"`
+// (Map of String) Literal value mappings for the query.
+// Literal value mappings for the query.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Literals map[string]*string `json:"literals,omitempty" tf:"literals,omitempty"`
 
-	// (String) The Prometheus query that defines this entity.
-	// The Prometheus query that defines this entity.
-	// +kubebuilder:validation:Optional
-	Query *string `json:"query" tf:"query,omitempty"`
+// (String) Metric value for the query.
+// Metric value for the query.
+// +kubebuilder:validation:Optional
+MetricValue *string `json:"metricValue,omitempty" tf:"metric_value,omitempty"`
+
+// (String) The Prometheus query that defines this entity.
+// The Prometheus query that defines this entity.
+// +kubebuilder:validation:Optional
+Query *string `json:"query" tf:"query,omitempty"`
 }
+
 
 type EntityInitParameters struct {
 
-	// (Block List, Min: 1) List of queries that define this entity. (see below for nested schema)
-	// List of queries that define this entity.
-	DefinedBy []DefinedByInitParameters `json:"definedBy,omitempty" tf:"defined_by,omitempty"`
 
-	// (Boolean) Whether this entity is disabled.
-	// Whether this entity is disabled.
-	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
+// (Block List, Min: 1) List of queries that define this entity. (see below for nested schema)
+// List of queries that define this entity.
+DefinedBy []DefinedByInitParameters `json:"definedBy,omitempty" tf:"defined_by,omitempty"`
 
-	// (List of String) List of enrichment sources for the entity.
-	// List of enrichment sources for the entity.
-	EnrichedBy []*string `json:"enrichedBy,omitempty" tf:"enriched_by,omitempty"`
+// (Boolean) Whether this entity is disabled.
+// Whether this entity is disabled.
+Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Lookup mappings for the entity.
-	// Lookup mappings for the entity.
-	// +mapType=granular
-	Lookup map[string]*string `json:"lookup,omitempty" tf:"lookup,omitempty"`
+// (List of String) List of enrichment sources for the entity.
+// List of enrichment sources for the entity.
+EnrichedBy []*string `json:"enrichedBy,omitempty" tf:"enriched_by,omitempty"`
 
-	// (String) The name of the custom model rules.
-	// The name of the entity.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Map of String) Lookup mappings for the entity.
+// Lookup mappings for the entity.
+// +mapType=granular
+Lookup map[string]*string `json:"lookup,omitempty" tf:"lookup,omitempty"`
 
-	// (Map of String) Scope labels for the entity.
-	// Scope labels for the entity.
-	// +mapType=granular
-	Scope map[string]*string `json:"scope,omitempty" tf:"scope,omitempty"`
+// (String) The name of the custom model rules.
+// The name of the entity.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The type of the entity (e.g., Service, Pod, Namespace).
-	// The type of the entity (e.g., Service, Pod, Namespace).
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+// (Map of String) Scope labels for the entity.
+// Scope labels for the entity.
+// +mapType=granular
+Scope map[string]*string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+// (String) The type of the entity (e.g., Service, Pod, Namespace).
+// The type of the entity (e.g., Service, Pod, Namespace).
+Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
+
 
 type EntityObservation struct {
 
-	// (Block List, Min: 1) List of queries that define this entity. (see below for nested schema)
-	// List of queries that define this entity.
-	DefinedBy []DefinedByObservation `json:"definedBy,omitempty" tf:"defined_by,omitempty"`
 
-	// (Boolean) Whether this entity is disabled.
-	// Whether this entity is disabled.
-	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
+// (Block List, Min: 1) List of queries that define this entity. (see below for nested schema)
+// List of queries that define this entity.
+DefinedBy []DefinedByObservation `json:"definedBy,omitempty" tf:"defined_by,omitempty"`
 
-	// (List of String) List of enrichment sources for the entity.
-	// List of enrichment sources for the entity.
-	EnrichedBy []*string `json:"enrichedBy,omitempty" tf:"enriched_by,omitempty"`
+// (Boolean) Whether this entity is disabled.
+// Whether this entity is disabled.
+Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Lookup mappings for the entity.
-	// Lookup mappings for the entity.
-	// +mapType=granular
-	Lookup map[string]*string `json:"lookup,omitempty" tf:"lookup,omitempty"`
+// (List of String) List of enrichment sources for the entity.
+// List of enrichment sources for the entity.
+EnrichedBy []*string `json:"enrichedBy,omitempty" tf:"enriched_by,omitempty"`
 
-	// (String) The name of the custom model rules.
-	// The name of the entity.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Map of String) Lookup mappings for the entity.
+// Lookup mappings for the entity.
+// +mapType=granular
+Lookup map[string]*string `json:"lookup,omitempty" tf:"lookup,omitempty"`
 
-	// (Map of String) Scope labels for the entity.
-	// Scope labels for the entity.
-	// +mapType=granular
-	Scope map[string]*string `json:"scope,omitempty" tf:"scope,omitempty"`
+// (String) The name of the custom model rules.
+// The name of the entity.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The type of the entity (e.g., Service, Pod, Namespace).
-	// The type of the entity (e.g., Service, Pod, Namespace).
-	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+// (Map of String) Scope labels for the entity.
+// Scope labels for the entity.
+// +mapType=granular
+Scope map[string]*string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+// (String) The type of the entity (e.g., Service, Pod, Namespace).
+// The type of the entity (e.g., Service, Pod, Namespace).
+Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
+
 
 type EntityParameters struct {
 
-	// (Block List, Min: 1) List of queries that define this entity. (see below for nested schema)
-	// List of queries that define this entity.
-	// +kubebuilder:validation:Optional
-	DefinedBy []DefinedByParameters `json:"definedBy" tf:"defined_by,omitempty"`
 
-	// (Boolean) Whether this entity is disabled.
-	// Whether this entity is disabled.
-	// +kubebuilder:validation:Optional
-	Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
+// (Block List, Min: 1) List of queries that define this entity. (see below for nested schema)
+// List of queries that define this entity.
+// +kubebuilder:validation:Optional
+DefinedBy []DefinedByParameters `json:"definedBy" tf:"defined_by,omitempty"`
 
-	// (List of String) List of enrichment sources for the entity.
-	// List of enrichment sources for the entity.
-	// +kubebuilder:validation:Optional
-	EnrichedBy []*string `json:"enrichedBy,omitempty" tf:"enriched_by,omitempty"`
+// (Boolean) Whether this entity is disabled.
+// Whether this entity is disabled.
+// +kubebuilder:validation:Optional
+Disabled *bool `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
-	// (Map of String) Lookup mappings for the entity.
-	// Lookup mappings for the entity.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Lookup map[string]*string `json:"lookup,omitempty" tf:"lookup,omitempty"`
+// (List of String) List of enrichment sources for the entity.
+// List of enrichment sources for the entity.
+// +kubebuilder:validation:Optional
+EnrichedBy []*string `json:"enrichedBy,omitempty" tf:"enriched_by,omitempty"`
 
-	// (String) The name of the custom model rules.
-	// The name of the entity.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name" tf:"name,omitempty"`
+// (Map of String) Lookup mappings for the entity.
+// Lookup mappings for the entity.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Lookup map[string]*string `json:"lookup,omitempty" tf:"lookup,omitempty"`
 
-	// (Map of String) Scope labels for the entity.
-	// Scope labels for the entity.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Scope map[string]*string `json:"scope,omitempty" tf:"scope,omitempty"`
+// (String) The name of the custom model rules.
+// The name of the entity.
+// +kubebuilder:validation:Optional
+Name *string `json:"name" tf:"name,omitempty"`
 
-	// (String) The type of the entity (e.g., Service, Pod, Namespace).
-	// The type of the entity (e.g., Service, Pod, Namespace).
-	// +kubebuilder:validation:Optional
-	Type *string `json:"type" tf:"type,omitempty"`
+// (Map of String) Scope labels for the entity.
+// Scope labels for the entity.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Scope map[string]*string `json:"scope,omitempty" tf:"scope,omitempty"`
+
+// (String) The type of the entity (e.g., Service, Pod, Namespace).
+// The type of the entity (e.g., Service, Pod, Namespace).
+// +kubebuilder:validation:Optional
+Type *string `json:"type" tf:"type,omitempty"`
 }
+
 
 type RulesInitParameters struct {
 
-	// (Block List, Min: 1) List of entities to define in the custom model rules. (see below for nested schema)
-	// List of entities to define in the custom model rules.
-	Entity []EntityInitParameters `json:"entity,omitempty" tf:"entity,omitempty"`
+
+// (Block List, Min: 1) List of entities to define in the custom model rules. (see below for nested schema)
+// List of entities to define in the custom model rules.
+Entity []EntityInitParameters `json:"entity,omitempty" tf:"entity,omitempty"`
 }
+
 
 type RulesObservation struct {
 
-	// (Block List, Min: 1) List of entities to define in the custom model rules. (see below for nested schema)
-	// List of entities to define in the custom model rules.
-	Entity []EntityObservation `json:"entity,omitempty" tf:"entity,omitempty"`
+
+// (Block List, Min: 1) List of entities to define in the custom model rules. (see below for nested schema)
+// List of entities to define in the custom model rules.
+Entity []EntityObservation `json:"entity,omitempty" tf:"entity,omitempty"`
 }
+
 
 type RulesParameters struct {
 
-	// (Block List, Min: 1) List of entities to define in the custom model rules. (see below for nested schema)
-	// List of entities to define in the custom model rules.
-	// +kubebuilder:validation:Optional
-	Entity []EntityParameters `json:"entity" tf:"entity,omitempty"`
+
+// (Block List, Min: 1) List of entities to define in the custom model rules. (see below for nested schema)
+// List of entities to define in the custom model rules.
+// +kubebuilder:validation:Optional
+Entity []EntityParameters `json:"entity" tf:"entity,omitempty"`
 }
 
 // CustomModelRulesSpec defines the desired state of CustomModelRules
 type CustomModelRulesSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     CustomModelRulesParameters `json:"forProvider"`
+	ForProvider       CustomModelRulesParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -273,18 +301,19 @@ type CustomModelRulesSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider CustomModelRulesInitParameters `json:"initProvider,omitempty"`
+	InitProvider       CustomModelRulesInitParameters `json:"initProvider,omitempty"`
 }
 
 // CustomModelRulesStatus defines the observed state of CustomModelRules.
 type CustomModelRulesStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        CustomModelRulesObservation `json:"atProvider,omitempty"`
+	AtProvider          CustomModelRulesObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
+
 
 // CustomModelRules is the Schema for the CustomModelRuless API. Manages Knowledge Graph Custom Model Rules through the Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -295,10 +324,10 @@ type CustomModelRulesStatus struct {
 type CustomModelRules struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rules) || (has(self.initProvider) && has(self.initProvider.rules))",message="spec.forProvider.rules is a required parameter"
-	Spec   CustomModelRulesSpec   `json:"spec"`
-	Status CustomModelRulesStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rules) || (has(self.initProvider) && has(self.initProvider.rules))",message="spec.forProvider.rules is a required parameter"
+	Spec              CustomModelRulesSpec   `json:"spec"`
+	Status            CustomModelRulesStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

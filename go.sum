@@ -259,8 +259,8 @@ github.com/grafana/synthetic-monitoring-agent v0.43.1 h1:Qejsuf25yZzdImVLZ6K1f5c
 github.com/grafana/synthetic-monitoring-agent v0.43.1/go.mod h1:HO4es33UF/5b3i4JdUhVcvs9abUXESMjFxnWP8y6KG0=
 github.com/grafana/synthetic-monitoring-api-go-client v0.17.1 h1:6ZQoQVD0sASxe5OVEk/T/YEOYOuilSA434bX4n3SJLQ=
 github.com/grafana/synthetic-monitoring-api-go-client v0.17.1/go.mod h1:3XfDhlxYkC/Apaug0e0vd4wHx8JZJ4k+v5ybny8ZGfc=
-github.com/grafana/terraform-provider-grafana/v4 v4.27.1 h1:UcT3PvSxM2xeCLJx+h4wgqXJf05PWD8WtPiRdiGxN8s=
-github.com/grafana/terraform-provider-grafana/v4 v4.27.1/go.mod h1:gky3V076aZV2BmaHMRq9lfdUQxfDhD4IOx01HnEZtCc=
+github.com/grafana/terraform-provider-grafana/v4 v4.28.0 h1:D24qrbvBRu8qCFECHFZqFtElmptpkwc1+yrJK5beIi0=
+github.com/grafana/terraform-provider-grafana/v4 v4.28.0/go.mod h1:gky3V076aZV2BmaHMRq9lfdUQxfDhD4IOx01HnEZtCc=
 github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9 h1:Pxh+hnc5vuZWnoh5M2GkBJ3OWo9tR985JHDtOfqbdgs=
 github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9/go.mod h1:jDCqvAFLrVEzqE+pywmQ5u18HbJK5j5Jj4cTQpqOLqY=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 h1:QGLs/O40yoNK9vmy4rhUGBVyMf1lISBGtXRpsu/Qu/o=

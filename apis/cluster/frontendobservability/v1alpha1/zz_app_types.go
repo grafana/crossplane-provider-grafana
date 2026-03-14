@@ -11,99 +11,109 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+
 )
+
+
+
 
 type AppInitParameters struct {
 
-	// (List of String) A list of allowed origins for CORS.
-	// A list of allowed origins for CORS.
-	AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
-	// (Map of String) The extra attributes to append in each signal.
-	// The extra attributes to append in each signal.
-	// +mapType=granular
-	ExtraLogAttributes map[string]*string `json:"extraLogAttributes,omitempty" tf:"extra_log_attributes,omitempty"`
+// (List of String) A list of allowed origins for CORS.
+// A list of allowed origins for CORS.
+AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
-	// (String) The name of Frontend Observability App.
-	// The name of Frontend Observability App.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Map of String) The extra attributes to append in each signal.
+// The extra attributes to append in each signal.
+// +mapType=granular
+ExtraLogAttributes map[string]*string `json:"extraLogAttributes,omitempty" tf:"extra_log_attributes,omitempty"`
 
-	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
-	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
-	// +mapType=granular
-	Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
+// (String) The name of Frontend Observability App.
+// The name of Frontend Observability App.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The Stack ID of the Grafana Cloud instance.
-	// The Stack ID of the Grafana Cloud instance.
-	StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
+// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
+// +mapType=granular
+Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
+
+// (Number) The Stack ID of the Grafana Cloud instance.
+// The Stack ID of the Grafana Cloud instance.
+StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
+
 
 type AppObservation struct {
 
-	// (List of String) A list of allowed origins for CORS.
-	// A list of allowed origins for CORS.
-	AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
-	// (String) The collector URL Grafana Cloud Frontend Observability. Use this endpoint to send your Telemetry.
-	// The collector URL Grafana Cloud Frontend Observability. Use this endpoint to send your Telemetry.
-	CollectorEndpoint *string `json:"collectorEndpoint,omitempty" tf:"collector_endpoint,omitempty"`
+// (List of String) A list of allowed origins for CORS.
+// A list of allowed origins for CORS.
+AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
-	// (Map of String) The extra attributes to append in each signal.
-	// The extra attributes to append in each signal.
-	// +mapType=granular
-	ExtraLogAttributes map[string]*string `json:"extraLogAttributes,omitempty" tf:"extra_log_attributes,omitempty"`
+// (String) The collector URL Grafana Cloud Frontend Observability. Use this endpoint to send your Telemetry.
+// The collector URL Grafana Cloud Frontend Observability. Use this endpoint to send your Telemetry.
+CollectorEndpoint *string `json:"collectorEndpoint,omitempty" tf:"collector_endpoint,omitempty"`
 
-	// generated from Frontend Observability API.
-	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+// (Map of String) The extra attributes to append in each signal.
+// The extra attributes to append in each signal.
+// +mapType=granular
+ExtraLogAttributes map[string]*string `json:"extraLogAttributes,omitempty" tf:"extra_log_attributes,omitempty"`
 
-	// (String) The name of Frontend Observability App.
-	// The name of Frontend Observability App.
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// generated from Frontend Observability API.
+ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
-	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
-	// +mapType=granular
-	Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
+// (String) The name of Frontend Observability App.
+// The name of Frontend Observability App.
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The Stack ID of the Grafana Cloud instance.
-	// The Stack ID of the Grafana Cloud instance.
-	StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
+// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
+// +mapType=granular
+Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
+
+// (Number) The Stack ID of the Grafana Cloud instance.
+// The Stack ID of the Grafana Cloud instance.
+StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
+
 
 type AppParameters struct {
 
-	// (List of String) A list of allowed origins for CORS.
-	// A list of allowed origins for CORS.
-	// +kubebuilder:validation:Optional
-	AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
-	// (Map of String) The extra attributes to append in each signal.
-	// The extra attributes to append in each signal.
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	ExtraLogAttributes map[string]*string `json:"extraLogAttributes,omitempty" tf:"extra_log_attributes,omitempty"`
+// (List of String) A list of allowed origins for CORS.
+// A list of allowed origins for CORS.
+// +kubebuilder:validation:Optional
+AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
-	// (String) The name of Frontend Observability App.
-	// The name of Frontend Observability App.
-	// +kubebuilder:validation:Optional
-	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+// (Map of String) The extra attributes to append in each signal.
+// The extra attributes to append in each signal.
+// +kubebuilder:validation:Optional
+// +mapType=granular
+ExtraLogAttributes map[string]*string `json:"extraLogAttributes,omitempty" tf:"extra_log_attributes,omitempty"`
 
-	// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
-	// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
-	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
+// (String) The name of Frontend Observability App.
+// The name of Frontend Observability App.
+// +kubebuilder:validation:Optional
+Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Number) The Stack ID of the Grafana Cloud instance.
-	// The Stack ID of the Grafana Cloud instance.
-	// +kubebuilder:validation:Optional
-	StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+// value settings of the Frontend Observability app. Available Settings: {combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}
+// The key-value settings of the Frontend Observability app. Available Settings: `{combineLabData=(0|1),geolocation.level=(0|1),geolocation.level=0-4,geolocation.country_denylist=<comma-separated-list-of-country-codes>}`
+// +kubebuilder:validation:Optional
+// +mapType=granular
+Settings map[string]*string `json:"settings,omitempty" tf:"settings,omitempty"`
+
+// (Number) The Stack ID of the Grafana Cloud instance.
+// The Stack ID of the Grafana Cloud instance.
+// +kubebuilder:validation:Optional
+StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
 
 // AppSpec defines the desired state of App
 type AppSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider     AppParameters `json:"forProvider"`
+	ForProvider       AppParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -114,20 +124,21 @@ type AppSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider AppInitParameters `json:"initProvider,omitempty"`
+	InitProvider       AppInitParameters `json:"initProvider,omitempty"`
 }
 
 // AppStatus defines the observed state of App.
 type AppStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        AppObservation `json:"atProvider,omitempty"`
+	AtProvider          AppObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// App is the Schema for the Apps API.
+
+// App is the Schema for the Apps API. 
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -136,13 +147,13 @@ type AppStatus struct {
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.allowedOrigins) || (has(self.initProvider) && has(self.initProvider.allowedOrigins))",message="spec.forProvider.allowedOrigins is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.extraLogAttributes) || (has(self.initProvider) && has(self.initProvider.extraLogAttributes))",message="spec.forProvider.extraLogAttributes is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.settings) || (has(self.initProvider) && has(self.initProvider.settings))",message="spec.forProvider.settings is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
-	Spec   AppSpec   `json:"spec"`
-	Status AppStatus `json:"status,omitempty"`
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.allowedOrigins) || (has(self.initProvider) && has(self.initProvider.allowedOrigins))",message="spec.forProvider.allowedOrigins is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.extraLogAttributes) || (has(self.initProvider) && has(self.initProvider.extraLogAttributes))",message="spec.forProvider.extraLogAttributes is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.settings) || (has(self.initProvider) && has(self.initProvider.settings))",message="spec.forProvider.settings is a required parameter"
+// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
+	Spec              AppSpec   `json:"spec"`
+	Status            AppStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
