@@ -11,149 +11,139 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type FolderInitParameters struct {
 
+	// Reference to a Folder in oss to populate parentFolderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-// Reference to a Folder in oss to populate parentFolderUid.
-// +kubebuilder:validation:Optional
-FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	// Selector for a Folder in oss to populate parentFolderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-// Selector for a Folder in oss to populate parentFolderUid.
-// +kubebuilder:validation:Optional
-FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
+	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
+	ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
 
-// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=FolderRef
-// +crossplane:generate:reference:selectorFieldName=FolderSelector
-ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
+	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
+	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
 
-// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
-// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
-PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
+	// (String) The title of the folder.
+	// The title of the folder.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-// (String) The title of the folder.
-// The title of the folder.
-Title *string `json:"title,omitempty" tf:"title,omitempty"`
-
-// (String) Unique identifier.
-// Unique identifier.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) Unique identifier.
+	// Unique identifier.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
-
 
 type FolderObservation struct {
 
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
+	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
+	ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
 
-// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
+	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
+	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
 
-// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
-// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
-PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
+	// (String) The title of the folder.
+	// The title of the folder.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-// (String) The title of the folder.
-// The title of the folder.
-Title *string `json:"title,omitempty" tf:"title,omitempty"`
+	// (String) Unique identifier.
+	// Unique identifier.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-// (String) Unique identifier.
-// Unique identifier.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
-
-// (String) The full URL of the folder.
-// The full URL of the folder.
-URL *string `json:"url,omitempty" tf:"url,omitempty"`
+	// (String) The full URL of the folder.
+	// The full URL of the folder.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
-
 
 type FolderParameters struct {
 
+	// Reference to a Folder in oss to populate parentFolderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-// Reference to a Folder in oss to populate parentFolderUid.
-// +kubebuilder:validation:Optional
-FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	// Selector for a Folder in oss to populate parentFolderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-// Selector for a Folder in oss to populate parentFolderUid.
-// +kubebuilder:validation:Optional
-FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-// +kubebuilder:validation:Optional
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
+	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
+	// +kubebuilder:validation:Optional
+	ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
 
-// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=FolderRef
-// +crossplane:generate:reference:selectorFieldName=FolderSelector
-// +kubebuilder:validation:Optional
-ParentFolderUID *string `json:"parentFolderUid,omitempty" tf:"parent_folder_uid,omitempty"`
+	// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
+	// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
 
-// (Boolean) Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to false.
-// Prevent deletion of the folder if it is not empty (contains dashboards or alert rules). This feature requires Grafana 10.2 or later. Defaults to `false`.
-// +kubebuilder:validation:Optional
-PreventDestroyIfNotEmpty *bool `json:"preventDestroyIfNotEmpty,omitempty" tf:"prevent_destroy_if_not_empty,omitempty"`
+	// (String) The title of the folder.
+	// The title of the folder.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-// (String) The title of the folder.
-// The title of the folder.
-// +kubebuilder:validation:Optional
-Title *string `json:"title,omitempty" tf:"title,omitempty"`
-
-// (String) Unique identifier.
-// Unique identifier.
-// +kubebuilder:validation:Optional
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) Unique identifier.
+	// Unique identifier.
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 // FolderSpec defines the desired state of Folder
 type FolderSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       FolderParameters `json:"forProvider"`
+	ForProvider     FolderParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -164,19 +154,18 @@ type FolderSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       FolderInitParameters `json:"initProvider,omitempty"`
+	InitProvider FolderInitParameters `json:"initProvider,omitempty"`
 }
 
 // FolderStatus defines the observed state of Folder.
 type FolderStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          FolderObservation `json:"atProvider,omitempty"`
+	AtProvider        FolderObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Folder is the Schema for the Folders API. Official documentation https://grafana.com/docs/grafana/latest/dashboards/manage-dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -187,9 +176,9 @@ type FolderStatus struct {
 type Folder struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.title) || (has(self.initProvider) && has(self.initProvider.title))",message="spec.forProvider.title is a required parameter"
-	Spec              FolderSpec   `json:"spec"`
-	Status            FolderStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.title) || (has(self.initProvider) && has(self.initProvider.title))",message="spec.forProvider.title is a required parameter"
+	Spec   FolderSpec   `json:"spec"`
+	Status FolderStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

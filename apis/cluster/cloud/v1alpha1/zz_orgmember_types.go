@@ -11,73 +11,62 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type OrgMemberInitParameters struct {
 
+	// The slug or ID of the organization.
+	Org *string `json:"org,omitempty" tf:"org,omitempty"`
 
-// The slug or ID of the organization.
-Org *string `json:"org,omitempty" tf:"org,omitempty"`
+	// Whether the user should receive billing emails.
+	ReceiveBillingEmails *bool `json:"receiveBillingEmails,omitempty" tf:"receive_billing_emails,omitempty"`
 
-// Whether the user should receive billing emails.
-ReceiveBillingEmails *bool `json:"receiveBillingEmails,omitempty" tf:"receive_billing_emails,omitempty"`
+	// The role to assign to the user in the organization.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-// The role to assign to the user in the organization.
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
-
-// Username or ID of the user to add to the org's members.
-User *string `json:"user,omitempty" tf:"user,omitempty"`
+	// Username or ID of the user to add to the org's members.
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
-
 
 type OrgMemberObservation struct {
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// The slug or ID of the organization.
+	Org *string `json:"org,omitempty" tf:"org,omitempty"`
 
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// Whether the user should receive billing emails.
+	ReceiveBillingEmails *bool `json:"receiveBillingEmails,omitempty" tf:"receive_billing_emails,omitempty"`
 
-// The slug or ID of the organization.
-Org *string `json:"org,omitempty" tf:"org,omitempty"`
+	// The role to assign to the user in the organization.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-// Whether the user should receive billing emails.
-ReceiveBillingEmails *bool `json:"receiveBillingEmails,omitempty" tf:"receive_billing_emails,omitempty"`
-
-// The role to assign to the user in the organization.
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
-
-// Username or ID of the user to add to the org's members.
-User *string `json:"user,omitempty" tf:"user,omitempty"`
+	// Username or ID of the user to add to the org's members.
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
-
 
 type OrgMemberParameters struct {
 
+	// The slug or ID of the organization.
+	// +kubebuilder:validation:Optional
+	Org *string `json:"org,omitempty" tf:"org,omitempty"`
 
-// The slug or ID of the organization.
-// +kubebuilder:validation:Optional
-Org *string `json:"org,omitempty" tf:"org,omitempty"`
+	// Whether the user should receive billing emails.
+	// +kubebuilder:validation:Optional
+	ReceiveBillingEmails *bool `json:"receiveBillingEmails,omitempty" tf:"receive_billing_emails,omitempty"`
 
-// Whether the user should receive billing emails.
-// +kubebuilder:validation:Optional
-ReceiveBillingEmails *bool `json:"receiveBillingEmails,omitempty" tf:"receive_billing_emails,omitempty"`
+	// The role to assign to the user in the organization.
+	// +kubebuilder:validation:Optional
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-// The role to assign to the user in the organization.
-// +kubebuilder:validation:Optional
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
-
-// Username or ID of the user to add to the org's members.
-// +kubebuilder:validation:Optional
-User *string `json:"user,omitempty" tf:"user,omitempty"`
+	// Username or ID of the user to add to the org's members.
+	// +kubebuilder:validation:Optional
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
 
 // OrgMemberSpec defines the desired state of OrgMember
 type OrgMemberSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       OrgMemberParameters `json:"forProvider"`
+	ForProvider     OrgMemberParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -88,19 +77,18 @@ type OrgMemberSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       OrgMemberInitParameters `json:"initProvider,omitempty"`
+	InitProvider OrgMemberInitParameters `json:"initProvider,omitempty"`
 }
 
 // OrgMemberStatus defines the observed state of OrgMember.
 type OrgMemberStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          OrgMemberObservation `json:"atProvider,omitempty"`
+	AtProvider        OrgMemberObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // OrgMember is the Schema for the OrgMembers API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -111,11 +99,11 @@ type OrgMemberStatus struct {
 type OrgMember struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.org) || (has(self.initProvider) && has(self.initProvider.org))",message="spec.forProvider.org is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.user) || (has(self.initProvider) && has(self.initProvider.user))",message="spec.forProvider.user is a required parameter"
-	Spec              OrgMemberSpec   `json:"spec"`
-	Status            OrgMemberStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.org) || (has(self.initProvider) && has(self.initProvider.org))",message="spec.forProvider.org is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.user) || (has(self.initProvider) && has(self.initProvider.user))",message="spec.forProvider.user is a required parameter"
+	Spec   OrgMemberSpec   `json:"spec"`
+	Status OrgMemberStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

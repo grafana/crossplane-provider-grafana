@@ -1,0 +1,118 @@
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: DashboardPublic
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpublic
+  labels:
+    testing.upbound.io/example-name: my_public_dashboard
+  name: my-public-dashboard
+  namespace: upbound-system
+spec:
+  forProvider:
+    accessToken: e99e4275da6f410d83760eefa934d8d2
+    annotationsEnabled: true
+    dashboardSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_dash
+    isEnabled: true
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_org
+    share: public
+    timeSelectionEnabled: true
+    uid: my-custom-public-uid
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpublic
+  labels:
+    testing.upbound.io/example-name: test_dash
+  name: test-dash
+  namespace: upbound-system
+spec:
+  forProvider:
+    configJson: |-
+      ${jsonencode({
+          "title" : "My Terraform Dashboard",
+          "uid" : "my-dashboard-uid"
+        })}
+    folderSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_folder
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_org
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpublic
+  labels:
+    testing.upbound.io/example-name: test_dash2
+  name: test-dash2
+  namespace: upbound-system
+spec:
+  forProvider:
+    configJson: |-
+      ${jsonencode({
+          "title" : "My Terraform Dashboard2",
+          "uid" : "my-dashboard-uid2"
+        })}
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_org2
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpublic
+  labels:
+    testing.upbound.io/example-name: my_folder
+  name: my-folder
+  namespace: upbound-system
+spec:
+  forProvider:
+    organizationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_org
+    title: test Folder
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpublic
+  labels:
+    testing.upbound.io/example-name: my_org
+  name: my-org
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: test 1
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardpublic
+  labels:
+    testing.upbound.io/example-name: my_org2
+  name: my-org2
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: test 2

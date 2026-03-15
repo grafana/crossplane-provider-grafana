@@ -11,95 +11,85 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type InstallationInitParameters struct {
 
+	// (String, Sensitive) The Grafana Cloud access policy.
+	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
+	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
 
-// (String, Sensitive) The Grafana Cloud access policy.
-// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
-CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	// (String, Sensitive) The service account token.
+	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
+	GrafanaSaTokenSecretRef v1.SecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
 
-// (String, Sensitive) The service account token.
-// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
-GrafanaSaTokenSecretRef v1.SecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
+	// (String) The user to use for the installation.
+	// The user to use for the installation.
+	GrafanaUser *string `json:"grafanaUser,omitempty" tf:"grafana_user,omitempty"`
 
-// (String) The user to use for the installation.
-// The user to use for the installation.
-GrafanaUser *string `json:"grafanaUser,omitempty" tf:"grafana_user,omitempty"`
+	// (String) The Grafana Cloud k6 API url.
+	// The Grafana Cloud k6 API url.
+	K6APIURL *string `json:"k6ApiUrl,omitempty" tf:"k6_api_url,omitempty"`
 
-// (String) The Grafana Cloud k6 API url.
-// The Grafana Cloud k6 API url.
-K6APIURL *string `json:"k6ApiUrl,omitempty" tf:"k6_api_url,omitempty"`
-
-// (String) The identifier of the stack to install k6 on.
-// The identifier of the stack to install k6 on.
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+	// (String) The identifier of the stack to install k6 on.
+	// The identifier of the stack to install k6 on.
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
-
 
 type InstallationObservation struct {
 
+	// (String) The user to use for the installation.
+	// The user to use for the installation.
+	GrafanaUser *string `json:"grafanaUser,omitempty" tf:"grafana_user,omitempty"`
 
-// (String) The user to use for the installation.
-// The user to use for the installation.
-GrafanaUser *string `json:"grafanaUser,omitempty" tf:"grafana_user,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The Grafana Cloud k6 API url.
+	// The Grafana Cloud k6 API url.
+	K6APIURL *string `json:"k6ApiUrl,omitempty" tf:"k6_api_url,omitempty"`
 
-// (String) The Grafana Cloud k6 API url.
-// The Grafana Cloud k6 API url.
-K6APIURL *string `json:"k6ApiUrl,omitempty" tf:"k6_api_url,omitempty"`
+	// (String) The identifier of the k6 organization.
+	// The identifier of the k6 organization.
+	K6Organization *string `json:"k6Organization,omitempty" tf:"k6_organization,omitempty"`
 
-// (String) The identifier of the k6 organization.
-// The identifier of the k6 organization.
-K6Organization *string `json:"k6Organization,omitempty" tf:"k6_organization,omitempty"`
-
-// (String) The identifier of the stack to install k6 on.
-// The identifier of the stack to install k6 on.
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+	// (String) The identifier of the stack to install k6 on.
+	// The identifier of the stack to install k6 on.
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
-
 
 type InstallationParameters struct {
 
+	// (String, Sensitive) The Grafana Cloud access policy.
+	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
+	// +kubebuilder:validation:Optional
+	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
 
-// (String, Sensitive) The Grafana Cloud access policy.
-// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
-// +kubebuilder:validation:Optional
-CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	// (String, Sensitive) The service account token.
+	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
+	// +kubebuilder:validation:Optional
+	GrafanaSaTokenSecretRef v1.SecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
 
-// (String, Sensitive) The service account token.
-// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
-// +kubebuilder:validation:Optional
-GrafanaSaTokenSecretRef v1.SecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
+	// (String) The user to use for the installation.
+	// The user to use for the installation.
+	// +kubebuilder:validation:Optional
+	GrafanaUser *string `json:"grafanaUser,omitempty" tf:"grafana_user,omitempty"`
 
-// (String) The user to use for the installation.
-// The user to use for the installation.
-// +kubebuilder:validation:Optional
-GrafanaUser *string `json:"grafanaUser,omitempty" tf:"grafana_user,omitempty"`
+	// (String) The Grafana Cloud k6 API url.
+	// The Grafana Cloud k6 API url.
+	// +kubebuilder:validation:Optional
+	K6APIURL *string `json:"k6ApiUrl,omitempty" tf:"k6_api_url,omitempty"`
 
-// (String) The Grafana Cloud k6 API url.
-// The Grafana Cloud k6 API url.
-// +kubebuilder:validation:Optional
-K6APIURL *string `json:"k6ApiUrl,omitempty" tf:"k6_api_url,omitempty"`
-
-// (String) The identifier of the stack to install k6 on.
-// The identifier of the stack to install k6 on.
-// +kubebuilder:validation:Optional
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+	// (String) The identifier of the stack to install k6 on.
+	// The identifier of the stack to install k6 on.
+	// +kubebuilder:validation:Optional
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
 
 // InstallationSpec defines the desired state of Installation
 type InstallationSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       InstallationParameters `json:"forProvider"`
+	ForProvider     InstallationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -110,19 +100,18 @@ type InstallationSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       InstallationInitParameters `json:"initProvider,omitempty"`
+	InitProvider InstallationInitParameters `json:"initProvider,omitempty"`
 }
 
 // InstallationStatus defines the observed state of Installation.
 type InstallationStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          InstallationObservation `json:"atProvider,omitempty"`
+	AtProvider        InstallationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Installation is the Schema for the Installations API. Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ Required access policy scopes: stacks:readstacks:writesubscriptions:readorgs:readstack-service-accounts:write
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -133,12 +122,12 @@ type InstallationStatus struct {
 type Installation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccessPolicyTokenSecretRef)",message="spec.forProvider.cloudAccessPolicyTokenSecretRef is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaSaTokenSecretRef)",message="spec.forProvider.grafanaSaTokenSecretRef is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaUser) || (has(self.initProvider) && has(self.initProvider.grafanaUser))",message="spec.forProvider.grafanaUser is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
-	Spec              InstallationSpec   `json:"spec"`
-	Status            InstallationStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccessPolicyTokenSecretRef)",message="spec.forProvider.cloudAccessPolicyTokenSecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaSaTokenSecretRef)",message="spec.forProvider.grafanaSaTokenSecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaUser) || (has(self.initProvider) && has(self.initProvider.grafanaUser))",message="spec.forProvider.grafanaUser is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
+	Spec   InstallationSpec   `json:"spec"`
+	Status InstallationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

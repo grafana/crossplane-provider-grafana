@@ -1,0 +1,28 @@
+apiVersion: asserts.grafana.m.crossplane.io/v1alpha1
+kind: Thresholds
+metadata:
+  annotations:
+    meta.upbound.io/example-id: asserts/v1alpha1/thresholds
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: upbound-system
+spec:
+  forProvider:
+    healthThresholds:
+    - assertionName: ServiceDown
+      entityType: Service
+      expression: up < 1
+    requestThresholds:
+    - assertionName: ErrorRatioBreach
+      entityName: payment-service
+      requestContext: /charge
+      requestType: inbound
+      value: 0.01
+    resourceThresholds:
+    - assertionName: Saturation
+      containerName: worker
+      resourceType: container
+      severity: warning
+      source: metrics
+      value: 75

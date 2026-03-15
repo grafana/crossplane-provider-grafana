@@ -10,279 +10,251 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
-
-
-
 
 type DatasetInitParameters struct {
 
+	// (List of String) List of vendors to disable for this dataset.
+	// List of vendors to disable for this dataset.
+	DisabledVendors []*string `json:"disabledVendors,omitempty" tf:"disabled_vendors,omitempty"`
 
-// (List of String) List of vendors to disable for this dataset.
-// List of vendors to disable for this dataset.
-DisabledVendors []*string `json:"disabledVendors,omitempty" tf:"disabled_vendors,omitempty"`
+	// (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
+	// Filter groups for this dataset. Use when you need custom label mappings.
+	FilterGroup []FilterGroupInitParameters `json:"filterGroup,omitempty" tf:"filter_group,omitempty"`
 
-// (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
-// Filter groups for this dataset. Use when you need custom label mappings.
-FilterGroup []FilterGroupInitParameters `json:"filterGroup,omitempty" tf:"filter_group,omitempty"`
-
-// (String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.
-// The dataset type. Available types: `kubernetes`, `otel` (App O11y), `prometheus`, `aws`. Note: `kubernetes` requires K8s Monitoring to be enabled, and `otel` requires Application Observability to be enabled on the stack.
-Type *string `json:"type,omitempty" tf:"type,omitempty"`
+	// (String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.
+	// The dataset type. Available types: `kubernetes`, `otel` (App O11y), `prometheus`, `aws`. Note: `kubernetes` requires K8s Monitoring to be enabled, and `otel` requires Application Observability to be enabled on the stack.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
-
 
 type DatasetObservation struct {
 
+	// (List of String) List of vendors to disable for this dataset.
+	// List of vendors to disable for this dataset.
+	DisabledVendors []*string `json:"disabledVendors,omitempty" tf:"disabled_vendors,omitempty"`
 
-// (List of String) List of vendors to disable for this dataset.
-// List of vendors to disable for this dataset.
-DisabledVendors []*string `json:"disabledVendors,omitempty" tf:"disabled_vendors,omitempty"`
+	// (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
+	// Filter groups for this dataset. Use when you need custom label mappings.
+	FilterGroup []FilterGroupObservation `json:"filterGroup,omitempty" tf:"filter_group,omitempty"`
 
-// (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
-// Filter groups for this dataset. Use when you need custom label mappings.
-FilterGroup []FilterGroupObservation `json:"filterGroup,omitempty" tf:"filter_group,omitempty"`
-
-// (String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.
-// The dataset type. Available types: `kubernetes`, `otel` (App O11y), `prometheus`, `aws`. Note: `kubernetes` requires K8s Monitoring to be enabled, and `otel` requires Application Observability to be enabled on the stack.
-Type *string `json:"type,omitempty" tf:"type,omitempty"`
+	// (String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.
+	// The dataset type. Available types: `kubernetes`, `otel` (App O11y), `prometheus`, `aws`. Note: `kubernetes` requires K8s Monitoring to be enabled, and `otel` requires Application Observability to be enabled on the stack.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
-
 
 type DatasetParameters struct {
 
+	// (List of String) List of vendors to disable for this dataset.
+	// List of vendors to disable for this dataset.
+	// +kubebuilder:validation:Optional
+	DisabledVendors []*string `json:"disabledVendors,omitempty" tf:"disabled_vendors,omitempty"`
 
-// (List of String) List of vendors to disable for this dataset.
-// List of vendors to disable for this dataset.
-// +kubebuilder:validation:Optional
-DisabledVendors []*string `json:"disabledVendors,omitempty" tf:"disabled_vendors,omitempty"`
+	// (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
+	// Filter groups for this dataset. Use when you need custom label mappings.
+	// +kubebuilder:validation:Optional
+	FilterGroup []FilterGroupParameters `json:"filterGroup,omitempty" tf:"filter_group,omitempty"`
 
-// (Block List) Filter groups for this dataset. Use when you need custom label mappings. (see below for nested schema)
-// Filter groups for this dataset. Use when you need custom label mappings.
-// +kubebuilder:validation:Optional
-FilterGroup []FilterGroupParameters `json:"filterGroup,omitempty" tf:"filter_group,omitempty"`
-
-// (String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.
-// The dataset type. Available types: `kubernetes`, `otel` (App O11y), `prometheus`, `aws`. Note: `kubernetes` requires K8s Monitoring to be enabled, and `otel` requires Application Observability to be enabled on the stack.
-// +kubebuilder:validation:Optional
-Type *string `json:"type" tf:"type,omitempty"`
+	// (String) The dataset type. Available types: kubernetes, otel (App O11y), prometheus, aws. Note: kubernetes requires K8s Monitoring to be enabled, and otel requires Application Observability to be enabled on the stack.
+	// The dataset type. Available types: `kubernetes`, `otel` (App O11y), `prometheus`, `aws`. Note: `kubernetes` requires K8s Monitoring to be enabled, and `otel` requires Application Observability to be enabled on the stack.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type" tf:"type,omitempty"`
 }
-
 
 type FilterGroupInitParameters struct {
 
+	// (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
+	// The metric label name used for environment (e.g., `env`, `environment`, `deployment_environment`). Defaults to standard labels if not set.
+	EnvLabel *string `json:"envLabel,omitempty" tf:"env_label,omitempty"`
 
-// (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
-// The metric label name used for environment (e.g., `env`, `environment`, `deployment_environment`). Defaults to standard labels if not set.
-EnvLabel *string `json:"envLabel,omitempty" tf:"env_label,omitempty"`
+	// (List of String) Specific values of the environment label to match.
+	// Specific values of the environment label to match.
+	EnvLabelValues []*string `json:"envLabelValues,omitempty" tf:"env_label_values,omitempty"`
 
-// (List of String) Specific values of the environment label to match.
-// Specific values of the environment label to match.
-EnvLabelValues []*string `json:"envLabelValues,omitempty" tf:"env_label_values,omitempty"`
+	// (String) A friendly name for the environment.
+	// A friendly name for the environment.
+	EnvName *string `json:"envName,omitempty" tf:"env_name,omitempty"`
 
-// (String) A friendly name for the environment.
-// A friendly name for the environment.
-EnvName *string `json:"envName,omitempty" tf:"env_name,omitempty"`
+	// (Block List) Additional metric filters. (see below for nested schema)
+	// Additional metric filters.
+	Filter []FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-// (Block List) Additional metric filters. (see below for nested schema)
-// Additional metric filters.
-Filter []FilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+	// (String) The metric label name used for site/cluster.
+	// The metric label name used for site/cluster.
+	SiteLabel *string `json:"siteLabel,omitempty" tf:"site_label,omitempty"`
 
-// (String) The metric label name used for site/cluster.
-// The metric label name used for site/cluster.
-SiteLabel *string `json:"siteLabel,omitempty" tf:"site_label,omitempty"`
-
-// (List of String) Specific values of the site label to match.
-// Specific values of the site label to match.
-SiteLabelValues []*string `json:"siteLabelValues,omitempty" tf:"site_label_values,omitempty"`
+	// (List of String) Specific values of the site label to match.
+	// Specific values of the site label to match.
+	SiteLabelValues []*string `json:"siteLabelValues,omitempty" tf:"site_label_values,omitempty"`
 }
-
 
 type FilterGroupObservation struct {
 
+	// (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
+	// The metric label name used for environment (e.g., `env`, `environment`, `deployment_environment`). Defaults to standard labels if not set.
+	EnvLabel *string `json:"envLabel,omitempty" tf:"env_label,omitempty"`
 
-// (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
-// The metric label name used for environment (e.g., `env`, `environment`, `deployment_environment`). Defaults to standard labels if not set.
-EnvLabel *string `json:"envLabel,omitempty" tf:"env_label,omitempty"`
+	// (List of String) Specific values of the environment label to match.
+	// Specific values of the environment label to match.
+	EnvLabelValues []*string `json:"envLabelValues,omitempty" tf:"env_label_values,omitempty"`
 
-// (List of String) Specific values of the environment label to match.
-// Specific values of the environment label to match.
-EnvLabelValues []*string `json:"envLabelValues,omitempty" tf:"env_label_values,omitempty"`
+	// (String) A friendly name for the environment.
+	// A friendly name for the environment.
+	EnvName *string `json:"envName,omitempty" tf:"env_name,omitempty"`
 
-// (String) A friendly name for the environment.
-// A friendly name for the environment.
-EnvName *string `json:"envName,omitempty" tf:"env_name,omitempty"`
+	// (Block List) Additional metric filters. (see below for nested schema)
+	// Additional metric filters.
+	Filter []FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
 
-// (Block List) Additional metric filters. (see below for nested schema)
-// Additional metric filters.
-Filter []FilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
+	// (String) The metric label name used for site/cluster.
+	// The metric label name used for site/cluster.
+	SiteLabel *string `json:"siteLabel,omitempty" tf:"site_label,omitempty"`
 
-// (String) The metric label name used for site/cluster.
-// The metric label name used for site/cluster.
-SiteLabel *string `json:"siteLabel,omitempty" tf:"site_label,omitempty"`
-
-// (List of String) Specific values of the site label to match.
-// Specific values of the site label to match.
-SiteLabelValues []*string `json:"siteLabelValues,omitempty" tf:"site_label_values,omitempty"`
+	// (List of String) Specific values of the site label to match.
+	// Specific values of the site label to match.
+	SiteLabelValues []*string `json:"siteLabelValues,omitempty" tf:"site_label_values,omitempty"`
 }
-
 
 type FilterGroupParameters struct {
 
+	// (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
+	// The metric label name used for environment (e.g., `env`, `environment`, `deployment_environment`). Defaults to standard labels if not set.
+	// +kubebuilder:validation:Optional
+	EnvLabel *string `json:"envLabel,omitempty" tf:"env_label,omitempty"`
 
-// (String) The metric label name used for environment (e.g., env, environment, deployment_environment). Defaults to standard labels if not set.
-// The metric label name used for environment (e.g., `env`, `environment`, `deployment_environment`). Defaults to standard labels if not set.
-// +kubebuilder:validation:Optional
-EnvLabel *string `json:"envLabel,omitempty" tf:"env_label,omitempty"`
+	// (List of String) Specific values of the environment label to match.
+	// Specific values of the environment label to match.
+	// +kubebuilder:validation:Optional
+	EnvLabelValues []*string `json:"envLabelValues,omitempty" tf:"env_label_values,omitempty"`
 
-// (List of String) Specific values of the environment label to match.
-// Specific values of the environment label to match.
-// +kubebuilder:validation:Optional
-EnvLabelValues []*string `json:"envLabelValues,omitempty" tf:"env_label_values,omitempty"`
+	// (String) A friendly name for the environment.
+	// A friendly name for the environment.
+	// +kubebuilder:validation:Optional
+	EnvName *string `json:"envName,omitempty" tf:"env_name,omitempty"`
 
-// (String) A friendly name for the environment.
-// A friendly name for the environment.
-// +kubebuilder:validation:Optional
-EnvName *string `json:"envName,omitempty" tf:"env_name,omitempty"`
+	// (Block List) Additional metric filters. (see below for nested schema)
+	// Additional metric filters.
+	// +kubebuilder:validation:Optional
+	Filter []FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
-// (Block List) Additional metric filters. (see below for nested schema)
-// Additional metric filters.
-// +kubebuilder:validation:Optional
-Filter []FilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
+	// (String) The metric label name used for site/cluster.
+	// The metric label name used for site/cluster.
+	// +kubebuilder:validation:Optional
+	SiteLabel *string `json:"siteLabel,omitempty" tf:"site_label,omitempty"`
 
-// (String) The metric label name used for site/cluster.
-// The metric label name used for site/cluster.
-// +kubebuilder:validation:Optional
-SiteLabel *string `json:"siteLabel,omitempty" tf:"site_label,omitempty"`
-
-// (List of String) Specific values of the site label to match.
-// Specific values of the site label to match.
-// +kubebuilder:validation:Optional
-SiteLabelValues []*string `json:"siteLabelValues,omitempty" tf:"site_label_values,omitempty"`
+	// (List of String) Specific values of the site label to match.
+	// Specific values of the site label to match.
+	// +kubebuilder:validation:Optional
+	SiteLabelValues []*string `json:"siteLabelValues,omitempty" tf:"site_label_values,omitempty"`
 }
-
 
 type FilterInitParameters struct {
 
+	// (String) The label name to filter on.
+	// The label name to filter on.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The label name to filter on.
-// The label name to filter on.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The filter operator (e.g., =, !=, =~, !~).
+	// The filter operator (e.g., `=`, `!=`, `=~`, `!~`).
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
-// (String) The filter operator (e.g., =, !=, =~, !~).
-// The filter operator (e.g., `=`, `!=`, `=~`, `!~`).
-Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
-
-// (List of String) The values to match.
-// The values to match.
-Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+	// (List of String) The values to match.
+	// The values to match.
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
-
 
 type FilterObservation struct {
 
+	// (String) The label name to filter on.
+	// The label name to filter on.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The label name to filter on.
-// The label name to filter on.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The filter operator (e.g., =, !=, =~, !~).
+	// The filter operator (e.g., `=`, `!=`, `=~`, `!~`).
+	Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
 
-// (String) The filter operator (e.g., =, !=, =~, !~).
-// The filter operator (e.g., `=`, `!=`, `=~`, `!~`).
-Operator *string `json:"operator,omitempty" tf:"operator,omitempty"`
-
-// (List of String) The values to match.
-// The values to match.
-Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+	// (List of String) The values to match.
+	// The values to match.
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
-
 
 type FilterParameters struct {
 
+	// (String) The label name to filter on.
+	// The label name to filter on.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
 
-// (String) The label name to filter on.
-// The label name to filter on.
-// +kubebuilder:validation:Optional
-Name *string `json:"name" tf:"name,omitempty"`
+	// (String) The filter operator (e.g., =, !=, =~, !~).
+	// The filter operator (e.g., `=`, `!=`, `=~`, `!~`).
+	// +kubebuilder:validation:Optional
+	Operator *string `json:"operator" tf:"operator,omitempty"`
 
-// (String) The filter operator (e.g., =, !=, =~, !~).
-// The filter operator (e.g., `=`, `!=`, `=~`, `!~`).
-// +kubebuilder:validation:Optional
-Operator *string `json:"operator" tf:"operator,omitempty"`
-
-// (List of String) The values to match.
-// The values to match.
-// +kubebuilder:validation:Optional
-Values []*string `json:"values" tf:"values,omitempty"`
+	// (List of String) The values to match.
+	// The values to match.
+	// +kubebuilder:validation:Optional
+	Values []*string `json:"values" tf:"values,omitempty"`
 }
-
 
 type StackInitParameters struct {
 
+	// (String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
+	// A Grafana Cloud Access Policy token with the following scopes: `stacks:read`, `metrics:read`, `metrics:write`. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
+	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
 
-// (String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
-// A Grafana Cloud Access Policy token with the following scopes: `stacks:read`, `metrics:read`, `metrics:write`. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
-CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
+	// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
+	Dataset []DatasetInitParameters `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
-// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
-Dataset []DatasetInitParameters `json:"dataset,omitempty" tf:"dataset,omitempty"`
-
-// (String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.
-// A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: `dashboards:create`, `dashboards:write`, `dashboards:read`, `folders:create`, `folders:write`, `folders:read`, `folders:delete`, `datasources:read`, `datasources:query`, `alert.provisioning:write`, `alert.notifications.provisioning:write`, `alert.notifications:write`, `alert.rules:read`, `alert.rules:create`, `alert.rules:delete`. Create using `grafana_cloud_stack_service_account_token` resource.
-GrafanaTokenSecretRef *v1.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
+	// (String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.
+	// A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: `dashboards:create`, `dashboards:write`, `dashboards:read`, `folders:create`, `folders:write`, `folders:read`, `folders:delete`, `datasources:read`, `datasources:query`, `alert.provisioning:write`, `alert.notifications.provisioning:write`, `alert.notifications:write`, `alert.rules:read`, `alert.rules:create`, `alert.rules:delete`. Create using `grafana_cloud_stack_service_account_token` resource.
+	GrafanaTokenSecretRef *v1.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
 }
-
 
 type StackObservation struct {
 
+	// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
+	// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
+	Dataset []DatasetObservation `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
-// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
-Dataset []DatasetObservation `json:"dataset,omitempty" tf:"dataset,omitempty"`
+	// (Boolean) Whether the stack is currently enabled.
+	// Whether the stack is currently enabled.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-// (Boolean) Whether the stack is currently enabled.
-// Whether the stack is currently enabled.
-Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) Current onboarding status of the stack.
+	// Current onboarding status of the stack.
+	Status *string `json:"status,omitempty" tf:"status,omitempty"`
 
-// (String) Current onboarding status of the stack.
-// Current onboarding status of the stack.
-Status *string `json:"status,omitempty" tf:"status,omitempty"`
-
-// (Number) Configuration version number.
-// Configuration version number.
-Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+	// (Number) Configuration version number.
+	// Configuration version number.
+	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
-
 
 type StackParameters struct {
 
+	// (String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
+	// A Grafana Cloud Access Policy token with the following scopes: `stacks:read`, `metrics:read`, `metrics:write`. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
+	// +kubebuilder:validation:Optional
+	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
 
-// (String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
-// A Grafana Cloud Access Policy token with the following scopes: `stacks:read`, `metrics:read`, `metrics:write`. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
-// +kubebuilder:validation:Optional
-CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
+	// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
+	// +kubebuilder:validation:Optional
+	Dataset []DatasetParameters `json:"dataset,omitempty" tf:"dataset,omitempty"`
 
-// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
-// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
-// +kubebuilder:validation:Optional
-Dataset []DatasetParameters `json:"dataset,omitempty" tf:"dataset,omitempty"`
-
-// (String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.
-// A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: `dashboards:create`, `dashboards:write`, `dashboards:read`, `folders:create`, `folders:write`, `folders:read`, `folders:delete`, `datasources:read`, `datasources:query`, `alert.provisioning:write`, `alert.notifications.provisioning:write`, `alert.notifications:write`, `alert.rules:read`, `alert.rules:create`, `alert.rules:delete`. Create using `grafana_cloud_stack_service_account_token` resource.
-// +kubebuilder:validation:Optional
-GrafanaTokenSecretRef *v1.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
+	// (String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.
+	// A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: `dashboards:create`, `dashboards:write`, `dashboards:read`, `folders:create`, `folders:write`, `folders:read`, `folders:delete`, `datasources:read`, `datasources:query`, `alert.provisioning:write`, `alert.notifications.provisioning:write`, `alert.notifications:write`, `alert.rules:read`, `alert.rules:create`, `alert.rules:delete`. Create using `grafana_cloud_stack_service_account_token` resource.
+	// +kubebuilder:validation:Optional
+	GrafanaTokenSecretRef *v1.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
 }
 
 // StackSpec defines the desired state of Stack
 type StackSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       StackParameters `json:"forProvider"`
+	ForProvider     StackParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -293,19 +265,18 @@ type StackSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       StackInitParameters `json:"initProvider,omitempty"`
+	InitProvider StackInitParameters `json:"initProvider,omitempty"`
 }
 
 // StackStatus defines the observed state of Stack.
 type StackStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          StackObservation `json:"atProvider,omitempty"`
+	AtProvider        StackObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Stack is the Schema for the Stacks API. Manages the Asserts Stack configuration. This resource configures the Asserts stack with the required API tokens for integration with Grafana Cloud services. It performs the full onboarding flow: Provisions API tokensConfigures datasets (auto-detected or manually specified)Enables the stack By default, datasets are auto-configured based on detected metrics. To manually configure datasets (e.g., when using non-standard label names), use the dataset block. The cloud_access_policy_token is used internally for GCom API access, Mimir metrics authentication, and assertion detector webhook authentication. Create a Cloud Access Policy with the following scopes: stacks:read, metrics:read, metrics:write. The grafana_token is a Grafana Service Account token used for installing dashboards and Grafana Managed Alerts.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -316,9 +287,9 @@ type StackStatus struct {
 type Stack struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccessPolicyTokenSecretRef)",message="spec.forProvider.cloudAccessPolicyTokenSecretRef is a required parameter"
-	Spec              StackSpec   `json:"spec"`
-	Status            StackStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccessPolicyTokenSecretRef)",message="spec.forProvider.cloudAccessPolicyTokenSecretRef is a required parameter"
+	Spec   StackSpec   `json:"spec"`
+	Status StackStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

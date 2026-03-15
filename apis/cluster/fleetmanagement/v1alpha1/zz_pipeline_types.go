@@ -11,99 +11,89 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type PipelineInitParameters struct {
 
+	// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
 
-// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
-// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
-ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
+	// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
 
-// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
-// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
-Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
+	// (Boolean) Whether the pipeline is enabled for collectors
+	// Whether the pipeline is enabled for collectors
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-// (Boolean) Whether the pipeline is enabled for collectors
-// Whether the pipeline is enabled for collectors
-Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
+	// Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
+	Matchers []*string `json:"matchers,omitempty" tf:"matchers,omitempty"`
 
-// (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
-// Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
-Matchers []*string `json:"matchers,omitempty" tf:"matchers,omitempty"`
-
-// (String) Name of the pipeline which is the unique identifier for the pipeline
-// Name of the pipeline which is the unique identifier for the pipeline
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) Name of the pipeline which is the unique identifier for the pipeline
+	// Name of the pipeline which is the unique identifier for the pipeline
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
-
 
 type PipelineObservation struct {
 
+	// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
 
-// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
-// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
-ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
+	// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
 
-// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
-// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
-Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
+	// (Boolean) Whether the pipeline is enabled for collectors
+	// Whether the pipeline is enabled for collectors
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-// (Boolean) Whether the pipeline is enabled for collectors
-// Whether the pipeline is enabled for collectors
-Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// assigned ID of the pipeline
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// assigned ID of the pipeline
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
+	// Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
+	Matchers []*string `json:"matchers,omitempty" tf:"matchers,omitempty"`
 
-// (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
-// Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
-Matchers []*string `json:"matchers,omitempty" tf:"matchers,omitempty"`
-
-// (String) Name of the pipeline which is the unique identifier for the pipeline
-// Name of the pipeline which is the unique identifier for the pipeline
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) Name of the pipeline which is the unique identifier for the pipeline
+	// Name of the pipeline which is the unique identifier for the pipeline
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
-
 
 type PipelineParameters struct {
 
+	// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
+	// +kubebuilder:validation:Optional
+	ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
 
-// (String) Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
-// Type of the config. Must be one of: ALLOY, OTEL. Defaults to ALLOY if not specified.
-// +kubebuilder:validation:Optional
-ConfigType *string `json:"configType,omitempty" tf:"config_type,omitempty"`
+	// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
+	// +kubebuilder:validation:Optional
+	Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
 
-// (String) Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
-// Configuration contents of the pipeline to be used by collectors (can be Alloy config syntax or OTel YAML)
-// +kubebuilder:validation:Optional
-Contents *string `json:"contents,omitempty" tf:"contents,omitempty"`
+	// (Boolean) Whether the pipeline is enabled for collectors
+	// Whether the pipeline is enabled for collectors
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-// (Boolean) Whether the pipeline is enabled for collectors
-// Whether the pipeline is enabled for collectors
-// +kubebuilder:validation:Optional
-Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
+	// Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
+	// +kubebuilder:validation:Optional
+	Matchers []*string `json:"matchers,omitempty" tf:"matchers,omitempty"`
 
-// (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
-// Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
-// +kubebuilder:validation:Optional
-Matchers []*string `json:"matchers,omitempty" tf:"matchers,omitempty"`
-
-// (String) Name of the pipeline which is the unique identifier for the pipeline
-// Name of the pipeline which is the unique identifier for the pipeline
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) Name of the pipeline which is the unique identifier for the pipeline
+	// Name of the pipeline which is the unique identifier for the pipeline
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 // PipelineSpec defines the desired state of Pipeline
 type PipelineSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       PipelineParameters `json:"forProvider"`
+	ForProvider     PipelineParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -114,19 +104,18 @@ type PipelineSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       PipelineInitParameters `json:"initProvider,omitempty"`
+	InitProvider PipelineInitParameters `json:"initProvider,omitempty"`
 }
 
 // PipelineStatus defines the observed state of Pipeline.
 type PipelineStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          PipelineObservation `json:"atProvider,omitempty"`
+	AtProvider        PipelineObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Pipeline is the Schema for the Pipelines API. Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step guide https://grafana
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -137,10 +126,10 @@ type PipelineStatus struct {
 type Pipeline struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.contents) || (has(self.initProvider) && has(self.initProvider.contents))",message="spec.forProvider.contents is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec              PipelineSpec   `json:"spec"`
-	Status            PipelineStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.contents) || (has(self.initProvider) && has(self.initProvider.contents))",message="spec.forProvider.contents is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   PipelineSpec   `json:"spec"`
+	Status PipelineStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

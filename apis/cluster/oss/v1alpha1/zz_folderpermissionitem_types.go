@@ -11,134 +11,124 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type FolderPermissionItemInitParameters struct {
 
+	// (String) The UID of the folder.
+	// The UID of the folder.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) The UID of the folder.
-// The UID of the folder.
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (String) the permission to be assigned
+	// the permission to be assigned
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-// (String) the permission to be assigned
-// the permission to be assigned
-Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+	// (String) the role onto which the permission is to be assigned
+	// the role onto which the permission is to be assigned
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-// (String) the role onto which the permission is to be assigned
-// the role onto which the permission is to be assigned
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
+	// (String) the team onto which the permission is to be assigned
+	// the team onto which the permission is to be assigned
+	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
-// (String) the team onto which the permission is to be assigned
-// the team onto which the permission is to be assigned
-Team *string `json:"team,omitempty" tf:"team,omitempty"`
-
-// (String) the user or service account onto which the permission is to be assigned
-// the user or service account onto which the permission is to be assigned
-User *string `json:"user,omitempty" tf:"user,omitempty"`
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
-
 
 type FolderPermissionItemObservation struct {
 
+	// (String) The UID of the folder.
+	// The UID of the folder.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) The UID of the folder.
-// The UID of the folder.
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// (String) the permission to be assigned
+	// the permission to be assigned
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-// (String) the permission to be assigned
-// the permission to be assigned
-Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+	// (String) the role onto which the permission is to be assigned
+	// the role onto which the permission is to be assigned
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-// (String) the role onto which the permission is to be assigned
-// the role onto which the permission is to be assigned
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
+	// (String) the team onto which the permission is to be assigned
+	// the team onto which the permission is to be assigned
+	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
-// (String) the team onto which the permission is to be assigned
-// the team onto which the permission is to be assigned
-Team *string `json:"team,omitempty" tf:"team,omitempty"`
-
-// (String) the user or service account onto which the permission is to be assigned
-// the user or service account onto which the permission is to be assigned
-User *string `json:"user,omitempty" tf:"user,omitempty"`
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
-
 
 type FolderPermissionItemParameters struct {
 
+	// (String) The UID of the folder.
+	// The UID of the folder.
+	// +kubebuilder:validation:Optional
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) The UID of the folder.
-// The UID of the folder.
-// +kubebuilder:validation:Optional
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-// +kubebuilder:validation:Optional
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (String) the permission to be assigned
+	// the permission to be assigned
+	// +kubebuilder:validation:Optional
+	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
-// (String) the permission to be assigned
-// the permission to be assigned
-// +kubebuilder:validation:Optional
-Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
+	// (String) the role onto which the permission is to be assigned
+	// the role onto which the permission is to be assigned
+	// +kubebuilder:validation:Optional
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-// (String) the role onto which the permission is to be assigned
-// the role onto which the permission is to be assigned
-// +kubebuilder:validation:Optional
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
+	// (String) the team onto which the permission is to be assigned
+	// the team onto which the permission is to be assigned
+	// +kubebuilder:validation:Optional
+	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
-// (String) the team onto which the permission is to be assigned
-// the team onto which the permission is to be assigned
-// +kubebuilder:validation:Optional
-Team *string `json:"team,omitempty" tf:"team,omitempty"`
-
-// (String) the user or service account onto which the permission is to be assigned
-// the user or service account onto which the permission is to be assigned
-// +kubebuilder:validation:Optional
-User *string `json:"user,omitempty" tf:"user,omitempty"`
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	// +kubebuilder:validation:Optional
+	User *string `json:"user,omitempty" tf:"user,omitempty"`
 }
 
 // FolderPermissionItemSpec defines the desired state of FolderPermissionItem
 type FolderPermissionItemSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       FolderPermissionItemParameters `json:"forProvider"`
+	ForProvider     FolderPermissionItemParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -149,19 +139,18 @@ type FolderPermissionItemSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       FolderPermissionItemInitParameters `json:"initProvider,omitempty"`
+	InitProvider FolderPermissionItemInitParameters `json:"initProvider,omitempty"`
 }
 
 // FolderPermissionItemStatus defines the observed state of FolderPermissionItem.
 type FolderPermissionItemStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          FolderPermissionItemObservation `json:"atProvider,omitempty"`
+	AtProvider        FolderPermissionItemObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // FolderPermissionItem is the Schema for the FolderPermissionItems API. Manages a single permission item for a folder. Conflicts with the "grafana_folder_permission" resource which manages the entire set of permissions for a folder.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -172,10 +161,10 @@ type FolderPermissionItemStatus struct {
 type FolderPermissionItem struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.folderUid) || (has(self.initProvider) && has(self.initProvider.folderUid))",message="spec.forProvider.folderUid is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
-	Spec              FolderPermissionItemSpec   `json:"spec"`
-	Status            FolderPermissionItemStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.folderUid) || (has(self.initProvider) && has(self.initProvider.folderUid))",message="spec.forProvider.folderUid is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
+	Spec   FolderPermissionItemSpec   `json:"spec"`
+	Status FolderPermissionItemStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

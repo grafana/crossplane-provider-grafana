@@ -11,97 +11,87 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type InstallationInitParameters struct {
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
-// Reference to a Stack in cloud to populate stackId.
-// +kubebuilder:validation:Optional
-CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
-// Selector for a Stack in cloud to populate stackId.
-// +kubebuilder:validation:Optional
-CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	// (String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.
+	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/) with the following scopes: `stacks:read`, `metrics:write`, `logs:write`, `traces:write`. This is used to publish metrics and logs to Grafana Cloud stack.
+	MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
 
-// (String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.
-// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/) with the following scopes: `stacks:read`, `metrics:write`, `logs:write`, `traces:write`. This is used to publish metrics and logs to Grafana Cloud stack.
-MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
+	// (String) The ID or slug of the stack to install SM on.
+	// The ID or slug of the stack to install SM on.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
-// (String) The ID or slug of the stack to install SM on.
-// The ID or slug of the stack to install SM on.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
-// +crossplane:generate:reference:refFieldName=CloudStackRef
-// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
-
-// cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
-// The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
-StackSmAPIURL *string `json:"stackSmApiUrl,omitempty" tf:"stack_sm_api_url,omitempty"`
+	// cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
+	// The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
+	StackSmAPIURL *string `json:"stackSmApiUrl,omitempty" tf:"stack_sm_api_url,omitempty"`
 }
-
 
 type InstallationObservation struct {
 
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) Generated token to access the SM API.
+	// Generated token to access the SM API.
+	SmAccessToken *string `json:"smAccessToken,omitempty" tf:"sm_access_token,omitempty"`
 
-// (String) Generated token to access the SM API.
-// Generated token to access the SM API.
-SmAccessToken *string `json:"smAccessToken,omitempty" tf:"sm_access_token,omitempty"`
+	// (String) The ID or slug of the stack to install SM on.
+	// The ID or slug of the stack to install SM on.
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
-// (String) The ID or slug of the stack to install SM on.
-// The ID or slug of the stack to install SM on.
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
-
-// cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
-// The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
-StackSmAPIURL *string `json:"stackSmApiUrl,omitempty" tf:"stack_sm_api_url,omitempty"`
+	// cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
+	// The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
+	StackSmAPIURL *string `json:"stackSmApiUrl,omitempty" tf:"stack_sm_api_url,omitempty"`
 }
-
 
 type InstallationParameters struct {
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
-// Reference to a Stack in cloud to populate stackId.
-// +kubebuilder:validation:Optional
-CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
-// Selector for a Stack in cloud to populate stackId.
-// +kubebuilder:validation:Optional
-CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	// (String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.
+	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/) with the following scopes: `stacks:read`, `metrics:write`, `logs:write`, `traces:write`. This is used to publish metrics and logs to Grafana Cloud stack.
+	// +kubebuilder:validation:Optional
+	MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
 
-// (String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.
-// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/) with the following scopes: `stacks:read`, `metrics:write`, `logs:write`, `traces:write`. This is used to publish metrics and logs to Grafana Cloud stack.
-// +kubebuilder:validation:Optional
-MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
+	// (String) The ID or slug of the stack to install SM on.
+	// The ID or slug of the stack to install SM on.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
+	// +kubebuilder:validation:Optional
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
-// (String) The ID or slug of the stack to install SM on.
-// The ID or slug of the stack to install SM on.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
-// +crossplane:generate:reference:refFieldName=CloudStackRef
-// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
-// +kubebuilder:validation:Optional
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
-
-// cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
-// The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
-// +kubebuilder:validation:Optional
-StackSmAPIURL *string `json:"stackSmApiUrl,omitempty" tf:"stack_sm_api_url,omitempty"`
+	// cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
+	// The URL of the SM API to install SM on. This depends on the stack region, find the list of API URLs here: https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/#probe-api-server-url. A static mapping exists in the provider but it may not contain all the regions. If it does contain the stack's region, this field is computed automatically and readable.
+	// +kubebuilder:validation:Optional
+	StackSmAPIURL *string `json:"stackSmApiUrl,omitempty" tf:"stack_sm_api_url,omitempty"`
 }
 
 // InstallationSpec defines the desired state of Installation
 type InstallationSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       InstallationParameters `json:"forProvider"`
+	ForProvider     InstallationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -112,19 +102,18 @@ type InstallationSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       InstallationInitParameters `json:"initProvider,omitempty"`
+	InitProvider InstallationInitParameters `json:"initProvider,omitempty"`
 }
 
 // InstallationStatus defines the observed state of Installation.
 type InstallationStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          InstallationObservation `json:"atProvider,omitempty"`
+	AtProvider        InstallationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Installation is the Schema for the Installations API. Sets up Synthetic Monitoring on a Grafana cloud stack and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install synthetic monitoring. This resource cannot be imported but it can be used on an existing Synthetic Monitoring installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/API documentation https://github.com/grafana/synthetic-monitoring-api-go-client/blob/main/docs/API.md#apiv1registerinstall Required access policy scopes: stacks:read
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -135,9 +124,9 @@ type InstallationStatus struct {
 type Installation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metricsPublisherKeySecretRef)",message="spec.forProvider.metricsPublisherKeySecretRef is a required parameter"
-	Spec              InstallationSpec   `json:"spec"`
-	Status            InstallationStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metricsPublisherKeySecretRef)",message="spec.forProvider.metricsPublisherKeySecretRef is a required parameter"
+	Spec   InstallationSpec   `json:"spec"`
+	Status InstallationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

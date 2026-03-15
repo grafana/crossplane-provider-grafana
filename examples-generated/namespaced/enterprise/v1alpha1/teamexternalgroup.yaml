@@ -1,0 +1,32 @@
+apiVersion: enterprise.grafana.m.crossplane.io/v1alpha1
+kind: TeamExternalGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/teamexternalgroup
+  labels:
+    testing.upbound.io/example-name: test-team-group
+  name: test-team-group
+  namespace: upbound-system
+spec:
+  forProvider:
+    groups:
+    - test-group-1
+    - test-group-2
+    teamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: my_team
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: enterprise/v1alpha1/teamexternalgroup
+  labels:
+    testing.upbound.io/example-name: my_team
+  name: my-team
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: My Team

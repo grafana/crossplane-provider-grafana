@@ -11,184 +11,174 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type DashboardPublicInitParameters struct {
 
+	// (String) A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
+	// A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
+	AccessToken *string `json:"accessToken,omitempty" tf:"access_token,omitempty"`
 
-// (String) A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
-// A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
-AccessToken *string `json:"accessToken,omitempty" tf:"access_token,omitempty"`
+	// (Boolean) Set to true to show annotations. The default value is false.
+	// Set to `true` to show annotations. The default value is `false`.
+	AnnotationsEnabled *bool `json:"annotationsEnabled,omitempty" tf:"annotations_enabled,omitempty"`
 
-// (Boolean) Set to true to show annotations. The default value is false.
-// Set to `true` to show annotations. The default value is `false`.
-AnnotationsEnabled *bool `json:"annotationsEnabled,omitempty" tf:"annotations_enabled,omitempty"`
+	// Reference to a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
 
-// Reference to a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
+	// Selector for a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
-// Selector for a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+	// (String) The unique identifier of the original dashboard.
+	// The unique identifier of the original dashboard.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-// (String) The unique identifier of the original dashboard.
-// The unique identifier of the original dashboard.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=DashboardRef
-// +crossplane:generate:reference:selectorFieldName=DashboardSelector
-DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+	// (Boolean) Set to true to enable the public dashboard. The default value is false.
+	// Set to `true` to enable the public dashboard. The default value is `false`.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
-// (Boolean) Set to true to enable the public dashboard. The default value is false.
-// Set to `true` to enable the public dashboard. The default value is `false`.
-IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (String) Set the share mode. The default value is public.
+	// Set the share mode. The default value is `public`.
+	Share *string `json:"share,omitempty" tf:"share,omitempty"`
 
-// (String) Set the share mode. The default value is public.
-// Set the share mode. The default value is `public`.
-Share *string `json:"share,omitempty" tf:"share,omitempty"`
+	// (Boolean) Set to true to enable the time picker in the public dashboard. The default value is false.
+	// Set to `true` to enable the time picker in the public dashboard. The default value is `false`.
+	TimeSelectionEnabled *bool `json:"timeSelectionEnabled,omitempty" tf:"time_selection_enabled,omitempty"`
 
-// (Boolean) Set to true to enable the time picker in the public dashboard. The default value is false.
-// Set to `true` to enable the time picker in the public dashboard. The default value is `false`.
-TimeSelectionEnabled *bool `json:"timeSelectionEnabled,omitempty" tf:"time_selection_enabled,omitempty"`
-
-// (String) The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
-// The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
+	// The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
-
 
 type DashboardPublicObservation struct {
 
+	// (String) A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
+	// A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
+	AccessToken *string `json:"accessToken,omitempty" tf:"access_token,omitempty"`
 
-// (String) A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
-// A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
-AccessToken *string `json:"accessToken,omitempty" tf:"access_token,omitempty"`
+	// (Boolean) Set to true to show annotations. The default value is false.
+	// Set to `true` to show annotations. The default value is `false`.
+	AnnotationsEnabled *bool `json:"annotationsEnabled,omitempty" tf:"annotations_enabled,omitempty"`
 
-// (Boolean) Set to true to show annotations. The default value is false.
-// Set to `true` to show annotations. The default value is `false`.
-AnnotationsEnabled *bool `json:"annotationsEnabled,omitempty" tf:"annotations_enabled,omitempty"`
+	// (String) The unique identifier of the original dashboard.
+	// The unique identifier of the original dashboard.
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-// (String) The unique identifier of the original dashboard.
-// The unique identifier of the original dashboard.
-DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (Boolean) Set to true to enable the public dashboard. The default value is false.
+	// Set to `true` to enable the public dashboard. The default value is `false`.
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
-// (Boolean) Set to true to enable the public dashboard. The default value is false.
-// Set to `true` to enable the public dashboard. The default value is `false`.
-IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// (String) Set the share mode. The default value is public.
+	// Set the share mode. The default value is `public`.
+	Share *string `json:"share,omitempty" tf:"share,omitempty"`
 
-// (String) Set the share mode. The default value is public.
-// Set the share mode. The default value is `public`.
-Share *string `json:"share,omitempty" tf:"share,omitempty"`
+	// (Boolean) Set to true to enable the time picker in the public dashboard. The default value is false.
+	// Set to `true` to enable the time picker in the public dashboard. The default value is `false`.
+	TimeSelectionEnabled *bool `json:"timeSelectionEnabled,omitempty" tf:"time_selection_enabled,omitempty"`
 
-// (Boolean) Set to true to enable the time picker in the public dashboard. The default value is false.
-// Set to `true` to enable the time picker in the public dashboard. The default value is `false`.
-TimeSelectionEnabled *bool `json:"timeSelectionEnabled,omitempty" tf:"time_selection_enabled,omitempty"`
-
-// (String) The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
-// The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
+	// The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
-
 
 type DashboardPublicParameters struct {
 
+	// (String) A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
+	// A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
+	// +kubebuilder:validation:Optional
+	AccessToken *string `json:"accessToken,omitempty" tf:"access_token,omitempty"`
 
-// (String) A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
-// A public unique identifier of a public dashboard. This is used to construct its URL. It's automatically generated if not provided when creating a public dashboard.
-// +kubebuilder:validation:Optional
-AccessToken *string `json:"accessToken,omitempty" tf:"access_token,omitempty"`
+	// (Boolean) Set to true to show annotations. The default value is false.
+	// Set to `true` to show annotations. The default value is `false`.
+	// +kubebuilder:validation:Optional
+	AnnotationsEnabled *bool `json:"annotationsEnabled,omitempty" tf:"annotations_enabled,omitempty"`
 
-// (Boolean) Set to true to show annotations. The default value is false.
-// Set to `true` to show annotations. The default value is `false`.
-// +kubebuilder:validation:Optional
-AnnotationsEnabled *bool `json:"annotationsEnabled,omitempty" tf:"annotations_enabled,omitempty"`
+	// Reference to a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
 
-// Reference to a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
+	// Selector for a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
-// Selector for a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+	// (String) The unique identifier of the original dashboard.
+	// The unique identifier of the original dashboard.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
+	// +kubebuilder:validation:Optional
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-// (String) The unique identifier of the original dashboard.
-// The unique identifier of the original dashboard.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=DashboardRef
-// +crossplane:generate:reference:selectorFieldName=DashboardSelector
-// +kubebuilder:validation:Optional
-DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+	// (Boolean) Set to true to enable the public dashboard. The default value is false.
+	// Set to `true` to enable the public dashboard. The default value is `false`.
+	// +kubebuilder:validation:Optional
+	IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
 
-// (Boolean) Set to true to enable the public dashboard. The default value is false.
-// Set to `true` to enable the public dashboard. The default value is `false`.
-// +kubebuilder:validation:Optional
-IsEnabled *bool `json:"isEnabled,omitempty" tf:"is_enabled,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-// +kubebuilder:validation:Optional
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (String) Set the share mode. The default value is public.
+	// Set the share mode. The default value is `public`.
+	// +kubebuilder:validation:Optional
+	Share *string `json:"share,omitempty" tf:"share,omitempty"`
 
-// (String) Set the share mode. The default value is public.
-// Set the share mode. The default value is `public`.
-// +kubebuilder:validation:Optional
-Share *string `json:"share,omitempty" tf:"share,omitempty"`
+	// (Boolean) Set to true to enable the time picker in the public dashboard. The default value is false.
+	// Set to `true` to enable the time picker in the public dashboard. The default value is `false`.
+	// +kubebuilder:validation:Optional
+	TimeSelectionEnabled *bool `json:"timeSelectionEnabled,omitempty" tf:"time_selection_enabled,omitempty"`
 
-// (Boolean) Set to true to enable the time picker in the public dashboard. The default value is false.
-// Set to `true` to enable the time picker in the public dashboard. The default value is `false`.
-// +kubebuilder:validation:Optional
-TimeSelectionEnabled *bool `json:"timeSelectionEnabled,omitempty" tf:"time_selection_enabled,omitempty"`
-
-// (String) The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
-// The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
-// +kubebuilder:validation:Optional
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
+	// The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 // DashboardPublicSpec defines the desired state of DashboardPublic
 type DashboardPublicSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       DashboardPublicParameters `json:"forProvider"`
+	ForProvider     DashboardPublicParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -199,19 +189,18 @@ type DashboardPublicSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       DashboardPublicInitParameters `json:"initProvider,omitempty"`
+	InitProvider DashboardPublicInitParameters `json:"initProvider,omitempty"`
 }
 
 // DashboardPublicStatus defines the observed state of DashboardPublic.
 type DashboardPublicStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          DashboardPublicObservation `json:"atProvider,omitempty"`
+	AtProvider        DashboardPublicObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // DashboardPublic is the Schema for the DashboardPublics API. Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/share-dashboards-panels/shared-dashboards/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/dashboard_public/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"

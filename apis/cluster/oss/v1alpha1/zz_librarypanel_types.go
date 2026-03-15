@@ -11,177 +11,167 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type LibraryPanelInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-// Reference to a Folder in oss to populate folderUid.
-// +kubebuilder:validation:Optional
-FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-// Selector for a Folder in oss to populate folderUid.
-// +kubebuilder:validation:Optional
-FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	// (String) Unique ID (UID) of the folder containing the library panel.
+	// Unique ID (UID) of the folder containing the library panel.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) Unique ID (UID) of the folder containing the library panel.
-// Unique ID (UID) of the folder containing the library panel.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=FolderRef
-// +crossplane:generate:reference:selectorFieldName=FolderSelector
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+	// (String) The JSON model for the library panel.
+	// The JSON model for the library panel.
+	ModelJSON *string `json:"modelJson,omitempty" tf:"model_json,omitempty"`
 
-// (String) The JSON model for the library panel.
-// The JSON model for the library panel.
-ModelJSON *string `json:"modelJson,omitempty" tf:"model_json,omitempty"`
+	// (String) Name of the library panel.
+	// Name of the library panel.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) Name of the library panel.
-// Name of the library panel.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
-
-// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
-// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
+	// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
-
 
 type LibraryPanelObservation struct {
 
+	// (String) Timestamp when the library panel was created.
+	// Timestamp when the library panel was created.
+	Created *string `json:"created,omitempty" tf:"created,omitempty"`
 
-// (String) Timestamp when the library panel was created.
-// Timestamp when the library panel was created.
-Created *string `json:"created,omitempty" tf:"created,omitempty"`
+	// (List of Number) Numerical IDs of Grafana dashboards containing the library panel.
+	// Numerical IDs of Grafana dashboards containing the library panel.
+	DashboardIds []*float64 `json:"dashboardIds,omitempty" tf:"dashboard_ids,omitempty"`
 
-// (List of Number) Numerical IDs of Grafana dashboards containing the library panel.
-// Numerical IDs of Grafana dashboards containing the library panel.
-DashboardIds []*float64 `json:"dashboardIds,omitempty" tf:"dashboard_ids,omitempty"`
+	// (String) Description of the library panel.
+	// Description of the library panel.
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-// (String) Description of the library panel.
-// Description of the library panel.
-Description *string `json:"description,omitempty" tf:"description,omitempty"`
+	// (String) Name of the folder containing the library panel.
+	// Name of the folder containing the library panel.
+	FolderName *string `json:"folderName,omitempty" tf:"folder_name,omitempty"`
 
-// (String) Name of the folder containing the library panel.
-// Name of the folder containing the library panel.
-FolderName *string `json:"folderName,omitempty" tf:"folder_name,omitempty"`
+	// (String) Unique ID (UID) of the folder containing the library panel.
+	// Unique ID (UID) of the folder containing the library panel.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) Unique ID (UID) of the folder containing the library panel.
-// Unique ID (UID) of the folder containing the library panel.
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The JSON model for the library panel.
+	// The JSON model for the library panel.
+	ModelJSON *string `json:"modelJson,omitempty" tf:"model_json,omitempty"`
 
-// (String) The JSON model for the library panel.
-// The JSON model for the library panel.
-ModelJSON *string `json:"modelJson,omitempty" tf:"model_json,omitempty"`
+	// (String) Name of the library panel.
+	// Name of the library panel.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) Name of the library panel.
-// Name of the library panel.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// (Number) The numeric ID of the library panel computed by Grafana.
+	// The numeric ID of the library panel computed by Grafana.
+	PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
 
-// (Number) The numeric ID of the library panel computed by Grafana.
-// The numeric ID of the library panel computed by Grafana.
-PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
+	// (String) Type of the library panel (eg. text).
+	// Type of the library panel (eg. text).
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-// (String) Type of the library panel (eg. text).
-// Type of the library panel (eg. text).
-Type *string `json:"type,omitempty" tf:"type,omitempty"`
+	// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
+	// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
-// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) Timestamp when the library panel was last modified.
+	// Timestamp when the library panel was last modified.
+	Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`
 
-// (String) Timestamp when the library panel was last modified.
-// Timestamp when the library panel was last modified.
-Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`
-
-// (Number) Version of the library panel.
-// Version of the library panel.
-Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+	// (Number) Version of the library panel.
+	// Version of the library panel.
+	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
-
 
 type LibraryPanelParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
 
-// Reference to a Folder in oss to populate folderUid.
-// +kubebuilder:validation:Optional
-FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
 
-// Selector for a Folder in oss to populate folderUid.
-// +kubebuilder:validation:Optional
-FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	// (String) Unique ID (UID) of the folder containing the library panel.
+	// Unique ID (UID) of the folder containing the library panel.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
+	// +kubebuilder:validation:Optional
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) Unique ID (UID) of the folder containing the library panel.
-// Unique ID (UID) of the folder containing the library panel.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=FolderRef
-// +crossplane:generate:reference:selectorFieldName=FolderSelector
-// +kubebuilder:validation:Optional
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+	// (String) The JSON model for the library panel.
+	// The JSON model for the library panel.
+	// +kubebuilder:validation:Optional
+	ModelJSON *string `json:"modelJson,omitempty" tf:"model_json,omitempty"`
 
-// (String) The JSON model for the library panel.
-// The JSON model for the library panel.
-// +kubebuilder:validation:Optional
-ModelJSON *string `json:"modelJson,omitempty" tf:"model_json,omitempty"`
+	// (String) Name of the library panel.
+	// Name of the library panel.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) Name of the library panel.
-// Name of the library panel.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-// +kubebuilder:validation:Optional
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
-
-// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
-// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
-// +kubebuilder:validation:Optional
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
+	// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 // LibraryPanelSpec defines the desired state of LibraryPanel
 type LibraryPanelSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       LibraryPanelParameters `json:"forProvider"`
+	ForProvider     LibraryPanelParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -192,19 +182,18 @@ type LibraryPanelSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       LibraryPanelInitParameters `json:"initProvider,omitempty"`
+	InitProvider LibraryPanelInitParameters `json:"initProvider,omitempty"`
 }
 
 // LibraryPanelStatus defines the observed state of LibraryPanel.
 type LibraryPanelStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          LibraryPanelObservation `json:"atProvider,omitempty"`
+	AtProvider        LibraryPanelObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // LibraryPanel is the Schema for the LibraryPanels API. Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/manage-library-panels/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -215,10 +204,10 @@ type LibraryPanelStatus struct {
 type LibraryPanel struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.modelJson) || (has(self.initProvider) && has(self.initProvider.modelJson))",message="spec.forProvider.modelJson is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec              LibraryPanelSpec   `json:"spec"`
-	Status            LibraryPanelStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.modelJson) || (has(self.initProvider) && has(self.initProvider.modelJson))",message="spec.forProvider.modelJson is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   LibraryPanelSpec   `json:"spec"`
+	Status LibraryPanelStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

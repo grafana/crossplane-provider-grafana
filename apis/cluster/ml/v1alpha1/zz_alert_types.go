@@ -11,139 +11,129 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type AlertInitParameters struct {
 
+	// Annotations to add to the alert generated in Grafana.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-// Annotations to add to the alert generated in Grafana.
-// +mapType=granular
-Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+	// The condition for when to consider a point as anomalous.
+	AnomalyCondition *string `json:"anomalyCondition,omitempty" tf:"anomaly_condition,omitempty"`
 
-// The condition for when to consider a point as anomalous.
-AnomalyCondition *string `json:"anomalyCondition,omitempty" tf:"anomaly_condition,omitempty"`
+	// How long values must be anomalous before firing an alert.
+	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
-// How long values must be anomalous before firing an alert.
-For *string `json:"for,omitempty" tf:"for,omitempty"`
+	// The forecast this alert belongs to.
+	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
 
-// The forecast this alert belongs to.
-JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
+	// Labels to add to the alert generated in Grafana.
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-// Labels to add to the alert generated in Grafana.
-// +mapType=granular
-Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+	// How the alert should be processed when no data is returned by the underlying series
+	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-// How the alert should be processed when no data is returned by the underlying series
-NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+	// The forecast this alert belongs to.
+	OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
 
-// The forecast this alert belongs to.
-OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
+	// The threshold of points over the window that need to be anomalous to alert.
+	Threshold *string `json:"threshold,omitempty" tf:"threshold,omitempty"`
 
-// The threshold of points over the window that need to be anomalous to alert.
-Threshold *string `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	// The title of the alert.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-// The title of the alert.
-Title *string `json:"title,omitempty" tf:"title,omitempty"`
-
-// How much time to average values over
-Window *string `json:"window,omitempty" tf:"window,omitempty"`
+	// How much time to average values over
+	Window *string `json:"window,omitempty" tf:"window,omitempty"`
 }
-
 
 type AlertObservation struct {
 
+	// Annotations to add to the alert generated in Grafana.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-// Annotations to add to the alert generated in Grafana.
-// +mapType=granular
-Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+	// The condition for when to consider a point as anomalous.
+	AnomalyCondition *string `json:"anomalyCondition,omitempty" tf:"anomaly_condition,omitempty"`
 
-// The condition for when to consider a point as anomalous.
-AnomalyCondition *string `json:"anomalyCondition,omitempty" tf:"anomaly_condition,omitempty"`
+	// How long values must be anomalous before firing an alert.
+	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
-// How long values must be anomalous before firing an alert.
-For *string `json:"for,omitempty" tf:"for,omitempty"`
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// The forecast this alert belongs to.
+	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
 
-// The forecast this alert belongs to.
-JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
+	// Labels to add to the alert generated in Grafana.
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-// Labels to add to the alert generated in Grafana.
-// +mapType=granular
-Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+	// How the alert should be processed when no data is returned by the underlying series
+	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-// How the alert should be processed when no data is returned by the underlying series
-NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+	// The forecast this alert belongs to.
+	OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
 
-// The forecast this alert belongs to.
-OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
+	// The threshold of points over the window that need to be anomalous to alert.
+	Threshold *string `json:"threshold,omitempty" tf:"threshold,omitempty"`
 
-// The threshold of points over the window that need to be anomalous to alert.
-Threshold *string `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	// The title of the alert.
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-// The title of the alert.
-Title *string `json:"title,omitempty" tf:"title,omitempty"`
-
-// How much time to average values over
-Window *string `json:"window,omitempty" tf:"window,omitempty"`
+	// How much time to average values over
+	Window *string `json:"window,omitempty" tf:"window,omitempty"`
 }
-
 
 type AlertParameters struct {
 
+	// Annotations to add to the alert generated in Grafana.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-// Annotations to add to the alert generated in Grafana.
-// +kubebuilder:validation:Optional
-// +mapType=granular
-Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+	// The condition for when to consider a point as anomalous.
+	// +kubebuilder:validation:Optional
+	AnomalyCondition *string `json:"anomalyCondition,omitempty" tf:"anomaly_condition,omitempty"`
 
-// The condition for when to consider a point as anomalous.
-// +kubebuilder:validation:Optional
-AnomalyCondition *string `json:"anomalyCondition,omitempty" tf:"anomaly_condition,omitempty"`
+	// How long values must be anomalous before firing an alert.
+	// +kubebuilder:validation:Optional
+	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
-// How long values must be anomalous before firing an alert.
-// +kubebuilder:validation:Optional
-For *string `json:"for,omitempty" tf:"for,omitempty"`
+	// The forecast this alert belongs to.
+	// +kubebuilder:validation:Optional
+	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
 
-// The forecast this alert belongs to.
-// +kubebuilder:validation:Optional
-JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
+	// Labels to add to the alert generated in Grafana.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-// Labels to add to the alert generated in Grafana.
-// +kubebuilder:validation:Optional
-// +mapType=granular
-Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+	// How the alert should be processed when no data is returned by the underlying series
+	// +kubebuilder:validation:Optional
+	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-// How the alert should be processed when no data is returned by the underlying series
-// +kubebuilder:validation:Optional
-NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
+	// The forecast this alert belongs to.
+	// +kubebuilder:validation:Optional
+	OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
 
-// The forecast this alert belongs to.
-// +kubebuilder:validation:Optional
-OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
+	// The threshold of points over the window that need to be anomalous to alert.
+	// +kubebuilder:validation:Optional
+	Threshold *string `json:"threshold,omitempty" tf:"threshold,omitempty"`
 
-// The threshold of points over the window that need to be anomalous to alert.
-// +kubebuilder:validation:Optional
-Threshold *string `json:"threshold,omitempty" tf:"threshold,omitempty"`
+	// The title of the alert.
+	// +kubebuilder:validation:Optional
+	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-// The title of the alert.
-// +kubebuilder:validation:Optional
-Title *string `json:"title,omitempty" tf:"title,omitempty"`
-
-// How much time to average values over
-// +kubebuilder:validation:Optional
-Window *string `json:"window,omitempty" tf:"window,omitempty"`
+	// How much time to average values over
+	// +kubebuilder:validation:Optional
+	Window *string `json:"window,omitempty" tf:"window,omitempty"`
 }
 
 // AlertSpec defines the desired state of Alert
 type AlertSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       AlertParameters `json:"forProvider"`
+	ForProvider     AlertParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -154,21 +144,20 @@ type AlertSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       AlertInitParameters `json:"initProvider,omitempty"`
+	InitProvider AlertInitParameters `json:"initProvider,omitempty"`
 }
 
 // AlertStatus defines the observed state of Alert.
 type AlertStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          AlertObservation `json:"atProvider,omitempty"`
+	AtProvider        AlertObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-
-// Alert is the Schema for the Alerts API. 
+// Alert is the Schema for the Alerts API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -177,9 +166,9 @@ type AlertStatus struct {
 type Alert struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.title) || (has(self.initProvider) && has(self.initProvider.title))",message="spec.forProvider.title is a required parameter"
-	Spec              AlertSpec   `json:"spec"`
-	Status            AlertStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.title) || (has(self.initProvider) && has(self.initProvider.title))",message="spec.forProvider.title is a required parameter"
+	Spec   AlertSpec   `json:"spec"`
+	Status AlertStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

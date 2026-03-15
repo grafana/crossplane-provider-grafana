@@ -11,145 +11,135 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type ProbeInitParameters struct {
 
+	// (Boolean) Disables browser checks for this probe. Defaults to false.
+	// Disables browser checks for this probe. Defaults to `false`.
+	DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
 
-// (Boolean) Disables browser checks for this probe. Defaults to false.
-// Disables browser checks for this probe. Defaults to `false`.
-DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
+	// (Boolean) Disables scripted checks for this probe. Defaults to false.
+	// Disables scripted checks for this probe. Defaults to `false`.
+	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
 
-// (Boolean) Disables scripted checks for this probe. Defaults to false.
-// Disables scripted checks for this probe. Defaults to `false`.
-DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
+	// (Map of String) Custom labels to be included with collected metrics and logs.
+	// Custom labels to be included with collected metrics and logs.
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-// (Map of String) Custom labels to be included with collected metrics and logs.
-// Custom labels to be included with collected metrics and logs.
-// +mapType=granular
-Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+	// (Number) Latitude coordinates.
+	// Latitude coordinates.
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
-// (Number) Latitude coordinates.
-// Latitude coordinates.
-Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
+	// (Number) Longitude coordinates.
+	// Longitude coordinates.
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
-// (Number) Longitude coordinates.
-// Longitude coordinates.
-Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
+	// (String) Name of the probe.
+	// Name of the probe.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) Name of the probe.
-// Name of the probe.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
+	// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
+	Public *bool `json:"public,omitempty" tf:"public,omitempty"`
 
-// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
-// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
-Public *bool `json:"public,omitempty" tf:"public,omitempty"`
-
-// (String) Region of the probe.
-// Region of the probe.
-Region *string `json:"region,omitempty" tf:"region,omitempty"`
+	// (String) Region of the probe.
+	// Region of the probe.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
-
 
 type ProbeObservation struct {
 
+	// (Boolean) Disables browser checks for this probe. Defaults to false.
+	// Disables browser checks for this probe. Defaults to `false`.
+	DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
 
-// (Boolean) Disables browser checks for this probe. Defaults to false.
-// Disables browser checks for this probe. Defaults to `false`.
-DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
+	// (Boolean) Disables scripted checks for this probe. Defaults to false.
+	// Disables scripted checks for this probe. Defaults to `false`.
+	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
 
-// (Boolean) Disables scripted checks for this probe. Defaults to false.
-// Disables scripted checks for this probe. Defaults to `false`.
-DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
+	// (String) The ID of the probe.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of the probe.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (Map of String) Custom labels to be included with collected metrics and logs.
+	// Custom labels to be included with collected metrics and logs.
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-// (Map of String) Custom labels to be included with collected metrics and logs.
-// Custom labels to be included with collected metrics and logs.
-// +mapType=granular
-Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+	// (Number) Latitude coordinates.
+	// Latitude coordinates.
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
-// (Number) Latitude coordinates.
-// Latitude coordinates.
-Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
+	// (Number) Longitude coordinates.
+	// Longitude coordinates.
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
-// (Number) Longitude coordinates.
-// Longitude coordinates.
-Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
+	// (String) Name of the probe.
+	// Name of the probe.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) Name of the probe.
-// Name of the probe.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
+	// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
+	Public *bool `json:"public,omitempty" tf:"public,omitempty"`
 
-// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
-// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
-Public *bool `json:"public,omitempty" tf:"public,omitempty"`
+	// (String) Region of the probe.
+	// Region of the probe.
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
-// (String) Region of the probe.
-// Region of the probe.
-Region *string `json:"region,omitempty" tf:"region,omitempty"`
-
-// (Number) The tenant ID of the probe.
-// The tenant ID of the probe.
-TenantID *float64 `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+	// (Number) The tenant ID of the probe.
+	// The tenant ID of the probe.
+	TenantID *float64 `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 }
-
 
 type ProbeParameters struct {
 
+	// (Boolean) Disables browser checks for this probe. Defaults to false.
+	// Disables browser checks for this probe. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
 
-// (Boolean) Disables browser checks for this probe. Defaults to false.
-// Disables browser checks for this probe. Defaults to `false`.
-// +kubebuilder:validation:Optional
-DisableBrowserChecks *bool `json:"disableBrowserChecks,omitempty" tf:"disable_browser_checks,omitempty"`
+	// (Boolean) Disables scripted checks for this probe. Defaults to false.
+	// Disables scripted checks for this probe. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
 
-// (Boolean) Disables scripted checks for this probe. Defaults to false.
-// Disables scripted checks for this probe. Defaults to `false`.
-// +kubebuilder:validation:Optional
-DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
+	// (Map of String) Custom labels to be included with collected metrics and logs.
+	// Custom labels to be included with collected metrics and logs.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-// (Map of String) Custom labels to be included with collected metrics and logs.
-// Custom labels to be included with collected metrics and logs.
-// +kubebuilder:validation:Optional
-// +mapType=granular
-Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+	// (Number) Latitude coordinates.
+	// Latitude coordinates.
+	// +kubebuilder:validation:Optional
+	Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
 
-// (Number) Latitude coordinates.
-// Latitude coordinates.
-// +kubebuilder:validation:Optional
-Latitude *float64 `json:"latitude,omitempty" tf:"latitude,omitempty"`
+	// (Number) Longitude coordinates.
+	// Longitude coordinates.
+	// +kubebuilder:validation:Optional
+	Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
 
-// (Number) Longitude coordinates.
-// Longitude coordinates.
-// +kubebuilder:validation:Optional
-Longitude *float64 `json:"longitude,omitempty" tf:"longitude,omitempty"`
+	// (String) Name of the probe.
+	// Name of the probe.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) Name of the probe.
-// Name of the probe.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
+	// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	Public *bool `json:"public,omitempty" tf:"public,omitempty"`
 
-// (Boolean) Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to true. Defaults to false.
-// Public probes are run by Grafana Labs and can be used by all users. Only Grafana Labs managed public probes will be set to `true`. Defaults to `false`.
-// +kubebuilder:validation:Optional
-Public *bool `json:"public,omitempty" tf:"public,omitempty"`
-
-// (String) Region of the probe.
-// Region of the probe.
-// +kubebuilder:validation:Optional
-Region *string `json:"region,omitempty" tf:"region,omitempty"`
+	// (String) Region of the probe.
+	// Region of the probe.
+	// +kubebuilder:validation:Optional
+	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 }
 
 // ProbeSpec defines the desired state of Probe
 type ProbeSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       ProbeParameters `json:"forProvider"`
+	ForProvider     ProbeParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -160,19 +150,18 @@ type ProbeSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       ProbeInitParameters `json:"initProvider,omitempty"`
+	InitProvider ProbeInitParameters `json:"initProvider,omitempty"`
 }
 
 // ProbeStatus defines the observed state of Probe.
 type ProbeStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          ProbeObservation `json:"atProvider,omitempty"`
+	AtProvider        ProbeObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Probe is the Schema for the Probes API. Besides the public probes run by Grafana Labs, you can also install your own private probes. These are only accessible to you and only write data to your Grafana Cloud account. Private probes are instances of the open source Grafana Synthetic Monitoring Agent. Official documentation https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/set-up/set-up-private-probes/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -183,12 +172,12 @@ type ProbeStatus struct {
 type Probe struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.latitude) || (has(self.initProvider) && has(self.initProvider.latitude))",message="spec.forProvider.latitude is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.longitude) || (has(self.initProvider) && has(self.initProvider.longitude))",message="spec.forProvider.longitude is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
-	Spec              ProbeSpec   `json:"spec"`
-	Status            ProbeStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.latitude) || (has(self.initProvider) && has(self.initProvider.latitude))",message="spec.forProvider.latitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.longitude) || (has(self.initProvider) && has(self.initProvider.longitude))",message="spec.forProvider.longitude is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
+	Spec   ProbeSpec   `json:"spec"`
+	Status ProbeStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

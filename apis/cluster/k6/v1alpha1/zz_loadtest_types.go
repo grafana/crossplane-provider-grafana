@@ -10,117 +10,107 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
-
-
-
 
 type LoadTestInitParameters struct {
 
+	// (String) Identifier of a baseline test run used for results comparison.
+	// Identifier of a baseline test run used for results comparison.
+	BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
 
-// (String) Identifier of a baseline test run used for results comparison.
-// Identifier of a baseline test run used for results comparison.
-BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
+	// friendly identifier of the load test.
+	// Human-friendly identifier of the load test.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// friendly identifier of the load test.
-// Human-friendly identifier of the load test.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The identifier of the project this load test belongs to.
+	// The identifier of the project this load test belongs to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-// (String) The identifier of the project this load test belongs to.
-// The identifier of the project this load test belongs to.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
-// +crossplane:generate:reference:refFieldName=ProjectRef
-// +crossplane:generate:reference:selectorFieldName=ProjectSelector
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
 
-// Reference to a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 
-// Selector for a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
-
-// (String) The k6 test script content. Can be provided inline or via the file() function.
-// The k6 test script content. Can be provided inline or via the `file()` function.
-Script *string `json:"script,omitempty" tf:"script,omitempty"`
+	// (String) The k6 test script content. Can be provided inline or via the file() function.
+	// The k6 test script content. Can be provided inline or via the `file()` function.
+	Script *string `json:"script,omitempty" tf:"script,omitempty"`
 }
-
 
 type LoadTestObservation struct {
 
+	// (String) Identifier of a baseline test run used for results comparison.
+	// Identifier of a baseline test run used for results comparison.
+	BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
 
-// (String) Identifier of a baseline test run used for results comparison.
-// Identifier of a baseline test run used for results comparison.
-BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
+	// (String) The date when the load test was created.
+	// The date when the load test was created.
+	Created *string `json:"created,omitempty" tf:"created,omitempty"`
 
-// (String) The date when the load test was created.
-// The date when the load test was created.
-Created *string `json:"created,omitempty" tf:"created,omitempty"`
+	// (String) Numeric identifier of the load test.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) Numeric identifier of the load test.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// friendly identifier of the load test.
+	// Human-friendly identifier of the load test.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// friendly identifier of the load test.
-// Human-friendly identifier of the load test.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The identifier of the project this load test belongs to.
+	// The identifier of the project this load test belongs to.
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-// (String) The identifier of the project this load test belongs to.
-// The identifier of the project this load test belongs to.
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// (String) The k6 test script content. Can be provided inline or via the file() function.
+	// The k6 test script content. Can be provided inline or via the `file()` function.
+	Script *string `json:"script,omitempty" tf:"script,omitempty"`
 
-// (String) The k6 test script content. Can be provided inline or via the file() function.
-// The k6 test script content. Can be provided inline or via the `file()` function.
-Script *string `json:"script,omitempty" tf:"script,omitempty"`
-
-// (String) The date when the load test was last updated.
-// The date when the load test was last updated.
-Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`
+	// (String) The date when the load test was last updated.
+	// The date when the load test was last updated.
+	Updated *string `json:"updated,omitempty" tf:"updated,omitempty"`
 }
-
 
 type LoadTestParameters struct {
 
+	// (String) Identifier of a baseline test run used for results comparison.
+	// Identifier of a baseline test run used for results comparison.
+	// +kubebuilder:validation:Optional
+	BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
 
-// (String) Identifier of a baseline test run used for results comparison.
-// Identifier of a baseline test run used for results comparison.
-// +kubebuilder:validation:Optional
-BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
+	// friendly identifier of the load test.
+	// Human-friendly identifier of the load test.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// friendly identifier of the load test.
-// Human-friendly identifier of the load test.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The identifier of the project this load test belongs to.
+	// The identifier of the project this load test belongs to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
+	// +kubebuilder:validation:Optional
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-// (String) The identifier of the project this load test belongs to.
-// The identifier of the project this load test belongs to.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
-// +crossplane:generate:reference:refFieldName=ProjectRef
-// +crossplane:generate:reference:selectorFieldName=ProjectSelector
-// +kubebuilder:validation:Optional
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
 
-// Reference to a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 
-// Selector for a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
-
-// (String) The k6 test script content. Can be provided inline or via the file() function.
-// The k6 test script content. Can be provided inline or via the `file()` function.
-// +kubebuilder:validation:Optional
-Script *string `json:"script,omitempty" tf:"script,omitempty"`
+	// (String) The k6 test script content. Can be provided inline or via the file() function.
+	// The k6 test script content. Can be provided inline or via the `file()` function.
+	// +kubebuilder:validation:Optional
+	Script *string `json:"script,omitempty" tf:"script,omitempty"`
 }
 
 // LoadTestSpec defines the desired state of LoadTest
 type LoadTestSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       LoadTestParameters `json:"forProvider"`
+	ForProvider     LoadTestParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -131,19 +121,18 @@ type LoadTestSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       LoadTestInitParameters `json:"initProvider,omitempty"`
+	InitProvider LoadTestInitParameters `json:"initProvider,omitempty"`
 }
 
 // LoadTestStatus defines the observed state of LoadTest.
 type LoadTestStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          LoadTestObservation `json:"atProvider,omitempty"`
+	AtProvider        LoadTestObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // LoadTest is the Schema for the LoadTests API. Manages a k6 load test.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -154,10 +143,10 @@ type LoadTestStatus struct {
 type LoadTest struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.script) || (has(self.initProvider) && has(self.initProvider.script))",message="spec.forProvider.script is a required parameter"
-	Spec              LoadTestSpec   `json:"spec"`
-	Status            LoadTestStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.script) || (has(self.initProvider) && has(self.initProvider.script))",message="spec.forProvider.script is a required parameter"
+	Spec   LoadTestSpec   `json:"spec"`
+	Status LoadTestStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

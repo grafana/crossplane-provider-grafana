@@ -11,93 +11,83 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type AwsAccountInitParameters struct {
 
+	// readable name for this AWS Account resource.
+	// An optional human-readable name for this AWS Account resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// readable name for this AWS Account resource.
-// An optional human-readable name for this AWS Account resource.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Set of String) A set of regions that this AWS Account resource applies to.
+	// A set of regions that this AWS Account resource applies to.
+	// +listType=set
+	Regions []*string `json:"regions,omitempty" tf:"regions,omitempty"`
 
-// (Set of String) A set of regions that this AWS Account resource applies to.
-// A set of regions that this AWS Account resource applies to.
-// +listType=set
-Regions []*string `json:"regions,omitempty" tf:"regions,omitempty"`
+	// (String) An IAM Role ARN string to represent with this AWS Account resource.
+	// An IAM Role ARN string to represent with this AWS Account resource.
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
 
-// (String) An IAM Role ARN string to represent with this AWS Account resource.
-// An IAM Role ARN string to represent with this AWS Account resource.
-RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
-
-// (String) The StackID of the Grafana Cloud instance.
-// The StackID of the Grafana Cloud instance.
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+	// (String) The StackID of the Grafana Cloud instance.
+	// The StackID of the Grafana Cloud instance.
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
-
 
 type AwsAccountObservation struct {
 
+	// This has the format "{{ stack_id }}:{{ resource_id }}".
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// This has the format "{{ stack_id }}:{{ resource_id }}".
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// readable name for this AWS Account resource.
+	// An optional human-readable name for this AWS Account resource.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// readable name for this AWS Account resource.
-// An optional human-readable name for this AWS Account resource.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Set of String) A set of regions that this AWS Account resource applies to.
+	// A set of regions that this AWS Account resource applies to.
+	// +listType=set
+	Regions []*string `json:"regions,omitempty" tf:"regions,omitempty"`
 
-// (Set of String) A set of regions that this AWS Account resource applies to.
-// A set of regions that this AWS Account resource applies to.
-// +listType=set
-Regions []*string `json:"regions,omitempty" tf:"regions,omitempty"`
+	// (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
+	// The ID given by the Grafana Cloud Provider API to this AWS Account resource.
+	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
-// (String) The ID given by the Grafana Cloud Provider API to this AWS Account resource.
-// The ID given by the Grafana Cloud Provider API to this AWS Account resource.
-ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+	// (String) An IAM Role ARN string to represent with this AWS Account resource.
+	// An IAM Role ARN string to represent with this AWS Account resource.
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
 
-// (String) An IAM Role ARN string to represent with this AWS Account resource.
-// An IAM Role ARN string to represent with this AWS Account resource.
-RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
-
-// (String) The StackID of the Grafana Cloud instance.
-// The StackID of the Grafana Cloud instance.
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+	// (String) The StackID of the Grafana Cloud instance.
+	// The StackID of the Grafana Cloud instance.
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
-
 
 type AwsAccountParameters struct {
 
+	// readable name for this AWS Account resource.
+	// An optional human-readable name for this AWS Account resource.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// readable name for this AWS Account resource.
-// An optional human-readable name for this AWS Account resource.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Set of String) A set of regions that this AWS Account resource applies to.
+	// A set of regions that this AWS Account resource applies to.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Regions []*string `json:"regions,omitempty" tf:"regions,omitempty"`
 
-// (Set of String) A set of regions that this AWS Account resource applies to.
-// A set of regions that this AWS Account resource applies to.
-// +kubebuilder:validation:Optional
-// +listType=set
-Regions []*string `json:"regions,omitempty" tf:"regions,omitempty"`
+	// (String) An IAM Role ARN string to represent with this AWS Account resource.
+	// An IAM Role ARN string to represent with this AWS Account resource.
+	// +kubebuilder:validation:Optional
+	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
 
-// (String) An IAM Role ARN string to represent with this AWS Account resource.
-// An IAM Role ARN string to represent with this AWS Account resource.
-// +kubebuilder:validation:Optional
-RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
-
-// (String) The StackID of the Grafana Cloud instance.
-// The StackID of the Grafana Cloud instance.
-// +kubebuilder:validation:Optional
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+	// (String) The StackID of the Grafana Cloud instance.
+	// The StackID of the Grafana Cloud instance.
+	// +kubebuilder:validation:Optional
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
 
 // AwsAccountSpec defines the desired state of AwsAccount
 type AwsAccountSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       AwsAccountParameters `json:"forProvider"`
+	ForProvider     AwsAccountParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -108,19 +98,18 @@ type AwsAccountSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       AwsAccountInitParameters `json:"initProvider,omitempty"`
+	InitProvider AwsAccountInitParameters `json:"initProvider,omitempty"`
 }
 
 // AwsAccountStatus defines the observed state of AwsAccount.
 type AwsAccountStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          AwsAccountObservation `json:"atProvider,omitempty"`
+	AtProvider        AwsAccountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // AwsAccount is the Schema for the AwsAccounts API. This resource allows you to link your AWS Account to Grafana Cloud for use in creating Cloud Provider resources. See the Grafana Provider configuration docs https://registry.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -131,11 +120,11 @@ type AwsAccountStatus struct {
 type AwsAccount struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.regions) || (has(self.initProvider) && has(self.initProvider.regions))",message="spec.forProvider.regions is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.roleArn) || (has(self.initProvider) && has(self.initProvider.roleArn))",message="spec.forProvider.roleArn is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
-	Spec              AwsAccountSpec   `json:"spec"`
-	Status            AwsAccountStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.regions) || (has(self.initProvider) && has(self.initProvider.regions))",message="spec.forProvider.regions is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.roleArn) || (has(self.initProvider) && has(self.initProvider.roleArn))",message="spec.forProvider.roleArn is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
+	Spec   AwsAccountSpec   `json:"spec"`
+	Status AwsAccountStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

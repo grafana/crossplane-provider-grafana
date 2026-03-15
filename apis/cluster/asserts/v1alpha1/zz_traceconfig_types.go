@@ -11,169 +11,153 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type TraceConfigInitParameters struct {
 
+	// (String) DataSource to be queried (e.g., a Tempo instance).
+	// DataSource to be queried (e.g., a Tempo instance).
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-// (String) DataSource to be queried (e.g., a Tempo instance).
-// DataSource to be queried (e.g., a Tempo instance).
-DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+	// (Boolean) Is it the default config, therefore undeletable?
+	// Is it the default config, therefore undeletable?
+	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-// (Boolean) Is it the default config, therefore undeletable?
-// Is it the default config, therefore undeletable?
-DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+	// (Map of String) Mapping of entity properties to trace labels.
+	// Mapping of entity properties to trace labels.
+	// +mapType=granular
+	EntityPropertyToTraceLabelMapping map[string]*string `json:"entityPropertyToTraceLabelMapping,omitempty" tf:"entity_property_to_trace_label_mapping,omitempty"`
 
-// (Map of String) Mapping of entity properties to trace labels.
-// Mapping of entity properties to trace labels.
-// +mapType=granular
-EntityPropertyToTraceLabelMapping map[string]*string `json:"entityPropertyToTraceLabelMapping,omitempty" tf:"entity_property_to_trace_label_mapping,omitempty"`
+	// (Block List) List of match rules for entity properties. (see below for nested schema)
+	// List of match rules for entity properties.
+	Match []TraceConfigMatchInitParameters `json:"match,omitempty" tf:"match,omitempty"`
 
-// (Block List) List of match rules for entity properties. (see below for nested schema)
-// List of match rules for entity properties.
-Match []TraceConfigMatchInitParameters `json:"match,omitempty" tf:"match,omitempty"`
+	// (String) The name of the trace configuration.
+	// The name of the trace configuration.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the trace configuration.
-// The name of the trace configuration.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-// (Number) Priority of the trace configuration. A lower number means a higher priority.
-// Priority of the trace configuration. A lower number means a higher priority.
-Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	// (Number) Priority of the trace configuration. A lower number means a higher priority.
+	// Priority of the trace configuration. A lower number means a higher priority.
+	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
-
 
 type TraceConfigMatchInitParameters struct {
 
+	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-Op *string `json:"op,omitempty" tf:"op,omitempty"`
+	// (String) Entity property to match.
+	// Entity property to match.
+	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-// (String) Entity property to match.
-// Entity property to match.
-Property *string `json:"property,omitempty" tf:"property,omitempty"`
-
-// (List of String) Values to match against.
-// Values to match against.
-Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+	// (List of String) Values to match against.
+	// Values to match against.
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
-
 
 type TraceConfigMatchObservation struct {
 
+	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	Op *string `json:"op,omitempty" tf:"op,omitempty"`
 
-// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-Op *string `json:"op,omitempty" tf:"op,omitempty"`
+	// (String) Entity property to match.
+	// Entity property to match.
+	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-// (String) Entity property to match.
-// Entity property to match.
-Property *string `json:"property,omitempty" tf:"property,omitempty"`
-
-// (List of String) Values to match against.
-// Values to match against.
-Values []*string `json:"values,omitempty" tf:"values,omitempty"`
+	// (List of String) Values to match against.
+	// Values to match against.
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
-
 
 type TraceConfigMatchParameters struct {
 
+	// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
+	// +kubebuilder:validation:Optional
+	Op *string `json:"op" tf:"op,omitempty"`
 
-// (String) Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-// Operation to use for matching. One of: =, <>, <, >, <=, >=, IS NULL, IS NOT NULL, STARTS WITH, CONTAINS.
-// +kubebuilder:validation:Optional
-Op *string `json:"op" tf:"op,omitempty"`
+	// (String) Entity property to match.
+	// Entity property to match.
+	// +kubebuilder:validation:Optional
+	Property *string `json:"property" tf:"property,omitempty"`
 
-// (String) Entity property to match.
-// Entity property to match.
-// +kubebuilder:validation:Optional
-Property *string `json:"property" tf:"property,omitempty"`
-
-// (List of String) Values to match against.
-// Values to match against.
-// +kubebuilder:validation:Optional
-Values []*string `json:"values" tf:"values,omitempty"`
+	// (List of String) Values to match against.
+	// Values to match against.
+	// +kubebuilder:validation:Optional
+	Values []*string `json:"values" tf:"values,omitempty"`
 }
-
 
 type TraceConfigObservation struct {
 
+	// (String) DataSource to be queried (e.g., a Tempo instance).
+	// DataSource to be queried (e.g., a Tempo instance).
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-// (String) DataSource to be queried (e.g., a Tempo instance).
-// DataSource to be queried (e.g., a Tempo instance).
-DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+	// (Boolean) Is it the default config, therefore undeletable?
+	// Is it the default config, therefore undeletable?
+	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-// (Boolean) Is it the default config, therefore undeletable?
-// Is it the default config, therefore undeletable?
-DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+	// (Map of String) Mapping of entity properties to trace labels.
+	// Mapping of entity properties to trace labels.
+	// +mapType=granular
+	EntityPropertyToTraceLabelMapping map[string]*string `json:"entityPropertyToTraceLabelMapping,omitempty" tf:"entity_property_to_trace_label_mapping,omitempty"`
 
-// (Map of String) Mapping of entity properties to trace labels.
-// Mapping of entity properties to trace labels.
-// +mapType=granular
-EntityPropertyToTraceLabelMapping map[string]*string `json:"entityPropertyToTraceLabelMapping,omitempty" tf:"entity_property_to_trace_label_mapping,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (Block List) List of match rules for entity properties. (see below for nested schema)
+	// List of match rules for entity properties.
+	Match []TraceConfigMatchObservation `json:"match,omitempty" tf:"match,omitempty"`
 
-// (Block List) List of match rules for entity properties. (see below for nested schema)
-// List of match rules for entity properties.
-Match []TraceConfigMatchObservation `json:"match,omitempty" tf:"match,omitempty"`
+	// (String) The name of the trace configuration.
+	// The name of the trace configuration.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the trace configuration.
-// The name of the trace configuration.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-// (Number) Priority of the trace configuration. A lower number means a higher priority.
-// Priority of the trace configuration. A lower number means a higher priority.
-Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	// (Number) Priority of the trace configuration. A lower number means a higher priority.
+	// Priority of the trace configuration. A lower number means a higher priority.
+	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
-
 
 type TraceConfigParameters struct {
 
+	// (String) DataSource to be queried (e.g., a Tempo instance).
+	// DataSource to be queried (e.g., a Tempo instance).
+	// +kubebuilder:validation:Optional
+	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
-// (String) DataSource to be queried (e.g., a Tempo instance).
-// DataSource to be queried (e.g., a Tempo instance).
-// +kubebuilder:validation:Optional
-DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
+	// (Boolean) Is it the default config, therefore undeletable?
+	// Is it the default config, therefore undeletable?
+	// +kubebuilder:validation:Optional
+	DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
 
-// (Boolean) Is it the default config, therefore undeletable?
-// Is it the default config, therefore undeletable?
-// +kubebuilder:validation:Optional
-DefaultConfig *bool `json:"defaultConfig,omitempty" tf:"default_config,omitempty"`
+	// (Map of String) Mapping of entity properties to trace labels.
+	// Mapping of entity properties to trace labels.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	EntityPropertyToTraceLabelMapping map[string]*string `json:"entityPropertyToTraceLabelMapping,omitempty" tf:"entity_property_to_trace_label_mapping,omitempty"`
 
-// (Map of String) Mapping of entity properties to trace labels.
-// Mapping of entity properties to trace labels.
-// +kubebuilder:validation:Optional
-// +mapType=granular
-EntityPropertyToTraceLabelMapping map[string]*string `json:"entityPropertyToTraceLabelMapping,omitempty" tf:"entity_property_to_trace_label_mapping,omitempty"`
+	// (Block List) List of match rules for entity properties. (see below for nested schema)
+	// List of match rules for entity properties.
+	// +kubebuilder:validation:Optional
+	Match []TraceConfigMatchParameters `json:"match,omitempty" tf:"match,omitempty"`
 
-// (Block List) List of match rules for entity properties. (see below for nested schema)
-// List of match rules for entity properties.
-// +kubebuilder:validation:Optional
-Match []TraceConfigMatchParameters `json:"match,omitempty" tf:"match,omitempty"`
+	// (String) The name of the trace configuration.
+	// The name of the trace configuration.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the trace configuration.
-// The name of the trace configuration.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
-
-// (Number) Priority of the trace configuration. A lower number means a higher priority.
-// Priority of the trace configuration. A lower number means a higher priority.
-// +kubebuilder:validation:Optional
-Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
+	// (Number) Priority of the trace configuration. A lower number means a higher priority.
+	// Priority of the trace configuration. A lower number means a higher priority.
+	// +kubebuilder:validation:Optional
+	Priority *float64 `json:"priority,omitempty" tf:"priority,omitempty"`
 }
 
 // TraceConfigSpec defines the desired state of TraceConfig
 type TraceConfigSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       TraceConfigParameters `json:"forProvider"`
+	ForProvider     TraceConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -184,19 +168,18 @@ type TraceConfigSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       TraceConfigInitParameters `json:"initProvider,omitempty"`
+	InitProvider TraceConfigInitParameters `json:"initProvider,omitempty"`
 }
 
 // TraceConfigStatus defines the observed state of TraceConfig.
 type TraceConfigStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          TraceConfigObservation `json:"atProvider,omitempty"`
+	AtProvider        TraceConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // TraceConfig is the Schema for the TraceConfigs API. Manages Knowledge Graph Trace Configuration through Grafana API.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -207,12 +190,12 @@ type TraceConfigStatus struct {
 type TraceConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceUid) || (has(self.initProvider) && has(self.initProvider.dataSourceUid))",message="spec.forProvider.dataSourceUid is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultConfig) || (has(self.initProvider) && has(self.initProvider.defaultConfig))",message="spec.forProvider.defaultConfig is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"
-	Spec              TraceConfigSpec   `json:"spec"`
-	Status            TraceConfigStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceUid) || (has(self.initProvider) && has(self.initProvider.dataSourceUid))",message="spec.forProvider.dataSourceUid is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultConfig) || (has(self.initProvider) && has(self.initProvider.defaultConfig))",message="spec.forProvider.defaultConfig is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"
+	Spec   TraceConfigSpec   `json:"spec"`
+	Status TraceConfigStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

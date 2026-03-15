@@ -1,0 +1,34 @@
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/folder
+  labels:
+    testing.upbound.io/example-name: test_folder
+  name: test-folder
+  namespace: upbound-system
+spec:
+  forProvider:
+    title: Terraform Test Folder
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Dashboard
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/folder
+  labels:
+    testing.upbound.io/example-name: test_folder
+  name: test-folder
+  namespace: upbound-system
+spec:
+  forProvider:
+    configJson: |
+      {
+        "title": "Dashboard in folder",
+        "uid": "dashboard-in-folder"
+      }
+    folderSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_folder

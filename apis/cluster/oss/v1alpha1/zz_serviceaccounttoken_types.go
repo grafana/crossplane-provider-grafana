@@ -11,103 +11,93 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type ServiceAccountTokenInitParameters struct {
 
+	// (String) The name of the service account token.
+	// The name of the service account token.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the service account token.
-// The name of the service account token.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Number) The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless api_key_max_seconds_to_live configuration option is set) the key will never expire.
+	// The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless `api_key_max_seconds_to_live` configuration option is set) the key will never expire.
+	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 
-// (Number) The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless api_key_max_seconds_to_live configuration option is set) the key will never expire.
-// The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless `api_key_max_seconds_to_live` configuration option is set) the key will never expire.
-SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+	// (String) The ID of the service account to which the token belongs.
+	// The ID of the service account to which the token belongs.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
+	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
-// (String) The ID of the service account to which the token belongs.
-// The ID of the service account to which the token belongs.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
-// +crossplane:generate:reference:refFieldName=ServiceAccountRef
-// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
-ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+	// Reference to a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
 
-// Reference to a ServiceAccount in oss to populate serviceAccountId.
-// +kubebuilder:validation:Optional
-ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
-
-// Selector for a ServiceAccount in oss to populate serviceAccountId.
-// +kubebuilder:validation:Optional
-ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	// Selector for a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
-
 
 type ServiceAccountTokenObservation struct {
 
+	// (String) The expiration date of the service account token.
+	// The expiration date of the service account token.
+	Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
 
-// (String) The expiration date of the service account token.
-// The expiration date of the service account token.
-Expiration *string `json:"expiration,omitempty" tf:"expiration,omitempty"`
+	// (Boolean) The status of the service account token.
+	// The status of the service account token.
+	HasExpired *bool `json:"hasExpired,omitempty" tf:"has_expired,omitempty"`
 
-// (Boolean) The status of the service account token.
-// The status of the service account token.
-HasExpired *bool `json:"hasExpired,omitempty" tf:"has_expired,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The name of the service account token.
+	// The name of the service account token.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the service account token.
-// The name of the service account token.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Number) The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless api_key_max_seconds_to_live configuration option is set) the key will never expire.
+	// The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless `api_key_max_seconds_to_live` configuration option is set) the key will never expire.
+	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 
-// (Number) The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless api_key_max_seconds_to_live configuration option is set) the key will never expire.
-// The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless `api_key_max_seconds_to_live` configuration option is set) the key will never expire.
-SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
-
-// (String) The ID of the service account to which the token belongs.
-// The ID of the service account to which the token belongs.
-ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+	// (String) The ID of the service account to which the token belongs.
+	// The ID of the service account to which the token belongs.
+	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 }
-
 
 type ServiceAccountTokenParameters struct {
 
+	// (String) The name of the service account token.
+	// The name of the service account token.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the service account token.
-// The name of the service account token.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Number) The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless api_key_max_seconds_to_live configuration option is set) the key will never expire.
+	// The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless `api_key_max_seconds_to_live` configuration option is set) the key will never expire.
+	// +kubebuilder:validation:Optional
+	SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
 
-// (Number) The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless api_key_max_seconds_to_live configuration option is set) the key will never expire.
-// The key expiration in seconds. It is optional. If it is a positive number an expiration date for the key is set. If it is null, zero or is omitted completely (unless `api_key_max_seconds_to_live` configuration option is set) the key will never expire.
-// +kubebuilder:validation:Optional
-SecondsToLive *float64 `json:"secondsToLive,omitempty" tf:"seconds_to_live,omitempty"`
+	// (String) The ID of the service account to which the token belongs.
+	// The ID of the service account to which the token belongs.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
+	// +kubebuilder:validation:Optional
+	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
-// (String) The ID of the service account to which the token belongs.
-// The ID of the service account to which the token belongs.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
-// +crossplane:generate:reference:refFieldName=ServiceAccountRef
-// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
-// +kubebuilder:validation:Optional
-ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+	// Reference to a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
 
-// Reference to a ServiceAccount in oss to populate serviceAccountId.
-// +kubebuilder:validation:Optional
-ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
-
-// Selector for a ServiceAccount in oss to populate serviceAccountId.
-// +kubebuilder:validation:Optional
-ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	// Selector for a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
 // ServiceAccountTokenSpec defines the desired state of ServiceAccountToken
 type ServiceAccountTokenSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       ServiceAccountTokenParameters `json:"forProvider"`
+	ForProvider     ServiceAccountTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -118,19 +108,18 @@ type ServiceAccountTokenSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       ServiceAccountTokenInitParameters `json:"initProvider,omitempty"`
+	InitProvider ServiceAccountTokenInitParameters `json:"initProvider,omitempty"`
 }
 
 // ServiceAccountTokenStatus defines the observed state of ServiceAccountToken.
 type ServiceAccountTokenStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          ServiceAccountTokenObservation `json:"atProvider,omitempty"`
+	AtProvider        ServiceAccountTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // ServiceAccountToken is the Schema for the ServiceAccountTokens API. Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -141,9 +130,9 @@ type ServiceAccountTokenStatus struct {
 type ServiceAccountToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	Spec              ServiceAccountTokenSpec   `json:"spec"`
-	Status            ServiceAccountTokenStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	Spec   ServiceAccountTokenSpec   `json:"spec"`
+	Status ServiceAccountTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -11,303 +11,269 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type AutoDiscoveryConfigurationInitParameters struct {
 
+	// (List of Object) The list of resource type configurations. (see below for nested schema)
+	// The list of resource type configurations.
+	ResourceTypeConfigurations []ResourceTypeConfigurationsInitParameters `json:"resourceTypeConfigurations,omitempty" tf:"resource_type_configurations,omitempty"`
 
-// (List of Object) The list of resource type configurations. (see below for nested schema)
-// The list of resource type configurations.
-ResourceTypeConfigurations []ResourceTypeConfigurationsInitParameters `json:"resourceTypeConfigurations,omitempty" tf:"resource_type_configurations,omitempty"`
-
-// (String) The subscription ID of the Azure account.
-// The subscription ID of the Azure account.
-SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+	// (String) The subscription ID of the Azure account.
+	// The subscription ID of the Azure account.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
 }
-
 
 type AutoDiscoveryConfigurationObservation struct {
 
+	// (List of Object) The list of resource type configurations. (see below for nested schema)
+	// The list of resource type configurations.
+	ResourceTypeConfigurations []ResourceTypeConfigurationsObservation `json:"resourceTypeConfigurations,omitempty" tf:"resource_type_configurations,omitempty"`
 
-// (List of Object) The list of resource type configurations. (see below for nested schema)
-// The list of resource type configurations.
-ResourceTypeConfigurations []ResourceTypeConfigurationsObservation `json:"resourceTypeConfigurations,omitempty" tf:"resource_type_configurations,omitempty"`
-
-// (String) The subscription ID of the Azure account.
-// The subscription ID of the Azure account.
-SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
+	// (String) The subscription ID of the Azure account.
+	// The subscription ID of the Azure account.
+	SubscriptionID *string `json:"subscriptionId,omitempty" tf:"subscription_id,omitempty"`
 }
-
 
 type AutoDiscoveryConfigurationParameters struct {
 
+	// (List of Object) The list of resource type configurations. (see below for nested schema)
+	// The list of resource type configurations.
+	// +kubebuilder:validation:Optional
+	ResourceTypeConfigurations []ResourceTypeConfigurationsParameters `json:"resourceTypeConfigurations" tf:"resource_type_configurations,omitempty"`
 
-// (List of Object) The list of resource type configurations. (see below for nested schema)
-// The list of resource type configurations.
-// +kubebuilder:validation:Optional
-ResourceTypeConfigurations []ResourceTypeConfigurationsParameters `json:"resourceTypeConfigurations" tf:"resource_type_configurations,omitempty"`
-
-// (String) The subscription ID of the Azure account.
-// The subscription ID of the Azure account.
-// +kubebuilder:validation:Optional
-SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
+	// (String) The subscription ID of the Azure account.
+	// The subscription ID of the Azure account.
+	// +kubebuilder:validation:Optional
+	SubscriptionID *string `json:"subscriptionId" tf:"subscription_id,omitempty"`
 }
-
 
 type AzureCredentialInitParameters struct {
 
+	// (Block List) The list of auto discovery configurations. (see below for nested schema)
+	// The list of auto discovery configurations.
+	AutoDiscoveryConfiguration []AutoDiscoveryConfigurationInitParameters `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
 
-// (Block List) The list of auto discovery configurations. (see below for nested schema)
-// The list of auto discovery configurations.
-AutoDiscoveryConfiguration []AutoDiscoveryConfigurationInitParameters `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
+	// (String) The client ID of the Azure Credential.
+	// The client ID of the Azure Credential.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
-// (String) The client ID of the Azure Credential.
-// The client ID of the Azure Credential.
-ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+	// (String, Sensitive) The client secret of the Azure Credential.
+	// The client secret of the Azure Credential.
+	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
-// (String, Sensitive) The client secret of the Azure Credential.
-// The client secret of the Azure Credential.
-ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	// (String) The name of the Azure Credential.
+	// The name of the Azure Credential.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the Azure Credential.
-// The name of the Azure Credential.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Block List) The list of tag filters to apply to resources. (see below for nested schema)
+	// The list of tag filters to apply to resources.
+	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterInitParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-// (Block List) The list of tag filters to apply to resources. (see below for nested schema)
-// The list of tag filters to apply to resources.
-ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterInitParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
+	// (Set of String) The list of resource tags to add to metrics.
+	// The list of resource tags to add to metrics.
+	// +listType=set
+	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
 
-// (Set of String) The list of resource tags to add to metrics.
-// The list of resource tags to add to metrics.
-// +listType=set
-ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
+	// (String) The StackID of the Grafana Cloud instance.
+	// The StackID of the Grafana Cloud instance.
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
-// (String) The StackID of the Grafana Cloud instance.
-// The StackID of the Grafana Cloud instance.
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
-
-// (String) The tenant ID of the Azure Credential.
-// The tenant ID of the Azure Credential.
-TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+	// (String) The tenant ID of the Azure Credential.
+	// The tenant ID of the Azure Credential.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 }
-
 
 type AzureCredentialObservation struct {
 
+	// (Block List) The list of auto discovery configurations. (see below for nested schema)
+	// The list of auto discovery configurations.
+	AutoDiscoveryConfiguration []AutoDiscoveryConfigurationObservation `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
 
-// (Block List) The list of auto discovery configurations. (see below for nested schema)
-// The list of auto discovery configurations.
-AutoDiscoveryConfiguration []AutoDiscoveryConfigurationObservation `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
+	// (String) The client ID of the Azure Credential.
+	// The client ID of the Azure Credential.
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
-// (String) The client ID of the Azure Credential.
-// The client ID of the Azure Credential.
-ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+	// This has the format "{{ stack_id }}:{{ resource_id }}".
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// This has the format "{{ stack_id }}:{{ resource_id }}".
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The name of the Azure Credential.
+	// The name of the Azure Credential.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the Azure Credential.
-// The name of the Azure Credential.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Block List) The list of tag filters to apply to resources. (see below for nested schema)
+	// The list of tag filters to apply to resources.
+	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterObservation `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-// (Block List) The list of tag filters to apply to resources. (see below for nested schema)
-// The list of tag filters to apply to resources.
-ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterObservation `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
+	// (String) The ID given by the Grafana Cloud Provider API to this Azure Credential resource.
+	// The ID given by the Grafana Cloud Provider API to this Azure Credential resource.
+	ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
 
-// (String) The ID given by the Grafana Cloud Provider API to this Azure Credential resource.
-// The ID given by the Grafana Cloud Provider API to this Azure Credential resource.
-ResourceID *string `json:"resourceId,omitempty" tf:"resource_id,omitempty"`
+	// (Set of String) The list of resource tags to add to metrics.
+	// The list of resource tags to add to metrics.
+	// +listType=set
+	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
 
-// (Set of String) The list of resource tags to add to metrics.
-// The list of resource tags to add to metrics.
-// +listType=set
-ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
+	// (String) The StackID of the Grafana Cloud instance.
+	// The StackID of the Grafana Cloud instance.
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
-// (String) The StackID of the Grafana Cloud instance.
-// The StackID of the Grafana Cloud instance.
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
-
-// (String) The tenant ID of the Azure Credential.
-// The tenant ID of the Azure Credential.
-TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+	// (String) The tenant ID of the Azure Credential.
+	// The tenant ID of the Azure Credential.
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 }
-
 
 type AzureCredentialParameters struct {
 
+	// (Block List) The list of auto discovery configurations. (see below for nested schema)
+	// The list of auto discovery configurations.
+	// +kubebuilder:validation:Optional
+	AutoDiscoveryConfiguration []AutoDiscoveryConfigurationParameters `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
 
-// (Block List) The list of auto discovery configurations. (see below for nested schema)
-// The list of auto discovery configurations.
-// +kubebuilder:validation:Optional
-AutoDiscoveryConfiguration []AutoDiscoveryConfigurationParameters `json:"autoDiscoveryConfiguration,omitempty" tf:"auto_discovery_configuration,omitempty"`
+	// (String) The client ID of the Azure Credential.
+	// The client ID of the Azure Credential.
+	// +kubebuilder:validation:Optional
+	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
 
-// (String) The client ID of the Azure Credential.
-// The client ID of the Azure Credential.
-// +kubebuilder:validation:Optional
-ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+	// (String, Sensitive) The client secret of the Azure Credential.
+	// The client secret of the Azure Credential.
+	// +kubebuilder:validation:Optional
+	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
-// (String, Sensitive) The client secret of the Azure Credential.
-// The client secret of the Azure Credential.
-// +kubebuilder:validation:Optional
-ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	// (String) The name of the Azure Credential.
+	// The name of the Azure Credential.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the Azure Credential.
-// The name of the Azure Credential.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (Block List) The list of tag filters to apply to resources. (see below for nested schema)
+	// The list of tag filters to apply to resources.
+	// +kubebuilder:validation:Optional
+	ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
 
-// (Block List) The list of tag filters to apply to resources. (see below for nested schema)
-// The list of tag filters to apply to resources.
-// +kubebuilder:validation:Optional
-ResourceDiscoveryTagFilter []AzureCredentialResourceDiscoveryTagFilterParameters `json:"resourceDiscoveryTagFilter,omitempty" tf:"resource_discovery_tag_filter,omitempty"`
+	// (Set of String) The list of resource tags to add to metrics.
+	// The list of resource tags to add to metrics.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
 
-// (Set of String) The list of resource tags to add to metrics.
-// The list of resource tags to add to metrics.
-// +kubebuilder:validation:Optional
-// +listType=set
-ResourceTagsToAddToMetrics []*string `json:"resourceTagsToAddToMetrics,omitempty" tf:"resource_tags_to_add_to_metrics,omitempty"`
+	// (String) The StackID of the Grafana Cloud instance.
+	// The StackID of the Grafana Cloud instance.
+	// +kubebuilder:validation:Optional
+	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
-// (String) The StackID of the Grafana Cloud instance.
-// The StackID of the Grafana Cloud instance.
-// +kubebuilder:validation:Optional
-StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
-
-// (String) The tenant ID of the Azure Credential.
-// The tenant ID of the Azure Credential.
-// +kubebuilder:validation:Optional
-TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
+	// (String) The tenant ID of the Azure Credential.
+	// The tenant ID of the Azure Credential.
+	// +kubebuilder:validation:Optional
+	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
 }
-
 
 type AzureCredentialResourceDiscoveryTagFilterInitParameters struct {
 
+	// (String) The key of the tag filter.
+	// The key of the tag filter.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
-// (String) The key of the tag filter.
-// The key of the tag filter.
-Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-// (String) The value of the tag filter.
-// The value of the tag filter.
-Value *string `json:"value,omitempty" tf:"value,omitempty"`
+	// (String) The value of the tag filter.
+	// The value of the tag filter.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
-
 
 type AzureCredentialResourceDiscoveryTagFilterObservation struct {
 
+	// (String) The key of the tag filter.
+	// The key of the tag filter.
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
 
-// (String) The key of the tag filter.
-// The key of the tag filter.
-Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-// (String) The value of the tag filter.
-// The value of the tag filter.
-Value *string `json:"value,omitempty" tf:"value,omitempty"`
+	// (String) The value of the tag filter.
+	// The value of the tag filter.
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
-
 
 type AzureCredentialResourceDiscoveryTagFilterParameters struct {
 
+	// (String) The key of the tag filter.
+	// The key of the tag filter.
+	// +kubebuilder:validation:Optional
+	Key *string `json:"key" tf:"key,omitempty"`
 
-// (String) The key of the tag filter.
-// The key of the tag filter.
-// +kubebuilder:validation:Optional
-Key *string `json:"key" tf:"key,omitempty"`
-
-// (String) The value of the tag filter.
-// The value of the tag filter.
-// +kubebuilder:validation:Optional
-Value *string `json:"value" tf:"value,omitempty"`
+	// (String) The value of the tag filter.
+	// The value of the tag filter.
+	// +kubebuilder:validation:Optional
+	Value *string `json:"value" tf:"value,omitempty"`
 }
-
 
 type MetricConfigurationInitParameters struct {
 
+	// (List of String)
+	Aggregations []*string `json:"aggregations,omitempty" tf:"aggregations"`
 
-// (List of String)
-Aggregations []*string `json:"aggregations,omitempty" tf:"aggregations"`
+	// (List of String)
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions"`
 
-// (List of String)
-Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions"`
-
-// (String) The name of the Azure Credential.
-Name *string `json:"name,omitempty" tf:"name"`
+	// (String) The name of the Azure Credential.
+	Name *string `json:"name,omitempty" tf:"name"`
 }
-
 
 type MetricConfigurationObservation struct {
 
+	// (List of String)
+	Aggregations []*string `json:"aggregations,omitempty" tf:"aggregations,omitempty"`
 
-// (List of String)
-Aggregations []*string `json:"aggregations,omitempty" tf:"aggregations,omitempty"`
+	// (List of String)
+	Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
 
-// (List of String)
-Dimensions []*string `json:"dimensions,omitempty" tf:"dimensions,omitempty"`
-
-// (String) The name of the Azure Credential.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The name of the Azure Credential.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
-
 
 type MetricConfigurationParameters struct {
 
+	// (List of String)
+	// +kubebuilder:validation:Optional
+	Aggregations []*string `json:"aggregations" tf:"aggregations"`
 
-// (List of String)
-// +kubebuilder:validation:Optional
-Aggregations []*string `json:"aggregations" tf:"aggregations"`
+	// (List of String)
+	// +kubebuilder:validation:Optional
+	Dimensions []*string `json:"dimensions" tf:"dimensions"`
 
-// (List of String)
-// +kubebuilder:validation:Optional
-Dimensions []*string `json:"dimensions" tf:"dimensions"`
-
-// (String) The name of the Azure Credential.
-// +kubebuilder:validation:Optional
-Name *string `json:"name" tf:"name"`
+	// (String) The name of the Azure Credential.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name"`
 }
-
 
 type ResourceTypeConfigurationsInitParameters struct {
 
+	// (List of Object) (see below for nested schema)
+	MetricConfiguration []MetricConfigurationInitParameters `json:"metricConfiguration,omitempty" tf:"metric_configuration"`
 
-// (List of Object) (see below for nested schema)
-MetricConfiguration []MetricConfigurationInitParameters `json:"metricConfiguration,omitempty" tf:"metric_configuration"`
-
-// (String)
-ResourceTypeName *string `json:"resourceTypeName,omitempty" tf:"resource_type_name"`
+	// (String)
+	ResourceTypeName *string `json:"resourceTypeName,omitempty" tf:"resource_type_name"`
 }
-
 
 type ResourceTypeConfigurationsObservation struct {
 
+	// (List of Object) (see below for nested schema)
+	MetricConfiguration []MetricConfigurationObservation `json:"metricConfiguration,omitempty" tf:"metric_configuration,omitempty"`
 
-// (List of Object) (see below for nested schema)
-MetricConfiguration []MetricConfigurationObservation `json:"metricConfiguration,omitempty" tf:"metric_configuration,omitempty"`
-
-// (String)
-ResourceTypeName *string `json:"resourceTypeName,omitempty" tf:"resource_type_name,omitempty"`
+	// (String)
+	ResourceTypeName *string `json:"resourceTypeName,omitempty" tf:"resource_type_name,omitempty"`
 }
-
 
 type ResourceTypeConfigurationsParameters struct {
 
+	// (List of Object) (see below for nested schema)
+	// +kubebuilder:validation:Optional
+	MetricConfiguration []MetricConfigurationParameters `json:"metricConfiguration" tf:"metric_configuration"`
 
-// (List of Object) (see below for nested schema)
-// +kubebuilder:validation:Optional
-MetricConfiguration []MetricConfigurationParameters `json:"metricConfiguration" tf:"metric_configuration"`
-
-// (String)
-// +kubebuilder:validation:Optional
-ResourceTypeName *string `json:"resourceTypeName" tf:"resource_type_name"`
+	// (String)
+	// +kubebuilder:validation:Optional
+	ResourceTypeName *string `json:"resourceTypeName" tf:"resource_type_name"`
 }
 
 // AzureCredentialSpec defines the desired state of AzureCredential
 type AzureCredentialSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       AzureCredentialParameters `json:"forProvider"`
+	ForProvider     AzureCredentialParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -318,19 +284,18 @@ type AzureCredentialSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       AzureCredentialInitParameters `json:"initProvider,omitempty"`
+	InitProvider AzureCredentialInitParameters `json:"initProvider,omitempty"`
 }
 
 // AzureCredentialStatus defines the observed state of AzureCredential.
 type AzureCredentialStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          AzureCredentialObservation `json:"atProvider,omitempty"`
+	AtProvider        AzureCredentialObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // AzureCredential is the Schema for the AzureCredentials API. This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -341,13 +306,13 @@ type AzureCredentialStatus struct {
 type AzureCredential struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clientId) || (has(self.initProvider) && has(self.initProvider.clientId))",message="spec.forProvider.clientId is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clientSecretSecretRef)",message="spec.forProvider.clientSecretSecretRef is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.tenantId) || (has(self.initProvider) && has(self.initProvider.tenantId))",message="spec.forProvider.tenantId is a required parameter"
-	Spec              AzureCredentialSpec   `json:"spec"`
-	Status            AzureCredentialStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clientId) || (has(self.initProvider) && has(self.initProvider.clientId))",message="spec.forProvider.clientId is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clientSecretSecretRef)",message="spec.forProvider.clientSecretSecretRef is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.tenantId) || (has(self.initProvider) && has(self.initProvider.tenantId))",message="spec.forProvider.tenantId is a required parameter"
+	Spec   AzureCredentialSpec   `json:"spec"`
+	Status AzureCredentialStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

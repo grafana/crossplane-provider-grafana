@@ -10,109 +10,99 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
-
-
-
 
 type ScimConfigInitParameters struct {
 
+	// (Boolean) Whether group synchronization is enabled.
+	// Whether group synchronization is enabled.
+	EnableGroupSync *bool `json:"enableGroupSync,omitempty" tf:"enable_group_sync,omitempty"`
 
-// (Boolean) Whether group synchronization is enabled.
-// Whether group synchronization is enabled.
-EnableGroupSync *bool `json:"enableGroupSync,omitempty" tf:"enable_group_sync,omitempty"`
+	// (Boolean) Whether user synchronization is enabled.
+	// Whether user synchronization is enabled.
+	EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
 
-// (Boolean) Whether user synchronization is enabled.
-// Whether user synchronization is enabled.
-EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
-
-// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
-// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
-RejectNonProvisionedUsers *bool `json:"rejectNonProvisionedUsers,omitempty" tf:"reject_non_provisioned_users,omitempty"`
+	// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
+	// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
+	RejectNonProvisionedUsers *bool `json:"rejectNonProvisionedUsers,omitempty" tf:"reject_non_provisioned_users,omitempty"`
 }
-
 
 type ScimConfigObservation struct {
 
+	// (Boolean) Whether group synchronization is enabled.
+	// Whether group synchronization is enabled.
+	EnableGroupSync *bool `json:"enableGroupSync,omitempty" tf:"enable_group_sync,omitempty"`
 
-// (Boolean) Whether group synchronization is enabled.
-// Whether group synchronization is enabled.
-EnableGroupSync *bool `json:"enableGroupSync,omitempty" tf:"enable_group_sync,omitempty"`
+	// (Boolean) Whether user synchronization is enabled.
+	// Whether user synchronization is enabled.
+	EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
 
-// (Boolean) Whether user synchronization is enabled.
-// Whether user synchronization is enabled.
-EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
-
-// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
-// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
-RejectNonProvisionedUsers *bool `json:"rejectNonProvisionedUsers,omitempty" tf:"reject_non_provisioned_users,omitempty"`
+	// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
+	// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
+	RejectNonProvisionedUsers *bool `json:"rejectNonProvisionedUsers,omitempty" tf:"reject_non_provisioned_users,omitempty"`
 }
-
 
 type ScimConfigParameters struct {
 
+	// (Boolean) Whether group synchronization is enabled.
+	// Whether group synchronization is enabled.
+	// +kubebuilder:validation:Optional
+	EnableGroupSync *bool `json:"enableGroupSync,omitempty" tf:"enable_group_sync,omitempty"`
 
-// (Boolean) Whether group synchronization is enabled.
-// Whether group synchronization is enabled.
-// +kubebuilder:validation:Optional
-EnableGroupSync *bool `json:"enableGroupSync,omitempty" tf:"enable_group_sync,omitempty"`
+	// (Boolean) Whether user synchronization is enabled.
+	// Whether user synchronization is enabled.
+	// +kubebuilder:validation:Optional
+	EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
 
-// (Boolean) Whether user synchronization is enabled.
-// Whether user synchronization is enabled.
-// +kubebuilder:validation:Optional
-EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-// +kubebuilder:validation:Optional
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
-
-// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
-// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
-// +kubebuilder:validation:Optional
-RejectNonProvisionedUsers *bool `json:"rejectNonProvisionedUsers,omitempty" tf:"reject_non_provisioned_users,omitempty"`
+	// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
+	// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
+	// +kubebuilder:validation:Optional
+	RejectNonProvisionedUsers *bool `json:"rejectNonProvisionedUsers,omitempty" tf:"reject_non_provisioned_users,omitempty"`
 }
 
 // ScimConfigSpec defines the desired state of ScimConfig
 type ScimConfigSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       ScimConfigParameters `json:"forProvider"`
+	ForProvider     ScimConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -123,19 +113,18 @@ type ScimConfigSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       ScimConfigInitParameters `json:"initProvider,omitempty"`
+	InitProvider ScimConfigInitParameters `json:"initProvider,omitempty"`
 }
 
 // ScimConfigStatus defines the observed state of ScimConfig.
 type ScimConfigStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          ScimConfigObservation `json:"atProvider,omitempty"`
+	AtProvider        ScimConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // ScimConfig is the Schema for the ScimConfigs API. Note: This resource is available only with Grafana Enterprise. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-scim-provisioning/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -146,11 +135,11 @@ type ScimConfigStatus struct {
 type ScimConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enableGroupSync) || (has(self.initProvider) && has(self.initProvider.enableGroupSync))",message="spec.forProvider.enableGroupSync is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enableUserSync) || (has(self.initProvider) && has(self.initProvider.enableUserSync))",message="spec.forProvider.enableUserSync is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rejectNonProvisionedUsers) || (has(self.initProvider) && has(self.initProvider.rejectNonProvisionedUsers))",message="spec.forProvider.rejectNonProvisionedUsers is a required parameter"
-	Spec              ScimConfigSpec   `json:"spec"`
-	Status            ScimConfigStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enableGroupSync) || (has(self.initProvider) && has(self.initProvider.enableGroupSync))",message="spec.forProvider.enableGroupSync is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enableUserSync) || (has(self.initProvider) && has(self.initProvider.enableUserSync))",message="spec.forProvider.enableUserSync is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rejectNonProvisionedUsers) || (has(self.initProvider) && has(self.initProvider.rejectNonProvisionedUsers))",message="spec.forProvider.rejectNonProvisionedUsers is a required parameter"
+	Spec   ScimConfigSpec   `json:"spec"`
+	Status ScimConfigStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

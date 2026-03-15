@@ -10,61 +10,51 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-
+	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
-
-
-
 
 type ProjectAllowedLoadZonesInitParameters struct {
 
+	// (List of String) List of allowed private k6 load zone IDs for this project.
+	// List of allowed private k6 load zone IDs for this project.
+	AllowedLoadZones []*string `json:"allowedLoadZones,omitempty" tf:"allowed_load_zones,omitempty"`
 
-// (List of String) List of allowed private k6 load zone IDs for this project.
-// List of allowed private k6 load zone IDs for this project.
-AllowedLoadZones []*string `json:"allowedLoadZones,omitempty" tf:"allowed_load_zones,omitempty"`
-
-// (String) The identifier of the project to manage private allowed load zones for.
-// The identifier of the project to manage private allowed load zones for.
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// (String) The identifier of the project to manage private allowed load zones for.
+	// The identifier of the project to manage private allowed load zones for.
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 }
-
 
 type ProjectAllowedLoadZonesObservation struct {
 
+	// (List of String) List of allowed private k6 load zone IDs for this project.
+	// List of allowed private k6 load zone IDs for this project.
+	AllowedLoadZones []*string `json:"allowedLoadZones,omitempty" tf:"allowed_load_zones,omitempty"`
 
-// (List of String) List of allowed private k6 load zone IDs for this project.
-// List of allowed private k6 load zone IDs for this project.
-AllowedLoadZones []*string `json:"allowedLoadZones,omitempty" tf:"allowed_load_zones,omitempty"`
+	// (String) The identifier of the project. This is set to the same as the project_id.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The identifier of the project. This is set to the same as the project_id.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
-
-// (String) The identifier of the project to manage private allowed load zones for.
-// The identifier of the project to manage private allowed load zones for.
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// (String) The identifier of the project to manage private allowed load zones for.
+	// The identifier of the project to manage private allowed load zones for.
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 }
-
 
 type ProjectAllowedLoadZonesParameters struct {
 
+	// (List of String) List of allowed private k6 load zone IDs for this project.
+	// List of allowed private k6 load zone IDs for this project.
+	// +kubebuilder:validation:Optional
+	AllowedLoadZones []*string `json:"allowedLoadZones,omitempty" tf:"allowed_load_zones,omitempty"`
 
-// (List of String) List of allowed private k6 load zone IDs for this project.
-// List of allowed private k6 load zone IDs for this project.
-// +kubebuilder:validation:Optional
-AllowedLoadZones []*string `json:"allowedLoadZones,omitempty" tf:"allowed_load_zones,omitempty"`
-
-// (String) The identifier of the project to manage private allowed load zones for.
-// The identifier of the project to manage private allowed load zones for.
-// +kubebuilder:validation:Optional
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// (String) The identifier of the project to manage private allowed load zones for.
+	// The identifier of the project to manage private allowed load zones for.
+	// +kubebuilder:validation:Optional
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 }
 
 // ProjectAllowedLoadZonesSpec defines the desired state of ProjectAllowedLoadZones
 type ProjectAllowedLoadZonesSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       ProjectAllowedLoadZonesParameters `json:"forProvider"`
+	ForProvider     ProjectAllowedLoadZonesParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -75,19 +65,18 @@ type ProjectAllowedLoadZonesSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       ProjectAllowedLoadZonesInitParameters `json:"initProvider,omitempty"`
+	InitProvider ProjectAllowedLoadZonesInitParameters `json:"initProvider,omitempty"`
 }
 
 // ProjectAllowedLoadZonesStatus defines the observed state of ProjectAllowedLoadZones.
 type ProjectAllowedLoadZonesStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          ProjectAllowedLoadZonesObservation `json:"atProvider,omitempty"`
+	AtProvider        ProjectAllowedLoadZonesObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // ProjectAllowedLoadZones is the Schema for the ProjectAllowedLoadZoness API. Manages allowed private load zones for a k6 project.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -98,10 +87,10 @@ type ProjectAllowedLoadZonesStatus struct {
 type ProjectAllowedLoadZones struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.allowedLoadZones) || (has(self.initProvider) && has(self.initProvider.allowedLoadZones))",message="spec.forProvider.allowedLoadZones is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.projectId) || (has(self.initProvider) && has(self.initProvider.projectId))",message="spec.forProvider.projectId is a required parameter"
-	Spec              ProjectAllowedLoadZonesSpec   `json:"spec"`
-	Status            ProjectAllowedLoadZonesStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.allowedLoadZones) || (has(self.initProvider) && has(self.initProvider.allowedLoadZones))",message="spec.forProvider.allowedLoadZones is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.projectId) || (has(self.initProvider) && has(self.initProvider.projectId))",message="spec.forProvider.projectId is a required parameter"
+	Spec   ProjectAllowedLoadZonesSpec   `json:"spec"`
+	Status ProjectAllowedLoadZonesStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

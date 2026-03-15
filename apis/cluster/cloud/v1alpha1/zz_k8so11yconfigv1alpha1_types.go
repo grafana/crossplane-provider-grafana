@@ -11,187 +11,159 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type K8So11YconfigV1Alpha1InitParameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
+	// The metadata of the resource.
+	Metadata *K8So11YconfigV1Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-// (Block, Optional) The metadata of the resource. (see below for nested schema)
-// The metadata of the resource.
-Metadata *K8So11YconfigV1Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
+	// Options for applying the resource.
+	Options *K8So11YconfigV1Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
-// (Block, Optional) Options for applying the resource. (see below for nested schema)
-// Options for applying the resource.
-Options *K8So11YconfigV1Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
-
-// (Block, Optional) The spec of the resource. (see below for nested schema)
-// The spec of the resource.
-Spec *K8So11YconfigV1Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
+	// The spec of the resource.
+	Spec *K8So11YconfigV1Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1MetadataInitParameters struct {
 
+	// (String) The UID of the folder to save the resource in.
+	// The UID of the folder to save the resource in.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) The UID of the folder to save the resource in.
-// The UID of the folder to save the resource in.
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
-
-// (String) The unique identifier of the resource.
-// The unique identifier of the resource.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) The unique identifier of the resource.
+	// The unique identifier of the resource.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1MetadataObservation struct {
 
+	// (Map of String) Annotations of the resource.
+	// Annotations of the resource.
+	// +mapType=granular
+	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-// (Map of String) Annotations of the resource.
-// Annotations of the resource.
-// +mapType=granular
-Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
+	// (String) The UID of the folder to save the resource in.
+	// The UID of the folder to save the resource in.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) The UID of the folder to save the resource in.
-// The UID of the folder to save the resource in.
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+	// (String) The unique identifier of the resource.
+	// The unique identifier of the resource.
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-// (String) The unique identifier of the resource.
-// The unique identifier of the resource.
-UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
+	// (String) The full URL of the resource.
+	// The full URL of the resource.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-// (String) The full URL of the resource.
-// The full URL of the resource.
-URL *string `json:"url,omitempty" tf:"url,omitempty"`
+	// (String) The globally unique identifier of a resource, used by the API for tracking.
+	// The globally unique identifier of a resource, used by the API for tracking.
+	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
-// (String) The globally unique identifier of a resource, used by the API for tracking.
-// The globally unique identifier of a resource, used by the API for tracking.
-UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
-
-// (String) The version of the resource.
-// The version of the resource.
-Version *string `json:"version,omitempty" tf:"version,omitempty"`
+	// (String) The version of the resource.
+	// The version of the resource.
+	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1MetadataParameters struct {
 
+	// (String) The UID of the folder to save the resource in.
+	// The UID of the folder to save the resource in.
+	// +kubebuilder:validation:Optional
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-// (String) The UID of the folder to save the resource in.
-// The UID of the folder to save the resource in.
-// +kubebuilder:validation:Optional
-FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
-
-// (String) The unique identifier of the resource.
-// The unique identifier of the resource.
-// +kubebuilder:validation:Optional
-UID *string `json:"uid" tf:"uid,omitempty"`
+	// (String) The unique identifier of the resource.
+	// The unique identifier of the resource.
+	// +kubebuilder:validation:Optional
+	UID *string `json:"uid" tf:"uid,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1Observation struct {
 
+	// (String) The ID of the resource derived from UUID.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of the resource derived from UUID.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
+	// The metadata of the resource.
+	Metadata *K8So11YconfigV1Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-// (Block, Optional) The metadata of the resource. (see below for nested schema)
-// The metadata of the resource.
-Metadata *K8So11YconfigV1Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
+	// Options for applying the resource.
+	Options *K8So11YconfigV1Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
-// (Block, Optional) Options for applying the resource. (see below for nested schema)
-// Options for applying the resource.
-Options *K8So11YconfigV1Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
-
-// (Block, Optional) The spec of the resource. (see below for nested schema)
-// The spec of the resource.
-Spec *K8So11YconfigV1Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
+	// The spec of the resource.
+	Spec *K8So11YconfigV1Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1OptionsInitParameters struct {
 
-
-// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1OptionsObservation struct {
 
-
-// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1OptionsParameters struct {
 
-
-// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-// +kubebuilder:validation:Optional
-Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+	// +kubebuilder:validation:Optional
+	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1Parameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
+	// The metadata of the resource.
+	// +kubebuilder:validation:Optional
+	Metadata *K8So11YconfigV1Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-// (Block, Optional) The metadata of the resource. (see below for nested schema)
-// The metadata of the resource.
-// +kubebuilder:validation:Optional
-Metadata *K8So11YconfigV1Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
+	// Options for applying the resource.
+	// +kubebuilder:validation:Optional
+	Options *K8So11YconfigV1Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
-// (Block, Optional) Options for applying the resource. (see below for nested schema)
-// Options for applying the resource.
-// +kubebuilder:validation:Optional
-Options *K8So11YconfigV1Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
-
-// (Block, Optional) The spec of the resource. (see below for nested schema)
-// The spec of the resource.
-// +kubebuilder:validation:Optional
-Spec *K8So11YconfigV1Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
+	// The spec of the resource.
+	// +kubebuilder:validation:Optional
+	Spec *K8So11YconfigV1Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1SpecInitParameters struct {
 
-
-// (Boolean) Whether Kubernetes observability is enabled.
-// Whether Kubernetes observability is enabled.
-Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// (Boolean) Whether Kubernetes observability is enabled.
+	// Whether Kubernetes observability is enabled.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1SpecObservation struct {
 
-
-// (Boolean) Whether Kubernetes observability is enabled.
-// Whether Kubernetes observability is enabled.
-Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+	// (Boolean) Whether Kubernetes observability is enabled.
+	// Whether Kubernetes observability is enabled.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
-
 
 type K8So11YconfigV1Alpha1SpecParameters struct {
 
-
-// (Boolean) Whether Kubernetes observability is enabled.
-// Whether Kubernetes observability is enabled.
-// +kubebuilder:validation:Optional
-Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
+	// (Boolean) Whether Kubernetes observability is enabled.
+	// Whether Kubernetes observability is enabled.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
 }
 
 // K8So11YconfigV1Alpha1Spec defines the desired state of K8So11YconfigV1Alpha1
 type K8So11YconfigV1Alpha1Spec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       K8So11YconfigV1Alpha1Parameters `json:"forProvider"`
+	ForProvider     K8So11YconfigV1Alpha1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -202,19 +174,18 @@ type K8So11YconfigV1Alpha1Spec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       K8So11YconfigV1Alpha1InitParameters `json:"initProvider,omitempty"`
+	InitProvider K8So11YconfigV1Alpha1InitParameters `json:"initProvider,omitempty"`
 }
 
 // K8So11YconfigV1Alpha1Status defines the observed state of K8So11YconfigV1Alpha1.
 type K8So11YconfigV1Alpha1Status struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          K8So11YconfigV1Alpha1Observation `json:"atProvider,omitempty"`
+	AtProvider        K8So11YconfigV1Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // K8So11YconfigV1Alpha1 is the Schema for the K8So11YconfigV1Alpha1s API. Manages Grafana Kubernetes Observability configurations using the Grafana APIs. This resource allows you to enable or disable Kubernetes observability features. Note: This is a singleton resource. The UID is automatically set to "global" and there can only be one per namespace.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -225,10 +196,10 @@ type K8So11YconfigV1Alpha1Status struct {
 type K8So11YconfigV1Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec              K8So11YconfigV1Alpha1Spec   `json:"spec"`
-	Status            K8So11YconfigV1Alpha1Status `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
+	Spec   K8So11YconfigV1Alpha1Spec   `json:"spec"`
+	Status K8So11YconfigV1Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

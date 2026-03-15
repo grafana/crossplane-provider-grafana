@@ -11,217 +11,201 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type ScheduleInitParameters struct {
 
+	// (Boolean) Enable overrides via web UI (it will ignore ical_url_overrides).
+	// Enable overrides via web UI (it will ignore ical_url_overrides).
+	EnableWebOverrides *bool `json:"enableWebOverrides,omitempty" tf:"enable_web_overrides,omitempty"`
 
-// (Boolean) Enable overrides via web UI (it will ignore ical_url_overrides).
-// Enable overrides via web UI (it will ignore ical_url_overrides).
-EnableWebOverrides *bool `json:"enableWebOverrides,omitempty" tf:"enable_web_overrides,omitempty"`
+	// (String) The URL of external iCal calendar which override primary events.
+	// The URL of external iCal calendar which override primary events.
+	IcalURLOverrides *string `json:"icalUrlOverrides,omitempty" tf:"ical_url_overrides,omitempty"`
 
-// (String) The URL of external iCal calendar which override primary events.
-// The URL of external iCal calendar which override primary events.
-IcalURLOverrides *string `json:"icalUrlOverrides,omitempty" tf:"ical_url_overrides,omitempty"`
+	// (String) The URL of the external calendar iCal file.
+	// The URL of the external calendar iCal file.
+	IcalURLPrimary *string `json:"icalUrlPrimary,omitempty" tf:"ical_url_primary,omitempty"`
 
-// (String) The URL of the external calendar iCal file.
-// The URL of the external calendar iCal file.
-IcalURLPrimary *string `json:"icalUrlPrimary,omitempty" tf:"ical_url_primary,omitempty"`
+	// (String) The schedule's name.
+	// The schedule's name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The schedule's name.
-// The schedule's name.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// call shifts.
+	// The list of ID's of on-call shifts.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.OnCallShift
+	// +crossplane:generate:reference:refFieldName=ShiftsRef
+	// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
+	// +listType=set
+	Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
 
-// call shifts.
-// The list of ID's of on-call shifts.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.OnCallShift
-// +crossplane:generate:reference:refFieldName=ShiftsRef
-// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
-// +listType=set
-Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
+	// References to OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
 
-// References to OnCallShift in oncall to populate shifts.
-// +kubebuilder:validation:Optional
-ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
+	// Selector for a list of OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
 
-// Selector for a list of OnCallShift in oncall to populate shifts.
-// +kubebuilder:validation:Optional
-ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
+	// specific settings for a schedule. (see below for nested schema)
+	// The Slack-specific settings for a schedule.
+	Slack []ScheduleSlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 
-// specific settings for a schedule. (see below for nested schema)
-// The Slack-specific settings for a schedule.
-Slack []ScheduleSlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
-// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
-TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+	// (String) The schedule's time zone.
+	// The schedule's time zone.
+	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
-// (String) The schedule's time zone.
-// The schedule's time zone.
-TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
-
-// (String) The schedule's type. Valid values are ical, calendar, web.
-// The schedule's type. Valid values are `ical`, `calendar`, `web`.
-Type *string `json:"type,omitempty" tf:"type,omitempty"`
+	// (String) The schedule's type. Valid values are ical, calendar, web.
+	// The schedule's type. Valid values are `ical`, `calendar`, `web`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
-
 
 type ScheduleObservation struct {
 
+	// (Boolean) Enable overrides via web UI (it will ignore ical_url_overrides).
+	// Enable overrides via web UI (it will ignore ical_url_overrides).
+	EnableWebOverrides *bool `json:"enableWebOverrides,omitempty" tf:"enable_web_overrides,omitempty"`
 
-// (Boolean) Enable overrides via web UI (it will ignore ical_url_overrides).
-// Enable overrides via web UI (it will ignore ical_url_overrides).
-EnableWebOverrides *bool `json:"enableWebOverrides,omitempty" tf:"enable_web_overrides,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The URL of external iCal calendar which override primary events.
+	// The URL of external iCal calendar which override primary events.
+	IcalURLOverrides *string `json:"icalUrlOverrides,omitempty" tf:"ical_url_overrides,omitempty"`
 
-// (String) The URL of external iCal calendar which override primary events.
-// The URL of external iCal calendar which override primary events.
-IcalURLOverrides *string `json:"icalUrlOverrides,omitempty" tf:"ical_url_overrides,omitempty"`
+	// (String) The URL of the external calendar iCal file.
+	// The URL of the external calendar iCal file.
+	IcalURLPrimary *string `json:"icalUrlPrimary,omitempty" tf:"ical_url_primary,omitempty"`
 
-// (String) The URL of the external calendar iCal file.
-// The URL of the external calendar iCal file.
-IcalURLPrimary *string `json:"icalUrlPrimary,omitempty" tf:"ical_url_primary,omitempty"`
+	// (String) The schedule's name.
+	// The schedule's name.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The schedule's name.
-// The schedule's name.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// call shifts.
+	// The list of ID's of on-call shifts.
+	// +listType=set
+	Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
 
-// call shifts.
-// The list of ID's of on-call shifts.
-// +listType=set
-Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
+	// specific settings for a schedule. (see below for nested schema)
+	// The Slack-specific settings for a schedule.
+	Slack []ScheduleSlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
 
-// specific settings for a schedule. (see below for nested schema)
-// The Slack-specific settings for a schedule.
-Slack []ScheduleSlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
-// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
-TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+	// (String) The schedule's time zone.
+	// The schedule's time zone.
+	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
-// (String) The schedule's time zone.
-// The schedule's time zone.
-TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
-
-// (String) The schedule's type. Valid values are ical, calendar, web.
-// The schedule's type. Valid values are `ical`, `calendar`, `web`.
-Type *string `json:"type,omitempty" tf:"type,omitempty"`
+	// (String) The schedule's type. Valid values are ical, calendar, web.
+	// The schedule's type. Valid values are `ical`, `calendar`, `web`.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
-
 
 type ScheduleParameters struct {
 
+	// (Boolean) Enable overrides via web UI (it will ignore ical_url_overrides).
+	// Enable overrides via web UI (it will ignore ical_url_overrides).
+	// +kubebuilder:validation:Optional
+	EnableWebOverrides *bool `json:"enableWebOverrides,omitempty" tf:"enable_web_overrides,omitempty"`
 
-// (Boolean) Enable overrides via web UI (it will ignore ical_url_overrides).
-// Enable overrides via web UI (it will ignore ical_url_overrides).
-// +kubebuilder:validation:Optional
-EnableWebOverrides *bool `json:"enableWebOverrides,omitempty" tf:"enable_web_overrides,omitempty"`
+	// (String) The URL of external iCal calendar which override primary events.
+	// The URL of external iCal calendar which override primary events.
+	// +kubebuilder:validation:Optional
+	IcalURLOverrides *string `json:"icalUrlOverrides,omitempty" tf:"ical_url_overrides,omitempty"`
 
-// (String) The URL of external iCal calendar which override primary events.
-// The URL of external iCal calendar which override primary events.
-// +kubebuilder:validation:Optional
-IcalURLOverrides *string `json:"icalUrlOverrides,omitempty" tf:"ical_url_overrides,omitempty"`
+	// (String) The URL of the external calendar iCal file.
+	// The URL of the external calendar iCal file.
+	// +kubebuilder:validation:Optional
+	IcalURLPrimary *string `json:"icalUrlPrimary,omitempty" tf:"ical_url_primary,omitempty"`
 
-// (String) The URL of the external calendar iCal file.
-// The URL of the external calendar iCal file.
-// +kubebuilder:validation:Optional
-IcalURLPrimary *string `json:"icalUrlPrimary,omitempty" tf:"ical_url_primary,omitempty"`
+	// (String) The schedule's name.
+	// The schedule's name.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The schedule's name.
-// The schedule's name.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// call shifts.
+	// The list of ID's of on-call shifts.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.OnCallShift
+	// +crossplane:generate:reference:refFieldName=ShiftsRef
+	// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
 
-// call shifts.
-// The list of ID's of on-call shifts.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.OnCallShift
-// +crossplane:generate:reference:refFieldName=ShiftsRef
-// +crossplane:generate:reference:selectorFieldName=ShiftsSelector
-// +kubebuilder:validation:Optional
-// +listType=set
-Shifts []*string `json:"shifts,omitempty" tf:"shifts,omitempty"`
+	// References to OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
 
-// References to OnCallShift in oncall to populate shifts.
-// +kubebuilder:validation:Optional
-ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
+	// Selector for a list of OnCallShift in oncall to populate shifts.
+	// +kubebuilder:validation:Optional
+	ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
 
-// Selector for a list of OnCallShift in oncall to populate shifts.
-// +kubebuilder:validation:Optional
-ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
+	// specific settings for a schedule. (see below for nested schema)
+	// The Slack-specific settings for a schedule.
+	// +kubebuilder:validation:Optional
+	Slack []ScheduleSlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 
-// specific settings for a schedule. (see below for nested schema)
-// The Slack-specific settings for a schedule.
-// +kubebuilder:validation:Optional
-Slack []ScheduleSlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
+	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
+	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +kubebuilder:validation:Optional
+	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
-// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
-// +kubebuilder:validation:Optional
-TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+	// (String) The schedule's time zone.
+	// The schedule's time zone.
+	// +kubebuilder:validation:Optional
+	TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
 
-// (String) The schedule's time zone.
-// The schedule's time zone.
-// +kubebuilder:validation:Optional
-TimeZone *string `json:"timeZone,omitempty" tf:"time_zone,omitempty"`
-
-// (String) The schedule's type. Valid values are ical, calendar, web.
-// The schedule's type. Valid values are `ical`, `calendar`, `web`.
-// +kubebuilder:validation:Optional
-Type *string `json:"type,omitempty" tf:"type,omitempty"`
+	// (String) The schedule's type. Valid values are ical, calendar, web.
+	// The schedule's type. Valid values are `ical`, `calendar`, `web`.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
-
 
 type ScheduleSlackInitParameters struct {
 
+	// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
-// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
-// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
-ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
-
-// call users change.
-// Slack user group id. Members of user group will be updated when on-call users change.
-UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
+	// call users change.
+	// Slack user group id. Members of user group will be updated when on-call users change.
+	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }
-
 
 type ScheduleSlackObservation struct {
 
+	// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
-// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
-// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
-ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
-
-// call users change.
-// Slack user group id. Members of user group will be updated when on-call users change.
-UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
+	// call users change.
+	// Slack user group id. Members of user group will be updated when on-call users change.
+	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }
-
 
 type ScheduleSlackParameters struct {
 
+	// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	// +kubebuilder:validation:Optional
+	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
-// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
-// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
-// +kubebuilder:validation:Optional
-ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
-
-// call users change.
-// Slack user group id. Members of user group will be updated when on-call users change.
-// +kubebuilder:validation:Optional
-UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
+	// call users change.
+	// Slack user group id. Members of user group will be updated when on-call users change.
+	// +kubebuilder:validation:Optional
+	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }
 
 // ScheduleSpec defines the desired state of Schedule
 type ScheduleSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       ScheduleParameters `json:"forProvider"`
+	ForProvider     ScheduleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -232,19 +216,18 @@ type ScheduleSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       ScheduleInitParameters `json:"initProvider,omitempty"`
+	InitProvider ScheduleInitParameters `json:"initProvider,omitempty"`
 }
 
 // ScheduleStatus defines the observed state of Schedule.
 type ScheduleStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          ScheduleObservation `json:"atProvider,omitempty"`
+	AtProvider        ScheduleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Schedule is the Schema for the Schedules API. HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/schedules/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -255,10 +238,10 @@ type ScheduleStatus struct {
 type Schedule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
-	Spec              ScheduleSpec   `json:"spec"`
-	Status            ScheduleStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
+	Spec   ScheduleSpec   `json:"spec"`
+	Status ScheduleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

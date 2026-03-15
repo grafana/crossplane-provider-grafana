@@ -11,121 +11,111 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type ProjectLimitsInitParameters struct {
 
+	// (Number) Maximum duration of a test in seconds.
+	// Maximum duration of a test in seconds.
+	DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
 
-// (Number) Maximum duration of a test in seconds.
-// Maximum duration of a test in seconds.
-DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
+	// (String) The identifier of the project to manage limits for.
+	// The identifier of the project to manage limits for.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-// (String) The identifier of the project to manage limits for.
-// The identifier of the project to manage limits for.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
-// +crossplane:generate:reference:refFieldName=ProjectRef
-// +crossplane:generate:reference:selectorFieldName=ProjectSelector
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
 
-// Reference to a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 
-// Selector for a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
+	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
+	// Maximum number of concurrent browser virtual users (VUs) used in one test.
+	VuBrowserMaxPerTest *float64 `json:"vuBrowserMaxPerTest,omitempty" tf:"vu_browser_max_per_test,omitempty"`
 
-// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
-// Maximum number of concurrent browser virtual users (VUs) used in one test.
-VuBrowserMaxPerTest *float64 `json:"vuBrowserMaxPerTest,omitempty" tf:"vu_browser_max_per_test,omitempty"`
+	// (Number) Maximum number of concurrent virtual users (VUs) used in one test.
+	// Maximum number of concurrent virtual users (VUs) used in one test.
+	VuMaxPerTest *float64 `json:"vuMaxPerTest,omitempty" tf:"vu_max_per_test,omitempty"`
 
-// (Number) Maximum number of concurrent virtual users (VUs) used in one test.
-// Maximum number of concurrent virtual users (VUs) used in one test.
-VuMaxPerTest *float64 `json:"vuMaxPerTest,omitempty" tf:"vu_max_per_test,omitempty"`
-
-// (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
-// Maximum amount of virtual user hours (VU/h) used per one calendar month.
-VuhMaxPerMonth *float64 `json:"vuhMaxPerMonth,omitempty" tf:"vuh_max_per_month,omitempty"`
+	// (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
+	// Maximum amount of virtual user hours (VU/h) used per one calendar month.
+	VuhMaxPerMonth *float64 `json:"vuhMaxPerMonth,omitempty" tf:"vuh_max_per_month,omitempty"`
 }
-
 
 type ProjectLimitsObservation struct {
 
+	// (Number) Maximum duration of a test in seconds.
+	// Maximum duration of a test in seconds.
+	DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
 
-// (Number) Maximum duration of a test in seconds.
-// Maximum duration of a test in seconds.
-DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
+	// (String) The identifier of the project limits. This is the same as the project_id.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The identifier of the project limits. This is the same as the project_id.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The identifier of the project to manage limits for.
+	// The identifier of the project to manage limits for.
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-// (String) The identifier of the project to manage limits for.
-// The identifier of the project to manage limits for.
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
+	// Maximum number of concurrent browser virtual users (VUs) used in one test.
+	VuBrowserMaxPerTest *float64 `json:"vuBrowserMaxPerTest,omitempty" tf:"vu_browser_max_per_test,omitempty"`
 
-// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
-// Maximum number of concurrent browser virtual users (VUs) used in one test.
-VuBrowserMaxPerTest *float64 `json:"vuBrowserMaxPerTest,omitempty" tf:"vu_browser_max_per_test,omitempty"`
+	// (Number) Maximum number of concurrent virtual users (VUs) used in one test.
+	// Maximum number of concurrent virtual users (VUs) used in one test.
+	VuMaxPerTest *float64 `json:"vuMaxPerTest,omitempty" tf:"vu_max_per_test,omitempty"`
 
-// (Number) Maximum number of concurrent virtual users (VUs) used in one test.
-// Maximum number of concurrent virtual users (VUs) used in one test.
-VuMaxPerTest *float64 `json:"vuMaxPerTest,omitempty" tf:"vu_max_per_test,omitempty"`
-
-// (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
-// Maximum amount of virtual user hours (VU/h) used per one calendar month.
-VuhMaxPerMonth *float64 `json:"vuhMaxPerMonth,omitempty" tf:"vuh_max_per_month,omitempty"`
+	// (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
+	// Maximum amount of virtual user hours (VU/h) used per one calendar month.
+	VuhMaxPerMonth *float64 `json:"vuhMaxPerMonth,omitempty" tf:"vuh_max_per_month,omitempty"`
 }
-
 
 type ProjectLimitsParameters struct {
 
+	// (Number) Maximum duration of a test in seconds.
+	// Maximum duration of a test in seconds.
+	// +kubebuilder:validation:Optional
+	DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
 
-// (Number) Maximum duration of a test in seconds.
-// Maximum duration of a test in seconds.
-// +kubebuilder:validation:Optional
-DurationMaxPerTest *float64 `json:"durationMaxPerTest,omitempty" tf:"duration_max_per_test,omitempty"`
+	// (String) The identifier of the project to manage limits for.
+	// The identifier of the project to manage limits for.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
+	// +kubebuilder:validation:Optional
+	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-// (String) The identifier of the project to manage limits for.
-// The identifier of the project to manage limits for.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
-// +crossplane:generate:reference:refFieldName=ProjectRef
-// +crossplane:generate:reference:selectorFieldName=ProjectSelector
-// +kubebuilder:validation:Optional
-ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
 
-// Reference to a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 
-// Selector for a Project in k6 to populate projectId.
-// +kubebuilder:validation:Optional
-ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
+	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
+	// Maximum number of concurrent browser virtual users (VUs) used in one test.
+	// +kubebuilder:validation:Optional
+	VuBrowserMaxPerTest *float64 `json:"vuBrowserMaxPerTest,omitempty" tf:"vu_browser_max_per_test,omitempty"`
 
-// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
-// Maximum number of concurrent browser virtual users (VUs) used in one test.
-// +kubebuilder:validation:Optional
-VuBrowserMaxPerTest *float64 `json:"vuBrowserMaxPerTest,omitempty" tf:"vu_browser_max_per_test,omitempty"`
+	// (Number) Maximum number of concurrent virtual users (VUs) used in one test.
+	// Maximum number of concurrent virtual users (VUs) used in one test.
+	// +kubebuilder:validation:Optional
+	VuMaxPerTest *float64 `json:"vuMaxPerTest,omitempty" tf:"vu_max_per_test,omitempty"`
 
-// (Number) Maximum number of concurrent virtual users (VUs) used in one test.
-// Maximum number of concurrent virtual users (VUs) used in one test.
-// +kubebuilder:validation:Optional
-VuMaxPerTest *float64 `json:"vuMaxPerTest,omitempty" tf:"vu_max_per_test,omitempty"`
-
-// (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
-// Maximum amount of virtual user hours (VU/h) used per one calendar month.
-// +kubebuilder:validation:Optional
-VuhMaxPerMonth *float64 `json:"vuhMaxPerMonth,omitempty" tf:"vuh_max_per_month,omitempty"`
+	// (Number) Maximum amount of virtual user hours (VU/h) used per one calendar month.
+	// Maximum amount of virtual user hours (VU/h) used per one calendar month.
+	// +kubebuilder:validation:Optional
+	VuhMaxPerMonth *float64 `json:"vuhMaxPerMonth,omitempty" tf:"vuh_max_per_month,omitempty"`
 }
 
 // ProjectLimitsSpec defines the desired state of ProjectLimits
 type ProjectLimitsSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       ProjectLimitsParameters `json:"forProvider"`
+	ForProvider     ProjectLimitsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -136,19 +126,18 @@ type ProjectLimitsSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       ProjectLimitsInitParameters `json:"initProvider,omitempty"`
+	InitProvider ProjectLimitsInitParameters `json:"initProvider,omitempty"`
 }
 
 // ProjectLimitsStatus defines the observed state of ProjectLimits.
 type ProjectLimitsStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          ProjectLimitsObservation `json:"atProvider,omitempty"`
+	AtProvider        ProjectLimitsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // ProjectLimits is the Schema for the ProjectLimitss API. Manages limits for a k6 project.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"

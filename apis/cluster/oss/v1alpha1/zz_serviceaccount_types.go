@@ -11,108 +11,98 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type ServiceAccountInitParameters struct {
 
+	// (Boolean) The disabled status for the service account. Defaults to false.
+	// The disabled status for the service account. Defaults to `false`.
+	IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
 
-// (Boolean) The disabled status for the service account. Defaults to false.
-// The disabled status for the service account. Defaults to `false`.
-IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
+	// (String) The name of the service account.
+	// The name of the service account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the service account.
-// The name of the service account.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
-
-// (String) The basic role of the service account in the organization.
-// The basic role of the service account in the organization.
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
+	// (String) The basic role of the service account in the organization.
+	// The basic role of the service account in the organization.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
-
 
 type ServiceAccountObservation struct {
 
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (Boolean) The disabled status for the service account. Defaults to false.
+	// The disabled status for the service account. Defaults to `false`.
+	IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
 
-// (Boolean) The disabled status for the service account. Defaults to false.
-// The disabled status for the service account. Defaults to `false`.
-IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
+	// (String) The name of the service account.
+	// The name of the service account.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the service account.
-// The name of the service account.
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
-
-// (String) The basic role of the service account in the organization.
-// The basic role of the service account in the organization.
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
+	// (String) The basic role of the service account in the organization.
+	// The basic role of the service account in the organization.
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
-
 
 type ServiceAccountParameters struct {
 
+	// (Boolean) The disabled status for the service account. Defaults to false.
+	// The disabled status for the service account. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
 
-// (Boolean) The disabled status for the service account. Defaults to false.
-// The disabled status for the service account. Defaults to `false`.
-// +kubebuilder:validation:Optional
-IsDisabled *bool `json:"isDisabled,omitempty" tf:"is_disabled,omitempty"`
+	// (String) The name of the service account.
+	// The name of the service account.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-// (String) The name of the service account.
-// The name of the service account.
-// +kubebuilder:validation:Optional
-Name *string `json:"name,omitempty" tf:"name,omitempty"`
+	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// The Organization ID. If not set, the Org ID defined in the provider block will be used.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-// +kubebuilder:validation:Optional
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
-
-// (String) The basic role of the service account in the organization.
-// The basic role of the service account in the organization.
-// +kubebuilder:validation:Optional
-Role *string `json:"role,omitempty" tf:"role,omitempty"`
+	// (String) The basic role of the service account in the organization.
+	// The basic role of the service account in the organization.
+	// +kubebuilder:validation:Optional
+	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 }
 
 // ServiceAccountSpec defines the desired state of ServiceAccount
 type ServiceAccountSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       ServiceAccountParameters `json:"forProvider"`
+	ForProvider     ServiceAccountParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -123,19 +113,18 @@ type ServiceAccountSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       ServiceAccountInitParameters `json:"initProvider,omitempty"`
+	InitProvider ServiceAccountInitParameters `json:"initProvider,omitempty"`
 }
 
 // ServiceAccountStatus defines the observed state of ServiceAccount.
 type ServiceAccountStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          ServiceAccountObservation `json:"atProvider,omitempty"`
+	AtProvider        ServiceAccountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // ServiceAccount is the Schema for the ServiceAccounts API. Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -146,10 +135,10 @@ type ServiceAccountStatus struct {
 type ServiceAccount struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
-	Spec              ServiceAccountSpec   `json:"spec"`
-	Status            ServiceAccountStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
+	Spec   ServiceAccountSpec   `json:"spec"`
+	Status ServiceAccountStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

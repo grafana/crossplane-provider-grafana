@@ -11,174 +11,164 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
-
 )
-
-
-
 
 type AnnotationInitParameters struct {
 
+	// Reference to a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
 
-// Reference to a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
+	// Selector for a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
-// Selector for a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+	// (String) The UID of the dashboard on which to create the annotation.
+	// The UID of the dashboard on which to create the annotation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-// (String) The UID of the dashboard on which to create the annotation.
-// The UID of the dashboard on which to create the annotation.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=DashboardRef
-// +crossplane:generate:reference:selectorFieldName=DashboardSelector
-DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (Number) The ID of the dashboard panel on which to create the annotation.
+	// The ID of the dashboard panel on which to create the annotation.
+	PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
 
-// (Number) The ID of the dashboard panel on which to create the annotation.
-// The ID of the dashboard panel on which to create the annotation.
-PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
+	// (Set of String) The tags to associate with the annotation.
+	// The tags to associate with the annotation.
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-// (Set of String) The tags to associate with the annotation.
-// The tags to associate with the annotation.
-// +listType=set
-Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// (String) The text to associate with the annotation.
+	// The text to associate with the annotation.
+	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
-// (String) The text to associate with the annotation.
-// The text to associate with the annotation.
-Text *string `json:"text,omitempty" tf:"text,omitempty"`
+	// formatted time string indicating the annotation's time.
+	// The RFC 3339-formatted time string indicating the annotation's time.
+	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 
-// formatted time string indicating the annotation's time.
-// The RFC 3339-formatted time string indicating the annotation's time.
-Time *string `json:"time,omitempty" tf:"time,omitempty"`
-
-// formatted time string indicating the annotation's end time.
-// The RFC 3339-formatted time string indicating the annotation's end time.
-TimeEnd *string `json:"timeEnd,omitempty" tf:"time_end,omitempty"`
+	// formatted time string indicating the annotation's end time.
+	// The RFC 3339-formatted time string indicating the annotation's end time.
+	TimeEnd *string `json:"timeEnd,omitempty" tf:"time_end,omitempty"`
 }
-
 
 type AnnotationObservation struct {
 
+	// (String) The UID of the dashboard on which to create the annotation.
+	// The UID of the dashboard on which to create the annotation.
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-// (String) The UID of the dashboard on which to create the annotation.
-// The UID of the dashboard on which to create the annotation.
-DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+	// (String) The ID of this resource.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-// (String) The ID of this resource.
-ID *string `json:"id,omitempty" tf:"id,omitempty"`
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// (Number) The ID of the dashboard panel on which to create the annotation.
+	// The ID of the dashboard panel on which to create the annotation.
+	PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
 
-// (Number) The ID of the dashboard panel on which to create the annotation.
-// The ID of the dashboard panel on which to create the annotation.
-PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
+	// (Set of String) The tags to associate with the annotation.
+	// The tags to associate with the annotation.
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-// (Set of String) The tags to associate with the annotation.
-// The tags to associate with the annotation.
-// +listType=set
-Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// (String) The text to associate with the annotation.
+	// The text to associate with the annotation.
+	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
-// (String) The text to associate with the annotation.
-// The text to associate with the annotation.
-Text *string `json:"text,omitempty" tf:"text,omitempty"`
+	// formatted time string indicating the annotation's time.
+	// The RFC 3339-formatted time string indicating the annotation's time.
+	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 
-// formatted time string indicating the annotation's time.
-// The RFC 3339-formatted time string indicating the annotation's time.
-Time *string `json:"time,omitempty" tf:"time,omitempty"`
-
-// formatted time string indicating the annotation's end time.
-// The RFC 3339-formatted time string indicating the annotation's end time.
-TimeEnd *string `json:"timeEnd,omitempty" tf:"time_end,omitempty"`
+	// formatted time string indicating the annotation's end time.
+	// The RFC 3339-formatted time string indicating the annotation's end time.
+	TimeEnd *string `json:"timeEnd,omitempty" tf:"time_end,omitempty"`
 }
-
 
 type AnnotationParameters struct {
 
+	// Reference to a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
 
-// Reference to a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
+	// Selector for a Dashboard in oss to populate dashboardUid.
+	// +kubebuilder:validation:Optional
+	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
-// Selector for a Dashboard in oss to populate dashboardUid.
-// +kubebuilder:validation:Optional
-DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+	// (String) The UID of the dashboard on which to create the annotation.
+	// The UID of the dashboard on which to create the annotation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
+	// +kubebuilder:validation:Optional
+	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-// (String) The UID of the dashboard on which to create the annotation.
-// The UID of the dashboard on which to create the annotation.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
-// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
-// +crossplane:generate:reference:refFieldName=DashboardRef
-// +crossplane:generate:reference:selectorFieldName=DashboardSelector
-// +kubebuilder:validation:Optional
-DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
+	// +kubebuilder:validation:Optional
+	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
-// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
-// +crossplane:generate:reference:refFieldName=OrganizationRef
-// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
-// +kubebuilder:validation:Optional
-OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+	// Reference to a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
 
-// Reference to a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	// Selector for a Organization in oss to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
-// Selector for a Organization in oss to populate orgId.
-// +kubebuilder:validation:Optional
-OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	// (Number) The ID of the dashboard panel on which to create the annotation.
+	// The ID of the dashboard panel on which to create the annotation.
+	// +kubebuilder:validation:Optional
+	PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
 
-// (Number) The ID of the dashboard panel on which to create the annotation.
-// The ID of the dashboard panel on which to create the annotation.
-// +kubebuilder:validation:Optional
-PanelID *float64 `json:"panelId,omitempty" tf:"panel_id,omitempty"`
+	// (Set of String) The tags to associate with the annotation.
+	// The tags to associate with the annotation.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-// (Set of String) The tags to associate with the annotation.
-// The tags to associate with the annotation.
-// +kubebuilder:validation:Optional
-// +listType=set
-Tags []*string `json:"tags,omitempty" tf:"tags,omitempty"`
+	// (String) The text to associate with the annotation.
+	// The text to associate with the annotation.
+	// +kubebuilder:validation:Optional
+	Text *string `json:"text,omitempty" tf:"text,omitempty"`
 
-// (String) The text to associate with the annotation.
-// The text to associate with the annotation.
-// +kubebuilder:validation:Optional
-Text *string `json:"text,omitempty" tf:"text,omitempty"`
+	// formatted time string indicating the annotation's time.
+	// The RFC 3339-formatted time string indicating the annotation's time.
+	// +kubebuilder:validation:Optional
+	Time *string `json:"time,omitempty" tf:"time,omitempty"`
 
-// formatted time string indicating the annotation's time.
-// The RFC 3339-formatted time string indicating the annotation's time.
-// +kubebuilder:validation:Optional
-Time *string `json:"time,omitempty" tf:"time,omitempty"`
-
-// formatted time string indicating the annotation's end time.
-// The RFC 3339-formatted time string indicating the annotation's end time.
-// +kubebuilder:validation:Optional
-TimeEnd *string `json:"timeEnd,omitempty" tf:"time_end,omitempty"`
+	// formatted time string indicating the annotation's end time.
+	// The RFC 3339-formatted time string indicating the annotation's end time.
+	// +kubebuilder:validation:Optional
+	TimeEnd *string `json:"timeEnd,omitempty" tf:"time_end,omitempty"`
 }
 
 // AnnotationSpec defines the desired state of Annotation
 type AnnotationSpec struct {
 	v1.ResourceSpec `json:",inline"`
-	ForProvider       AnnotationParameters `json:"forProvider"`
+	ForProvider     AnnotationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -189,19 +179,18 @@ type AnnotationSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider       AnnotationInitParameters `json:"initProvider,omitempty"`
+	InitProvider AnnotationInitParameters `json:"initProvider,omitempty"`
 }
 
 // AnnotationStatus defines the observed state of Annotation.
 type AnnotationStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider          AnnotationObservation `json:"atProvider,omitempty"`
+	AtProvider        AnnotationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
-
 
 // Annotation is the Schema for the Annotations API. Manages Grafana annotations. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
@@ -212,9 +201,9 @@ type AnnotationStatus struct {
 type Annotation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.text) || (has(self.initProvider) && has(self.initProvider.text))",message="spec.forProvider.text is a required parameter"
-	Spec              AnnotationSpec   `json:"spec"`
-	Status            AnnotationStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.text) || (has(self.initProvider) && has(self.initProvider.text))",message="spec.forProvider.text is a required parameter"
+	Spec   AnnotationSpec   `json:"spec"`
+	Status AnnotationStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
