@@ -11,7 +11,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.43.1
 	github.com/grafana/synthetic-monitoring-api-go-client v0.17.1
-	github.com/grafana/terraform-provider-grafana/v4 v4.27.1
+	github.com/grafana/terraform-provider-grafana/v4 v4.28.0
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.39.0
 	github.com/pkg/errors v0.9.1
