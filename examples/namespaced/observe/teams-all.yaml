@@ -1,11 +1,43 @@
 # List all teams in the org configured by the ProviderConfig.
+# status.atProvider.teams is populated on every reconcile.
+#
+# The Team resource below is included as a dependency so the e2e test has at
+# least one team to observe. uptest applies resources in file order and waits
+# for each to become Ready before moving on.
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: observe/v1alpha1/teams
+  labels:
+    testing.upbound.io/example-name: test-teams-observe
+  name: e2e-observed-team
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: e2e-observed-team
+    email: e2e-observed-team@example.com
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: grafana-provider
+
+---
+
 apiVersion: observe.grafana.m.crossplane.io/v1alpha1
 kind: Teams
 metadata:
+  annotations:
+    meta.upbound.io/example-id: observe/v1alpha1/teams
+    # Override the default --default-conditions="Test".
+    # Ready is set by our Observe method (xpv1.Available) when the status
+    # matches the API. Synced is set by the managed reconciler on success.
+    uptest.upbound.io/conditions: Ready,Synced
+  labels:
+    testing.upbound.io/example-name: test-teams-observe
   name: all-teams
-  namespace: default
+  namespace: upbound-system
 spec:
   providerConfigRef:
-    kind: ProviderConfig   # or ClusterProviderConfig
-    name: my-provider-config
+    kind: ClusterProviderConfig
+    name: grafana-provider
   forProvider: {}

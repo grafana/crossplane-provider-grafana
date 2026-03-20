@@ -12,7 +12,9 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
+	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
@@ -91,12 +93,22 @@ func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.Exte
 		return managed.ExternalObservation{}, errors.New("managed resource is not a Teams")
 	}
 
+	// When being deleted, report absent so the managed reconciler skips Delete
+	// and removes the finalizer immediately. Without this, the reconciler loops
+	// forever because Observe keeps returning ResourceExists: true.
+	if meta.WasDeleted(cr) {
+		return managed.ExternalObservation{ResourceExists: false}, nil
+	}
+
 	allTeams, err := e.searchAllTeams(cr)
 	if err != nil {
 		return managed.ExternalObservation{}, err
 	}
 
 	upToDate := reflect.DeepEqual(allTeams, cr.Status.AtProvider.Teams)
+	if upToDate {
+		cr.SetConditions(xpv1.Available())
+	}
 
 	return managed.ExternalObservation{
 		ResourceExists:   true,

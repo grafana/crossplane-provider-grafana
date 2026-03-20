@@ -14,9 +14,24 @@ stringData:
 
 ---
 
-# Grafana Provider
+# Grafana Provider (cluster-scoped, used by oss/cluster resources)
 apiVersion: grafana.crossplane.io/v1beta1
 kind: ProviderConfig
+metadata:
+  name: grafana-provider
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: grafana-creds
+      namespace: upbound-system
+      key: credentials
+
+---
+
+# Grafana namespaced ClusterProviderConfig (used by grafana.m.crossplane.io resources)
+apiVersion: grafana.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
 metadata:
   name: grafana-provider
 spec:
