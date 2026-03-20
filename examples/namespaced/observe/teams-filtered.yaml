@@ -1,0 +1,28 @@
+# List teams whose name contains "ops" (search query).
+# Results are written to status.atProvider.teams on each reconcile.
+apiVersion: observe.grafana.m.crossplane.io/v1alpha1
+kind: Teams
+metadata:
+  name: ops-teams
+  namespace: default
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: my-provider-config
+  forProvider:
+    query: ops
+
+---
+
+# List the single team named exactly "platform-team" (exact-name filter).
+apiVersion: observe.grafana.m.crossplane.io/v1alpha1
+kind: Teams
+metadata:
+  name: platform-team-lookup
+  namespace: default
+spec:
+  providerConfigRef:
+    kind: ProviderConfig
+    name: my-provider-config
+  forProvider:
+    name: platform-team

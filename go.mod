@@ -9,6 +9,7 @@ require (
 	github.com/crossplane/crossplane-tools v0.0.0-20251017183449-dd4517244339
 	github.com/crossplane/upjet/v2 v2.2.0
 	github.com/google/go-cmp v0.7.0
+	github.com/grafana/grafana-openapi-client-go v0.0.0-20250617151817-c0f8cbb88d5c
 	github.com/grafana/synthetic-monitoring-agent v0.43.1
 	github.com/grafana/synthetic-monitoring-api-go-client v0.17.1
 	github.com/grafana/terraform-provider-grafana/v4 v4.28.0
@@ -101,7 +102,6 @@ require (
 	github.com/grafana/grafana-app-sdk/logging v0.51.4 // indirect
 	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 // indirect
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260306090535-0b052cdc9559 // indirect
-	github.com/grafana/grafana-openapi-client-go v0.0.0-20250617151817-c0f8cbb88d5c // indirect
 	github.com/grafana/grafana-plugin-sdk-go v0.289.0 // indirect
 	github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.0-20250925121631-89b988ca553e // indirect
 	github.com/grafana/grafana/apps/alerting/notifications v0.0.0-20260220164501-a02078755da2 // indirect

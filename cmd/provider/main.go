@@ -137,10 +137,12 @@ func main() {
 	if *enableSafeStart {
 		kingpin.FatalIfError(clustercontroller.SetupGated(mgr, o), "Cannot setup gated cluster Grafana controllers")
 		kingpin.FatalIfError(namespacedcontroller.SetupGated(mgr, o), "Cannot setup gated namespaced Grafana controllers")
+		kingpin.FatalIfError(namespacedcontroller.SetupCustomGated(mgr, o), "Cannot setup custom namespaced Grafana controllers")
 		kingpin.FatalIfError(customresourcesgate.Setup(mgr, o.Options), "Cannot setup CRD gate controller")
 	} else {
 		kingpin.FatalIfError(clustercontroller.Setup(mgr, o), "Cannot setup cluster Grafana controllers")
 		kingpin.FatalIfError(namespacedcontroller.Setup(mgr, o), "Cannot setup namespaced Grafana controllers")
+		kingpin.FatalIfError(namespacedcontroller.SetupCustom(mgr, o), "Cannot setup custom namespaced Grafana controllers")
 	}
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
 }

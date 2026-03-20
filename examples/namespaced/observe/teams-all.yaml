@@ -1,0 +1,11 @@
+# List all teams in the org configured by the ProviderConfig.
+apiVersion: observe.grafana.m.crossplane.io/v1alpha1
+kind: Teams
+metadata:
+  name: all-teams
+  namespace: default
+spec:
+  providerConfigRef:
+    kind: ProviderConfig   # or ClusterProviderConfig
+    name: my-provider-config
+  forProvider: {}
