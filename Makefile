@@ -156,21 +156,6 @@ run: go.build
 	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/provider --debug
 
 # ====================================================================================
-# Integration Testing with Docker
-
-OBSERVE_TEAMS_PKG = ./internal/controller/namespaced/observe/teams/...
-
-.PHONY: go.test.integration.docker
-
-## Run Teams observe integration tests against a local Grafana Docker container.
-## Intended for local development only — not part of the CI suite.
-## In CI, use go.test.integration with GRAFANA_AUTH set instead.
-## Docker must be available. The container is started, seeded with test teams,
-## and stopped automatically.
-go.test.integration.docker:
-	GRAFANA_DOCKER=1 go test -v -run Integration $(OBSERVE_TEAMS_PKG)
-
-# ====================================================================================
 # End to End Testing
 CROSSPLANE_VERSION = 2.0.2
 CROSSPLANE_CLI_VERSION = v2.0.2
