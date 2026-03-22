@@ -74,6 +74,8 @@ func ptr[T any](v T) *T { return &v }
 
 // --- searchAllTeams unit tests ---
 
+// TestSearchAllTeams_NoFilter verifies that an unfiltered search returns all
+// teams from the API with all fields correctly mapped to TeamSummary.
 func TestSearchAllTeams_NoFilter(t *testing.T) {
 	want := []v1alpha1observe.TeamSummary{
 		{ID: 1, UID: "aaa", Name: "Alpha", Email: "alpha@example.com", MemberCount: 3, OrgID: 1},
@@ -102,6 +104,8 @@ func TestSearchAllTeams_NoFilter(t *testing.T) {
 	}
 }
 
+// TestSearchAllTeams_NameFilter verifies that setting Spec.ForProvider.Name
+// passes the name parameter to the API and returns only exact matches.
 func TestSearchAllTeams_NameFilter(t *testing.T) {
 	srv := newMockGrafana(t, func(_, _ int64, name, _ string) searchResult {
 		if name != "Alpha" {
@@ -129,6 +133,8 @@ func TestSearchAllTeams_NameFilter(t *testing.T) {
 	}
 }
 
+// TestSearchAllTeams_QueryFilter verifies that setting Spec.ForProvider.Query
+// passes the query parameter to the API for substring matching.
 func TestSearchAllTeams_QueryFilter(t *testing.T) {
 	srv := newMockGrafana(t, func(_, _ int64, _, query string) searchResult {
 		if query != "ops" {
@@ -159,6 +165,8 @@ func TestSearchAllTeams_QueryFilter(t *testing.T) {
 	}
 }
 
+// TestSearchAllTeams_Empty verifies that an empty API response (no teams)
+// returns a zero-length slice without error.
 func TestSearchAllTeams_Empty(t *testing.T) {
 	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
 		return searchResult{TotalCount: 0, Teams: nil}
@@ -174,6 +182,9 @@ func TestSearchAllTeams_Empty(t *testing.T) {
 	}
 }
 
+// TestSearchAllTeams_Pagination verifies that searchAllTeams iterates through
+// multiple pages when the API returns fewer teams than totalCount per page,
+// collecting all teams across pages.
 func TestSearchAllTeams_Pagination(t *testing.T) {
 	const total = 5
 	allTeams := []teamPayload{
@@ -248,6 +259,8 @@ func TestSearchAllTeams_Pagination(t *testing.T) {
 
 // --- Observe unit tests ---
 
+// TestObserve_UpToDate verifies that Observe reports ResourceUpToDate=true
+// when the status already matches what the API returns.
 func TestObserve_UpToDate(t *testing.T) {
 	existing := []v1alpha1observe.TeamSummary{
 		{ID: 1, Name: "Alpha", OrgID: 1},
@@ -278,6 +291,8 @@ func TestObserve_UpToDate(t *testing.T) {
 	}
 }
 
+// TestObserve_NotUpToDate verifies that Observe reports ResourceUpToDate=false
+// when the status is empty but the API returns teams, triggering an Update.
 func TestObserve_NotUpToDate(t *testing.T) {
 	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
 		return searchResult{
@@ -304,6 +319,8 @@ func TestObserve_NotUpToDate(t *testing.T) {
 
 // --- Update unit tests ---
 
+// TestUpdate_PopulatesStatus verifies that Update fetches teams from the API
+// and writes them into cr.Status.AtProvider.Teams.
 func TestUpdate_PopulatesStatus(t *testing.T) {
 	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
 		return searchResult{
@@ -336,8 +353,9 @@ func TestUpdate_PopulatesStatus(t *testing.T) {
 
 // --- Delete unit test ---
 
+// TestDelete_IsNoop verifies that Delete succeeds without contacting the API,
+// since Teams is an observe-only resource with nothing to delete in Grafana.
 func TestDelete_IsNoop(t *testing.T) {
-	// Delete should always succeed without contacting the API.
 	ext := &external{teamsClient: oateams.New(nil, nil)}
 	_, err := ext.Delete(context.Background(), &v1alpha1observe.Teams{})
 	if err != nil {
