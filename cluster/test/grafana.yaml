@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana:latest
+        image: grafana/grafana:${GRAFANA_VERSION}
         ports:
         - containerPort: 3000
 ---

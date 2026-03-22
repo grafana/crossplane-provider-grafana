@@ -6,7 +6,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "Running setup.sh"
 
 echo "Starting grafana on the cluster..."
-${KUBECTL} apply -f "${SCRIPT_DIR}/grafana.yaml"
+GRAFANA_VERSION="${GRAFANA_VERSION}" envsubst < "${SCRIPT_DIR}/grafana.yaml" | ${KUBECTL} apply -f -
 
 echo "Creating provider..."
 ${KUBECTL} apply -f "${SCRIPT_DIR}/provider.yaml"
