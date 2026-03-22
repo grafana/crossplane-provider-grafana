@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -14,6 +15,64 @@ import (
 
 	oateams "github.com/grafana/grafana-openapi-client-go/client/teams"
 )
+
+// seedTeams is the canonical set of teams used by all unit tests. The mock
+// server filters from this list based on name/query parameters, just like the
+// real Grafana API does.
+var seedTeams = []teamPayload{
+	{ID: 1, UID: "uid-01", Name: "platform-core", Email: "platform-core@example.com", MemberCount: 8, OrgID: 1},
+	{ID: 2, UID: "uid-02", Name: "platform-infra", Email: "platform-infra@example.com", MemberCount: 5, OrgID: 1},
+	{ID: 3, UID: "uid-03", Name: "ops-east", Email: "ops-east@example.com", MemberCount: 4, OrgID: 1},
+	{ID: 4, UID: "uid-04", Name: "ops-west", Email: "ops-west@example.com", MemberCount: 6, OrgID: 1},
+	{ID: 5, UID: "uid-05", Name: "ops-apac", Email: "ops-apac@example.com", MemberCount: 3, OrgID: 1},
+	{ID: 6, UID: "uid-06", Name: "frontend-web", Email: "frontend-web@example.com", MemberCount: 7, OrgID: 1},
+	{ID: 7, UID: "uid-07", Name: "frontend-mobile", Email: "frontend-mobile@example.com", MemberCount: 4, OrgID: 1},
+	{ID: 8, UID: "uid-08", Name: "backend-api", Email: "backend-api@example.com", MemberCount: 9, OrgID: 1},
+	{ID: 9, UID: "uid-09", Name: "backend-workers", Email: "backend-workers@example.com", MemberCount: 3, OrgID: 1},
+	{ID: 10, UID: "uid-10", Name: "data-engineering", Email: "data-eng@example.com", MemberCount: 6, OrgID: 1},
+	{ID: 11, UID: "uid-11", Name: "data-science", Email: "data-sci@example.com", MemberCount: 4, OrgID: 1},
+	{ID: 12, UID: "uid-12", Name: "security", Email: "security@example.com", MemberCount: 5, OrgID: 1},
+	{ID: 13, UID: "uid-13", Name: "sre-observability", Email: "sre-obs@example.com", MemberCount: 3, OrgID: 2},
+	{ID: 14, UID: "uid-14", Name: "sre-oncall", Email: "sre-oncall@example.com", MemberCount: 7, OrgID: 2},
+	{ID: 15, UID: "uid-15", Name: "qa-automation", Email: "qa-auto@example.com", MemberCount: 4, OrgID: 1},
+	{ID: 16, UID: "uid-16", Name: "qa-manual", Email: "qa-manual@example.com", MemberCount: 2, OrgID: 1},
+	{ID: 17, UID: "uid-17", Name: "devrel", Email: "devrel@example.com", MemberCount: 3, OrgID: 1},
+	{ID: 18, UID: "uid-18", Name: "design", Email: "design@example.com", MemberCount: 5, OrgID: 1},
+	{ID: 19, UID: "uid-19", Name: "product-growth", Email: "product-growth@example.com", MemberCount: 4, OrgID: 1},
+	{ID: 20, UID: "uid-20", Name: "product-enterprise", Email: "product-ent@example.com", MemberCount: 6, OrgID: 2},
+}
+
+// seedSummaries returns the TeamSummary representation of seedTeams.
+func seedSummaries() []v1alpha1observe.TeamSummary {
+	out := make([]v1alpha1observe.TeamSummary, len(seedTeams))
+	for i, t := range seedTeams {
+		out[i] = v1alpha1observe.TeamSummary{
+			ID:          t.ID,
+			UID:         t.UID,
+			Name:        t.Name,
+			Email:       t.Email,
+			MemberCount: t.MemberCount,
+			OrgID:       t.OrgID,
+		}
+	}
+	return out
+}
+
+// filterSeedTeams returns the subset of seedTeams matching the given name
+// (exact match) and query (substring match), mirroring Grafana API behavior.
+func filterSeedTeams(name, query string) []teamPayload {
+	var out []teamPayload
+	for _, t := range seedTeams {
+		if name != "" && t.Name != name {
+			continue
+		}
+		if query != "" && !strings.Contains(t.Name, query) {
+			continue
+		}
+		out = append(out, t)
+	}
+	return out
+}
 
 // searchResult is a helper for building mock Grafana search responses.
 type searchResult struct {
@@ -60,6 +119,32 @@ func newMockGrafana(t *testing.T, handler func(page, perPage int64, name, query 
 	return srv
 }
 
+// newSeedMockGrafana starts a mock that serves from seedTeams, filtering by
+// name (exact) and query (substring) and paginating the results.
+func newSeedMockGrafana(t *testing.T) *httptest.Server {
+	t.Helper()
+	return newMockGrafana(t, func(page, perPage int64, name, query string) searchResult {
+		filtered := filterSeedTeams(name, query)
+		total := int64(len(filtered))
+
+		start := (page - 1) * perPage
+		if start > total {
+			start = total
+		}
+		end := start + perPage
+		if end > total {
+			end = total
+		}
+
+		return searchResult{
+			TotalCount: total,
+			Page:       page,
+			PerPage:    perPage,
+			Teams:      filtered[start:end],
+		}
+	})
+}
+
 // newExternalFromServer builds an external client pointed at the given mock server.
 func newExternalFromServer(t *testing.T, srv *httptest.Server) *external {
 	t.Helper()
@@ -74,31 +159,17 @@ func ptr[T any](v T) *T { return &v }
 
 // --- searchAllTeams unit tests ---
 
-// TestSearchAllTeams_NoFilter verifies that an unfiltered search returns all
-// teams from the API with all fields correctly mapped to TeamSummary.
+// TestSearchAllTeams_NoFilter verifies that an unfiltered search returns all 20
+// seed teams with all fields correctly mapped to TeamSummary.
 func TestSearchAllTeams_NoFilter(t *testing.T) {
-	want := []v1alpha1observe.TeamSummary{
-		{ID: 1, UID: "aaa", Name: "Alpha", Email: "alpha@example.com", MemberCount: 3, OrgID: 1},
-		{ID: 2, UID: "bbb", Name: "Beta", Email: "beta@example.com", MemberCount: 5, OrgID: 1},
-	}
-
-	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
-		return searchResult{
-			TotalCount: 2,
-			Teams: []teamPayload{
-				{ID: 1, UID: "aaa", Name: "Alpha", Email: "alpha@example.com", MemberCount: 3, OrgID: 1},
-				{ID: 2, UID: "bbb", Name: "Beta", Email: "beta@example.com", MemberCount: 5, OrgID: 1},
-			},
-		}
-	})
-
+	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
-	cr := &v1alpha1observe.Teams{}
 
-	got, err := ext.searchAllTeams(cr)
+	got, err := ext.searchAllTeams(&v1alpha1observe.Teams{})
 	if err != nil {
 		t.Fatalf("searchAllTeams: %v", err)
 	}
+	want := seedSummaries()
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("teams mismatch (-want +got):\n%s", diff)
 	}
@@ -107,20 +178,11 @@ func TestSearchAllTeams_NoFilter(t *testing.T) {
 // TestSearchAllTeams_NameFilter verifies that setting Spec.ForProvider.Name
 // passes the name parameter to the API and returns only exact matches.
 func TestSearchAllTeams_NameFilter(t *testing.T) {
-	srv := newMockGrafana(t, func(_, _ int64, name, _ string) searchResult {
-		if name != "Alpha" {
-			return searchResult{TotalCount: 0}
-		}
-		return searchResult{
-			TotalCount: 1,
-			Teams:      []teamPayload{{ID: 1, UID: "aaa", Name: "Alpha", OrgID: 1}},
-		}
-	})
-
+	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
 	cr := &v1alpha1observe.Teams{
 		Spec: v1alpha1observe.TeamsSpec{
-			ForProvider: v1alpha1observe.TeamsParameters{Name: ptr("Alpha")},
+			ForProvider: v1alpha1observe.TeamsParameters{Name: ptr("security")},
 		},
 	}
 
@@ -128,27 +190,21 @@ func TestSearchAllTeams_NameFilter(t *testing.T) {
 	if err != nil {
 		t.Fatalf("searchAllTeams: %v", err)
 	}
-	if len(got) != 1 || got[0].Name != "Alpha" {
-		t.Errorf("expected 1 team named Alpha, got %+v", got)
+	if len(got) != 1 {
+		t.Fatalf("expected 1 team, got %d", len(got))
+	}
+	if got[0].Name != "security" {
+		t.Errorf("expected team named security, got %q", got[0].Name)
+	}
+	if got[0].ID != 12 {
+		t.Errorf("expected ID=12, got %d", got[0].ID)
 	}
 }
 
 // TestSearchAllTeams_QueryFilter verifies that setting Spec.ForProvider.Query
 // passes the query parameter to the API for substring matching.
 func TestSearchAllTeams_QueryFilter(t *testing.T) {
-	srv := newMockGrafana(t, func(_, _ int64, _, query string) searchResult {
-		if query != "ops" {
-			return searchResult{TotalCount: 0}
-		}
-		return searchResult{
-			TotalCount: 2,
-			Teams: []teamPayload{
-				{ID: 10, Name: "ops-eu", OrgID: 1},
-				{ID: 11, Name: "ops-us", OrgID: 1},
-			},
-		}
-	})
-
+	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
 	cr := &v1alpha1observe.Teams{
 		Spec: v1alpha1observe.TeamsSpec{
@@ -160,20 +216,29 @@ func TestSearchAllTeams_QueryFilter(t *testing.T) {
 	if err != nil {
 		t.Fatalf("searchAllTeams: %v", err)
 	}
-	if len(got) != 2 {
-		t.Errorf("expected 2 teams, got %d", len(got))
+	wantNames := []string{"ops-east", "ops-west", "ops-apac"}
+	if len(got) != len(wantNames) {
+		t.Fatalf("expected %d teams, got %d", len(wantNames), len(got))
+	}
+	for i, name := range wantNames {
+		if got[i].Name != name {
+			t.Errorf("team[%d]: expected %q, got %q", i, name, got[i].Name)
+		}
 	}
 }
 
-// TestSearchAllTeams_Empty verifies that an empty API response (no teams)
-// returns a zero-length slice without error.
+// TestSearchAllTeams_Empty verifies that an empty API response (no matching
+// teams) returns a zero-length slice without error.
 func TestSearchAllTeams_Empty(t *testing.T) {
-	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
-		return searchResult{TotalCount: 0, Teams: nil}
-	})
-
+	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
-	got, err := ext.searchAllTeams(&v1alpha1observe.Teams{})
+	cr := &v1alpha1observe.Teams{
+		Spec: v1alpha1observe.TeamsSpec{
+			ForProvider: v1alpha1observe.TeamsParameters{Name: ptr("nonexistent-team")},
+		},
+	}
+
+	got, err := ext.searchAllTeams(cr)
 	if err != nil {
 		t.Fatalf("searchAllTeams: %v", err)
 	}
@@ -184,77 +249,47 @@ func TestSearchAllTeams_Empty(t *testing.T) {
 
 // TestSearchAllTeams_Pagination verifies that searchAllTeams iterates through
 // multiple pages when the API returns fewer teams than totalCount per page,
-// collecting all teams across pages.
+// collecting all 20 seed teams across pages.
 func TestSearchAllTeams_Pagination(t *testing.T) {
-	const total = 5
-	allTeams := []teamPayload{
-		{ID: 1, Name: "T1", OrgID: 1},
-		{ID: 2, Name: "T2", OrgID: 1},
-		{ID: 3, Name: "T3", OrgID: 1},
-		{ID: 4, Name: "T4", OrgID: 1},
-		{ID: 5, Name: "T5", OrgID: 1},
-	}
-
+	pageSize := int64(6)
 	pagesRequested := 0
-	srv := newMockGrafana(t, func(page, perPage int64, _, _ string) searchResult {
-		pagesRequested++
-		start := (page - 1) * perPage
-		end := start + perPage
-		if end > int64(len(allTeams)) {
-			end = int64(len(allTeams))
-		}
-		return searchResult{
-			TotalCount: total,
-			Teams:      allTeams[start:end],
-		}
-	})
 
-	// Build client with a small page size (2) to force pagination.
-	grafanaClient, err := clients.NewOAPIClient(srv.URL, "test-token")
-	if err != nil {
-		t.Fatalf("NewOAPIClient: %v", err)
-	}
-	ext := &external{teamsClient: grafanaClient.Teams}
-
-	// Override page size by driving the loop manually through SearchTeams.
-	// Instead, test via searchAllTeams but mock the server to return 2 per page.
-	srv2 := newMockGrafana(t, func(page, perPage int64, _, _ string) searchResult {
+	// Mock that ignores the client's perPage and returns fixed-size pages
+	// to force multiple round trips.
+	srv := newMockGrafana(t, func(page, _ int64, name, query string) searchResult {
 		pagesRequested++
-		pageSize := int64(2)
+		filtered := filterSeedTeams(name, query)
+		total := int64(len(filtered))
+
 		start := (page - 1) * pageSize
-		end := start + pageSize
-		if end > int64(len(allTeams)) {
-			end = int64(len(allTeams))
+		if start > total {
+			start = total
 		}
+		end := start + pageSize
+		if end > total {
+			end = total
+		}
+
 		return searchResult{
 			TotalCount: total,
 			Page:       page,
 			PerPage:    pageSize,
-			Teams:      allTeams[start:end],
+			Teams:      filtered[start:end],
 		}
 	})
-	pagesRequested = 0
-	grafanaClient2, err := clients.NewOAPIClient(srv2.URL, "test-token")
-	if err != nil {
-		t.Fatalf("NewOAPIClient: %v", err)
-	}
-	ext2 := &external{teamsClient: grafanaClient2.Teams}
 
-	// searchAllTeams requests pages of 1000; the mock ignores perPage and
-	// returns 2 per page with totalCount=5, so 3 pages are needed.
-	got, err := ext2.searchAllTeams(&v1alpha1observe.Teams{})
+	ext := newExternalFromServer(t, srv)
+	got, err := ext.searchAllTeams(&v1alpha1observe.Teams{})
 	if err != nil {
 		t.Fatalf("searchAllTeams paginated: %v", err)
 	}
-	if len(got) != total {
-		t.Errorf("expected %d teams after pagination, got %d", total, len(got))
+	if len(got) != len(seedTeams) {
+		t.Errorf("expected %d teams after pagination, got %d", len(seedTeams), len(got))
 	}
-	if pagesRequested < 3 {
-		t.Errorf("expected at least 3 page requests, got %d", pagesRequested)
+	// 20 teams at 6 per page = 4 pages (6+6+6+2).
+	if pagesRequested != 4 {
+		t.Errorf("expected 4 page requests, got %d", pagesRequested)
 	}
-
-	// silence the unused variable warning for ext
-	_ = ext
 }
 
 // --- Observe unit tests ---
@@ -262,20 +297,11 @@ func TestSearchAllTeams_Pagination(t *testing.T) {
 // TestObserve_UpToDate verifies that Observe reports ResourceUpToDate=true
 // when the status already matches what the API returns.
 func TestObserve_UpToDate(t *testing.T) {
-	existing := []v1alpha1observe.TeamSummary{
-		{ID: 1, Name: "Alpha", OrgID: 1},
-	}
-	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
-		return searchResult{
-			TotalCount: 1,
-			Teams:      []teamPayload{{ID: 1, Name: "Alpha", OrgID: 1}},
-		}
-	})
-
+	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
 	cr := &v1alpha1observe.Teams{
 		Status: v1alpha1observe.TeamsStatus{
-			AtProvider: v1alpha1observe.TeamsObservation{Teams: existing},
+			AtProvider: v1alpha1observe.TeamsObservation{Teams: seedSummaries()},
 		},
 	}
 
@@ -294,15 +320,8 @@ func TestObserve_UpToDate(t *testing.T) {
 // TestObserve_NotUpToDate verifies that Observe reports ResourceUpToDate=false
 // when the status is empty but the API returns teams, triggering an Update.
 func TestObserve_NotUpToDate(t *testing.T) {
-	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
-		return searchResult{
-			TotalCount: 1,
-			Teams:      []teamPayload{{ID: 1, Name: "Alpha", OrgID: 1}},
-		}
-	})
-
+	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
-	// Status is empty → does not match → not up to date.
 	cr := &v1alpha1observe.Teams{}
 
 	obs, err := ext.Observe(context.Background(), cr)
@@ -322,16 +341,7 @@ func TestObserve_NotUpToDate(t *testing.T) {
 // TestUpdate_PopulatesStatus verifies that Update fetches teams from the API
 // and writes them into cr.Status.AtProvider.Teams.
 func TestUpdate_PopulatesStatus(t *testing.T) {
-	srv := newMockGrafana(t, func(_, _ int64, _, _ string) searchResult {
-		return searchResult{
-			TotalCount: 2,
-			Teams: []teamPayload{
-				{ID: 1, UID: "aaa", Name: "Alpha", Email: "alpha@example.com", MemberCount: 2, OrgID: 1},
-				{ID: 2, UID: "bbb", Name: "Beta", Email: "beta@example.com", MemberCount: 4, OrgID: 1},
-			},
-		}
-	})
-
+	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
 	cr := &v1alpha1observe.Teams{}
 
@@ -340,14 +350,9 @@ func TestUpdate_PopulatesStatus(t *testing.T) {
 		t.Fatalf("Update: %v", err)
 	}
 
-	if len(cr.Status.AtProvider.Teams) != 2 {
-		t.Fatalf("expected 2 teams in status, got %d", len(cr.Status.AtProvider.Teams))
-	}
-	if cr.Status.AtProvider.Teams[0].Name != "Alpha" {
-		t.Errorf("expected first team Alpha, got %q", cr.Status.AtProvider.Teams[0].Name)
-	}
-	if cr.Status.AtProvider.Teams[1].Name != "Beta" {
-		t.Errorf("expected second team Beta, got %q", cr.Status.AtProvider.Teams[1].Name)
+	want := seedSummaries()
+	if diff := cmp.Diff(want, cr.Status.AtProvider.Teams); diff != "" {
+		t.Errorf("status teams mismatch (-want +got):\n%s", diff)
 	}
 }
 
