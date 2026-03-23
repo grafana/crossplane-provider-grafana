@@ -22,7 +22,6 @@ Observe-only resources live in the `observe.grafana.m.crossplane.io` API group, 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `orgId` | string (optional) | Restrict to a specific org ID. Defaults to the org in the ProviderConfig credentials. |
 | `name` | string (optional) | Exact team name match. |
 | `query` | string (optional) | Search string — returns teams whose name contains this value. |
 

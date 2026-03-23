@@ -60,10 +60,6 @@ spec:
                   name:
                     description: Name filters teams by exact name match.
                     type: string
-                  orgId:
-                    description: OrgID to list teams from. Defaults to the org configured
-                      in ProviderConfig.
-                    type: string
                   query:
                     description: Query filters teams by a search string (matches name/email).
                     type: string

@@ -13,9 +13,6 @@ import (
 
 // TeamsParameters defines filter criteria for listing Grafana teams.
 type TeamsParameters struct {
-	// OrgID to list teams from. Defaults to the org configured in ProviderConfig.
-	// +optional
-	OrgID *string `json:"orgId,omitempty"`
 	// Name filters teams by exact name match.
 	// +optional
 	Name *string `json:"name,omitempty"`
