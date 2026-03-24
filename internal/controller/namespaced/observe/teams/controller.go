@@ -84,7 +84,8 @@ func (c *connector) Connect(ctx context.Context, mg resource.Managed) (managed.E
 
 // external implements managed.ExternalClient.
 type external struct {
-	teamsClient oateams.ClientService
+	teamsClient  oateams.ClientService
+	lastObserved []v1alpha1observe.TeamSummary // populated by Observe, reused by Update
 }
 
 func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
@@ -104,6 +105,9 @@ func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.Exte
 	if err != nil {
 		return managed.ExternalObservation{}, err
 	}
+
+	// Cache the result so Update can reuse it without a second API call.
+	e.lastObserved = allTeams
 
 	upToDate := reflect.DeepEqual(allTeams, cr.Status.AtProvider.Teams)
 	if upToDate {
@@ -126,12 +130,8 @@ func (e *external) Update(_ context.Context, mg resource.Managed) (managed.Exter
 		return managed.ExternalUpdate{}, errors.New("managed resource is not a Teams")
 	}
 
-	allTeams, err := e.searchAllTeams(cr)
-	if err != nil {
-		return managed.ExternalUpdate{}, err
-	}
-
-	cr.Status.AtProvider.Teams = allTeams
+	// Reuse the teams fetched during Observe to avoid a redundant API call.
+	cr.Status.AtProvider.Teams = e.lastObserved
 	return managed.ExternalUpdate{}, nil
 }
 

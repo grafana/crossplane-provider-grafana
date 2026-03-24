@@ -338,14 +338,20 @@ func TestObserve_NotUpToDate(t *testing.T) {
 
 // --- Update unit tests ---
 
-// TestUpdate_PopulatesStatus verifies that Update fetches teams from the API
-// and writes them into cr.Status.AtProvider.Teams.
+// TestUpdate_PopulatesStatus verifies that Update writes the teams cached by
+// Observe into cr.Status.AtProvider.Teams without making an additional API call.
 func TestUpdate_PopulatesStatus(t *testing.T) {
 	srv := newSeedMockGrafana(t)
 	ext := newExternalFromServer(t, srv)
 	cr := &v1alpha1observe.Teams{}
 
-	_, err := ext.Update(context.Background(), cr)
+	// Observe first to populate lastObserved.
+	_, err := ext.Observe(context.Background(), cr)
+	if err != nil {
+		t.Fatalf("Observe: %v", err)
+	}
+
+	_, err = ext.Update(context.Background(), cr)
 	if err != nil {
 		t.Fatalf("Update: %v", err)
 	}
