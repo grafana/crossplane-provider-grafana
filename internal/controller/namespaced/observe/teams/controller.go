@@ -170,6 +170,9 @@ func (e *external) searchAllTeams(cr *v1alpha1observe.Teams) ([]v1alpha1observe.
 		}
 
 		payload := resp.GetPayload()
+		if len(payload.Teams) == 0 {
+			break
+		}
 		for _, t := range payload.Teams {
 			if t == nil {
 				continue
