@@ -105,6 +105,11 @@ func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.Exte
 	if err != nil {
 		return managed.ExternalObservation{}, err
 	}
+	// Normalize nil to empty slice so reflect.DeepEqual matches a status
+	// that round-tripped through JSON (which deserializes null as []).
+	if allTeams == nil {
+		allTeams = []v1alpha1observe.TeamSummary{}
+	}
 
 	// Cache the result so Update can reuse it without a second API call.
 	e.lastObserved = allTeams
