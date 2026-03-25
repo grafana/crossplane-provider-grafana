@@ -472,7 +472,3 @@ func exampleValue(f fieldInfo) string {
 		return "# TODO"
 	}
 }
-
-func generateGenerateGo(cfg Config) string {
-	return fmt.Sprintf("/*\n%s\n*/\n\n//go:generate go run ../../cmd/generate-observed\n\npackage observed\n", cfg.CopyrightHeader)
-}

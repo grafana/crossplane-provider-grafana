@@ -357,8 +357,6 @@ func emitFiles(cfg Config, grouped map[string][]*dsInfo, groupNames []string) {
 
 	mustMkdirAll(ctrlBase)
 	writeFormatted(filepath.Join(ctrlBase, "setup.go"), generateTopSetup(cfg, groupNames))
-
-	writeFormatted(filepath.Join(apisBase, "generate.go"), generateGenerateGo(cfg))
 }
 
 func mustMkdirAll(path string) {
