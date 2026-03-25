@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Upbound Inc.
+Copyright 2021-2026 Grafana Labs
 */
 
 package grafana
