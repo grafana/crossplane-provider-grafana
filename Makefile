@@ -127,9 +127,18 @@ pull-docs:
 	fi
 	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
 
-generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
+GOIMPORTS := $(shell command -v goimports 2>/dev/null)
 
-.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
+install.goimports:
+ifndef GOIMPORTS
+	@$(INFO) installing goimports
+	@$(GO) install golang.org/x/tools/cmd/goimports@latest || $(FAIL)
+	@$(OK) installing goimports
+endif
+
+generate.init: install.goimports $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
+
+.PHONY: install.goimports $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
 # ====================================================================================
 # Targets
 
