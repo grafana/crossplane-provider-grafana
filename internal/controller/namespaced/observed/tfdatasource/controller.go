@@ -21,6 +21,7 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
+	tjresource "github.com/crossplane/upjet/v2/pkg/resource"
 
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
 	terraformSDK "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
@@ -126,6 +127,7 @@ func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.Exte
 
 	if upToDate {
 		mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
+		tjresource.SetUpToDateCondition(mg, true)
 	}
 
 	return managed.ExternalObservation{
@@ -143,6 +145,7 @@ func (e *external) Update(ctx context.Context, mg resource.Managed) (managed.Ext
 		return managed.ExternalUpdate{}, errors.Wrap(err, "data source read failed")
 	}
 	mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
+	tjresource.SetUpToDateCondition(mg, true)
 	return managed.ExternalUpdate{}, nil
 }
 

@@ -1,0 +1,12 @@
+# ClusterProviderConfig for namespaced resources
+apiVersion: grafana.m.crossplane.io/v1beta1
+kind: ClusterProviderConfig
+metadata:
+  name: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: grafana-creds
+      namespace: upbound-system
+      key: credentials

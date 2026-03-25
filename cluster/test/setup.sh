@@ -8,7 +8,7 @@ echo "Running setup.sh"
 echo "Starting grafana on the cluster..."
 ${KUBECTL} apply -f "${SCRIPT_DIR}/grafana.yaml"
 
-echo "Creating provider..."
+echo "Creating ProviderConfig..."
 ${KUBECTL} apply -f "${SCRIPT_DIR}/provider.yaml"
 
 echo "Waiting for grafana to come online..."
@@ -19,4 +19,10 @@ ${KUBECTL} wait provider.pkg --all --for condition=Healthy --timeout 5m
 
 echo "Waiting for all pods to come online..."
 ${KUBECTL} -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
+
+echo "Waiting for ClusterProviderConfig CRD to be established..."
+${KUBECTL} wait crd/clusterproviderconfigs.grafana.m.crossplane.io --for=condition=Established --timeout=5m
+
+echo "Creating ClusterProviderConfig..."
+${KUBECTL} apply -f "${SCRIPT_DIR}/clusterproviderconfig.yaml"
 
