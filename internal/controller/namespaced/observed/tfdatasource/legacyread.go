@@ -33,6 +33,17 @@ func NewLegacyReadFn(
 		}
 
 		attrs := toAttrs(mg)
+
+		// Apply schema defaults for attributes not provided by the caller.
+		// Without this, the TF SDK uses zero values (e.g. 0 for TypeInt)
+		// instead of the schema-defined defaults (e.g. -1 for user_id),
+		// which can cause incorrect API calls.
+		for name, field := range ds.Schema {
+			if _, ok := attrs[name]; !ok && field.Default != nil {
+				attrs[name] = fmt.Sprintf("%v", field.Default)
+			}
+		}
+
 		state := &terraformSDK.InstanceState{Attributes: attrs}
 		d := ds.Data(state)
 
