@@ -1,0 +1,10 @@
+apiVersion: cloud.grafana.o.crossplane.io/v1alpha1
+kind: IPS
+metadata:
+  name: example-ips
+  namespace: default
+spec:
+  forProvider:
+    {}
+  providerConfigRef:
+    name: example

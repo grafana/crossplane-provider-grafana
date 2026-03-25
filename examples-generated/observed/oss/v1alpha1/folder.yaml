@@ -1,0 +1,12 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  name: example-folder
+  namespace: default
+spec:
+  forProvider:
+    orgID: "example-org_id"
+    title: "example-title"
+    uid: "example-uid"
+  providerConfigRef:
+    name: example

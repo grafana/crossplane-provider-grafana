@@ -1,0 +1,10 @@
+apiVersion: oncall.grafana.o.crossplane.io/v1alpha1
+kind: SlackChannel
+metadata:
+  name: example-slackchannel
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+  providerConfigRef:
+    name: example

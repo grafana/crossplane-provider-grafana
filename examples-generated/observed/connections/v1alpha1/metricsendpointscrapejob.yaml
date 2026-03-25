@@ -1,0 +1,11 @@
+apiVersion: connections.grafana.o.crossplane.io/v1alpha1
+kind: MetricsEndpointScrapeJob
+metadata:
+  name: example-metricsendpointscrapejob
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+    stackID: "example-stack_id"
+  providerConfigRef:
+    name: example

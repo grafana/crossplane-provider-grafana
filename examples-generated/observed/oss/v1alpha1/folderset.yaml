@@ -1,0 +1,10 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: FolderSet
+metadata:
+  name: example-folderset
+  namespace: default
+spec:
+  forProvider:
+    orgID: "example-org_id"
+  providerConfigRef:
+    name: example

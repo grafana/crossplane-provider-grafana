@@ -1,0 +1,10 @@
+apiVersion: cloudprovider.grafana.o.crossplane.io/v1alpha1
+kind: AWSCloudwatchScrapeJobSet
+metadata:
+  name: example-awscloudwatchscrapejobset
+  namespace: default
+spec:
+  forProvider:
+    stackID: "example-stack_id"
+  providerConfigRef:
+    name: example

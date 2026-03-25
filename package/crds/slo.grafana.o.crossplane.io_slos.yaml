@@ -1,0 +1,420 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: slos.slo.grafana.o.crossplane.io
+spec:
+  group: slo.grafana.o.crossplane.io
+  names:
+    categories:
+    - crossplane
+    kind: Slos
+    listKind: SlosList
+    plural: slos
+    singular: slos
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Slos is an observe-only resource backed by the grafana_slos Terraform
+          data source.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              forProvider:
+                description: SlosParameters defines the input parameters for the grafana_slos
+                  data source.
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+          status:
+            properties:
+              atProvider:
+                description: SlosObservation holds the observed (computed) fields
+                  from the grafana_slos data source.
+                properties:
+                  slos:
+                    description: Returns a list of all SLOs"
+                    items:
+                      properties:
+                        alerting:
+                          description: "Configures the alerting rules that will be
+                            generated for each\n\t\t\t\ttime window associated with
+                            the SLO. Grafana SLOs can generate\n\t\t\t\talerts when
+                            the short-term error budget burn is very high, the\n\t\t\t\tlong-term
+                            error budget burn rate is high, or when the remaining\n\t\t\t\terror
+                            budget is below a certain threshold. Annotations and Labels
+                            support templating."
+                          items:
+                            properties:
+                              advancedOptions:
+                                description: Advanced Options for Alert Rules
+                                items:
+                                  properties:
+                                    minFailures:
+                                      description: Minimum number of failed events
+                                        to trigger an alert
+                                      format: int64
+                                      type: integer
+                                  type: object
+                                type: array
+                              annotation:
+                                description: Annotations will be attached to all alerts
+                                  generated by any of these rules.
+                                items:
+                                  properties:
+                                    key:
+                                      description: Key for filtering and identification
+                                      type: string
+                                    value:
+                                      description: Templatable value
+                                      type: string
+                                  type: object
+                                type: array
+                              fastburn:
+                                description: Alerting Rules generated for Fast Burn
+                                  alerts
+                                items:
+                                  properties:
+                                    annotation:
+                                      description: Annotations to attach only to Fast
+                                        Burn alerts.
+                                      items:
+                                        properties:
+                                          key:
+                                            description: Key for filtering and identification
+                                            type: string
+                                          value:
+                                            description: Templatable value
+                                            type: string
+                                        type: object
+                                      type: array
+                                    label:
+                                      description: Labels to attach only to Fast Burn
+                                        alerts.
+                                      items:
+                                        properties:
+                                          key:
+                                            description: Key for filtering and identification
+                                            type: string
+                                          value:
+                                            description: Templatable value
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                              label:
+                                description: Labels will be attached to all alerts
+                                  generated by any of these rules.
+                                items:
+                                  properties:
+                                    key:
+                                      description: Key for filtering and identification
+                                      type: string
+                                    value:
+                                      description: Templatable value
+                                      type: string
+                                  type: object
+                                type: array
+                              slowburn:
+                                description: Alerting Rules generated for Slow Burn
+                                  alerts
+                                items:
+                                  properties:
+                                    annotation:
+                                      description: Annotations to attach only to Slow
+                                        Burn alerts.
+                                      items:
+                                        properties:
+                                          key:
+                                            description: Key for filtering and identification
+                                            type: string
+                                          value:
+                                            description: Templatable value
+                                            type: string
+                                        type: object
+                                      type: array
+                                    label:
+                                      description: Labels to attach only to Slow Burn
+                                        alerts.
+                                      items:
+                                        properties:
+                                          key:
+                                            description: Key for filtering and identification
+                                            type: string
+                                          value:
+                                            description: Templatable value
+                                            type: string
+                                        type: object
+                                      type: array
+                                  type: object
+                                type: array
+                            type: object
+                          type: array
+                        description:
+                          description: Description is a free-text field that can provide
+                            more context to an SLO.
+                          type: string
+                        destinationDatasource:
+                          description: Destination Datasource sets the datasource
+                            defined for an SLO
+                          items:
+                            properties:
+                              uid:
+                                description: UID for the Datasource
+                                type: string
+                            type: object
+                          type: array
+                        folderUID:
+                          description: UID for the SLO folder
+                          type: string
+                        label:
+                          description: Additional labels that will be attached to
+                            all metrics generated from the query. These labels are
+                            useful for grouping SLOs in dashboard views that you create
+                            by hand. Labels must adhere to Prometheus label name schema
+                            - "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                          items:
+                            properties:
+                              key:
+                                description: Key for filtering and identification
+                                type: string
+                              value:
+                                description: Templatable value
+                                type: string
+                            type: object
+                          type: array
+                        name:
+                          description: Name should be a short description of your
+                            indicator. Consider names like "API Availability"
+                          type: string
+                        objectives:
+                          description: Over each rolling time window, the remaining
+                            error budget will be calculated, and separate alerts can
+                            be generated for each time window based on the SLO burn
+                            rate or remaining error budget.
+                          items:
+                            properties:
+                              value:
+                                description: Value between 0 and 1. If the value of
+                                  the query is above the objective, the SLO is met.
+                                type: number
+                              window:
+                                description: A Prometheus-parsable time duration string
+                                  like 24h, 60m. This is the time window the objective
+                                  is measured over.
+                                type: string
+                            type: object
+                          type: array
+                        query:
+                          description: Query describes the indicator that will be
+                            measured against the objective. Freeform Query types are
+                            currently supported.
+                          items:
+                            properties:
+                              freeform:
+                                items:
+                                  properties:
+                                    query:
+                                      description: Freeform Query Field - valid promQl
+                                      type: string
+                                  type: object
+                                type: array
+                              grafanaQueries:
+                                description: Array for holding a set of grafana queries
+                                items:
+                                  properties:
+                                    grafanaQueries:
+                                      description: Query Object - Array of Grafana
+                                        Query JSON objects
+                                      type: string
+                                  type: object
+                                type: array
+                              ratio:
+                                items:
+                                  properties:
+                                    groupByLabels:
+                                      description: Defines Group By Labels used for
+                                        per-label alerting. These appear as variables
+                                        on SLO dashboards to enable filtering and
+                                        aggregation. Labels must adhere to Prometheus
+                                        label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
+                                      items:
+                                        type: string
+                                      type: array
+                                    successMetric:
+                                      description: Counter metric for success events
+                                        (numerator)
+                                      type: string
+                                    totalMetric:
+                                      description: Metric for total events (denominator)
+                                      type: string
+                                  type: object
+                                type: array
+                              type:
+                                description: 'Query type must be one of: "freeform",
+                                  "query", "ratio", "grafana_queries" or "threshold"'
+                                type: string
+                            type: object
+                          type: array
+                        searchExpression:
+                          description: The name of a search expression in Grafana
+                            Asserts. This is used in the SLO UI to open the Asserts
+                            RCA workbench and in alerts to link to the RCA workbench.
+                          type: string
+                        uuid:
+                          description: A unique, random identifier. This value will
+                            also be the name of the resource stored in the API server.
+                            This value is read-only.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

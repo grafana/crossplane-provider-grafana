@@ -1,0 +1,10 @@
+apiVersion: enterprise.grafana.o.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  name: example-role
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+  providerConfigRef:
+    name: example

@@ -1,0 +1,11 @@
+apiVersion: cloudprovider.grafana.o.crossplane.io/v1alpha1
+kind: AWSAccount
+metadata:
+  name: example-awsaccount
+  namespace: default
+spec:
+  forProvider:
+    resourceID: "example-resource_id"
+    stackID: "example-stack_id"
+  providerConfigRef:
+    name: example

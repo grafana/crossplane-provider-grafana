@@ -1,0 +1,10 @@
+apiVersion: oncall.grafana.o.crossplane.io/v1alpha1
+kind: Integration
+metadata:
+  name: example-integration
+  namespace: default
+spec:
+  forProvider:
+    {}
+  providerConfigRef:
+    name: example

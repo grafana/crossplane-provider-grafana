@@ -1,0 +1,10 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  name: example-organization
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+  providerConfigRef:
+    name: example

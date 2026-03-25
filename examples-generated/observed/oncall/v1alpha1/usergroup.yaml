@@ -1,0 +1,10 @@
+apiVersion: oncall.grafana.o.crossplane.io/v1alpha1
+kind: UserGroup
+metadata:
+  name: example-usergroup
+  namespace: default
+spec:
+  forProvider:
+    slackHandle: "example-slack_handle"
+  providerConfigRef:
+    name: example

@@ -1,0 +1,13 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: DashboardSet
+metadata:
+  name: example-dashboardset
+  namespace: default
+spec:
+  forProvider:
+    folderUids: # TODO
+    limit: 0
+    orgID: "example-org_id"
+    tags: # TODO
+  providerConfigRef:
+    name: example

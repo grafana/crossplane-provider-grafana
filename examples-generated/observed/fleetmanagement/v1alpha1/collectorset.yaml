@@ -1,0 +1,10 @@
+apiVersion: fleetmanagement.grafana.o.crossplane.io/v1alpha1
+kind: CollectorSet
+metadata:
+  name: example-collectorset
+  namespace: default
+spec:
+  forProvider:
+    {}
+  providerConfigRef:
+    name: example

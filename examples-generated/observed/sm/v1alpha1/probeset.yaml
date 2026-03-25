@@ -1,0 +1,10 @@
+apiVersion: sm.grafana.o.crossplane.io/v1alpha1
+kind: ProbeSet
+metadata:
+  name: example-probeset
+  namespace: default
+spec:
+  forProvider:
+    filterDeprecated: false
+  providerConfigRef:
+    name: example

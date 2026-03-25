@@ -1,0 +1,12 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: OrganizationUser
+metadata:
+  name: example-organizationuser
+  namespace: default
+spec:
+  forProvider:
+    email: "example-email"
+    login: "example-login"
+    orgID: "example-org_id"
+  providerConfigRef:
+    name: example

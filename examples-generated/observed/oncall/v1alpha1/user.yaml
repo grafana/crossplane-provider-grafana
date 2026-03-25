@@ -1,0 +1,10 @@
+apiVersion: oncall.grafana.o.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: example-user
+  namespace: default
+spec:
+  forProvider:
+    username: "example-username"
+  providerConfigRef:
+    name: example

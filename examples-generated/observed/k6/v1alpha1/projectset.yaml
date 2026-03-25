@@ -1,0 +1,10 @@
+apiVersion: k6.grafana.o.crossplane.io/v1alpha1
+kind: ProjectSet
+metadata:
+  name: example-projectset
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+  providerConfigRef:
+    name: example

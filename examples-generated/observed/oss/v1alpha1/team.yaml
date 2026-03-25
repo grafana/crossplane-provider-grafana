@@ -1,0 +1,12 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  name: example-team
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+    orgID: "example-org_id"
+    readTeamSync: false
+  providerConfigRef:
+    name: example

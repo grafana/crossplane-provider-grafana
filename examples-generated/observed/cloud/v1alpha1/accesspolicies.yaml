@@ -1,0 +1,11 @@
+apiVersion: cloud.grafana.o.crossplane.io/v1alpha1
+kind: AccessPolicies
+metadata:
+  name: example-accesspolicies
+  namespace: default
+spec:
+  forProvider:
+    nameFilter: "example-name_filter"
+    regionFilter: "example-region_filter"
+  providerConfigRef:
+    name: example
