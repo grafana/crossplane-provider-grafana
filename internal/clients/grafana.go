@@ -275,6 +275,90 @@ func TerraformSetupBuilder() terraform.SetupFn {
 	}
 }
 
+// ExtractModernConfig extracts the ProviderConfig and raw credential map for a
+// namespaced managed resource.
+func ExtractModernConfig(ctx context.Context, c client.Client, mg resource.ModernManaged) (*Config, map[string]string, error) {
+	cfg, err := useModernProviderConfig(ctx, c, mg)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	data, err := resource.CommonCredentialExtractor(ctx, cfg.Credentials.Source, c, cfg.Credentials.CommonCredentialSelectors)
+	if err != nil {
+		return nil, nil, errors.Wrap(err, errExtractCredentials)
+	}
+
+	creds := map[string]string{}
+	if err := json.Unmarshal(data, &creds); err != nil {
+		return nil, nil, errors.Wrap(err, errUnmarshalCredentials)
+	}
+
+	return cfg, creds, nil
+}
+
+// BuildTFConfig builds a Terraform provider configuration map from a Config and
+// credential map. This is the same logic used in TerraformSetupBuilder but
+// extracted so that non-upjet controllers (e.g. observed data-source controllers)
+// can reuse it.
+func BuildTFConfig(cfg *Config, creds map[string]string) map[string]any {
+	config := map[string]any{}
+	for _, k := range []string{
+		"auth",
+		"url",
+		"cloud_access_policy_token",
+		"cloud_api_url",
+		"cloud_provider_access_token",
+		"cloud_provider_url",
+		"connections_api_access_token",
+		"connections_api_url",
+		"fleet_management_auth",
+		"fleet_management_url",
+		"frontend_o11y_api_access_token",
+		"oncall_access_token",
+		"oncall_url",
+		"sm_access_token",
+		"sm_url",
+		"cloud_api_key",
+		"org_id",
+		"stack_id",
+		"k6_access_token",
+	} {
+		if v, ok := creds[k]; ok {
+			config[k] = v
+		}
+	}
+
+	if cfg.URL != "" {
+		config["url"] = cfg.URL
+	}
+	if cfg.CloudAPIURL != "" {
+		config["cloud_api_url"] = cfg.CloudAPIURL
+	}
+	if cfg.CloudProviderURL != "" {
+		config["cloud_provider_url"] = cfg.CloudProviderURL
+	}
+	if cfg.ConnectionsAPIURL != "" {
+		config["connections_api_url"] = cfg.ConnectionsAPIURL
+	}
+	if cfg.FleetManagementURL != "" {
+		config["fleet_management_url"] = cfg.FleetManagementURL
+	}
+	if cfg.OnCallURL != "" {
+		config["oncall_url"] = cfg.OnCallURL
+	}
+	if cfg.SMURL != "" {
+		config["sm_url"] = cfg.SMURL
+	}
+	if cfg.OrgID != nil {
+		config["org_id"] = *cfg.OrgID
+	}
+	if cfg.StackID != nil {
+		config["stack_id"] = *cfg.StackID
+	}
+
+	return config
+}
+
 func configureNoForkGrafanaClient(ctx context.Context, ps *terraform.Setup) error {
 	ps.FrameworkProvider = grafanaProvider.FrameworkProvider("crossplane")
 

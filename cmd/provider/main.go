@@ -33,10 +33,12 @@ import (
 
 	apisCluster "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster"
 	apisNamespaced "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced"
+	apisObserved "github.com/grafana/crossplane-provider-grafana/v2/apis/observed"
 	"github.com/grafana/crossplane-provider-grafana/v2/config"
 	"github.com/grafana/crossplane-provider-grafana/v2/internal/clients"
 	clustercontroller "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster"
 	namespacedcontroller "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced"
+	observedcontroller "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/observed"
 	"github.com/grafana/crossplane-provider-grafana/v2/internal/features"
 )
 
@@ -87,6 +89,7 @@ func main() {
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apisCluster.AddToScheme(mgr.GetScheme()), "Cannot add Grafana cluster APIs to scheme")
 	kingpin.FatalIfError(apisNamespaced.AddToScheme(mgr.GetScheme()), "Cannot add Grafana namespaced APIs to scheme")
+	kingpin.FatalIfError(apisObserved.AddToScheme(mgr.GetScheme()), "Cannot add Grafana observed APIs to scheme")
 	kingpin.FatalIfError(apiextensionsv1.AddToScheme(mgr.GetScheme()), "Cannot add CustomResourceDefinition to scheme")
 
 	mm := managed.NewMRMetricRecorder()
@@ -137,10 +140,12 @@ func main() {
 	if *enableSafeStart {
 		kingpin.FatalIfError(clustercontroller.SetupGated(mgr, o), "Cannot setup gated cluster Grafana controllers")
 		kingpin.FatalIfError(namespacedcontroller.SetupGated(mgr, o), "Cannot setup gated namespaced Grafana controllers")
+		kingpin.FatalIfError(observedcontroller.SetupGated(mgr, o), "Cannot setup gated observed Grafana controllers")
 		kingpin.FatalIfError(customresourcesgate.Setup(mgr, o.Options), "Cannot setup CRD gate controller")
 	} else {
 		kingpin.FatalIfError(clustercontroller.Setup(mgr, o), "Cannot setup cluster Grafana controllers")
 		kingpin.FatalIfError(namespacedcontroller.Setup(mgr, o), "Cannot setup namespaced Grafana controllers")
+		kingpin.FatalIfError(observedcontroller.Setup(mgr, o), "Cannot setup observed Grafana controllers")
 	}
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
 }
