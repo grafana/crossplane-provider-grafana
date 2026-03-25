@@ -9,6 +9,18 @@ import (
 	"strings"
 )
 
+// Go type name constants used in code generation switch statements.
+const (
+	goTypeString    = "string"
+	goTypePtrString = "*string"
+	goTypeInt64     = "int64"
+	goTypePtrInt64  = "*int64"
+	goTypeFloat64   = "float64"
+	goTypePtrFloat  = "*float64"
+	goTypeBool      = "bool"
+	goTypePtrBool   = "*bool"
+)
+
 // =============================================================================
 // Code generation templates
 // =============================================================================
@@ -137,7 +149,7 @@ func generateSpec(cfg Config, ds *dsInfo, ci CategoryRule) string {
 	if ds.isLegacySDK {
 		needsFmt := false
 		for _, f := range ds.forProviderFields {
-			if strings.HasPrefix(f.goType, "*") || (f.goType != "string") {
+			if strings.HasPrefix(f.goType, "*") || (f.goType != goTypeString) {
 				needsFmt = true
 				break
 			}
@@ -188,13 +200,14 @@ func generateLegacySpec(b *strings.Builder, ds *dsInfo) {
 	}
 	b.WriteString("\t\t\tattrs := map[string]string{}\n")
 	for _, f := range ds.forProviderFields {
-		if strings.HasPrefix(f.goType, "*") {
+		switch {
+		case strings.HasPrefix(f.goType, "*"):
 			fmt.Fprintf(b, "\t\t\tif cr.Spec.ForProvider.%s != nil {\n", f.goName)
 			fmt.Fprintf(b, "\t\t\t\tattrs[%q] = fmt.Sprintf(\"%%v\", *cr.Spec.ForProvider.%s)\n", f.tfName, f.goName)
 			b.WriteString("\t\t\t}\n")
-		} else if f.goType == "string" {
+		case f.goType == goTypeString:
 			fmt.Fprintf(b, "\t\t\tattrs[%q] = cr.Spec.ForProvider.%s\n", f.tfName, f.goName)
-		} else {
+		default:
 			fmt.Fprintf(b, "\t\t\tattrs[%q] = fmt.Sprintf(\"%%v\", cr.Spec.ForProvider.%s)\n", f.tfName, f.goName)
 		}
 	}
@@ -248,21 +261,21 @@ func generateFrameworkSpec(b *strings.Builder, ds *dsInfo) {
 
 func generateFromResourceData(f fieldInfo) string {
 	switch f.goType {
-	case "*string":
+	case goTypePtrString:
 		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\ts := v.(string)\n\t\t\t\tcr.Status.AtProvider.%s = &s\n\t\t\t}\n", f.tfName, f.goName)
-	case "string":
+	case goTypeString:
 		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = d.Get(%q).(string)\n", f.goName, f.tfName)
-	case "*int64":
+	case goTypePtrInt64:
 		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\ti := int64(v.(int))\n\t\t\t\tcr.Status.AtProvider.%s = &i\n\t\t\t}\n", f.tfName, f.goName)
-	case "int64":
+	case goTypeInt64:
 		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = int64(d.Get(%q).(int))\n", f.goName, f.tfName)
-	case "*float64":
+	case goTypePtrFloat:
 		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tf := v.(float64)\n\t\t\t\tcr.Status.AtProvider.%s = &f\n\t\t\t}\n", f.tfName, f.goName)
-	case "float64":
+	case goTypeFloat64:
 		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = d.Get(%q).(float64)\n", f.goName, f.tfName)
-	case "*bool":
+	case goTypePtrBool:
 		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tb := v.(bool)\n\t\t\t\tcr.Status.AtProvider.%s = &b\n\t\t\t}\n", f.tfName, f.goName)
-	case "bool":
+	case goTypeBool:
 		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = d.Get(%q).(bool)\n", f.goName, f.tfName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
@@ -271,17 +284,17 @@ func generateFromResourceData(f fieldInfo) string {
 
 func generateToTFTypesValue(f fieldInfo) string {
 	switch f.goType {
-	case "string":
+	case goTypeString:
 		return fmt.Sprintf("\t\t\tattrs[%q] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.%s)\n", f.tfName, f.goName)
-	case "*string":
+	case goTypePtrString:
 		return fmt.Sprintf("\t\t\tif cr.Spec.ForProvider.%s != nil {\n\t\t\t\tattrs[%q] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.%s)\n\t\t\t}\n", f.goName, f.tfName, f.goName)
-	case "int64":
+	case goTypeInt64:
 		return fmt.Sprintf("\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Number, cr.Spec.ForProvider.%s)\n", f.tfName, f.goName)
-	case "*int64":
+	case goTypePtrInt64:
 		return fmt.Sprintf("\t\t\tif cr.Spec.ForProvider.%s != nil {\n\t\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Number, *cr.Spec.ForProvider.%s)\n\t\t\t}\n", f.goName, f.tfName, f.goName)
-	case "bool":
+	case goTypeBool:
 		return fmt.Sprintf("\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Bool, cr.Spec.ForProvider.%s)\n", f.tfName, f.goName)
-	case "*bool":
+	case goTypePtrBool:
 		return fmt.Sprintf("\t\t\tif cr.Spec.ForProvider.%s != nil {\n\t\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Bool, *cr.Spec.ForProvider.%s)\n\t\t\t}\n", f.goName, f.tfName, f.goName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
@@ -290,17 +303,17 @@ func generateToTFTypesValue(f fieldInfo) string {
 
 func generateFromState(f fieldInfo) string {
 	switch f.goType {
-	case "*string":
+	case goTypePtrString:
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *string\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
-	case "string":
+	case goTypeString:
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v string\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
-	case "*int64":
+	case goTypePtrInt64:
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *int64\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
-	case "int64":
+	case goTypeInt64:
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v int64\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
-	case "*bool":
+	case goTypePtrBool:
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *bool\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
-	case "bool":
+	case goTypeBool:
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v bool\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
@@ -459,14 +472,14 @@ func generateExample(cfg Config, ds *dsInfo, ci CategoryRule) string {
 
 // exampleValue returns a placeholder value for an example manifest field.
 func exampleValue(f fieldInfo) string {
-	switch {
-	case f.goType == "string" || f.goType == "*string":
+	switch f.goType {
+	case goTypeString, goTypePtrString:
 		return fmt.Sprintf("\"example-%s\"", f.tfName)
-	case f.goType == "int64" || f.goType == "*int64":
+	case goTypeInt64, goTypePtrInt64:
 		return "0"
-	case f.goType == "float64" || f.goType == "*float64":
+	case goTypeFloat64, goTypePtrFloat:
 		return "0.0"
-	case f.goType == "bool" || f.goType == "*bool":
+	case goTypeBool, goTypePtrBool:
 		return "false"
 	default:
 		return "# TODO"

@@ -143,7 +143,7 @@ func deriveNames(cfg Config, tfName, tfPrefix string) (kindName, fileName string
 }
 
 func sortedGroupNames(grouped map[string][]*dsInfo) []string {
-	var names []string
+	names := make([]string, 0, len(grouped))
 	for name := range grouped {
 		names = append(names, name)
 	}
@@ -240,30 +240,30 @@ func sortFields(info *dsInfo) {
 }
 
 func sdkTypeToGo(field *sdkschema.Schema) string {
-	switch field.Type {
+	switch field.Type { //nolint:exhaustive // TypeInvalid is not a valid field type.
 	case sdkschema.TypeString:
 		if field.Required {
-			return "string"
+			return goTypeString
 		}
-		return "*string"
+		return goTypePtrString
 	case sdkschema.TypeInt:
 		if field.Required {
-			return "int64"
+			return goTypeInt64
 		}
-		return "*int64"
+		return goTypePtrInt64
 	case sdkschema.TypeFloat:
 		if field.Required {
-			return "float64"
+			return goTypeFloat64
 		}
-		return "*float64"
+		return goTypePtrFloat
 	case sdkschema.TypeBool:
 		if field.Required {
-			return "bool"
+			return goTypeBool
 		}
-		return "*bool"
+		return goTypePtrBool
 	case sdkschema.TypeList, sdkschema.TypeSet:
 		if elem, ok := field.Elem.(*sdkschema.Schema); ok {
-			switch elem.Type {
+			switch elem.Type { //nolint:exhaustive // Only string and int element types are relevant.
 			case sdkschema.TypeString:
 				return "[]string"
 			case sdkschema.TypeInt:
@@ -276,7 +276,7 @@ func sdkTypeToGo(field *sdkschema.Schema) string {
 	case sdkschema.TypeMap:
 		return "map[string]string"
 	default:
-		return "string"
+		return goTypeString
 	}
 }
 
@@ -286,33 +286,33 @@ func fwAttrTypeToGo(attr fwschema.Attribute) string {
 	switch {
 	case strings.Contains(typeName, "StringType"):
 		if required {
-			return "string"
+			return goTypeString
 		}
-		return "*string"
+		return goTypePtrString
 	case strings.Contains(typeName, "Int64Type"):
 		if required {
-			return "int64"
+			return goTypeInt64
 		}
-		return "*int64"
+		return goTypePtrInt64
 	case strings.Contains(typeName, "Float64Type"):
 		if required {
-			return "float64"
+			return goTypeFloat64
 		}
-		return "*float64"
+		return goTypePtrFloat
 	case strings.Contains(typeName, "BoolType"):
 		if required {
-			return "bool"
+			return goTypeBool
 		}
-		return "*bool"
+		return goTypePtrBool
 	case strings.Contains(typeName, "ListType"), strings.Contains(typeName, "SetType"):
 		return "[]string"
 	case strings.Contains(typeName, "MapType"):
 		return "map[string]string"
 	default:
 		if required {
-			return "string"
+			return goTypeString
 		}
-		return "*string"
+		return goTypePtrString
 	}
 }
 
@@ -360,7 +360,7 @@ func emitFiles(cfg Config, grouped map[string][]*dsInfo, groupNames []string) {
 }
 
 func mustMkdirAll(path string) {
-	if err := os.MkdirAll(path, 0o755); err != nil {
+	if err := os.MkdirAll(path, 0o750); err != nil {
 		log.Fatalf("mkdir %s: %v", path, err)
 	}
 }
@@ -371,14 +371,14 @@ func writeFormatted(path, content string) {
 		log.Printf("WARN: gofmt failed for %s: %v (writing unformatted)", path, err)
 		formatted = []byte(content)
 	}
-	if err := os.WriteFile(path, formatted, 0o644); err != nil {
+	if err := os.WriteFile(path, formatted, 0o600); err != nil {
 		log.Fatalf("write %s: %v", path, err)
 	}
 	log.Printf("  wrote %s", path)
 }
 
 func writeRaw(path, content string) {
-	if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
+	if err := os.WriteFile(path, []byte(content), 0o600); err != nil {
 		log.Fatalf("write %s: %v", path, err)
 	}
 	log.Printf("  wrote %s", path)

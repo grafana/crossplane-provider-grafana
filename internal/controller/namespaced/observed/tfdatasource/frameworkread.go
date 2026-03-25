@@ -46,10 +46,7 @@ func NewFrameworkReadFn(
 
 		// Build the config from typed input attrs.
 		inputAttrs := toAttrs(mg)
-		config, err := buildConfig(ctx, schemaResp.Schema, inputAttrs)
-		if err != nil {
-			return fmt.Errorf("cannot build tfsdk.Config: %w", err)
-		}
+		config := buildConfig(ctx, schemaResp.Schema, inputAttrs)
 
 		// Read.
 		readResp := datasource.ReadResponse{
@@ -66,7 +63,7 @@ func NewFrameworkReadFn(
 }
 
 // buildConfig constructs a tfsdk.Config from a schema and a set of input attribute values.
-func buildConfig(ctx context.Context, s fwschema.Schema, inputAttrs map[string]tftypes.Value) (*tfsdk.Config, error) {
+func buildConfig(ctx context.Context, s fwschema.Schema, inputAttrs map[string]tftypes.Value) *tfsdk.Config {
 	// Build the tftypes.Object type from the schema attributes.
 	attrTypes := make(map[string]tftypes.Type)
 	for name, attr := range s.Attributes {
@@ -92,5 +89,5 @@ func buildConfig(ctx context.Context, s fwschema.Schema, inputAttrs map[string]t
 	return &tfsdk.Config{
 		Schema: s,
 		Raw:    objVal,
-	}, nil
+	}
 }
