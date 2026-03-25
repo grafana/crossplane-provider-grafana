@@ -65,6 +65,23 @@ func Generate(cfg Config, legacyProvider *sdkschema.Provider, frameworkProvider 
 		collectFrameworkDataSources(cfg, frameworkProvider, grouped)
 	}
 
+	// Detect singular/plural kind collisions and rename the plural kind.
+	// When both e.g. "User" and "Users" exist, K8s pluralizes both to "users",
+	// causing CRD overwrites. Rename "Users" → "UserSet" to avoid this.
+	for _, dsList := range grouped {
+		kindSet := map[string]*dsInfo{}
+		for _, ds := range dsList {
+			kindSet[ds.kindName] = ds
+		}
+		for _, ds := range dsList {
+			singular := strings.TrimSuffix(ds.kindName, "s")
+			if singular != ds.kindName && kindSet[singular] != nil {
+				ds.kindName = singular + "Set"
+				ds.fileName = strings.ToLower(singular) + "set"
+			}
+		}
+	}
+
 	groupNames := sortedGroupNames(grouped)
 	emitFiles(cfg, grouped, groupNames)
 
@@ -368,26 +385,26 @@ func emitFiles(cfg Config, grouped map[string][]*dsInfo, groupNames []string) {
 		mustMkdirAll(ctrlDir)
 		mustMkdirAll(examplesDir)
 
-		writeFormatted(filepath.Join(apiDir, "groupversion_info.go"), generateGroupVersionInfo(cfg, ci))
+		writeFormatted(filepath.Join(apiDir, "zz_groupversion_info.go"), generateGroupVersionInfo(cfg, ci))
 
 		for _, ds := range dsList {
-			writeFormatted(filepath.Join(apiDir, ds.fileName+"_types.go"), generateTypes(cfg, ds))
-			writeFormatted(filepath.Join(ctrlDir, ds.fileName+"_spec.go"), generateSpec(cfg, ds, ci))
+			writeFormatted(filepath.Join(apiDir, "zz_"+ds.fileName+"_types.go"), generateTypes(cfg, ds))
+			writeFormatted(filepath.Join(ctrlDir, "zz_"+ds.fileName+"_spec.go"), generateSpec(cfg, ds, ci))
 			writeRaw(filepath.Join(examplesDir, ds.fileName+".yaml"), generateExample(cfg, ds, ci))
 		}
 
-		writeFormatted(filepath.Join(ctrlDir, "setup.go"), generateGroupSetup(cfg, dsList, ci))
+		writeFormatted(filepath.Join(ctrlDir, "zz_setup.go"), generateGroupSetup(cfg, dsList, ci))
 
 		if hasFrameworkDS(dsList) {
-			writeFormatted(filepath.Join(ctrlDir, "factories.go"), generateFactories(cfg, dsList, ci))
+			writeFormatted(filepath.Join(ctrlDir, "zz_factories.go"), generateFactories(cfg, dsList, ci))
 		}
 	}
 
 	mustMkdirAll(apisBase)
-	writeFormatted(filepath.Join(apisBase, "register.go"), generateRegister(cfg, groupNames))
+	writeFormatted(filepath.Join(apisBase, "zz_register.go"), generateRegister(cfg, groupNames))
 
 	mustMkdirAll(ctrlBase)
-	writeFormatted(filepath.Join(ctrlBase, "setup.go"), generateTopSetup(cfg, groupNames))
+	writeFormatted(filepath.Join(ctrlBase, "zz_setup.go"), generateTopSetup(cfg, groupNames))
 }
 
 func mustMkdirAll(path string) {
