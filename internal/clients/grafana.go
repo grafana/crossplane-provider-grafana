@@ -200,72 +200,7 @@ func TerraformSetupBuilder() terraform.SetupFn {
 			return ps, errors.Wrap(err, "failed to resolve probe names")
 		}
 
-		// Set credentials in Terraform provider configuration.
-		// https://registry.terraform.io/providers/grafana/grafana/latest/docs
-		ps.Configuration = map[string]any{}
-		for _, k := range []string{
-			"auth",
-			"url",
-
-			"cloud_access_policy_token",
-			"cloud_api_url",
-
-			"cloud_provider_access_token",
-			"cloud_provider_url",
-
-			"connections_api_access_token",
-			"connections_api_url",
-
-			"fleet_management_auth",
-			"fleet_management_url",
-
-			"frontend_o11y_api_access_token",
-
-			"oncall_access_token",
-			"oncall_url",
-
-			"sm_access_token",
-			"sm_url",
-
-			"cloud_api_key", // don't see it in the TF config
-			"org_id",        // don't see it in the TF config
-
-			// required for k6 resources
-			"stack_id",
-			"k6_access_token",
-		} {
-			if v, ok := creds[k]; ok {
-				ps.Configuration[k] = v
-			}
-		}
-
-		if credSpec.URL != "" {
-			ps.Configuration["url"] = credSpec.URL
-		}
-		if credSpec.CloudAPIURL != "" {
-			ps.Configuration["cloud_api_url"] = credSpec.CloudAPIURL
-		}
-		if credSpec.CloudProviderURL != "" {
-			ps.Configuration["cloud_provider_url"] = credSpec.CloudProviderURL
-		}
-		if credSpec.ConnectionsAPIURL != "" {
-			ps.Configuration["connections_api_url"] = credSpec.ConnectionsAPIURL
-		}
-		if credSpec.FleetManagementURL != "" {
-			ps.Configuration["fleet_management_url"] = credSpec.FleetManagementURL
-		}
-		if credSpec.OnCallURL != "" {
-			ps.Configuration["oncall_url"] = credSpec.OnCallURL
-		}
-		if credSpec.SMURL != "" {
-			ps.Configuration["sm_url"] = credSpec.SMURL
-		}
-		if credSpec.OrgID != nil {
-			ps.Configuration["org_id"] = *credSpec.OrgID
-		}
-		if credSpec.StackID != nil {
-			ps.Configuration["stack_id"] = *credSpec.StackID
-		}
+		ps.Configuration = BuildTFConfig(&credSpec, creds)
 
 		if err := configureNoForkGrafanaClient(ctx, &ps); err != nil {
 			return ps, errors.Wrap(err, "failed to configure the no-fork Grafana client")
@@ -297,9 +232,8 @@ func ExtractModernConfig(ctx context.Context, c client.Client, mg resource.Moder
 }
 
 // BuildTFConfig builds a Terraform provider configuration map from a Config and
-// credential map. This is the same logic used in TerraformSetupBuilder but
-// extracted so that non-upjet controllers (e.g. observed data-source controllers)
-// can reuse it.
+// credential map. Used by both TerraformSetupBuilder (upjet) and the observed
+// data-source controllers.
 func BuildTFConfig(cfg *Config, creds map[string]string) map[string]any {
 	config := map[string]any{}
 	for _, k := range []string{
