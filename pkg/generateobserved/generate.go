@@ -201,10 +201,13 @@ func parseLegacySchema(cfg Config, info *dsInfo) {
 			continue
 		}
 		fi := buildLegacyFieldInfo(cfg, info.kindName, name, field)
-		if field.Computed && !field.Required && !field.Optional {
-			info.atProviderFields = append(info.atProviderFields, fi)
-		} else {
+		if field.Required || field.Optional {
 			info.forProviderFields = append(info.forProviderFields, fi)
+		}
+		// All fields are observable outputs in data sources: TF data sources
+		// populate every field on read, including Optional inputs.
+		if field.Computed || field.Optional {
+			info.atProviderFields = append(info.atProviderFields, fi)
 		}
 	}
 	sortFields(info)
@@ -273,10 +276,13 @@ func parseFWSchema(cfg Config, info *dsInfo, ds datasource.DataSource) {
 		if fi.description == "" {
 			fi.description = attr.GetDescription()
 		}
-		if attr.IsComputed() && !attr.IsRequired() && !attr.IsOptional() {
-			info.atProviderFields = append(info.atProviderFields, fi)
-		} else {
+		if attr.IsRequired() || attr.IsOptional() {
 			info.forProviderFields = append(info.forProviderFields, fi)
+		}
+		// All fields are observable outputs in data sources: TF data sources
+		// populate every field on read, including Optional inputs.
+		if attr.IsComputed() || attr.IsOptional() {
+			info.atProviderFields = append(info.atProviderFields, fi)
 		}
 	}
 	sortFields(info)
