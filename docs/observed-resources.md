@@ -73,6 +73,76 @@ metadata:
 The external name can then be referenced from other resources (e.g. an
 Integration's `teamId` field).
 
+## Set resources (plural data sources)
+
+When a Terraform provider exposes both a singular and plural data source (e.g.
+`grafana_user` and `grafana_users`), Kubernetes would pluralize both kinds to
+the same CRD name (`users`), causing one to silently overwrite the other. To
+avoid this, the generator detects these collisions and renames the plural kind
+with a `Set` suffix:
+
+| Singular kind | Plural kind (renamed) | CRD plural |
+|---|---|---|
+| `User` | `UserSet` | `usersets` |
+| `Folder` | `FolderSet` | `foldersets` |
+| `Dashboard` | `DashboardSet` | `dashboardsets` |
+| `LibraryPanel` | `LibraryPanelSet` | `librarypanelsets` |
+| `Probe` | `ProbeSet` | `probesets` |
+| `LoadTest` | `LoadTestSet` | `loadtestsets` |
+| `Project` | `ProjectSet` | `projectsets` |
+| `Schedule` | `ScheduleSet` | `schedulesets` |
+| `Collector` | `CollectorSet` | `collectorsets` |
+| `AWSCloudwatchScrapeJob` | `AWSCloudwatchScrapeJobSet` | `awscloudwatchscrapejobsets` |
+
+Set resources typically require no `forProvider` inputs and return all items in
+`status.atProvider`:
+
+```yaml
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: UserSet
+metadata:
+  name: all-users
+  namespace: default
+spec:
+  forProvider: {}
+  providerConfigRef:
+    name: default
+    kind: ClusterProviderConfig
+```
+
+After reconciliation:
+
+```yaml
+status:
+  atProvider:
+    users:
+      - email: "admin@localhost"
+        id: 1
+        isAdmin: true
+        login: "admin"
+      - email: "john@example.com"
+        id: 2
+        isAdmin: false
+        login: "john"
+        name: "John"
+```
+
+## Testing
+
+An uptest example is provided at
+`examples/namespaced/v1alpha1/observed-sets.yaml`. It creates managed resources
+(User, Folder) via `.m.` APIs and then observes them with UserSet and FolderSet
+via `.o.` APIs.
+
+To run the test:
+
+```bash
+UPTEST_EXAMPLE_LIST=examples/namespaced/v1alpha1/observed-sets.yaml make uptest
+```
+
+Observed resources use `uptest.upbound.io/disable-import: "true"` since they
+are read-only and cannot be imported.
+
 ## Code generation
 
 All observed resource types, controller specs, and registration boilerplate are
@@ -90,16 +160,20 @@ This introspects the vendored Terraform provider at compile time and emits:
 
 ```
 apis/observed/<category>/v1alpha1/
-    groupversion_info.go          — CRD group constants and scheme builder
-    <name>_types.go               — ForProvider/AtProvider structs, CRD type, GVK
+    zz_groupversion_info.go       — CRD group constants and scheme builder
+    zz_<name>_types.go            — ForProvider/AtProvider structs, CRD type, GVK
 internal/controller/namespaced/observed/<category>/
-    <name>_spec.go                — tfdatasource.Spec with read callbacks
-    factories.go                  — Plugin Framework data source factories (if needed)
-    setup.go                      — per-group controller registration
-apis/observed/register.go         — aggregated AddToScheme across all groups
-internal/controller/namespaced/observed/setup.go — aggregated Setup/SetupGated
+    zz_<name>_spec.go             — tfdatasource.Spec with read callbacks
+    zz_factories.go               — Plugin Framework data source factories (if needed)
+    zz_setup.go                   — per-group controller registration
+apis/observed/zz_register.go      — aggregated AddToScheme across all groups
+internal/controller/namespaced/observed/zz_setup.go — aggregated Setup/SetupGated
 examples-generated/observed/      — example YAML manifests per data source
 ```
+
+All generated files use a `zz_` prefix so that `make generate`'s existing
+cleanup step (`find . -iname 'zz_*' ... -delete`) removes stale files before
+regeneration.
 
 After running the generator, run the standard codegen tools:
 
@@ -180,7 +254,7 @@ Data sources are assigned to CRD groups by TF name prefix:
 | `grafana_cloud_` | `cloud.grafana.o.crossplane.io` | `Stack` |
 | `grafana_k6_` | `k6.grafana.o.crossplane.io` | `LoadTest` |
 | `grafana_slo` | `slo.grafana.o.crossplane.io` | `Slos` |
-| `grafana_` (fallback) | `oss.grafana.o.crossplane.io` | `Dashboards` |
+| `grafana_` (fallback) | `oss.grafana.o.crossplane.io` | `DashboardSet` |
 
 Individual overrides (e.g. `grafana_role` → `enterprise`) are configured in
 `CategoryOverrides`.
