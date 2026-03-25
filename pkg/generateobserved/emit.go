@@ -68,6 +68,10 @@ func generateTypes(cfg Config, ds *dsInfo) string {
 
 `)
 
+	// Emit nested struct types first (collected from all fields).
+	emitNestedStructs(&b, ds.forProviderFields)
+	emitNestedStructs(&b, ds.atProviderFields)
+
 	// Parameters struct.
 	fmt.Fprintf(&b, "// %sParameters defines the input parameters for the %s data source.\n", ds.kindName, ds.tfName)
 	fmt.Fprintf(&b, "type %sParameters struct {\n", ds.kindName)
@@ -129,6 +133,25 @@ func generateTypes(cfg Config, ds *dsInfo) string {
 	fmt.Fprintf(&b, "func init() {\n\tSchemeBuilder.Register(&%s{}, &%sList{})\n}\n", ds.kindName, ds.kindName)
 
 	return b.String()
+}
+
+// emitNestedStructs recursively emits Go struct definitions for fields that
+// have nested sub-fields (e.g. TypeList/TypeSet with Resource elements).
+func emitNestedStructs(b *strings.Builder, fields []fieldInfo) {
+	for _, f := range fields {
+		if len(f.nestedFields) == 0 {
+			continue
+		}
+		// Recurse first so inner types are defined before outer types.
+		emitNestedStructs(b, f.nestedFields)
+
+		fmt.Fprintf(b, "type %s struct {\n", f.nestedStructName)
+		for _, nf := range f.nestedFields {
+			writeFieldDoc(b, nf)
+			fmt.Fprintf(b, "\t%s %s `json:\"%s,omitempty\"`\n\n", nf.goName, nf.goType, nf.jsonName)
+		}
+		b.WriteString("}\n\n")
+	}
 }
 
 func writeFieldDoc(b *strings.Builder, f fieldInfo) {
@@ -260,6 +283,10 @@ func generateFrameworkSpec(b *strings.Builder, ds *dsInfo) {
 }
 
 func generateFromResourceData(f fieldInfo) string {
+	// Handle nested struct types (List/Set of objects).
+	if len(f.nestedFields) > 0 {
+		return generateNestedFromResourceData(f)
+	}
 	switch f.goType {
 	case goTypePtrString:
 		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\ts := v.(string)\n\t\t\t\tcr.Status.AtProvider.%s = &s\n\t\t\t}\n", f.tfName, f.goName)
@@ -279,6 +306,70 @@ func generateFromResourceData(f fieldInfo) string {
 		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = d.Get(%q).(bool)\n", f.goName, f.tfName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
+	}
+}
+
+func generateNestedFromResourceData(f fieldInfo) string {
+	// Count how many scalar fields we can extract.
+	hasScalarFields := false
+	for _, nf := range f.nestedFields {
+		if len(nf.nestedFields) == 0 && isScalarType(nf.goType) {
+			hasScalarFields = true
+			break
+		}
+	}
+
+	var b strings.Builder
+	fmt.Fprintf(&b, "\t\t\tif v, ok := d.GetOk(%q); ok {\n", f.tfName)
+	fmt.Fprintf(&b, "\t\t\t\tvar items []v1alpha1.%s\n", f.nestedStructName)
+	if f.isSet {
+		b.WriteString("\t\t\t\tfor _, raw := range v.(*sdkschema.Set).List() {\n")
+	} else {
+		b.WriteString("\t\t\t\tfor _, raw := range v.([]interface{}) {\n")
+	}
+	fmt.Fprintf(&b, "\t\t\t\t\titem := v1alpha1.%s{}\n", f.nestedStructName)
+	if hasScalarFields {
+		b.WriteString("\t\t\t\t\tm := raw.(map[string]interface{})\n")
+		for _, nf := range f.nestedFields {
+			if len(nf.nestedFields) > 0 || !isScalarType(nf.goType) {
+				continue
+			}
+			switch nf.goType {
+			case goTypeString:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(string); ok {\n\t\t\t\t\t\titem.%s = val\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			case goTypePtrString:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(string); ok {\n\t\t\t\t\t\titem.%s = &val\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			case goTypeInt64:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(int); ok {\n\t\t\t\t\t\tv := int64(val)\n\t\t\t\t\t\titem.%s = v\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			case goTypePtrInt64:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(int); ok {\n\t\t\t\t\t\tv := int64(val)\n\t\t\t\t\t\titem.%s = &v\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			case goTypeBool:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(bool); ok {\n\t\t\t\t\t\titem.%s = val\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			case goTypePtrBool:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(bool); ok {\n\t\t\t\t\t\titem.%s = &val\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			case goTypeFloat64:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(float64); ok {\n\t\t\t\t\t\titem.%s = val\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			case goTypePtrFloat:
+				fmt.Fprintf(&b, "\t\t\t\t\tif val, ok := m[%q].(float64); ok {\n\t\t\t\t\t\titem.%s = &val\n\t\t\t\t\t}\n", nf.tfName, nf.goName)
+			}
+		}
+	} else {
+		b.WriteString("\t\t\t\t\t_ = raw\n")
+	}
+	b.WriteString("\t\t\t\t\titems = append(items, item)\n")
+	b.WriteString("\t\t\t\t}\n")
+	fmt.Fprintf(&b, "\t\t\t\tcr.Status.AtProvider.%s = items\n", f.goName)
+	b.WriteString("\t\t\t}\n")
+	return b.String()
+}
+
+func isScalarType(goType string) bool {
+	switch goType {
+	case goTypeString, goTypePtrString, goTypeInt64, goTypePtrInt64,
+		goTypeFloat64, goTypePtrFloat, goTypeBool, goTypePtrBool:
+		return true
+	default:
+		return false
 	}
 }
 

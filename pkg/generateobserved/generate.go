@@ -41,6 +41,13 @@ type fieldInfo struct {
 	goType      string
 	required    bool
 	description string
+
+	// nestedFields holds the fields of a nested struct type (for List/Set of objects).
+	nestedFields []fieldInfo
+	// nestedStructName is the Go type name for the nested struct (e.g. "UsersUser").
+	nestedStructName string
+	// isSet is true when the field is a TypeSet (vs TypeList). Affects how data is extracted.
+	isSet bool
 }
 
 // Generate introspects the given TF providers and emits all observed resource
@@ -176,14 +183,7 @@ func parseLegacySchema(cfg Config, info *dsInfo) {
 		if name == "id" {
 			continue
 		}
-		fi := fieldInfo{
-			tfName:      name,
-			goName:      snakeToCamel(cfg, name),
-			jsonName:    snakeToCamelJSON(cfg, name),
-			goType:      sdkTypeToGo(field),
-			required:    field.Required,
-			description: field.Description,
-		}
+		fi := buildLegacyFieldInfo(cfg, info.kindName, name, field)
 		if field.Computed && !field.Required && !field.Optional {
 			info.atProviderFields = append(info.atProviderFields, fi)
 		} else {
@@ -191,6 +191,37 @@ func parseLegacySchema(cfg Config, info *dsInfo) {
 		}
 	}
 	sortFields(info)
+}
+
+func buildLegacyFieldInfo(cfg Config, parentName, name string, field *sdkschema.Schema) fieldInfo {
+	fi := fieldInfo{
+		tfName:      name,
+		goName:      snakeToCamel(cfg, name),
+		jsonName:    snakeToCamelJSON(cfg, name),
+		goType:      sdkTypeToGo(field),
+		required:    field.Required,
+		description: field.Description,
+	}
+
+	// Handle nested resource elements in List/Set types.
+	if field.Type == sdkschema.TypeList || field.Type == sdkschema.TypeSet {
+		if res, ok := field.Elem.(*sdkschema.Resource); ok {
+			structName := parentName + snakeToCamel(cfg, name)
+			fi.nestedStructName = structName
+			fi.goType = "[]" + structName
+			fi.isSet = field.Type == sdkschema.TypeSet
+
+			nested := make([]fieldInfo, 0, len(res.Schema))
+			for nestedName, nestedField := range res.Schema {
+				nfi := buildLegacyFieldInfo(cfg, structName, nestedName, nestedField)
+				nested = append(nested, nfi)
+			}
+			sort.Slice(nested, func(i, j int) bool { return nested[i].tfName < nested[j].tfName })
+			fi.nestedFields = nested
+		}
+	}
+
+	return fi
 }
 
 func parseFWSchema(cfg Config, info *dsInfo, ds datasource.DataSource) {
