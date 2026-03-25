@@ -10,14 +10,14 @@ Copyright 2025 Grafana
 // The generator produces the following file tree from TF provider introspection:
 //
 //	apis/observed/<category>/v1alpha1/
-//	    groupversion_info.go          — CRD group constants and scheme builder
-//	    <name>_types.go               — ForProvider/AtProvider structs, CRD type, GVK
+//	    zz_groupversion_info.go       — CRD group constants and scheme builder
+//	    zz_<name>_types.go            — ForProvider/AtProvider structs, CRD type, GVK
 //	internal/controller/namespaced/observed/<category>/
-//	    <name>_spec.go                — tfdatasource.Spec with read callbacks
-//	    factories.go                  — Plugin Framework data source factories (if needed)
-//	    setup.go                      — per-group controller registration
-//	apis/observed/register.go         — aggregated AddToScheme across all groups
-//	internal/controller/namespaced/observed/setup.go — aggregated Setup/SetupGated
+//	    zz_<name>_spec.go             — tfdatasource.Spec with read callbacks
+//	    zz_factories.go               — Plugin Framework data source factories (if needed)
+//	    zz_setup.go                   — per-group controller registration
+//	apis/observed/zz_register.go      — aggregated AddToScheme across all groups
+//	internal/controller/namespaced/observed/zz_setup.go — aggregated Setup/SetupGated
 //
 // All provider-specific configuration is supplied via [Config]. The
 // generation engine itself has no knowledge of any particular Terraform
@@ -42,8 +42,9 @@ Copyright 2025 Grafana
 // that don't fit the prefix convention.
 //
 // Within each category, field classification follows Terraform schema
-// conventions: Required/Optional fields become ForProvider (spec inputs),
-// Computed-only fields become AtProvider (status outputs).
+// conventions: Required fields become ForProvider (spec inputs),
+// Computed-only fields become AtProvider (status outputs), and Optional
+// fields appear in both (since data sources populate all fields on read).
 package generateobserved
 
 // Config parameterizes the generator for a specific Terraform provider. All
