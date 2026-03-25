@@ -35,8 +35,9 @@ Fields from the Terraform data source schema are classified as:
 
 - **`spec.forProvider`** — Required or Optional fields (inputs to the data
   source query, e.g. `name` for looking up a team).
-- **`status.atProvider`** — Computed-only fields (outputs returned by the data
-  source, e.g. `email`, `avatarUrl`).
+- **`status.atProvider`** — Computed or Optional fields (outputs returned by the
+  data source, e.g. `email`, `avatarUrl`). Optional fields appear in both
+  `forProvider` and `atProvider` since data sources populate all fields on read.
 
 ## Example
 
@@ -134,10 +135,16 @@ An uptest example is provided at
 (User, Folder) via `.m.` APIs and then observes them with UserSet and FolderSet
 via `.o.` APIs.
 
-To run the test:
+To run all e2e tests (including observed resources):
 
 ```bash
-UPTEST_EXAMPLE_LIST=examples/namespaced/v1alpha1/observed-sets.yaml make uptest
+make e2e
+```
+
+Example YAMLs under `examples/` are auto-discovered. To run a specific example:
+
+```bash
+UPTEST_EXAMPLE_LIST=examples/namespaced/v1alpha1/observed-sets.yaml make e2e
 ```
 
 Observed resources use `uptest.upbound.io/disable-import: "true"` since they
@@ -151,6 +158,9 @@ Legacy SDK (`provider.DataSourcesMap`) and Plugin Framework
 (`FrameworkProvider().DataSources()`) data sources.
 
 ### Running the generator
+
+The generator is integrated into `make generate` and runs automatically. To run
+it standalone:
 
 ```bash
 go run ./cmd/generate-observed
@@ -175,15 +185,8 @@ All generated files use a `zz_` prefix so that `make generate`'s existing
 cleanup step (`find . -iname 'zz_*' ... -delete`) removes stale files before
 regeneration.
 
-After running the generator, run the standard codegen tools:
-
-```bash
-# Generate deepcopy methods
-controller-gen object paths=./apis/observed/...
-
-# Generate managed resource interface implementations
-angryjet generate-methodsets ./apis/observed/...
-```
+After running the generator standalone, run `make generate` to regenerate
+deepcopy methods, CRDs, and managed resource interface implementations.
 
 ### Keeping up with provider upgrades
 
