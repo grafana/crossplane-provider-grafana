@@ -57,16 +57,17 @@ func ReplaceGroupWords(group string, count int) GroupKindCalculator {
 	}
 }
 
-type categoryInfo struct {
+// CategoryInfo holds the short group name and prefix word count for a resource category.
+type CategoryInfo struct {
 	ShortGroup string
 	WordCount  int
 }
 
-// categoryConfig maps each upstream ResourceCategory string to the short group
+// CategoryConfig maps each upstream ResourceCategory string to the short group
 // name and the number of prefix words to strip when computing the Kind.
 // Category string values match common.ResourceCategory constants from the
 // upstream Terraform provider.
-var categoryConfig = map[string]categoryInfo{
+var CategoryConfig = map[string]CategoryInfo{
 	"Alerting":               {"alerting", 0},
 	"Cloud":                  {"cloud", 1},
 	"Grafana Enterprise":     {"enterprise", 0},
@@ -91,7 +92,7 @@ var GroupMap = map[string]GroupKindCalculator{}
 func init() {
 	for _, r := range grafanaProvider.Resources() {
 		cat := string(r.Category)
-		cfg, ok := categoryConfig[cat]
+		cfg, ok := CategoryConfig[cat]
 		if !ok {
 			panic(fmt.Sprintf(
 				"unknown category %q for resource %s\n"+
@@ -102,7 +103,7 @@ func init() {
 	}
 	for _, r := range grafanaProvider.AppPlatformResources() {
 		cat := string(r.Category)
-		cfg, ok := categoryConfig[cat]
+		cfg, ok := CategoryConfig[cat]
 		if !ok {
 			panic(fmt.Sprintf(
 				"unknown category %q for resource %s\n"+

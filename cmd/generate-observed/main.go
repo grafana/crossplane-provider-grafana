@@ -12,12 +12,34 @@ Usage:
 package main
 
 import (
+	"log"
+	"strings"
+
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
 
+	"github.com/grafana/crossplane-provider-grafana/v2/config"
 	"github.com/grafana/crossplane-provider-grafana/v2/pkg/generateobserved"
 )
 
 func main() {
+	overrides := map[string]generateobserved.CategoryRule{}
+	for _, ds := range grafanaProvider.DataSources() {
+		ci, ok := config.CategoryConfig[string(ds.Category)]
+		if !ok {
+			log.Fatalf("unknown category %q for data source %s", ds.Category, ds.Name)
+		}
+		words := strings.Split(strings.TrimPrefix(ds.Name, "grafana_"), "_")
+		tfPrefix := "grafana_"
+		if ci.WordCount > 0 {
+			tfPrefix += strings.Join(words[:ci.WordCount], "_") + "_"
+		}
+		overrides[ds.Name] = generateobserved.CategoryRule{
+			GroupPrefix: ci.ShortGroup,
+			DirName:     ci.ShortGroup,
+			TFPrefix:    tfPrefix,
+		}
+	}
+
 	cfg := generateobserved.Config{
 		ModulePath:      "github.com/grafana/crossplane-provider-grafana/v2",
 		APIVersion:      "v1alpha1",
@@ -28,24 +50,7 @@ func main() {
 		TFFrameworkProviderFunc: "grafanaProvider.FrameworkProvider",
 		TFProviderImportAlias:   "grafanaProvider",
 
-		CategoryRules: []generateobserved.CategoryRule{
-			{GroupPrefix: "cloudprovider", DirName: "cloudprovider", TFPrefix: "grafana_cloud_provider_"},
-			{GroupPrefix: "sm", DirName: "sm", TFPrefix: "grafana_synthetic_monitoring_"},
-			{GroupPrefix: "fleetmanagement", DirName: "fleetmanagement", TFPrefix: "grafana_fleet_management_"},
-			{GroupPrefix: "frontendobservability", DirName: "frontendobservability", TFPrefix: "grafana_frontend_o11y_"},
-			{GroupPrefix: "connections", DirName: "connections", TFPrefix: "grafana_connections_"},
-			{GroupPrefix: "oncall", DirName: "oncall", TFPrefix: "grafana_oncall_"},
-			{GroupPrefix: "cloud", DirName: "cloud", TFPrefix: "grafana_cloud_"},
-			{GroupPrefix: "k6", DirName: "k6", TFPrefix: "grafana_k6_"},
-			{GroupPrefix: "slo", DirName: "slo", TFPrefix: "grafana_slo"},
-			{GroupPrefix: "ml", DirName: "ml", TFPrefix: "grafana_machine_learning_"},
-			// OSS: catch-all for remaining "grafana_*" data sources.
-			{GroupPrefix: "oss", DirName: "oss", TFPrefix: "grafana_"},
-		},
-
-		CategoryOverrides: map[string]generateobserved.CategoryRule{
-			"grafana_role": {GroupPrefix: "enterprise", DirName: "enterprise", TFPrefix: "grafana_"},
-		},
+		CategoryOverrides: overrides,
 
 		FallbackTFPrefix: "grafana_",
 
