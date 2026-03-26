@@ -12,7 +12,7 @@ import (
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1"
-	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/observed/tfdatasource"
+	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
 var SlackChannelSpec = tfdatasource.Spec{
@@ -21,6 +21,7 @@ var SlackChannelSpec = tfdatasource.Spec{
 	NewManaged:     func() resource.Managed { return &v1alpha1.SlackChannel{} },
 	Read: tfdatasource.NewLegacyReadFn(
 		"grafana_oncall_slack_channel",
+		legacyDSSlackChannel,
 		func(mg resource.Managed) map[string]string {
 			cr := mg.(*v1alpha1.SlackChannel)
 			attrs := map[string]string{}

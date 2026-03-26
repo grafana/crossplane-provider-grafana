@@ -12,7 +12,7 @@ import (
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1"
-	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/observed/tfdatasource"
+	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
 var UserGroupSpec = tfdatasource.Spec{
@@ -21,6 +21,7 @@ var UserGroupSpec = tfdatasource.Spec{
 	NewManaged:     func() resource.Managed { return &v1alpha1.UserGroup{} },
 	Read: tfdatasource.NewLegacyReadFn(
 		"grafana_oncall_user_group",
+		legacyDSUserGroup,
 		func(mg resource.Managed) map[string]string {
 			cr := mg.(*v1alpha1.UserGroup)
 			attrs := map[string]string{}

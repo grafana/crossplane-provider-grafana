@@ -8,7 +8,7 @@ package cloudprovider
 
 import (
 	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
-	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/observed/tfdatasource"
+	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 
@@ -19,8 +19,9 @@ var Specs = []tfdatasource.Spec{
 	AzureCredentialSpec,
 }
 
-func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
+func Setup(mgr ctrl.Manager, o tjcontroller.Options, connect tfdatasource.ConnectFn) error {
 	for _, spec := range Specs {
+		spec.ConnectFn = connect
 		if err := tfdatasource.Setup(mgr, o, spec); err != nil {
 			return err
 		}
@@ -28,8 +29,9 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	return nil
 }
 
-func SetupGated(mgr ctrl.Manager, o tjcontroller.Options) error {
+func SetupGated(mgr ctrl.Manager, o tjcontroller.Options, connect tfdatasource.ConnectFn) error {
 	for _, spec := range Specs {
+		spec.ConnectFn = connect
 		if err := tfdatasource.SetupGated(mgr, o, spec); err != nil {
 			return err
 		}

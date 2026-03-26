@@ -15,7 +15,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/cloud/v1alpha1"
-	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/observed/tfdatasource"
+	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
 var IPSSpec = tfdatasource.Spec{

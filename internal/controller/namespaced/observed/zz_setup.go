@@ -24,74 +24,74 @@ import (
 )
 
 func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
-	if err := cloud.Setup(mgr, o); err != nil {
+	if err := cloud.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := cloudprovider.Setup(mgr, o); err != nil {
+	if err := cloudprovider.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := connections.Setup(mgr, o); err != nil {
+	if err := connections.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := enterprise.Setup(mgr, o); err != nil {
+	if err := enterprise.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := fleetmanagement.Setup(mgr, o); err != nil {
+	if err := fleetmanagement.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := frontendobservability.Setup(mgr, o); err != nil {
+	if err := frontendobservability.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := k6.Setup(mgr, o); err != nil {
+	if err := k6.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := oncall.Setup(mgr, o); err != nil {
+	if err := oncall.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := oss.Setup(mgr, o); err != nil {
+	if err := oss.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := slo.Setup(mgr, o); err != nil {
+	if err := slo.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := sm.Setup(mgr, o); err != nil {
+	if err := sm.Setup(mgr, o, connectFn); err != nil {
 		return err
 	}
 	return nil
 }
 
 func SetupGated(mgr ctrl.Manager, o tjcontroller.Options) error {
-	if err := cloud.SetupGated(mgr, o); err != nil {
+	if err := cloud.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := cloudprovider.SetupGated(mgr, o); err != nil {
+	if err := cloudprovider.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := connections.SetupGated(mgr, o); err != nil {
+	if err := connections.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := enterprise.SetupGated(mgr, o); err != nil {
+	if err := enterprise.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := fleetmanagement.SetupGated(mgr, o); err != nil {
+	if err := fleetmanagement.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := frontendobservability.SetupGated(mgr, o); err != nil {
+	if err := frontendobservability.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := k6.SetupGated(mgr, o); err != nil {
+	if err := k6.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := oncall.SetupGated(mgr, o); err != nil {
+	if err := oncall.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := oss.SetupGated(mgr, o); err != nil {
+	if err := oss.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := slo.SetupGated(mgr, o); err != nil {
+	if err := slo.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
-	if err := sm.SetupGated(mgr, o); err != nil {
+	if err := sm.SetupGated(mgr, o, connectFn); err != nil {
 		return err
 	}
 	return nil

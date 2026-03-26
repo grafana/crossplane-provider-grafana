@@ -12,7 +12,7 @@ import (
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/slo/v1alpha1"
-	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/observed/tfdatasource"
+	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
 var SlosSpec = tfdatasource.Spec{
@@ -21,6 +21,7 @@ var SlosSpec = tfdatasource.Spec{
 	NewManaged:     func() resource.Managed { return &v1alpha1.Slos{} },
 	Read: tfdatasource.NewLegacyReadFn(
 		"grafana_slos",
+		legacyDSSlos,
 		func(mg resource.Managed) map[string]string {
 			attrs := map[string]string{}
 			return attrs
