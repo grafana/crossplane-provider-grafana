@@ -69,8 +69,9 @@ func generateTypes(cfg Config, ds *dsInfo) string {
 `)
 
 	// Emit nested struct types first (collected from all fields).
-	emitNestedStructs(&b, ds.forProviderFields)
-	emitNestedStructs(&b, ds.atProviderFields)
+	emitted := make(map[string]bool)
+	emitNestedStructs(&b, ds.forProviderFields, emitted)
+	emitNestedStructs(&b, ds.atProviderFields, emitted)
 
 	// Parameters struct.
 	fmt.Fprintf(&b, "// %sParameters defines the input parameters for the %s data source.\n", ds.kindName, ds.tfName)
@@ -137,13 +138,14 @@ func generateTypes(cfg Config, ds *dsInfo) string {
 
 // emitNestedStructs recursively emits Go struct definitions for fields that
 // have nested sub-fields (e.g. TypeList/TypeSet with Resource elements).
-func emitNestedStructs(b *strings.Builder, fields []fieldInfo) {
+func emitNestedStructs(b *strings.Builder, fields []fieldInfo, emitted map[string]bool) {
 	for _, f := range fields {
-		if len(f.nestedFields) == 0 {
+		if len(f.nestedFields) == 0 || emitted[f.nestedStructName] {
 			continue
 		}
+		emitted[f.nestedStructName] = true
 		// Recurse first so inner types are defined before outer types.
-		emitNestedStructs(b, f.nestedFields)
+		emitNestedStructs(b, f.nestedFields, emitted)
 
 		fmt.Fprintf(b, "type %s struct {\n", f.nestedStructName)
 		for _, nf := range f.nestedFields {
