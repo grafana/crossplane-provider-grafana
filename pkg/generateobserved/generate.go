@@ -6,7 +6,6 @@ package generateobserved
 
 import (
 	"context"
-	"go/format"
 	"log"
 	"os"
 	"path/filepath"
@@ -17,6 +16,7 @@ import (
 	fwschema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"golang.org/x/tools/imports"
 )
 
 // dsInfo holds metadata about a single data source for code generation.
@@ -429,9 +429,9 @@ func mustMkdirAll(path string) {
 }
 
 func writeFormatted(path, content string) {
-	formatted, err := format.Source([]byte(content))
+	formatted, err := imports.Process(path, []byte(content), nil)
 	if err != nil {
-		log.Printf("WARN: gofmt failed for %s: %v (writing unformatted)", path, err)
+		log.Printf("WARN: goimports failed for %s: %v (writing unformatted)", path, err)
 		formatted = []byte(content)
 	}
 	if err := os.WriteFile(path, formatted, 0o600); err != nil {
