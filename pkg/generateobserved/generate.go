@@ -93,6 +93,7 @@ func Generate(cfg Config, legacyProvider *sdkschema.Provider, frameworkProvider 
 // =============================================================================
 
 func collectLegacyDataSources(cfg Config, p *sdkschema.Provider, grouped map[string][]*dsInfo) {
+	acronyms := buildAcronymSet(cfg)
 	for name, ds := range p.DataSourcesMap {
 		ci := categorize(cfg, name)
 		if ci == nil {
@@ -105,13 +106,14 @@ func collectLegacyDataSources(cfg Config, p *sdkschema.Provider, grouped map[str
 			isLegacySDK:  true,
 			legacySchema: ds,
 		}
-		info.kindName, info.fileName = deriveNames(cfg, name, ci.TFPrefix)
-		parseLegacySchema(cfg, info)
+		info.kindName, info.fileName = deriveNames(cfg, acronyms, name, ci.TFPrefix)
+		parseLegacySchema(acronyms, info)
 		grouped[ci.DirName] = append(grouped[ci.DirName], info)
 	}
 }
 
 func collectFrameworkDataSources(cfg Config, fwp fwprovider.Provider, grouped map[string][]*dsInfo) {
+	acronyms := buildAcronymSet(cfg)
 	ctx := context.Background()
 	var fwpMetaResp fwprovider.MetadataResponse
 	fwp.Metadata(ctx, fwprovider.MetadataRequest{}, &fwpMetaResp)
@@ -135,8 +137,8 @@ func collectFrameworkDataSources(cfg Config, fwp fwprovider.Provider, grouped ma
 			isLegacySDK: false,
 			fwDS:        ds,
 		}
-		info.kindName, info.fileName = deriveNames(cfg, name, ci.TFPrefix)
-		parseFWSchema(cfg, info, ds)
+		info.kindName, info.fileName = deriveNames(cfg, acronyms, name, ci.TFPrefix)
+		parseFWSchema(acronyms, info, ds)
 		grouped[ci.DirName] = append(grouped[ci.DirName], info)
 	}
 }
@@ -158,12 +160,12 @@ func categorize(cfg Config, name string) *CategoryRule {
 	return nil
 }
 
-func deriveNames(cfg Config, tfName, tfPrefix string) (kindName, fileName string) {
+func deriveNames(cfg Config, acronyms map[string]bool, tfName, tfPrefix string) (kindName, fileName string) {
 	stripped := strings.TrimPrefix(tfName, tfPrefix)
 	if stripped == tfName {
 		stripped = strings.TrimPrefix(tfName, cfg.FallbackTFPrefix)
 	}
-	return snakeToCamel(cfg, stripped), strings.ReplaceAll(stripped, "_", "")
+	return snakeToCamel(acronyms, stripped), strings.ReplaceAll(stripped, "_", "")
 }
 
 func sortedGroupNames(grouped map[string][]*dsInfo) []string {
@@ -192,7 +194,7 @@ func countTotal(grouped map[string][]*dsInfo) int {
 // Schema parsing
 // =============================================================================
 
-func parseLegacySchema(cfg Config, info *dsInfo) {
+func parseLegacySchema(acronyms map[string]bool, info *dsInfo) {
 	if info.legacySchema == nil || info.legacySchema.Schema == nil {
 		return
 	}
@@ -200,7 +202,7 @@ func parseLegacySchema(cfg Config, info *dsInfo) {
 		if name == "id" {
 			continue
 		}
-		fi := buildLegacyFieldInfo(cfg, info.kindName, name, field)
+		fi := buildLegacyFieldInfo(acronyms, info.kindName, name, field)
 		if field.Required || field.Optional {
 			info.forProviderFields = append(info.forProviderFields, fi)
 		}
@@ -213,11 +215,11 @@ func parseLegacySchema(cfg Config, info *dsInfo) {
 	sortFields(info)
 }
 
-func buildLegacyFieldInfo(cfg Config, parentName, name string, field *sdkschema.Schema) fieldInfo {
+func buildLegacyFieldInfo(acronyms map[string]bool, parentName, name string, field *sdkschema.Schema) fieldInfo {
 	fi := fieldInfo{
 		tfName:      name,
-		goName:      snakeToCamel(cfg, name),
-		jsonName:    snakeToCamelJSON(cfg, name),
+		goName:      snakeToCamel(acronyms, name),
+		jsonName:    snakeToCamelJSON(acronyms, name),
 		goType:      sdkTypeToGo(field),
 		required:    field.Required,
 		description: field.Description,
@@ -226,14 +228,14 @@ func buildLegacyFieldInfo(cfg Config, parentName, name string, field *sdkschema.
 	// Handle nested resource elements in List/Set types.
 	if field.Type == sdkschema.TypeList || field.Type == sdkschema.TypeSet {
 		if res, ok := field.Elem.(*sdkschema.Resource); ok {
-			structName := parentName + snakeToCamel(cfg, name)
+			structName := parentName + snakeToCamel(acronyms, name)
 			fi.nestedStructName = structName
 			fi.goType = "[]" + structName
 			fi.isSet = field.Type == sdkschema.TypeSet
 
 			nested := make([]fieldInfo, 0, len(res.Schema))
 			for nestedName, nestedField := range res.Schema {
-				nfi := buildLegacyFieldInfo(cfg, structName, nestedName, nestedField)
+				nfi := buildLegacyFieldInfo(acronyms, structName, nestedName, nestedField)
 				nested = append(nested, nfi)
 			}
 			sort.Slice(nested, func(i, j int) bool { return nested[i].tfName < nested[j].tfName })
@@ -244,7 +246,7 @@ func buildLegacyFieldInfo(cfg Config, parentName, name string, field *sdkschema.
 	return fi
 }
 
-func parseFWSchema(cfg Config, info *dsInfo, ds datasource.DataSource) {
+func parseFWSchema(acronyms map[string]bool, info *dsInfo, ds datasource.DataSource) {
 	ctx := context.Background()
 	type schemaer interface {
 		Schema(context.Context, datasource.SchemaRequest, *datasource.SchemaResponse)
@@ -267,8 +269,8 @@ func parseFWSchema(cfg Config, info *dsInfo, ds datasource.DataSource) {
 		}
 		fi := fieldInfo{
 			tfName:      name,
-			goName:      snakeToCamel(cfg, name),
-			jsonName:    snakeToCamelJSON(cfg, name),
+			goName:      snakeToCamel(acronyms, name),
+			jsonName:    snakeToCamelJSON(acronyms, name),
 			goType:      fwAttrTypeToGo(attr),
 			required:    attr.IsRequired(),
 			description: attr.GetMarkdownDescription(),

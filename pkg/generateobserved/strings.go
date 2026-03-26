@@ -6,8 +6,7 @@ package generateobserved
 
 import "strings"
 
-func snakeToCamel(cfg Config, s string) string {
-	acronymSet := buildAcronymSet(cfg)
+func snakeToCamel(acronymSet map[string]bool, s string) string {
 	parts := strings.Split(s, "_")
 	for i, p := range parts {
 		if p == "" {
@@ -22,8 +21,7 @@ func snakeToCamel(cfg Config, s string) string {
 	return strings.Join(parts, "")
 }
 
-func snakeToCamelJSON(cfg Config, s string) string {
-	acronymSet := buildAcronymSet(cfg)
+func snakeToCamelJSON(acronymSet map[string]bool, s string) string {
 	parts := strings.Split(s, "_")
 	for i, p := range parts {
 		if p == "" {
