@@ -53,6 +53,12 @@ func NewLegacyReadFn(
 			if diags := ds.ReadContext(ctx, d, providerMeta); diags.HasError() {
 				return fmt.Errorf("data source %q read failed: %v", dsName, diags)
 			}
+		} else if ds.Read != nil {
+			if err := ds.Read(d, providerMeta); err != nil {
+				return fmt.Errorf("data source %q read failed: %w", dsName, err)
+			}
+		} else {
+			return fmt.Errorf("data source %q has no Read or ReadContext function", dsName)
 		}
 
 		fromData(mg, d)
