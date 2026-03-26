@@ -28,6 +28,12 @@ func NewLegacyReadFn(
 	toAttrs func(resource.Managed) map[string]string,
 	fromData func(resource.Managed, *sdkschema.ResourceData),
 ) ReadFn {
+	if ds == nil {
+		return func(_ context.Context, _ resource.Managed, _ any) error {
+			return fmt.Errorf("data source %q not found in provider (nil schema)", dsName)
+		}
+	}
+
 	return func(ctx context.Context, mg resource.Managed, providerMeta any) error {
 		attrs := toAttrs(mg)
 
