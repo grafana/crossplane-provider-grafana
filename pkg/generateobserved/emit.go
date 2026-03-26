@@ -586,29 +586,35 @@ func generateFactories(cfg Config, dsList []*dsInfo, ci CategoryRule) string {
 		}
 	}
 
+	// Resolve all framework data source factories into a map at package
+	// level so they are available before Spec var declarations that
+	// reference them via NewFrameworkReadFn.
+	b.WriteString("var fwFactories = resolveFrameworkFactories()\n\n")
 	for _, ds := range fwDSList {
-		fmt.Fprintf(&b, "var newDS%s func() datasource.DataSourceWithConfigure\n", ds.kindName)
+		fmt.Fprintf(&b, "var newDS%s = fwFactories[%q]\n", ds.kindName, ds.tfName)
 	}
 	b.WriteString("\n")
 
-	fmt.Fprintf(&b, `func init() {
+	fmt.Fprintf(&b, `func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {
 	ctx := context.Background()
 	fwp := %s("crossplane")
 	var metaResp fwprovider.MetadataResponse
 	fwp.Metadata(ctx, fwprovider.MetadataRequest{}, &metaResp)
 	providerTypeName := metaResp.TypeName
 
+	factories := make(map[string]func() datasource.DataSourceWithConfigure)
 	for _, newDS := range fwp.DataSources(ctx) {
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
 		factory := newDS // capture loop variable
-		switch resp.TypeName {
-`, cfg.TFFrameworkProviderFunc)
-	for _, ds := range fwDSList {
-		fmt.Fprintf(&b, "\t\tcase %q:\n\t\t\tnewDS%s = func() datasource.DataSourceWithConfigure {\n\t\t\t\treturn factory().(datasource.DataSourceWithConfigure)\n\t\t\t}\n", ds.tfName, ds.kindName)
+		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
+			return factory().(datasource.DataSourceWithConfigure)
+		}
 	}
-	b.WriteString("\t\t}\n\t}\n}\n")
+	return factories
+}
+`, cfg.TFFrameworkProviderFunc)
 	return b.String()
 }
 
