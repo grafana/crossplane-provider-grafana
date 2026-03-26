@@ -387,6 +387,10 @@ func generateToTFTypesValue(f fieldInfo) string {
 		return fmt.Sprintf("\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Bool, cr.Spec.ForProvider.%s)\n", f.tfName, f.goName)
 	case goTypePtrBool:
 		return fmt.Sprintf("\t\t\tif cr.Spec.ForProvider.%s != nil {\n\t\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Bool, *cr.Spec.ForProvider.%s)\n\t\t\t}\n", f.goName, f.tfName, f.goName)
+	case goTypeFloat64:
+		return fmt.Sprintf("\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Number, cr.Spec.ForProvider.%s)\n", f.tfName, f.goName)
+	case goTypePtrFloat:
+		return fmt.Sprintf("\t\t\tif cr.Spec.ForProvider.%s != nil {\n\t\t\t\tattrs[%q] = tftypes.NewValue(tftypes.Number, *cr.Spec.ForProvider.%s)\n\t\t\t}\n", f.goName, f.tfName, f.goName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
 	}
