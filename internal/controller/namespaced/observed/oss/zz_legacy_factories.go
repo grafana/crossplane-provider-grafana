@@ -8,53 +8,20 @@ package oss
 
 import (
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-var legacyDSDashboard *sdkschema.Resource
-var legacyDSDashboardSet *sdkschema.Resource
-var legacyDSDataSource *sdkschema.Resource
-var legacyDSFolder *sdkschema.Resource
-var legacyDSFolderSet *sdkschema.Resource
-var legacyDSLibraryPanel *sdkschema.Resource
-var legacyDSOrganization *sdkschema.Resource
-var legacyDSOrganizationPreferences *sdkschema.Resource
-var legacyDSOrganizationUser *sdkschema.Resource
-var legacyDSServiceAccount *sdkschema.Resource
-var legacyDSTeam *sdkschema.Resource
-var legacyDSUser *sdkschema.Resource
-var legacyDSUserSet *sdkschema.Resource
+var legacyProvider = grafanaProvider.Provider("crossplane")
 
-func init() {
-	p := grafanaProvider.Provider("crossplane")
-	for name, ds := range p.DataSourcesMap {
-		switch name {
-		case "grafana_dashboard":
-			legacyDSDashboard = ds
-		case "grafana_dashboards":
-			legacyDSDashboardSet = ds
-		case "grafana_data_source":
-			legacyDSDataSource = ds
-		case "grafana_folder":
-			legacyDSFolder = ds
-		case "grafana_folders":
-			legacyDSFolderSet = ds
-		case "grafana_library_panel":
-			legacyDSLibraryPanel = ds
-		case "grafana_organization":
-			legacyDSOrganization = ds
-		case "grafana_organization_preferences":
-			legacyDSOrganizationPreferences = ds
-		case "grafana_organization_user":
-			legacyDSOrganizationUser = ds
-		case "grafana_service_account":
-			legacyDSServiceAccount = ds
-		case "grafana_team":
-			legacyDSTeam = ds
-		case "grafana_user":
-			legacyDSUser = ds
-		case "grafana_users":
-			legacyDSUserSet = ds
-		}
-	}
-}
+var legacyDSDashboard = legacyProvider.DataSourcesMap["grafana_dashboard"]
+var legacyDSDashboardSet = legacyProvider.DataSourcesMap["grafana_dashboards"]
+var legacyDSDataSource = legacyProvider.DataSourcesMap["grafana_data_source"]
+var legacyDSFolder = legacyProvider.DataSourcesMap["grafana_folder"]
+var legacyDSFolderSet = legacyProvider.DataSourcesMap["grafana_folders"]
+var legacyDSLibraryPanel = legacyProvider.DataSourcesMap["grafana_library_panel"]
+var legacyDSOrganization = legacyProvider.DataSourcesMap["grafana_organization"]
+var legacyDSOrganizationPreferences = legacyProvider.DataSourcesMap["grafana_organization_preferences"]
+var legacyDSOrganizationUser = legacyProvider.DataSourcesMap["grafana_organization_user"]
+var legacyDSServiceAccount = legacyProvider.DataSourcesMap["grafana_service_account"]
+var legacyDSTeam = legacyProvider.DataSourcesMap["grafana_team"]
+var legacyDSUser = legacyProvider.DataSourcesMap["grafana_user"]
+var legacyDSUserSet = legacyProvider.DataSourcesMap["grafana_users"]

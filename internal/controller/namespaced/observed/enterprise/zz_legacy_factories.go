@@ -8,17 +8,8 @@ package enterprise
 
 import (
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-var legacyDSRole *sdkschema.Resource
+var legacyProvider = grafanaProvider.Provider("crossplane")
 
-func init() {
-	p := grafanaProvider.Provider("crossplane")
-	for name, ds := range p.DataSourcesMap {
-		switch name {
-		case "grafana_role":
-			legacyDSRole = ds
-		}
-	}
-}
+var legacyDSRole = legacyProvider.DataSourcesMap["grafana_role"]

@@ -8,17 +8,8 @@ package cloud
 
 import (
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-var legacyDSStack *sdkschema.Resource
+var legacyProvider = grafanaProvider.Provider("crossplane")
 
-func init() {
-	p := grafanaProvider.Provider("crossplane")
-	for name, ds := range p.DataSourcesMap {
-		switch name {
-		case "grafana_cloud_stack":
-			legacyDSStack = ds
-		}
-	}
-}
+var legacyDSStack = legacyProvider.DataSourcesMap["grafana_cloud_stack"]

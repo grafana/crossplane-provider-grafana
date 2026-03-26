@@ -8,35 +8,14 @@ package oncall
 
 import (
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-var legacyDSEscalationChain *sdkschema.Resource
-var legacyDSIntegration *sdkschema.Resource
-var legacyDSOutgoingWebhook *sdkschema.Resource
-var legacyDSSchedule *sdkschema.Resource
-var legacyDSSlackChannel *sdkschema.Resource
-var legacyDSTeam *sdkschema.Resource
-var legacyDSUserGroup *sdkschema.Resource
+var legacyProvider = grafanaProvider.Provider("crossplane")
 
-func init() {
-	p := grafanaProvider.Provider("crossplane")
-	for name, ds := range p.DataSourcesMap {
-		switch name {
-		case "grafana_oncall_escalation_chain":
-			legacyDSEscalationChain = ds
-		case "grafana_oncall_integration":
-			legacyDSIntegration = ds
-		case "grafana_oncall_outgoing_webhook":
-			legacyDSOutgoingWebhook = ds
-		case "grafana_oncall_schedule":
-			legacyDSSchedule = ds
-		case "grafana_oncall_slack_channel":
-			legacyDSSlackChannel = ds
-		case "grafana_oncall_team":
-			legacyDSTeam = ds
-		case "grafana_oncall_user_group":
-			legacyDSUserGroup = ds
-		}
-	}
-}
+var legacyDSEscalationChain = legacyProvider.DataSourcesMap["grafana_oncall_escalation_chain"]
+var legacyDSIntegration = legacyProvider.DataSourcesMap["grafana_oncall_integration"]
+var legacyDSOutgoingWebhook = legacyProvider.DataSourcesMap["grafana_oncall_outgoing_webhook"]
+var legacyDSSchedule = legacyProvider.DataSourcesMap["grafana_oncall_schedule"]
+var legacyDSSlackChannel = legacyProvider.DataSourcesMap["grafana_oncall_slack_channel"]
+var legacyDSTeam = legacyProvider.DataSourcesMap["grafana_oncall_team"]
+var legacyDSUserGroup = legacyProvider.DataSourcesMap["grafana_oncall_user_group"]

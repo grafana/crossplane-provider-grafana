@@ -8,20 +8,9 @@ package sm
 
 import (
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-var legacyDSProbe *sdkschema.Resource
-var legacyDSProbeSet *sdkschema.Resource
+var legacyProvider = grafanaProvider.Provider("crossplane")
 
-func init() {
-	p := grafanaProvider.Provider("crossplane")
-	for name, ds := range p.DataSourcesMap {
-		switch name {
-		case "grafana_synthetic_monitoring_probe":
-			legacyDSProbe = ds
-		case "grafana_synthetic_monitoring_probes":
-			legacyDSProbeSet = ds
-		}
-	}
-}
+var legacyDSProbe = legacyProvider.DataSourcesMap["grafana_synthetic_monitoring_probe"]
+var legacyDSProbeSet = legacyProvider.DataSourcesMap["grafana_synthetic_monitoring_probes"]
