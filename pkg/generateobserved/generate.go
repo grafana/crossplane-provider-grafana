@@ -340,6 +340,12 @@ func fwAttrTypeToGo(attr fwschema.Attribute) string {
 	typeName := attr.GetType().String()
 	required := attr.IsRequired()
 	switch {
+	// Check collection types before scalar types because e.g.
+	// "types.SetType[basetypes.StringType]" contains "StringType".
+	case strings.Contains(typeName, "ListType"), strings.Contains(typeName, "SetType"):
+		return "[]string"
+	case strings.Contains(typeName, "MapType"):
+		return "map[string]string"
 	case strings.Contains(typeName, "StringType"):
 		if required {
 			return goTypeString
@@ -360,10 +366,6 @@ func fwAttrTypeToGo(attr fwschema.Attribute) string {
 			return goTypeBool
 		}
 		return goTypePtrBool
-	case strings.Contains(typeName, "ListType"), strings.Contains(typeName, "SetType"):
-		return "[]string"
-	case strings.Contains(typeName, "MapType"):
-		return "map[string]string"
 	default:
 		if required {
 			return goTypeString

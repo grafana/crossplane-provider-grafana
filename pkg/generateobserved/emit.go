@@ -411,6 +411,8 @@ func generateFromState(f fieldInfo) string {
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *bool\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeBool:
 		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v bool\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
+	case "[]string":
+		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v []string\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() && len(v) > 0 {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
 	}
