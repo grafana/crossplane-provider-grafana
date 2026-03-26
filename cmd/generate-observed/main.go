@@ -52,6 +52,13 @@ func main() {
 
 		CategoryOverrides: overrides,
 
+		TFDataSourcePkg:            "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource",
+		TFLegacyProviderFunc:       `grafanaProvider.Provider("crossplane")`,
+		ConfigExtractorImport:      "github.com/grafana/crossplane-provider-grafana/v2/internal/clients",
+		ConfigExtractorImportAlias: "clients",
+		ConfigExtractorFunc:        "clients.ExtractModernConfig",
+		TFConfigBuilderFunc:        "clients.BuildTFConfig",
+
 		FallbackTFPrefix: "grafana_",
 
 		Acronyms: []string{

@@ -95,6 +95,34 @@ type Config struct {
 	// e.g. "grafana_"
 	FallbackTFPrefix string
 
+	// TFDataSourcePkg is the import path for the public tfdatasource runtime.
+	// e.g. "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
+	TFDataSourcePkg string
+
+	// TFLegacyProviderFunc is the Go expression that returns a
+	// *sdkschema.Provider for legacy data source factories and the connect
+	// function. e.g. `grafanaProvider.Provider("crossplane")`
+	TFLegacyProviderFunc string
+
+	// ConfigExtractorImport is the import path for the package containing
+	// the config extraction function used in the generated connect function.
+	// e.g. "github.com/grafana/crossplane-provider-grafana/v2/internal/clients"
+	ConfigExtractorImport string
+
+	// ConfigExtractorImportAlias is the import alias for ConfigExtractorImport.
+	// e.g. "clients"
+	ConfigExtractorImportAlias string
+
+	// ConfigExtractorFunc is the qualified function call to extract provider
+	// config from a ModernManaged resource.
+	// e.g. "clients.ExtractModernConfig"
+	ConfigExtractorFunc string
+
+	// TFConfigBuilderFunc is the qualified function call to build a TF config
+	// map from the extracted config and credentials.
+	// e.g. "clients.BuildTFConfig"
+	TFConfigBuilderFunc string
+
 	// Acronyms to keep uppercased in Go identifiers (e.g. "ID", "URL", "API").
 	Acronyms []string
 }

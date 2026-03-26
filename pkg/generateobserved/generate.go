@@ -406,6 +406,10 @@ func emitFiles(cfg Config, grouped map[string][]*dsInfo, groupNames []string) {
 		if hasFrameworkDS(dsList) {
 			writeFormatted(filepath.Join(ctrlDir, "zz_factories.go"), generateFactories(cfg, dsList, ci))
 		}
+
+		if hasLegacyDS(dsList) {
+			writeFormatted(filepath.Join(ctrlDir, "zz_legacy_factories.go"), generateLegacyFactories(cfg, dsList, ci))
+		}
 	}
 
 	mustMkdirAll(apisBase)
@@ -413,6 +417,7 @@ func emitFiles(cfg Config, grouped map[string][]*dsInfo, groupNames []string) {
 
 	mustMkdirAll(ctrlBase)
 	writeFormatted(filepath.Join(ctrlBase, "zz_setup.go"), generateTopSetup(cfg, groupNames))
+	writeFormatted(filepath.Join(ctrlBase, "zz_connect.go"), generateConnectFn(cfg))
 }
 
 func mustMkdirAll(path string) {
