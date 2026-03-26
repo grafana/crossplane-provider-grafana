@@ -14,40 +14,29 @@ import (
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 )
 
-var newDSAccessPolicies func() datasource.DataSourceWithConfigure
-var newDSIPS func() datasource.DataSourceWithConfigure
-var newDSOrganization func() datasource.DataSourceWithConfigure
-var newDSPrivateDataSourceConnectNetworks func() datasource.DataSourceWithConfigure
+var fwFactories = resolveFrameworkFactories()
 
-func init() {
+var newDSAccessPolicies = fwFactories["grafana_cloud_access_policies"]
+var newDSIPS = fwFactories["grafana_cloud_ips"]
+var newDSOrganization = fwFactories["grafana_cloud_organization"]
+var newDSPrivateDataSourceConnectNetworks = fwFactories["grafana_cloud_private_data_source_connect_networks"]
+
+func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {
 	ctx := context.Background()
 	fwp := grafanaProvider.FrameworkProvider("crossplane")
 	var metaResp fwprovider.MetadataResponse
 	fwp.Metadata(ctx, fwprovider.MetadataRequest{}, &metaResp)
 	providerTypeName := metaResp.TypeName
 
+	factories := make(map[string]func() datasource.DataSourceWithConfigure)
 	for _, newDS := range fwp.DataSources(ctx) {
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
 		factory := newDS // capture loop variable
-		switch resp.TypeName {
-		case "grafana_cloud_access_policies":
-			newDSAccessPolicies = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_cloud_ips":
-			newDSIPS = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_cloud_organization":
-			newDSOrganization = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_cloud_private_data_source_connect_networks":
-			newDSPrivateDataSourceConnectNetworks = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
+		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
+			return factory().(datasource.DataSourceWithConfigure)
 		}
 	}
+	return factories
 }

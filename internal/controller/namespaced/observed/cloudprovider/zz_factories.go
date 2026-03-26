@@ -14,40 +14,29 @@ import (
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 )
 
-var newDSAWSAccount func() datasource.DataSourceWithConfigure
-var newDSAWSCloudwatchScrapeJob func() datasource.DataSourceWithConfigure
-var newDSAWSCloudwatchScrapeJobSet func() datasource.DataSourceWithConfigure
-var newDSAzureCredential func() datasource.DataSourceWithConfigure
+var fwFactories = resolveFrameworkFactories()
 
-func init() {
+var newDSAWSAccount = fwFactories["grafana_cloud_provider_aws_account"]
+var newDSAWSCloudwatchScrapeJob = fwFactories["grafana_cloud_provider_aws_cloudwatch_scrape_job"]
+var newDSAWSCloudwatchScrapeJobSet = fwFactories["grafana_cloud_provider_aws_cloudwatch_scrape_jobs"]
+var newDSAzureCredential = fwFactories["grafana_cloud_provider_azure_credential"]
+
+func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {
 	ctx := context.Background()
 	fwp := grafanaProvider.FrameworkProvider("crossplane")
 	var metaResp fwprovider.MetadataResponse
 	fwp.Metadata(ctx, fwprovider.MetadataRequest{}, &metaResp)
 	providerTypeName := metaResp.TypeName
 
+	factories := make(map[string]func() datasource.DataSourceWithConfigure)
 	for _, newDS := range fwp.DataSources(ctx) {
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
 		factory := newDS // capture loop variable
-		switch resp.TypeName {
-		case "grafana_cloud_provider_aws_account":
-			newDSAWSAccount = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_cloud_provider_aws_cloudwatch_scrape_job":
-			newDSAWSCloudwatchScrapeJob = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_cloud_provider_aws_cloudwatch_scrape_jobs":
-			newDSAWSCloudwatchScrapeJobSet = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_cloud_provider_azure_credential":
-			newDSAzureCredential = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
+		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
+			return factory().(datasource.DataSourceWithConfigure)
 		}
 	}
+	return factories
 }

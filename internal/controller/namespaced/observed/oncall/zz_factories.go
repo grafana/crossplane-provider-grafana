@@ -14,35 +14,28 @@ import (
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 )
 
-var newDSLabel func() datasource.DataSourceWithConfigure
-var newDSUser func() datasource.DataSourceWithConfigure
-var newDSUserSet func() datasource.DataSourceWithConfigure
+var fwFactories = resolveFrameworkFactories()
 
-func init() {
+var newDSLabel = fwFactories["grafana_oncall_label"]
+var newDSUser = fwFactories["grafana_oncall_user"]
+var newDSUserSet = fwFactories["grafana_oncall_users"]
+
+func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {
 	ctx := context.Background()
 	fwp := grafanaProvider.FrameworkProvider("crossplane")
 	var metaResp fwprovider.MetadataResponse
 	fwp.Metadata(ctx, fwprovider.MetadataRequest{}, &metaResp)
 	providerTypeName := metaResp.TypeName
 
+	factories := make(map[string]func() datasource.DataSourceWithConfigure)
 	for _, newDS := range fwp.DataSources(ctx) {
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
 		factory := newDS // capture loop variable
-		switch resp.TypeName {
-		case "grafana_oncall_label":
-			newDSLabel = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_oncall_user":
-			newDSUser = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_oncall_users":
-			newDSUserSet = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
+		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
+			return factory().(datasource.DataSourceWithConfigure)
 		}
 	}
+	return factories
 }

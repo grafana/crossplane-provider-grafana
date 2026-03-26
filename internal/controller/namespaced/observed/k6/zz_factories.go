@@ -14,60 +14,33 @@ import (
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 )
 
-var newDSLoadTest func() datasource.DataSourceWithConfigure
-var newDSLoadTestSet func() datasource.DataSourceWithConfigure
-var newDSProject func() datasource.DataSourceWithConfigure
-var newDSProjectAllowedLoadZones func() datasource.DataSourceWithConfigure
-var newDSProjectLimits func() datasource.DataSourceWithConfigure
-var newDSProjectSet func() datasource.DataSourceWithConfigure
-var newDSSchedule func() datasource.DataSourceWithConfigure
-var newDSScheduleSet func() datasource.DataSourceWithConfigure
+var fwFactories = resolveFrameworkFactories()
 
-func init() {
+var newDSLoadTest = fwFactories["grafana_k6_load_test"]
+var newDSLoadTestSet = fwFactories["grafana_k6_load_tests"]
+var newDSProject = fwFactories["grafana_k6_project"]
+var newDSProjectAllowedLoadZones = fwFactories["grafana_k6_project_allowed_load_zones"]
+var newDSProjectLimits = fwFactories["grafana_k6_project_limits"]
+var newDSProjectSet = fwFactories["grafana_k6_projects"]
+var newDSSchedule = fwFactories["grafana_k6_schedule"]
+var newDSScheduleSet = fwFactories["grafana_k6_schedules"]
+
+func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {
 	ctx := context.Background()
 	fwp := grafanaProvider.FrameworkProvider("crossplane")
 	var metaResp fwprovider.MetadataResponse
 	fwp.Metadata(ctx, fwprovider.MetadataRequest{}, &metaResp)
 	providerTypeName := metaResp.TypeName
 
+	factories := make(map[string]func() datasource.DataSourceWithConfigure)
 	for _, newDS := range fwp.DataSources(ctx) {
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
 		factory := newDS // capture loop variable
-		switch resp.TypeName {
-		case "grafana_k6_load_test":
-			newDSLoadTest = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_k6_load_tests":
-			newDSLoadTestSet = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_k6_project":
-			newDSProject = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_k6_project_allowed_load_zones":
-			newDSProjectAllowedLoadZones = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_k6_project_limits":
-			newDSProjectLimits = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_k6_projects":
-			newDSProjectSet = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_k6_schedule":
-			newDSSchedule = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_k6_schedules":
-			newDSScheduleSet = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
+		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
+			return factory().(datasource.DataSourceWithConfigure)
 		}
 	}
+	return factories
 }

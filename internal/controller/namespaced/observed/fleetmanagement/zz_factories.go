@@ -14,30 +14,27 @@ import (
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
 )
 
-var newDSCollector func() datasource.DataSourceWithConfigure
-var newDSCollectorSet func() datasource.DataSourceWithConfigure
+var fwFactories = resolveFrameworkFactories()
 
-func init() {
+var newDSCollector = fwFactories["grafana_fleet_management_collector"]
+var newDSCollectorSet = fwFactories["grafana_fleet_management_collectors"]
+
+func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {
 	ctx := context.Background()
 	fwp := grafanaProvider.FrameworkProvider("crossplane")
 	var metaResp fwprovider.MetadataResponse
 	fwp.Metadata(ctx, fwprovider.MetadataRequest{}, &metaResp)
 	providerTypeName := metaResp.TypeName
 
+	factories := make(map[string]func() datasource.DataSourceWithConfigure)
 	for _, newDS := range fwp.DataSources(ctx) {
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
 		factory := newDS // capture loop variable
-		switch resp.TypeName {
-		case "grafana_fleet_management_collector":
-			newDSCollector = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
-		case "grafana_fleet_management_collectors":
-			newDSCollectorSet = func() datasource.DataSourceWithConfigure {
-				return factory().(datasource.DataSourceWithConfigure)
-			}
+		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
+			return factory().(datasource.DataSourceWithConfigure)
 		}
 	}
+	return factories
 }
