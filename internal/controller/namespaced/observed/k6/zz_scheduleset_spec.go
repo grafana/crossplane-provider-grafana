@@ -30,8 +30,8 @@ var ScheduleSetSpec = tfdatasource.Spec{
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.ScheduleSet)
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("schedules"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("schedules"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Schedules = v
 				}
 			}

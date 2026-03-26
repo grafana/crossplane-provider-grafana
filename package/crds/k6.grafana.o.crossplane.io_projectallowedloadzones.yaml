@@ -130,7 +130,9 @@ spec:
                   allowedLoadZones:
                     description: List of allowed private k6 load zone IDs for this
                       project.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

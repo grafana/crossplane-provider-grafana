@@ -34,8 +34,8 @@ var AppSpec = tfdatasource.Spec{
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.App)
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("allowed_origins"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("allowed_origins"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.AllowedOrigins = v
 				}
 			}
@@ -45,18 +45,8 @@ var AppSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.CollectorEndpoint = v
 				}
 			}
-			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("extra_log_attributes"), &v); !diags.HasError() && v != nil {
-					cr.Status.AtProvider.ExtraLogAttributes = v
-				}
-			}
-			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("settings"), &v); !diags.HasError() && v != nil {
-					cr.Status.AtProvider.Settings = v
-				}
-			}
+			// TODO: complex type map[string]string for extra_log_attributes
+			// TODO: complex type map[string]string for settings
 		},
 	),
 }

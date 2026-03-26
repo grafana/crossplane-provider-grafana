@@ -20,7 +20,7 @@ type CollectorSetParameters struct {
 // CollectorSetObservation holds the observed (computed) fields from the grafana_fleet_management_collectors data source.
 type CollectorSetObservation struct {
 	// List of collectors
-	Collectors *string `json:"collectors,omitempty"`
+	Collectors []string `json:"collectors,omitempty"`
 }
 
 type CollectorSetSpec struct {

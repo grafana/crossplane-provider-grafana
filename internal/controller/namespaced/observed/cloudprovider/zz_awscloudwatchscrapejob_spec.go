@@ -58,8 +58,8 @@ var AWSCloudwatchScrapeJobSpec = tfdatasource.Spec{
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("regions"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("regions"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Regions = v
 				}
 			}
@@ -75,12 +75,7 @@ var AWSCloudwatchScrapeJobSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.RoleArn = v
 				}
 			}
-			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("static_labels"), &v); !diags.HasError() && v != nil {
-					cr.Status.AtProvider.StaticLabels = v
-				}
-			}
+			// TODO: complex type map[string]string for static_labels
 		},
 	),
 }

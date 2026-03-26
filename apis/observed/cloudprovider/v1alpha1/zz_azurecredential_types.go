@@ -36,7 +36,7 @@ type AzureCredentialObservation struct {
 	Name *string `json:"name,omitempty"`
 
 	// The list of resource tags to add to metrics.
-	ResourceTagsToAddToMetrics *string `json:"resourceTagsToAddToMetrics,omitempty"`
+	ResourceTagsToAddToMetrics []string `json:"resourceTagsToAddToMetrics,omitempty"`
 
 	// The tenant ID of the Azure Credential.
 	TenantID *string `json:"tenantID,omitempty"`

@@ -131,7 +131,9 @@ spec:
                       service account for token authentication.
                     type: string
                   panels:
-                    type: string
+                    items:
+                      type: string
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

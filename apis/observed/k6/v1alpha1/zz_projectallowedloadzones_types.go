@@ -23,7 +23,7 @@ type ProjectAllowedLoadZonesParameters struct {
 // ProjectAllowedLoadZonesObservation holds the observed (computed) fields from the grafana_k6_project_allowed_load_zones data source.
 type ProjectAllowedLoadZonesObservation struct {
 	// List of allowed private k6 load zone IDs for this project.
-	AllowedLoadZones *string `json:"allowedLoadZones,omitempty"`
+	AllowedLoadZones []string `json:"allowedLoadZones,omitempty"`
 }
 
 type ProjectAllowedLoadZonesSpec struct {

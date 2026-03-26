@@ -139,7 +139,9 @@ spec:
                       filtering in Terraform.
                     type: string
                   privateDataSourceConnectNetworks:
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   regionFilter:
                     description: If set, only private data source connect networks
                       in the specified region will be returned. This is faster than

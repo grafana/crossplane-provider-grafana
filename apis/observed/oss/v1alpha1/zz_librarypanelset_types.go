@@ -25,7 +25,7 @@ type LibraryPanelSetObservation struct {
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgID,omitempty"`
 
-	Panels *string `json:"panels,omitempty"`
+	Panels []string `json:"panels,omitempty"`
 }
 
 type LibraryPanelSetSpec struct {

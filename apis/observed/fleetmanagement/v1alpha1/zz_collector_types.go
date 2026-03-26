@@ -26,10 +26,10 @@ type CollectorObservation struct {
 	Enabled *bool `json:"enabled,omitempty"`
 
 	// Local attributes for the collector
-	LocalAttributes *string `json:"localAttributes,omitempty"`
+	LocalAttributes map[string]string `json:"localAttributes,omitempty"`
 
 	// Remote attributes for the collector
-	RemoteAttributes *string `json:"remoteAttributes,omitempty"`
+	RemoteAttributes map[string]string `json:"remoteAttributes,omitempty"`
 }
 
 type CollectorSpec struct {

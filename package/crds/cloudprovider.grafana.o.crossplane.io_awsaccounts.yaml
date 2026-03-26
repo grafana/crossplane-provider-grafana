@@ -138,7 +138,9 @@ spec:
                   regions:
                     description: A set of regions that this AWS Account resource applies
                       to.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   roleArn:
                     description: An IAM Role ARN string to represent with this AWS
                       Account resource.

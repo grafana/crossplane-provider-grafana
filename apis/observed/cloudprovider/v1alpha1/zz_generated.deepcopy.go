@@ -81,8 +81,8 @@ func (in *AWSAccountObservation) DeepCopyInto(out *AWSAccountObservation) {
 	}
 	if in.Regions != nil {
 		in, out := &in.Regions, &out.Regions
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.RoleArn != nil {
 		in, out := &in.RoleArn, &out.RoleArn
@@ -234,8 +234,8 @@ func (in *AWSCloudwatchScrapeJobObservation) DeepCopyInto(out *AWSCloudwatchScra
 	}
 	if in.Regions != nil {
 		in, out := &in.Regions, &out.Regions
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.RegionsSubsetOverrideUsed != nil {
 		in, out := &in.RegionsSubsetOverrideUsed, &out.RegionsSubsetOverrideUsed
@@ -249,8 +249,10 @@ func (in *AWSCloudwatchScrapeJobObservation) DeepCopyInto(out *AWSCloudwatchScra
 	}
 	if in.StaticLabels != nil {
 		in, out := &in.StaticLabels, &out.StaticLabels
-		*out = new(string)
-		**out = **in
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 }
 
@@ -515,8 +517,8 @@ func (in *AzureCredentialObservation) DeepCopyInto(out *AzureCredentialObservati
 	}
 	if in.ResourceTagsToAddToMetrics != nil {
 		in, out := &in.ResourceTagsToAddToMetrics, &out.ResourceTagsToAddToMetrics
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.TenantID != nil {
 		in, out := &in.TenantID, &out.TenantID

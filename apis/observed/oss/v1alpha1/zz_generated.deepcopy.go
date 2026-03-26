@@ -1179,8 +1179,8 @@ func (in *LibraryPanelSetObservation) DeepCopyInto(out *LibraryPanelSetObservati
 	}
 	if in.Panels != nil {
 		in, out := &in.Panels, &out.Panels
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 }
 

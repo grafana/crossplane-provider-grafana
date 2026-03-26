@@ -41,8 +41,8 @@ var ProjectSetSpec = tfdatasource.Spec{
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("projects"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("projects"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Projects = v
 				}
 			}

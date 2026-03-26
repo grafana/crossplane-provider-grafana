@@ -29,7 +29,7 @@ type PrivateDataSourceConnectNetworksObservation struct {
 	// If set, only private data source connect networks with the specified name will be returned. This is faster than filtering in Terraform.
 	NameFilter *string `json:"nameFilter,omitempty"`
 
-	PrivateDataSourceConnectNetworks *string `json:"privateDataSourceConnectNetworks,omitempty"`
+	PrivateDataSourceConnectNetworks []string `json:"privateDataSourceConnectNetworks,omitempty"`
 
 	// If set, only private data source connect networks in the specified region will be returned. This is faster than filtering in Terraform.
 	RegionFilter *string `json:"regionFilter,omitempty"`

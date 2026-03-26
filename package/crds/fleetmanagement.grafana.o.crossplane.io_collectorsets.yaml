@@ -121,7 +121,9 @@ spec:
                 properties:
                   collectors:
                     description: List of collectors
-                    type: string
+                    items:
+                      type: string
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

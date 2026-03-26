@@ -40,8 +40,8 @@ var AWSAccountSpec = tfdatasource.Spec{
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("regions"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("regions"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Regions = v
 				}
 			}

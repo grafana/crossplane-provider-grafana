@@ -128,11 +128,15 @@ spec:
                       empty configurations from the Fleet Management service
                     type: boolean
                   localAttributes:
+                    additionalProperties:
+                      type: string
                     description: Local attributes for the collector
-                    type: string
+                    type: object
                   remoteAttributes:
+                    additionalProperties:
+                      type: string
                     description: Remote attributes for the collector
-                    type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -26,7 +26,7 @@ type AccessPoliciesParameters struct {
 
 // AccessPoliciesObservation holds the observed (computed) fields from the grafana_cloud_access_policies data source.
 type AccessPoliciesObservation struct {
-	AccessPolicies *string `json:"accessPolicies,omitempty"`
+	AccessPolicies []string `json:"accessPolicies,omitempty"`
 
 	// If set, only access policies with the specified name will be returned. This is faster than filtering in Terraform.
 	NameFilter *string `json:"nameFilter,omitempty"`

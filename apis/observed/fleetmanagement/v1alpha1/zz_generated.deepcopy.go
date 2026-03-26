@@ -86,13 +86,17 @@ func (in *CollectorObservation) DeepCopyInto(out *CollectorObservation) {
 	}
 	if in.LocalAttributes != nil {
 		in, out := &in.LocalAttributes, &out.LocalAttributes
-		*out = new(string)
-		**out = **in
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 	if in.RemoteAttributes != nil {
 		in, out := &in.RemoteAttributes, &out.RemoteAttributes
-		*out = new(string)
-		**out = **in
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 }
 
@@ -185,8 +189,8 @@ func (in *CollectorSetObservation) DeepCopyInto(out *CollectorSetObservation) {
 	*out = *in
 	if in.Collectors != nil {
 		in, out := &in.Collectors, &out.Collectors
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 }
 

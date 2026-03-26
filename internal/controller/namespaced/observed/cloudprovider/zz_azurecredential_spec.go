@@ -52,8 +52,8 @@ var AzureCredentialSpec = tfdatasource.Spec{
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("resource_tags_to_add_to_metrics"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("resource_tags_to_add_to_metrics"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.ResourceTagsToAddToMetrics = v
 				}
 			}

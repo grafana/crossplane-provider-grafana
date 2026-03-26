@@ -30,7 +30,7 @@ type AWSAccountObservation struct {
 	Name *string `json:"name,omitempty"`
 
 	// A set of regions that this AWS Account resource applies to.
-	Regions *string `json:"regions,omitempty"`
+	Regions []string `json:"regions,omitempty"`
 
 	// An IAM Role ARN string to represent with this AWS Account resource.
 	RoleArn *string `json:"roleArn,omitempty"`

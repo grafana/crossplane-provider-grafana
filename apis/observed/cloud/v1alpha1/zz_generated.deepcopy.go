@@ -76,8 +76,8 @@ func (in *AccessPoliciesObservation) DeepCopyInto(out *AccessPoliciesObservation
 	*out = *in
 	if in.AccessPolicies != nil {
 		in, out := &in.AccessPolicies, &out.AccessPolicies
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.NameFilter != nil {
 		in, out := &in.NameFilter, &out.NameFilter
@@ -224,38 +224,38 @@ func (in *IPSObservation) DeepCopyInto(out *IPSObservation) {
 	*out = *in
 	if in.HostedAlerts != nil {
 		in, out := &in.HostedAlerts, &out.HostedAlerts
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.HostedGrafana != nil {
 		in, out := &in.HostedGrafana, &out.HostedGrafana
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.HostedLogs != nil {
 		in, out := &in.HostedLogs, &out.HostedLogs
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.HostedMetrics != nil {
 		in, out := &in.HostedMetrics, &out.HostedMetrics
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.HostedOtlp != nil {
 		in, out := &in.HostedOtlp, &out.HostedOtlp
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.HostedProfiles != nil {
 		in, out := &in.HostedProfiles, &out.HostedProfiles
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.HostedTraces != nil {
 		in, out := &in.HostedTraces, &out.HostedTraces
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 }
 
@@ -540,8 +540,8 @@ func (in *PrivateDataSourceConnectNetworksObservation) DeepCopyInto(out *Private
 	}
 	if in.PrivateDataSourceConnectNetworks != nil {
 		in, out := &in.PrivateDataSourceConnectNetworks, &out.PrivateDataSourceConnectNetworks
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.RegionFilter != nil {
 		in, out := &in.RegionFilter, &out.RegionFilter

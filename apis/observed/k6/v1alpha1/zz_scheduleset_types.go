@@ -20,7 +20,7 @@ type ScheduleSetParameters struct {
 // ScheduleSetObservation holds the observed (computed) fields from the grafana_k6_schedules data source.
 type ScheduleSetObservation struct {
 	// List of k6 schedules.
-	Schedules *string `json:"schedules,omitempty"`
+	Schedules []string `json:"schedules,omitempty"`
 }
 
 type ScheduleSetSpec struct {

@@ -153,7 +153,9 @@ spec:
                   regions:
                     description: The set of AWS region names that this AWS CloudWatch
                       Scrape Job is configured to scrape.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   regionsSubsetOverrideUsed:
                     description: When true, the `regions` attribute will be the set
                       of regions configured in the override. When false, the `regions`
@@ -167,9 +169,11 @@ spec:
                       Job.
                     type: string
                   staticLabels:
+                    additionalProperties:
+                      type: string
                     description: A set of static labels to add to all metrics exported
                       by this scrape job.
-                    type: string
+                    type: object
                 type: object
               conditions:
                 description: Conditions of the resource.

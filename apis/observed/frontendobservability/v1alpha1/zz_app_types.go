@@ -27,16 +27,16 @@ type AppParameters struct {
 // AppObservation holds the observed (computed) fields from the grafana_frontend_o11y_app data source.
 type AppObservation struct {
 	// A list of allowed origins for CORS.
-	AllowedOrigins *string `json:"allowedOrigins,omitempty"`
+	AllowedOrigins []string `json:"allowedOrigins,omitempty"`
 
 	// The collector URL Grafana Cloud Frontend Observability. Use this endpoint to send your Telemetry.
 	CollectorEndpoint *string `json:"collectorEndpoint,omitempty"`
 
 	// The extra attributes to append in each signal.
-	ExtraLogAttributes *string `json:"extraLogAttributes,omitempty"`
+	ExtraLogAttributes map[string]string `json:"extraLogAttributes,omitempty"`
 
 	// The settings of the Frontend Observability App.
-	Settings *string `json:"settings,omitempty"`
+	Settings map[string]string `json:"settings,omitempty"`
 }
 
 type AppSpec struct {

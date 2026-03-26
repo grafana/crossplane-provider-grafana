@@ -195,8 +195,8 @@ func (in *LoadTestSetObservation) DeepCopyInto(out *LoadTestSetObservation) {
 	*out = *in
 	if in.LoadTests != nil {
 		in, out := &in.LoadTests, &out.LoadTests
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
@@ -394,8 +394,8 @@ func (in *ProjectAllowedLoadZonesObservation) DeepCopyInto(out *ProjectAllowedLo
 	*out = *in
 	if in.AllowedLoadZones != nil {
 		in, out := &in.AllowedLoadZones, &out.AllowedLoadZones
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 }
 
@@ -757,8 +757,8 @@ func (in *ProjectSetObservation) DeepCopyInto(out *ProjectSetObservation) {
 	}
 	if in.Projects != nil {
 		in, out := &in.Projects, &out.Projects
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 }
 
@@ -1033,8 +1033,8 @@ func (in *ScheduleSetObservation) DeepCopyInto(out *ScheduleSetObservation) {
 	*out = *in
 	if in.Schedules != nil {
 		in, out := &in.Schedules, &out.Schedules
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 }
 

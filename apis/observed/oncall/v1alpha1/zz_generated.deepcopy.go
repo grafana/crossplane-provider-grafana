@@ -1199,8 +1199,8 @@ func (in *UserSetObservation) DeepCopyInto(out *UserSetObservation) {
 	*out = *in
 	if in.Users != nil {
 		in, out := &in.Users, &out.Users
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 }
 

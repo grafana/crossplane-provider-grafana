@@ -19,7 +19,7 @@ type UserSetParameters struct {
 
 // UserSetObservation holds the observed (computed) fields from the grafana_oncall_users data source.
 type UserSetObservation struct {
-	Users *string `json:"users,omitempty"`
+	Users []string `json:"users,omitempty"`
 }
 
 type UserSetSpec struct {

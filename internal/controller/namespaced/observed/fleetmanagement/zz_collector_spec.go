@@ -41,18 +41,8 @@ var CollectorSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Enabled = v
 				}
 			}
-			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("local_attributes"), &v); !diags.HasError() && v != nil {
-					cr.Status.AtProvider.LocalAttributes = v
-				}
-			}
-			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("remote_attributes"), &v); !diags.HasError() && v != nil {
-					cr.Status.AtProvider.RemoteAttributes = v
-				}
-			}
+			// TODO: complex type map[string]string for local_attributes
+			// TODO: complex type map[string]string for remote_attributes
 		},
 	),
 }

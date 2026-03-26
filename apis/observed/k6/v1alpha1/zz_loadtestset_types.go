@@ -26,7 +26,7 @@ type LoadTestSetParameters struct {
 
 // LoadTestSetObservation holds the observed (computed) fields from the grafana_k6_load_tests data source.
 type LoadTestSetObservation struct {
-	LoadTests *string `json:"loadTests,omitempty"`
+	LoadTests []string `json:"loadTests,omitempty"`
 
 	// Human-friendly identifier of the load test.
 	Name *string `json:"name,omitempty"`

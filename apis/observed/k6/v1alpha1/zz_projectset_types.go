@@ -25,7 +25,7 @@ type ProjectSetObservation struct {
 	// Human-friendly identifier of the project.
 	Name *string `json:"name,omitempty"`
 
-	Projects *string `json:"projects,omitempty"`
+	Projects []string `json:"projects,omitempty"`
 }
 
 type ProjectSetSpec struct {

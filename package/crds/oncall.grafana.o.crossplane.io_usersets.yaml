@@ -120,7 +120,9 @@ spec:
                   from the grafana_oncall_users data source.
                 properties:
                   users:
-                    type: string
+                    items:
+                      type: string
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

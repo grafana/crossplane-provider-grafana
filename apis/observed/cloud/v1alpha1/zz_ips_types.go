@@ -20,25 +20,25 @@ type IPSParameters struct {
 // IPSObservation holds the observed (computed) fields from the grafana_cloud_ips data source.
 type IPSObservation struct {
 	// Set of IP addresses that are used for hosted alerts.
-	HostedAlerts *string `json:"hostedAlerts,omitempty"`
+	HostedAlerts []string `json:"hostedAlerts,omitempty"`
 
 	// Set of IP addresses that are used for hosted Grafana.
-	HostedGrafana *string `json:"hostedGrafana,omitempty"`
+	HostedGrafana []string `json:"hostedGrafana,omitempty"`
 
 	// Set of IP addresses that are used for hosted logs.
-	HostedLogs *string `json:"hostedLogs,omitempty"`
+	HostedLogs []string `json:"hostedLogs,omitempty"`
 
 	// Set of IP addresses that are used for hosted metrics.
-	HostedMetrics *string `json:"hostedMetrics,omitempty"`
+	HostedMetrics []string `json:"hostedMetrics,omitempty"`
 
 	// Set of IP addresses that are used for the OTLP Gateway.
-	HostedOtlp *string `json:"hostedOtlp,omitempty"`
+	HostedOtlp []string `json:"hostedOtlp,omitempty"`
 
 	// Set of IP addresses that are used for hosted profiles.
-	HostedProfiles *string `json:"hostedProfiles,omitempty"`
+	HostedProfiles []string `json:"hostedProfiles,omitempty"`
 
 	// Set of IP addresses that are used for hosted traces.
-	HostedTraces *string `json:"hostedTraces,omitempty"`
+	HostedTraces []string `json:"hostedTraces,omitempty"`
 }
 
 type IPSSpec struct {

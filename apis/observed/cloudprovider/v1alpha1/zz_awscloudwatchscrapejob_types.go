@@ -39,7 +39,7 @@ type AWSCloudwatchScrapeJobObservation struct {
 	ExportTags *bool `json:"exportTags,omitempty"`
 
 	// The set of AWS region names that this AWS CloudWatch Scrape Job is configured to scrape.
-	Regions *string `json:"regions,omitempty"`
+	Regions []string `json:"regions,omitempty"`
 
 	// When true, the `regions` attribute will be the set of regions configured in the override. When false, the `regions` attribute will be the set of regions belonging to the AWS Account resource that is associated with this AWS CloudWatch Scrape Job.
 	RegionsSubsetOverrideUsed *bool `json:"regionsSubsetOverrideUsed,omitempty"`
@@ -48,7 +48,7 @@ type AWSCloudwatchScrapeJobObservation struct {
 	RoleArn *string `json:"roleArn,omitempty"`
 
 	// A set of static labels to add to all metrics exported by this scrape job.
-	StaticLabels *string `json:"staticLabels,omitempty"`
+	StaticLabels map[string]string `json:"staticLabels,omitempty"`
 }
 
 type AWSCloudwatchScrapeJobSpec struct {

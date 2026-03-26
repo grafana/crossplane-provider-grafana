@@ -127,7 +127,9 @@ spec:
                     description: Human-friendly identifier of the project.
                     type: string
                   projects:
-                    type: string
+                    items:
+                      type: string
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

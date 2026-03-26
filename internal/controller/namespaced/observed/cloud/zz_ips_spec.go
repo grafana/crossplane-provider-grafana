@@ -30,44 +30,44 @@ var IPSSpec = tfdatasource.Spec{
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.IPS)
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("hosted_alerts"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("hosted_alerts"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.HostedAlerts = v
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("hosted_grafana"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("hosted_grafana"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.HostedGrafana = v
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("hosted_logs"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("hosted_logs"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.HostedLogs = v
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("hosted_metrics"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("hosted_metrics"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.HostedMetrics = v
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("hosted_otlp"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("hosted_otlp"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.HostedOtlp = v
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("hosted_profiles"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("hosted_profiles"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.HostedProfiles = v
 				}
 			}
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("hosted_traces"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("hosted_traces"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.HostedTraces = v
 				}
 			}

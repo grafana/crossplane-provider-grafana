@@ -30,8 +30,8 @@ var UserSetSpec = tfdatasource.Spec{
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.UserSet)
 			{
-				var v *string
-				if diags := state.GetAttribute(ctx, path.Root("users"), &v); !diags.HasError() && v != nil {
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("users"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Users = v
 				}
 			}

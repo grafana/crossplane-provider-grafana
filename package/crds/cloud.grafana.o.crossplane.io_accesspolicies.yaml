@@ -130,7 +130,9 @@ spec:
                   fields from the grafana_cloud_access_policies data source.
                 properties:
                   accessPolicies:
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   nameFilter:
                     description: If set, only access policies with the specified name
                       will be returned. This is faster than filtering in Terraform.

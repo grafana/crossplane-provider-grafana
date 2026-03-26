@@ -121,25 +121,39 @@ spec:
                 properties:
                   hostedAlerts:
                     description: Set of IP addresses that are used for hosted alerts.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   hostedGrafana:
                     description: Set of IP addresses that are used for hosted Grafana.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   hostedLogs:
                     description: Set of IP addresses that are used for hosted logs.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   hostedMetrics:
                     description: Set of IP addresses that are used for hosted metrics.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   hostedOtlp:
                     description: Set of IP addresses that are used for the OTLP Gateway.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   hostedProfiles:
                     description: Set of IP addresses that are used for hosted profiles.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                   hostedTraces:
                     description: Set of IP addresses that are used for hosted traces.
-                    type: string
+                    items:
+                      type: string
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -76,8 +76,8 @@ func (in *AppObservation) DeepCopyInto(out *AppObservation) {
 	*out = *in
 	if in.AllowedOrigins != nil {
 		in, out := &in.AllowedOrigins, &out.AllowedOrigins
-		*out = new(string)
-		**out = **in
+		*out = make([]string, len(*in))
+		copy(*out, *in)
 	}
 	if in.CollectorEndpoint != nil {
 		in, out := &in.CollectorEndpoint, &out.CollectorEndpoint
@@ -86,13 +86,17 @@ func (in *AppObservation) DeepCopyInto(out *AppObservation) {
 	}
 	if in.ExtraLogAttributes != nil {
 		in, out := &in.ExtraLogAttributes, &out.ExtraLogAttributes
-		*out = new(string)
-		**out = **in
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 	if in.Settings != nil {
 		in, out := &in.Settings, &out.Settings
-		*out = new(string)
-		**out = **in
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
 	}
 }
 
