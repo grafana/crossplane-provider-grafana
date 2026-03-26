@@ -189,9 +189,7 @@ func generateSpec(cfg Config, ds *dsInfo, ci CategoryRule) string {
 		generateLegacySpec(&b, ds)
 	} else {
 		hasAtProvider := len(ds.atProviderFields) > 0
-		if hasAtProvider {
-			b.WriteString("\t\"context\"\n\n")
-		}
+		b.WriteString("\t\"context\"\n\n")
 		b.WriteString("\t\"github.com/crossplane/crossplane-runtime/v2/pkg/resource\"\n")
 		if hasAtProvider {
 			b.WriteString("\t\"github.com/hashicorp/terraform-plugin-framework/path\"\n")
@@ -271,14 +269,14 @@ func generateFrameworkSpec(b *strings.Builder, ds *dsInfo) {
 
 	// fromState callback.
 	if len(ds.atProviderFields) > 0 {
-		b.WriteString("\t\tfunc(mg resource.Managed, state tfsdk.State) {\n")
+		b.WriteString("\t\tfunc(ctx context.Context, mg resource.Managed, state tfsdk.State) {\n")
 		fmt.Fprintf(b, "\t\t\tcr := mg.(*v1alpha1.%s)\n", ds.kindName)
 		for _, f := range ds.atProviderFields {
 			b.WriteString(generateFromState(f))
 		}
 		b.WriteString("\t\t},\n\t),\n}\n")
 	} else {
-		b.WriteString("\t\tfunc(_ resource.Managed, _ tfsdk.State) {},\n\t),\n}\n")
+		b.WriteString("\t\tfunc(_ context.Context, _ resource.Managed, _ tfsdk.State) {},\n\t),\n}\n")
 	}
 }
 
@@ -399,17 +397,17 @@ func generateToTFTypesValue(f fieldInfo) string {
 func generateFromState(f fieldInfo) string {
 	switch f.goType {
 	case goTypePtrString:
-		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *string\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *string\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeString:
-		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v string\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v string\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypePtrInt64:
-		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *int64\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *int64\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeInt64:
-		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v int64\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v int64\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypePtrBool:
-		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *bool\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v *bool\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() && v != nil {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeBool:
-		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v bool\n\t\t\t\tif diags := state.GetAttribute(context.Background(), path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\t{\n\t\t\t\tvar v bool\n\t\t\t\tif diags := state.GetAttribute(ctx, path.Root(%q), &v); !diags.HasError() {\n\t\t\t\t\tcr.Status.AtProvider.%s = v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
 	}

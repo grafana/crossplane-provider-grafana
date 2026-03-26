@@ -31,47 +31,47 @@ var MetricsEndpointScrapeJobSpec = tfdatasource.Spec{
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.MetricsEndpointScrapeJob)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("authentication_basic_password"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("authentication_basic_password"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.AuthenticationBasicPassword = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("authentication_basic_username"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("authentication_basic_username"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.AuthenticationBasicUsername = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("authentication_bearer_token"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("authentication_bearer_token"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.AuthenticationBearerToken = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("authentication_method"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("authentication_method"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.AuthenticationMethod = v
 				}
 			}
 			{
 				var v *bool
-				if diags := state.GetAttribute(context.Background(), path.Root("enabled"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("enabled"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Enabled = v
 				}
 			}
 			{
 				var v *int64
-				if diags := state.GetAttribute(context.Background(), path.Root("scrape_interval_seconds"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("scrape_interval_seconds"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ScrapeIntervalSeconds = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("url"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("url"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.URL = v
 				}
 			}

@@ -31,35 +31,35 @@ var AzureCredentialSpec = tfdatasource.Spec{
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.AzureCredential)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("client_id"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("client_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ClientID = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("client_secret"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("client_secret"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ClientSecret = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("name"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("resource_tags_to_add_to_metrics"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("resource_tags_to_add_to_metrics"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ResourceTagsToAddToMetrics = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("tenant_id"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("tenant_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.TenantID = v
 				}
 			}

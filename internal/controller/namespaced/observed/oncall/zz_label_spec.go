@@ -7,6 +7,8 @@ Copyright 2025 Grafana
 package oncall
 
 import (
+	"context"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
@@ -28,6 +30,6 @@ var LabelSpec = tfdatasource.Spec{
 			attrs["value"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Value)
 			return attrs
 		},
-		func(_ resource.Managed, _ tfsdk.State) {},
+		func(_ context.Context, _ resource.Managed, _ tfsdk.State) {},
 	),
 }

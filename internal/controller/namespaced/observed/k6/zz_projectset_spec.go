@@ -32,17 +32,17 @@ var ProjectSetSpec = tfdatasource.Spec{
 			}
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.ProjectSet)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("name"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("projects"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("projects"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Projects = v
 				}
 			}

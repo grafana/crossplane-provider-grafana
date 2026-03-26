@@ -25,7 +25,7 @@ import (
 func NewFrameworkReadFn(
 	newDS func() datasource.DataSourceWithConfigure,
 	toAttrs func(resource.Managed) map[string]tftypes.Value,
-	fromState func(resource.Managed, tfsdk.State),
+	fromState func(context.Context, resource.Managed, tfsdk.State),
 ) ReadFn {
 	return func(ctx context.Context, mg resource.Managed, providerMeta any) error {
 		ds := newDS()
@@ -57,7 +57,7 @@ func NewFrameworkReadFn(
 			return fmt.Errorf("data source read failed: %s", readResp.Diagnostics.Errors())
 		}
 
-		fromState(mg, readResp.State)
+		fromState(ctx, mg, readResp.State)
 		return nil
 	}
 }

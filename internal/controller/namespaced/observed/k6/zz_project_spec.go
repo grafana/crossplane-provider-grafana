@@ -27,35 +27,35 @@ var ProjectSpec = tfdatasource.Spec{
 		func(_ resource.Managed) map[string]tftypes.Value {
 			return nil
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.Project)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("created"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("created"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Created = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("grafana_folder_uid"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("grafana_folder_uid"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.GrafanaFolderUID = v
 				}
 			}
 			{
 				var v *bool
-				if diags := state.GetAttribute(context.Background(), path.Root("is_default"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("is_default"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.IsDefault = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("name"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("updated"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("updated"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Updated = v
 				}
 			}

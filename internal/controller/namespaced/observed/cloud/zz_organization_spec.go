@@ -32,35 +32,35 @@ var OrganizationSpec = tfdatasource.Spec{
 			}
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.Organization)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("created_at"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("created_at"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.CreatedAt = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("name"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("slug"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("slug"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Slug = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("updated_at"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("updated_at"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.UpdatedAt = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("url"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("url"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.URL = v
 				}
 			}

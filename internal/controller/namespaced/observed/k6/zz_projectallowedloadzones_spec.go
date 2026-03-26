@@ -30,11 +30,11 @@ var ProjectAllowedLoadZonesSpec = tfdatasource.Spec{
 			attrs["project_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.ProjectID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.ProjectAllowedLoadZones)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("allowed_load_zones"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("allowed_load_zones"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.AllowedLoadZones = v
 				}
 			}

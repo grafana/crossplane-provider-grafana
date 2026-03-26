@@ -33,17 +33,17 @@ var LoadTestSetSpec = tfdatasource.Spec{
 			attrs["project_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.ProjectID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.LoadTestSet)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("load_tests"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("load_tests"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.LoadTests = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("name"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}

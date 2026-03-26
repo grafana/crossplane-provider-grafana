@@ -31,29 +31,29 @@ var AppSpec = tfdatasource.Spec{
 			attrs["stack_id"] = tftypes.NewValue(tftypes.Number, cr.Spec.ForProvider.StackID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.App)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("allowed_origins"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("allowed_origins"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.AllowedOrigins = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("collector_endpoint"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("collector_endpoint"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.CollectorEndpoint = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("extra_log_attributes"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("extra_log_attributes"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ExtraLogAttributes = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("settings"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("settings"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Settings = v
 				}
 			}

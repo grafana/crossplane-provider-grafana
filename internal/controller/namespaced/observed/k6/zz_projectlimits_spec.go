@@ -30,29 +30,29 @@ var ProjectLimitsSpec = tfdatasource.Spec{
 			attrs["project_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.ProjectID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.ProjectLimits)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("duration_max_per_test"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("duration_max_per_test"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.DurationMaxPerTest = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("vu_browser_max_per_test"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("vu_browser_max_per_test"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.VuBrowserMaxPerTest = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("vu_max_per_test"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("vu_max_per_test"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.VuMaxPerTest = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("vuh_max_per_month"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("vuh_max_per_month"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.VuhMaxPerMonth = v
 				}
 			}

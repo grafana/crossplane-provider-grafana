@@ -31,53 +31,53 @@ var AWSCloudwatchScrapeJobSpec = tfdatasource.Spec{
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.AWSCloudwatchScrapeJob)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("aws_account_resource_id"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("aws_account_resource_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.AWSAccountResourceID = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("disabled_reason"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("disabled_reason"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.DisabledReason = v
 				}
 			}
 			{
 				var v *bool
-				if diags := state.GetAttribute(context.Background(), path.Root("enabled"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("enabled"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Enabled = v
 				}
 			}
 			{
 				var v *bool
-				if diags := state.GetAttribute(context.Background(), path.Root("export_tags"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("export_tags"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ExportTags = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("regions"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("regions"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Regions = v
 				}
 			}
 			{
 				var v *bool
-				if diags := state.GetAttribute(context.Background(), path.Root("regions_subset_override_used"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("regions_subset_override_used"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.RegionsSubsetOverrideUsed = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("role_arn"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("role_arn"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.RoleArn = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("static_labels"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("static_labels"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.StaticLabels = v
 				}
 			}

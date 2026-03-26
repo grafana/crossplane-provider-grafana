@@ -30,29 +30,29 @@ var ScheduleSpec = tfdatasource.Spec{
 			attrs["load_test_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.LoadTestID)
 			return attrs
 		},
-		func(mg resource.Managed, state tfsdk.State) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.Schedule)
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("created_by"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("created_by"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.CreatedBy = v
 				}
 			}
 			{
 				var v *bool
-				if diags := state.GetAttribute(context.Background(), path.Root("deactivated"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("deactivated"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Deactivated = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("next_run"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("next_run"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.NextRun = v
 				}
 			}
 			{
 				var v *string
-				if diags := state.GetAttribute(context.Background(), path.Root("starts"), &v); !diags.HasError() && v != nil {
+				if diags := state.GetAttribute(ctx, path.Root("starts"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Starts = v
 				}
 			}

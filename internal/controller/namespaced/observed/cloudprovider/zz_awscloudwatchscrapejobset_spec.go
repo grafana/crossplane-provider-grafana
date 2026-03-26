@@ -7,6 +7,8 @@ Copyright 2025 Grafana
 package cloudprovider
 
 import (
+	"context"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
@@ -27,6 +29,6 @@ var AWSCloudwatchScrapeJobSetSpec = tfdatasource.Spec{
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 			return attrs
 		},
-		func(_ resource.Managed, _ tfsdk.State) {},
+		func(_ context.Context, _ resource.Managed, _ tfsdk.State) {},
 	),
 }
