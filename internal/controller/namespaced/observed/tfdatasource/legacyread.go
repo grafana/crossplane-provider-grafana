@@ -25,13 +25,16 @@ func NewLegacyReadFn(
 	toAttrs func(resource.Managed) map[string]string,
 	fromData func(resource.Managed, *sdkschema.ResourceData),
 ) ReadFn {
-	return func(ctx context.Context, mg resource.Managed, providerMeta any) error {
-		p := grafanaProvider.Provider("crossplane")
-		ds, ok := p.DataSourcesMap[dsName]
-		if !ok {
+	// Resolve the data source schema once at setup time.
+	p := grafanaProvider.Provider("crossplane")
+	ds, ok := p.DataSourcesMap[dsName]
+	if !ok {
+		return func(_ context.Context, _ resource.Managed, _ any) error {
 			return fmt.Errorf("data source %q not found in provider", dsName)
 		}
+	}
 
+	return func(ctx context.Context, mg resource.Managed, providerMeta any) error {
 		attrs := toAttrs(mg)
 
 		// Apply schema defaults for attributes not provided by the caller.
