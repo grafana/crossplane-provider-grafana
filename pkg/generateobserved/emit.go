@@ -290,21 +290,21 @@ func generateFromResourceData(f fieldInfo) string {
 	}
 	switch f.goType {
 	case goTypePtrString:
-		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\ts := v.(string)\n\t\t\t\tcr.Status.AtProvider.%s = &s\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif s, ok := v.(string); ok {\n\t\t\t\t\tcr.Status.AtProvider.%s = &s\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeString:
-		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = d.Get(%q).(string)\n", f.goName, f.tfName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif s, ok := v.(string); ok {\n\t\t\t\t\tcr.Status.AtProvider.%s = s\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypePtrInt64:
-		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\ti := int64(v.(int))\n\t\t\t\tcr.Status.AtProvider.%s = &i\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif i, ok := v.(int); ok {\n\t\t\t\t\tv := int64(i)\n\t\t\t\t\tcr.Status.AtProvider.%s = &v\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeInt64:
-		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = int64(d.Get(%q).(int))\n", f.goName, f.tfName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif i, ok := v.(int); ok {\n\t\t\t\t\tcr.Status.AtProvider.%s = int64(i)\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypePtrFloat:
-		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tf := v.(float64)\n\t\t\t\tcr.Status.AtProvider.%s = &f\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif f, ok := v.(float64); ok {\n\t\t\t\t\tcr.Status.AtProvider.%s = &f\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeFloat64:
-		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = d.Get(%q).(float64)\n", f.goName, f.tfName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif f, ok := v.(float64); ok {\n\t\t\t\t\tcr.Status.AtProvider.%s = f\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypePtrBool:
-		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tb := v.(bool)\n\t\t\t\tcr.Status.AtProvider.%s = &b\n\t\t\t}\n", f.tfName, f.goName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif b, ok := v.(bool); ok {\n\t\t\t\t\tcr.Status.AtProvider.%s = &b\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	case goTypeBool:
-		return fmt.Sprintf("\t\t\tcr.Status.AtProvider.%s = d.Get(%q).(bool)\n", f.goName, f.tfName)
+		return fmt.Sprintf("\t\t\tif v, ok := d.GetOk(%q); ok {\n\t\t\t\tif b, ok := v.(bool); ok {\n\t\t\t\t\tcr.Status.AtProvider.%s = b\n\t\t\t\t}\n\t\t\t}\n", f.tfName, f.goName)
 	default:
 		return fmt.Sprintf("\t\t\t// TODO: complex type %s for %s\n", f.goType, f.tfName)
 	}
@@ -323,14 +323,16 @@ func generateNestedFromResourceData(f fieldInfo) string {
 	var b strings.Builder
 	fmt.Fprintf(&b, "\t\t\tif v, ok := d.GetOk(%q); ok {\n", f.tfName)
 	fmt.Fprintf(&b, "\t\t\t\tvar items []v1alpha1.%s\n", f.nestedStructName)
+	fmt.Fprintf(&b, "\t\t\t\tvar list []interface{}\n")
 	if f.isSet {
-		b.WriteString("\t\t\t\tfor _, raw := range v.(*sdkschema.Set).List() {\n")
+		b.WriteString("\t\t\t\tif s, ok := v.(*sdkschema.Set); ok {\n\t\t\t\t\tlist = s.List()\n\t\t\t\t}\n")
 	} else {
-		b.WriteString("\t\t\t\tfor _, raw := range v.([]interface{}) {\n")
+		b.WriteString("\t\t\t\tlist, _ = v.([]interface{})\n")
 	}
+	b.WriteString("\t\t\t\tfor _, raw := range list {\n")
 	fmt.Fprintf(&b, "\t\t\t\t\titem := v1alpha1.%s{}\n", f.nestedStructName)
 	if hasScalarFields {
-		b.WriteString("\t\t\t\t\tm := raw.(map[string]interface{})\n")
+		b.WriteString("\t\t\t\t\tm, _ := raw.(map[string]interface{})\n")
 		for _, nf := range f.nestedFields {
 			if len(nf.nestedFields) > 0 || !isScalarType(nf.goType) {
 				continue
@@ -609,6 +611,9 @@ func generateFactories(cfg Config, dsList []*dsInfo, ci CategoryRule) string {
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
+		if _, ok := ds.(datasource.DataSourceWithConfigure); !ok {
+			continue
+		}
 		factory := newDS // capture loop variable
 		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
 			return factory().(datasource.DataSourceWithConfigure)
