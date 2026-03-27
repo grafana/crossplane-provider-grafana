@@ -32,8 +32,9 @@ var SlackChannelSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.SlackChannel)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("slack_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.SlackID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.SlackID = &s
+				}
 			}
 		},
 	),

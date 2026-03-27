@@ -40,19 +40,23 @@ var TeamSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Team)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("email"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Email = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Email = &s
+				}
 			}
 			// TODO: complex type []string for members
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("preferences"); ok {
 				var items []v1alpha1.TeamPreferences
-				for _, raw := range v.([]interface{}) {
+				var list []interface{}
+				list, _ = v.([]interface{})
+				for _, raw := range list {
 					item := v1alpha1.TeamPreferences{}
-					m := raw.(map[string]interface{})
+					m, _ := raw.(map[string]interface{})
 					if val, ok := m["home_dashboard_uid"].(string); ok {
 						item.HomeDashboardUID = &val
 					}
@@ -70,16 +74,21 @@ var TeamSpec = tfdatasource.Spec{
 				cr.Status.AtProvider.Preferences = items
 			}
 			if v, ok := d.GetOk("read_team_sync"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.ReadTeamSync = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.ReadTeamSync = &b
+				}
 			}
 			if v, ok := d.GetOk("team_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.TeamID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.TeamID = &v
+				}
 			}
 			if v, ok := d.GetOk("team_sync"); ok {
 				var items []v1alpha1.TeamTeamSync
-				for _, raw := range v.([]interface{}) {
+				var list []interface{}
+				list, _ = v.([]interface{})
+				for _, raw := range list {
 					item := v1alpha1.TeamTeamSync{}
 					_ = raw
 					items = append(items, item)
@@ -87,8 +96,9 @@ var TeamSpec = tfdatasource.Spec{
 				cr.Status.AtProvider.TeamSync = items
 			}
 			if v, ok := d.GetOk("team_uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.TeamUID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TeamUID = &s
+				}
 			}
 		},
 	),

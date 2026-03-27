@@ -30,16 +30,19 @@ var IntegrationSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Integration)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("inbound_email"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.InboundEmail = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.InboundEmail = &s
+				}
 			}
 			if v, ok := d.GetOk("link"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Link = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Link = &s
+				}
 			}
 			if v, ok := d.GetOk("name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Name = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Name = &s
+				}
 			}
 		},
 	),

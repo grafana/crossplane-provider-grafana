@@ -36,24 +36,29 @@ var OrganizationPreferencesSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.OrganizationPreferences)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("home_dashboard_uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.HomeDashboardUID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.HomeDashboardUID = &s
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("theme"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Theme = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Theme = &s
+				}
 			}
 			if v, ok := d.GetOk("timezone"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Timezone = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Timezone = &s
+				}
 			}
 			if v, ok := d.GetOk("week_start"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.WeekStart = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.WeekStart = &s
+				}
 			}
 		},
 	),

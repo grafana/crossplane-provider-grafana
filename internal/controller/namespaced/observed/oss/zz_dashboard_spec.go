@@ -42,44 +42,56 @@ var DashboardSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Dashboard)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("config_json"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ConfigJSON = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ConfigJSON = &s
+				}
 			}
 			if v, ok := d.GetOk("dashboard_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.DashboardID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.DashboardID = &v
+				}
 			}
 			if v, ok := d.GetOk("folder_uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FolderUID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FolderUID = &s
+				}
 			}
 			if v, ok := d.GetOk("is_starred"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.IsStarred = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.IsStarred = &b
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("slug"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Slug = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Slug = &s
+				}
 			}
 			if v, ok := d.GetOk("title"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Title = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Title = &s
+				}
 			}
 			if v, ok := d.GetOk("uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.UID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.UID = &s
+				}
 			}
 			if v, ok := d.GetOk("url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.URL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.URL = &s
+				}
 			}
 			if v, ok := d.GetOk("version"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.Version = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.Version = &v
+				}
 			}
 		},
 	),

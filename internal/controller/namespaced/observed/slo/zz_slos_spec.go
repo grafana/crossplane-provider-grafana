@@ -31,9 +31,11 @@ var SlosSpec = tfdatasource.Spec{
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("slos"); ok {
 				var items []v1alpha1.SlosSlos
-				for _, raw := range v.([]interface{}) {
+				var list []interface{}
+				list, _ = v.([]interface{})
+				for _, raw := range list {
 					item := v1alpha1.SlosSlos{}
-					m := raw.(map[string]interface{})
+					m, _ := raw.(map[string]interface{})
 					if val, ok := m["description"].(string); ok {
 						item.Description = &val
 					}

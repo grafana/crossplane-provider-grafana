@@ -42,9 +42,11 @@ var DashboardSetSpec = tfdatasource.Spec{
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("dashboards"); ok {
 				var items []v1alpha1.DashboardsDashboards
-				for _, raw := range v.([]interface{}) {
+				var list []interface{}
+				list, _ = v.([]interface{})
+				for _, raw := range list {
 					item := v1alpha1.DashboardsDashboards{}
-					m := raw.(map[string]interface{})
+					m, _ := raw.(map[string]interface{})
 					if val, ok := m["folder_title"].(string); ok {
 						item.FolderTitle = &val
 					}
@@ -60,12 +62,15 @@ var DashboardSetSpec = tfdatasource.Spec{
 			}
 			// TODO: complex type []string for folder_uids
 			if v, ok := d.GetOk("limit"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.Limit = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.Limit = &v
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			// TODO: complex type []string for tags
 		},

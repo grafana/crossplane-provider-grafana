@@ -42,24 +42,30 @@ var UserSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.User)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("email"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Email = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Email = &s
+				}
 			}
 			if v, ok := d.GetOk("is_admin"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.IsAdmin = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.IsAdmin = &b
+				}
 			}
 			if v, ok := d.GetOk("login"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Login = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Login = &s
+				}
 			}
 			if v, ok := d.GetOk("name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Name = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Name = &s
+				}
 			}
 			if v, ok := d.GetOk("user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.UserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.UserID = &v
+				}
 			}
 		},
 	),

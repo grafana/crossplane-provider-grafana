@@ -36,8 +36,9 @@ var ProbeSetSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.ProbeSet)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("filter_deprecated"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.FilterDeprecated = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.FilterDeprecated = &b
+				}
 			}
 			// TODO: complex type map[string]string for probes
 		},

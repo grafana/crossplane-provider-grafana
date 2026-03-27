@@ -42,53 +42,67 @@ var LibraryPanelSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.LibraryPanel)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("created"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Created = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Created = &s
+				}
 			}
 			// TODO: complex type []int64 for dashboard_ids
 			if v, ok := d.GetOk("description"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Description = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Description = &s
+				}
 			}
 			if v, ok := d.GetOk("folder_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FolderName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FolderName = &s
+				}
 			}
 			if v, ok := d.GetOk("folder_uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FolderUID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FolderUID = &s
+				}
 			}
 			if v, ok := d.GetOk("model_json"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ModelJSON = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ModelJSON = &s
+				}
 			}
 			if v, ok := d.GetOk("name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Name = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Name = &s
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("panel_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.PanelID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.PanelID = &v
+				}
 			}
 			if v, ok := d.GetOk("type"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Type = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Type = &s
+				}
 			}
 			if v, ok := d.GetOk("uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.UID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.UID = &s
+				}
 			}
 			if v, ok := d.GetOk("updated"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Updated = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Updated = &s
+				}
 			}
 			if v, ok := d.GetOk("version"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.Version = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.Version = &v
+				}
 			}
 		},
 	),

@@ -42,56 +42,69 @@ var DataSourceSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.DataSource)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("access_mode"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.AccessMode = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.AccessMode = &s
+				}
 			}
 			if v, ok := d.GetOk("basic_auth_enabled"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.BasicAuthEnabled = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.BasicAuthEnabled = &b
+				}
 			}
 			if v, ok := d.GetOk("basic_auth_username"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.BasicAuthUsername = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.BasicAuthUsername = &s
+				}
 			}
 			if v, ok := d.GetOk("database_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.DatabaseName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.DatabaseName = &s
+				}
 			}
 			if v, ok := d.GetOk("is_default"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.IsDefault = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.IsDefault = &b
+				}
 			}
 			if v, ok := d.GetOk("json_data_encoded"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.JSONDataEncoded = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.JSONDataEncoded = &s
+				}
 			}
 			if v, ok := d.GetOk("name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Name = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Name = &s
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("private_data_source_connect_network_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrivateDataSourceConnectNetworkID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrivateDataSourceConnectNetworkID = &s
+				}
 			}
 			if v, ok := d.GetOk("type"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Type = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Type = &s
+				}
 			}
 			if v, ok := d.GetOk("uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.UID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.UID = &s
+				}
 			}
 			if v, ok := d.GetOk("url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.URL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.URL = &s
+				}
 			}
 			if v, ok := d.GetOk("username"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Username = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Username = &s
+				}
 			}
 		},
 	),

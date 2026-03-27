@@ -37,9 +37,13 @@ var FolderSetSpec = tfdatasource.Spec{
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("folders"); ok {
 				var items []v1alpha1.FoldersFolders
-				for _, raw := range v.(*sdkschema.Set).List() {
+				var list []interface{}
+				if s, ok := v.(*sdkschema.Set); ok {
+					list = s.List()
+				}
+				for _, raw := range list {
 					item := v1alpha1.FoldersFolders{}
-					m := raw.(map[string]interface{})
+					m, _ := raw.(map[string]interface{})
 					if val, ok := m["id"].(int); ok {
 						v := int64(val)
 						item.ID = &v
@@ -58,8 +62,9 @@ var FolderSetSpec = tfdatasource.Spec{
 				cr.Status.AtProvider.Folders = items
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 		},
 	),

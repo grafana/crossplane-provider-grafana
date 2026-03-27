@@ -33,6 +33,9 @@ func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConf
 		ds := newDS()
 		var resp datasource.MetadataResponse
 		ds.Metadata(ctx, datasource.MetadataRequest{ProviderTypeName: providerTypeName}, &resp)
+		if _, ok := ds.(datasource.DataSourceWithConfigure); !ok {
+			continue
+		}
 		factory := newDS // capture loop variable
 		factories[resp.TypeName] = func() datasource.DataSourceWithConfigure {
 			return factory().(datasource.DataSourceWithConfigure)

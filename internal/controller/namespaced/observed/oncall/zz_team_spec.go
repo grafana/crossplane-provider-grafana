@@ -32,12 +32,14 @@ var TeamSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Team)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("avatar_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.AvatarURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.AvatarURL = &s
+				}
 			}
 			if v, ok := d.GetOk("email"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Email = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Email = &s
+				}
 			}
 		},
 	),

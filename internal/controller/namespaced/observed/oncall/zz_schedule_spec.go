@@ -32,8 +32,9 @@ var ScheduleSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Schedule)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("type"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Type = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Type = &s
+				}
 			}
 		},
 	),

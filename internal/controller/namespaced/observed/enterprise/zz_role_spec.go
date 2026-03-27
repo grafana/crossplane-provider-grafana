@@ -32,34 +32,44 @@ var RoleSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Role)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("description"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Description = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Description = &s
+				}
 			}
 			if v, ok := d.GetOk("display_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.DisplayName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.DisplayName = &s
+				}
 			}
 			if v, ok := d.GetOk("global"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.Global = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.Global = &b
+				}
 			}
 			if v, ok := d.GetOk("group"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Group = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Group = &s
+				}
 			}
 			if v, ok := d.GetOk("hidden"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.Hidden = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.Hidden = &b
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("permissions"); ok {
 				var items []v1alpha1.RolePermissions
-				for _, raw := range v.(*sdkschema.Set).List() {
+				var list []interface{}
+				if s, ok := v.(*sdkschema.Set); ok {
+					list = s.List()
+				}
+				for _, raw := range list {
 					item := v1alpha1.RolePermissions{}
-					m := raw.(map[string]interface{})
+					m, _ := raw.(map[string]interface{})
 					if val, ok := m["action"].(string); ok {
 						item.Action = val
 					}
@@ -71,12 +81,15 @@ var RoleSpec = tfdatasource.Spec{
 				cr.Status.AtProvider.Permissions = items
 			}
 			if v, ok := d.GetOk("uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.UID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.UID = &s
+				}
 			}
 			if v, ok := d.GetOk("version"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.Version = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.Version = &v
+				}
 			}
 		},
 	),

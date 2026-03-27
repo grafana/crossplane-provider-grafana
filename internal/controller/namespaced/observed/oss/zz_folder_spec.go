@@ -42,24 +42,29 @@ var FolderSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Folder)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("parent_folder_uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ParentFolderUID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ParentFolderUID = &s
+				}
 			}
 			if v, ok := d.GetOk("title"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Title = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Title = &s
+				}
 			}
 			if v, ok := d.GetOk("uid"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.UID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.UID = &s
+				}
 			}
 			if v, ok := d.GetOk("url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.URL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.URL = &s
+				}
 			}
 		},
 	),

@@ -31,9 +31,13 @@ var UserSetSpec = tfdatasource.Spec{
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("users"); ok {
 				var items []v1alpha1.UsersUsers
-				for _, raw := range v.(*sdkschema.Set).List() {
+				var list []interface{}
+				if s, ok := v.(*sdkschema.Set); ok {
+					list = s.List()
+				}
+				for _, raw := range list {
 					item := v1alpha1.UsersUsers{}
-					m := raw.(map[string]interface{})
+					m, _ := raw.(map[string]interface{})
 					if val, ok := m["email"].(string); ok {
 						item.Email = &val
 					}

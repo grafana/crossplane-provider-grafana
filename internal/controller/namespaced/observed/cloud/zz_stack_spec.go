@@ -32,299 +32,376 @@ var StackSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Stack)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("alertmanager_ip_allow_list_cname"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.AlertmanagerIPAllowListCname = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.AlertmanagerIPAllowListCname = &s
+				}
 			}
 			if v, ok := d.GetOk("alertmanager_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.AlertmanagerName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.AlertmanagerName = &s
+				}
 			}
 			if v, ok := d.GetOk("alertmanager_status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.AlertmanagerStatus = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.AlertmanagerStatus = &s
+				}
 			}
 			if v, ok := d.GetOk("alertmanager_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.AlertmanagerURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.AlertmanagerURL = &s
+				}
 			}
 			if v, ok := d.GetOk("alertmanager_user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.AlertmanagerUserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.AlertmanagerUserID = &v
+				}
 			}
 			if v, ok := d.GetOk("cluster_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ClusterName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ClusterName = &s
+				}
 			}
 			if v, ok := d.GetOk("cluster_slug"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ClusterSlug = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ClusterSlug = &s
+				}
 			}
 			if v, ok := d.GetOk("delete_protection"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.DeleteProtection = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.DeleteProtection = &b
+				}
 			}
 			if v, ok := d.GetOk("description"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Description = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Description = &s
+				}
 			}
 			if v, ok := d.GetOk("fleet_management_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FleetManagementName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FleetManagementName = &s
+				}
 			}
 			// TODO: complex type []string for fleet_management_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("fleet_management_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for fleet_management_private_connectivity_info_regions
 			if v, ok := d.GetOk("fleet_management_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("fleet_management_status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FleetManagementStatus = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FleetManagementStatus = &s
+				}
 			}
 			if v, ok := d.GetOk("fleet_management_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.FleetManagementURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FleetManagementURL = &s
+				}
 			}
 			if v, ok := d.GetOk("fleet_management_user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.FleetManagementUserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.FleetManagementUserID = &v
+				}
 			}
 			if v, ok := d.GetOk("grafanas_ip_allow_list_cname"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.GrafanasIPAllowListCname = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GrafanasIPAllowListCname = &s
+				}
 			}
 			if v, ok := d.GetOk("graphite_ip_allow_list_cname"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.GraphiteIPAllowListCname = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GraphiteIPAllowListCname = &s
+				}
 			}
 			if v, ok := d.GetOk("graphite_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.GraphiteName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GraphiteName = &s
+				}
 			}
 			// TODO: complex type []string for graphite_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("graphite_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.GraphitePrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GraphitePrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for graphite_private_connectivity_info_regions
 			if v, ok := d.GetOk("graphite_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.GraphitePrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GraphitePrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("graphite_status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.GraphiteStatus = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GraphiteStatus = &s
+				}
 			}
 			if v, ok := d.GetOk("graphite_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.GraphiteURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GraphiteURL = &s
+				}
 			}
 			if v, ok := d.GetOk("graphite_user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.GraphiteUserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.GraphiteUserID = &v
+				}
 			}
 			if v, ok := d.GetOk("influx_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.InfluxURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.InfluxURL = &s
+				}
 			}
 			// TODO: complex type map[string]string for labels
 			if v, ok := d.GetOk("logs_ip_allow_list_cname"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.LogsIPAllowListCname = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.LogsIPAllowListCname = &s
+				}
 			}
 			if v, ok := d.GetOk("logs_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.LogsName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.LogsName = &s
+				}
 			}
 			// TODO: complex type []string for logs_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("logs_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.LogsPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.LogsPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for logs_private_connectivity_info_regions
 			if v, ok := d.GetOk("logs_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.LogsPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.LogsPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("logs_status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.LogsStatus = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.LogsStatus = &s
+				}
 			}
 			if v, ok := d.GetOk("logs_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.LogsURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.LogsURL = &s
+				}
 			}
 			if v, ok := d.GetOk("logs_user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.LogsUserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.LogsUserID = &v
+				}
 			}
 			if v, ok := d.GetOk("name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Name = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Name = &s
+				}
 			}
 			if v, ok := d.GetOk("oncall_api_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OncallAPIURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OncallAPIURL = &s
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.OrgID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.OrgID = &v
+				}
 			}
 			if v, ok := d.GetOk("org_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgName = &s
+				}
 			}
 			if v, ok := d.GetOk("org_slug"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgSlug = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgSlug = &s
+				}
 			}
 			// TODO: complex type []string for otlp_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("otlp_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OtlpPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OtlpPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for otlp_private_connectivity_info_regions
 			if v, ok := d.GetOk("otlp_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OtlpPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OtlpPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("otlp_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OtlpURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OtlpURL = &s
+				}
 			}
 			// TODO: complex type []string for pdc_api_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("pdc_api_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for pdc_api_private_connectivity_info_regions
 			if v, ok := d.GetOk("pdc_api_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			// TODO: complex type []string for pdc_gateway_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("pdc_gateway_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for pdc_gateway_private_connectivity_info_regions
 			if v, ok := d.GetOk("pdc_gateway_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("profiles_ip_allow_list_cname"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ProfilesIPAllowListCname = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ProfilesIPAllowListCname = &s
+				}
 			}
 			if v, ok := d.GetOk("profiles_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ProfilesName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ProfilesName = &s
+				}
 			}
 			// TODO: complex type []string for profiles_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("profiles_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ProfilesPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ProfilesPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for profiles_private_connectivity_info_regions
 			if v, ok := d.GetOk("profiles_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ProfilesPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ProfilesPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("profiles_status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ProfilesStatus = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ProfilesStatus = &s
+				}
 			}
 			if v, ok := d.GetOk("profiles_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.ProfilesURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ProfilesURL = &s
+				}
 			}
 			if v, ok := d.GetOk("profiles_user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.ProfilesUserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.ProfilesUserID = &v
+				}
 			}
 			if v, ok := d.GetOk("prometheus_ip_allow_list_cname"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusIPAllowListCname = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusIPAllowListCname = &s
+				}
 			}
 			if v, ok := d.GetOk("prometheus_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusName = &s
+				}
 			}
 			// TODO: complex type []string for prometheus_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("prometheus_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for prometheus_private_connectivity_info_regions
 			if v, ok := d.GetOk("prometheus_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("prometheus_remote_endpoint"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusRemoteEndpoint = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusRemoteEndpoint = &s
+				}
 			}
 			if v, ok := d.GetOk("prometheus_remote_write_endpoint"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusRemoteWriteEndpoint = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusRemoteWriteEndpoint = &s
+				}
 			}
 			if v, ok := d.GetOk("prometheus_status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusStatus = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusStatus = &s
+				}
 			}
 			if v, ok := d.GetOk("prometheus_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.PrometheusURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusURL = &s
+				}
 			}
 			if v, ok := d.GetOk("prometheus_user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.PrometheusUserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.PrometheusUserID = &v
+				}
 			}
 			if v, ok := d.GetOk("region_slug"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.RegionSlug = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.RegionSlug = &s
+				}
 			}
 			if v, ok := d.GetOk("status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Status = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Status = &s
+				}
 			}
 			if v, ok := d.GetOk("traces_ip_allow_list_cname"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.TracesIPAllowListCname = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TracesIPAllowListCname = &s
+				}
 			}
 			if v, ok := d.GetOk("traces_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.TracesName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TracesName = &s
+				}
 			}
 			// TODO: complex type []string for traces_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("traces_private_connectivity_info_private_dns"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.TracesPrivateConnectivityInfoPrivateDNS = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TracesPrivateConnectivityInfoPrivateDNS = &s
+				}
 			}
 			// TODO: complex type []string for traces_private_connectivity_info_regions
 			if v, ok := d.GetOk("traces_private_connectivity_info_service_name"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.TracesPrivateConnectivityInfoServiceName = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TracesPrivateConnectivityInfoServiceName = &s
+				}
 			}
 			if v, ok := d.GetOk("traces_status"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.TracesStatus = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TracesStatus = &s
+				}
 			}
 			if v, ok := d.GetOk("traces_url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.TracesURL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TracesURL = &s
+				}
 			}
 			if v, ok := d.GetOk("traces_user_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.TracesUserID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.TracesUserID = &v
+				}
 			}
 			if v, ok := d.GetOk("url"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.URL = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.URL = &s
+				}
 			}
 		},
 	),

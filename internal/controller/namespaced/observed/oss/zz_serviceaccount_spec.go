@@ -37,16 +37,19 @@ var ServiceAccountSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.ServiceAccount)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("is_disabled"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.IsDisabled = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.IsDisabled = &b
+				}
 			}
 			if v, ok := d.GetOk("org_id"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.OrgID = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.OrgID = &s
+				}
 			}
 			if v, ok := d.GetOk("role"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Role = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Role = &s
+				}
 			}
 		},
 	),

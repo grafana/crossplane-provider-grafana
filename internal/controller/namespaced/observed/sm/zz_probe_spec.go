@@ -32,33 +32,41 @@ var ProbeSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Probe)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("disable_browser_checks"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.DisableBrowserChecks = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.DisableBrowserChecks = &b
+				}
 			}
 			if v, ok := d.GetOk("disable_scripted_checks"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.DisableScriptedChecks = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.DisableScriptedChecks = &b
+				}
 			}
 			// TODO: complex type map[string]string for labels
 			if v, ok := d.GetOk("latitude"); ok {
-				f := v.(float64)
-				cr.Status.AtProvider.Latitude = &f
+				if f, ok := v.(float64); ok {
+					cr.Status.AtProvider.Latitude = &f
+				}
 			}
 			if v, ok := d.GetOk("longitude"); ok {
-				f := v.(float64)
-				cr.Status.AtProvider.Longitude = &f
+				if f, ok := v.(float64); ok {
+					cr.Status.AtProvider.Longitude = &f
+				}
 			}
 			if v, ok := d.GetOk("public"); ok {
-				b := v.(bool)
-				cr.Status.AtProvider.Public = &b
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.Public = &b
+				}
 			}
 			if v, ok := d.GetOk("region"); ok {
-				s := v.(string)
-				cr.Status.AtProvider.Region = &s
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Region = &s
+				}
 			}
 			if v, ok := d.GetOk("tenant_id"); ok {
-				i := int64(v.(int))
-				cr.Status.AtProvider.TenantID = &i
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.TenantID = &v
+				}
 			}
 		},
 	),
