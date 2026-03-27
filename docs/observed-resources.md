@@ -159,14 +159,18 @@ Legacy SDK (`provider.DataSourcesMap`) and Plugin Framework
 
 ### Running the generator
 
-The generator is integrated into `make generate` and runs automatically. To run
-it standalone:
+The generator runs automatically as part of `make generate`:
 
 ```bash
-go run ./cmd/generate-observed
+make generate
 ```
 
-This introspects the vendored Terraform provider at compile time and emits:
+This deletes all existing `zz_*` files first, then re-runs the generator and
+regenerates deepcopy methods, CRDs, and managed resource interface
+implementations in one step. Generated files use the `zz_` prefix so the
+cleanup step handles them automatically.
+
+The generator emits:
 
 ```
 apis/observed/<category>/v1alpha1/
@@ -175,32 +179,27 @@ apis/observed/<category>/v1alpha1/
 internal/controller/namespaced/observed/<category>/
     zz_<name>_spec.go             — tfdatasource.Spec with read callbacks
     zz_factories.go               — Plugin Framework data source factories (if needed)
+    zz_legacy_factories.go        — Legacy SDK data source factories (if needed)
     zz_setup.go                   — per-group controller registration
 apis/observed/zz_register.go      — aggregated AddToScheme across all groups
-internal/controller/namespaced/observed/zz_setup.go — aggregated Setup/SetupGated
+internal/controller/namespaced/observed/zz_setup.go  — aggregated Setup/SetupGated
+internal/controller/namespaced/observed/zz_connect.go — provider ConnectFn
 examples-generated/observed/      — example YAML manifests per data source
 ```
 
-All generated files use a `zz_` prefix so that `make generate`'s existing
-cleanup step (`find . -iname 'zz_*' ... -delete`) removes stale files before
-regeneration.
-
-After running the generator standalone, run `make generate` to regenerate
-deepcopy methods, CRDs, and managed resource interface implementations.
-
 ### Keeping up with provider upgrades
 
-When `github.com/grafana/terraform-provider-grafana/v4` is bumped:
+When `github.com/grafana/terraform-provider-grafana/v4` is bumped, run:
 
 ```bash
 go get github.com/grafana/terraform-provider-grafana/v4@latest
-go run ./cmd/generate-observed
+make generate
 git diff  # review new/changed/removed files
 ```
 
-- **New data source** → new `_types.go` + `_spec.go` files appear as untracked.
-- **Removed data source** → stale files remain (delete manually or add orphan
-  detection to CI).
+- **New data source** → new `_types.go` + `_spec.go` files appear.
+- **Removed data source** → stale files are deleted automatically by the
+  `make generate` cleanup step.
 - **Schema change** → modified types/specs show up in the diff.
 
 A CI check can enforce that generated code matches the vendored provider:
@@ -219,15 +218,17 @@ struct with all provider-specific settings (module path, group suffix, category
 rules, acronyms, etc.) and a pair of TF provider instances. See the
 [package documentation](../pkg/generateobserved/config.go) for the full API.
 
-### Runtime controller (`internal/controller/namespaced/observed/tfdatasource/`)
+### Runtime controller (`pkg/tfdatasource/`)
 
-A generic controller that reconciles any observe-only resource given a `Spec`:
+A provider-agnostic controller (in `pkg/` so external providers can reuse it)
+that reconciles any observe-only resource given a `Spec`:
 
 ```go
 type Spec struct {
     DataSourceName string
     ManagedKind    schema.GroupVersionKind
     NewManaged     func() resource.Managed
+    ConnectFn      ConnectFn  // injected at setup time from zz_connect.go
     Read           ReadFn
     IsUpToDate     func(resource.Managed) bool
 }
@@ -235,10 +236,12 @@ type Spec struct {
 
 Two `ReadFn` builders are provided:
 
-- **`NewLegacyReadFn`** — for TF Plugin SDK v2 data sources. Uses
+- **`NewLegacyReadFn`** — for TF Plugin SDK v2 data sources. Takes a resolved
+  `*sdkschema.Resource` (from `zz_legacy_factories.go`) and uses
   `schema.Resource.Data()` + `ReadContext`.
-- **`NewFrameworkReadFn`** — for TF Plugin Framework data sources. Constructs a
-  `tfsdk.Config`, calls `ds.Read()`, and extracts the resulting `tfsdk.State`.
+- **`NewFrameworkReadFn`** — for TF Plugin Framework data sources. Takes a
+  factory func (from `zz_factories.go`), constructs a `tfsdk.Config`, calls
+  `ds.Read()`, and extracts the resulting `tfsdk.State`.
 
 ### Grafana-specific wrapper (`cmd/generate-observed/`)
 
