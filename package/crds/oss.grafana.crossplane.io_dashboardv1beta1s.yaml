@@ -95,6 +95,11 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      allowUiUpdates:
+                        description: |-
+                          (Boolean) Set to true to allow editing the resource from the Grafana UI.
+                          Set to true to allow editing the resource from the Grafana UI.
+                        type: boolean
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -159,6 +164,11 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      allowUiUpdates:
+                        description: |-
+                          (Boolean) Set to true to allow editing the resource from the Grafana UI.
+                          Set to true to allow editing the resource from the Grafana UI.
+                        type: boolean
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -336,6 +346,11 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      allowUiUpdates:
+                        description: |-
+                          (Boolean) Set to true to allow editing the resource from the Grafana UI.
+                          Set to true to allow editing the resource from the Grafana UI.
+                        type: boolean
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.

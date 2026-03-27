@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *Annotation) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *ConnectionV0Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Dashboard) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -56,6 +59,9 @@ func (tr *Playlist) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *PlaylistV0Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RepositoryV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccount) Hub() {}

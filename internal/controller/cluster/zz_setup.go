@@ -80,6 +80,7 @@ import (
 	scheduleoncall "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oncall/schedule"
 	usernotificationrule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oncall/usernotificationrule"
 	annotation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/annotation"
+	connectionv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/connectionv0alpha1"
 	dashboard "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboard"
 	dashboardpermission "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboardpermission"
 	dashboardpermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboardpermissionitem"
@@ -96,6 +97,7 @@ import (
 	organizationpreferences "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/organizationpreferences"
 	playlist "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/playlist"
 	playlistv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/playlistv0alpha1"
+	repositoryv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/repositoryv0alpha1"
 	serviceaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccount"
 	serviceaccountpermission "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccountpermission"
 	serviceaccountpermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/serviceaccountpermissionitem"
@@ -187,6 +189,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		scheduleoncall.Setup,
 		usernotificationrule.Setup,
 		annotation.Setup,
+		connectionv0alpha1.Setup,
 		dashboard.Setup,
 		dashboardpermission.Setup,
 		dashboardpermissionitem.Setup,
@@ -203,6 +206,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		organizationpreferences.Setup,
 		playlist.Setup,
 		playlistv0alpha1.Setup,
+		repositoryv0alpha1.Setup,
 		serviceaccount.Setup,
 		serviceaccountpermission.Setup,
 		serviceaccountpermissionitem.Setup,
@@ -300,6 +304,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		scheduleoncall.SetupGated,
 		usernotificationrule.SetupGated,
 		annotation.SetupGated,
+		connectionv0alpha1.SetupGated,
 		dashboard.SetupGated,
 		dashboardpermission.SetupGated,
 		dashboardpermissionitem.SetupGated,
@@ -316,6 +321,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		organizationpreferences.SetupGated,
 		playlist.SetupGated,
 		playlistv0alpha1.SetupGated,
+		repositoryv0alpha1.SetupGated,
 		serviceaccount.SetupGated,
 		serviceaccountpermission.SetupGated,
 		serviceaccountpermissionitem.SetupGated,

@@ -4,7 +4,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.18.0
-  name: dashboardv2beta1s.oss.grafana.m.crossplane.io
+  name: connectionv0alpha1s.oss.grafana.m.crossplane.io
 spec:
   group: oss.grafana.m.crossplane.io
   names:
@@ -12,10 +12,10 @@ spec:
     - crossplane
     - managed
     - grafana
-    kind: DashboardV2Beta1
-    listKind: DashboardV2Beta1List
-    plural: dashboardv2beta1s
-    singular: dashboardv2beta1
+    kind: ConnectionV0Alpha1
+    listKind: ConnectionV0Alpha1List
+    plural: connectionv0alpha1s
+    singular: connectionv0alpha1
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: DashboardV2Beta1 is the Schema for the DashboardV2Beta1s API.
-          Manages Grafana dashboards using the v2beta1 (Dynamic Dashboards) schema.
-          Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP
-          API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/#new-dashboard-apis
+        description: ConnectionV0Alpha1 is the Schema for the ConnectionV0Alpha1s
+          API. Manages Grafana Git Sync connections used by repositories for provider
+          authentication.
         properties:
           apiVersion:
             description: |-
@@ -57,7 +56,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: DashboardV2Beta1Spec defines the desired state of DashboardV2Beta1
+            description: ConnectionV0Alpha1Spec defines the desired state of ConnectionV0Alpha1
             properties:
               forProvider:
                 properties:
@@ -82,38 +81,79 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
-                      allowUiUpdates:
-                        description: |-
-                          (Boolean) Set to true to allow editing the resource from the Grafana UI.
-                          Set to true to allow editing the resource from the Grafana UI.
-                        type: boolean
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                           Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                         type: boolean
                     type: object
+                  secure:
+                    description: |-
+                      (see below for nested schema)
+                      Sensitive credentials.
+                    properties:
+                      privateKey:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Private key for GitHub App authentication.
+                          Private key for GitHub App authentication.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      token:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Access token.
+                          Access token.
+                        type: object
+                        x-kubernetes-map-type: granular
+                    type: object
+                  secureVersion:
+                    description: |-
+                      application of secure values.
+                      Set this to 1 when using `secure`, then increment it to trigger re-application of secure values.
+                    type: number
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
                     properties:
-                      json:
+                      description:
                         description: |-
-                          (String) The JSON representation of the dashboard v2beta1 spec.
-                          The JSON representation of the dashboard v2beta1 spec.
+                          (String) Connection description.
+                          Connection description.
                         type: string
-                      tags:
+                      github:
                         description: |-
-                          (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                          The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                        items:
-                          type: string
-                        type: array
+                          (Block, Optional) GitHub App configuration. (see below for nested schema)
+                          GitHub App configuration.
+                        properties:
+                          appId:
+                            description: |-
+                              (String) GitHub App ID.
+                              GitHub App ID.
+                            type: string
+                          installationId:
+                            description: |-
+                              (String) GitHub App installation ID.
+                              GitHub App installation ID.
+                            type: string
+                        type: object
                       title:
                         description: |-
-                          (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                          The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                          (String) Display name shown in the UI.
+                          Display name shown in the UI.
+                        type: string
+                      type:
+                        description: |-
+                          (String) Connection provider type.
+                          Connection provider type.
+                        type: string
+                      url:
+                        description: |-
+                          (String) The full URL of the resource.
+                          Provider URL.
                         type: string
                     type: object
                 type: object
@@ -151,38 +191,79 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
-                      allowUiUpdates:
-                        description: |-
-                          (Boolean) Set to true to allow editing the resource from the Grafana UI.
-                          Set to true to allow editing the resource from the Grafana UI.
-                        type: boolean
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                           Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                         type: boolean
                     type: object
+                  secure:
+                    description: |-
+                      (see below for nested schema)
+                      Sensitive credentials.
+                    properties:
+                      privateKey:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Private key for GitHub App authentication.
+                          Private key for GitHub App authentication.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      token:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Access token.
+                          Access token.
+                        type: object
+                        x-kubernetes-map-type: granular
+                    type: object
+                  secureVersion:
+                    description: |-
+                      application of secure values.
+                      Set this to 1 when using `secure`, then increment it to trigger re-application of secure values.
+                    type: number
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
                     properties:
-                      json:
+                      description:
                         description: |-
-                          (String) The JSON representation of the dashboard v2beta1 spec.
-                          The JSON representation of the dashboard v2beta1 spec.
+                          (String) Connection description.
+                          Connection description.
                         type: string
-                      tags:
+                      github:
                         description: |-
-                          (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                          The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                        items:
-                          type: string
-                        type: array
+                          (Block, Optional) GitHub App configuration. (see below for nested schema)
+                          GitHub App configuration.
+                        properties:
+                          appId:
+                            description: |-
+                              (String) GitHub App ID.
+                              GitHub App ID.
+                            type: string
+                          installationId:
+                            description: |-
+                              (String) GitHub App installation ID.
+                              GitHub App installation ID.
+                            type: string
+                        type: object
                       title:
                         description: |-
-                          (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                          The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                          (String) Display name shown in the UI.
+                          Display name shown in the UI.
+                        type: string
+                      type:
+                        description: |-
+                          (String) Connection provider type.
+                          Connection provider type.
+                        type: string
+                      url:
+                        description: |-
+                          (String) The full URL of the resource.
+                          Provider URL.
                         type: string
                     type: object
                 type: object
@@ -254,7 +335,7 @@ spec:
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.spec)
                 || (has(self.initProvider) && has(self.initProvider.spec))'
           status:
-            description: DashboardV2Beta1Status defines the observed state of DashboardV2Beta1.
+            description: ConnectionV0Alpha1Status defines the observed state of ConnectionV0Alpha1.
             properties:
               atProvider:
                 properties:
@@ -305,38 +386,79 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
-                      allowUiUpdates:
-                        description: |-
-                          (Boolean) Set to true to allow editing the resource from the Grafana UI.
-                          Set to true to allow editing the resource from the Grafana UI.
-                        type: boolean
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                           Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
                         type: boolean
                     type: object
+                  secure:
+                    description: |-
+                      (see below for nested schema)
+                      Sensitive credentials.
+                    properties:
+                      privateKey:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Private key for GitHub App authentication.
+                          Private key for GitHub App authentication.
+                        type: object
+                        x-kubernetes-map-type: granular
+                      token:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Access token.
+                          Access token.
+                        type: object
+                        x-kubernetes-map-type: granular
+                    type: object
+                  secureVersion:
+                    description: |-
+                      application of secure values.
+                      Set this to 1 when using `secure`, then increment it to trigger re-application of secure values.
+                    type: number
                   spec:
                     description: |-
                       (Block, Optional) The spec of the resource. (see below for nested schema)
                       The spec of the resource.
                     properties:
-                      json:
+                      description:
                         description: |-
-                          (String) The JSON representation of the dashboard v2beta1 spec.
-                          The JSON representation of the dashboard v2beta1 spec.
+                          (String) Connection description.
+                          Connection description.
                         type: string
-                      tags:
+                      github:
                         description: |-
-                          (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                          The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
-                        items:
-                          type: string
-                        type: array
+                          (Block, Optional) GitHub App configuration. (see below for nested schema)
+                          GitHub App configuration.
+                        properties:
+                          appId:
+                            description: |-
+                              (String) GitHub App ID.
+                              GitHub App ID.
+                            type: string
+                          installationId:
+                            description: |-
+                              (String) GitHub App installation ID.
+                              GitHub App installation ID.
+                            type: string
+                        type: object
                       title:
                         description: |-
-                          (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
-                          The title of the dashboard. If not set, the title will be derived from the JSON spec.
+                          (String) Display name shown in the UI.
+                          Display name shown in the UI.
+                        type: string
+                      type:
+                        description: |-
+                          (String) Connection provider type.
+                          Connection provider type.
+                        type: string
+                      url:
+                        description: |-
+                          (String) The full URL of the resource.
+                          Provider URL.
                         type: string
                     type: object
                 type: object

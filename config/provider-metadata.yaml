@@ -259,6 +259,7 @@ resources:
                   ]
                 }
         argumentDocs:
+            allow_ui_updates: (Boolean) Set to true to allow editing the resource from the Grafana UI. By default, resources managed by Terraform cannot be edited in the UI. Enabling this option will cause divergence between the Terraform configuration and the resource in Grafana.
             annotations: (Map of String) Annotations of the resource.
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from UUID.
@@ -296,6 +297,7 @@ resources:
                   ]
                 }
         argumentDocs:
+            allow_ui_updates: (Boolean) Set to true to allow editing the resource from the Grafana UI. By default, resources managed by Terraform cannot be edited in the UI. Enabling this option will cause divergence between the Terraform configuration and the resource in Grafana.
             annotations: (Map of String) Annotations of the resource.
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from UUID.
@@ -488,6 +490,383 @@ resources:
               #!/bin/bash
               # Import an existing Kubernetes observability config by its UID
               terraform import grafana_apps_productactivation_k8so11yconfig_v1alpha1.example my-k8s-o11y-config
+    grafana_apps_provisioning_connection_v0alpha1:
+        subCategory: Grafana Apps
+        description: Manages Grafana Git Sync connections used by repositories for provider authentication.
+        name: grafana_apps_provisioning_connection_v0alpha1
+        title: grafana_apps_provisioning_connection_v0alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "my-github-connection"
+                    }
+                  ],
+                  "secure": [
+                    {
+                      "private_key": {
+                        "create": "replace-me"
+                      }
+                    }
+                  ],
+                  "secure_version": 1,
+                  "spec": [
+                    {
+                      "description": "GitHub App connection used by a folder-scoped Git Sync repository",
+                      "github": [
+                        {
+                          "app_id": "12345",
+                          "installation_id": "67890"
+                        }
+                      ],
+                      "title": "My GitHub App Connection",
+                      "type": "github",
+                      "url": "https://github.com"
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            app_id: (String) GitHub App ID.
+            description: (String) Connection description.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            github: (Block, Optional) GitHub App configuration. (see below for nested schema)
+            id: (String) The ID of the resource derived from UUID.
+            installation_id: (String) GitHub App installation ID.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            private_key: (Map of String, Write-only) Private key for GitHub App authentication.
+            secure: (Block, Optional) Sensitive credentials. Values are write-only and never stored in Terraform state. (see below for nested schema)
+            secure_version: (Number) Set this to 1 when using secure, then increment it to trigger re-application of secure values.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            title: (String) Display name shown in the UI.
+            token: (Map of String, Write-only) Access token.
+            type: (String) Connection provider type.
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_provisioning_repository_v0alpha1:
+        subCategory: Grafana Apps
+        description: Manages Grafana Git Sync repositories for provisioning dashboards and related resources.
+        name: grafana_apps_provisioning_repository_v0alpha1
+        title: grafana_apps_provisioning_repository_v0alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "my-github-folder-repo"
+                    }
+                  ],
+                  "secure": [
+                    {
+                      "token": {
+                        "create": "replace-me"
+                      }
+                    }
+                  ],
+                  "secure_version": 1,
+                  "spec": [
+                    {
+                      "description": "Folder-scoped GitHub repository authenticated directly with a token",
+                      "github": [
+                        {
+                          "branch": "main",
+                          "path": "grafanatftest",
+                          "url": "https://github.com/example/grafana-dashboards"
+                        }
+                      ],
+                      "sync": [
+                        {
+                          "enabled": true,
+                          "interval_seconds": 60,
+                          "target": "folder"
+                        }
+                      ],
+                      "title": "My GitHub Folder Repository",
+                      "type": "github",
+                      "workflows": [
+                        "write",
+                        "branch"
+                      ]
+                    }
+                  ]
+                }
+            - name: github_app
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${grafana_apps_provisioning_connection_v0alpha1.github_app}"
+                  ],
+                  "metadata": [
+                    {
+                      "uid": "my-github-app-folder-repo"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "connection": [
+                        {
+                          "name": "${grafana_apps_provisioning_connection_v0alpha1.github_app.metadata.uid}"
+                        }
+                      ],
+                      "description": "Folder-scoped GitHub repository authenticated via a referenced GitHub App connection",
+                      "github": [
+                        {
+                          "branch": "main",
+                          "path": "grafanatftest",
+                          "url": "https://github.com/example/grafana-dashboards"
+                        }
+                      ],
+                      "sync": [
+                        {
+                          "enabled": true,
+                          "interval_seconds": 60,
+                          "target": "folder"
+                        }
+                      ],
+                      "title": "My GitHub App Folder Repository",
+                      "type": "github",
+                      "workflows": [
+                        "write",
+                        "branch"
+                      ]
+                    }
+                  ]
+                }
+              references:
+                spec.connection.name: grafana_apps_provisioning_connection_v0alpha1.github_app.metadata.uid
+              dependencies:
+                grafana_apps_provisioning_connection_v0alpha1.github_app: |-
+                    {
+                      "metadata": [
+                        {
+                          "uid": "my-github-app-connection"
+                        }
+                      ],
+                      "secure": [
+                        {
+                          "private_key": {
+                            "create": "replace-me"
+                          }
+                        }
+                      ],
+                      "secure_version": 1,
+                      "spec": [
+                        {
+                          "description": "GitHub App connection used by a folder-scoped Git Sync repository",
+                          "github": [
+                            {
+                              "app_id": "12345",
+                              "installation_id": "67890"
+                            }
+                          ],
+                          "title": "My GitHub App Connection",
+                          "type": "github",
+                          "url": "https://github.com"
+                        }
+                      ]
+                    }
+            - name: bitbucket_token
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "my-bitbucket-folder-repo"
+                    }
+                  ],
+                  "secure": [
+                    {
+                      "token": {
+                        "create": "replace-me"
+                      }
+                    }
+                  ],
+                  "secure_version": 1,
+                  "spec": [
+                    {
+                      "bitbucket": [
+                        {
+                          "branch": "main",
+                          "path": "grafanatftest",
+                          "token_user": "x-bitbucket-api-token-auth",
+                          "url": "https://bitbucket.org/example/grafana-dashboards"
+                        }
+                      ],
+                      "description": "Folder-scoped Bitbucket repository authenticated directly with an Atlassian API token",
+                      "sync": [
+                        {
+                          "enabled": true,
+                          "interval_seconds": 60,
+                          "target": "folder"
+                        }
+                      ],
+                      "title": "My Bitbucket Folder Repository",
+                      "type": "bitbucket",
+                      "workflows": [
+                        "write",
+                        "branch"
+                      ]
+                    }
+                  ]
+                }
+            - name: gitlab_token
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "my-gitlab-folder-repo"
+                    }
+                  ],
+                  "secure": [
+                    {
+                      "token": {
+                        "create": "replace-me"
+                      }
+                    }
+                  ],
+                  "secure_version": 1,
+                  "spec": [
+                    {
+                      "description": "Folder-scoped GitLab repository authenticated directly with a token",
+                      "gitlab": [
+                        {
+                          "branch": "main",
+                          "path": "grafanatftest",
+                          "url": "https://gitlab.com/example/grafana-dashboards"
+                        }
+                      ],
+                      "sync": [
+                        {
+                          "enabled": true,
+                          "interval_seconds": 60,
+                          "target": "folder"
+                        }
+                      ],
+                      "title": "My GitLab Folder Repository",
+                      "type": "gitlab",
+                      "workflows": [
+                        "write",
+                        "branch"
+                      ]
+                    }
+                  ]
+                }
+            - name: pure_git
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "my-pure-git-folder-repo"
+                    }
+                  ],
+                  "secure": [
+                    {
+                      "token": {
+                        "create": "replace-me"
+                      }
+                    }
+                  ],
+                  "secure_version": 1,
+                  "spec": [
+                    {
+                      "description": "Folder-scoped generic Git repository authenticated with a token",
+                      "git": [
+                        {
+                          "branch": "main",
+                          "path": "grafanatftest",
+                          "token_user": "git",
+                          "url": "https://git.example.com/platform/dashboards.git"
+                        }
+                      ],
+                      "sync": [
+                        {
+                          "enabled": true,
+                          "interval_seconds": 60,
+                          "target": "folder"
+                        }
+                      ],
+                      "title": "My Pure Git Folder Repository",
+                      "type": "git",
+                      "workflows": [
+                        "write"
+                      ]
+                    }
+                  ]
+                }
+            - name: local_repo
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "my-local-folder-repo"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "description": "Folder-scoped local filesystem repository",
+                      "local": [
+                        {
+                          "path": "/usr/share/grafana/conf/provisioning/my-local-repo"
+                        }
+                      ],
+                      "sync": [
+                        {
+                          "enabled": true,
+                          "interval_seconds": 60,
+                          "target": "folder"
+                        }
+                      ],
+                      "title": "My Local Folder Repository",
+                      "type": "local",
+                      "workflows": [
+                        "write"
+                      ]
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            bitbucket: (Block, Optional) Bitbucket repository configuration. (see below for nested schema)
+            branch: (String) Branch to sync.
+            connection: (Block, Optional) Connection resource reference. (see below for nested schema)
+            description: (String) Repository description.
+            enabled: (Boolean) Whether sync is enabled.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            generate_dashboard_previews: (Boolean) Whether to generate dashboard previews.
+            git: (Block, Optional) Generic git repository configuration. (see below for nested schema)
+            github: (Block, Optional) GitHub repository configuration. (see below for nested schema)
+            gitlab: (Block, Optional) GitLab repository configuration. (see below for nested schema)
+            id: (String) The ID of the resource derived from UUID.
+            interval_seconds: (Number) Sync interval in seconds.
+            local: (Block, Optional) Local filesystem repository configuration. (see below for nested schema)
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            name: (String) Connection resource name.
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            path: (String) Optional subdirectory path.
+            secure: (Block, Optional) Sensitive credentials. Values are write-only and never stored in Terraform state. (see below for nested schema)
+            secure_version: (Number) Set this to 1 when using secure, then increment it to trigger re-application of secure values.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            sync: (Block, Optional) Sync configuration. (see below for nested schema)
+            target: '(String) Sync target: instance or folder.'
+            title: (String) Display name shown in the UI.
+            token: (Map of String, Write-only) Token for repository authentication.
+            token_user: (String) Username for PAT auth.
+            type: '(String) Repository provider type: local, github, git, bitbucket, or gitlab.'
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+            webhook_secret: (Map of String, Write-only) Webhook secret.
+            workflows: '(List of String) Allowed change workflows: write, branch.'
+        importStatements: []
     grafana_apps_rules_alertrule_v0alpha1:
         subCategory: Alerting
         description: Manages Grafana Alert Rules. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
