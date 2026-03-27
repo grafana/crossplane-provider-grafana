@@ -196,7 +196,7 @@ func countTotal(grouped map[string][]*dsInfo) int {
 
 func parseLegacySchema(acronyms map[string]bool, info *dsInfo) {
 	if info.legacySchema == nil || info.legacySchema.Schema == nil {
-		return
+		log.Fatalf("data source %q has nil schema", info.tfName)
 	}
 	for name, field := range info.legacySchema.Schema {
 		if name == "id" {
@@ -253,14 +253,12 @@ func parseFWSchema(acronyms map[string]bool, info *dsInfo, ds datasource.DataSou
 	}
 	s, ok := ds.(schemaer)
 	if !ok {
-		log.Printf("WARN: data source %q does not implement Schema", info.tfName)
-		return
+		log.Fatalf("data source %q does not implement Schema", info.tfName)
 	}
 	var resp datasource.SchemaResponse
 	s.Schema(ctx, datasource.SchemaRequest{}, &resp)
 	if resp.Diagnostics.HasError() {
-		log.Printf("WARN: schema for %q has errors: %v", info.tfName, resp.Diagnostics.Errors())
-		return
+		log.Fatalf("schema for %q has errors: %v", info.tfName, resp.Diagnostics.Errors())
 	}
 
 	for name, attr := range resp.Schema.Attributes {
