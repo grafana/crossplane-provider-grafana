@@ -265,21 +265,19 @@ jobs:
       - name: Deploying locally built provider package
         run: make local-deploy
 
-  publish-artifacts:
-    runs-on: ubuntu-24.04
-    # Explicitly set permissions for this job
-    permissions:
-      id-token: write
-      contents: write
-      packages: write
-    needs:
-      - detect-noop
-      - report-breaking-changes
-      - lint
-      - check-diff
-      - unit-tests
-      - local-deploy
+  build-artifacts:
+    runs-on: ${{ matrix.runner }}
+    needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        include:
+          - platform: linux_amd64
+            runner: ubuntu-24.04
+          - platform: linux_arm64
+            runner: ubuntu-24.04-arm
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -287,37 +285,10 @@ jobs:
         with:
           egress-policy: audit
 
-      - name: Setup QEMU
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
-        with:
-          platforms: all
-
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
         with:
           version: ${{ env.DOCKER_BUILDX_VERSION }}
-
-      - name: Get Upbound Credentials from Vault
-        uses: grafana/shared-workflows/actions/get-vault-secrets@f1614b210386ac420af6807a997ac7f6d96e477a # get-vault-secrets/v1.3.1
-        with:
-          common_secrets: |
-            UPBOUND_MARKETPLACE_PUSH_ROBOT_ID=upbound:access-id
-            UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN=upbound:token
-
-      - name: Login to Upbound
-        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
-        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
-        with:
-          registry: xpkg.upbound.io
-          username: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID }}
-          password: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN }}
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -341,21 +312,21 @@ jobs:
         uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
           path: ${{ steps.go.outputs.cache }}
-          key: ${{ runner.os }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
-          restore-keys: ${{ runner.os }}-build-publish-artifacts-
+          key: ${{ runner.os }}-${{ runner.arch }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-${{ runner.arch }}-build-publish-artifacts-
 
       - name: Cache Go Dependencies
         uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
           path: .work/pkg
-          key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
-          restore-keys: ${{ runner.os }}-pkg-
+          key: ${{ runner.os }}-${{ runner.arch }}-pkg-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-${{ runner.arch }}-pkg-
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
       - name: Build Artifacts
-        run: make -j2 build.all
+        run: make -j2 build.all PLATFORMS=${{ matrix.platform }}
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
@@ -364,8 +335,72 @@ jobs:
       - name: Upload Artifacts to GitHub
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
-          name: output
+          name: output-${{ matrix.platform }}
           path: _output/**
+
+  publish-artifacts:
+    runs-on: ubuntu-24.04
+    # Explicitly set permissions for this job
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+    needs:
+      - detect-noop
+      - report-breaking-changes
+      - lint
+      - check-diff
+      - unit-tests
+      - local-deploy
+      - build-artifacts
+    if: needs.detect-noop.outputs.noop != 'true'
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@58077d3c7e43986b6b15fba718e8ea69e387dfcc # v2.15.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: true
+          persist-credentials: false
+
+      - name: Fetch History
+        run: git fetch --prune --unshallow
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          pattern: output-*
+          path: _output
+          merge-multiple: true
+
+      - name: Install Crossplane CLI
+        run: make build.init
+
+      - name: Get Upbound Credentials from Vault
+        uses: grafana/shared-workflows/actions/get-vault-secrets@f1614b210386ac420af6807a997ac7f6d96e477a # get-vault-secrets/v1.3.1
+        with:
+          common_secrets: |
+            UPBOUND_MARKETPLACE_PUSH_ROBOT_ID=upbound:access-id
+            UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN=upbound:token
+
+      - name: Login to Upbound
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
+        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
+        with:
+          registry: xpkg.upbound.io
+          username: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID }}
+          password: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4.0.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Artifacts to Upbound
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
