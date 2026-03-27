@@ -15,6 +15,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	fwschema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
+	fwtypes "github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"golang.org/x/tools/imports"
 )
@@ -335,31 +337,32 @@ func sdkTypeToGo(field *sdkschema.Schema) string {
 }
 
 func fwAttrTypeToGo(attr fwschema.Attribute) string {
-	typeName := attr.GetType().String()
+	ctx := context.Background()
+	attrType := attr.GetType()
+	tfType := attrType.TerraformType(ctx)
 	required := attr.IsRequired()
+
 	switch {
-	// Check collection types before scalar types because e.g.
-	// "types.SetType[basetypes.StringType]" contains "StringType".
-	case strings.Contains(typeName, "ListType"), strings.Contains(typeName, "SetType"):
+	case tfType.Is(tftypes.List{}) || tfType.Is(tftypes.Set{}):
 		return "[]string"
-	case strings.Contains(typeName, "MapType"):
+	case tfType.Is(tftypes.Map{}):
 		return "map[string]string"
-	case strings.Contains(typeName, "StringType"):
+	case attrType.Equal(fwtypes.StringType):
 		if required {
 			return goTypeString
 		}
 		return goTypePtrString
-	case strings.Contains(typeName, "Int64Type"):
+	case attrType.Equal(fwtypes.Int64Type):
 		if required {
 			return goTypeInt64
 		}
 		return goTypePtrInt64
-	case strings.Contains(typeName, "Float64Type"):
+	case attrType.Equal(fwtypes.Float64Type):
 		if required {
 			return goTypeFloat64
 		}
 		return goTypePtrFloat
-	case strings.Contains(typeName, "BoolType"):
+	case attrType.Equal(fwtypes.BoolType):
 		if required {
 			return goTypeBool
 		}
