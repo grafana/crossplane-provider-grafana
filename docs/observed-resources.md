@@ -243,6 +243,26 @@ Two `ReadFn` builders are provided:
   factory func (from `zz_factories.go`), constructs a `tfsdk.Config`, calls
   `ds.Read()`, and extracts the resulting `tfsdk.State`.
 
+#### Shared controller vs. upjet's per-resource approach
+
+Observed resources use a **single shared controller** (`tfdatasource.Setup` in
+`pkg/tfdatasource/`) that handles all observed resources. Each resource is
+registered with that controller by adding a `Spec` to a list; the `Spec`
+contains the resource-specific logic (which Terraform data source to read, how
+to deserialize it, etc.). The reconciliation loop itself is shared.
+
+This differs from upjet's managed resource controllers, which create one
+controller instance per resource. Each resource has its own `Setup()` function
+that instantiates a separate controller.
+
+The shared controller approach is more efficient for observed resources because
+they all follow the same simple semantics: read the data source, populate
+`status.atProvider`, done. There are no resource-specific lifecycle asymmetries
+(like create/update/delete differences) that would require per-resource
+controllers. Managed resources, conversely, have varied CRUD semantics,
+validation rules, and lifecycle hooks per resource, so per-resource controllers
+make sense for them.
+
 ### Grafana-specific wrapper (`cmd/generate-observed/`)
 
 A thin `main.go` (~60 lines) that defines the Grafana category rules, acronyms,
