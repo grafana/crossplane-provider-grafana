@@ -8,6 +8,7 @@ package tfdatasource
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 
 	"github.com/pkg/errors"
@@ -60,6 +61,15 @@ type Spec struct {
 
 // Setup adds a controller that reconciles an observe-only resource.
 func Setup(mgr ctrl.Manager, o tjcontroller.Options, spec Spec) error {
+	if spec.NewManaged == nil {
+		return fmt.Errorf("tfdatasource: Spec.NewManaged must not be nil (kind %s)", spec.ManagedKind)
+	}
+	if spec.ConnectFn == nil {
+		return fmt.Errorf("tfdatasource: Spec.ConnectFn must not be nil (kind %s)", spec.ManagedKind)
+	}
+	if spec.Read == nil {
+		return fmt.Errorf("tfdatasource: Spec.Read must not be nil (kind %s)", spec.ManagedKind)
+	}
 	name := managed.ControllerName(spec.ManagedKind.String())
 	r := managed.NewReconciler(mgr,
 		resource.ManagedKind(spec.ManagedKind),
@@ -105,6 +115,11 @@ type external struct {
 	providerMeta any
 }
 
+// Observe checks whether the resource needs to be refreshed but does not
+// perform the data source read itself. When ResourceUpToDate=false, the
+// reconciler calls Update, which is where the actual Read happens. This means
+// Observe effectively controls the poll interval: if IsUpToDate returns false
+// (or is nil, the default), the resource is re-read on every poll cycle.
 func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
 	if meta.WasDeleted(mg) {
 		return managed.ExternalObservation{ResourceExists: false}, nil
