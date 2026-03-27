@@ -52,15 +52,16 @@ func NewLegacyReadFn(
 
 		// providerMeta is the configured provider's Meta() — pass it as the
 		// second argument to ReadContext, which expects the provider's client.
-		if ds.ReadContext != nil {
+		switch {
+		case ds.ReadContext != nil:
 			if diags := ds.ReadContext(ctx, d, providerMeta); diags.HasError() {
 				return fmt.Errorf("data source %q read failed: %v", dsName, diags)
 			}
-		} else if ds.Read != nil {
-			if err := ds.Read(d, providerMeta); err != nil {
+		case ds.Read != nil: //nolint:staticcheck // ds.Read is the fallback for older TF providers that haven't migrated to ReadContext.
+			if err := ds.Read(d, providerMeta); err != nil { //nolint:staticcheck
 				return fmt.Errorf("data source %q read failed: %w", dsName, err)
 			}
-		} else {
+		default:
 			return fmt.Errorf("data source %q has no Read or ReadContext function", dsName)
 		}
 

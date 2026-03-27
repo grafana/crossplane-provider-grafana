@@ -321,14 +321,14 @@ func sdkTypeToGo(field *sdkschema.Schema) string {
 		if elem, ok := field.Elem.(*sdkschema.Schema); ok {
 			switch elem.Type { //nolint:exhaustive // Only string and int element types are relevant.
 			case sdkschema.TypeString:
-				return "[]string"
+				return goTypeSliceStr
 			case sdkschema.TypeInt:
 				return "[]int64"
 			default:
-				return "[]string"
+				return goTypeSliceStr
 			}
 		}
-		return "[]string"
+		return goTypeSliceStr
 	case sdkschema.TypeMap:
 		return "map[string]string"
 	default:
@@ -344,7 +344,7 @@ func fwAttrTypeToGo(attr fwschema.Attribute) string {
 
 	switch {
 	case tfType.Is(tftypes.List{}) || tfType.Is(tftypes.Set{}):
-		return "[]string"
+		return goTypeSliceStr
 	case tfType.Is(tftypes.Map{}):
 		return "map[string]string"
 	case attrType.Equal(fwtypes.StringType):
