@@ -1,5 +1,5 @@
 /*
-Copyright 2025 Grafana
+Copyright 2026 Grafana Labs
 */
 
 // Package generateobserved provides a provider-agnostic code generator that

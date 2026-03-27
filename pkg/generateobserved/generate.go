@@ -1,5 +1,5 @@
 /*
-Copyright 2025 Grafana
+Copyright 2026 Grafana Labs
 */
 
 package generateobserved

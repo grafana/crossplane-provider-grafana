@@ -1,5 +1,5 @@
 /*
-Copyright 2025 Grafana
+Copyright 2026 Grafana Labs
 
 generate-observed introspects the Terraform Grafana provider's data sources
 and emits Crossplane observe-only resource types, controller specs, and
@@ -43,7 +43,7 @@ func main() {
 	cfg := generateobserved.Config{
 		ModulePath:      "github.com/grafana/crossplane-provider-grafana/v2",
 		APIVersion:      "v1alpha1",
-		CopyrightHeader: "Copyright 2025 Grafana",
+		CopyrightHeader: "Copyright 2026 Grafana Labs",
 		GroupSuffix:     ".grafana.o.crossplane.io",
 
 		TFProviderImport:        "github.com/grafana/terraform-provider-grafana/v4/pkg/provider",
