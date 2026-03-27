@@ -100,6 +100,10 @@ type DashboardV2Beta1Observation struct {
 
 type DashboardV2Beta1OptionsInitParameters struct {
 
+	// (Boolean) Set to true to allow editing the resource from the Grafana UI.
+	// Set to true to allow editing the resource from the Grafana UI.
+	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -107,12 +111,21 @@ type DashboardV2Beta1OptionsInitParameters struct {
 
 type DashboardV2Beta1OptionsObservation struct {
 
+	// (Boolean) Set to true to allow editing the resource from the Grafana UI.
+	// Set to true to allow editing the resource from the Grafana UI.
+	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type DashboardV2Beta1OptionsParameters struct {
+
+	// (Boolean) Set to true to allow editing the resource from the Grafana UI.
+	// Set to true to allow editing the resource from the Grafana UI.
+	// +kubebuilder:validation:Optional
+	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
 
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.

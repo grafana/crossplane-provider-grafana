@@ -193,14 +193,13 @@ github.com/google/flatbuffers v25.12.19+incompatible/go.mod h1:1AeVuKshWv4vARoZa
 github.com/google/gnostic-models v0.7.1 h1:SisTfuFKJSKM5CPZkffwi6coztzzeYUhc3v4yxLWH8c=
 github.com/google/gnostic-models v0.7.1/go.mod h1:whL5G0m6dmc5cPxKc5bdKdEN3UjI7OUGxBlw57miDrQ=
 github.com/google/go-cmp v0.3.1/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
-github.com/google/go-cmp v0.5.2/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.5.4/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
 github.com/google/go-cmp v0.7.0/go.mod h1:pXiqmnSA92OHEEa9HXL2W4E7lf9JzCmGVUdgjX3N/iU=
-github.com/google/go-querystring v1.1.0 h1:AnCroh3fv4ZBgVIf1Iwtovgjaw/GiKJo8M8yD/fhyJ8=
-github.com/google/go-querystring v1.1.0/go.mod h1:Kcdr2DB4koayq7X8pmAG4sNG59So17icRSOU623lUBU=
+github.com/google/go-querystring v1.2.0 h1:yhqkPbu2/OH+V9BfpCVPZkNmUXhb2gBxJArfhIxNtP0=
+github.com/google/go-querystring v1.2.0/go.mod h1:8IFJqpSRITyJ8QhQ13bmbeMBDfmeEJZD5A0egEOmkqU=
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/google/gofuzz v1.2.0 h1:xRy4A+RhZaiKjJ1bPfwQ8sedCA+YS2YcCHW6ec7JMi0=
 github.com/google/gofuzz v1.2.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
@@ -240,6 +239,8 @@ github.com/grafana/grafana/apps/dashboard v0.0.0-20260225143800-29e6c7a419ab h1:
 github.com/grafana/grafana/apps/dashboard v0.0.0-20260225143800-29e6c7a419ab/go.mod h1:OnOKcK1JccjaK3K/p9zjZ8qujRTSJyIS1047vSZf0p4=
 github.com/grafana/grafana/apps/playlist v0.0.0-20250424064802-2fbb2d6f5d27 h1:aJACrPQ7VFR8V3i9CD8eM+daFdCawv86n3n5Ur8S6YQ=
 github.com/grafana/grafana/apps/playlist v0.0.0-20250424064802-2fbb2d6f5d27/go.mod h1:9U44mptAJW8bkvgPgCxsnki58/nz3wKPgDayeyeFWJs=
+github.com/grafana/grafana/apps/provisioning v0.0.0-20260218091122-4fe7fb5b985e h1:HwXIA5N5HtJ1VYK6zi24BHD+grrPNKaN6SDOgyhCX7E=
+github.com/grafana/grafana/apps/provisioning v0.0.0-20260218091122-4fe7fb5b985e/go.mod h1:YKUckRwavwPKnnLBFL1fBryt7PrNV+N3cNFKsZSs2X0=
 github.com/grafana/grafana/apps/secret v0.0.0-20260224124528-75b1e0cf0f79 h1:OcJg4GtqYZEJ8MwdKFeRDNwMo6i2Nze+AClLVG0Fc5k=
 github.com/grafana/grafana/apps/secret v0.0.0-20260224124528-75b1e0cf0f79/go.mod h1:lQo3bYJRk1lAuAa8gQWipPzoxvFdKJ3IKJdcsabK6cE=
 github.com/grafana/grafana/pkg/apimachinery v0.0.0-20260225160729-8b7042cc192e h1:NHn/tWQ6Hy2uMZ8ES5K0s90VuiGvQ35cBonzjTOlfbE=
@@ -260,8 +261,8 @@ github.com/grafana/synthetic-monitoring-agent v0.43.1 h1:Qejsuf25yZzdImVLZ6K1f5c
 github.com/grafana/synthetic-monitoring-agent v0.43.1/go.mod h1:HO4es33UF/5b3i4JdUhVcvs9abUXESMjFxnWP8y6KG0=
 github.com/grafana/synthetic-monitoring-api-go-client v0.17.1 h1:6ZQoQVD0sASxe5OVEk/T/YEOYOuilSA434bX4n3SJLQ=
 github.com/grafana/synthetic-monitoring-api-go-client v0.17.1/go.mod h1:3XfDhlxYkC/Apaug0e0vd4wHx8JZJ4k+v5ybny8ZGfc=
-github.com/grafana/terraform-provider-grafana/v4 v4.28.0 h1:D24qrbvBRu8qCFECHFZqFtElmptpkwc1+yrJK5beIi0=
-github.com/grafana/terraform-provider-grafana/v4 v4.28.0/go.mod h1:gky3V076aZV2BmaHMRq9lfdUQxfDhD4IOx01HnEZtCc=
+github.com/grafana/terraform-provider-grafana/v4 v4.28.1 h1:Kq7IVb/QHJ/tCYGgJxJpfb7kpV4bXmJRbrLCCg4KaBc=
+github.com/grafana/terraform-provider-grafana/v4 v4.28.1/go.mod h1:4jx9p0ArVYKuA3de/Ok4Uxmf3NiWl/BZnwJKBse2m1E=
 github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9 h1:Pxh+hnc5vuZWnoh5M2GkBJ3OWo9tR985JHDtOfqbdgs=
 github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9/go.mod h1:jDCqvAFLrVEzqE+pywmQ5u18HbJK5j5Jj4cTQpqOLqY=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 h1:QGLs/O40yoNK9vmy4rhUGBVyMf1lISBGtXRpsu/Qu/o=

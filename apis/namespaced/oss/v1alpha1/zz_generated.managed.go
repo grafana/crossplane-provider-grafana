@@ -47,6 +47,46 @@ func (mg *Annotation) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretRef
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this ConnectionV0Alpha1.
+func (mg *ConnectionV0Alpha1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this Dashboard.
 func (mg *Dashboard) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
@@ -684,6 +724,46 @@ func (mg *PlaylistV0Alpha1) SetProviderConfigReference(r *xpv1.ProviderConfigRef
 
 // SetWriteConnectionSecretToReference of this PlaylistV0Alpha1.
 func (mg *PlaylistV0Alpha1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this RepositoryV0Alpha1.
+func (mg *RepositoryV0Alpha1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

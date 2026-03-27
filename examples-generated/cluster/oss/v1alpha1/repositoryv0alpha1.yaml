@@ -1,0 +1,31 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: RepositoryV0Alpha1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/repositoryv0alpha1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+    - uid: my-github-folder-repo
+    secure:
+    - token:
+        create: replace-me
+    secureVersion: 1
+    spec:
+    - description: Folder-scoped GitHub repository authenticated directly with a token
+      github:
+      - branch: main
+        path: grafanatftest
+        url: https://github.com/example/grafana-dashboards
+      sync:
+      - enabled: true
+        intervalSeconds: 60
+        target: folder
+      title: My GitHub Folder Repository
+      type: github
+      workflows:
+      - write
+      - branch

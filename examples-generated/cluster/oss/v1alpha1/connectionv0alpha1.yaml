@@ -1,0 +1,24 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: ConnectionV0Alpha1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/connectionv0alpha1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+    - uid: my-github-connection
+    secure:
+    - privateKey:
+        create: replace-me
+    secureVersion: 1
+    spec:
+    - description: GitHub App connection used by a folder-scoped Git Sync repository
+      github:
+      - appId: "12345"
+        installationId: "67890"
+      title: My GitHub App Connection
+      type: github
+      url: https://github.com
