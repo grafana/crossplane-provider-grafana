@@ -252,4 +252,4 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9
+replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.2.0
