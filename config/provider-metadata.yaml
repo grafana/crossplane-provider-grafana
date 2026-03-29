@@ -313,43 +313,11 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
         importStatements: []
-    grafana_apps_notifications_inhibitionrule_v0alpha1:
+    grafana_apps_notifications_inhibitionrule_v1beta1 Resource - terraform-provider-grafana:
         subCategory: Alerting
         description: Manages Grafana Inhibition Rules.
-        name: grafana_apps_notifications_inhibitionrule_v0alpha1
-        title: grafana_apps_notifications_inhibitionrule_v0alpha1 Resource - terraform-provider-grafana
-        examples:
-            - name: example
-              manifest: |-
-                {
-                  "metadata": [
-                    {
-                      "uid": "example-inhibition-rule"
-                    }
-                  ],
-                  "spec": [
-                    {
-                      "equal": [
-                        "namespace",
-                        "pod"
-                      ],
-                      "source_matchers": [
-                        {
-                          "label": "alertname",
-                          "type": "=",
-                          "value": "TargetDown"
-                        }
-                      ],
-                      "target_matchers": [
-                        {
-                          "label": "severity",
-                          "type": "=",
-                          "value": "warning"
-                        }
-                      ]
-                    }
-                  ]
-                }
+        name: grafana_apps_notifications_inhibitionrule_v1beta1 Resource - terraform-provider-grafana
+        title: grafana_apps_notifications_inhibitionrule_v1beta1 Resource - terraform-provider-grafana
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
             equal: (List of String) Labels that must have equal values in source and target alerts for the inhibition to take effect.

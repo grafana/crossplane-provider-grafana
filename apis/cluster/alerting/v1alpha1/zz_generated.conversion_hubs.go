@@ -16,7 +16,7 @@ func (tr *AlertruleV0Alpha1) Hub() {}
 func (tr *ContactPoint) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *InhibitionruleV0Alpha1) Hub() {}
+func (tr *InhibitionruleV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *MessageTemplate) Hub() {}
