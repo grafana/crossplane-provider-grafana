@@ -83,7 +83,7 @@ provider_installation {
 }
 ```
 
-**Solution 2**: delete generated `.cache`, `.work` and `_output` folders and try again.
+**Solution 2**: run `make distclean` to remove generated `.cache`, `.work` and `_output` folders and try again.
 
 Additionally, you can check the `terraform` logs via:
 
