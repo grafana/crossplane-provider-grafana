@@ -37,96 +37,12 @@ You can see the API reference [here](https://marketplace.upbound.io/providers/gr
 
 For information on configuring provider credentials and ProviderConfig secret fields, see the [ProviderConfig Secret Fields documentation](docs/providerconfig-secret-fields.md).
 
-## Developing
+## Contributing
 
-### Initial setup
-
-```bash
-make submodules
-```
-
-Run code-generation pipeline:
-
-```console
-make generate
-```
-
-Run against a Kubernetes cluster:
-
-```console
-make run
-```
-
-Build, push, and install:
-
-```console
-make all
-```
-
-Build binary:
-
-```console
-make build
-```
-
-### Installing Provider/CRDs into your local k8s cluster
-
-1. Ensure Crossplane is installed on your local cluster (instructions [here](https://docs.crossplane.io/latest/software/install/))
-2. Run the following:
-
-   ```bash
-   kubectl config use-context <name-of-your-local-k8s-context>
-   kubectl apply -f ./package/crossplane.yaml
-   kubectl apply -f ./package/crds
-   ```
-
-### Possible issues when running locally
-
-Below are some issues that have been encountered and may be helpful in the future to others.
-
-```bash
-❯ make generate
-14:35:30 [ .. ] generating provider schema for grafana/grafana 2.19.1
-make[1]: *** [config/schema.json] Error 1
-make: *** [generate] Error 2
-```
-
-**Solution**: ensure that you do not have a `.terraformrc` defined somewhere. For example `~/.terraformrc`:
-
-```bash
-❯ cat ~/.terraformrc
-provider_installation {
-    dev_overrides {
-        "grafana/grafana" = "/Users/joeyorlando/coding/grafana/terraform-provider-grafana"
-    }
-}
-```
-
-**Solution 2**: delete generated `.cache`, `.work` and `_output` folders and try again.
-
-Additionally, you can check the `terraform` logs via:
-
-```bash
-❯ cat ./.work/terraform/terraform-logs.txt
-...
-```
-
-Lastly, make sure that you have the following defined in your `.bashrc` (or `.zshrc`):
-
-```bash
-export PATH="$PATH:$HOME/go/bin"
-```
-
-## Update resources
-
-Steps to update resources from the latest Terraform provider version:
-
-1. Update terraform provider version in [go.mod](go.mod) file.
-2. Generate the resources with `go generate`.
-   * Resources are automatically picked up from the upstream provider's category metadata.
-   * If a new category was added upstream, `go generate` will panic with a message telling you to add an entry to `categoryConfig` in [groups.go](config/groups.go).
-3. Create a PR with the result.
+See [docs/contributing.md](docs/contributing.md) for development setup and contribution guidelines.
 
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please open an [issue](https://github.com/grafana/crossplane-provider-grafana/issues).
+
+Note that most resource logic lives in the upstream [Terraform provider for Grafana](https://github.com/grafana/terraform-provider-grafana). If the issue is related to resource behavior rather than Crossplane-specific functionality, it may need to be reported there instead.
