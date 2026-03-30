@@ -81,7 +81,6 @@ func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 		// add custom config functions
 		grafana.ConfigureOrgIDRefs,
 		grafana.Configure,
-		grafana.ConfigureOnCallRefsAndSelectors,
 	}, generationProvider)
 }
 
@@ -91,7 +90,6 @@ func GetProviderNamespaced(generationProvider bool) (*ujconfig.Provider, error) 
 		// add custom config functions
 		grafana.ConfigureOrgIDRefs,
 		grafana.Configure,
-		grafana.ConfigureOnCallRefsAndSelectors,
 	}, generationProvider)
 }
 
