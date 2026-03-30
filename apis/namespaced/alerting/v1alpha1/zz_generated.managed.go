@@ -127,43 +127,43 @@ func (mg *ContactPoint) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretR
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
-// GetCondition of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+// GetCondition of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
-// GetManagementPolicies of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) GetManagementPolicies() xpv1.ManagementPolicies {
+// GetManagementPolicies of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) GetManagementPolicies() xpv1.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
-// GetProviderConfigReference of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+// GetProviderConfigReference of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
-// GetWriteConnectionSecretToReference of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+// GetWriteConnectionSecretToReference of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
-// SetConditions of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) SetConditions(c ...xpv1.Condition) {
+// SetConditions of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) SetConditions(c ...xpv1.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
-// SetManagementPolicies of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+// SetManagementPolicies of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) SetManagementPolicies(r xpv1.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
-// SetProviderConfigReference of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+// SetProviderConfigReference of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
-// SetWriteConnectionSecretToReference of this InhibitionruleV0Alpha1.
-func (mg *InhibitionruleV0Alpha1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+// SetWriteConnectionSecretToReference of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 

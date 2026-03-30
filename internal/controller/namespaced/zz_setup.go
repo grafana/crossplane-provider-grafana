@@ -12,7 +12,7 @@ import (
 	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertenrichmentv1beta1"
 	alertrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertrulev0alpha1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/contactpoint"
-	inhibitionrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/inhibitionrulev0alpha1"
+	inhibitionrulev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/inhibitionrulev1beta1"
 	messagetemplate "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/messagetemplate"
 	mutetiming "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/notificationpolicy"
@@ -121,7 +121,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		alertenrichmentv1beta1.Setup,
 		alertrulev0alpha1.Setup,
 		contactpoint.Setup,
-		inhibitionrulev0alpha1.Setup,
+		inhibitionrulev1beta1.Setup,
 		messagetemplate.Setup,
 		mutetiming.Setup,
 		notificationpolicy.Setup,
@@ -236,7 +236,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		alertenrichmentv1beta1.SetupGated,
 		alertrulev0alpha1.SetupGated,
 		contactpoint.SetupGated,
-		inhibitionrulev0alpha1.SetupGated,
+		inhibitionrulev1beta1.SetupGated,
 		messagetemplate.SetupGated,
 		mutetiming.SetupGated,
 		notificationpolicy.SetupGated,
