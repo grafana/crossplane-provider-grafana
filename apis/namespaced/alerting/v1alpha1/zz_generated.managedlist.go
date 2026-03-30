@@ -34,8 +34,8 @@ func (l *ContactPointList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this InhibitionruleV0Alpha1List.
-func (l *InhibitionruleV0Alpha1List) GetItems() []resource.Managed {
+// GetItems of this InhibitionruleV1Beta1List.
+func (l *InhibitionruleV1Beta1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
