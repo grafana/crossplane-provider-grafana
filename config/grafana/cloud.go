@@ -136,4 +136,20 @@ func configureCloud(p *ujconfig.Provider) {
 			return conn, nil
 		}
 	})
+	p.AddResourceConfigurator("grafana_cloud_private_data_source_connect_network", func(r *ujconfig.Resource) {
+		r.References["stack_identifier"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack",
+			RefFieldName:      "CloudStackRef",
+			SelectorFieldName: "CloudStackSelector",
+			Extractor:         computedFieldExtractor("id"),
+		}
+	})
+	p.AddResourceConfigurator("grafana_cloud_private_data_source_connect_network_token", func(r *ujconfig.Resource) {
+		r.References["pdc_network_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_private_data_source_connect_network",
+			RefFieldName:      "PdcNetworkRef",
+			SelectorFieldName: "PdcNetworkSelector",
+			Extractor:         computedFieldExtractor("pdcNetworkId"),
+		}
+	})
 }
