@@ -6,7 +6,9 @@
   packageRules: [
     {
       // Auto-merge patch updates
-      matchUpdateTypes: ['patch'],
+      matchUpdateTypes: [
+        'patch',
+      ],
       automerge: true,
       automergeType: 'pr',
       automergeStrategy: 'squash',
@@ -14,21 +16,25 @@
     {
       // Disable auto-updates for controller-runtime and controller-tools
       // These must be updated manually alongside crossplane-runtime due to API compatibility
-      matchPackagePatterns: [
-        '^sigs\\.k8s\\.io/controller-runtime',
-        '^sigs\\.k8s\\.io/controller-tools',
-      ],
       enabled: false,
+      matchPackageNames: [
+        '/^sigs\\.k8s\\.io/controller-runtime/',
+        '/^sigs\\.k8s\\.io/controller-tools/',
+      ],
     },
     {
       // When terraform-provider-grafana is updated, run make submodules and make generate
-      matchPackageNames: ['github.com/grafana/terraform-provider-grafana/v4'],
+      matchPackageNames: [
+        'github.com/grafana/terraform-provider-grafana/v4',
+      ],
       postUpgradeTasks: {
         commands: [
           'make submodules',
           'make generate',
         ],
-        fileFilters: ['**/*'],
+        fileFilters: [
+          '**/*',
+        ],
         executionMode: 'branch',
       },
     },
