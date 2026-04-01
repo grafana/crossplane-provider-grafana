@@ -12,7 +12,13 @@ spec:
     icalUrlPrimary: https://example.com/example_ical.ics
     name: Example Ical Schedule
     slack:
-    - channelId: ${data.grafana_oncall_slack_channel.example_slack_channel.slack_id}
-      userGroupId: ${data.grafana_oncall_user_group.example_user_group.slack_id}
-    teamId: ${data.grafana_oncall_team.my_team.id}
+    - slackChannelSelector:
+        matchLabels:
+          testing.upbound.io/example-name: grafana_oncall_slack_channel
+      slackUserGroupSelector:
+        matchLabels:
+          testing.upbound.io/example-name: grafana_oncall_user_group
+    teamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_oncall_team
     type: ical

@@ -65,7 +65,19 @@ type OnCallShiftInitParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The shift's timezone.  Overrides schedule's timezone.
 	// The shift's timezone.  Overrides schedule's timezone.
@@ -81,8 +93,20 @@ type OnCallShiftInitParameters struct {
 
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=UsersRef
+	// +crossplane:generate:reference:selectorFieldName=UsersSelector
 	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
+
+	// References to User in oncall to populate users.
+	// +kubebuilder:validation:Optional
+	UsersRef []v1.NamespacedReference `json:"usersRef,omitempty" tf:"-"`
+
+	// Selector for a list of User in oncall to populate users.
+	// +kubebuilder:validation:Optional
+	UsersSelector *v1.NamespacedSelector `json:"usersSelector,omitempty" tf:"-"`
 
 	// (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
@@ -229,8 +253,20 @@ type OnCallShiftParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The shift's timezone.  Overrides schedule's timezone.
 	// The shift's timezone.  Overrides schedule's timezone.
@@ -249,9 +285,21 @@ type OnCallShiftParameters struct {
 
 	// call users (for single_event and recurrent_event event type).
 	// The list of on-call users (for single_event and recurrent_event event type).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=UsersRef
+	// +crossplane:generate:reference:selectorFieldName=UsersSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Users []*string `json:"users,omitempty" tf:"users,omitempty"`
+
+	// References to User in oncall to populate users.
+	// +kubebuilder:validation:Optional
+	UsersRef []v1.NamespacedReference `json:"usersRef,omitempty" tf:"-"`
+
+	// Selector for a list of User in oncall to populate users.
+	// +kubebuilder:validation:Optional
+	UsersSelector *v1.NamespacedSelector `json:"usersSelector,omitempty" tf:"-"`
 
 	// (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU

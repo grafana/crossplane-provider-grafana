@@ -16,9 +16,11 @@ spec:
     interval: 2
     name: Example Shift
     start: 2020-09-07T14:00:00
-    teamId: ${data.grafana_oncall_team.my_team.id}
+    teamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_oncall_team
     timeZone: UTC
     type: recurrent_event
-    users:
-    - ${data.grafana_oncall_user.alex.id}
+    usersRef:
+    - name: grafana_oncall_user
     weekStart: MO

@@ -37,7 +37,18 @@ type OutgoingWebhookInitParameters struct {
 
 	// (List of String) Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
 	// Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:refFieldName=IntegrationFilterRef
+	// +crossplane:generate:reference:selectorFieldName=IntegrationFilterSelector
 	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
+
+	// References to Integration in oncall to populate integrationFilter.
+	// +kubebuilder:validation:Optional
+	IntegrationFilterRef []v1.Reference `json:"integrationFilterRef,omitempty" tf:"-"`
+
+	// Selector for a list of Integration in oncall to populate integrationFilter.
+	// +kubebuilder:validation:Optional
+	IntegrationFilterSelector *v1.Selector `json:"integrationFilterSelector,omitempty" tf:"-"`
 
 	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
 	// Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
@@ -57,7 +68,19 @@ type OutgoingWebhookInitParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
 	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
@@ -163,8 +186,19 @@ type OutgoingWebhookParameters struct {
 
 	// (List of String) Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
 	// Restricts the outgoing webhook to only trigger if the event came from a selected integration. If no integrations are selected the outgoing webhook will trigger for any integration.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Integration
+	// +crossplane:generate:reference:refFieldName=IntegrationFilterRef
+	// +crossplane:generate:reference:selectorFieldName=IntegrationFilterSelector
 	// +kubebuilder:validation:Optional
 	IntegrationFilter []*string `json:"integrationFilter,omitempty" tf:"integration_filter,omitempty"`
+
+	// References to Integration in oncall to populate integrationFilter.
+	// +kubebuilder:validation:Optional
+	IntegrationFilterRef []v1.Reference `json:"integrationFilterRef,omitempty" tf:"-"`
+
+	// Selector for a list of Integration in oncall to populate integrationFilter.
+	// +kubebuilder:validation:Optional
+	IntegrationFilterSelector *v1.Selector `json:"integrationFilterSelector,omitempty" tf:"-"`
 
 	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
 	// Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
@@ -188,8 +222,20 @@ type OutgoingWebhookParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
 	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.

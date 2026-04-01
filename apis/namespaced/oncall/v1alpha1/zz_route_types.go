@@ -213,11 +213,23 @@ type RouteSlackInitParameters struct {
 
 	// (String) Slack channel id. Alerts will be directed to this channel in Slack.
 	// Slack channel id. Alerts will be directed to this channel in Slack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.SlackChannel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackChannelRef
+	// +crossplane:generate:reference:selectorFieldName=SlackChannelSelector
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
 	// (Boolean) Enable notification in MS teams. Defaults to true.
 	// Enable notification in Slack. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Reference to a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+
+	// Selector for a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type RouteSlackObservation struct {
@@ -235,6 +247,10 @@ type RouteSlackParameters struct {
 
 	// (String) Slack channel id. Alerts will be directed to this channel in Slack.
 	// Slack channel id. Alerts will be directed to this channel in Slack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.SlackChannel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackChannelRef
+	// +crossplane:generate:reference:selectorFieldName=SlackChannelSelector
 	// +kubebuilder:validation:Optional
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
@@ -242,6 +258,14 @@ type RouteSlackParameters struct {
 	// Enable notification in Slack. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Reference to a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+
+	// Selector for a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type RouteTelegramInitParameters struct {

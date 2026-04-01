@@ -8,6 +8,7 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -17,6 +18,7 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	r := reference.NewAPINamespacedResolver(c, mg)
 
 	var rsp reference.NamespacedResolutionResponse
+	var mrsp reference.MultiNamespacedResolutionResponse
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -54,6 +56,23 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.ForProvider.EscalationChainRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.GroupToNotify),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.GroupToNotifyRef,
+		Selector:     mg.Spec.ForProvider.GroupToNotifySelector,
+		To: reference.To{
+			List:    &v1alpha1.UserGroupList{},
+			Managed: &v1alpha1.UserGroup{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.GroupToNotify")
+	}
+	mg.Spec.ForProvider.GroupToNotify = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.GroupToNotifyRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -69,6 +88,57 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	}
 	mg.Spec.ForProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.NotifyToTeamMembers),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TeamRef,
+		Selector:     mg.Spec.ForProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.NotifyToTeamMembers")
+	}
+	mg.Spec.ForProvider.NotifyToTeamMembers = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PersonsToNotify),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.PersonsToNotifyRef,
+		Selector:      mg.Spec.ForProvider.PersonsToNotifySelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PersonsToNotify")
+	}
+	mg.Spec.ForProvider.PersonsToNotify = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.PersonsToNotifyRef = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.PersonsToNotifyNextEachTime),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.PersonsToNotifyNextEachTimeRef,
+		Selector:      mg.Spec.ForProvider.PersonsToNotifyNextEachTimeSelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PersonsToNotifyNextEachTime")
+	}
+	mg.Spec.ForProvider.PersonsToNotifyNextEachTime = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.PersonsToNotifyNextEachTimeRef = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ActionToTrigger),
@@ -105,6 +175,23 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	mg.Spec.InitProvider.EscalationChainRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.GroupToNotify),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.GroupToNotifyRef,
+		Selector:     mg.Spec.InitProvider.GroupToNotifySelector,
+		To: reference.To{
+			List:    &v1alpha1.UserGroupList{},
+			Managed: &v1alpha1.UserGroup{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.GroupToNotify")
+	}
+	mg.Spec.InitProvider.GroupToNotify = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.GroupToNotifyRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotifyOnCallFromSchedule),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -120,6 +207,101 @@ func (mg *Escalation) ResolveReferences(ctx context.Context, c client.Reader) er
 	}
 	mg.Spec.InitProvider.NotifyOnCallFromSchedule = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.NotifyOnCallFromScheduleRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.NotifyToTeamMembers),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TeamRef,
+		Selector:     mg.Spec.InitProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.NotifyToTeamMembers")
+	}
+	mg.Spec.InitProvider.NotifyToTeamMembers = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PersonsToNotify),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.PersonsToNotifyRef,
+		Selector:      mg.Spec.InitProvider.PersonsToNotifySelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PersonsToNotify")
+	}
+	mg.Spec.InitProvider.PersonsToNotify = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.PersonsToNotifyRef = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.PersonsToNotifyNextEachTime),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.PersonsToNotifyNextEachTimeRef,
+		Selector:      mg.Spec.InitProvider.PersonsToNotifyNextEachTimeSelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PersonsToNotifyNextEachTime")
+	}
+	mg.Spec.InitProvider.PersonsToNotifyNextEachTime = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.PersonsToNotifyNextEachTimeRef = mrsp.ResolvedReferences
+
+	return nil
+}
+
+// ResolveReferences of this EscalationChain.
+func (mg *EscalationChain) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TeamRef,
+		Selector:     mg.Spec.ForProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TeamID")
+	}
+	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TeamRef,
+		Selector:     mg.Spec.InitProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TeamID")
+	}
+	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -150,6 +332,44 @@ func (mg *Integration) ResolveReferences(ctx context.Context, c client.Reader) e
 		mg.Spec.ForProvider.DefaultRoute[i3].EscalationChainRef = rsp.ResolvedReference
 
 	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.DefaultRoute); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.DefaultRoute[i3].Slack); i4++ {
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DefaultRoute[i3].Slack[i4].ChannelID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.DefaultRoute[i3].Slack[i4].SlackChannelRef,
+				Selector:     mg.Spec.ForProvider.DefaultRoute[i3].Slack[i4].SlackChannelSelector,
+				To: reference.To{
+					List:    &v1alpha1.SlackChannelList{},
+					Managed: &v1alpha1.SlackChannel{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.ForProvider.DefaultRoute[i3].Slack[i4].ChannelID")
+			}
+			mg.Spec.ForProvider.DefaultRoute[i3].Slack[i4].ChannelID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.ForProvider.DefaultRoute[i3].Slack[i4].SlackChannelRef = rsp.ResolvedReference
+
+		}
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TeamRef,
+		Selector:     mg.Spec.ForProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TeamID")
+	}
+	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamRef = rsp.ResolvedReference
+
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DefaultRoute); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainID),
@@ -169,6 +389,201 @@ func (mg *Integration) ResolveReferences(ctx context.Context, c client.Reader) e
 		mg.Spec.InitProvider.DefaultRoute[i3].EscalationChainRef = rsp.ResolvedReference
 
 	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.DefaultRoute); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.DefaultRoute[i3].Slack); i4++ {
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DefaultRoute[i3].Slack[i4].ChannelID),
+				Extract:      reference.ExternalName(),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.DefaultRoute[i3].Slack[i4].SlackChannelRef,
+				Selector:     mg.Spec.InitProvider.DefaultRoute[i3].Slack[i4].SlackChannelSelector,
+				To: reference.To{
+					List:    &v1alpha1.SlackChannelList{},
+					Managed: &v1alpha1.SlackChannel{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.InitProvider.DefaultRoute[i3].Slack[i4].ChannelID")
+			}
+			mg.Spec.InitProvider.DefaultRoute[i3].Slack[i4].ChannelID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.InitProvider.DefaultRoute[i3].Slack[i4].SlackChannelRef = rsp.ResolvedReference
+
+		}
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TeamRef,
+		Selector:     mg.Spec.InitProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TeamID")
+	}
+	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this OnCallShift.
+func (mg *OnCallShift) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TeamRef,
+		Selector:     mg.Spec.ForProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TeamID")
+	}
+	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Users),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.UsersRef,
+		Selector:      mg.Spec.ForProvider.UsersSelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.Users")
+	}
+	mg.Spec.ForProvider.Users = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.UsersRef = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TeamRef,
+		Selector:     mg.Spec.InitProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TeamID")
+	}
+	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Users),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.UsersRef,
+		Selector:      mg.Spec.InitProvider.UsersSelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.Users")
+	}
+	mg.Spec.InitProvider.Users = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.UsersRef = mrsp.ResolvedReferences
+
+	return nil
+}
+
+// ResolveReferences of this OutgoingWebhook.
+func (mg *OutgoingWebhook) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var mrsp reference.MultiNamespacedResolutionResponse
+	var err error
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.IntegrationFilter),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.IntegrationFilterRef,
+		Selector:      mg.Spec.ForProvider.IntegrationFilterSelector,
+		To: reference.To{
+			List:    &IntegrationList{},
+			Managed: &Integration{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.IntegrationFilter")
+	}
+	mg.Spec.ForProvider.IntegrationFilter = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.IntegrationFilterRef = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TeamRef,
+		Selector:     mg.Spec.ForProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TeamID")
+	}
+	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamRef = rsp.ResolvedReference
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.IntegrationFilter),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.IntegrationFilterRef,
+		Selector:      mg.Spec.InitProvider.IntegrationFilterSelector,
+		To: reference.To{
+			List:    &IntegrationList{},
+			Managed: &Integration{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.IntegrationFilter")
+	}
+	mg.Spec.InitProvider.IntegrationFilter = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.IntegrationFilterRef = mrsp.ResolvedReferences
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TeamRef,
+		Selector:     mg.Spec.InitProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TeamID")
+	}
+	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -214,6 +629,25 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	mg.Spec.ForProvider.IntegrationID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.IntegrationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Slack); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Slack[i3].ChannelID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Slack[i3].SlackChannelRef,
+			Selector:     mg.Spec.ForProvider.Slack[i3].SlackChannelSelector,
+			To: reference.To{
+				List:    &v1alpha1.SlackChannelList{},
+				Managed: &v1alpha1.SlackChannel{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Slack[i3].ChannelID")
+		}
+		mg.Spec.ForProvider.Slack[i3].ChannelID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Slack[i3].SlackChannelRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.EscalationChainID),
 		Extract:      reference.ExternalName(),
@@ -248,6 +682,26 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 	mg.Spec.InitProvider.IntegrationID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.IntegrationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Slack); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Slack[i3].ChannelID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Slack[i3].SlackChannelRef,
+			Selector:     mg.Spec.InitProvider.Slack[i3].SlackChannelSelector,
+			To: reference.To{
+				List:    &v1alpha1.SlackChannelList{},
+				Managed: &v1alpha1.SlackChannel{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Slack[i3].ChannelID")
+		}
+		mg.Spec.InitProvider.Slack[i3].ChannelID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Slack[i3].SlackChannelRef = rsp.ResolvedReference
+
+	}
+
 	return nil
 }
 
@@ -255,6 +709,7 @@ func (mg *Route) ResolveReferences(ctx context.Context, c client.Reader) error {
 func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
 
+	var rsp reference.NamespacedResolutionResponse
 	var mrsp reference.MultiNamespacedResolutionResponse
 	var err error
 
@@ -275,6 +730,61 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	mg.Spec.ForProvider.Shifts = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.ShiftsRef = mrsp.ResolvedReferences
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Slack); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Slack[i3].ChannelID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Slack[i3].SlackChannelRef,
+			Selector:     mg.Spec.ForProvider.Slack[i3].SlackChannelSelector,
+			To: reference.To{
+				List:    &v1alpha1.SlackChannelList{},
+				Managed: &v1alpha1.SlackChannel{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Slack[i3].ChannelID")
+		}
+		mg.Spec.ForProvider.Slack[i3].ChannelID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Slack[i3].SlackChannelRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Slack); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Slack[i3].UserGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Slack[i3].SlackUserGroupRef,
+			Selector:     mg.Spec.ForProvider.Slack[i3].SlackUserGroupSelector,
+			To: reference.To{
+				List:    &v1alpha1.UserGroupList{},
+				Managed: &v1alpha1.UserGroup{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Slack[i3].UserGroupID")
+		}
+		mg.Spec.ForProvider.Slack[i3].UserGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Slack[i3].SlackUserGroupRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.TeamRef,
+		Selector:     mg.Spec.ForProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.TeamID")
+	}
+	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.TeamRef = rsp.ResolvedReference
+
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Shifts),
 		Extract:       reference.ExternalName(),
@@ -291,6 +801,105 @@ func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) erro
 	}
 	mg.Spec.InitProvider.Shifts = reference.ToPtrValues(mrsp.ResolvedValues)
 	mg.Spec.InitProvider.ShiftsRef = mrsp.ResolvedReferences
+
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Slack); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Slack[i3].ChannelID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Slack[i3].SlackChannelRef,
+			Selector:     mg.Spec.InitProvider.Slack[i3].SlackChannelSelector,
+			To: reference.To{
+				List:    &v1alpha1.SlackChannelList{},
+				Managed: &v1alpha1.SlackChannel{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Slack[i3].ChannelID")
+		}
+		mg.Spec.InitProvider.Slack[i3].ChannelID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Slack[i3].SlackChannelRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Slack); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Slack[i3].UserGroupID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Slack[i3].SlackUserGroupRef,
+			Selector:     mg.Spec.InitProvider.Slack[i3].SlackUserGroupSelector,
+			To: reference.To{
+				List:    &v1alpha1.UserGroupList{},
+				Managed: &v1alpha1.UserGroup{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Slack[i3].UserGroupID")
+		}
+		mg.Spec.InitProvider.Slack[i3].UserGroupID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Slack[i3].SlackUserGroupRef = rsp.ResolvedReference
+
+	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.TeamRef,
+		Selector:     mg.Spec.InitProvider.TeamSelector,
+		To: reference.To{
+			List:    &v1alpha1.TeamList{},
+			Managed: &v1alpha1.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.TeamID")
+	}
+	mg.Spec.InitProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.TeamRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this UserNotificationRule.
+func (mg *UserNotificationRule) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.UserID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.OnCallUserRef,
+		Selector:     mg.Spec.ForProvider.OnCallUserSelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.UserID")
+	}
+	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OnCallUserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.UserID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.OnCallUserRef,
+		Selector:     mg.Spec.InitProvider.OnCallUserSelector,
+		To: reference.To{
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.UserID")
+	}
+	mg.Spec.InitProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OnCallUserRef = rsp.ResolvedReference
 
 	return nil
 }

@@ -21,8 +21,10 @@ spec:
     position: 0
     routingRegex: us-(east|west)
     slack:
-    - channelId: ${data.grafana_oncall_slack_channel.example_slack_channel.slack_id}
-      enabled: true
+    - enabled: true
+      slackChannelSelector:
+        matchLabels:
+          testing.upbound.io/example-name: grafana_oncall_slack_channel
     telegram:
     - enabled: true
       id: ONCALLTELEGRAMID

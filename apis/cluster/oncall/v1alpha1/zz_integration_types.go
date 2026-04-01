@@ -154,7 +154,19 @@ type IntegrationInitParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)
 	// Jinja2 templates for Alert payload. An empty templates block will be ignored.
@@ -227,8 +239,20 @@ type IntegrationParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)
 	// Jinja2 templates for Alert payload. An empty templates block will be ignored.
@@ -407,11 +431,23 @@ type SlackInitParameters struct {
 
 	// (String) Slack channel id. Alerts will be directed to this channel in Slack.
 	// Slack channel id. Alerts will be directed to this channel in Slack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.SlackChannel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackChannelRef
+	// +crossplane:generate:reference:selectorFieldName=SlackChannelSelector
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
 	// (Boolean) Enable notification in MS teams. Defaults to true.
 	// Enable notification in Slack. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Reference to a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelRef *v1.Reference `json:"slackChannelRef,omitempty" tf:"-"`
+
+	// Selector for a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelSelector *v1.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type SlackObservation struct {
@@ -429,6 +465,10 @@ type SlackParameters struct {
 
 	// (String) Slack channel id. Alerts will be directed to this channel in Slack.
 	// Slack channel id. Alerts will be directed to this channel in Slack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.SlackChannel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackChannelRef
+	// +crossplane:generate:reference:selectorFieldName=SlackChannelSelector
 	// +kubebuilder:validation:Optional
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
@@ -436,6 +476,14 @@ type SlackParameters struct {
 	// Enable notification in Slack. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Reference to a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelRef *v1.Reference `json:"slackChannelRef,omitempty" tf:"-"`
+
+	// Selector for a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelSelector *v1.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type TelegramInitParameters struct {
