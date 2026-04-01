@@ -1,0 +1,10 @@
+apiVersion: k6.grafana.o.crossplane.io/v1alpha1
+kind: ProjectLimits
+metadata:
+  name: example-projectlimits
+  namespace: default
+spec:
+  forProvider:
+    projectID: "example-project_id"
+  providerConfigRef:
+    name: example

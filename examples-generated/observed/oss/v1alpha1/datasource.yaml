@@ -1,0 +1,12 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: DataSource
+metadata:
+  name: example-datasource
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+    orgID: "example-org_id"
+    uid: "example-uid"
+  providerConfigRef:
+    name: example

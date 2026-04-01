@@ -164,6 +164,13 @@ run: go.build
 CROSSPLANE_VERSION = 2.0.2
 CROSSPLANE_CLI_VERSION = v2.0.2
 CROSSPLANE_NAMESPACE = upbound-system
+
+# Auto-discover all example YAMLs for uptest; override with UPTEST_EXAMPLE_LIST env var.
+# Note: all examples must work against the local Grafana instance deployed by
+# cluster/test/setup.sh. Do not add examples that require cloud credentials,
+# OnCall, or other infrastructure not available in the local test environment.
+UPTEST_EXAMPLE_LIST ?= $(shell find examples -name '*.yaml' -path '*/v1alpha1/*' | sort | tr '\n' ',')
+
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
 

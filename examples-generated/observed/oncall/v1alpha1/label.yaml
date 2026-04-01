@@ -1,0 +1,11 @@
+apiVersion: oncall.grafana.o.crossplane.io/v1alpha1
+kind: Label
+metadata:
+  name: example-label
+  namespace: default
+spec:
+  forProvider:
+    key: "example-key"
+    value: "example-value"
+  providerConfigRef:
+    name: example

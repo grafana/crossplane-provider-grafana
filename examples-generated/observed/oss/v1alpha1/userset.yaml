@@ -1,0 +1,10 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: UserSet
+metadata:
+  name: example-userset
+  namespace: default
+spec:
+  forProvider:
+    {}
+  providerConfigRef:
+    name: example

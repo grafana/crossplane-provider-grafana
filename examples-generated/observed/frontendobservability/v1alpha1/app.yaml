@@ -1,0 +1,11 @@
+apiVersion: frontendobservability.grafana.o.crossplane.io/v1alpha1
+kind: App
+metadata:
+  name: example-app
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+    stackID: 0
+  providerConfigRef:
+    name: example

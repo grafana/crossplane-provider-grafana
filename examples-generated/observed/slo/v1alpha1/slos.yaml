@@ -1,0 +1,10 @@
+apiVersion: slo.grafana.o.crossplane.io/v1alpha1
+kind: Slos
+metadata:
+  name: example-slos
+  namespace: default
+spec:
+  forProvider:
+    {}
+  providerConfigRef:
+    name: example

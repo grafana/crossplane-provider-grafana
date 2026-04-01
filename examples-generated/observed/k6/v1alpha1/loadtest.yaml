@@ -1,0 +1,10 @@
+apiVersion: k6.grafana.o.crossplane.io/v1alpha1
+kind: LoadTest
+metadata:
+  name: example-loadtest
+  namespace: default
+spec:
+  forProvider:
+    {}
+  providerConfigRef:
+    name: example

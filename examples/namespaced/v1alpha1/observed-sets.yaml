@@ -1,0 +1,127 @@
+# This example tests observed resources (UserSet, FolderSet, Folder, User) by
+# first creating managed resources, then observing them via the data sources.
+
+# --- Observed resources ---
+
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: UserSet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/observed-sets
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: observed-sets
+  name: observed-sets-userset
+  namespace: upbound-system
+spec:
+  forProvider: {}
+  providerConfigRef:
+    name: default
+    kind: ClusterProviderConfig
+
+---
+
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: FolderSet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/observed-sets
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: observed-sets
+  name: observed-sets-folderset
+  namespace: upbound-system
+spec:
+  forProvider: {}
+  providerConfigRef:
+    name: default
+    kind: ClusterProviderConfig
+
+---
+
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/observed-sets
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: observed-sets
+  name: observed-sets-folder-observe
+  namespace: upbound-system
+spec:
+  forProvider:
+    title: Observed Sets Folder
+  providerConfigRef:
+    name: default
+    kind: ClusterProviderConfig
+
+---
+
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/observed-sets
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: observed-sets
+  name: observed-sets-user-observe
+  namespace: upbound-system
+spec:
+  forProvider:
+    login: john
+  providerConfigRef:
+    name: default
+    kind: ClusterProviderConfig
+
+---
+
+# --- Managed resources (dependencies) ---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/observed-sets
+  labels:
+    testing.upbound.io/example-name: observed-sets
+  name: observed-sets-secret
+  namespace: upbound-system
+data:
+  password: ZXhhbXBsZS1wYXNzd29yZA==
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/observed-sets
+  labels:
+    testing.upbound.io/example-name: observed-sets
+  name: john
+  namespace: upbound-system
+spec:
+  forProvider:
+    email: john@example.com
+    login: john
+    name: John
+    passwordSecretRef:
+      key: password
+      name: observed-sets-secret
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/observed-sets
+  labels:
+    testing.upbound.io/example-name: observed-sets
+  name: observed-sets-folder
+  namespace: upbound-system
+spec:
+  forProvider:
+    title: Observed Sets Folder

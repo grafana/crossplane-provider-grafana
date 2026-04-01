@@ -30,6 +30,9 @@ Copyright 2021 Upbound Inc.
 // Patch SM Check types to add custom ProbeNames field
 //go:generate bash ../hack/patch-sm-check-probenames.sh
 
+// Regenerate observed resources (types, specs, and examples — the cleanup above deletes them)
+//go:generate bash -c "cd .. && go run ./cmd/generate-observed"
+
 // Generate deepcopy methodsets and CRD manifests
 //go:generate go run -tags generate sigs.k8s.io/controller-tools/cmd/controller-gen object:headerFile=../hack/boilerplate.go.txt paths=./... crd:allowDangerousTypes=true,crdVersions=v1 output:artifacts:config=../package/crds
 

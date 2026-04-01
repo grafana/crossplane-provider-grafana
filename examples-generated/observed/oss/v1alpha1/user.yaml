@@ -1,0 +1,12 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: example-user
+  namespace: default
+spec:
+  forProvider:
+    email: "example-email"
+    login: "example-login"
+    userID: 0
+  providerConfigRef:
+    name: example

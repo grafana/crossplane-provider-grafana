@@ -1,0 +1,10 @@
+apiVersion: sm.grafana.o.crossplane.io/v1alpha1
+kind: Probe
+metadata:
+  name: example-probe
+  namespace: default
+spec:
+  forProvider:
+    name: "example-name"
+  providerConfigRef:
+    name: example

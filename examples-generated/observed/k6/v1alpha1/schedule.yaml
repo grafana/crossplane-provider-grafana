@@ -1,0 +1,10 @@
+apiVersion: k6.grafana.o.crossplane.io/v1alpha1
+kind: Schedule
+metadata:
+  name: example-schedule
+  namespace: default
+spec:
+  forProvider:
+    loadTestID: "example-load_test_id"
+  providerConfigRef:
+    name: example
