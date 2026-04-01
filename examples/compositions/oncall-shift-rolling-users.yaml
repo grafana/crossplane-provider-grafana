@@ -1,0 +1,263 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xoncallshiftrollingusers.oncall.grafana.crossplane.grafana.net
+spec:
+  group: oncall.grafana.crossplane.grafana.net
+  names:
+    kind: XOnCallShiftRollingUsers
+    plural: xoncallshiftrollingusers
+  claimNames:
+    kind: OnCallShiftRollingUsers
+    plural: oncallshiftrollingusers
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required:
+                - name
+                - start
+                - duration
+                - frequency
+                - rollingUserNames
+                - providerConfigRef
+              properties:
+                name:
+                  type: string
+                  description: The shift's name.
+                start:
+                  type: string
+                  description: "Start time (format: yyyy-MM-dd'T'HH:mm:ss)."
+                duration:
+                  type: number
+                  description: The duration of the event in seconds.
+                frequency:
+                  type: string
+                  description: "The frequency of the event."
+                  enum: [hourly, daily, weekly, monthly]
+                interval:
+                  type: number
+                  description: The positive integer representing at which intervals the recurrence rule repeats.
+                level:
+                  type: number
+                  description: The priority level. The higher the value, the higher the priority.
+                startRotationFromUserIndex:
+                  type: number
+                  description: The index of the list of users in rolling_users, from which on-call rotation starts.
+                teamName:
+                  type: string
+                  description: >
+                    Name of an observed Team resource to compose alongside the shift.
+                    The shift's teamSelector uses matchControllerRef to auto-resolve.
+                timeZone:
+                  type: string
+                  description: "The shift's timezone. Overrides schedule's timezone."
+                until:
+                  type: string
+                  description: "The end time of recurrent on-call shifts (format: yyyy-MM-dd'T'HH:mm:ss)."
+                weekStart:
+                  type: string
+                  description: Start day of the week in iCal format.
+                  enum: [MO, TU, WE, TH, FR, SA, SU]
+                byDay:
+                  type: array
+                  description: List of days in iCal format.
+                  items:
+                    type: string
+                    enum: [MO, TU, WE, TH, FR, SA, SU]
+                byMonth:
+                  type: array
+                  description: List of months. Valid values are 1 to 12.
+                  items:
+                    type: number
+                byMonthday:
+                  type: array
+                  description: List of days of the month. Valid values are 1 to 31 or -31 to -1.
+                  items:
+                    type: number
+                rollingUserNames:
+                  type: array
+                  description: >
+                    List of rotation groups. Each group is a list of
+                    OnCall usernames that will be resolved to user IDs.
+                  items:
+                    type: array
+                    items:
+                      type: string
+                providerConfigRef:
+                  type: object
+                  description: ProviderConfigRef to use for all composed resources.
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                    policy:
+                      type: object
+                      properties:
+                        resolve:
+                          type: string
+                          enum: [Always, IfNotPresent]
+---
+# This composition only exists because rolling_users is [][]*string which
+# native Crossplane references cannot handle. KCL resolves usernames to IDs
+# by composing observed User resources. Team resolution uses native
+# teamSelector with matchControllerRef via the co-composed observed Team.
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: oncall-shift-rolling-users
+spec:
+  compositeTypeRef:
+    apiVersion: oncall.grafana.crossplane.grafana.net/v1alpha1
+    kind: XOnCallShiftRollingUsers
+  mode: Pipeline
+  pipeline:
+    - step: render-resources
+      functionRef:
+        name: function-kcl
+      input:
+        apiVersion: krm.kcl.dev/v1alpha1
+        kind: KCLRun
+        spec:
+          source: |
+            import crypto
+
+            oxr = option("params").oxr
+            ocds = option("params").ocds
+            spec = oxr.spec
+
+            # Short deterministic RFC1123-safe name from an arbitrary string
+            _safeName = lambda s: str -> str {
+                crypto.md5(s)[:8]
+            }
+
+            _claimName = oxr.metadata.name
+
+            # --- Observed Team (optional): composed so matchControllerRef can find it ---
+            _teamName = spec.get("teamName", "")
+
+            _teamResources = [{
+                apiVersion = "oncall.grafana.o.crossplane.io/v1alpha1"
+                kind = "Team"
+                metadata.annotations = {
+                    "krm.kcl.dev/composition-resource-name" = "${_claimName}-team"
+                }
+                spec = {
+                    forProvider.name = _teamName
+                    providerConfigRef = spec.providerConfigRef
+                }
+            }] if _teamName else []
+
+            # --- Observed Users: one per unique username across all rotation groups ---
+            _rollingUserNames = spec.get("rollingUserNames", [])
+            _uniqueUsers = {u: True for group in _rollingUserNames for u in group}
+
+            _observedUsers = [{
+                apiVersion = "oncall.grafana.o.crossplane.io/v1alpha1"
+                kind = "User"
+                metadata.annotations = {
+                    "krm.kcl.dev/composition-resource-name" = "${_claimName}-${_safeName(username)}"
+                }
+                spec = {
+                    forProvider.username = username
+                    providerConfigRef = spec.providerConfigRef
+                }
+            } for username, _ in _uniqueUsers]
+
+            # Resolve usernames to IDs from observed resources
+            _resolveUser = lambda username: str -> str {
+                _key = "${_claimName}-${_safeName(username)}"
+                _observed = ocds.get(_key, {})
+                _observed?.Resource?.metadata?.annotations?["crossplane.io/external-name"] or ""
+            }
+
+            # Build rolling_users: [][]*string
+            _rollingUsers = [
+                [_resolveUser(u) for u in group]
+                for group in _rollingUserNames
+            ]
+
+            # Only emit the shift once all users are resolved
+            _allUserNames = [u for group in _rollingUserNames for u in group]
+            _allResolved = all username in _allUserNames {
+                _resolveUser(username)
+            }
+
+            # Emit the OnCallShift managed resource
+            _shift = {
+                apiVersion = "oncall.grafana.m.crossplane.io/v1alpha1"
+                kind = "OnCallShift"
+                metadata.annotations = {
+                    "krm.kcl.dev/composition-resource-name" = "${_claimName}-shift"
+                }
+                spec = {
+                    forProvider = {
+                        name = spec.name
+                        type = "rolling_users"
+                        start = spec.start
+                        duration = spec.duration
+                        frequency = spec.frequency
+                        if _teamName:
+                            # Native ref: matchControllerRef selects the co-composed Team
+                            teamSelector.matchControllerRef = True
+                        if spec.get("interval"):
+                            interval = spec.interval
+                        if spec.get("level"):
+                            level = spec.level
+                        if spec.get("startRotationFromUserIndex") != None:
+                            startRotationFromUserIndex = spec.startRotationFromUserIndex
+                        if spec.get("timeZone"):
+                            timeZone = spec.timeZone
+                        if spec.get("until"):
+                            until = spec.until
+                        if spec.get("weekStart"):
+                            weekStart = spec.weekStart
+                        if spec.get("byDay"):
+                            byDay = spec.byDay
+                        if spec.get("byMonth"):
+                            byMonth = spec.byMonth
+                        if spec.get("byMonthday"):
+                            byMonthday = spec.byMonthday
+                        if _rollingUsers:
+                            rollingUsers = _rollingUsers
+                    }
+                    providerConfigRef = spec.providerConfigRef
+                }
+            }
+
+            items = _teamResources + _observedUsers + ([_shift] if _allResolved else [])
+    - step: automatically-detect-ready-composed-resources
+      functionRef:
+        name: function-auto-ready
+---
+# Prerequisites: create observed User resources for the usernames you'll reference.
+# These can also be composed by the composition itself (as shown above).
+---
+# Example claim: rolling_users shift with 3 rotation groups
+apiVersion: oncall.grafana.crossplane.grafana.net/v1alpha1
+kind: OnCallShiftRollingUsers
+metadata:
+  name: my-rotation
+  namespace: default
+spec:
+  name: primary-rotation
+  start: "2025-01-01T08:00:00"
+  duration: 86400
+  frequency: weekly
+  interval: 1
+  teamName: my-team
+  rollingUserNames:
+    - [alice, bob]
+    - [charlie]
+    - [diana, eve]
+  providerConfigRef:
+    name: grafana
