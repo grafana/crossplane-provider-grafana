@@ -11,7 +11,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.53.0
 	github.com/grafana/synthetic-monitoring-api-go-client v0.19.9
-	github.com/grafana/terraform-provider-grafana/v4 v4.28.2
+	github.com/grafana/terraform-provider-grafana/v4 v4.28.3
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/hashicorp/terraform-plugin-framework v1.15.0
 	github.com/hashicorp/terraform-plugin-go v0.30.0
@@ -98,18 +98,18 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/grafana/amixr-api-go-client v0.0.28 // indirect
 	github.com/grafana/authlib/claims v0.0.0-20250120084028-e3328c576437 // indirect
-	github.com/grafana/authlib/types v0.0.0-20260218111514-582136a04938 // indirect
+	github.com/grafana/authlib/types v0.0.0-20260316143530-e1d123886039 // indirect
 	github.com/grafana/fleet-management-api v1.2.0 // indirect
-	github.com/grafana/grafana-app-sdk v0.51.4 // indirect
+	github.com/grafana/grafana-app-sdk v0.52.1 // indirect
 	github.com/grafana/grafana-app-sdk/logging v0.51.4 // indirect
 	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 // indirect
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260306090535-0b052cdc9559 // indirect
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20250617151817-c0f8cbb88d5c // indirect
-	github.com/grafana/grafana-plugin-sdk-go v0.289.0 // indirect
+	github.com/grafana/grafana-plugin-sdk-go v0.290.1 // indirect
 	github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.0-20250925121631-89b988ca553e // indirect
 	github.com/grafana/grafana/apps/alerting/notifications v0.0.0-20260323093832-0cb690db9135 // indirect
 	github.com/grafana/grafana/apps/alerting/rules v0.0.0-20251029161707-af8d166b909c // indirect
-	github.com/grafana/grafana/apps/dashboard v0.0.0-20260225143800-29e6c7a419ab // indirect
+	github.com/grafana/grafana/apps/dashboard v0.0.0-20260326093239-3210d4ee04fe // indirect
 	github.com/grafana/grafana/apps/playlist v0.0.0-20250424064802-2fbb2d6f5d27 // indirect
 	github.com/grafana/grafana/apps/provisioning v0.0.0-20260218091122-4fe7fb5b985e // indirect
 	github.com/grafana/grafana/apps/secret v0.0.0-20260224124528-75b1e0cf0f79 // indirect
@@ -203,16 +203,16 @@ require (
 	go.mongodb.org/mongo-driver v1.17.6 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.65.0 // indirect
-	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.64.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.65.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.65.0 // indirect
-	go.opentelemetry.io/contrib/propagators/jaeger v1.39.0 // indirect
-	go.opentelemetry.io/contrib/samplers/jaegerremote v0.33.0 // indirect
-	go.opentelemetry.io/otel v1.40.0 // indirect
+	go.opentelemetry.io/contrib/propagators/jaeger v1.40.0 // indirect
+	go.opentelemetry.io/contrib/samplers/jaegerremote v0.34.0 // indirect
+	go.opentelemetry.io/otel v1.42.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.40.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.40.0 // indirect
-	go.opentelemetry.io/otel/metric v1.40.0 // indirect
+	go.opentelemetry.io/otel/metric v1.42.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.40.0 // indirect
-	go.opentelemetry.io/otel/trace v1.40.0 // indirect
+	go.opentelemetry.io/otel/trace v1.42.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.9.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
