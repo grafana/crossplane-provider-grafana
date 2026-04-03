@@ -129,7 +129,7 @@ spec:
                   teamSelector:
                     matchControllerRef: true
                   slack:
-                    - channelIdSelector:
+                    - slackChannelSelector:
                         matchControllerRef: true
             patches:
               - type: FromCompositeFieldPath
