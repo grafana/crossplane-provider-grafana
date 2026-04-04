@@ -15,6 +15,7 @@ import (
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
 	terraformSDK "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/pkg/errors"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
@@ -30,7 +31,15 @@ const (
 	errUpdateStatus         = "cannot update ProviderConfig status"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal grafana credentials as JSON"
+	errGetStackSecret       = "cannot get referenced stack secret"
 )
+
+// stackSecretKeyRemap maps Stack connection secret keys (Terraform attribute
+// names) to the ProviderConfig credential keys expected by BuildTFConfig.
+var stackSecretKeyRemap = map[string]string{
+	"oncall_api_url": "oncall_url",
+	"id":             "stack_id",
+}
 
 type Credentials struct {
 	Source                       v1.CredentialsSource
@@ -48,6 +57,32 @@ type Config struct {
 	OrgID              *int
 	StackID            *int
 	Credentials        Credentials
+	StackSecretRef     *v1.SecretReference
+}
+
+// mergeStackSecret fetches the Secret referenced by cfg.StackSecretRef and
+// merges its keys into the credential map. Keys are remapped according to
+// stackSecretKeyRemap (e.g. oncall_api_url → oncall_url, id → stack_id).
+// Stack secret values override existing credential values.
+func mergeStackSecret(ctx context.Context, c client.Client, cfg *Config, creds map[string]string) error {
+	if cfg.StackSecretRef == nil {
+		return nil
+	}
+	secret := &corev1.Secret{}
+	if err := c.Get(ctx, types.NamespacedName{
+		Name:      cfg.StackSecretRef.Name,
+		Namespace: cfg.StackSecretRef.Namespace,
+	}, secret); err != nil {
+		return errors.Wrap(err, errGetStackSecret)
+	}
+	for k, v := range secret.Data {
+		key := k
+		if remapped, ok := stackSecretKeyRemap[k]; ok {
+			key = remapped
+		}
+		creds[key] = string(v)
+	}
+	return nil
 }
 
 func useLegacyProviderConfig(ctx context.Context, c client.Client, mg resource.LegacyManaged) (*Config, error) {
@@ -83,6 +118,13 @@ func useLegacyProviderConfig(ctx context.Context, c client.Client, mg resource.L
 		SMURL:              pc.Spec.SMURL,
 		OrgID:              pc.Spec.OrgID,
 		StackID:            pc.Spec.StackID,
+	}
+
+	if sr := pc.Spec.StackSecretRef; sr != nil {
+		config.StackSecretRef = &v1.SecretReference{
+			Name:      sr.Name,
+			Namespace: sr.Namespace,
+		}
 	}
 
 	// Convert v1 to v2 types explicitly
@@ -154,6 +196,7 @@ func useModernProviderConfig(ctx context.Context, c client.Client, mg resource.M
 		SMURL:              spec.SMURL,
 		OrgID:              spec.OrgID,
 		StackID:            spec.StackID,
+		StackSecretRef:     spec.StackSecretRef,
 		Credentials: Credentials{
 			Source:                    spec.Credentials.Source,
 			CommonCredentialSelectors: spec.Credentials.CommonCredentialSelectors,
@@ -195,6 +238,10 @@ func TerraformSetupBuilder() terraform.SetupFn {
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
+		if err := mergeStackSecret(ctx, client, &credSpec, creds); err != nil {
+			return ps, err
+		}
+
 		// Resolve ProbeNames to Probes for SM Check resources
 		if err := resolveSMCheckProbeNames(ctx, client, mg, creds, credSpec); err != nil {
 			return ps, errors.Wrap(err, "failed to resolve probe names")
@@ -226,6 +273,10 @@ func ExtractModernConfig(ctx context.Context, c client.Client, mg resource.Moder
 	creds := map[string]string{}
 	if err := json.Unmarshal(data, &creds); err != nil {
 		return nil, nil, errors.Wrap(err, errUnmarshalCredentials)
+	}
+
+	if err := mergeStackSecret(ctx, c, cfg, creds); err != nil {
+		return nil, nil, err
 	}
 
 	return cfg, creds, nil

@@ -25,6 +25,16 @@ type ProviderConfigSpec struct {
 	StackID            *int   `json:"stackId,omitempty"`
 
 	Credentials ProviderCredentials `json:"credentials"`
+
+	// StackSecretRef is an optional reference to a Secret containing Stack
+	// connection details (e.g., from a grafana_cloud_stack resource's
+	// writeConnectionSecretToRef). All keys in the Secret are merged into
+	// the credential map. Key remapping is applied (e.g., oncall_api_url
+	// becomes oncall_url, id becomes stack_id). Values from this secret
+	// override the primary credentials secret and are in turn overridden by
+	// explicit spec fields (url, oncallUrl, etc.).
+	// +optional
+	StackSecretRef *xpv1.SecretReference `json:"stackSecretRef,omitempty"`
 }
 
 type ProviderCredentials struct {
