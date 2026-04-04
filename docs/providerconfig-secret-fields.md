@@ -53,6 +53,98 @@ The following table lists all fields that can be configured in the secret, along
 | `stack_id` | Grafana Cloud stack ID (required for k6 resources) | ✅ Yes | `spec.stackId` |
 | `k6_access_token` | Access token for k6 Cloud API | ❌ No | N/A |
 
+## Stack Secret Reference
+
+The ProviderConfig supports an optional `stackSecretRef` field that references a Kubernetes Secret produced by a `grafana_cloud_stack` resource (managed or observed) via its `writeConnectionSecretToRef`. This secret contains all the Stack's `atProvider` fields as individual keys using their Terraform attribute names.
+
+When `stackSecretRef` is set, the secret's keys are merged into the credential map with the following key remapping applied:
+
+| Stack secret key | Remapped to |
+|------------------|-------------|
+| `oncall_api_url` | `oncall_url` |
+| `id` | `stack_id` |
+
+All other keys are passed through unchanged (e.g., `url`, `fleet_management_url`, `org_id`).
+
+### Precedence (lowest to highest)
+
+1. **Primary credential secret** (`credentials.secretRef`) — base credentials
+2. **Stack secret** (`stackSecretRef`) — overrides the primary secret
+3. **ProviderConfig spec fields** (`url`, `oncallUrl`, etc.) — overrides both secrets
+
+### Example: Using Stack Secret with ProviderConfig
+
+**Step 1: Create a Stack that writes its details to a Secret:**
+```yaml
+apiVersion: cloud.grafana.m.crossplane.io/v1alpha1
+kind: Stack
+metadata:
+  name: my-stack
+  namespace: default
+spec:
+  forProvider:
+    name: my-stack
+    slug: my-stack
+  writeConnectionSecretToRef:
+    name: my-stack-details
+```
+
+**Step 2: Create a StackServiceAccountToken that writes auth to a Secret:**
+```yaml
+apiVersion: cloud.grafana.m.crossplane.io/v1alpha1
+kind: StackServiceAccountToken
+metadata:
+  name: my-stack-sa-token
+  namespace: default
+spec:
+  forProvider:
+    stackSlugRef:
+      name: my-stack
+    serviceAccountRef:
+      name: my-stack-sa
+    name: crossplane
+  writeConnectionSecretToRef:
+    name: my-stack-token
+```
+
+**Step 3: Reference both secrets in a ProviderConfig:**
+```yaml
+apiVersion: grafana.m.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: my-stack-config
+  namespace: default
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: my-stack-token
+      namespace: default
+      key: instanceCredentials
+  stackSecretRef:
+    name: my-stack-details
+    namespace: default
+```
+
+The ProviderConfig will read:
+- `auth` and `url` from the `instanceCredentials` key in `my-stack-token`
+- `oncall_url` (remapped from `oncall_api_url`), `fleet_management_url`, `org_id`, `stack_id` (remapped from `id`), and all other Stack fields from `my-stack-details`
+- Stack secret values override primary credential values where keys overlap (e.g., `url`)
+
+### Available keys in the Stack connection secret
+
+The Stack connection secret contains all scalar `atProvider` fields. Key fields relevant to ProviderConfig:
+
+| Key | Description | Maps to ProviderConfig |
+|-----|-------------|----------------------|
+| `url` | Grafana instance URL | `url` |
+| `oncall_api_url` | OnCall API URL (remapped to `oncall_url`) | `oncallUrl` |
+| `fleet_management_url` | Fleet Management URL | `fleetManagementUrl` |
+| `id` | Stack numeric ID (remapped to `stack_id`) | `stackId` |
+| `org_id` | Organization ID | `orgId` |
+
+Additional informational keys include: `alertmanager_url`, `prometheus_url`, `logs_url`, `traces_url`, `graphite_url`, `profiles_url`, `otlp_url`, `influx_url`, `slug`, `name`, `status`, `region_slug`, and all service-specific names, statuses, and user IDs.
+
 ## Override Behavior
 
 When a field is marked as "Overridable by ProviderConfig":
@@ -167,6 +259,9 @@ Grafana OnCall resources can be authenticated in two ways:
 For more information on the Grafana Terraform provider configuration, see the [official documentation](https://registry.terraform.io/providers/grafana/grafana/latest/docs).
 
 The implementation can be found in:
-- Secret field processing: `internal/clients/grafana.go:201-235`
-- ProviderConfig overrides: `internal/clients/grafana.go:237-263`
-- ProviderConfig spec definition: `apis/cluster/v1beta1/types.go:14-36`
+- Secret field processing: `internal/clients/grafana.go`
+- Stack secret merging: `internal/clients/grafana.go` (`mergeStackSecret`)
+- ProviderConfig spec definition: `apis/cluster/v1beta1/types.go` and `apis/namespaced/v1beta1/types.go`
+- Managed Stack connection details: `config/grafana/cloud.go` (`AdditionalConnectionDetailsFn`)
+- Observed Stack connection details: generated in `internal/controller/namespaced/observed/cloud/zz_stack_spec.go` (`ConnectionDetailsFn`)
+- Connection details controller support: `pkg/tfdatasource/controller.go`
