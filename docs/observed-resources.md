@@ -150,6 +150,51 @@ UPTEST_EXAMPLE_LIST=examples/namespaced/v1alpha1/observed-sets.yaml make e2e
 Observed resources use `uptest.upbound.io/disable-import: "true"` since they
 are read-only and cannot be imported.
 
+### Cloud e2e tests
+
+Some compositions (e.g. `oncall-shift-rolling-users`) resolve observed resources
+to IDs that only exist on a real Grafana Cloud stack. These cannot be tested
+against the local Grafana OSS instance. A separate `make e2e-cloud` target tests
+these compositions against a pre-existing Grafana Cloud stack.
+
+**Prerequisites:**
+
+1. A Grafana Cloud stack with OnCall enabled (the tests use a pre-existing stack,
+   they do NOT create or delete stacks).
+2. A `.env` file in the repository root with the following variables:
+
+```bash
+GRAFANA_URL=https://<slug>.grafana.net    # no trailing slash
+GRAFANA_SA_TOKEN=<service-account-token>  # needs admin permissions
+GRAFANA_ONCALL_URL=https://oncall-prod-us-central-0.grafana.net/oncall
+GRAFANA_TEST_USER=<oncall-username>       # an existing OnCall user
+```
+
+**Running the tests:**
+
+```bash
+set -a && source .env && set +a
+make e2e-cloud
+```
+
+This will:
+1. Build the provider and deploy it to a local Kind cluster (`local-deploy`).
+2. Run `cluster/test/setup-cloud.sh`, which creates the credentials Secret,
+   ProviderConfig, ClusterProviderConfig, and applies all XRDs/Compositions
+   from `examples/compositions/`.
+3. Substitute `PLACEHOLDER_USER_{A,B,C}` markers in the cloud example claims
+   with `$GRAFANA_TEST_USER`, then run uptest.
+4. Restore the original placeholder markers after the test completes.
+
+Cloud example claims live under `examples/cloud/v1alpha1/` and are excluded from
+the default `make e2e` target.
+
+To tear down cloud resources manually (e.g. after a failed test):
+
+```bash
+make teardown-cloud
+```
+
 ## Code generation
 
 All observed resource types, controller specs, and registration boilerplate are

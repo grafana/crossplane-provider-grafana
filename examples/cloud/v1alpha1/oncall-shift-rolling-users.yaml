@@ -1,0 +1,28 @@
+# E2e test claim for the oncall-shift-rolling-users composition.
+# PLACEHOLDER_USER_{A,B,C} are replaced by the Makefile's uptest-cloud target
+# with the GRAFANA_TEST_USER env var before uptest runs.
+# The XRD, Composition, and ClusterProviderConfig are applied by setup-cloud.sh.
+apiVersion: oncall.grafana.crossplane.grafana.net/v1alpha1
+kind: OnCallShiftRollingUsers
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-shift-rolling-users
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: e2e-cloud-oncall-shift
+  name: e2e-rolling-shift
+  namespace: upbound-system
+spec:
+  name: e2e-rolling-rotation
+  start: "2025-01-01T08:00:00"
+  duration: 86400
+  frequency: weekly
+  weekStart: MO
+  interval: 1
+  scheduleName: e2e-rotation-schedule
+  scheduleTimeZone: UTC
+  rollingUserNames:
+    - [PLACEHOLDER_USER_A, PLACEHOLDER_USER_B]
+    - [PLACEHOLDER_USER_C]
+  providerConfigRef:
+    name: e2e-cloud-instance

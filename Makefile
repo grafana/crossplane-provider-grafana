@@ -169,7 +169,7 @@ CROSSPLANE_NAMESPACE = upbound-system
 # Note: all examples must work against the local Grafana instance deployed by
 # cluster/test/setup.sh. Do not add examples that require cloud credentials,
 # OnCall, or other infrastructure not available in the local test environment.
-UPTEST_EXAMPLE_LIST ?= $(shell find examples -name '*.yaml' -path '*/v1alpha1/*' | sort | tr '\n' ',')
+UPTEST_EXAMPLE_LIST ?= $(shell find examples -name '*.yaml' -path '*/v1alpha1/*' -not -path 'examples/cloud/*' | sort | tr '\n' ',')
 
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
@@ -188,7 +188,40 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 e2e: local-deploy uptest
 
 e2e-oss:
-	@find examples/oss -name '*.yaml' -exec make e3e UPTEST_EXAMPLE_LIST={} \;
+	@find examples/oss -name '*.yaml' -exec make e2e UPTEST_EXAMPLE_LIST={} \;
+
+# Cloud e2e tests: test compositions against a pre-existing Grafana Cloud stack.
+# Requires env vars: GRAFANA_URL, GRAFANA_SA_TOKEN, GRAFANA_ONCALL_URL, GRAFANA_TEST_USER
+UPTEST_CLOUD_EXAMPLE_LIST ?= $(shell find examples/cloud -name '*.yaml' -path '*/v1alpha1/*' 2>/dev/null | sort | tr '\n' ',')
+
+e2e-cloud: local-deploy uptest-cloud
+
+uptest-cloud: $(UPTEST) $(KUBECTL) $(CHAINSAW) $(CROSSPLANE_CLI)
+	@$(INFO) running cloud e2e tests
+	@# Substitute GRAFANA_TEST_USER placeholder in cloud example claims (restore on exit)
+	@for f in $$(echo "${UPTEST_CLOUD_EXAMPLE_LIST}" | tr ',' ' '); do \
+		if [ -f "$$f" ]; then \
+			cp "$$f" "$$f.bak"; \
+			sed -i "s/PLACEHOLDER_USER_[ABC]/$${GRAFANA_TEST_USER}/g" "$$f"; \
+		fi; \
+	done; \
+	KUBECTL=$(KUBECTL) CHAINSAW=$(CHAINSAW) CROSSPLANE_CLI=$(CROSSPLANE_CLI) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) \
+		GRAFANA_URL=$${GRAFANA_URL} GRAFANA_SA_TOKEN=$${GRAFANA_SA_TOKEN} GRAFANA_ONCALL_URL=$${GRAFANA_ONCALL_URL} \
+		$(UPTEST) e2e "${UPTEST_CLOUD_EXAMPLE_LIST}" \
+		--data-source="${UPTEST_DATASOURCE_PATH}" \
+		--setup-script=cluster/test/setup-cloud.sh \
+		--default-conditions="Ready"; \
+	rc=$$?; \
+	for f in $$(echo "${UPTEST_CLOUD_EXAMPLE_LIST}" | tr ',' ' '); do \
+		if [ -f "$$f.bak" ]; then mv "$$f.bak" "$$f"; fi; \
+	done; \
+	[ $$rc -eq 0 ] || $(FAIL)
+	@$(OK) running cloud e2e tests
+
+teardown-cloud: $(KUBECTL)
+	@$(INFO) tearing down cloud resources
+	@KUBECTL=$(KUBECTL) bash cluster/test/teardown-cloud.sh || $(FAIL)
+	@$(OK) tearing down cloud resources
 
 crddiff: $(UPTEST)
 	@$(INFO) Checking breaking CRD schema changes
