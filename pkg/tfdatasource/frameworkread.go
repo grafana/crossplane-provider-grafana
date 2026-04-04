@@ -8,9 +8,11 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	fwschema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 )
@@ -58,6 +60,15 @@ func NewFrameworkReadFn(
 		}
 
 		fromState(ctx, mg, readResp.State)
+
+		// Set external-name from the Terraform "id" attribute in the state.
+		// The generated fromState callbacks don't do this for Framework data
+		// sources (unlike legacy SDK ones which call meta.SetExternalName).
+		var id string
+		if diags := readResp.State.GetAttribute(ctx, path.Root("id"), &id); !diags.HasError() && id != "" {
+			meta.SetExternalName(mg, id)
+		}
+
 		return nil
 	}
 }

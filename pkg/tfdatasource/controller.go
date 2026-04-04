@@ -102,15 +102,16 @@ type connector struct {
 }
 
 func (c *connector) Connect(ctx context.Context, mg resource.Managed) (managed.ExternalClient, error) {
-	meta, err := c.spec.ConnectFn(ctx, c.kube, mg)
+	providerMeta, err := c.spec.ConnectFn(ctx, c.kube, mg)
 	if err != nil {
 		return nil, errors.Wrap(err, "cannot connect to provider")
 	}
-	return &external{spec: c.spec, providerMeta: meta}, nil
+	return &external{kube: c.kube, spec: c.spec, providerMeta: providerMeta}, nil
 }
 
 // external implements managed.ExternalClient for observe-only resources.
 type external struct {
+	kube         client.Client
 	spec         Spec
 	providerMeta any
 }
@@ -146,9 +147,20 @@ func (e *external) Create(_ context.Context, _ resource.Managed) (managed.Extern
 }
 
 func (e *external) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
+	extNameBefore := meta.GetExternalName(mg)
 	if err := e.spec.Read(ctx, mg, e.providerMeta); err != nil {
 		return managed.ExternalUpdate{}, errors.Wrap(err, "data source read failed")
 	}
+
+	// The managed reconciler only persists annotation changes after Create(),
+	// not after Update(). Since observe-only resources never go through Create,
+	// we must persist annotation changes (specifically external-name) ourselves.
+	if meta.GetExternalName(mg) != extNameBefore {
+		if err := e.kube.Update(ctx, mg.(client.Object)); err != nil {
+			return managed.ExternalUpdate{}, errors.Wrap(err, "cannot persist external-name annotation")
+		}
+	}
+
 	mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
 	tjresource.SetUpToDateCondition(mg, true)
 	return managed.ExternalUpdate{}, nil
