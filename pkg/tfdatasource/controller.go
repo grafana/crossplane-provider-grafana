@@ -121,9 +121,22 @@ type external struct {
 // reconciler calls Update, which is where the actual Read happens. This means
 // Observe effectively controls the poll interval: if IsUpToDate returns false
 // (or is nil, the default), the resource is re-read on every poll cycle.
-func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
+func (e *external) Observe(ctx context.Context, mg resource.Managed) (managed.ExternalObservation, error) {
 	if meta.WasDeleted(mg) {
 		return managed.ExternalObservation{ResourceExists: false}, nil
+	}
+
+	// The managed reconciler defaults external-name to the K8s resource name.
+	// For observe-only resources this is wrong — the real external-name (e.g.
+	// the OnCall user/team ID) is only known after the data source Read in
+	// Update(). Clear the default so that reference resolvers using
+	// ExternalName() don't pick up a stale value before Update() runs.
+	obj := mg.(client.Object)
+	if meta.GetExternalName(mg) == obj.GetName() {
+		meta.SetExternalName(mg, "")
+		if err := e.kube.Update(ctx, obj); err != nil {
+			return managed.ExternalObservation{}, errors.Wrap(err, "cannot clear default external-name")
+		}
 	}
 
 	upToDate := false
