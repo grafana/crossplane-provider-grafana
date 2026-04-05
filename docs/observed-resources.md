@@ -159,15 +159,16 @@ these compositions against a pre-existing Grafana Cloud stack.
 
 **Prerequisites:**
 
-1. A Grafana Cloud stack with OnCall enabled (the tests use a pre-existing stack,
-   they do NOT create or delete stacks).
+1. A Grafana Cloud stack with OnCall enabled. The tests use the pre-existing
+   `xpe2etest` stack (`xpe2etest.grafana.net`) in the `TerraformProviderGrafana`
+   org. They do NOT create or delete stacks.
 2. A `.env` file in the repository root with the following variables:
 
 ```bash
-GRAFANA_URL=https://<slug>.grafana.net    # no trailing slash
-GRAFANA_SA_TOKEN=<service-account-token>  # needs admin permissions
+GRAFANA_URL=https://xpe2etest.grafana.net  # no trailing slash
+GRAFANA_SA_TOKEN=<service-account-token>   # needs admin permissions
 GRAFANA_ONCALL_URL=https://oncall-prod-us-central-0.grafana.net/oncall
-GRAFANA_TEST_USER=<oncall-username>       # an existing OnCall user
+GRAFANA_TEST_USER=<oncall-username>        # an existing OnCall user
 ```
 
 **Running the tests:**
