@@ -61,7 +61,7 @@ type PlaylistInitParameters struct {
 	// (String)
 	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	Item []ItemInitParameters `json:"item,omitempty" tf:"item,omitempty"`
 
 	// (String) The name of the playlist.
@@ -92,7 +92,7 @@ type PlaylistObservation struct {
 	// (String)
 	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	Item []ItemObservation `json:"item,omitempty" tf:"item,omitempty"`
 
 	// (String) The name of the playlist.
@@ -110,7 +110,7 @@ type PlaylistParameters struct {
 	// +kubebuilder:validation:Optional
 	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
+	// (Block Set) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Item []ItemParameters `json:"item,omitempty" tf:"item,omitempty"`
 
@@ -163,7 +163,7 @@ type PlaylistStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Playlist is the Schema for the Playlists API. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
+// Playlist is the Schema for the Playlists API. Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -173,7 +173,6 @@ type Playlist struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.interval) || (has(self.initProvider) && has(self.initProvider.interval))",message="spec.forProvider.interval is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.item) || (has(self.initProvider) && has(self.initProvider.item))",message="spec.forProvider.item is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	Spec   PlaylistSpec   `json:"spec"`
 	Status PlaylistStatus `json:"status,omitempty"`

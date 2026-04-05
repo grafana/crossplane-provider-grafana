@@ -86,6 +86,7 @@ import (
 	dashboardpermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboardpermissionitem"
 	dashboardpublic "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboardpublic"
 	dashboardv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboardv1beta1"
+	dashboardv2 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboardv2"
 	dashboardv2beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/dashboardv2beta1"
 	datasource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/datasource"
 	datasourceconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/datasourceconfig"
@@ -195,6 +196,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		dashboardpermissionitem.Setup,
 		dashboardpublic.Setup,
 		dashboardv1beta1.Setup,
+		dashboardv2.Setup,
 		dashboardv2beta1.Setup,
 		datasource.Setup,
 		datasourceconfig.Setup,
@@ -310,6 +312,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		dashboardpermissionitem.SetupGated,
 		dashboardpublic.SetupGated,
 		dashboardv1beta1.SetupGated,
+		dashboardv2.SetupGated,
 		dashboardv2beta1.SetupGated,
 		datasource.SetupGated,
 		datasourceconfig.SetupGated,

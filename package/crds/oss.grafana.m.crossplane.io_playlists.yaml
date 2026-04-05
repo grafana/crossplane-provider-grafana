@@ -34,8 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Playlist is the Schema for the Playlists API. Official documentation
-          https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP
+        description: Playlist is the Schema for the Playlists API. Manages Grafana
+          playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP
           API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
         properties:
           apiVersion:
@@ -64,7 +64,7 @@ spec:
                     description: (String)
                     type: string
                   item:
-                    description: '(Block Set, Min: 1) (see below for nested schema)'
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         order:
@@ -186,7 +186,7 @@ spec:
                     description: (String)
                     type: string
                   item:
-                    description: '(Block Set, Min: 1) (see below for nested schema)'
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         order:
@@ -354,10 +354,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.interval)
                 || (has(self.initProvider) && has(self.initProvider.interval))'
-            - message: spec.forProvider.item is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.item)
-                || (has(self.initProvider) && has(self.initProvider.item))'
             - message: spec.forProvider.name is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
@@ -374,7 +370,7 @@ spec:
                     description: (String)
                     type: string
                   item:
-                    description: '(Block Set, Min: 1) (see below for nested schema)'
+                    description: (Block Set) (see below for nested schema)
                     items:
                       properties:
                         id:

@@ -28,6 +28,9 @@ func (tr *DashboardPublic) Hub() {}
 func (tr *DashboardV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *DashboardV2) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *DashboardV2Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
