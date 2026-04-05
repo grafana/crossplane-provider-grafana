@@ -54,7 +54,7 @@ type RoleObservation struct {
 	// Unique identifier of the role. Used for assignments.
 	UID *string `json:"uid,omitempty"`
 
-	// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
+	// Version of the role. On create, must be `1`. On update, must be exactly one greater than the previous state. This field or `auto_increment_version` should be set; `auto_increment_version` is recommended.
 	Version *int64 `json:"version,omitempty"`
 }
 

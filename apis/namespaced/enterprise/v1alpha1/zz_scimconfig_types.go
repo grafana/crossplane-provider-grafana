@@ -24,8 +24,8 @@ type ScimConfigInitParameters struct {
 	// Whether user synchronization is enabled.
 	EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
@@ -57,8 +57,8 @@ type ScimConfigObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
@@ -78,8 +78,8 @@ type ScimConfigParameters struct {
 	// +kubebuilder:validation:Optional
 	EnableUserSync *bool `json:"enableUserSync,omitempty" tf:"enable_user_sync,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector

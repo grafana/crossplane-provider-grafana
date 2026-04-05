@@ -1,0 +1,31 @@
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: DashboardV2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/dashboardv2
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    metadata:
+    - uid: example-dashboard-v2
+    spec:
+    - json: |-
+        ${jsonencode({
+              title       = "Example Dashboard V2"
+              cursorSync  = "Off"
+              elements    = {}
+              layout      = { kind = "GridLayout", spec = { items = [] } }
+              links       = []
+              preload     = false
+              annotations = []
+              variables   = []
+              timeSettings = {
+                timezone = "browser"
+                from     = "now-6h"
+                to       = "now"
+              }
+            })}
+      title: Example Dashboard V2

@@ -16,8 +16,8 @@ import (
 
 type RoleInitParameters struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
-	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
+	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
+	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or `version` should be set.
 	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
 	// (String) Description of the role.
@@ -67,15 +67,15 @@ type RoleInitParameters struct {
 	// Unique identifier of the role. Used for assignments.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
-	// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
+	// (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
+	// Version of the role. On create, must be `1`. On update, must be exactly one greater than the previous state. This field or `auto_increment_version` should be set; `auto_increment_version` is recommended.
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type RoleObservation struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
-	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
+	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
+	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or `version` should be set.
 	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
 	// (String) Description of the role.
@@ -117,15 +117,15 @@ type RoleObservation struct {
 	// Unique identifier of the role. Used for assignments.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
-	// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
+	// (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
+	// Version of the role. On create, must be `1`. On update, must be exactly one greater than the previous state. This field or `auto_increment_version` should be set; `auto_increment_version` is recommended.
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type RoleParameters struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
-	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or `version` should be set.
+	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
+	// Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or `version` should be set.
 	// +kubebuilder:validation:Optional
 	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
@@ -185,8 +185,8 @@ type RoleParameters struct {
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
-	// Version of the role. A role is updated only on version increase. This field or `auto_increment_version` should be set.
+	// (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
+	// Version of the role. On create, must be `1`. On update, must be exactly one greater than the previous state. This field or `auto_increment_version` should be set; `auto_increment_version` is recommended.
 	// +kubebuilder:validation:Optional
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }

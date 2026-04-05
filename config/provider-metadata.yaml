@@ -275,6 +275,44 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
         importStatements: []
+    grafana_apps_dashboard_dashboard_v2:
+        subCategory: Grafana Apps
+        description: Manages Grafana dashboards using the v2 (Dynamic Dashboards) schema. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/#new-dashboard-apis
+        name: grafana_apps_dashboard_dashboard_v2
+        title: grafana_apps_dashboard_dashboard_v2 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-dashboard-v2"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "json": "${jsonencode({\n      title       = \"Example Dashboard V2\"\n      cursorSync  = \"Off\"\n      elements    = {}\n      layout      = { kind = \"GridLayout\", spec = { items = [] } }\n      links       = []\n      preload     = false\n      annotations = []\n      variables   = []\n      timeSettings = {\n        timezone = \"browser\"\n        from     = \"now-6h\"\n        to       = \"now\"\n      }\n    })}",
+                      "title": "Example Dashboard V2"
+                    }
+                  ]
+                }
+        argumentDocs:
+            allow_ui_updates: (Boolean) Set to true to allow editing the resource from the Grafana UI. By default, resources managed by Terraform cannot be edited in the UI. Enabling this option will cause divergence between the Terraform configuration and the resource in Grafana.
+            annotations: (Map of String) Annotations of the resource.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            json: (String) The JSON representation of the dashboard v2 spec.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
+            title: (String) The title of the dashboard. If not set, the title will be derived from the JSON spec.
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
     grafana_apps_dashboard_dashboard_v2beta1:
         subCategory: Grafana Apps
         description: Manages Grafana dashboards using the v2beta1 (Dynamic Dashboards) schema. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/#new-dashboard-apis
@@ -5595,7 +5633,7 @@ resources:
             - terraform import grafana_organization_preferences.name "{{ orgID }}"
     grafana_playlist:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
+        description: Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
         name: grafana_playlist
         title: grafana_playlist Resource - terraform-provider-grafana
         examples:
@@ -5620,7 +5658,7 @@ resources:
         argumentDocs:
             id: (String) The ID of this resource.
             interval: (String)
-            item: '(Block Set, Min: 1) (see below for nested schema)'
+            item: (Block Set) (see below for nested schema)
             name: (String) The name of the playlist.
             order: (Number)
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -5725,7 +5763,7 @@ resources:
                 }
         argumentDocs:
             action: '(String) Specific action users granted with the role will be allowed to perform (for example: users:read)'
-            auto_increment_version: (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). This field or version should be set.
+            auto_increment_version: (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
             description: (String) Description of the role.
             display_name: (String) Display name of the role. Available with Grafana 8.5+.
             global: (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
@@ -5737,7 +5775,7 @@ resources:
             permissions: (Block Set) Specific set of actions granted by the role. (see below for nested schema)
             scope: '(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.'
             uid: (String) Unique identifier of the role. Used for assignments.
-            version: (Number) Version of the role. A role is updated only on version increase. This field or auto_increment_version should be set.
+            version: (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
         importStatements:
             - |-
               terraform import grafana_role.name "{{ uid }}"
@@ -6061,7 +6099,7 @@ resources:
             enable_group_sync: (Boolean) Whether group synchronization is enabled.
             enable_user_sync: (Boolean) Whether user synchronization is enabled.
             id: (String) The ID of this resource.
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
             reject_non_provisioned_users: (Boolean) Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
         importStatements:
             - |-
