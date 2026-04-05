@@ -8,6 +8,7 @@ package oncall
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -43,4 +44,15 @@ var TeamSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Team)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.AvatarURL != nil {
+			cd["avatar_url"] = []byte(*cr.Status.AtProvider.AvatarURL)
+		}
+		if cr.Status.AtProvider.Email != nil {
+			cd["email"] = []byte(*cr.Status.AtProvider.Email)
+		}
+		return cd
+	},
 }

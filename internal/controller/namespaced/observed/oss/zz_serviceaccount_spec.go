@@ -8,8 +8,10 @@ package oss
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -53,4 +55,18 @@ var ServiceAccountSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.ServiceAccount)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.IsDisabled != nil {
+			cd["is_disabled"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.IsDisabled))
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.Role != nil {
+			cd["role"] = []byte(*cr.Status.AtProvider.Role)
+		}
+		return cd
+	},
 }

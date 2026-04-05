@@ -8,8 +8,10 @@ package oss
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -95,4 +97,39 @@ var DashboardSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Dashboard)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.ConfigJSON != nil {
+			cd["config_json"] = []byte(*cr.Status.AtProvider.ConfigJSON)
+		}
+		if cr.Status.AtProvider.DashboardID != nil {
+			cd["dashboard_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.DashboardID, 10))
+		}
+		if cr.Status.AtProvider.FolderUID != nil {
+			cd["folder_uid"] = []byte(*cr.Status.AtProvider.FolderUID)
+		}
+		if cr.Status.AtProvider.IsStarred != nil {
+			cd["is_starred"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.IsStarred))
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.Slug != nil {
+			cd["slug"] = []byte(*cr.Status.AtProvider.Slug)
+		}
+		if cr.Status.AtProvider.Title != nil {
+			cd["title"] = []byte(*cr.Status.AtProvider.Title)
+		}
+		if cr.Status.AtProvider.UID != nil {
+			cd["uid"] = []byte(*cr.Status.AtProvider.UID)
+		}
+		if cr.Status.AtProvider.URL != nil {
+			cd["url"] = []byte(*cr.Status.AtProvider.URL)
+		}
+		if cr.Status.AtProvider.Version != nil {
+			cd["version"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.Version, 10))
+		}
+		return cd
+	},
 }

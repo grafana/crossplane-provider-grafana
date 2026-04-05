@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -62,4 +63,24 @@ var OrganizationPreferencesSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.OrganizationPreferences)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.HomeDashboardUID != nil {
+			cd["home_dashboard_uid"] = []byte(*cr.Status.AtProvider.HomeDashboardUID)
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.Theme != nil {
+			cd["theme"] = []byte(*cr.Status.AtProvider.Theme)
+		}
+		if cr.Status.AtProvider.Timezone != nil {
+			cd["timezone"] = []byte(*cr.Status.AtProvider.Timezone)
+		}
+		if cr.Status.AtProvider.WeekStart != nil {
+			cd["week_start"] = []byte(*cr.Status.AtProvider.WeekStart)
+		}
+		return cd
+	},
 }

@@ -9,6 +9,7 @@ package cloud
 import (
 	"context"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -66,4 +67,24 @@ var OrganizationSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Organization)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.CreatedAt != nil {
+			cd["created_at"] = []byte(*cr.Status.AtProvider.CreatedAt)
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.Slug != nil {
+			cd["slug"] = []byte(*cr.Status.AtProvider.Slug)
+		}
+		if cr.Status.AtProvider.UpdatedAt != nil {
+			cd["updated_at"] = []byte(*cr.Status.AtProvider.UpdatedAt)
+		}
+		if cr.Status.AtProvider.URL != nil {
+			cd["url"] = []byte(*cr.Status.AtProvider.URL)
+		}
+		return cd
+	},
 }

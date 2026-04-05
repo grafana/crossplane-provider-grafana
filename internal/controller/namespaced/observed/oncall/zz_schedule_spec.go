@@ -8,6 +8,7 @@ package oncall
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -38,4 +39,12 @@ var ScheduleSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Schedule)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.Type != nil {
+			cd["type"] = []byte(*cr.Status.AtProvider.Type)
+		}
+		return cd
+	},
 }

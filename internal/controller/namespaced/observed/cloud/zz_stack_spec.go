@@ -7,7 +7,10 @@ Copyright 2026 Grafana Labs
 package cloud
 
 import (
+	"strconv"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -414,4 +417,216 @@ var StackSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Stack)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.AlertmanagerIPAllowListCname != nil {
+			cd["alertmanager_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.AlertmanagerIPAllowListCname)
+		}
+		if cr.Status.AtProvider.AlertmanagerName != nil {
+			cd["alertmanager_name"] = []byte(*cr.Status.AtProvider.AlertmanagerName)
+		}
+		if cr.Status.AtProvider.AlertmanagerStatus != nil {
+			cd["alertmanager_status"] = []byte(*cr.Status.AtProvider.AlertmanagerStatus)
+		}
+		if cr.Status.AtProvider.AlertmanagerURL != nil {
+			cd["alertmanager_url"] = []byte(*cr.Status.AtProvider.AlertmanagerURL)
+		}
+		if cr.Status.AtProvider.AlertmanagerUserID != nil {
+			cd["alertmanager_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.AlertmanagerUserID, 10))
+		}
+		if cr.Status.AtProvider.ClusterName != nil {
+			cd["cluster_name"] = []byte(*cr.Status.AtProvider.ClusterName)
+		}
+		if cr.Status.AtProvider.ClusterSlug != nil {
+			cd["cluster_slug"] = []byte(*cr.Status.AtProvider.ClusterSlug)
+		}
+		if cr.Status.AtProvider.DeleteProtection != nil {
+			cd["delete_protection"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.DeleteProtection))
+		}
+		if cr.Status.AtProvider.Description != nil {
+			cd["description"] = []byte(*cr.Status.AtProvider.Description)
+		}
+		if cr.Status.AtProvider.FleetManagementName != nil {
+			cd["fleet_management_name"] = []byte(*cr.Status.AtProvider.FleetManagementName)
+		}
+		if cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoPrivateDNS != nil {
+			cd["fleet_management_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoServiceName != nil {
+			cd["fleet_management_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.FleetManagementPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.FleetManagementStatus != nil {
+			cd["fleet_management_status"] = []byte(*cr.Status.AtProvider.FleetManagementStatus)
+		}
+		if cr.Status.AtProvider.FleetManagementURL != nil {
+			cd["fleet_management_url"] = []byte(*cr.Status.AtProvider.FleetManagementURL)
+		}
+		if cr.Status.AtProvider.FleetManagementUserID != nil {
+			cd["fleet_management_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.FleetManagementUserID, 10))
+		}
+		if cr.Status.AtProvider.GrafanasIPAllowListCname != nil {
+			cd["grafanas_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.GrafanasIPAllowListCname)
+		}
+		if cr.Status.AtProvider.GraphiteIPAllowListCname != nil {
+			cd["graphite_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.GraphiteIPAllowListCname)
+		}
+		if cr.Status.AtProvider.GraphiteName != nil {
+			cd["graphite_name"] = []byte(*cr.Status.AtProvider.GraphiteName)
+		}
+		if cr.Status.AtProvider.GraphitePrivateConnectivityInfoPrivateDNS != nil {
+			cd["graphite_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.GraphitePrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.GraphitePrivateConnectivityInfoServiceName != nil {
+			cd["graphite_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.GraphitePrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.GraphiteStatus != nil {
+			cd["graphite_status"] = []byte(*cr.Status.AtProvider.GraphiteStatus)
+		}
+		if cr.Status.AtProvider.GraphiteURL != nil {
+			cd["graphite_url"] = []byte(*cr.Status.AtProvider.GraphiteURL)
+		}
+		if cr.Status.AtProvider.GraphiteUserID != nil {
+			cd["graphite_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.GraphiteUserID, 10))
+		}
+		if cr.Status.AtProvider.InfluxURL != nil {
+			cd["influx_url"] = []byte(*cr.Status.AtProvider.InfluxURL)
+		}
+		if cr.Status.AtProvider.LogsIPAllowListCname != nil {
+			cd["logs_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.LogsIPAllowListCname)
+		}
+		if cr.Status.AtProvider.LogsName != nil {
+			cd["logs_name"] = []byte(*cr.Status.AtProvider.LogsName)
+		}
+		if cr.Status.AtProvider.LogsPrivateConnectivityInfoPrivateDNS != nil {
+			cd["logs_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.LogsPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.LogsPrivateConnectivityInfoServiceName != nil {
+			cd["logs_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.LogsPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.LogsStatus != nil {
+			cd["logs_status"] = []byte(*cr.Status.AtProvider.LogsStatus)
+		}
+		if cr.Status.AtProvider.LogsURL != nil {
+			cd["logs_url"] = []byte(*cr.Status.AtProvider.LogsURL)
+		}
+		if cr.Status.AtProvider.LogsUserID != nil {
+			cd["logs_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.LogsUserID, 10))
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.OncallAPIURL != nil {
+			cd["oncall_api_url"] = []byte(*cr.Status.AtProvider.OncallAPIURL)
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.OrgID, 10))
+		}
+		if cr.Status.AtProvider.OrgName != nil {
+			cd["org_name"] = []byte(*cr.Status.AtProvider.OrgName)
+		}
+		if cr.Status.AtProvider.OrgSlug != nil {
+			cd["org_slug"] = []byte(*cr.Status.AtProvider.OrgSlug)
+		}
+		if cr.Status.AtProvider.OtlpPrivateConnectivityInfoPrivateDNS != nil {
+			cd["otlp_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.OtlpPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.OtlpPrivateConnectivityInfoServiceName != nil {
+			cd["otlp_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.OtlpPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.OtlpURL != nil {
+			cd["otlp_url"] = []byte(*cr.Status.AtProvider.OtlpURL)
+		}
+		if cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoPrivateDNS != nil {
+			cd["pdc_api_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoServiceName != nil {
+			cd["pdc_api_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoPrivateDNS != nil {
+			cd["pdc_gateway_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoServiceName != nil {
+			cd["pdc_gateway_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.ProfilesIPAllowListCname != nil {
+			cd["profiles_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.ProfilesIPAllowListCname)
+		}
+		if cr.Status.AtProvider.ProfilesName != nil {
+			cd["profiles_name"] = []byte(*cr.Status.AtProvider.ProfilesName)
+		}
+		if cr.Status.AtProvider.ProfilesPrivateConnectivityInfoPrivateDNS != nil {
+			cd["profiles_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.ProfilesPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.ProfilesPrivateConnectivityInfoServiceName != nil {
+			cd["profiles_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.ProfilesPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.ProfilesStatus != nil {
+			cd["profiles_status"] = []byte(*cr.Status.AtProvider.ProfilesStatus)
+		}
+		if cr.Status.AtProvider.ProfilesURL != nil {
+			cd["profiles_url"] = []byte(*cr.Status.AtProvider.ProfilesURL)
+		}
+		if cr.Status.AtProvider.ProfilesUserID != nil {
+			cd["profiles_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.ProfilesUserID, 10))
+		}
+		if cr.Status.AtProvider.PrometheusIPAllowListCname != nil {
+			cd["prometheus_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.PrometheusIPAllowListCname)
+		}
+		if cr.Status.AtProvider.PrometheusName != nil {
+			cd["prometheus_name"] = []byte(*cr.Status.AtProvider.PrometheusName)
+		}
+		if cr.Status.AtProvider.PrometheusPrivateConnectivityInfoPrivateDNS != nil {
+			cd["prometheus_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.PrometheusPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.PrometheusPrivateConnectivityInfoServiceName != nil {
+			cd["prometheus_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.PrometheusPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.PrometheusRemoteEndpoint != nil {
+			cd["prometheus_remote_endpoint"] = []byte(*cr.Status.AtProvider.PrometheusRemoteEndpoint)
+		}
+		if cr.Status.AtProvider.PrometheusRemoteWriteEndpoint != nil {
+			cd["prometheus_remote_write_endpoint"] = []byte(*cr.Status.AtProvider.PrometheusRemoteWriteEndpoint)
+		}
+		if cr.Status.AtProvider.PrometheusStatus != nil {
+			cd["prometheus_status"] = []byte(*cr.Status.AtProvider.PrometheusStatus)
+		}
+		if cr.Status.AtProvider.PrometheusURL != nil {
+			cd["prometheus_url"] = []byte(*cr.Status.AtProvider.PrometheusURL)
+		}
+		if cr.Status.AtProvider.PrometheusUserID != nil {
+			cd["prometheus_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.PrometheusUserID, 10))
+		}
+		if cr.Status.AtProvider.RegionSlug != nil {
+			cd["region_slug"] = []byte(*cr.Status.AtProvider.RegionSlug)
+		}
+		if cr.Status.AtProvider.Status != nil {
+			cd["status"] = []byte(*cr.Status.AtProvider.Status)
+		}
+		if cr.Status.AtProvider.TracesIPAllowListCname != nil {
+			cd["traces_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.TracesIPAllowListCname)
+		}
+		if cr.Status.AtProvider.TracesName != nil {
+			cd["traces_name"] = []byte(*cr.Status.AtProvider.TracesName)
+		}
+		if cr.Status.AtProvider.TracesPrivateConnectivityInfoPrivateDNS != nil {
+			cd["traces_private_connectivity_info_private_dns"] = []byte(*cr.Status.AtProvider.TracesPrivateConnectivityInfoPrivateDNS)
+		}
+		if cr.Status.AtProvider.TracesPrivateConnectivityInfoServiceName != nil {
+			cd["traces_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.TracesPrivateConnectivityInfoServiceName)
+		}
+		if cr.Status.AtProvider.TracesStatus != nil {
+			cd["traces_status"] = []byte(*cr.Status.AtProvider.TracesStatus)
+		}
+		if cr.Status.AtProvider.TracesURL != nil {
+			cd["traces_url"] = []byte(*cr.Status.AtProvider.TracesURL)
+		}
+		if cr.Status.AtProvider.TracesUserID != nil {
+			cd["traces_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.TracesUserID, 10))
+		}
+		if cr.Status.AtProvider.URL != nil {
+			cd["url"] = []byte(*cr.Status.AtProvider.URL)
+		}
+		return cd
+	},
 }

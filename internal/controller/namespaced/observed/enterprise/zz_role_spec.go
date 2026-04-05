@@ -7,7 +7,10 @@ Copyright 2026 Grafana Labs
 package enterprise
 
 import (
+	"strconv"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -93,4 +96,33 @@ var RoleSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Role)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.Description != nil {
+			cd["description"] = []byte(*cr.Status.AtProvider.Description)
+		}
+		if cr.Status.AtProvider.DisplayName != nil {
+			cd["display_name"] = []byte(*cr.Status.AtProvider.DisplayName)
+		}
+		if cr.Status.AtProvider.Global != nil {
+			cd["global"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.Global))
+		}
+		if cr.Status.AtProvider.Group != nil {
+			cd["group"] = []byte(*cr.Status.AtProvider.Group)
+		}
+		if cr.Status.AtProvider.Hidden != nil {
+			cd["hidden"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.Hidden))
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.UID != nil {
+			cd["uid"] = []byte(*cr.Status.AtProvider.UID)
+		}
+		if cr.Status.AtProvider.Version != nil {
+			cd["version"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.Version, 10))
+		}
+		return cd
+	},
 }

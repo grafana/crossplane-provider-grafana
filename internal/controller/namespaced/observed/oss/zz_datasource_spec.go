@@ -8,8 +8,10 @@ package oss
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -108,4 +110,48 @@ var DataSourceSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.DataSource)
+		cd := managed.ConnectionDetails{}
+		if cr.Status.AtProvider.AccessMode != nil {
+			cd["access_mode"] = []byte(*cr.Status.AtProvider.AccessMode)
+		}
+		if cr.Status.AtProvider.BasicAuthEnabled != nil {
+			cd["basic_auth_enabled"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.BasicAuthEnabled))
+		}
+		if cr.Status.AtProvider.BasicAuthUsername != nil {
+			cd["basic_auth_username"] = []byte(*cr.Status.AtProvider.BasicAuthUsername)
+		}
+		if cr.Status.AtProvider.DatabaseName != nil {
+			cd["database_name"] = []byte(*cr.Status.AtProvider.DatabaseName)
+		}
+		if cr.Status.AtProvider.IsDefault != nil {
+			cd["is_default"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.IsDefault))
+		}
+		if cr.Status.AtProvider.JSONDataEncoded != nil {
+			cd["json_data_encoded"] = []byte(*cr.Status.AtProvider.JSONDataEncoded)
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.PrivateDataSourceConnectNetworkID != nil {
+			cd["private_data_source_connect_network_id"] = []byte(*cr.Status.AtProvider.PrivateDataSourceConnectNetworkID)
+		}
+		if cr.Status.AtProvider.Type != nil {
+			cd["type"] = []byte(*cr.Status.AtProvider.Type)
+		}
+		if cr.Status.AtProvider.UID != nil {
+			cd["uid"] = []byte(*cr.Status.AtProvider.UID)
+		}
+		if cr.Status.AtProvider.URL != nil {
+			cd["url"] = []byte(*cr.Status.AtProvider.URL)
+		}
+		if cr.Status.AtProvider.Username != nil {
+			cd["username"] = []byte(*cr.Status.AtProvider.Username)
+		}
+		return cd
+	},
 }
