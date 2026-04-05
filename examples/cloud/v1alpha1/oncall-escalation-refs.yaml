@@ -1,0 +1,170 @@
+# E2e test for native Crossplane references on OnCall resources.
+# Tests direct name/namespace refs between:
+#   - managed → observed (teamRef, personsToNotifyRef)
+#   - managed → managed  (escalationChainRef, notifyOnCallFromScheduleRef)
+#
+# PLACEHOLDER_USER_A is replaced by the Makefile with $GRAFANA_TEST_USER.
+---
+# 1. Create a Grafana team (managed resource).
+#    The OnCall Team data source will look this up by name.
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-team
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: e2e-refs-team
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
+---
+# 2. Observe the OnCall Team (data source, resolves name → ID).
+apiVersion: oncall.grafana.o.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-oncall-team
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: e2e-refs-team
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
+---
+# 3. Observe an OnCall User (data source, resolves username → ID).
+apiVersion: oncall.grafana.o.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-oncall-user
+  namespace: upbound-system
+spec:
+  forProvider:
+    username: PLACEHOLDER_USER_A
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
+---
+# 4. EscalationChain with teamRef → observed OnCall Team.
+apiVersion: oncall.grafana.m.crossplane.io/v1alpha1
+kind: EscalationChain
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-chain
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: e2e-refs-chain
+    teamRef:
+      name: e2e-refs-oncall-team
+      namespace: upbound-system
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
+---
+# 5. Schedule with teamRef → observed OnCall Team.
+apiVersion: oncall.grafana.m.crossplane.io/v1alpha1
+kind: Schedule
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-schedule
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: e2e-refs-schedule
+    type: calendar
+    timeZone: UTC
+    teamRef:
+      name: e2e-refs-oncall-team
+      namespace: upbound-system
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
+---
+# 6. Escalation step 0: notify_persons
+#    - escalationChainRef → EscalationChain (managed → managed)
+#    - personsToNotifyRef → observed User   (managed → observed)
+apiVersion: oncall.grafana.m.crossplane.io/v1alpha1
+kind: Escalation
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-escalation-persons
+  namespace: upbound-system
+spec:
+  forProvider:
+    type: notify_persons
+    position: 0
+    escalationChainRef:
+      name: e2e-refs-chain
+      namespace: upbound-system
+    personsToNotifyRef:
+      - name: e2e-refs-oncall-user
+        namespace: upbound-system
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
+---
+# 7. Escalation step 1: notify_on_call_from_schedule
+#    - escalationChainRef             → EscalationChain (managed → managed)
+#    - notifyOnCallFromScheduleRef    → Schedule         (managed → managed)
+apiVersion: oncall.grafana.m.crossplane.io/v1alpha1
+kind: Escalation
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-escalation-schedule
+  namespace: upbound-system
+spec:
+  forProvider:
+    type: notify_on_call_from_schedule
+    position: 1
+    escalationChainRef:
+      name: e2e-refs-chain
+      namespace: upbound-system
+    notifyOnCallFromScheduleRef:
+      name: e2e-refs-schedule
+      namespace: upbound-system
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
+---
+# 8. Escalation step 2: notify_team_members
+#    - escalationChainRef → EscalationChain (managed → managed)
+#    - teamRef            → observed Team   (managed → observed)
+apiVersion: oncall.grafana.m.crossplane.io/v1alpha1
+kind: Escalation
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/oncall-escalation-refs
+  name: e2e-refs-escalation-team
+  namespace: upbound-system
+spec:
+  forProvider:
+    type: notify_team_members
+    position: 2
+    escalationChainRef:
+      name: e2e-refs-chain
+      namespace: upbound-system
+    teamRef:
+      name: e2e-refs-oncall-team
+      namespace: upbound-system
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
