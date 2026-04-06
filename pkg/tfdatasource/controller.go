@@ -156,10 +156,18 @@ func (e *external) Update(ctx context.Context, mg resource.Managed) (managed.Ext
 	// The managed reconciler only persists annotation changes after Create(),
 	// not after Update(). Since observe-only resources never go through Create,
 	// we must persist annotation changes (specifically external-name) ourselves.
+	// Persist via a shallow copy so that the API server response (which lacks
+	// status for CRDs with a /status subresource) doesn't overwrite the
+	// AtProvider fields just set by Read on the original mg.
 	if meta.GetExternalName(mg) != extNameBefore {
-		if err := e.kube.Update(ctx, mg.(client.Object)); err != nil {
+		obj := mg.(client.Object)
+		copy := obj.DeepCopyObject().(client.Object)
+		if err := e.kube.Update(ctx, copy); err != nil {
 			return managed.ExternalUpdate{}, errors.Wrap(err, "cannot persist external-name annotation")
 		}
+		// Sync the resource version from the persisted copy so that subsequent
+		// writes (e.g. status update by the reconciler) don't conflict.
+		obj.SetResourceVersion(copy.GetResourceVersion())
 	}
 
 	mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
