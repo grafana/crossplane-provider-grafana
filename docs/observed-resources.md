@@ -1,5 +1,15 @@
 # Observed Resources (TF Data Sources as Crossplane Resources)
 
+> [!IMPORTANT]
+> Observed resources are intentionally namespaced-only — they represent read-only
+> lookups scoped to a namespace and `ProviderConfig`. References to observed
+> resources only work from **namespaced** managed resources (`*.m.crossplane.io`),
+> not from cluster-scoped ones (`*.crossplane.io`). This is because
+> crossplane-runtime's `APIResolver.Resolve` uses `mg.GetNamespace()` to look up
+> the referenced resource, and cluster-scoped resources return an empty namespace.
+> Use the namespaced managed resources with `ClusterProviderConfig` when you need
+> to reference observed resources.
+
 ## Overview
 
 Observed resources are read-only Crossplane resources backed by Terraform data
