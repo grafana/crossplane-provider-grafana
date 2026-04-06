@@ -6,7 +6,7 @@ echo "Running teardown-cloud.sh"
 # --- Delete Claims first (XR instances) ---
 echo "Deleting Claims..."
 ${KUBECTL} delete oncallshiftrollingusers.oncall.grafana.crossplane.grafana.net --all \
-	--timeout=2m --wait=true 2>/dev/null || true
+	-n upbound-system --timeout=2m --wait=true 2>/dev/null || true
 
 # Wait for composed resources to be cleaned up
 echo "Waiting for composed resources to be deleted..."
