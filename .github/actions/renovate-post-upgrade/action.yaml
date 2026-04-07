@@ -42,6 +42,7 @@ runs:
         RULES: ${{ inputs.rules }}
         BASE_REF: ${{ inputs.base-ref }}
       run: |
+        set -euo pipefail
         commands=""
 
         # Iterate over each rule in the JSON array
@@ -106,6 +107,7 @@ runs:
       if: steps.detect.outputs.has-commands == 'true'
       shell: bash
       run: |
+        set -euo pipefail
         while IFS= read -r cmd; do
           [ -z "$cmd" ] && continue
           echo "::group::Running: $cmd"
@@ -117,6 +119,7 @@ runs:
       if: steps.detect.outputs.has-commands == 'true'
       shell: bash
       run: |
+        set -euo pipefail
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add -A
