@@ -74,6 +74,7 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options, spec Spec) error {
 	r := managed.NewReconciler(mgr,
 		resource.ManagedKind(spec.ManagedKind),
 		managed.WithExternalConnecter(&connector{kube: mgr.GetClient(), spec: spec}),
+		managed.WithInitializers(), // Disable the default NameAsExternalName initializer.
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
 		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
 		managed.WithPollInterval(o.PollInterval),
@@ -102,15 +103,16 @@ type connector struct {
 }
 
 func (c *connector) Connect(ctx context.Context, mg resource.Managed) (managed.ExternalClient, error) {
-	meta, err := c.spec.ConnectFn(ctx, c.kube, mg)
+	providerMeta, err := c.spec.ConnectFn(ctx, c.kube, mg)
 	if err != nil {
 		return nil, errors.Wrap(err, "cannot connect to provider")
 	}
-	return &external{spec: c.spec, providerMeta: meta}, nil
+	return &external{kube: c.kube, spec: c.spec, providerMeta: providerMeta}, nil
 }
 
 // external implements managed.ExternalClient for observe-only resources.
 type external struct {
+	kube         client.Client
 	spec         Spec
 	providerMeta any
 }
@@ -146,9 +148,28 @@ func (e *external) Create(_ context.Context, _ resource.Managed) (managed.Extern
 }
 
 func (e *external) Update(ctx context.Context, mg resource.Managed) (managed.ExternalUpdate, error) {
+	extNameBefore := meta.GetExternalName(mg)
 	if err := e.spec.Read(ctx, mg, e.providerMeta); err != nil {
 		return managed.ExternalUpdate{}, errors.Wrap(err, "data source read failed")
 	}
+
+	// The managed reconciler only persists annotation changes after Create(),
+	// not after Update(). Since observe-only resources never go through Create,
+	// we must persist annotation changes (specifically external-name) ourselves.
+	// Persist via a shallow copy so that the API server response (which lacks
+	// status for CRDs with a /status subresource) doesn't overwrite the
+	// AtProvider fields just set by Read on the original mg.
+	if meta.GetExternalName(mg) != extNameBefore {
+		obj := mg.(client.Object)
+		copy := obj.DeepCopyObject().(client.Object)
+		if err := e.kube.Update(ctx, copy); err != nil {
+			return managed.ExternalUpdate{}, errors.Wrap(err, "cannot persist external-name annotation")
+		}
+		// Sync the resource version from the persisted copy so that subsequent
+		// writes (e.g. status update by the reconciler) don't conflict.
+		obj.SetResourceVersion(copy.GetResourceVersion())
+	}
+
 	mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
 	tjresource.SetUpToDateCondition(mg, true)
 	return managed.ExternalUpdate{}, nil
