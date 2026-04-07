@@ -22,21 +22,9 @@
         '/^sigs\\.k8s\\.io/controller-tools/',
       ],
     },
-    {
-      // When terraform-provider-grafana is updated, run make submodules and make generate
-      matchPackageNames: [
-        'github.com/grafana/terraform-provider-grafana/v4',
-      ],
-      postUpgradeTasks: {
-        commands: [
-          'make submodules',
-          'make generate',
-        ],
-        fileFilters: [
-          '**/*',
-        ],
-        executionMode: 'branch',
-      },
-    },
+    // Post-upgrade tasks for terraform-provider-grafana (and other packages)
+    // are handled by the renovate-post-upgrade.yaml workflow instead of
+    // postUpgradeTasks to avoid running commands in Renovate's permissive
+    // execution environment.
   ],
 }
