@@ -1,5 +1,15 @@
 # Observed Resources (TF Data Sources as Crossplane Resources)
 
+> [!IMPORTANT]
+> Observed resources are intentionally namespaced-only — they represent read-only
+> lookups scoped to a namespace and `ProviderConfig`. References to observed
+> resources only work from **namespaced** managed resources (`*.m.crossplane.io`),
+> not from cluster-scoped ones (`*.crossplane.io`). This is because
+> crossplane-runtime's `APIResolver.Resolve` uses `mg.GetNamespace()` to look up
+> the referenced resource, and cluster-scoped resources return an empty namespace.
+> Use the namespaced managed resources with `ClusterProviderConfig` when you need
+> to reference observed resources.
+
 ## Overview
 
 Observed resources are read-only Crossplane resources backed by Terraform data
@@ -149,6 +159,52 @@ UPTEST_EXAMPLE_LIST=examples/namespaced/v1alpha1/observed-sets.yaml make e2e
 
 Observed resources use `uptest.upbound.io/disable-import: "true"` since they
 are read-only and cannot be imported.
+
+### Cloud e2e tests
+
+Some compositions (e.g. `oncall-shift-rolling-users`) resolve observed resources
+to IDs that only exist on a real Grafana Cloud stack. These cannot be tested
+against the local Grafana OSS instance. A separate `make e2e-cloud` target tests
+these compositions against a pre-existing Grafana Cloud stack.
+
+**Prerequisites:**
+
+1. A Grafana Cloud stack with OnCall enabled. The tests use the pre-existing
+   `xpe2etest` stack (`xpe2etest.grafana.net`) in the `TerraformProviderGrafana`
+   org. They do NOT create or delete stacks.
+2. A `.env` file in the repository root with the following variables:
+
+```bash
+GRAFANA_URL=https://xpe2etest.grafana.net  # no trailing slash
+GRAFANA_SA_TOKEN=<service-account-token>   # needs admin permissions
+GRAFANA_ONCALL_URL=https://oncall-prod-us-central-0.grafana.net/oncall
+GRAFANA_TEST_USER=<oncall-username>        # an existing OnCall user
+```
+
+**Running the tests:**
+
+```bash
+set -a && source .env && set +a
+make e2e-cloud
+```
+
+This will:
+1. Build the provider and deploy it to a local Kind cluster (`local-deploy`).
+2. Run `cluster/test/setup-cloud.sh`, which creates the credentials Secret,
+   ProviderConfig, ClusterProviderConfig, and applies all XRDs/Compositions
+   from `examples/compositions/`.
+3. Substitute `PLACEHOLDER_USER_{A,B,C}` markers in the cloud example claims
+   with `$GRAFANA_TEST_USER`, then run uptest.
+4. Restore the original placeholder markers after the test completes.
+
+Cloud example claims live under `examples/cloud/v1alpha1/` and are excluded from
+the default `make e2e` target.
+
+To tear down cloud resources manually (e.g. after a failed test):
+
+```bash
+make teardown-cloud
+```
 
 ## Code generation
 

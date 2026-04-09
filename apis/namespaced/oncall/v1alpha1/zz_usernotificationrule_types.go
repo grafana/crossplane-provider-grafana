@@ -24,6 +24,14 @@ type UserNotificationRuleInitParameters struct {
 	// Boolean value which indicates if a rule is “important”
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
+	// Reference to a User in oncall to populate userId.
+	// +kubebuilder:validation:Optional
+	OnCallUserRef *v1.NamespacedReference `json:"onCallUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oncall to populate userId.
+	// +kubebuilder:validation:Optional
+	OnCallUserSelector *v1.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
+
 	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
@@ -34,6 +42,10 @@ type UserNotificationRuleInitParameters struct {
 
 	// (String) User ID
 	// User ID
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=OnCallUserRef
+	// +crossplane:generate:reference:selectorFieldName=OnCallUserSelector
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
@@ -75,6 +87,14 @@ type UserNotificationRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
+	// Reference to a User in oncall to populate userId.
+	// +kubebuilder:validation:Optional
+	OnCallUserRef *v1.NamespacedReference `json:"onCallUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oncall to populate userId.
+	// +kubebuilder:validation:Optional
+	OnCallUserSelector *v1.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
+
 	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// +kubebuilder:validation:Optional
@@ -87,6 +107,10 @@ type UserNotificationRuleParameters struct {
 
 	// (String) User ID
 	// User ID
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=OnCallUserRef
+	// +crossplane:generate:reference:selectorFieldName=OnCallUserSelector
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
@@ -128,7 +152,6 @@ type UserNotificationRule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.type) || (has(self.initProvider) && has(self.initProvider.type))",message="spec.forProvider.type is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
 	Spec   UserNotificationRuleSpec   `json:"spec"`
 	Status UserNotificationRuleStatus `json:"status,omitempty"`
 }

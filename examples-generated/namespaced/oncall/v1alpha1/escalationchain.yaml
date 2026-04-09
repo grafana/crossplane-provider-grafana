@@ -11,4 +11,6 @@ spec:
   forProvider:
     name: default
     provider: ${grafana.oncall}
-    teamId: ${data.grafana_oncall_team.my_team.id}
+    teamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_oncall_team

@@ -21,7 +21,19 @@ type EscalationChainInitParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 }
 
 type EscalationChainObservation struct {
@@ -47,8 +59,20 @@ type EscalationChainParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 }
 
 // EscalationChainSpec defines the desired state of EscalationChain

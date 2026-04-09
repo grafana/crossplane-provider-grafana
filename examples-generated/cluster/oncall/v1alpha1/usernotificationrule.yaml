@@ -8,7 +8,9 @@ metadata:
   name: my-user-step-1
 spec:
   forProvider:
+    onCallUserSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_oncall_user
     position: 0
     provider: ${grafana.oncall}
     type: notify_by_mobile_app
-    userId: ${data.grafana_oncall_user.my_user.id}

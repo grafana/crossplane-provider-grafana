@@ -11,5 +11,7 @@ spec:
   forProvider:
     name: my outgoing webhook
     provider: ${grafana.oncall}
-    teamId: ${data.grafana_oncall_team.my_team.id}
+    teamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_oncall_team
     url: https://example.com/

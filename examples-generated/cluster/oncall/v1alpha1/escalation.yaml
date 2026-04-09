@@ -11,8 +11,8 @@ spec:
     escalationChainSelector:
       matchLabels:
         testing.upbound.io/example-name: default
-    personsToNotify:
-    - ${data.grafana_oncall_user.alex.id}
+    personsToNotifyRef:
+    - name: grafana_oncall_user
     position: 0
     type: notify_persons
 

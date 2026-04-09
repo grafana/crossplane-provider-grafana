@@ -54,7 +54,19 @@ type ScheduleInitParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The schedule's time zone.
 	// The schedule's time zone.
@@ -154,8 +166,20 @@ type ScheduleParameters struct {
 
 	// (String) The ID of the OnCall team (using the grafana_oncall_team datasource).
 	// The ID of the OnCall team (using the `grafana_oncall_team` datasource).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
+
+	// Reference to a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate teamId.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The schedule's time zone.
 	// The schedule's time zone.
@@ -172,10 +196,34 @@ type ScheduleSlackInitParameters struct {
 
 	// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
 	// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.SlackChannel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackChannelRef
+	// +crossplane:generate:reference:selectorFieldName=SlackChannelSelector
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
+
+	// Reference to a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+
+	// Selector for a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
+
+	// Reference to a UserGroup in oncall to populate userGroupId.
+	// +kubebuilder:validation:Optional
+	SlackUserGroupRef *v1.NamespacedReference `json:"slackUserGroupRef,omitempty" tf:"-"`
+
+	// Selector for a UserGroup in oncall to populate userGroupId.
+	// +kubebuilder:validation:Optional
+	SlackUserGroupSelector *v1.NamespacedSelector `json:"slackUserGroupSelector,omitempty" tf:"-"`
 
 	// call users change.
 	// Slack user group id. Members of user group will be updated when on-call users change.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.UserGroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackUserGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SlackUserGroupSelector
 	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }
 
@@ -194,11 +242,35 @@ type ScheduleSlackParameters struct {
 
 	// (String) Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
 	// Slack channel id. Reminder about schedule shifts will be directed to this channel in Slack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.SlackChannel
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackChannelRef
+	// +crossplane:generate:reference:selectorFieldName=SlackChannelSelector
 	// +kubebuilder:validation:Optional
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
+	// Reference to a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+
+	// Selector for a SlackChannel in oncall to populate channelId.
+	// +kubebuilder:validation:Optional
+	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
+
+	// Reference to a UserGroup in oncall to populate userGroupId.
+	// +kubebuilder:validation:Optional
+	SlackUserGroupRef *v1.NamespacedReference `json:"slackUserGroupRef,omitempty" tf:"-"`
+
+	// Selector for a UserGroup in oncall to populate userGroupId.
+	// +kubebuilder:validation:Optional
+	SlackUserGroupSelector *v1.NamespacedSelector `json:"slackUserGroupSelector,omitempty" tf:"-"`
+
 	// call users change.
 	// Slack user group id. Members of user group will be updated when on-call users change.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.UserGroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=SlackUserGroupRef
+	// +crossplane:generate:reference:selectorFieldName=SlackUserGroupSelector
 	// +kubebuilder:validation:Optional
 	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }

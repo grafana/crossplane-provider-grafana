@@ -1,0 +1,307 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xoncallshiftrollingusers.oncall.grafana.crossplane.grafana.net
+spec:
+  group: oncall.grafana.crossplane.grafana.net
+  names:
+    kind: XOnCallShiftRollingUsers
+    plural: xoncallshiftrollingusers
+  claimNames:
+    kind: OnCallShiftRollingUsers
+    plural: oncallshiftrollingusers
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required:
+                - name
+                - start
+                - duration
+                - frequency
+                - rollingUserNames
+                - providerConfigRef
+              properties:
+                name:
+                  type: string
+                  description: The shift's name.
+                start:
+                  type: string
+                  description: "Start time (format: yyyy-MM-dd'T'HH:mm:ss)."
+                duration:
+                  type: number
+                  description: The duration of the event in seconds.
+                frequency:
+                  type: string
+                  description: "The frequency of the event."
+                  enum: [hourly, daily, weekly, monthly]
+                interval:
+                  type: number
+                  description: The positive integer representing at which intervals the recurrence rule repeats.
+                level:
+                  type: number
+                  description: The priority level. The higher the value, the higher the priority.
+                startRotationFromUserIndex:
+                  type: number
+                  description: The index of the list of users in rolling_users, from which on-call rotation starts.
+                teamName:
+                  type: string
+                  description: >
+                    Name of an observed Team resource to compose alongside the shift.
+                    The shift's teamSelector uses matchControllerRef to auto-resolve.
+                timeZone:
+                  type: string
+                  description: "The shift's timezone. Overrides schedule's timezone."
+                until:
+                  type: string
+                  description: "The end time of recurrent on-call shifts (format: yyyy-MM-dd'T'HH:mm:ss)."
+                weekStart:
+                  type: string
+                  description: Start day of the week in iCal format.
+                  enum: [MO, TU, WE, TH, FR, SA, SU]
+                byDay:
+                  type: array
+                  description: List of days in iCal format.
+                  items:
+                    type: string
+                    enum: [MO, TU, WE, TH, FR, SA, SU]
+                byMonth:
+                  type: array
+                  description: List of months. Valid values are 1 to 12.
+                  items:
+                    type: number
+                byMonthday:
+                  type: array
+                  description: List of days of the month. Valid values are 1 to 31 or -31 to -1.
+                  items:
+                    type: number
+                scheduleName:
+                  type: string
+                  description: >
+                    Optional name for an OnCall Schedule to compose alongside the shift.
+                    The schedule uses shiftsSelector with matchControllerRef to
+                    auto-reference the co-composed shift.
+                scheduleTimeZone:
+                  type: string
+                  description: "Time zone for the schedule (e.g. UTC, America/New_York). Defaults to UTC."
+                rollingUserNames:
+                  type: array
+                  description: >
+                    List of rotation groups. Each group is a list of
+                    OnCall usernames that will be resolved to user IDs.
+                  items:
+                    type: array
+                    items:
+                      type: string
+                providerConfigRef:
+                  type: object
+                  description: ProviderConfigRef to use for all composed resources.
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                    policy:
+                      type: object
+                      properties:
+                        resolve:
+                          type: string
+                          enum: [Always, IfNotPresent]
+---
+# This composition only exists because rolling_users is [][]*string which
+# native Crossplane references cannot handle. KCL resolves usernames to IDs
+# by composing observed User resources. Team resolution uses native
+# teamSelector with matchControllerRef via the co-composed observed Team.
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: oncall-shift-rolling-users
+spec:
+  compositeTypeRef:
+    apiVersion: oncall.grafana.crossplane.grafana.net/v1alpha1
+    kind: XOnCallShiftRollingUsers
+  mode: Pipeline
+  pipeline:
+    - step: render-resources
+      functionRef:
+        name: function-kcl
+      input:
+        apiVersion: krm.kcl.dev/v1alpha1
+        kind: KCLRun
+        spec:
+          source: |
+            import json
+            import crypto
+
+            oxr = option("params").oxr
+            _ocds = option("params").ocds
+            spec = oxr.spec
+
+            # Short deterministic RFC1123-safe name from an arbitrary string
+            _safeName = lambda s: str -> str {
+                crypto.md5(s)[:8]
+            }
+
+            _claimName = oxr.metadata.name
+            _claimNs = oxr.spec?.claimRef?.namespace or "default"
+
+            # providerConfigRef for namespaced resources requires explicit kind
+            _providerConfigRef = {
+                kind = "ClusterProviderConfig"
+                name = spec.providerConfigRef.name
+            }
+
+            # --- Observed Team (optional): composed so matchControllerRef can find it ---
+            _teamName = str(spec.teamName or "")
+
+            _teamResources = [{
+                apiVersion = "oncall.grafana.o.crossplane.io/v1alpha1"
+                kind = "Team"
+                metadata = {
+                    namespace = _claimNs
+                    annotations = {
+                        "krm.kcl.dev/composition-resource-name" = "${_claimName}-team"
+                    }
+                }
+                spec = {
+                    forProvider.name = _teamName
+                    providerConfigRef = _providerConfigRef
+                }
+            }] if _teamName else []
+
+            # --- Observed Users: one per unique username across all rotation groups ---
+            # Round-trip rollingUserNames through JSON to get plain nested lists.
+            # KCL schema types from Crossplane params don't support nested iteration.
+            _rollingUserNames = json.decode(json.encode(spec.rollingUserNames or []))
+            _flatUsers = [u for group in _rollingUserNames for u in group]
+            _uniqueUsers = {u: True for u in _flatUsers}
+
+            _observedUsers = [{
+                apiVersion = "oncall.grafana.o.crossplane.io/v1alpha1"
+                kind = "User"
+                metadata = {
+                    namespace = _claimNs
+                    annotations = {
+                        "krm.kcl.dev/composition-resource-name" = "${_claimName}-${_safeName(uname)}"
+                    }
+                }
+                spec = {
+                    forProvider = {
+                        username = uname
+                    }
+                    providerConfigRef = _providerConfigRef
+                }
+            } for uname, _ in _uniqueUsers]
+
+            # Resolve usernames to IDs from observed resources.
+            # NOTE: _ocds.get(key, default) returns Undefined in KCL even when
+            # the key exists. Use direct access with `in` check instead.
+            _resolveUser = lambda username: str -> str {
+                _key = "${_claimName}-${_safeName(username)}"
+                _entry = _ocds[_key] if _key in _ocds else None
+                _entry?.Resource?.metadata?.annotations?["crossplane.io/external-name"] or ""
+            }
+
+            # Build rolling_users: [][]*string
+            _rollingUsers = [
+                [_resolveUser(u) for u in group]
+                for group in _rollingUserNames
+            ]
+
+            # Only emit the shift once all users are resolved
+            _allResolved = all username in _flatUsers {
+                _resolveUser(username)
+            }
+
+            # Build the shift forProvider dict with all fields.
+            # Use str()/int() coercion to convert Crossplane schema values
+            # to plain KCL types. Use `or` for optional fields.
+            _shiftForProvider: {str:} = {
+                name = str(spec.name)
+                type = "rolling_users"
+                start = str(spec.start)
+                duration = int(spec.duration)
+                frequency = str(spec.frequency)
+            }
+            if _teamName:
+                _shiftForProvider |= {teamSelector.matchControllerRef = True}
+            if spec.interval:
+                _shiftForProvider |= {interval = int(spec.interval)}
+            if spec.level:
+                _shiftForProvider |= {level = int(spec.level)}
+            if str(spec.startRotationFromUserIndex or "") != "":
+                _shiftForProvider |= {startRotationFromUserIndex = int(spec.startRotationFromUserIndex)}
+            if str(spec.timeZone or ""):
+                _shiftForProvider |= {timeZone = str(spec.timeZone)}
+            if str(spec.until or ""):
+                _shiftForProvider |= {until = str(spec.until)}
+            if str(spec.weekStart or ""):
+                _shiftForProvider |= {weekStart = str(spec.weekStart)}
+            if spec.byDay:
+                _shiftForProvider |= {byDay = json.decode(json.encode(spec.byDay))}
+            if spec.byMonth:
+                _shiftForProvider |= {byMonth = json.decode(json.encode(spec.byMonth))}
+            if spec.byMonthday:
+                _shiftForProvider |= {byMonthday = json.decode(json.encode(spec.byMonthday))}
+            if _rollingUsers:
+                _shiftForProvider |= {rollingUsers = _rollingUsers}
+
+            # Emit the OnCallShift managed resource
+            _shift = {
+                apiVersion = "oncall.grafana.m.crossplane.io/v1alpha1"
+                kind = "OnCallShift"
+                metadata = {
+                    namespace = _claimNs
+                    annotations = {
+                        "krm.kcl.dev/composition-resource-name" = "${_claimName}-shift"
+                    }
+                }
+                spec = {
+                    forProvider = _shiftForProvider
+                    providerConfigRef = _providerConfigRef
+                }
+            }
+
+            # --- Optional Schedule: composed so the shift is visible in the UI ---
+            _scheduleName = str(spec.scheduleName or "")
+            _scheduleTimeZone = str(spec.scheduleTimeZone or "") or "UTC"
+
+            _scheduleForProvider: {str:} = {
+                name = _scheduleName
+                type = "calendar"
+                timeZone = _scheduleTimeZone
+                shiftsSelector.matchControllerRef = True
+            }
+            if _teamName:
+                _scheduleForProvider |= {teamSelector.matchControllerRef = True}
+
+            _scheduleResources = [{
+                apiVersion = "oncall.grafana.m.crossplane.io/v1alpha1"
+                kind = "Schedule"
+                metadata = {
+                    namespace = _claimNs
+                    annotations = {
+                        "krm.kcl.dev/composition-resource-name" = "${_claimName}-schedule"
+                    }
+                }
+                spec = {
+                    forProvider = _scheduleForProvider
+                    providerConfigRef = _providerConfigRef
+                }
+            }] if _scheduleName else []
+
+            # Always emit all resources. The Shift and Schedule will retry
+            # until users are resolved and rollingUsers is populated.
+            items = _teamResources + _observedUsers + [_shift] + _scheduleResources
+    - step: automatically-detect-ready-composed-resources
+      functionRef:
+        name: function-auto-ready
+

@@ -52,7 +52,19 @@ type EscalationInitParameters struct {
 
 	// (String) The ID of a User Group for notify_user_group type step.
 	// The ID of a User Group for notify_user_group type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.UserGroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=GroupToNotifyRef
+	// +crossplane:generate:reference:selectorFieldName=GroupToNotifySelector
 	GroupToNotify *string `json:"groupToNotify,omitempty" tf:"group_to_notify,omitempty"`
+
+	// Reference to a UserGroup in oncall to populate groupToNotify.
+	// +kubebuilder:validation:Optional
+	GroupToNotifyRef *v1.NamespacedReference `json:"groupToNotifyRef,omitempty" tf:"-"`
+
+	// Selector for a UserGroup in oncall to populate groupToNotify.
+	// +kubebuilder:validation:Optional
+	GroupToNotifySelector *v1.NamespacedSelector `json:"groupToNotifySelector,omitempty" tf:"-"`
 
 	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
 	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
@@ -83,6 +95,10 @@ type EscalationInitParameters struct {
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	NotifyToTeamMembers *string `json:"notifyToTeamMembers,omitempty" tf:"notify_to_team_members,omitempty"`
 
 	// (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
@@ -95,13 +111,37 @@ type EscalationInitParameters struct {
 
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=PersonsToNotifyRef
+	// +crossplane:generate:reference:selectorFieldName=PersonsToNotifySelector
 	// +listType=set
 	PersonsToNotify []*string `json:"personsToNotify,omitempty" tf:"persons_to_notify,omitempty"`
 
 	// (Set of String) The list of ID's of users for notify_person_next_each_time type step.
 	// The list of ID's of users for notify_person_next_each_time type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=PersonsToNotifyNextEachTimeRef
+	// +crossplane:generate:reference:selectorFieldName=PersonsToNotifyNextEachTimeSelector
 	// +listType=set
 	PersonsToNotifyNextEachTime []*string `json:"personsToNotifyNextEachTime,omitempty" tf:"persons_to_notify_next_each_time,omitempty"`
+
+	// References to User in oncall to populate personsToNotifyNextEachTime.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifyNextEachTimeRef []v1.NamespacedReference `json:"personsToNotifyNextEachTimeRef,omitempty" tf:"-"`
+
+	// Selector for a list of User in oncall to populate personsToNotifyNextEachTime.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifyNextEachTimeSelector *v1.NamespacedSelector `json:"personsToNotifyNextEachTimeSelector,omitempty" tf:"-"`
+
+	// References to User in oncall to populate personsToNotify.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifyRef []v1.NamespacedReference `json:"personsToNotifyRef,omitempty" tf:"-"`
+
+	// Selector for a list of User in oncall to populate personsToNotify.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifySelector *v1.NamespacedSelector `json:"personsToNotifySelector,omitempty" tf:"-"`
 
 	// (Number) The position of the escalation step (starts from 0).
 	// The position of the escalation step (starts from 0).
@@ -110,6 +150,14 @@ type EscalationInitParameters struct {
 	// (String) The severity of the incident for declare_incident type step.
 	// The severity of the incident for declare_incident type step.
 	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+
+	// Reference to a Team in oncall to populate notifyToTeamMembers.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate notifyToTeamMembers.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
@@ -229,8 +277,20 @@ type EscalationParameters struct {
 
 	// (String) The ID of a User Group for notify_user_group type step.
 	// The ID of a User Group for notify_user_group type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.UserGroup
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=GroupToNotifyRef
+	// +crossplane:generate:reference:selectorFieldName=GroupToNotifySelector
 	// +kubebuilder:validation:Optional
 	GroupToNotify *string `json:"groupToNotify,omitempty" tf:"group_to_notify,omitempty"`
+
+	// Reference to a UserGroup in oncall to populate groupToNotify.
+	// +kubebuilder:validation:Optional
+	GroupToNotifyRef *v1.NamespacedReference `json:"groupToNotifyRef,omitempty" tf:"-"`
+
+	// Selector for a UserGroup in oncall to populate groupToNotify.
+	// +kubebuilder:validation:Optional
+	GroupToNotifySelector *v1.NamespacedSelector `json:"groupToNotifySelector,omitempty" tf:"-"`
 
 	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
 	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
@@ -265,6 +325,10 @@ type EscalationParameters struct {
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	NotifyToTeamMembers *string `json:"notifyToTeamMembers,omitempty" tf:"notify_to_team_members,omitempty"`
 
@@ -280,15 +344,39 @@ type EscalationParameters struct {
 
 	// (Set of String) The list of ID's of users for notify_persons type step.
 	// The list of ID's of users for notify_persons type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=PersonsToNotifyRef
+	// +crossplane:generate:reference:selectorFieldName=PersonsToNotifySelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	PersonsToNotify []*string `json:"personsToNotify,omitempty" tf:"persons_to_notify,omitempty"`
 
 	// (Set of String) The list of ID's of users for notify_person_next_each_time type step.
 	// The list of ID's of users for notify_person_next_each_time type step.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=PersonsToNotifyNextEachTimeRef
+	// +crossplane:generate:reference:selectorFieldName=PersonsToNotifyNextEachTimeSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	PersonsToNotifyNextEachTime []*string `json:"personsToNotifyNextEachTime,omitempty" tf:"persons_to_notify_next_each_time,omitempty"`
+
+	// References to User in oncall to populate personsToNotifyNextEachTime.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifyNextEachTimeRef []v1.NamespacedReference `json:"personsToNotifyNextEachTimeRef,omitempty" tf:"-"`
+
+	// Selector for a list of User in oncall to populate personsToNotifyNextEachTime.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifyNextEachTimeSelector *v1.NamespacedSelector `json:"personsToNotifyNextEachTimeSelector,omitempty" tf:"-"`
+
+	// References to User in oncall to populate personsToNotify.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifyRef []v1.NamespacedReference `json:"personsToNotifyRef,omitempty" tf:"-"`
+
+	// Selector for a list of User in oncall to populate personsToNotify.
+	// +kubebuilder:validation:Optional
+	PersonsToNotifySelector *v1.NamespacedSelector `json:"personsToNotifySelector,omitempty" tf:"-"`
 
 	// (Number) The position of the escalation step (starts from 0).
 	// The position of the escalation step (starts from 0).
@@ -299,6 +387,14 @@ type EscalationParameters struct {
 	// The severity of the incident for declare_incident type step.
 	// +kubebuilder:validation:Optional
 	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
+
+	// Reference to a Team in oncall to populate notifyToTeamMembers.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oncall to populate notifyToTeamMembers.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
