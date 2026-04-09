@@ -1,5 +1,5 @@
 apiVersion: slo.grafana.o.crossplane.io/v1alpha1
-kind: Slos
+kind: SLOs
 metadata:
   name: example-slos
   namespace: default

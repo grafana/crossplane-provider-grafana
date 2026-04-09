@@ -10,8 +10,8 @@ spec:
   names:
     categories:
     - crossplane
-    kind: AWSAccount
-    listKind: AWSAccountList
+    kind: AwsAccount
+    listKind: AwsAccountList
     plural: awsaccounts
     singular: awsaccount
   scope: Namespaced
@@ -29,7 +29,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AWSAccount is an observe-only resource backed by the grafana_cloud_provider_aws_account
+        description: AwsAccount is an observe-only resource backed by the grafana_cloud_provider_aws_account
           Terraform data source.
         properties:
           apiVersion:
@@ -52,7 +52,7 @@ spec:
           spec:
             properties:
               forProvider:
-                description: AWSAccountParameters defines the input parameters for
+                description: AwsAccountParameters defines the input parameters for
                   the grafana_cloud_provider_aws_account data source.
                 properties:
                   resourceID:
@@ -128,7 +128,7 @@ spec:
           status:
             properties:
               atProvider:
-                description: AWSAccountObservation holds the observed (computed) fields
+                description: AwsAccountObservation holds the observed (computed) fields
                   from the grafana_cloud_provider_aws_account data source.
                 properties:
                   name:

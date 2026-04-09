@@ -34,7 +34,7 @@ type LibraryPanelObservation struct {
 	Created *string `json:"created,omitempty"`
 
 	// Numerical IDs of Grafana dashboards containing the library panel.
-	DashboardIds []int64 `json:"dashboardIds,omitempty"`
+	DashboardIDs []int64 `json:"dashboardIDs,omitempty"`
 
 	// Description of the library panel.
 	Description *string `json:"description,omitempty"`

@@ -133,7 +133,7 @@ spec:
                   created:
                     description: Timestamp when the library panel was created.
                     type: string
-                  dashboardIds:
+                  dashboardIDs:
                     description: Numerical IDs of Grafana dashboards containing the
                       library panel.
                     items:

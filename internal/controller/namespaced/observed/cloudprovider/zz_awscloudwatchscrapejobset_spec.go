@@ -17,14 +17,14 @@ import (
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
-var AWSCloudwatchScrapeJobSetSpec = tfdatasource.Spec{
+var AwsCloudwatchScrapeJobSetSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_cloud_provider_aws_cloudwatch_scrape_jobs",
-	ManagedKind:    v1alpha1.AWSCloudwatchScrapeJobSet_GroupVersionKind,
-	NewManaged:     func() resource.Managed { return &v1alpha1.AWSCloudwatchScrapeJobSet{} },
+	ManagedKind:    v1alpha1.AwsCloudwatchScrapeJobSet_GroupVersionKind,
+	NewManaged:     func() resource.Managed { return &v1alpha1.AwsCloudwatchScrapeJobSet{} },
 	Read: tfdatasource.NewFrameworkReadFn(
-		newDSAWSCloudwatchScrapeJobSet,
+		newDSAwsCloudwatchScrapeJobSet,
 		func(mg resource.Managed) map[string]tftypes.Value {
-			cr := mg.(*v1alpha1.AWSCloudwatchScrapeJobSet)
+			cr := mg.(*v1alpha1.AwsCloudwatchScrapeJobSet)
 			attrs := map[string]tftypes.Value{}
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 			return attrs

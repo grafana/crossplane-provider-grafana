@@ -13,25 +13,25 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-// AWSCloudwatchScrapeJobSetParameters defines the input parameters for the grafana_cloud_provider_aws_cloudwatch_scrape_jobs data source.
-type AWSCloudwatchScrapeJobSetParameters struct {
+// AwsCloudwatchScrapeJobSetParameters defines the input parameters for the grafana_cloud_provider_aws_cloudwatch_scrape_jobs data source.
+type AwsCloudwatchScrapeJobSetParameters struct {
 	// The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
 	// +kubebuilder:validation:Required
 	StackID string `json:"stackID"`
 }
 
-// AWSCloudwatchScrapeJobSetObservation holds the observed (computed) fields from the grafana_cloud_provider_aws_cloudwatch_scrape_jobs data source.
-type AWSCloudwatchScrapeJobSetObservation struct {
+// AwsCloudwatchScrapeJobSetObservation holds the observed (computed) fields from the grafana_cloud_provider_aws_cloudwatch_scrape_jobs data source.
+type AwsCloudwatchScrapeJobSetObservation struct {
 }
 
-type AWSCloudwatchScrapeJobSetSpec struct {
+type AwsCloudwatchScrapeJobSetSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`
-	ForProvider            AWSCloudwatchScrapeJobSetParameters `json:"forProvider"`
+	ForProvider            AwsCloudwatchScrapeJobSetParameters `json:"forProvider"`
 }
 
-type AWSCloudwatchScrapeJobSetStatus struct {
+type AwsCloudwatchScrapeJobSetStatus struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider          AWSCloudwatchScrapeJobSetObservation `json:"atProvider,omitempty"`
+	AtProvider          AwsCloudwatchScrapeJobSetObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -41,30 +41,30 @@ type AWSCloudwatchScrapeJobSetStatus struct {
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 
-// AWSCloudwatchScrapeJobSet is an observe-only resource backed by the grafana_cloud_provider_aws_cloudwatch_scrape_jobs Terraform data source.
-type AWSCloudwatchScrapeJobSet struct {
+// AwsCloudwatchScrapeJobSet is an observe-only resource backed by the grafana_cloud_provider_aws_cloudwatch_scrape_jobs Terraform data source.
+type AwsCloudwatchScrapeJobSet struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   AWSCloudwatchScrapeJobSetSpec   `json:"spec"`
-	Status AWSCloudwatchScrapeJobSetStatus `json:"status,omitempty"`
+	Spec   AwsCloudwatchScrapeJobSetSpec   `json:"spec"`
+	Status AwsCloudwatchScrapeJobSetStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// AWSCloudwatchScrapeJobSetList contains a list of AWSCloudwatchScrapeJobSet.
-type AWSCloudwatchScrapeJobSetList struct {
+// AwsCloudwatchScrapeJobSetList contains a list of AwsCloudwatchScrapeJobSet.
+type AwsCloudwatchScrapeJobSetList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []AWSCloudwatchScrapeJobSet `json:"items"`
+	Items           []AwsCloudwatchScrapeJobSet `json:"items"`
 }
 
-var AWSCloudwatchScrapeJobSet_GroupVersionKind = schema.GroupVersionKind{
+var AwsCloudwatchScrapeJobSet_GroupVersionKind = schema.GroupVersionKind{
 	Group:   CRDGroup,
 	Version: CRDVersion,
-	Kind:    "AWSCloudwatchScrapeJobSet",
+	Kind:    "AwsCloudwatchScrapeJobSet",
 }
 
 func init() {
-	SchemeBuilder.Register(&AWSCloudwatchScrapeJobSet{}, &AWSCloudwatchScrapeJobSetList{})
+	SchemeBuilder.Register(&AwsCloudwatchScrapeJobSet{}, &AwsCloudwatchScrapeJobSetList{})
 }

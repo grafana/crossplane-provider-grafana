@@ -12,4 +12,4 @@ import (
 
 var legacyProvider = grafanaProvider.Provider("crossplane")
 
-var legacyDSSlos = legacyProvider.DataSourcesMap["grafana_slos"]
+var legacyDSSLOs = legacyProvider.DataSourcesMap["grafana_slos"]

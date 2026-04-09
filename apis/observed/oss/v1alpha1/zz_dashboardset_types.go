@@ -25,7 +25,7 @@ type DashboardsDashboards struct {
 type DashboardSetParameters struct {
 	// UIDs of Grafana folders containing dashboards. Specify to filter for dashboards by folder (eg. `["General"]` for General folder), or leave blank to get all dashboards in all folders.
 	// +optional
-	FolderUids []string `json:"folderUids,omitempty"`
+	FolderUIDs []string `json:"folderUIDs,omitempty"`
 
 	// Maximum number of dashboard search results to return.
 	// +optional
@@ -45,7 +45,7 @@ type DashboardSetObservation struct {
 	Dashboards []DashboardsDashboards `json:"dashboards,omitempty"`
 
 	// UIDs of Grafana folders containing dashboards. Specify to filter for dashboards by folder (eg. `["General"]` for General folder), or leave blank to get all dashboards in all folders.
-	FolderUids []string `json:"folderUids,omitempty"`
+	FolderUIDs []string `json:"folderUIDs,omitempty"`
 
 	// Maximum number of dashboard search results to return.
 	Limit *int64 `json:"limit,omitempty"`

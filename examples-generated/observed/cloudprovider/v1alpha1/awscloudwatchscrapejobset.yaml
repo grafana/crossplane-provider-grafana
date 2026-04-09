@@ -1,5 +1,5 @@
 apiVersion: cloudprovider.grafana.o.crossplane.io/v1alpha1
-kind: AWSCloudwatchScrapeJobSet
+kind: AwsCloudwatchScrapeJobSet
 metadata:
   name: example-awscloudwatchscrapejobset
   namespace: default

@@ -10,8 +10,8 @@ spec:
   names:
     categories:
     - crossplane
-    kind: AWSCloudwatchScrapeJobSet
-    listKind: AWSCloudwatchScrapeJobSetList
+    kind: AwsCloudwatchScrapeJobSet
+    listKind: AwsCloudwatchScrapeJobSetList
     plural: awscloudwatchscrapejobsets
     singular: awscloudwatchscrapejobset
   scope: Namespaced
@@ -29,7 +29,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AWSCloudwatchScrapeJobSet is an observe-only resource backed
+        description: AwsCloudwatchScrapeJobSet is an observe-only resource backed
           by the grafana_cloud_provider_aws_cloudwatch_scrape_jobs Terraform data
           source.
         properties:
@@ -53,7 +53,7 @@ spec:
           spec:
             properties:
               forProvider:
-                description: AWSCloudwatchScrapeJobSetParameters defines the input
+                description: AwsCloudwatchScrapeJobSetParameters defines the input
                   parameters for the grafana_cloud_provider_aws_cloudwatch_scrape_jobs
                   data source.
                 properties:
@@ -125,7 +125,7 @@ spec:
           status:
             properties:
               atProvider:
-                description: AWSCloudwatchScrapeJobSetObservation holds the observed
+                description: AwsCloudwatchScrapeJobSetObservation holds the observed
                   (computed) fields from the grafana_cloud_provider_aws_cloudwatch_scrape_jobs
                   data source.
                 type: object

@@ -55,7 +55,7 @@ spec:
                 description: DashboardSetParameters defines the input parameters for
                   the grafana_dashboards data source.
                 properties:
-                  folderUids:
+                  folderUIDs:
                     description: UIDs of Grafana folders containing dashboards. Specify
                       to filter for dashboards by folder (eg. `["General"]` for General
                       folder), or leave blank to get all dashboards in all folders.
@@ -153,7 +153,7 @@ spec:
                           type: string
                       type: object
                     type: array
-                  folderUids:
+                  folderUIDs:
                     description: UIDs of Grafana folders containing dashboards. Specify
                       to filter for dashboards by folder (eg. `["General"]` for General
                       folder), or leave blank to get all dashboards in all folders.

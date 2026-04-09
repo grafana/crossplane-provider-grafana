@@ -13,9 +13,9 @@ import (
 )
 
 var Specs = []tfdatasource.Spec{
-	AWSAccountSpec,
-	AWSCloudwatchScrapeJobSpec,
-	AWSCloudwatchScrapeJobSetSpec,
+	AwsAccountSpec,
+	AwsCloudwatchScrapeJobSpec,
+	AwsCloudwatchScrapeJobSetSpec,
 	AzureCredentialSpec,
 }
 

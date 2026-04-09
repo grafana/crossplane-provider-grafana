@@ -7,8 +7,8 @@ package v1alpha1
 
 import resource "github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 
-// GetItems of this AWSAccountList.
-func (l *AWSAccountList) GetItems() []resource.Managed {
+// GetItems of this AwsAccountList.
+func (l *AwsAccountList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -16,8 +16,8 @@ func (l *AWSAccountList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this AWSCloudwatchScrapeJobList.
-func (l *AWSCloudwatchScrapeJobList) GetItems() []resource.Managed {
+// GetItems of this AwsCloudwatchScrapeJobList.
+func (l *AwsCloudwatchScrapeJobList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -25,8 +25,8 @@ func (l *AWSCloudwatchScrapeJobList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this AWSCloudwatchScrapeJobSetList.
-func (l *AWSCloudwatchScrapeJobSetList) GetItems() []resource.Managed {
+// GetItems of this AwsCloudwatchScrapeJobSetList.
+func (l *AwsCloudwatchScrapeJobSetList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

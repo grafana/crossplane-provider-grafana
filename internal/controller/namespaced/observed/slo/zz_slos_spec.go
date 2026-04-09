@@ -15,26 +15,26 @@ import (
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
-var SlosSpec = tfdatasource.Spec{
+var SLOsSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_slos",
-	ManagedKind:    v1alpha1.Slos_GroupVersionKind,
-	NewManaged:     func() resource.Managed { return &v1alpha1.Slos{} },
+	ManagedKind:    v1alpha1.SLOs_GroupVersionKind,
+	NewManaged:     func() resource.Managed { return &v1alpha1.SLOs{} },
 	Read: tfdatasource.NewLegacyReadFn(
 		"grafana_slos",
-		legacyDSSlos,
+		legacyDSSLOs,
 		func(mg resource.Managed) map[string]string {
 			attrs := map[string]string{}
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
-			cr := mg.(*v1alpha1.Slos)
+			cr := mg.(*v1alpha1.SLOs)
 			meta.SetExternalName(cr, d.Id())
 			if v, ok := d.GetOk("slos"); ok {
-				var items []v1alpha1.SlosSlos
+				var items []v1alpha1.SLOsSLOs
 				var list []interface{}
 				list, _ = v.([]interface{})
 				for _, raw := range list {
-					item := v1alpha1.SlosSlos{}
+					item := v1alpha1.SLOsSLOs{}
 					m, _ := raw.(map[string]interface{})
 					if val, ok := m["description"].(string); ok {
 						item.Description = &val
@@ -53,7 +53,7 @@ var SlosSpec = tfdatasource.Spec{
 					}
 					items = append(items, item)
 				}
-				cr.Status.AtProvider.Slos = items
+				cr.Status.AtProvider.SLOs = items
 			}
 		},
 	),

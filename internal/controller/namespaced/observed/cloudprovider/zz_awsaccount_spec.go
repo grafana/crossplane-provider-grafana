@@ -18,21 +18,21 @@ import (
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
-var AWSAccountSpec = tfdatasource.Spec{
+var AwsAccountSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_cloud_provider_aws_account",
-	ManagedKind:    v1alpha1.AWSAccount_GroupVersionKind,
-	NewManaged:     func() resource.Managed { return &v1alpha1.AWSAccount{} },
+	ManagedKind:    v1alpha1.AwsAccount_GroupVersionKind,
+	NewManaged:     func() resource.Managed { return &v1alpha1.AwsAccount{} },
 	Read: tfdatasource.NewFrameworkReadFn(
-		newDSAWSAccount,
+		newDSAwsAccount,
 		func(mg resource.Managed) map[string]tftypes.Value {
-			cr := mg.(*v1alpha1.AWSAccount)
+			cr := mg.(*v1alpha1.AwsAccount)
 			attrs := map[string]tftypes.Value{}
 			attrs["resource_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.ResourceID)
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
-			cr := mg.(*v1alpha1.AWSAccount)
+			cr := mg.(*v1alpha1.AwsAccount)
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {

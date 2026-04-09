@@ -12,9 +12,13 @@ func snakeToCamel(acronymSet map[string]bool, s string) string {
 		if p == "" {
 			continue
 		}
-		if acronymSet[strings.ToUpper(p)] {
-			parts[i] = strings.ToUpper(p)
-		} else {
+		upper := strings.ToUpper(p)
+		switch {
+		case acronymSet[upper]:
+			parts[i] = upper
+		case strings.HasSuffix(p, "s") && acronymSet[strings.ToUpper(strings.TrimSuffix(p, "s"))]:
+			parts[i] = strings.ToUpper(strings.TrimSuffix(p, "s")) + "s"
+		default:
 			parts[i] = strings.ToUpper(p[:1]) + p[1:]
 		}
 	}
@@ -28,18 +32,21 @@ func snakeToCamelJSON(acronymSet map[string]bool, s string) string {
 			continue
 		}
 		upper := strings.ToUpper(p)
-		if i == 0 {
-			if acronymSet[upper] {
-				parts[i] = strings.ToLower(p)
-			} else {
-				parts[i] = p
-			}
-		} else {
-			if acronymSet[upper] {
-				parts[i] = upper
-			} else {
-				parts[i] = strings.ToUpper(p[:1]) + p[1:]
-			}
+		trimmed := strings.TrimSuffix(p, "s")
+		isPluralAcronym := strings.HasSuffix(p, "s") && acronymSet[strings.ToUpper(trimmed)]
+		switch {
+		case i == 0 && acronymSet[upper]:
+			parts[i] = strings.ToLower(p)
+		case i == 0 && isPluralAcronym:
+			parts[i] = strings.ToLower(trimmed) + "s"
+		case i == 0:
+			parts[i] = p
+		case acronymSet[upper]:
+			parts[i] = upper
+		case isPluralAcronym:
+			parts[i] = strings.ToUpper(trimmed) + "s"
+		default:
+			parts[i] = strings.ToUpper(p[:1]) + p[1:]
 		}
 	}
 	return strings.Join(parts, "")
