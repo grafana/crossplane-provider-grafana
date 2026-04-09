@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   forProvider:
-    folderUids: # TODO
+    folderUIDs: # TODO
     limit: 0
     orgID: "example-org_id"
     tags: # TODO

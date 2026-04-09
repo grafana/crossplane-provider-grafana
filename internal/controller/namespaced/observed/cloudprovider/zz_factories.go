@@ -16,9 +16,9 @@ import (
 
 var fwFactories = resolveFrameworkFactories()
 
-var newDSAWSAccount = fwFactories["grafana_cloud_provider_aws_account"]
-var newDSAWSCloudwatchScrapeJob = fwFactories["grafana_cloud_provider_aws_cloudwatch_scrape_job"]
-var newDSAWSCloudwatchScrapeJobSet = fwFactories["grafana_cloud_provider_aws_cloudwatch_scrape_jobs"]
+var newDSAwsAccount = fwFactories["grafana_cloud_provider_aws_account"]
+var newDSAwsCloudwatchScrapeJob = fwFactories["grafana_cloud_provider_aws_cloudwatch_scrape_job"]
+var newDSAwsCloudwatchScrapeJobSet = fwFactories["grafana_cloud_provider_aws_cloudwatch_scrape_jobs"]
 var newDSAzureCredential = fwFactories["grafana_cloud_provider_azure_credential"]
 
 func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {

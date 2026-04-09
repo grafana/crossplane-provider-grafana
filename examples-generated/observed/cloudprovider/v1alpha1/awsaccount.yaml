@@ -1,5 +1,5 @@
 apiVersion: cloudprovider.grafana.o.crossplane.io/v1alpha1
-kind: AWSAccount
+kind: AwsAccount
 metadata:
   name: example-awsaccount
   namespace: default

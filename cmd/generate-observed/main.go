@@ -64,7 +64,7 @@ func main() {
 		Acronyms: []string{
 			"ID", "URL", "API", "IP", "IPS", "HTTP", "HTTPS", "SSH", "SSL", "TLS",
 			"DNS", "TCP", "UDP", "HTML", "CSS", "JSON", "XML", "YAML", "SQL",
-			"AWS", "GCP", "SMTP", "LDAP", "SAML", "RBAC", "UID", "UUID", "URI",
+			"GCP", "SMTP", "LDAP", "SAML", "RBAC", "UID", "UUID", "URI",
 			"SLO", "SM", "O11Y", "K6", "LBAC",
 		},
 	}

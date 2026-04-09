@@ -13,8 +13,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-// AWSCloudwatchScrapeJobParameters defines the input parameters for the grafana_cloud_provider_aws_cloudwatch_scrape_job data source.
-type AWSCloudwatchScrapeJobParameters struct {
+// AwsCloudwatchScrapeJobParameters defines the input parameters for the grafana_cloud_provider_aws_cloudwatch_scrape_job data source.
+type AwsCloudwatchScrapeJobParameters struct {
 	// The name of the AWS CloudWatch Scrape Job. Part of the Terraform Resource ID.
 	// +kubebuilder:validation:Required
 	Name string `json:"name"`
@@ -24,10 +24,10 @@ type AWSCloudwatchScrapeJobParameters struct {
 	StackID string `json:"stackID"`
 }
 
-// AWSCloudwatchScrapeJobObservation holds the observed (computed) fields from the grafana_cloud_provider_aws_cloudwatch_scrape_job data source.
-type AWSCloudwatchScrapeJobObservation struct {
+// AwsCloudwatchScrapeJobObservation holds the observed (computed) fields from the grafana_cloud_provider_aws_cloudwatch_scrape_job data source.
+type AwsCloudwatchScrapeJobObservation struct {
 	// The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this AWS CloudWatch Scrape Job. This can be provided by the `resource_id` attribute of the `grafana_cloud_provider_aws_account` resource.
-	AWSAccountResourceID *string `json:"awsAccountResourceID,omitempty"`
+	AwsAccountResourceID *string `json:"awsAccountResourceID,omitempty"`
 
 	// When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
 	DisabledReason *string `json:"disabledReason,omitempty"`
@@ -51,14 +51,14 @@ type AWSCloudwatchScrapeJobObservation struct {
 	StaticLabels map[string]string `json:"staticLabels,omitempty"`
 }
 
-type AWSCloudwatchScrapeJobSpec struct {
+type AwsCloudwatchScrapeJobSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`
-	ForProvider            AWSCloudwatchScrapeJobParameters `json:"forProvider"`
+	ForProvider            AwsCloudwatchScrapeJobParameters `json:"forProvider"`
 }
 
-type AWSCloudwatchScrapeJobStatus struct {
+type AwsCloudwatchScrapeJobStatus struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider          AWSCloudwatchScrapeJobObservation `json:"atProvider,omitempty"`
+	AtProvider          AwsCloudwatchScrapeJobObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -68,30 +68,30 @@ type AWSCloudwatchScrapeJobStatus struct {
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 
-// AWSCloudwatchScrapeJob is an observe-only resource backed by the grafana_cloud_provider_aws_cloudwatch_scrape_job Terraform data source.
-type AWSCloudwatchScrapeJob struct {
+// AwsCloudwatchScrapeJob is an observe-only resource backed by the grafana_cloud_provider_aws_cloudwatch_scrape_job Terraform data source.
+type AwsCloudwatchScrapeJob struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   AWSCloudwatchScrapeJobSpec   `json:"spec"`
-	Status AWSCloudwatchScrapeJobStatus `json:"status,omitempty"`
+	Spec   AwsCloudwatchScrapeJobSpec   `json:"spec"`
+	Status AwsCloudwatchScrapeJobStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// AWSCloudwatchScrapeJobList contains a list of AWSCloudwatchScrapeJob.
-type AWSCloudwatchScrapeJobList struct {
+// AwsCloudwatchScrapeJobList contains a list of AwsCloudwatchScrapeJob.
+type AwsCloudwatchScrapeJobList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []AWSCloudwatchScrapeJob `json:"items"`
+	Items           []AwsCloudwatchScrapeJob `json:"items"`
 }
 
-var AWSCloudwatchScrapeJob_GroupVersionKind = schema.GroupVersionKind{
+var AwsCloudwatchScrapeJob_GroupVersionKind = schema.GroupVersionKind{
 	Group:   CRDGroup,
 	Version: CRDVersion,
-	Kind:    "AWSCloudwatchScrapeJob",
+	Kind:    "AwsCloudwatchScrapeJob",
 }
 
 func init() {
-	SchemeBuilder.Register(&AWSCloudwatchScrapeJob{}, &AWSCloudwatchScrapeJobList{})
+	SchemeBuilder.Register(&AwsCloudwatchScrapeJob{}, &AwsCloudwatchScrapeJobList{})
 }

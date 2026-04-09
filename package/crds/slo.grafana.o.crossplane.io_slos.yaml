@@ -10,8 +10,8 @@ spec:
   names:
     categories:
     - crossplane
-    kind: Slos
-    listKind: SlosList
+    kind: SLOs
+    listKind: SLOsList
     plural: slos
     singular: slos
   scope: Namespaced
@@ -29,7 +29,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Slos is an observe-only resource backed by the grafana_slos Terraform
+        description: SLOs is an observe-only resource backed by the grafana_slos Terraform
           data source.
         properties:
           apiVersion:
@@ -52,7 +52,7 @@ spec:
           spec:
             properties:
               forProvider:
-                description: SlosParameters defines the input parameters for the grafana_slos
+                description: SLOsParameters defines the input parameters for the grafana_slos
                   data source.
                 type: object
               managementPolicies:
@@ -116,7 +116,7 @@ spec:
           status:
             properties:
               atProvider:
-                description: SlosObservation holds the observed (computed) fields
+                description: SLOsObservation holds the observed (computed) fields
                   from the grafana_slos data source.
                 properties:
                   slos:

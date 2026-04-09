@@ -18,25 +18,25 @@ import (
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
 )
 
-var AWSCloudwatchScrapeJobSpec = tfdatasource.Spec{
+var AwsCloudwatchScrapeJobSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_cloud_provider_aws_cloudwatch_scrape_job",
-	ManagedKind:    v1alpha1.AWSCloudwatchScrapeJob_GroupVersionKind,
-	NewManaged:     func() resource.Managed { return &v1alpha1.AWSCloudwatchScrapeJob{} },
+	ManagedKind:    v1alpha1.AwsCloudwatchScrapeJob_GroupVersionKind,
+	NewManaged:     func() resource.Managed { return &v1alpha1.AwsCloudwatchScrapeJob{} },
 	Read: tfdatasource.NewFrameworkReadFn(
-		newDSAWSCloudwatchScrapeJob,
+		newDSAwsCloudwatchScrapeJob,
 		func(mg resource.Managed) map[string]tftypes.Value {
-			cr := mg.(*v1alpha1.AWSCloudwatchScrapeJob)
+			cr := mg.(*v1alpha1.AwsCloudwatchScrapeJob)
 			attrs := map[string]tftypes.Value{}
 			attrs["name"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Name)
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
-			cr := mg.(*v1alpha1.AWSCloudwatchScrapeJob)
+			cr := mg.(*v1alpha1.AwsCloudwatchScrapeJob)
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("aws_account_resource_id"), &v); !diags.HasError() && v != nil {
-					cr.Status.AtProvider.AWSAccountResourceID = v
+					cr.Status.AtProvider.AwsAccountResourceID = v
 				}
 			}
 			{

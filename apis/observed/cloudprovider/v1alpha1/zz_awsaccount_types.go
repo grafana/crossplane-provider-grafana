@@ -13,8 +13,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-// AWSAccountParameters defines the input parameters for the grafana_cloud_provider_aws_account data source.
-type AWSAccountParameters struct {
+// AwsAccountParameters defines the input parameters for the grafana_cloud_provider_aws_account data source.
+type AwsAccountParameters struct {
 	// The ID given by the Grafana Cloud Provider API to this AWS Account resource.
 	// +kubebuilder:validation:Required
 	ResourceID string `json:"resourceID"`
@@ -24,8 +24,8 @@ type AWSAccountParameters struct {
 	StackID string `json:"stackID"`
 }
 
-// AWSAccountObservation holds the observed (computed) fields from the grafana_cloud_provider_aws_account data source.
-type AWSAccountObservation struct {
+// AwsAccountObservation holds the observed (computed) fields from the grafana_cloud_provider_aws_account data source.
+type AwsAccountObservation struct {
 	// An optional human-readable name for this AWS Account resource.
 	Name *string `json:"name,omitempty"`
 
@@ -36,14 +36,14 @@ type AWSAccountObservation struct {
 	RoleArn *string `json:"roleArn,omitempty"`
 }
 
-type AWSAccountSpec struct {
+type AwsAccountSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`
-	ForProvider            AWSAccountParameters `json:"forProvider"`
+	ForProvider            AwsAccountParameters `json:"forProvider"`
 }
 
-type AWSAccountStatus struct {
+type AwsAccountStatus struct {
 	xpv1.ResourceStatus `json:",inline"`
-	AtProvider          AWSAccountObservation `json:"atProvider,omitempty"`
+	AtProvider          AwsAccountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -53,30 +53,30 @@ type AWSAccountStatus struct {
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="AGE",type="date",JSONPath=".metadata.creationTimestamp"
 
-// AWSAccount is an observe-only resource backed by the grafana_cloud_provider_aws_account Terraform data source.
-type AWSAccount struct {
+// AwsAccount is an observe-only resource backed by the grafana_cloud_provider_aws_account Terraform data source.
+type AwsAccount struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   AWSAccountSpec   `json:"spec"`
-	Status AWSAccountStatus `json:"status,omitempty"`
+	Spec   AwsAccountSpec   `json:"spec"`
+	Status AwsAccountStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// AWSAccountList contains a list of AWSAccount.
-type AWSAccountList struct {
+// AwsAccountList contains a list of AwsAccount.
+type AwsAccountList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []AWSAccount `json:"items"`
+	Items           []AwsAccount `json:"items"`
 }
 
-var AWSAccount_GroupVersionKind = schema.GroupVersionKind{
+var AwsAccount_GroupVersionKind = schema.GroupVersionKind{
 	Group:   CRDGroup,
 	Version: CRDVersion,
-	Kind:    "AWSAccount",
+	Kind:    "AwsAccount",
 }
 
 func init() {
-	SchemeBuilder.Register(&AWSAccount{}, &AWSAccountList{})
+	SchemeBuilder.Register(&AwsAccount{}, &AwsAccountList{})
 }

@@ -13,7 +13,7 @@ import (
 )
 
 var Specs = []tfdatasource.Spec{
-	SlosSpec,
+	SLOsSpec,
 }
 
 func Setup(mgr ctrl.Manager, o tjcontroller.Options, connect tfdatasource.ConnectFn) error {

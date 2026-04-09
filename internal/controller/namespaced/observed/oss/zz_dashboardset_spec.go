@@ -27,7 +27,7 @@ var DashboardSetSpec = tfdatasource.Spec{
 		func(mg resource.Managed) map[string]string {
 			cr := mg.(*v1alpha1.DashboardSet)
 			attrs := map[string]string{}
-			attrs["folder_uids"] = fmt.Sprintf("%v", cr.Spec.ForProvider.FolderUids)
+			attrs["folder_uids"] = fmt.Sprintf("%v", cr.Spec.ForProvider.FolderUIDs)
 			if cr.Spec.ForProvider.Limit != nil {
 				attrs["limit"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Limit)
 			}
