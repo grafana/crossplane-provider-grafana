@@ -16,7 +16,15 @@ sleep 10
 echo "Deleting ProviderConfigs..."
 ${KUBECTL} delete providerconfig.grafana.crossplane.io e2e-cloud-instance 2>/dev/null || true
 ${KUBECTL} delete clusterproviderconfig.grafana.m.crossplane.io e2e-cloud-instance 2>/dev/null || true
+${KUBECTL} delete clusterproviderconfig.grafana.m.crossplane.io e2e-cloud-api 2>/dev/null || true
 ${KUBECTL} delete secret e2e-cloud-instance-creds -n upbound-system 2>/dev/null || true
+${KUBECTL} delete secret e2e-cloud-api-creds -n upbound-system 2>/dev/null || true
+
+# --- Delete observed Stack and its connection secret ---
+echo "Deleting observed Stack..."
+${KUBECTL} delete stack.cloud.grafana.o.crossplane.io e2e-observed-stack \
+	-n upbound-system --timeout=2m 2>/dev/null || true
+${KUBECTL} delete secret e2e-stack-details -n upbound-system 2>/dev/null || true
 
 # --- Delete XRDs and Compositions ---
 echo "Deleting Compositions and XRDs..."

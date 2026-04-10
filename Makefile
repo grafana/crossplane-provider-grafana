@@ -191,7 +191,7 @@ e2e-oss:
 	@find examples/oss -name '*.yaml' -exec make e2e UPTEST_EXAMPLE_LIST={} \;
 
 # Cloud e2e tests: test compositions against a pre-existing Grafana Cloud stack.
-# Requires env vars: GRAFANA_URL, GRAFANA_SA_TOKEN, GRAFANA_ONCALL_URL, GRAFANA_TEST_USER
+# Requires env vars: GRAFANA_SA_TOKEN, GRAFANA_CLOUD_ACCESS_POLICY_TOKEN, GRAFANA_STACK_SLUG, GRAFANA_TEST_USER
 UPTEST_CLOUD_EXAMPLE_LIST ?= $(shell find examples/cloud -name '*.yaml' -path '*/v1alpha1/*' 2>/dev/null | sort | tr '\n' ',')
 
 e2e-cloud: local-deploy uptest-cloud
@@ -206,7 +206,7 @@ uptest-cloud: $(UPTEST) $(KUBECTL) $(CHAINSAW) $(CROSSPLANE_CLI)
 		fi; \
 	done; \
 	KUBECTL=$(KUBECTL) CHAINSAW=$(CHAINSAW) CROSSPLANE_CLI=$(CROSSPLANE_CLI) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) \
-		GRAFANA_URL=$${GRAFANA_URL} GRAFANA_SA_TOKEN=$${GRAFANA_SA_TOKEN} GRAFANA_ONCALL_URL=$${GRAFANA_ONCALL_URL} \
+		GRAFANA_SA_TOKEN=$${GRAFANA_SA_TOKEN} GRAFANA_CLOUD_ACCESS_POLICY_TOKEN=$${GRAFANA_CLOUD_ACCESS_POLICY_TOKEN} GRAFANA_STACK_SLUG=$${GRAFANA_STACK_SLUG} \
 		$(UPTEST) e2e "${UPTEST_CLOUD_EXAMPLE_LIST}" \
 		--data-source="${UPTEST_DATASOURCE_PATH}" \
 		--setup-script=cluster/test/setup-cloud.sh \
