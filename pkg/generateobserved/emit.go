@@ -324,6 +324,11 @@ func generateConnectionDetailsFn(ds *dsInfo) string {
 	b.WriteString("\tConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {\n")
 	fmt.Fprintf(&b, "\t\tcr := mg.(*v1alpha1.%s)\n", ds.kindName)
 	b.WriteString("\t\tcd := managed.ConnectionDetails{}\n")
+	// Include the datasource id (stored as external name) in connection details.
+	// This is important for stackSecretRef where id is remapped to stack_id.
+	b.WriteString("\t\tif id := meta.GetExternalName(cr); id != \"\" {\n")
+	b.WriteString("\t\t\tcd[\"id\"] = []byte(id)\n")
+	b.WriteString("\t\t}\n")
 	for _, f := range scalars {
 		switch f.goType {
 		case goTypePtrString:

@@ -9,6 +9,7 @@ package cloud
 import (
 	"context"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -61,6 +62,9 @@ var PrivateDataSourceConnectNetworksSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.PrivateDataSourceConnectNetworks)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.NameFilter != nil {
 			cd["name_filter"] = []byte(*cr.Status.AtProvider.NameFilter)
 		}

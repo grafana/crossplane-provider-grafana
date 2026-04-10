@@ -100,6 +100,9 @@ var DashboardSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.Dashboard)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.ConfigJSON != nil {
 			cd["config_json"] = []byte(*cr.Status.AtProvider.ConfigJSON)
 		}

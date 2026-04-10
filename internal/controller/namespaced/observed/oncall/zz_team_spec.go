@@ -47,6 +47,9 @@ var TeamSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.Team)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.AvatarURL != nil {
 			cd["avatar_url"] = []byte(*cr.Status.AtProvider.AvatarURL)
 		}

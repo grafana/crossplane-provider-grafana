@@ -113,6 +113,9 @@ var DataSourceSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.DataSource)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.AccessMode != nil {
 			cd["access_mode"] = []byte(*cr.Status.AtProvider.AccessMode)
 		}

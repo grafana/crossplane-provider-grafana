@@ -80,6 +80,9 @@ var DashboardSetSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.DashboardSet)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.Limit != nil {
 			cd["limit"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.Limit, 10))
 		}

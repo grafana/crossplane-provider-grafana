@@ -69,6 +69,9 @@ var OrganizationUserSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.OrganizationUser)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.Email != nil {
 			cd["email"] = []byte(*cr.Status.AtProvider.Email)
 		}

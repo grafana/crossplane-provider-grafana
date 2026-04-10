@@ -9,6 +9,7 @@ package frontendobservability
 import (
 	"context"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -53,6 +54,9 @@ var AppSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.App)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.CollectorEndpoint != nil {
 			cd["collector_endpoint"] = []byte(*cr.Status.AtProvider.CollectorEndpoint)
 		}

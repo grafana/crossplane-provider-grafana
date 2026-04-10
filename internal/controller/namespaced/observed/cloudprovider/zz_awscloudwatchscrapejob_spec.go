@@ -10,6 +10,7 @@ import (
 	"context"
 	"strconv"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
@@ -83,6 +84,9 @@ var AwsCloudwatchScrapeJobSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.AwsCloudwatchScrapeJob)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.AwsAccountResourceID != nil {
 			cd["aws_account_resource_id"] = []byte(*cr.Status.AtProvider.AwsAccountResourceID)
 		}

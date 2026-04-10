@@ -42,6 +42,9 @@ var ScheduleSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.Schedule)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.Type != nil {
 			cd["type"] = []byte(*cr.Status.AtProvider.Type)
 		}

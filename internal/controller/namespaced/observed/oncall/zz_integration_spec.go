@@ -50,6 +50,9 @@ var IntegrationSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.Integration)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.InboundEmail != nil {
 			cd["inbound_email"] = []byte(*cr.Status.AtProvider.InboundEmail)
 		}

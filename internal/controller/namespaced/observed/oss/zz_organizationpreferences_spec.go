@@ -66,6 +66,9 @@ var OrganizationPreferencesSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.OrganizationPreferences)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.HomeDashboardUID != nil {
 			cd["home_dashboard_uid"] = []byte(*cr.Status.AtProvider.HomeDashboardUID)
 		}

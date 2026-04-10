@@ -111,6 +111,9 @@ var LibraryPanelSpec = tfdatasource.Spec{
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
 		cr := mg.(*v1alpha1.LibraryPanel)
 		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
 		if cr.Status.AtProvider.Created != nil {
 			cd["created"] = []byte(*cr.Status.AtProvider.Created)
 		}
