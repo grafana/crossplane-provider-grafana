@@ -81,10 +81,10 @@ var AwsCloudwatchScrapeJobSpec = tfdatasource.Spec{
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
-		cr := mg.(*v1alpha1.AWSCloudwatchScrapeJob)
+		cr := mg.(*v1alpha1.AwsCloudwatchScrapeJob)
 		cd := managed.ConnectionDetails{}
-		if cr.Status.AtProvider.AWSAccountResourceID != nil {
-			cd["aws_account_resource_id"] = []byte(*cr.Status.AtProvider.AWSAccountResourceID)
+		if cr.Status.AtProvider.AwsAccountResourceID != nil {
+			cd["aws_account_resource_id"] = []byte(*cr.Status.AtProvider.AwsAccountResourceID)
 		}
 		if cr.Status.AtProvider.DisabledReason != nil {
 			cd["disabled_reason"] = []byte(*cr.Status.AtProvider.DisabledReason)

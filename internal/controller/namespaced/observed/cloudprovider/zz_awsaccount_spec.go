@@ -55,7 +55,7 @@ var AwsAccountSpec = tfdatasource.Spec{
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
-		cr := mg.(*v1alpha1.AWSAccount)
+		cr := mg.(*v1alpha1.AwsAccount)
 		cd := managed.ConnectionDetails{}
 		if cr.Status.AtProvider.Name != nil {
 			cd["name"] = []byte(*cr.Status.AtProvider.Name)
