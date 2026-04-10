@@ -131,19 +131,25 @@ The ProviderConfig will read:
 - `oncall_url` (remapped from `oncall_api_url`), `fleet_management_url`, `org_id`, `stack_id` (remapped from `id`), and all other Stack fields from `my-stack-details`
 - Stack secret values override primary credential values where keys overlap (e.g., `url`)
 
-### Available keys in the Stack connection secret
+### Stack secret coverage of ProviderConfig fields
 
-The Stack connection secret contains all scalar `atProvider` fields. Key fields relevant to ProviderConfig:
+The table below shows every ProviderConfig spec field and whether the stack connection secret can provide it via `stackSecretRef`.
 
-| Key | Description | Maps to ProviderConfig |
-|-----|-------------|----------------------|
-| `url` | Grafana instance URL | `url` |
-| `oncall_api_url` | OnCall API URL (remapped to `oncall_url`) | `oncallUrl` |
-| `fleet_management_url` | Fleet Management URL | `fleetManagementUrl` |
-| `id` | Stack numeric ID (remapped to `stack_id`) | `stackId` |
-| `org_id` | Organization ID | `orgId` |
+| ProviderConfig field | Covered by `stackSecretRef`? | Stack secret key | Future source if not covered |
+|---|---|---|---|
+| `spec.url` | Yes | `url` | — |
+| `spec.oncallUrl` | Yes | `oncall_api_url` (remapped to `oncall_url`) | — |
+| `spec.fleetManagementUrl` | Yes | `fleet_management_url` | — |
+| `spec.orgId` | Yes | `org_id` | — |
+| `spec.stackId` | Yes | `id` (remapped to `stack_id`) | — |
+| `spec.smUrl` | No | — | `grafana_synthetic_monitoring_installation` exposes `sm_url` in its state |
+| `spec.cloudApiUrl` | No | — | Defaults to Grafana Cloud; can't be sourced from the stack (chicken/egg: the Cloud API is needed to read the stack) |
+| `spec.cloudProviderUrl` | No | — | Not currently exposed by any Grafana resource |
+| `spec.connectionsApiUrl` | No | — | Not currently exposed by any Grafana resource |
 
-Additional informational keys include: `alertmanager_url`, `prometheus_url`, `logs_url`, `traces_url`, `graphite_url`, `profiles_url`, `otlp_url`, `influx_url`, `slug`, `name`, `status`, `region_slug`, and all service-specific names, statuses, and user IDs.
+**Summary:** `stackSecretRef` covers **5 of 9** ProviderConfig spec fields. The remaining 4 are not stack attributes — they are either environment-specific URLs or require separate resources.
+
+Additional informational keys in the stack secret include: `alertmanager_url`, `prometheus_url`, `logs_url`, `traces_url`, `graphite_url`, `profiles_url`, `otlp_url`, `influx_url`, `slug`, `name`, `status`, `region_slug`, and all service-specific names, statuses, and user IDs.
 
 ## Override Behavior
 
