@@ -80,6 +80,7 @@ func GetProvider(generationProvider bool) (*ujconfig.Provider, error) {
 	return BuildProvider("grafana.crossplane.io", []func(provider *ujconfig.Provider){
 		// add custom config functions
 		grafana.ConfigureOrgIDRefs,
+		grafana.IgnoreOrgIDLateInit,
 		grafana.Configure,
 	}, generationProvider)
 }
@@ -89,6 +90,7 @@ func GetProviderNamespaced(generationProvider bool) (*ujconfig.Provider, error) 
 	return BuildProvider("grafana.m.crossplane.io", []func(provider *ujconfig.Provider){
 		// add custom config functions
 		grafana.ConfigureOrgIDRefs,
+		grafana.IgnoreOrgIDLateInit,
 		grafana.Configure,
 	}, generationProvider)
 }
