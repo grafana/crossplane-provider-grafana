@@ -8,7 +8,10 @@ package sm
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -67,4 +70,33 @@ var ProbeSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Probe)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.DisableBrowserChecks != nil {
+			cd["disable_browser_checks"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.DisableBrowserChecks))
+		}
+		if cr.Status.AtProvider.DisableScriptedChecks != nil {
+			cd["disable_scripted_checks"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.DisableScriptedChecks))
+		}
+		if cr.Status.AtProvider.Latitude != nil {
+			cd["latitude"] = []byte(strconv.FormatFloat(*cr.Status.AtProvider.Latitude, 'f', -1, 64))
+		}
+		if cr.Status.AtProvider.Longitude != nil {
+			cd["longitude"] = []byte(strconv.FormatFloat(*cr.Status.AtProvider.Longitude, 'f', -1, 64))
+		}
+		if cr.Status.AtProvider.Public != nil {
+			cd["public"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.Public))
+		}
+		if cr.Status.AtProvider.Region != nil {
+			cd["region"] = []byte(*cr.Status.AtProvider.Region)
+		}
+		if cr.Status.AtProvider.TenantID != nil {
+			cd["tenant_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.TenantID, 10))
+		}
+		return cd
+	},
 }
