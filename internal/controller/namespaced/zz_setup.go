@@ -98,7 +98,9 @@ import (
 	organizationpreferences "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/organizationpreferences"
 	playlist "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/playlist"
 	playlistv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/playlistv0alpha1"
+	playlistv1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/playlistv1"
 	repositoryv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/repositoryv0alpha1"
+	resource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/resource"
 	serviceaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/serviceaccount"
 	serviceaccountpermission "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/serviceaccountpermission"
 	serviceaccountpermissionitem "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/serviceaccountpermissionitem"
@@ -208,7 +210,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		organizationpreferences.Setup,
 		playlist.Setup,
 		playlistv0alpha1.Setup,
+		playlistv1.Setup,
 		repositoryv0alpha1.Setup,
+		resource.Setup,
 		serviceaccount.Setup,
 		serviceaccountpermission.Setup,
 		serviceaccountpermissionitem.Setup,
@@ -324,7 +328,9 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		organizationpreferences.SetupGated,
 		playlist.SetupGated,
 		playlistv0alpha1.SetupGated,
+		playlistv1.SetupGated,
 		repositoryv0alpha1.SetupGated,
+		resource.SetupGated,
 		serviceaccount.SetupGated,
 		serviceaccountpermission.SetupGated,
 		serviceaccountpermissionitem.SetupGated,

@@ -175,6 +175,18 @@ spec:
                                             type: string
                                         type: object
                                       type: array
+                                    enrichment:
+                                      description: Enrichments to attach only to Fast
+                                        Burn alerts.
+                                      items:
+                                        properties:
+                                          type:
+                                            description: Type of the alert enrichment.
+                                              Currently only "assistantInvestigation"
+                                              is supported.
+                                            type: string
+                                        type: object
+                                      type: array
                                     label:
                                       description: Labels to attach only to Fast Burn
                                         alerts.
@@ -218,6 +230,18 @@ spec:
                                             type: string
                                           value:
                                             description: Templatable value
+                                            type: string
+                                        type: object
+                                      type: array
+                                    enrichment:
+                                      description: Enrichments to attach only to Slow
+                                        Burn alerts.
+                                      items:
+                                        properties:
+                                          type:
+                                            description: Type of the alert enrichment.
+                                              Currently only "assistantInvestigation"
+                                              is supported.
                                             type: string
                                         type: object
                                       type: array

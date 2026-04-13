@@ -7,9 +7,12 @@ Copyright 2026 Grafana Labs
 package sm
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"context"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework/path"
+	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/sm/v1alpha1"
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
@@ -19,53 +22,47 @@ var ProbeSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_synthetic_monitoring_probe",
 	ManagedKind:    v1alpha1.Probe_GroupVersionKind,
 	NewManaged:     func() resource.Managed { return &v1alpha1.Probe{} },
-	Read: tfdatasource.NewLegacyReadFn(
-		"grafana_synthetic_monitoring_probe",
-		legacyDSProbe,
-		func(mg resource.Managed) map[string]string {
+	Read: tfdatasource.NewFrameworkReadFn(
+		newDSProbe,
+		func(mg resource.Managed) map[string]tftypes.Value {
 			cr := mg.(*v1alpha1.Probe)
-			attrs := map[string]string{}
-			attrs["name"] = cr.Spec.ForProvider.Name
+			attrs := map[string]tftypes.Value{}
+			attrs["name"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Name)
 			return attrs
 		},
-		func(mg resource.Managed, d *sdkschema.ResourceData) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.Probe)
-			meta.SetExternalName(cr, d.Id())
-			if v, ok := d.GetOk("disable_browser_checks"); ok {
-				if b, ok := v.(bool); ok {
-					cr.Status.AtProvider.DisableBrowserChecks = &b
+			{
+				var v *bool
+				if diags := state.GetAttribute(ctx, path.Root("disable_browser_checks"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.DisableBrowserChecks = v
 				}
 			}
-			if v, ok := d.GetOk("disable_scripted_checks"); ok {
-				if b, ok := v.(bool); ok {
-					cr.Status.AtProvider.DisableScriptedChecks = &b
+			{
+				var v *bool
+				if diags := state.GetAttribute(ctx, path.Root("disable_scripted_checks"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.DisableScriptedChecks = v
 				}
 			}
 			// TODO: complex type map[string]string for labels
-			if v, ok := d.GetOk("latitude"); ok {
-				if f, ok := v.(float64); ok {
-					cr.Status.AtProvider.Latitude = &f
+			// TODO: complex type *float64 for latitude
+			// TODO: complex type *float64 for longitude
+			{
+				var v *bool
+				if diags := state.GetAttribute(ctx, path.Root("public"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.Public = v
 				}
 			}
-			if v, ok := d.GetOk("longitude"); ok {
-				if f, ok := v.(float64); ok {
-					cr.Status.AtProvider.Longitude = &f
+			{
+				var v *string
+				if diags := state.GetAttribute(ctx, path.Root("region"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.Region = v
 				}
 			}
-			if v, ok := d.GetOk("public"); ok {
-				if b, ok := v.(bool); ok {
-					cr.Status.AtProvider.Public = &b
-				}
-			}
-			if v, ok := d.GetOk("region"); ok {
-				if s, ok := v.(string); ok {
-					cr.Status.AtProvider.Region = &s
-				}
-			}
-			if v, ok := d.GetOk("tenant_id"); ok {
-				if i, ok := v.(int); ok {
-					v := int64(i)
-					cr.Status.AtProvider.TenantID = &v
+			{
+				var v *int64
+				if diags := state.GetAttribute(ctx, path.Root("tenant_id"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.TenantID = v
 				}
 			}
 		},

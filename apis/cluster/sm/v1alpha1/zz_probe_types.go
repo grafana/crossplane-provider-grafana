@@ -23,8 +23,8 @@ type ProbeInitParameters struct {
 	// Disables scripted checks for this probe. Defaults to `false`.
 	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
 
-	// (Map of String) Custom labels to be included with collected metrics and logs.
-	// Custom labels to be included with collected metrics and logs.
+	// (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
+	// Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
@@ -62,8 +62,8 @@ type ProbeObservation struct {
 	// (String) The ID of the probe.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Map of String) Custom labels to be included with collected metrics and logs.
-	// Custom labels to be included with collected metrics and logs.
+	// (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
+	// Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
@@ -104,8 +104,8 @@ type ProbeParameters struct {
 	// +kubebuilder:validation:Optional
 	DisableScriptedChecks *bool `json:"disableScriptedChecks,omitempty" tf:"disable_scripted_checks,omitempty"`
 
-	// (Map of String) Custom labels to be included with collected metrics and logs.
-	// Custom labels to be included with collected metrics and logs.
+	// (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
+	// Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`

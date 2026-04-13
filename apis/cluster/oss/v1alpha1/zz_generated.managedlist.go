@@ -178,8 +178,26 @@ func (l *PlaylistV0Alpha1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this PlaylistV1List.
+func (l *PlaylistV1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this RepositoryV0Alpha1List.
 func (l *RepositoryV0Alpha1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ResourceList.
+func (l *ResourceList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

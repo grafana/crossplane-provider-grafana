@@ -21,7 +21,7 @@ type DashboardsInitParameters struct {
 	// +mapType=granular
 	ReportVariables map[string]*string `json:"reportVariables,omitempty" tf:"report_variables,omitempty"`
 
-	// (Block List, Max: 1) Time range of the report. (see below for nested schema)
+	// (Block List) Time range of the report. (see below for nested schema)
 	// Time range of the report.
 	TimeRange []TimeRangeInitParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
 
@@ -37,7 +37,7 @@ type DashboardsObservation struct {
 	// +mapType=granular
 	ReportVariables map[string]*string `json:"reportVariables,omitempty" tf:"report_variables,omitempty"`
 
-	// (Block List, Max: 1) Time range of the report. (see below for nested schema)
+	// (Block List) Time range of the report. (see below for nested schema)
 	// Time range of the report.
 	TimeRange []TimeRangeObservation `json:"timeRange,omitempty" tf:"time_range,omitempty"`
 
@@ -54,7 +54,7 @@ type DashboardsParameters struct {
 	// +mapType=granular
 	ReportVariables map[string]*string `json:"reportVariables,omitempty" tf:"report_variables,omitempty"`
 
-	// (Block List, Max: 1) Time range of the report. (see below for nested schema)
+	// (Block List) Time range of the report. (see below for nested schema)
 	// Time range of the report.
 	// +kubebuilder:validation:Optional
 	TimeRange []TimeRangeParameters `json:"timeRange,omitempty" tf:"time_range,omitempty"`
@@ -76,16 +76,16 @@ type ReportInitParameters struct {
 	// +listType=set
 	Formats []*string `json:"formats,omitempty" tf:"formats,omitempty"`
 
-	// (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
-	// Whether to include a link to the dashboard in the report. Defaults to `true`.
+	// (Boolean) Whether to include a link to the dashboard in the report.
+	// Whether to include a link to the dashboard in the report.
 	IncludeDashboardLink *bool `json:"includeDashboardLink,omitempty" tf:"include_dashboard_link,omitempty"`
 
-	// (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
-	// Whether to include a CSV file of table panel data. Defaults to `false`.
+	// (Boolean) Whether to include a CSV file of table panel data.
+	// Whether to include a CSV file of table panel data.
 	IncludeTableCsv *bool `json:"includeTableCsv,omitempty" tf:"include_table_csv,omitempty"`
 
-	// (String) Layout of the report. Allowed values: simple, grid. Defaults to grid.
-	// Layout of the report. Allowed values: `simple`, `grid`. Defaults to `grid`.
+	// (String) Layout of the report. Allowed values: simple, grid.
+	// Layout of the report. Allowed values: `simple`, `grid`.
 	Layout *string `json:"layout,omitempty" tf:"layout,omitempty"`
 
 	// (String) Message to be sent in the report.
@@ -96,8 +96,8 @@ type ReportInitParameters struct {
 	// Name of the report.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
@@ -111,8 +111,8 @@ type ReportInitParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.
-	// Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
+	// (String) Orientation of the report. Allowed values: landscape, portrait.
+	// Orientation of the report. Allowed values: `landscape`, `portrait`.
 	Orientation *string `json:"orientation,omitempty" tf:"orientation,omitempty"`
 
 	// (List of String) List of recipients of the report.
@@ -123,8 +123,8 @@ type ReportInitParameters struct {
 	// Reply-to email address of the report.
 	ReplyTo *string `json:"replyTo,omitempty" tf:"reply_to,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)
-	// Schedule of the report.
+	// (Block List)  Schedule of the report. (see below for nested schema)
+	// (Required) Schedule of the report.
 	Schedule []ScheduleInitParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
@@ -142,16 +142,16 @@ type ReportObservation struct {
 	// (String) Generated identifier of the report.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
-	// Whether to include a link to the dashboard in the report. Defaults to `true`.
+	// (Boolean) Whether to include a link to the dashboard in the report.
+	// Whether to include a link to the dashboard in the report.
 	IncludeDashboardLink *bool `json:"includeDashboardLink,omitempty" tf:"include_dashboard_link,omitempty"`
 
-	// (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
-	// Whether to include a CSV file of table panel data. Defaults to `false`.
+	// (Boolean) Whether to include a CSV file of table panel data.
+	// Whether to include a CSV file of table panel data.
 	IncludeTableCsv *bool `json:"includeTableCsv,omitempty" tf:"include_table_csv,omitempty"`
 
-	// (String) Layout of the report. Allowed values: simple, grid. Defaults to grid.
-	// Layout of the report. Allowed values: `simple`, `grid`. Defaults to `grid`.
+	// (String) Layout of the report. Allowed values: simple, grid.
+	// Layout of the report. Allowed values: `simple`, `grid`.
 	Layout *string `json:"layout,omitempty" tf:"layout,omitempty"`
 
 	// (String) Message to be sent in the report.
@@ -162,12 +162,12 @@ type ReportObservation struct {
 	// Name of the report.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.
-	// Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
+	// (String) Orientation of the report. Allowed values: landscape, portrait.
+	// Orientation of the report. Allowed values: `landscape`, `portrait`.
 	Orientation *string `json:"orientation,omitempty" tf:"orientation,omitempty"`
 
 	// (List of String) List of recipients of the report.
@@ -178,8 +178,8 @@ type ReportObservation struct {
 	// Reply-to email address of the report.
 	ReplyTo *string `json:"replyTo,omitempty" tf:"reply_to,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)
-	// Schedule of the report.
+	// (Block List)  Schedule of the report. (see below for nested schema)
+	// (Required) Schedule of the report.
 	Schedule []ScheduleObservation `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
 
@@ -196,18 +196,18 @@ type ReportParameters struct {
 	// +listType=set
 	Formats []*string `json:"formats,omitempty" tf:"formats,omitempty"`
 
-	// (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
-	// Whether to include a link to the dashboard in the report. Defaults to `true`.
+	// (Boolean) Whether to include a link to the dashboard in the report.
+	// Whether to include a link to the dashboard in the report.
 	// +kubebuilder:validation:Optional
 	IncludeDashboardLink *bool `json:"includeDashboardLink,omitempty" tf:"include_dashboard_link,omitempty"`
 
-	// (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
-	// Whether to include a CSV file of table panel data. Defaults to `false`.
+	// (Boolean) Whether to include a CSV file of table panel data.
+	// Whether to include a CSV file of table panel data.
 	// +kubebuilder:validation:Optional
 	IncludeTableCsv *bool `json:"includeTableCsv,omitempty" tf:"include_table_csv,omitempty"`
 
-	// (String) Layout of the report. Allowed values: simple, grid. Defaults to grid.
-	// Layout of the report. Allowed values: `simple`, `grid`. Defaults to `grid`.
+	// (String) Layout of the report. Allowed values: simple, grid.
+	// Layout of the report. Allowed values: `simple`, `grid`.
 	// +kubebuilder:validation:Optional
 	Layout *string `json:"layout,omitempty" tf:"layout,omitempty"`
 
@@ -221,8 +221,8 @@ type ReportParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
@@ -237,8 +237,8 @@ type ReportParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.
-	// Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
+	// (String) Orientation of the report. Allowed values: landscape, portrait.
+	// Orientation of the report. Allowed values: `landscape`, `portrait`.
 	// +kubebuilder:validation:Optional
 	Orientation *string `json:"orientation,omitempty" tf:"orientation,omitempty"`
 
@@ -252,8 +252,8 @@ type ReportParameters struct {
 	// +kubebuilder:validation:Optional
 	ReplyTo *string `json:"replyTo,omitempty" tf:"reply_to,omitempty"`
 
-	// (Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)
-	// Schedule of the report.
+	// (Block List)  Schedule of the report. (see below for nested schema)
+	// (Required) Schedule of the report.
 	// +kubebuilder:validation:Optional
 	Schedule []ScheduleParameters `json:"schedule,omitempty" tf:"schedule,omitempty"`
 }
@@ -274,20 +274,20 @@ type ScheduleInitParameters struct {
 	// Frequency of the report. Allowed values: `never`, `once`, `hourly`, `daily`, `weekly`, `monthly`, `custom`.
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
-	// (Boolean) Send the report on the last day of the month Defaults to false.
-	// Send the report on the last day of the month Defaults to `false`.
+	// (Boolean) Send the report on the last day of the month
+	// Send the report on the last day of the month
 	LastDayOfMonth *bool `json:"lastDayOfMonth,omitempty" tf:"last_day_of_month,omitempty"`
 
 	// 01-02T15:04:05 format if you want to set a custom timezone
 	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
 
-	// (String) Set the report time zone. Defaults to GMT.
-	// Set the report time zone. Defaults to `GMT`.
+	// (String) Set the report time zone.
+	// Set the report time zone.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
-	// (Boolean) Whether to send the report only on work days. Defaults to false.
-	// Whether to send the report only on work days. Defaults to `false`.
+	// (Boolean) Whether to send the report only on work days.
+	// Whether to send the report only on work days.
 	WorkdaysOnly *bool `json:"workdaysOnly,omitempty" tf:"workdays_only,omitempty"`
 }
 
@@ -307,20 +307,20 @@ type ScheduleObservation struct {
 	// Frequency of the report. Allowed values: `never`, `once`, `hourly`, `daily`, `weekly`, `monthly`, `custom`.
 	Frequency *string `json:"frequency,omitempty" tf:"frequency,omitempty"`
 
-	// (Boolean) Send the report on the last day of the month Defaults to false.
-	// Send the report on the last day of the month Defaults to `false`.
+	// (Boolean) Send the report on the last day of the month
+	// Send the report on the last day of the month
 	LastDayOfMonth *bool `json:"lastDayOfMonth,omitempty" tf:"last_day_of_month,omitempty"`
 
 	// 01-02T15:04:05 format if you want to set a custom timezone
 	// Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
 
-	// (String) Set the report time zone. Defaults to GMT.
-	// Set the report time zone. Defaults to `GMT`.
+	// (String) Set the report time zone.
+	// Set the report time zone.
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
-	// (Boolean) Whether to send the report only on work days. Defaults to false.
-	// Whether to send the report only on work days. Defaults to `false`.
+	// (Boolean) Whether to send the report only on work days.
+	// Whether to send the report only on work days.
 	WorkdaysOnly *bool `json:"workdaysOnly,omitempty" tf:"workdays_only,omitempty"`
 }
 
@@ -343,8 +343,8 @@ type ScheduleParameters struct {
 	// +kubebuilder:validation:Optional
 	Frequency *string `json:"frequency" tf:"frequency,omitempty"`
 
-	// (Boolean) Send the report on the last day of the month Defaults to false.
-	// Send the report on the last day of the month Defaults to `false`.
+	// (Boolean) Send the report on the last day of the month
+	// Send the report on the last day of the month
 	// +kubebuilder:validation:Optional
 	LastDayOfMonth *bool `json:"lastDayOfMonth,omitempty" tf:"last_day_of_month,omitempty"`
 
@@ -353,13 +353,13 @@ type ScheduleParameters struct {
 	// +kubebuilder:validation:Optional
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
 
-	// (String) Set the report time zone. Defaults to GMT.
-	// Set the report time zone. Defaults to `GMT`.
+	// (String) Set the report time zone.
+	// Set the report time zone.
 	// +kubebuilder:validation:Optional
 	Timezone *string `json:"timezone,omitempty" tf:"timezone,omitempty"`
 
-	// (Boolean) Whether to send the report only on work days. Defaults to false.
-	// Whether to send the report only on work days. Defaults to `false`.
+	// (Boolean) Whether to send the report only on work days.
+	// Whether to send the report only on work days.
 	// +kubebuilder:validation:Optional
 	WorkdaysOnly *bool `json:"workdaysOnly,omitempty" tf:"workdays_only,omitempty"`
 }
@@ -437,7 +437,6 @@ type Report struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.recipients) || (has(self.initProvider) && has(self.initProvider.recipients))",message="spec.forProvider.recipients is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.schedule) || (has(self.initProvider) && has(self.initProvider.schedule))",message="spec.forProvider.schedule is a required parameter"
 	Spec   ReportSpec   `json:"spec"`
 	Status ReportStatus `json:"status,omitempty"`
 }

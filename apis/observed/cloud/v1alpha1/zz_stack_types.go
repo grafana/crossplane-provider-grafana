@@ -54,6 +54,9 @@ type StackObservation struct {
 	// Name of the Fleet Management instance configured for this stack.
 	FleetManagementName *string `json:"fleetManagementName,omitempty"`
 
+	// Availability Zone IDs for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+	FleetManagementPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"fleetManagementPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
+
 	// Availability Zones for Fleet Management when using AWS PrivateLink (only for AWS stacks)
 	FleetManagementPrivateConnectivityInfoAvailabilityZones []string `json:"fleetManagementPrivateConnectivityInfoAvailabilityZones,omitempty"`
 
@@ -83,6 +86,9 @@ type StackObservation struct {
 
 	GraphiteName *string `json:"graphiteName,omitempty"`
 
+	// Availability Zone IDs for Graphite when using AWS PrivateLink (only for AWS stacks)
+	GraphitePrivateConnectivityInfoAvailabilityZoneIDs []string `json:"graphitePrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
+
 	// Availability Zones for Graphite when using AWS PrivateLink (only for AWS stacks)
 	GraphitePrivateConnectivityInfoAvailabilityZones []string `json:"graphitePrivateConnectivityInfoAvailabilityZones,omitempty"`
 
@@ -111,6 +117,9 @@ type StackObservation struct {
 	LogsIPAllowListCname *string `json:"logsIPAllowListCname,omitempty"`
 
 	LogsName *string `json:"logsName,omitempty"`
+
+	// Availability Zone IDs for Logs when using AWS PrivateLink (only for AWS stacks)
+	LogsPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"logsPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
 
 	// Availability Zones for Logs when using AWS PrivateLink (only for AWS stacks)
 	LogsPrivateConnectivityInfoAvailabilityZones []string `json:"logsPrivateConnectivityInfoAvailabilityZones,omitempty"`
@@ -145,6 +154,9 @@ type StackObservation struct {
 	// Organization slug to assign to this stack.
 	OrgSlug *string `json:"orgSlug,omitempty"`
 
+	// Availability Zone IDs for OTLP when using AWS PrivateLink (only for AWS stacks)
+	OtlpPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"otlpPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
+
 	// Availability Zones for OTLP when using AWS PrivateLink (only for AWS stacks)
 	OtlpPrivateConnectivityInfoAvailabilityZones []string `json:"otlpPrivateConnectivityInfoAvailabilityZones,omitempty"`
 
@@ -160,6 +172,9 @@ type StackObservation struct {
 	// Base URL of the OTLP instance configured for this stack. The username is the stack's ID (`id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
 	OtlpURL *string `json:"otlpURL,omitempty"`
 
+	// Availability Zone IDs for PDC's API when using AWS PrivateLink (only for AWS stacks)
+	PdcAPIPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"pdcAPIPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
+
 	// Availability Zones for PDC's API when using AWS PrivateLink (only for AWS stacks)
 	PdcAPIPrivateConnectivityInfoAvailabilityZones []string `json:"pdcAPIPrivateConnectivityInfoAvailabilityZones,omitempty"`
 
@@ -171,6 +186,9 @@ type StackObservation struct {
 
 	// Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
 	PdcAPIPrivateConnectivityInfoServiceName *string `json:"pdcAPIPrivateConnectivityInfoServiceName,omitempty"`
+
+	// Availability Zone IDs for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+	PdcGatewayPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"pdcGatewayPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
 
 	// Availability Zones for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
 	PdcGatewayPrivateConnectivityInfoAvailabilityZones []string `json:"pdcGatewayPrivateConnectivityInfoAvailabilityZones,omitempty"`
@@ -188,6 +206,9 @@ type StackObservation struct {
 	ProfilesIPAllowListCname *string `json:"profilesIPAllowListCname,omitempty"`
 
 	ProfilesName *string `json:"profilesName,omitempty"`
+
+	// Availability Zone IDs for Profiles when using AWS PrivateLink (only for AWS stacks)
+	ProfilesPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"profilesPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
 
 	// Availability Zones for Profiles when using AWS PrivateLink (only for AWS stacks)
 	ProfilesPrivateConnectivityInfoAvailabilityZones []string `json:"profilesPrivateConnectivityInfoAvailabilityZones,omitempty"`
@@ -212,6 +233,9 @@ type StackObservation struct {
 
 	// Prometheus name for this instance.
 	PrometheusName *string `json:"prometheusName,omitempty"`
+
+	// Availability Zone IDs for Prometheus when using AWS PrivateLink (only for AWS stacks)
+	PrometheusPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"prometheusPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
 
 	// Availability Zones for Prometheus when using AWS PrivateLink (only for AWS stacks)
 	PrometheusPrivateConnectivityInfoAvailabilityZones []string `json:"prometheusPrivateConnectivityInfoAvailabilityZones,omitempty"`
@@ -250,6 +274,9 @@ type StackObservation struct {
 	TracesIPAllowListCname *string `json:"tracesIPAllowListCname,omitempty"`
 
 	TracesName *string `json:"tracesName,omitempty"`
+
+	// Availability Zone IDs for Traces when using AWS PrivateLink (only for AWS stacks)
+	TracesPrivateConnectivityInfoAvailabilityZoneIDs []string `json:"tracesPrivateConnectivityInfoAvailabilityZoneIDs,omitempty"`
 
 	// Availability Zones for Traces when using AWS PrivateLink (only for AWS stacks)
 	TracesPrivateConnectivityInfoAvailabilityZones []string `json:"tracesPrivateConnectivityInfoAvailabilityZones,omitempty"`

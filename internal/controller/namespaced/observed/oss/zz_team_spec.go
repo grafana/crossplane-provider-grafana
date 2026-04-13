@@ -7,11 +7,12 @@ Copyright 2026 Grafana Labs
 package oss
 
 import (
-	"fmt"
+	"context"
 
-	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework/path"
+	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1"
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
@@ -21,83 +22,56 @@ var TeamSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_team",
 	ManagedKind:    v1alpha1.Team_GroupVersionKind,
 	NewManaged:     func() resource.Managed { return &v1alpha1.Team{} },
-	Read: tfdatasource.NewLegacyReadFn(
-		"grafana_team",
-		legacyDSTeam,
-		func(mg resource.Managed) map[string]string {
+	Read: tfdatasource.NewFrameworkReadFn(
+		newDSTeam,
+		func(mg resource.Managed) map[string]tftypes.Value {
 			cr := mg.(*v1alpha1.Team)
-			attrs := map[string]string{}
-			attrs["name"] = cr.Spec.ForProvider.Name
+			attrs := map[string]tftypes.Value{}
+			attrs["name"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Name)
 			if cr.Spec.ForProvider.OrgID != nil {
-				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
+				attrs["org_id"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.OrgID)
 			}
 			if cr.Spec.ForProvider.ReadTeamSync != nil {
-				attrs["read_team_sync"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.ReadTeamSync)
+				attrs["read_team_sync"] = tftypes.NewValue(tftypes.Bool, *cr.Spec.ForProvider.ReadTeamSync)
 			}
 			return attrs
 		},
-		func(mg resource.Managed, d *sdkschema.ResourceData) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.Team)
-			meta.SetExternalName(cr, d.Id())
-			if v, ok := d.GetOk("email"); ok {
-				if s, ok := v.(string); ok {
-					cr.Status.AtProvider.Email = &s
+			{
+				var v *string
+				if diags := state.GetAttribute(ctx, path.Root("email"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.Email = v
 				}
 			}
-			// TODO: complex type []string for members
-			if v, ok := d.GetOk("org_id"); ok {
-				if s, ok := v.(string); ok {
-					cr.Status.AtProvider.OrgID = &s
+			{
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("members"), &v); !diags.HasError() && len(v) > 0 {
+					cr.Status.AtProvider.Members = v
 				}
 			}
-			if v, ok := d.GetOk("preferences"); ok {
-				var items []v1alpha1.TeamPreferences
-				var list []interface{}
-				list, _ = v.([]interface{})
-				for _, raw := range list {
-					item := v1alpha1.TeamPreferences{}
-					m, _ := raw.(map[string]interface{})
-					if val, ok := m["home_dashboard_uid"].(string); ok {
-						item.HomeDashboardUID = &val
-					}
-					if val, ok := m["theme"].(string); ok {
-						item.Theme = &val
-					}
-					if val, ok := m["timezone"].(string); ok {
-						item.Timezone = &val
-					}
-					if val, ok := m["week_start"].(string); ok {
-						item.WeekStart = &val
-					}
-					items = append(items, item)
-				}
-				cr.Status.AtProvider.Preferences = items
-			}
-			if v, ok := d.GetOk("read_team_sync"); ok {
-				if b, ok := v.(bool); ok {
-					cr.Status.AtProvider.ReadTeamSync = &b
+			{
+				var v *string
+				if diags := state.GetAttribute(ctx, path.Root("org_id"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.OrgID = v
 				}
 			}
-			if v, ok := d.GetOk("team_id"); ok {
-				if i, ok := v.(int); ok {
-					v := int64(i)
-					cr.Status.AtProvider.TeamID = &v
+			{
+				var v *bool
+				if diags := state.GetAttribute(ctx, path.Root("read_team_sync"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.ReadTeamSync = v
 				}
 			}
-			if v, ok := d.GetOk("team_sync"); ok {
-				var items []v1alpha1.TeamTeamSync
-				var list []interface{}
-				list, _ = v.([]interface{})
-				for _, raw := range list {
-					item := v1alpha1.TeamTeamSync{}
-					_ = raw
-					items = append(items, item)
+			{
+				var v *int64
+				if diags := state.GetAttribute(ctx, path.Root("team_id"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.TeamID = v
 				}
-				cr.Status.AtProvider.TeamSync = items
 			}
-			if v, ok := d.GetOk("team_uid"); ok {
-				if s, ok := v.(string); ok {
-					cr.Status.AtProvider.TeamUID = &s
+			{
+				var v *string
+				if diags := state.GetAttribute(ctx, path.Root("team_uid"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.TeamUID = v
 				}
 			}
 		},

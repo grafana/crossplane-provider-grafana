@@ -15,6 +15,10 @@ import (
 
 type DataSourcePermissionItemInitParameters struct {
 
+	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
+
 	// (String) The UID of the datasource.
 	// The UID of the datasource.
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
@@ -53,6 +57,10 @@ type DataSourcePermissionItemInitParameters struct {
 
 type DataSourcePermissionItemObservation struct {
 
+	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
+
 	// (String) The UID of the datasource.
 	// The UID of the datasource.
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
@@ -82,6 +90,11 @@ type DataSourcePermissionItemObservation struct {
 }
 
 type DataSourcePermissionItemParameters struct {
+
+	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// +kubebuilder:validation:Optional
+	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// (String) The UID of the datasource.
 	// The UID of the datasource.

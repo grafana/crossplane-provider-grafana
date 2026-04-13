@@ -64,7 +64,13 @@ func (tr *Playlist) Hub() {}
 func (tr *PlaylistV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *PlaylistV1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *RepositoryV0Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Resource) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *ServiceAccount) Hub() {}

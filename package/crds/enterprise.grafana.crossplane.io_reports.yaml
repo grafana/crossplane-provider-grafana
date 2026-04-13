@@ -90,7 +90,7 @@ spec:
                           x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
-                            (Block List, Max: 1) Time range of the report. (see below for nested schema)
+                            (Block List) Time range of the report. (see below for nested schema)
                             Time range of the report.
                           items:
                             properties:
@@ -123,18 +123,18 @@ spec:
                     x-kubernetes-list-type: set
                   includeDashboardLink:
                     description: |-
-                      (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
-                      Whether to include a link to the dashboard in the report. Defaults to `true`.
+                      (Boolean) Whether to include a link to the dashboard in the report.
+                      Whether to include a link to the dashboard in the report.
                     type: boolean
                   includeTableCsv:
                     description: |-
-                      (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
-                      Whether to include a CSV file of table panel data. Defaults to `false`.
+                      (Boolean) Whether to include a CSV file of table panel data.
+                      Whether to include a CSV file of table panel data.
                     type: boolean
                   layout:
                     description: |-
-                      (String) Layout of the report. Allowed values: simple, grid. Defaults to grid.
-                      Layout of the report. Allowed values: `simple`, `grid`. Defaults to `grid`.
+                      (String) Layout of the report. Allowed values: simple, grid.
+                      Layout of the report. Allowed values: `simple`, `grid`.
                     type: string
                   message:
                     description: |-
@@ -148,8 +148,8 @@ spec:
                     type: string
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -227,8 +227,8 @@ spec:
                     type: object
                   orientation:
                     description: |-
-                      (String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.
-                      Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
+                      (String) Orientation of the report. Allowed values: landscape, portrait.
+                      Orientation of the report. Allowed values: `landscape`, `portrait`.
                     type: string
                   recipients:
                     description: |-
@@ -244,8 +244,8 @@ spec:
                     type: string
                   schedule:
                     description: |-
-                      (Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)
-                      Schedule of the report.
+                      (Block List)  Schedule of the report. (see below for nested schema)
+                      (Required) Schedule of the report.
                     items:
                       properties:
                         customInterval:
@@ -267,8 +267,8 @@ spec:
                           type: string
                         lastDayOfMonth:
                           description: |-
-                            (Boolean) Send the report on the last day of the month Defaults to false.
-                            Send the report on the last day of the month Defaults to `false`.
+                            (Boolean) Send the report on the last day of the month
+                            Send the report on the last day of the month
                           type: boolean
                         startTime:
                           description: |-
@@ -277,13 +277,13 @@ spec:
                           type: string
                         timezone:
                           description: |-
-                            (String) Set the report time zone. Defaults to GMT.
-                            Set the report time zone. Defaults to `GMT`.
+                            (String) Set the report time zone.
+                            Set the report time zone.
                           type: string
                         workdaysOnly:
                           description: |-
-                            (Boolean) Whether to send the report only on work days. Defaults to false.
-                            Whether to send the report only on work days. Defaults to `false`.
+                            (Boolean) Whether to send the report only on work days.
+                            Whether to send the report only on work days.
                           type: boolean
                       type: object
                     type: array
@@ -317,7 +317,7 @@ spec:
                           x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
-                            (Block List, Max: 1) Time range of the report. (see below for nested schema)
+                            (Block List) Time range of the report. (see below for nested schema)
                             Time range of the report.
                           items:
                             properties:
@@ -350,18 +350,18 @@ spec:
                     x-kubernetes-list-type: set
                   includeDashboardLink:
                     description: |-
-                      (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
-                      Whether to include a link to the dashboard in the report. Defaults to `true`.
+                      (Boolean) Whether to include a link to the dashboard in the report.
+                      Whether to include a link to the dashboard in the report.
                     type: boolean
                   includeTableCsv:
                     description: |-
-                      (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
-                      Whether to include a CSV file of table panel data. Defaults to `false`.
+                      (Boolean) Whether to include a CSV file of table panel data.
+                      Whether to include a CSV file of table panel data.
                     type: boolean
                   layout:
                     description: |-
-                      (String) Layout of the report. Allowed values: simple, grid. Defaults to grid.
-                      Layout of the report. Allowed values: `simple`, `grid`. Defaults to `grid`.
+                      (String) Layout of the report. Allowed values: simple, grid.
+                      Layout of the report. Allowed values: `simple`, `grid`.
                     type: string
                   message:
                     description: |-
@@ -375,8 +375,8 @@ spec:
                     type: string
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -454,8 +454,8 @@ spec:
                     type: object
                   orientation:
                     description: |-
-                      (String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.
-                      Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
+                      (String) Orientation of the report. Allowed values: landscape, portrait.
+                      Orientation of the report. Allowed values: `landscape`, `portrait`.
                     type: string
                   recipients:
                     description: |-
@@ -471,8 +471,8 @@ spec:
                     type: string
                   schedule:
                     description: |-
-                      (Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)
-                      Schedule of the report.
+                      (Block List)  Schedule of the report. (see below for nested schema)
+                      (Required) Schedule of the report.
                     items:
                       properties:
                         customInterval:
@@ -494,8 +494,8 @@ spec:
                           type: string
                         lastDayOfMonth:
                           description: |-
-                            (Boolean) Send the report on the last day of the month Defaults to false.
-                            Send the report on the last day of the month Defaults to `false`.
+                            (Boolean) Send the report on the last day of the month
+                            Send the report on the last day of the month
                           type: boolean
                         startTime:
                           description: |-
@@ -504,13 +504,13 @@ spec:
                           type: string
                         timezone:
                           description: |-
-                            (String) Set the report time zone. Defaults to GMT.
-                            Set the report time zone. Defaults to `GMT`.
+                            (String) Set the report time zone.
+                            Set the report time zone.
                           type: string
                         workdaysOnly:
                           description: |-
-                            (Boolean) Whether to send the report only on work days. Defaults to false.
-                            Whether to send the report only on work days. Defaults to `false`.
+                            (Boolean) Whether to send the report only on work days.
+                            Whether to send the report only on work days.
                           type: boolean
                       type: object
                     type: array
@@ -610,10 +610,6 @@ spec:
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.recipients)
                 || (has(self.initProvider) && has(self.initProvider.recipients))'
-            - message: spec.forProvider.schedule is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.schedule)
-                || (has(self.initProvider) && has(self.initProvider.schedule))'
           status:
             description: ReportStatus defines the observed state of Report.
             properties:
@@ -635,7 +631,7 @@ spec:
                           x-kubernetes-map-type: granular
                         timeRange:
                           description: |-
-                            (Block List, Max: 1) Time range of the report. (see below for nested schema)
+                            (Block List) Time range of the report. (see below for nested schema)
                             Time range of the report.
                           items:
                             properties:
@@ -671,18 +667,18 @@ spec:
                     type: string
                   includeDashboardLink:
                     description: |-
-                      (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
-                      Whether to include a link to the dashboard in the report. Defaults to `true`.
+                      (Boolean) Whether to include a link to the dashboard in the report.
+                      Whether to include a link to the dashboard in the report.
                     type: boolean
                   includeTableCsv:
                     description: |-
-                      (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
-                      Whether to include a CSV file of table panel data. Defaults to `false`.
+                      (Boolean) Whether to include a CSV file of table panel data.
+                      Whether to include a CSV file of table panel data.
                     type: boolean
                   layout:
                     description: |-
-                      (String) Layout of the report. Allowed values: simple, grid. Defaults to grid.
-                      Layout of the report. Allowed values: `simple`, `grid`. Defaults to `grid`.
+                      (String) Layout of the report. Allowed values: simple, grid.
+                      Layout of the report. Allowed values: `simple`, `grid`.
                     type: string
                   message:
                     description: |-
@@ -696,13 +692,13 @@ spec:
                     type: string
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
                     type: string
                   orientation:
                     description: |-
-                      (String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.
-                      Orientation of the report. Allowed values: `landscape`, `portrait`. Defaults to `landscape`.
+                      (String) Orientation of the report. Allowed values: landscape, portrait.
+                      Orientation of the report. Allowed values: `landscape`, `portrait`.
                     type: string
                   recipients:
                     description: |-
@@ -718,8 +714,8 @@ spec:
                     type: string
                   schedule:
                     description: |-
-                      (Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)
-                      Schedule of the report.
+                      (Block List)  Schedule of the report. (see below for nested schema)
+                      (Required) Schedule of the report.
                     items:
                       properties:
                         customInterval:
@@ -741,8 +737,8 @@ spec:
                           type: string
                         lastDayOfMonth:
                           description: |-
-                            (Boolean) Send the report on the last day of the month Defaults to false.
-                            Send the report on the last day of the month Defaults to `false`.
+                            (Boolean) Send the report on the last day of the month
+                            Send the report on the last day of the month
                           type: boolean
                         startTime:
                           description: |-
@@ -751,13 +747,13 @@ spec:
                           type: string
                         timezone:
                           description: |-
-                            (String) Set the report time zone. Defaults to GMT.
-                            Set the report time zone. Defaults to `GMT`.
+                            (String) Set the report time zone.
+                            Set the report time zone.
                           type: string
                         workdaysOnly:
                           description: |-
-                            (Boolean) Whether to send the report only on work days. Defaults to false.
-                            Whether to send the report only on work days. Defaults to `false`.
+                            (Boolean) Whether to send the report only on work days.
+                            Whether to send the report only on work days.
                           type: boolean
                       type: object
                     type: array

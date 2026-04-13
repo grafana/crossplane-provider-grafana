@@ -149,6 +149,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  datasourceType:
+                    description: |-
+                      (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                      The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                    type: string
                   datasourceUid:
                     description: |-
                       (String) UID of the datasource to apply permissions to.
@@ -497,6 +502,11 @@ spec:
                             type: string
                         type: object
                     type: object
+                  datasourceType:
+                    description: |-
+                      (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                      The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                    type: string
                   datasourceUid:
                     description: |-
                       (String) UID of the datasource to apply permissions to.
@@ -850,6 +860,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  datasourceType:
+                    description: |-
+                      (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                      The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                    type: string
                   datasourceUid:
                     description: |-
                       (String) UID of the datasource to apply permissions to.

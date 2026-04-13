@@ -31,8 +31,8 @@ type DashboardPermissionInitParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
@@ -60,8 +60,8 @@ type DashboardPermissionObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
@@ -88,8 +88,8 @@ type DashboardPermissionParameters struct {
 	// +kubebuilder:validation:Optional
 	DashboardUID *string `json:"dashboardUid,omitempty" tf:"dashboard_uid,omitempty"`
 
-	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
 	// +crossplane:generate:reference:refFieldName=OrganizationRef
 	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
@@ -112,16 +112,16 @@ type DashboardPermissionParameters struct {
 
 type PermissionsInitParameters struct {
 
-	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
-	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+	// (String) Permission to associate with item. Options: View, Edit, Admin.
+	// Permission to associate with item. Options: View, Edit, Admin.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
 	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Defaults to 0.
-	// ID of the team to manage permissions for. Defaults to `0`.
+	// (String) ID of the team to manage permissions for.
+	// ID of the team to manage permissions for.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
@@ -135,8 +135,8 @@ type PermissionsInitParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Defaults to `0`.
+	// (String) ID of the user or service account to manage permissions for.
+	// ID of the user or service account to manage permissions for.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
@@ -153,27 +153,27 @@ type PermissionsInitParameters struct {
 
 type PermissionsObservation struct {
 
-	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
-	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+	// (String) Permission to associate with item. Options: View, Edit, Admin.
+	// Permission to associate with item. Options: View, Edit, Admin.
 	Permission *string `json:"permission,omitempty" tf:"permission,omitempty"`
 
 	// (String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.
 	// Name of the basic role to manage permissions for. Options: `Viewer`, `Editor` or `Admin`.
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Defaults to 0.
-	// ID of the team to manage permissions for. Defaults to `0`.
+	// (String) ID of the team to manage permissions for.
+	// ID of the team to manage permissions for.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Defaults to `0`.
+	// (String) ID of the user or service account to manage permissions for.
+	// ID of the user or service account to manage permissions for.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type PermissionsParameters struct {
 
-	// (String) Permission to associate with item. Must be one of View, Edit, or Admin.
-	// Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+	// (String) Permission to associate with item. Options: View, Edit, Admin.
+	// Permission to associate with item. Options: View, Edit, Admin.
 	// +kubebuilder:validation:Optional
 	Permission *string `json:"permission" tf:"permission,omitempty"`
 
@@ -182,8 +182,8 @@ type PermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	Role *string `json:"role,omitempty" tf:"role,omitempty"`
 
-	// (String) ID of the team to manage permissions for. Defaults to 0.
-	// ID of the team to manage permissions for. Defaults to `0`.
+	// (String) ID of the team to manage permissions for.
+	// ID of the team to manage permissions for.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
@@ -198,8 +198,8 @@ type PermissionsParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
-	// ID of the user or service account to manage permissions for. Defaults to `0`.
+	// (String) ID of the user or service account to manage permissions for.
+	// ID of the user or service account to manage permissions for.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector

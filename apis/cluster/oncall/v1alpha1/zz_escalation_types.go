@@ -65,8 +65,8 @@ type EscalationInitParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupToNotifySelector *v1.Selector `json:"groupToNotifySelector,omitempty" tf:"-"`
 
-	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
-	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
+	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
+	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
 	// (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
@@ -77,8 +77,8 @@ type EscalationInitParameters struct {
 	// The end of the time interval for notify_if_time_from_to type step in UTC (for example 18:00:00Z).
 	NotifyIfTimeTo *string `json:"notifyIfTimeTo,omitempty" tf:"notify_if_time_to,omitempty"`
 
-	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
-	// ID of a Schedule for notify_on_call_from_schedule type step.
+	// (String) ID of a Schedule for notify_on_call_from_schedule or notify_next_on_call_from_schedule type step.
+	// ID of a Schedule for notify_on_call_from_schedule or notify_next_on_call_from_schedule type step.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Schedule
 	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
 	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
@@ -158,8 +158,8 @@ type EscalationInitParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -184,8 +184,8 @@ type EscalationObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
-	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
+	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
+	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
 	// (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
@@ -196,8 +196,8 @@ type EscalationObservation struct {
 	// The end of the time interval for notify_if_time_from_to type step in UTC (for example 18:00:00Z).
 	NotifyIfTimeTo *string `json:"notifyIfTimeTo,omitempty" tf:"notify_if_time_to,omitempty"`
 
-	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
-	// ID of a Schedule for notify_on_call_from_schedule type step.
+	// (String) ID of a Schedule for notify_on_call_from_schedule or notify_next_on_call_from_schedule type step.
+	// ID of a Schedule for notify_on_call_from_schedule or notify_next_on_call_from_schedule type step.
 	NotifyOnCallFromSchedule *string `json:"notifyOnCallFromSchedule,omitempty" tf:"notify_on_call_from_schedule,omitempty"`
 
 	// (String) The ID of a Team for a notify_team_members type step.
@@ -230,8 +230,8 @@ type EscalationObservation struct {
 	// The severity of the incident for declare_incident type step.
 	Severity *string `json:"severity,omitempty" tf:"severity,omitempty"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -291,8 +291,8 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	GroupToNotifySelector *v1.Selector `json:"groupToNotifySelector,omitempty" tf:"-"`
 
-	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
-	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members
+	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
+	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
 	// +kubebuilder:validation:Optional
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
@@ -306,8 +306,8 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	NotifyIfTimeTo *string `json:"notifyIfTimeTo,omitempty" tf:"notify_if_time_to,omitempty"`
 
-	// (String) ID of a Schedule for notify_on_call_from_schedule type step.
-	// ID of a Schedule for notify_on_call_from_schedule type step.
+	// (String) ID of a Schedule for notify_on_call_from_schedule or notify_next_on_call_from_schedule type step.
+	// ID of a Schedule for notify_on_call_from_schedule or notify_next_on_call_from_schedule type step.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.Schedule
 	// +crossplane:generate:reference:refFieldName=NotifyOnCallFromScheduleRef
 	// +crossplane:generate:reference:selectorFieldName=NotifyOnCallFromScheduleSelector
@@ -395,8 +395,8 @@ type EscalationParameters struct {
 	// +kubebuilder:validation:Optional
 	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
-	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
-	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
