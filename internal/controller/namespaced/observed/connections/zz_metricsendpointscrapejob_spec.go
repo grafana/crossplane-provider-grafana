@@ -8,7 +8,10 @@ package connections
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -77,4 +80,33 @@ var MetricsEndpointScrapeJobSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.MetricsEndpointScrapeJob)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.AuthenticationBasicPassword != nil {
+			cd["authentication_basic_password"] = []byte(*cr.Status.AtProvider.AuthenticationBasicPassword)
+		}
+		if cr.Status.AtProvider.AuthenticationBasicUsername != nil {
+			cd["authentication_basic_username"] = []byte(*cr.Status.AtProvider.AuthenticationBasicUsername)
+		}
+		if cr.Status.AtProvider.AuthenticationBearerToken != nil {
+			cd["authentication_bearer_token"] = []byte(*cr.Status.AtProvider.AuthenticationBearerToken)
+		}
+		if cr.Status.AtProvider.AuthenticationMethod != nil {
+			cd["authentication_method"] = []byte(*cr.Status.AtProvider.AuthenticationMethod)
+		}
+		if cr.Status.AtProvider.Enabled != nil {
+			cd["enabled"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.Enabled))
+		}
+		if cr.Status.AtProvider.ScrapeIntervalSeconds != nil {
+			cd["scrape_interval_seconds"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.ScrapeIntervalSeconds, 10))
+		}
+		if cr.Status.AtProvider.URL != nil {
+			cd["url"] = []byte(*cr.Status.AtProvider.URL)
+		}
+		return cd
+	},
 }

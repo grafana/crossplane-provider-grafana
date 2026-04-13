@@ -57,6 +57,12 @@ type Spec struct {
 	// IsUpToDate optionally checks whether the resource status is already
 	// current. If nil, the resource is always re-read.
 	IsUpToDate func(resource.Managed) bool
+
+	// ConnectionDetailsFn optionally returns connection details to publish
+	// after a successful data source read. The returned details are written
+	// to the Secret referenced by writeConnectionSecretToRef. If nil, no
+	// connection details are published.
+	ConnectionDetailsFn func(mg resource.Managed) managed.ConnectionDetails
 }
 
 // Setup adds a controller that reconciles an observe-only resource.
@@ -137,9 +143,15 @@ func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.Exte
 		tjresource.SetUpToDateCondition(mg, true)
 	}
 
+	var cd managed.ConnectionDetails
+	if upToDate && e.spec.ConnectionDetailsFn != nil {
+		cd = e.spec.ConnectionDetailsFn(mg)
+	}
+
 	return managed.ExternalObservation{
-		ResourceExists:   true,
-		ResourceUpToDate: upToDate,
+		ResourceExists:    true,
+		ResourceUpToDate:  upToDate,
+		ConnectionDetails: cd,
 	}, nil
 }
 
@@ -172,7 +184,12 @@ func (e *external) Update(ctx context.Context, mg resource.Managed) (managed.Ext
 
 	mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
 	tjresource.SetUpToDateCondition(mg, true)
-	return managed.ExternalUpdate{}, nil
+
+	var cd managed.ConnectionDetails
+	if e.spec.ConnectionDetailsFn != nil {
+		cd = e.spec.ConnectionDetailsFn(mg)
+	}
+	return managed.ExternalUpdate{ConnectionDetails: cd}, nil
 }
 
 func (e *external) Delete(_ context.Context, _ resource.Managed) (managed.ExternalDelete, error) {

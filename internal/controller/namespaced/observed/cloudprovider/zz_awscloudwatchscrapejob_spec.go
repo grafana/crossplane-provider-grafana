@@ -8,7 +8,10 @@ package cloudprovider
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -78,4 +81,30 @@ var AwsCloudwatchScrapeJobSpec = tfdatasource.Spec{
 			// TODO: complex type map[string]string for static_labels
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.AwsCloudwatchScrapeJob)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.AwsAccountResourceID != nil {
+			cd["aws_account_resource_id"] = []byte(*cr.Status.AtProvider.AwsAccountResourceID)
+		}
+		if cr.Status.AtProvider.DisabledReason != nil {
+			cd["disabled_reason"] = []byte(*cr.Status.AtProvider.DisabledReason)
+		}
+		if cr.Status.AtProvider.Enabled != nil {
+			cd["enabled"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.Enabled))
+		}
+		if cr.Status.AtProvider.ExportTags != nil {
+			cd["export_tags"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.ExportTags))
+		}
+		if cr.Status.AtProvider.RegionsSubsetOverrideUsed != nil {
+			cd["regions_subset_override_used"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.RegionsSubsetOverrideUsed))
+		}
+		if cr.Status.AtProvider.RoleArn != nil {
+			cd["role_arn"] = []byte(*cr.Status.AtProvider.RoleArn)
+		}
+		return cd
+	},
 }

@@ -10,6 +10,7 @@ import (
 	"fmt"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -68,4 +69,27 @@ var FolderSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Folder)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.ParentFolderUID != nil {
+			cd["parent_folder_uid"] = []byte(*cr.Status.AtProvider.ParentFolderUID)
+		}
+		if cr.Status.AtProvider.Title != nil {
+			cd["title"] = []byte(*cr.Status.AtProvider.Title)
+		}
+		if cr.Status.AtProvider.UID != nil {
+			cd["uid"] = []byte(*cr.Status.AtProvider.UID)
+		}
+		if cr.Status.AtProvider.URL != nil {
+			cd["url"] = []byte(*cr.Status.AtProvider.URL)
+		}
+		return cd
+	},
 }

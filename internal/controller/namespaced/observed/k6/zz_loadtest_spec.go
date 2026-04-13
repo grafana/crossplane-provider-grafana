@@ -9,6 +9,8 @@ package k6
 import (
 	"context"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -67,4 +69,30 @@ var LoadTestSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.LoadTest)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.BaselineTestRunID != nil {
+			cd["baseline_test_run_id"] = []byte(*cr.Status.AtProvider.BaselineTestRunID)
+		}
+		if cr.Status.AtProvider.Created != nil {
+			cd["created"] = []byte(*cr.Status.AtProvider.Created)
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.ProjectID != nil {
+			cd["project_id"] = []byte(*cr.Status.AtProvider.ProjectID)
+		}
+		if cr.Status.AtProvider.Script != nil {
+			cd["script"] = []byte(*cr.Status.AtProvider.Script)
+		}
+		if cr.Status.AtProvider.Updated != nil {
+			cd["updated"] = []byte(*cr.Status.AtProvider.Updated)
+		}
+		return cd
+	},
 }

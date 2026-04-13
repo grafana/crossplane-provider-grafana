@@ -8,7 +8,10 @@ package k6
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -58,4 +61,24 @@ var ScheduleSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Schedule)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.CreatedBy != nil {
+			cd["created_by"] = []byte(*cr.Status.AtProvider.CreatedBy)
+		}
+		if cr.Status.AtProvider.Deactivated != nil {
+			cd["deactivated"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.Deactivated))
+		}
+		if cr.Status.AtProvider.NextRun != nil {
+			cd["next_run"] = []byte(*cr.Status.AtProvider.NextRun)
+		}
+		if cr.Status.AtProvider.Starts != nil {
+			cd["starts"] = []byte(*cr.Status.AtProvider.Starts)
+		}
+		return cd
+	},
 }

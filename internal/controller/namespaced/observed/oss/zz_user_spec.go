@@ -8,8 +8,10 @@ package oss
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -69,4 +71,27 @@ var UserSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.User)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.Email != nil {
+			cd["email"] = []byte(*cr.Status.AtProvider.Email)
+		}
+		if cr.Status.AtProvider.IsAdmin != nil {
+			cd["is_admin"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.IsAdmin))
+		}
+		if cr.Status.AtProvider.Login != nil {
+			cd["login"] = []byte(*cr.Status.AtProvider.Login)
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.UserID != nil {
+			cd["user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.UserID, 10))
+		}
+		return cd
+	},
 }

@@ -8,6 +8,7 @@ package oncall
 
 import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -46,4 +47,21 @@ var IntegrationSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Integration)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.InboundEmail != nil {
+			cd["inbound_email"] = []byte(*cr.Status.AtProvider.InboundEmail)
+		}
+		if cr.Status.AtProvider.Link != nil {
+			cd["link"] = []byte(*cr.Status.AtProvider.Link)
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		return cd
+	},
 }

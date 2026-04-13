@@ -9,6 +9,8 @@ package k6
 import (
 	"context"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -58,4 +60,24 @@ var ProjectLimitsSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.ProjectLimits)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.DurationMaxPerTest != nil {
+			cd["duration_max_per_test"] = []byte(*cr.Status.AtProvider.DurationMaxPerTest)
+		}
+		if cr.Status.AtProvider.VuBrowserMaxPerTest != nil {
+			cd["vu_browser_max_per_test"] = []byte(*cr.Status.AtProvider.VuBrowserMaxPerTest)
+		}
+		if cr.Status.AtProvider.VuMaxPerTest != nil {
+			cd["vu_max_per_test"] = []byte(*cr.Status.AtProvider.VuMaxPerTest)
+		}
+		if cr.Status.AtProvider.VuhMaxPerMonth != nil {
+			cd["vuh_max_per_month"] = []byte(*cr.Status.AtProvider.VuhMaxPerMonth)
+		}
+		return cd
+	},
 }

@@ -9,6 +9,8 @@ package cloudprovider
 import (
 	"context"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -65,4 +67,24 @@ var AzureCredentialSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.AzureCredential)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.ClientID != nil {
+			cd["client_id"] = []byte(*cr.Status.AtProvider.ClientID)
+		}
+		if cr.Status.AtProvider.ClientSecret != nil {
+			cd["client_secret"] = []byte(*cr.Status.AtProvider.ClientSecret)
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.TenantID != nil {
+			cd["tenant_id"] = []byte(*cr.Status.AtProvider.TenantID)
+		}
+		return cd
+	},
 }

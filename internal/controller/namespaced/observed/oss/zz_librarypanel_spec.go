@@ -8,8 +8,10 @@ package oss
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 
@@ -106,4 +108,48 @@ var LibraryPanelSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.LibraryPanel)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.Created != nil {
+			cd["created"] = []byte(*cr.Status.AtProvider.Created)
+		}
+		if cr.Status.AtProvider.Description != nil {
+			cd["description"] = []byte(*cr.Status.AtProvider.Description)
+		}
+		if cr.Status.AtProvider.FolderName != nil {
+			cd["folder_name"] = []byte(*cr.Status.AtProvider.FolderName)
+		}
+		if cr.Status.AtProvider.FolderUID != nil {
+			cd["folder_uid"] = []byte(*cr.Status.AtProvider.FolderUID)
+		}
+		if cr.Status.AtProvider.ModelJSON != nil {
+			cd["model_json"] = []byte(*cr.Status.AtProvider.ModelJSON)
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.PanelID != nil {
+			cd["panel_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.PanelID, 10))
+		}
+		if cr.Status.AtProvider.Type != nil {
+			cd["type"] = []byte(*cr.Status.AtProvider.Type)
+		}
+		if cr.Status.AtProvider.UID != nil {
+			cd["uid"] = []byte(*cr.Status.AtProvider.UID)
+		}
+		if cr.Status.AtProvider.Updated != nil {
+			cd["updated"] = []byte(*cr.Status.AtProvider.Updated)
+		}
+		if cr.Status.AtProvider.Version != nil {
+			cd["version"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.Version, 10))
+		}
+		return cd
+	},
 }

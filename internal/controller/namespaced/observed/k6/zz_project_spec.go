@@ -8,7 +8,10 @@ package k6
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -61,4 +64,27 @@ var ProjectSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Project)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.Created != nil {
+			cd["created"] = []byte(*cr.Status.AtProvider.Created)
+		}
+		if cr.Status.AtProvider.GrafanaFolderUID != nil {
+			cd["grafana_folder_uid"] = []byte(*cr.Status.AtProvider.GrafanaFolderUID)
+		}
+		if cr.Status.AtProvider.IsDefault != nil {
+			cd["is_default"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.IsDefault))
+		}
+		if cr.Status.AtProvider.Name != nil {
+			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.Updated != nil {
+			cd["updated"] = []byte(*cr.Status.AtProvider.Updated)
+		}
+		return cd
+	},
 }

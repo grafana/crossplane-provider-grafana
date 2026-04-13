@@ -8,7 +8,10 @@ package oss
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -76,4 +79,27 @@ var TeamSpec = tfdatasource.Spec{
 			}
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.Team)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.Email != nil {
+			cd["email"] = []byte(*cr.Status.AtProvider.Email)
+		}
+		if cr.Status.AtProvider.OrgID != nil {
+			cd["org_id"] = []byte(*cr.Status.AtProvider.OrgID)
+		}
+		if cr.Status.AtProvider.ReadTeamSync != nil {
+			cd["read_team_sync"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.ReadTeamSync))
+		}
+		if cr.Status.AtProvider.TeamID != nil {
+			cd["team_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.TeamID, 10))
+		}
+		if cr.Status.AtProvider.TeamUID != nil {
+			cd["team_uid"] = []byte(*cr.Status.AtProvider.TeamUID)
+		}
+		return cd
+	},
 }
