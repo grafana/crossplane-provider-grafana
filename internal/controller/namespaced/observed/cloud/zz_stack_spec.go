@@ -82,6 +82,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.FleetManagementName = &s
 				}
 			}
+			// TODO: complex type []string for fleet_management_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for fleet_management_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("fleet_management_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -125,6 +126,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.GraphiteName = &s
 				}
 			}
+			// TODO: complex type []string for graphite_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for graphite_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("graphite_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -169,6 +171,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.LogsName = &s
 				}
 			}
+			// TODO: complex type []string for logs_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for logs_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("logs_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -223,6 +226,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.OrgSlug = &s
 				}
 			}
+			// TODO: complex type []string for otlp_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for otlp_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("otlp_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -240,6 +244,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.OtlpURL = &s
 				}
 			}
+			// TODO: complex type []string for pdc_api_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for pdc_api_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("pdc_api_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -252,6 +257,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.PdcAPIPrivateConnectivityInfoServiceName = &s
 				}
 			}
+			// TODO: complex type []string for pdc_gateway_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for pdc_gateway_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("pdc_gateway_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -274,6 +280,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.ProfilesName = &s
 				}
 			}
+			// TODO: complex type []string for profiles_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for profiles_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("profiles_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -312,6 +319,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.PrometheusName = &s
 				}
 			}
+			// TODO: complex type []string for prometheus_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for prometheus_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("prometheus_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {
@@ -370,6 +378,7 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.TracesName = &s
 				}
 			}
+			// TODO: complex type []string for traces_private_connectivity_info_availability_zone_ids
 			// TODO: complex type []string for traces_private_connectivity_info_availability_zones
 			if v, ok := d.GetOk("traces_private_connectivity_info_private_dns"); ok {
 				if s, ok := v.(string); ok {

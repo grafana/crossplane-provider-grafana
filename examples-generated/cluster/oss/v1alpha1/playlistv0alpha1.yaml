@@ -14,5 +14,5 @@ spec:
     - interval: 5m
       items:
       - type: dashboard_by_uid
-        value: example-dashboard-uid
+        value: example-dashboard
       title: Example Playlist

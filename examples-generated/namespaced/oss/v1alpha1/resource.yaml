@@ -1,0 +1,12 @@
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Resource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/resource
+  labels:
+    testing.upbound.io/example-name: folder_from_yaml
+  name: folder-from-yaml
+  namespace: upbound-system
+spec:
+  forProvider:
+    manifest: ${yamldecode(file("${path.module}/folder.yaml"))}

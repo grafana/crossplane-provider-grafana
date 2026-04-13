@@ -24,6 +24,10 @@ type DataSourcePermissionInitParameters struct {
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
 
+	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
+
 	// (String) UID of the datasource to apply permissions to.
 	// UID of the datasource to apply permissions to.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
@@ -54,6 +58,10 @@ type DataSourcePermissionInitParameters struct {
 
 type DataSourcePermissionObservation struct {
 
+	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
+
 	// (String) UID of the datasource to apply permissions to.
 	// UID of the datasource to apply permissions to.
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
@@ -79,6 +87,11 @@ type DataSourcePermissionParameters struct {
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
 	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
+	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+	// +kubebuilder:validation:Optional
+	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// (String) UID of the datasource to apply permissions to.
 	// UID of the datasource to apply permissions to.

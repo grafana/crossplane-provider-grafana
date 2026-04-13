@@ -56,11 +56,12 @@ spec:
                   data source.
                 properties:
                   name:
-                    description: The name of the Grafana team
+                    description: The name of the Grafana team.
                     type: string
                   orgID:
-                    description: The Organization ID. If not set, the Org ID defined
-                      in the provider block will be used.
+                    description: The Organization ID. If not set, the default organization
+                      is used for basic authentication, or the one that owns your
+                      service account for token authentication.
                     type: string
                   readTeamSync:
                     description: Whether to read the team sync settings. This is only
@@ -137,40 +138,16 @@ spec:
                     description: An email address for the team.
                     type: string
                   members:
-                    description: |-
-                      A set of email addresses corresponding to users who should be given membership
-                      to the team. Note: users specified here must already exist in Grafana.
+                    description: A set of email addresses corresponding to users who
+                      are members of the team.
                     items:
                       type: string
                     type: array
                   orgID:
-                    description: The Organization ID. If not set, the Org ID defined
-                      in the provider block will be used.
+                    description: The Organization ID. If not set, the default organization
+                      is used for basic authentication, or the one that owns your
+                      service account for token authentication.
                     type: string
-                  preferences:
-                    items:
-                      properties:
-                        homeDashboardUID:
-                          description: The UID of the dashboard to display when a
-                            team member logs in.
-                          type: string
-                        theme:
-                          description: The default theme for this team. Available
-                            themes are `light`, `dark`, `system`, or an empty string
-                            for the default theme.
-                          type: string
-                        timezone:
-                          description: The default timezone for this team. Available
-                            values are `utc`, `browser`, or an empty string for the
-                            default.
-                          type: string
-                        weekStart:
-                          description: The default week start day for this team. Available
-                            values are `sunday`, `monday`, `saturday`, or an empty
-                            string for the default.
-                          type: string
-                      type: object
-                    type: array
                   readTeamSync:
                     description: Whether to read the team sync settings. This is only
                       available in Grafana Enterprise.
@@ -179,18 +156,6 @@ spec:
                     description: The team id assigned to this team by Grafana.
                     format: int64
                     type: integer
-                  teamSync:
-                    description: "Sync external auth provider groups with this Grafana
-                      team. Only available in Grafana Enterprise.\n\t* [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)\n\t*
-                      [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)"
-                    items:
-                      properties:
-                        groups:
-                          items:
-                            type: string
-                          type: array
-                      type: object
-                    type: array
                   teamUID:
                     description: The team uid assigned to this team by Grafana.
                     type: string

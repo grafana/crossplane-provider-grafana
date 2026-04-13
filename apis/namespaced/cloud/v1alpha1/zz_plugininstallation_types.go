@@ -116,7 +116,7 @@ type PluginInstallationStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// PluginInstallation is the Schema for the PluginInstallations API. Manages Grafana Cloud Plugin Installations. Plugin Catalog https://grafana.com/grafana/plugins/ Required access policy scopes: stack-plugins:readstack-plugins:writestack-plugins:delete
+// PluginInstallation is the Schema for the PluginInstallations API. Manages Grafana Cloud Plugin Installations. Plugin management https://grafana.com/docs/grafana/latest/administration/plugin-management/ Required access policy scopes: stack-plugins:readstack-plugins:writestack-plugins:delete
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

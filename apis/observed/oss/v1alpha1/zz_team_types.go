@@ -13,31 +13,13 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-type TeamPreferences struct {
-	// The UID of the dashboard to display when a team member logs in.
-	HomeDashboardUID *string `json:"homeDashboardUID,omitempty"`
-
-	// The default theme for this team. Available themes are `light`, `dark`, `system`, or an empty string for the default theme.
-	Theme *string `json:"theme,omitempty"`
-
-	// The default timezone for this team. Available values are `utc`, `browser`, or an empty string for the default.
-	Timezone *string `json:"timezone,omitempty"`
-
-	// The default week start day for this team. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default.
-	WeekStart *string `json:"weekStart,omitempty"`
-}
-
-type TeamTeamSync struct {
-	Groups []string `json:"groups,omitempty"`
-}
-
 // TeamParameters defines the input parameters for the grafana_team data source.
 type TeamParameters struct {
-	// The name of the Grafana team
+	// The name of the Grafana team.
 	// +kubebuilder:validation:Required
 	Name string `json:"name"`
 
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +optional
 	OrgID *string `json:"orgID,omitempty"`
 
@@ -51,28 +33,17 @@ type TeamObservation struct {
 	// An email address for the team.
 	Email *string `json:"email,omitempty"`
 
-	//
-	// A set of email addresses corresponding to users who should be given membership
-	// to the team. Note: users specified here must already exist in Grafana.
-	//
+	// A set of email addresses corresponding to users who are members of the team.
 	Members []string `json:"members,omitempty"`
 
-	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
+	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgID,omitempty"`
-
-	Preferences []TeamPreferences `json:"preferences,omitempty"`
 
 	// Whether to read the team sync settings. This is only available in Grafana Enterprise.
 	ReadTeamSync *bool `json:"readTeamSync,omitempty"`
 
 	// The team id assigned to this team by Grafana.
 	TeamID *int64 `json:"teamID,omitempty"`
-
-	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
-	// 	* [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
-	// 	* [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
-	//
-	TeamSync []TeamTeamSync `json:"teamSync,omitempty"`
 
 	// The team uid assigned to this team by Grafana.
 	TeamUID *string `json:"teamUID,omitempty"`

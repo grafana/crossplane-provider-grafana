@@ -15,14 +15,14 @@ import (
 
 // ProbeSetParameters defines the input parameters for the grafana_synthetic_monitoring_probes data source.
 type ProbeSetParameters struct {
-	// If true, only probes that are not deprecated will be returned.
+	// If true, only probes that are not deprecated will be returned. Defaults to `true`.
 	// +optional
 	FilterDeprecated *bool `json:"filterDeprecated,omitempty"`
 }
 
 // ProbeSetObservation holds the observed (computed) fields from the grafana_synthetic_monitoring_probes data source.
 type ProbeSetObservation struct {
-	// If true, only probes that are not deprecated will be returned.
+	// If true, only probes that are not deprecated will be returned. Defaults to `true`.
 	FilterDeprecated *bool `json:"filterDeprecated,omitempty"`
 
 	// Map of probes with their names as keys and IDs as values.

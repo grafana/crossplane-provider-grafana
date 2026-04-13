@@ -7,11 +7,12 @@ Copyright 2026 Grafana Labs
 package sm
 
 import (
-	"fmt"
+	"context"
 
-	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework/path"
+	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/sm/v1alpha1"
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
@@ -21,23 +22,22 @@ var ProbeSetSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_synthetic_monitoring_probes",
 	ManagedKind:    v1alpha1.ProbeSet_GroupVersionKind,
 	NewManaged:     func() resource.Managed { return &v1alpha1.ProbeSet{} },
-	Read: tfdatasource.NewLegacyReadFn(
-		"grafana_synthetic_monitoring_probes",
-		legacyDSProbeSet,
-		func(mg resource.Managed) map[string]string {
+	Read: tfdatasource.NewFrameworkReadFn(
+		newDSProbeSet,
+		func(mg resource.Managed) map[string]tftypes.Value {
 			cr := mg.(*v1alpha1.ProbeSet)
-			attrs := map[string]string{}
+			attrs := map[string]tftypes.Value{}
 			if cr.Spec.ForProvider.FilterDeprecated != nil {
-				attrs["filter_deprecated"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.FilterDeprecated)
+				attrs["filter_deprecated"] = tftypes.NewValue(tftypes.Bool, *cr.Spec.ForProvider.FilterDeprecated)
 			}
 			return attrs
 		},
-		func(mg resource.Managed, d *sdkschema.ResourceData) {
+		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.ProbeSet)
-			meta.SetExternalName(cr, d.Id())
-			if v, ok := d.GetOk("filter_deprecated"); ok {
-				if b, ok := v.(bool); ok {
-					cr.Status.AtProvider.FilterDeprecated = &b
+			{
+				var v *bool
+				if diags := state.GetAttribute(ctx, path.Root("filter_deprecated"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.FilterDeprecated = v
 				}
 			}
 			// TODO: complex type map[string]string for probes

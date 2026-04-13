@@ -76,6 +76,11 @@ spec:
                 type: string
               forProvider:
                 properties:
+                  datasourceType:
+                    description: |-
+                      (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                      The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                    type: string
                   datasourceUid:
                     description: |-
                       (String) The UID of the datasource.
@@ -194,6 +199,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  datasourceType:
+                    description: |-
+                      (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                      The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                    type: string
                   datasourceUid:
                     description: |-
                       (String) The UID of the datasource.
@@ -400,6 +410,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  datasourceType:
+                    description: |-
+                      (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                      The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
+                    type: string
                   datasourceUid:
                     description: |-
                       (String) The UID of the datasource.

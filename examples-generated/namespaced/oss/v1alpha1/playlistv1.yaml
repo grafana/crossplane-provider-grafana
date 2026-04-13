@@ -1,0 +1,19 @@
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: PlaylistV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/playlistv1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    metadata:
+    - uid: example-playlist
+    spec:
+    - interval: 5m
+      items:
+      - type: dashboard_by_uid
+        value: example-dashboard
+      title: Example Playlist

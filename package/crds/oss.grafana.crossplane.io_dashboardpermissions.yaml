@@ -157,8 +157,8 @@ spec:
                     type: string
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -242,8 +242,8 @@ spec:
                       properties:
                         permission:
                           description: |-
-                            (String) Permission to associate with item. Must be one of View, Edit, or Admin.
-                            Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+                            (String) Permission to associate with item. Options: View, Edit, Admin.
+                            Permission to associate with item. Options: View, Edit, Admin.
                           type: string
                         role:
                           description: |-
@@ -252,8 +252,8 @@ spec:
                           type: string
                         teamId:
                           description: |-
-                            (String) ID of the team to manage permissions for. Defaults to 0.
-                            ID of the team to manage permissions for. Defaults to `0`.
+                            (String) ID of the team to manage permissions for.
+                            ID of the team to manage permissions for.
                           type: string
                         teamRef:
                           description: Reference to a Team in oss to populate teamId.
@@ -331,8 +331,8 @@ spec:
                           type: object
                         userId:
                           description: |-
-                            (String) ID of the user or service account to manage permissions for. Defaults to 0.
-                            ID of the user or service account to manage permissions for. Defaults to `0`.
+                            (String) ID of the user or service account to manage permissions for.
+                            ID of the user or service account to manage permissions for.
                           type: string
                         userRef:
                           description: Reference to a User in oss to populate userId.
@@ -505,8 +505,8 @@ spec:
                     type: string
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
                     type: string
                   organizationRef:
                     description: Reference to a Organization in oss to populate orgId.
@@ -590,8 +590,8 @@ spec:
                       properties:
                         permission:
                           description: |-
-                            (String) Permission to associate with item. Must be one of View, Edit, or Admin.
-                            Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+                            (String) Permission to associate with item. Options: View, Edit, Admin.
+                            Permission to associate with item. Options: View, Edit, Admin.
                           type: string
                         role:
                           description: |-
@@ -600,8 +600,8 @@ spec:
                           type: string
                         teamId:
                           description: |-
-                            (String) ID of the team to manage permissions for. Defaults to 0.
-                            ID of the team to manage permissions for. Defaults to `0`.
+                            (String) ID of the team to manage permissions for.
+                            ID of the team to manage permissions for.
                           type: string
                         teamRef:
                           description: Reference to a Team in oss to populate teamId.
@@ -679,8 +679,8 @@ spec:
                           type: object
                         userId:
                           description: |-
-                            (String) ID of the user or service account to manage permissions for. Defaults to 0.
-                            ID of the user or service account to manage permissions for. Defaults to `0`.
+                            (String) ID of the user or service account to manage permissions for.
+                            ID of the user or service account to manage permissions for.
                           type: string
                         userRef:
                           description: Reference to a User in oss to populate userId.
@@ -860,8 +860,8 @@ spec:
                     type: string
                   orgId:
                     description: |-
-                      (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-                      The Organization ID. If not set, the Org ID defined in the provider block will be used.
+                      (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+                      The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
                     type: string
                   permissions:
                     description: |-
@@ -871,8 +871,8 @@ spec:
                       properties:
                         permission:
                           description: |-
-                            (String) Permission to associate with item. Must be one of View, Edit, or Admin.
-                            Permission to associate with item. Must be one of `View`, `Edit`, or `Admin`.
+                            (String) Permission to associate with item. Options: View, Edit, Admin.
+                            Permission to associate with item. Options: View, Edit, Admin.
                           type: string
                         role:
                           description: |-
@@ -881,13 +881,13 @@ spec:
                           type: string
                         teamId:
                           description: |-
-                            (String) ID of the team to manage permissions for. Defaults to 0.
-                            ID of the team to manage permissions for. Defaults to `0`.
+                            (String) ID of the team to manage permissions for.
+                            ID of the team to manage permissions for.
                           type: string
                         userId:
                           description: |-
-                            (String) ID of the user or service account to manage permissions for. Defaults to 0.
-                            ID of the user or service account to manage permissions for. Defaults to `0`.
+                            (String) ID of the user or service account to manage permissions for.
+                            ID of the user or service account to manage permissions for.
                           type: string
                       type: object
                     type: array

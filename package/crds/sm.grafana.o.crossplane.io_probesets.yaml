@@ -57,7 +57,7 @@ spec:
                 properties:
                   filterDeprecated:
                     description: If true, only probes that are not deprecated will
-                      be returned.
+                      be returned. Defaults to `true`.
                     type: boolean
                 type: object
               managementPolicies:
@@ -126,7 +126,7 @@ spec:
                 properties:
                   filterDeprecated:
                     description: If true, only probes that are not deprecated will
-                      be returned.
+                      be returned. Defaults to `true`.
                     type: boolean
                   probes:
                     additionalProperties:

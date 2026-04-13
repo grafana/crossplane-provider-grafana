@@ -34,6 +34,11 @@ type SLOsSLOsAlertingFastburnAnnotation struct {
 	Value string `json:"value,omitempty"`
 }
 
+type SLOsSLOsAlertingFastburnEnrichment struct {
+	// Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
+	Type string `json:"type,omitempty"`
+}
+
 type SLOsSLOsAlertingFastburnLabel struct {
 	// Key for filtering and identification
 	Key string `json:"key,omitempty"`
@@ -45,6 +50,9 @@ type SLOsSLOsAlertingFastburnLabel struct {
 type SLOsSLOsAlertingFastburn struct {
 	// Annotations to attach only to Fast Burn alerts.
 	Annotation []SLOsSLOsAlertingFastburnAnnotation `json:"annotation,omitempty"`
+
+	// Enrichments to attach only to Fast Burn alerts.
+	Enrichment []SLOsSLOsAlertingFastburnEnrichment `json:"enrichment,omitempty"`
 
 	// Labels to attach only to Fast Burn alerts.
 	Label []SLOsSLOsAlertingFastburnLabel `json:"label,omitempty"`
@@ -66,6 +74,11 @@ type SLOsSLOsAlertingSlowburnAnnotation struct {
 	Value string `json:"value,omitempty"`
 }
 
+type SLOsSLOsAlertingSlowburnEnrichment struct {
+	// Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
+	Type string `json:"type,omitempty"`
+}
+
 type SLOsSLOsAlertingSlowburnLabel struct {
 	// Key for filtering and identification
 	Key string `json:"key,omitempty"`
@@ -77,6 +90,9 @@ type SLOsSLOsAlertingSlowburnLabel struct {
 type SLOsSLOsAlertingSlowburn struct {
 	// Annotations to attach only to Slow Burn alerts.
 	Annotation []SLOsSLOsAlertingSlowburnAnnotation `json:"annotation,omitempty"`
+
+	// Enrichments to attach only to Slow Burn alerts.
+	Enrichment []SLOsSLOsAlertingSlowburnEnrichment `json:"enrichment,omitempty"`
 
 	// Labels to attach only to Slow Burn alerts.
 	Label []SLOsSLOsAlertingSlowburnLabel `json:"label,omitempty"`

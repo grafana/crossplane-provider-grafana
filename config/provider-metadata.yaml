@@ -351,6 +351,115 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
         importStatements: []
+    grafana_apps_generic_resource:
+        subCategory: Grafana Apps
+        description: 'Manages arbitrary Grafana App Platform resources when a typed Terraform resource is not yet available. The resource is still experimental; diffing semantics are subject to change - feedback welcome in https://github.com/grafana/terraform-provider-grafana/issues. This resource accepts a Kubernetes-style manifest as the single source of truth for the resource definition. Use HCL merge() if you need to inject Terraform variables into a static manifest file. Only namespaced App Platform kinds are supported. The provider autodiscovers the namespace from /bootdata on every operation. If autodiscovery does not find a cloud stack namespace, the provider falls back to the explicit stack_id and then org_id provider settings. Top-level manifest fields are limited to apiVersion, kind, metadata, spec, and the ignored status field. If metadata.namespace is configured, it must match the provider-selected namespace. Inside manifest.metadata, both Kubernetes name and uid are accepted as input aliases for the object identifier. The top-level secure argument is write-only and requires Terraform 1.11 or later. Each configured key must set exactly one of create or name, and Terraform only re-sends those secure values when secure_version changes. Reads refresh managed drift from the API. Metadata drift is limited to the metadata keys you configured; spec is authoritative, so extra remote spec fields are refreshed into state and will drift until Terraform restores the configured object. Import format:'
+        name: grafana_apps_generic_resource
+        title: grafana_apps_generic_resource Resource - terraform-provider-grafana
+        examples:
+            - name: folder_from_yaml
+              manifest: |-
+                {
+                  "manifest": "${yamldecode(file(\"${path.module}/folder.yaml\"))}"
+                }
+            - name: folder_inline
+              manifest: |-
+                {
+                  "manifest": {
+                    "apiVersion": "folder.grafana.app/v1",
+                    "kind": "Folder",
+                    "metadata": {
+                      "name": "my-inline-folder"
+                    },
+                    "spec": {
+                      "title": "My Inline Folder"
+                    }
+                  }
+                }
+            - name: dashboard
+              manifest: |-
+                {
+                  "depends_on": [
+                    "${grafana_apps_generic_resource.folder_inline}"
+                  ],
+                  "manifest": {
+                    "apiVersion": "dashboard.grafana.app/v2",
+                    "kind": "Dashboard",
+                    "metadata": {
+                      "annotations": {
+                        "grafana.app/folder": "my-inline-folder"
+                      },
+                      "labels": {
+                        "team": "platform"
+                      },
+                      "name": "my-dashboard"
+                    },
+                    "spec": {
+                      "cursorSync": "Off",
+                      "elements": {},
+                      "layout": {
+                        "kind": "GridLayout",
+                        "spec": {
+                          "items": []
+                        }
+                      },
+                      "preload": false,
+                      "title": "My Dashboard"
+                    }
+                  }
+                }
+            - name: folder_with_variable
+              manifest: |-
+                {
+                  "manifest": "${merge(yamldecode(file(\"${path.module}/folder.yaml\")), {\n    metadata = merge(yamldecode(file(\"${path.module}/folder.yaml\")).metadata, {\n      name = \"my-dynamic-folder\"\n    })\n    spec = {\n      title       = var.folder_title\n      description = \"A folder managed by Terraform\"\n    }\n  })}"
+                }
+            - name: repository
+              manifest: |-
+                {
+                  "manifest": {
+                    "apiVersion": "provisioning.grafana.app/v1beta1",
+                    "kind": "Repository",
+                    "metadata": {
+                      "name": "platform-repo"
+                    },
+                    "spec": {
+                      "description": "Repository managed through the generic resource",
+                      "github": {
+                        "branch": "main",
+                        "generateDashboardPreviews": false,
+                        "path": "grafana",
+                        "url": "https://github.com/example/grafana-dashboards"
+                      },
+                      "sync": {
+                        "enabled": false,
+                        "intervalSeconds": 300,
+                        "target": "folder"
+                      },
+                      "title": "Platform Repository",
+                      "type": "github",
+                      "workflows": [
+                        "write"
+                      ]
+                    }
+                  },
+                  "secure": {
+                    "token": {
+                      "create": "${var.github_token}"
+                    },
+                    "webhookSecret": {
+                      "create": "${var.webhook_secret}"
+                    }
+                  },
+                  "secure_version": 1
+                }
+        argumentDocs:
+            allow_ui_updates: (Boolean) Whether the resource can be edited from the Grafana UI. Defaults to false — Terraform-managed resources are locked from UI edits unless you opt in. Set to true to allow UI modifications; not supported by all resources.
+            id: (String) The API resource UUID assigned by Grafana. This is not used for import; import uses the object name stored in metadata.uid.
+            manifest: (Dynamic) Kubernetes-style manifest, typically from yamldecode(file(...)) or jsondecode(file(...)). Must contain apiVersion, kind, metadata (with name or uid), and spec. Use HCL merge() to inject Terraform variables. If you start from an exported manifest, remove noisy server-managed metadata such as resourceVersion, generation, and managedFields, or import the resource first and use the normalized state shape. If metadata.namespace is set, it must match the namespace selected from provider org_id or stack_id / autodiscovery. Top-level manifest fields are limited to apiVersion, kind, metadata, spec, and the ignored status field. The secure field must not be set here; use the top-level secure argument instead.
+            secure: (Dynamic, Write-only) Write-only secure values map. Each key must contain exactly one of create or name; empty objects are invalid.
+            secure_version: (Number) Set this to 1 when using secure, then increment it whenever you want Terraform to re-apply secure values.
+        importStatements:
+            - terraform import grafana_apps_generic_resource.example provisioning.grafana.app/v1beta1/Repository/platform-repo
     grafana_apps_notifications_inhibitionrule_v1beta1 Resource - terraform-provider-grafana:
         subCategory: Alerting
         description: Manages Grafana Inhibition Rules.
@@ -395,7 +504,52 @@ resources:
                       "items": [
                         {
                           "type": "dashboard_by_uid",
-                          "value": "example-dashboard-uid"
+                          "value": "example-dashboard"
+                        }
+                      ],
+                      "title": "Example Playlist"
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            folder_uid: (String) The UID of the folder to save the resource in.
+            id: (String) The ID of the resource derived from UUID.
+            interval: (String) The interval of the playlist.
+            items: (List of Object) The items of the playlist. (see below for nested schema)
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            title: (String) The title of the playlist.
+            type: (String)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            value: (String)
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_playlist_playlist_v1:
+        subCategory: Grafana Apps
+        description: Manages Grafana playlists using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/apis/
+        name: grafana_apps_playlist_playlist_v1
+        title: grafana_apps_playlist_playlist_v1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-playlist"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "interval": "5m",
+                      "items": [
+                        {
+                          "type": "dashboard_by_uid",
+                          "value": "example-dashboard"
                         }
                       ],
                       "title": "Example Playlist"
@@ -2346,7 +2500,7 @@ resources:
             - terraform import grafana_cloud_org_member.name "{{ orgSlugOrID }}:{{ usernameOrID }}"
     grafana_cloud_plugin_installation:
         subCategory: Cloud
-        description: 'Manages Grafana Cloud Plugin Installations. Plugin Catalog https://grafana.com/grafana/plugins/ Required access policy scopes: stack-plugins:readstack-plugins:writestack-plugins:delete'
+        description: 'Manages Grafana Cloud Plugin Installations. Plugin management https://grafana.com/docs/grafana/latest/administration/plugin-management/ Required access policy scopes: stack-plugins:readstack-plugins:writestack-plugins:delete'
         name: grafana_cloud_plugin_installation
         title: grafana_cloud_plugin_installation Resource - terraform-provider-grafana
         examples:
@@ -2726,6 +2880,7 @@ resources:
             delete_protection: (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
             description: (String) Description of stack.
             fleet_management_name: (String) Name of the Fleet Management instance configured for this stack.
+            fleet_management_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_private_connectivity_info_availability_zones: (List of String) Availability Zones for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_private_connectivity_info_private_dns: (String) Private DNS for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_private_connectivity_info_regions: (List of String) Regions for Fleet Management when using AWS PrivateLink (only for AWS stacks)
@@ -2736,6 +2891,7 @@ resources:
             grafanas_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
             graphite_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Graphite instance (Optional)
             graphite_name: (String)
+            graphite_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Graphite when using AWS PrivateLink (only for AWS stacks)
             graphite_private_connectivity_info_availability_zones: (List of String) Availability Zones for Graphite when using AWS PrivateLink (only for AWS stacks)
             graphite_private_connectivity_info_private_dns: (String) Private DNS for Graphite when using AWS PrivateLink (only for AWS stacks)
             graphite_private_connectivity_info_regions: (List of String) Regions for Graphite when using AWS PrivateLink (only for AWS stacks)
@@ -2748,6 +2904,7 @@ resources:
             labels: '(Map of String) A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\-._]+$" and stacks cannot have more than 10 labels.'
             logs_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
             logs_name: (String)
+            logs_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Logs when using AWS PrivateLink (only for AWS stacks)
             logs_private_connectivity_info_availability_zones: (List of String) Availability Zones for Logs when using AWS PrivateLink (only for AWS stacks)
             logs_private_connectivity_info_private_dns: (String) Private DNS for Logs when using AWS PrivateLink (only for AWS stacks)
             logs_private_connectivity_info_regions: (List of String) Regions for Logs when using AWS PrivateLink (only for AWS stacks)
@@ -2760,21 +2917,25 @@ resources:
             org_id: (Number) Organization id to assign to this stack.
             org_name: (String) Organization name to assign to this stack.
             org_slug: (String) Organization slug to assign to this stack.
+            otlp_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_private_connectivity_info_availability_zones: (List of String) Availability Zones for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_private_connectivity_info_private_dns: (String) Private DNS for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_private_connectivity_info_regions: (List of String) Regions for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_private_connectivity_info_service_name: (String) Service Name for OTLP when using AWS PrivateLink (only for AWS stacks)
             otlp_url: (String) Base URL of the OTLP instance configured for this stack. The username is the stack's ID (id attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
+            pdc_api_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for PDC's API when using AWS PrivateLink (only for AWS stacks)
             pdc_api_private_connectivity_info_availability_zones: (List of String) Availability Zones for PDC's API when using AWS PrivateLink (only for AWS stacks)
             pdc_api_private_connectivity_info_private_dns: (String) Private DNS for PDC's API when using AWS PrivateLink (only for AWS stacks)
             pdc_api_private_connectivity_info_regions: (List of String) Regions for PDC's API when using AWS PrivateLink (only for AWS stacks)
             pdc_api_private_connectivity_info_service_name: (String) Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
+            pdc_gateway_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_availability_zones: (List of String) Availability Zones for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_private_dns: (String) Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_regions: (List of String) Regions for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_service_name: (String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             profiles_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)
             profiles_name: (String)
+            profiles_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Profiles when using AWS PrivateLink (only for AWS stacks)
             profiles_private_connectivity_info_availability_zones: (List of String) Availability Zones for Profiles when using AWS PrivateLink (only for AWS stacks)
             profiles_private_connectivity_info_private_dns: (String) Private DNS for Profiles when using AWS PrivateLink (only for AWS stacks)
             profiles_private_connectivity_info_regions: (List of String) Regions for Profiles when using AWS PrivateLink (only for AWS stacks)
@@ -2784,6 +2945,7 @@ resources:
             profiles_user_id: (Number)
             prometheus_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)
             prometheus_name: (String) Prometheus name for this instance.
+            prometheus_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Prometheus when using AWS PrivateLink (only for AWS stacks)
             prometheus_private_connectivity_info_availability_zones: (List of String) Availability Zones for Prometheus when using AWS PrivateLink (only for AWS stacks)
             prometheus_private_connectivity_info_private_dns: (String) Private DNS for Prometheus when using AWS PrivateLink (only for AWS stacks)
             prometheus_private_connectivity_info_regions: (List of String) Regions for Prometheus when using AWS PrivateLink (only for AWS stacks)
@@ -2798,6 +2960,7 @@ resources:
             status: (String) Status of the stack.
             traces_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
             traces_name: (String)
+            traces_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Traces when using AWS PrivateLink (only for AWS stacks)
             traces_private_connectivity_info_availability_zones: (List of String) Availability Zones for Traces when using AWS PrivateLink (only for AWS stacks)
             traces_private_connectivity_info_private_dns: (String) Private DNS for Traces when using AWS PrivateLink (only for AWS stacks)
             traces_private_connectivity_info_regions: (List of String) Regions for Traces when using AWS PrivateLink (only for AWS stacks)
@@ -3113,7 +3276,7 @@ resources:
               terraform import grafana_contact_point.name "{{ orgID }}:{{ name }}"
     grafana_dashboard:
         subCategory: Grafana OSS
-        description: Manages Grafana dashboards. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+        description: Manages Grafana dashboards. Official documentation https://grafana.com/docs/grafana/latest/dashboards/HTTP API (legacy API, recommended for Grafana 12 or earlier) https://grafana.com/docs/grafana/v11.6/developers/http_api/dashboard/HTTP API (new Kubernetes-style API, recommended for Grafana 13 and later) https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
         name: grafana_dashboard
         title: grafana_dashboard Resource - terraform-provider-grafana
         examples:
@@ -3193,12 +3356,12 @@ resources:
         argumentDocs:
             dashboard_uid: (String) UID of the dashboard to apply permissions to.
             id: (String) The ID of this resource.
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            permission: (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+            org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+            permission: '(String) Permission to associate with item. Options: View, Edit, Admin.'
             permissions: (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
             role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.'
-            team_id: (String) ID of the team to manage permissions for. Defaults to 0.
-            user_id: (String) ID of the user or service account to manage permissions for. Defaults to 0.
+            team_id: (String) ID of the team to manage permissions for.
+            user_id: (String) ID of the user or service account to manage permissions for.
         importStatements:
             - |-
               terraform import grafana_dashboard_permission.name "{{ dashboardUID }}"
@@ -3382,7 +3545,7 @@ resources:
             dashboard_uid: (String) The unique identifier of the original dashboard.
             id: (String) The ID of this resource.
             is_enabled: (Boolean) Set to true to enable the public dashboard. The default value is false.
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
             share: (String) Set the share mode. The default value is public.
             time_selection_enabled: (Boolean) Set to true to enable the time picker in the public dashboard. The default value is false.
             uid: (String) The unique identifier of a public dashboard. It's automatically generated if not provided when creating a public dashboard.
@@ -3686,6 +3849,7 @@ resources:
                     }
         argumentDocs:
             built_in_role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.'
+            datasource_type: (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
             datasource_uid: (String) UID of the datasource to apply permissions to.
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -3839,6 +4003,7 @@ resources:
                       "password": "hunter2"
                     }
         argumentDocs:
+            datasource_type: (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
             datasource_uid: (String) The UID of the datasource.
             id: (String) The ID of this resource.
             org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
@@ -3987,12 +4152,12 @@ resources:
         argumentDocs:
             folder_uid: (String) The UID of the folder.
             id: (String) The ID of this resource.
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            permission: (String) Permission to associate with item. Must be one of View, Edit, or Admin.
+            org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+            permission: '(String) Permission to associate with item. Options: View, Edit, Admin.'
             permissions: (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
             role: '(String) Name of the basic role to manage permissions for. Options: Viewer, Editor or Admin.'
-            team_id: (String) ID of the team to manage permissions for. Defaults to 0.
-            user_id: (String) ID of the user or service account to manage permissions for. Defaults to 0.
+            team_id: (String) ID of the team to manage permissions for.
+            user_id: (String) ID of the user or service account to manage permissions for.
         importStatements:
             - |-
               terraform import grafana_folder_permission.name "{{ folderUID }}"
@@ -5054,16 +5219,33 @@ resources:
                       "name": "default",
                       "provider": "${grafana.oncall}"
                     }
+            - name: example_notify_next_on_call_step
+              manifest: |-
+                {
+                  "escalation_chain_id": "${grafana_oncall_escalation_chain.default.id}",
+                  "notify_on_call_from_schedule": "${grafana_oncall_schedule.example_schedule.id}",
+                  "position": 1,
+                  "type": "notify_next_on_call_from_schedule"
+                }
+              references:
+                escalation_chain_id: grafana_oncall_escalation_chain.default.id
+                notify_on_call_from_schedule: grafana_oncall_schedule.example_schedule.id
+              dependencies:
+                grafana_oncall_escalation_chain.default: |-
+                    {
+                      "name": "default",
+                      "provider": "${grafana.oncall}"
+                    }
         argumentDocs:
             action_to_trigger: (String) The ID of an Action for trigger_webhook type step.
             duration: (Number) The duration of delay for wait type step. (60-86400) seconds
             escalation_chain_id: (String) The ID of the escalation chain.
             group_to_notify: (String) The ID of a User Group for notify_user_group type step.
             id: (String) The ID of this resource.
-            important: '(Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_user_group and notify_team_members'
+            important: '(Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members'
             notify_if_time_from: (String) The beginning of the time interval for notify_if_time_from_to type step in UTC (for example 08:00:00Z).
             notify_if_time_to: (String) The end of the time interval for notify_if_time_from_to type step in UTC (for example 18:00:00Z).
-            notify_on_call_from_schedule: (String) ID of a Schedule for notify_on_call_from_schedule type step.
+            notify_on_call_from_schedule: (String) ID of a Schedule for notify_on_call_from_schedule or notify_next_on_call_from_schedule type step.
             notify_to_team_members: (String) The ID of a Team for a notify_team_members type step.
             num_alerts_in_window: (Number) Number of alerts that must occur within the time window to continue escalation for notify_if_num_alerts_in_window type step.
             num_minutes_in_window: (Number) Time window in minutes to count alerts for notify_if_num_alerts_in_window type step.
@@ -5071,7 +5253,7 @@ resources:
             persons_to_notify_next_each_time: (Set of String) The list of ID's of users for notify_person_next_each_time type step.
             position: (Number) The position of the escalation step (starts from 0).
             severity: (String) The severity of the incident for declare_incident type step.
-            type: (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
+            type: (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
         importStatements:
             - terraform import grafana_oncall_escalation.name "{{ id }}"
     grafana_oncall_escalation_chain:
@@ -5710,24 +5892,24 @@ resources:
             frequency: '(String) Frequency of the report. Allowed values: never, once, hourly, daily, weekly, monthly, custom.'
             from: (String) Start of the time range.
             id: (String) Generated identifier of the report.
-            include_dashboard_link: (Boolean) Whether to include a link to the dashboard in the report. Defaults to true.
-            include_table_csv: (Boolean) Whether to include a CSV file of table panel data. Defaults to false.
-            last_day_of_month: (Boolean) Send the report on the last day of the month Defaults to false.
-            layout: '(String) Layout of the report. Allowed values: simple, grid. Defaults to grid.'
+            include_dashboard_link: (Boolean) Whether to include a link to the dashboard in the report.
+            include_table_csv: (Boolean) Whether to include a CSV file of table panel data.
+            last_day_of_month: (Boolean) Send the report on the last day of the month
+            layout: '(String) Layout of the report. Allowed values: simple, grid.'
             message: (String) Message to be sent in the report.
             name: (String) Name of the report.
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            orientation: '(String) Orientation of the report. Allowed values: landscape, portrait. Defaults to landscape.'
+            org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+            orientation: '(String) Orientation of the report. Allowed values: landscape, portrait.'
             recipients: (List of String) List of recipients of the report.
             reply_to: (String) Reply-to email address of the report.
             report_variables: (Map of String) Add report variables to the dashboard. Values should be separated by commas.
-            schedule: '(Block List, Min: 1, Max: 1) Schedule of the report. (see below for nested schema)'
+            schedule: (Block List) (Required) Schedule of the report. (see below for nested schema)
             start_time: (String) Start time of the report. If empty, the start date will be set to the creation time. Note that times will be saved as UTC in Grafana. Use 2006-01-02T15:04:05 format if you want to set a custom timezone
-            time_range: '(Block List, Max: 1) Time range of the report. (see below for nested schema)'
-            timezone: (String) Set the report time zone. Defaults to GMT.
+            time_range: (Block List) Time range of the report. (see below for nested schema)
+            timezone: (String) Set the report time zone.
             to: (String) End of the time range.
             uid: (String) Dashboard uid.
-            workdays_only: (Boolean) Whether to send the report only on work days. Defaults to false.
+            workdays_only: (Boolean) Whether to send the report only on work days.
         importStatements:
             - |-
               terraform import grafana_report.name "{{ id }}"
@@ -6424,6 +6606,11 @@ resources:
                               "key": "description",
                               "value": "Error budget is burning too fast"
                             }
+                          ],
+                          "enrichment": [
+                            {
+                              "type": "assistantInvestigation"
+                            }
                           ]
                         }
                       ],
@@ -6437,6 +6624,11 @@ resources:
                             {
                               "key": "description",
                               "value": "Error budget is burning too fast"
+                            }
+                          ],
+                          "enrichment": [
+                            {
+                              "type": "assistantInvestigation"
                             }
                           ]
                         }
@@ -6549,6 +6741,7 @@ resources:
             annotation: (Block List) Annotations will be attached to all alerts generated by any of these rules. (see below for nested schema)
             description: (String) Description is a free-text field that can provide more context to an SLO.
             destination_datasource: '(Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)'
+            enrichment: (Block List) Enrichments to attach only to Fast Burn alerts. (see below for nested schema)
             fastburn: '(Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)'
             folder_uid: (String) UID for the SLO folder
             freeform: '(Block List, Max: 1) (see below for nested schema)'
@@ -7626,7 +7819,7 @@ resources:
             disable_browser_checks: (Boolean) Disables browser checks for this probe. Defaults to false.
             disable_scripted_checks: (Boolean) Disables scripted checks for this probe. Defaults to false.
             id: (String) The ID of the probe.
-            labels: (Map of String) Custom labels to be included with collected metrics and logs.
+            labels: (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
             latitude: (Number) Latitude coordinates.
             longitude: (Number) Longitude coordinates.
             name: (String) Name of the probe.
@@ -7665,24 +7858,19 @@ resources:
         argumentDocs:
             email: (String) An email address for the team.
             groups: (Set of String)
-            home_dashboard_uid: (String) The UID of the dashboard to display when a team member logs in. Defaults to ``.
+            home_dashboard_uid: (String) The UID of the dashboard to display when a team member logs in.
             id: (String) The ID of this resource.
-            ignore_externally_synced_members: |-
-                (Boolean) Ignores team members that have been added to team by Team Sync.
-                Team Sync can be provisioned using grafana_team_external_group resource.
-                Defaults to true.
-            members: |-
-                (Set of String) A set of email addresses corresponding to users who should be given membership
-                to the team. Note: users specified here must already exist in Grafana.
+            ignore_externally_synced_members: (Boolean) Ignores team members that have been added to team by Team Sync. Team Sync can be provisioned using grafana_team_external_group resource.
+            members: '(Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.'
             name: (String) The display name for the Grafana team created.
-            org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            preferences: '(Block List, Max: 1) (see below for nested schema)'
+            org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
+            preferences: (Block List) (see below for nested schema)
             team_id: (Number) The team id assigned to this team by Grafana.
-            team_sync: '(Block List, Max: 1) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.'
+            team_sync: (Block List) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
             team_uid: (String) The team uid assigned to this team by Grafana.
-            theme: (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme. Defaults to ``.
-            timezone: (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default. Defaults to ``.
-            week_start: (String) The default week start day for this team. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.
+            theme: (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme.
+            timezone: (String) The default timezone for this team. Available values are utc, browser, or an empty string for the default.
+            week_start: (String) The default week start day for this team. Available values are sunday, monday, saturday, or an empty string for the default.
         importStatements:
             - |-
               terraform import grafana_team.name "{{ id }}"

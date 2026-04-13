@@ -76,8 +76,8 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) Custom labels to be included with collected metrics and logs.
-                      Custom labels to be included with collected metrics and logs.
+                      (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
+                      Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
                     type: object
                     x-kubernetes-map-type: granular
                   latitude:
@@ -133,8 +133,8 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) Custom labels to be included with collected metrics and logs.
-                      Custom labels to be included with collected metrics and logs.
+                      (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
+                      Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
                     type: object
                     x-kubernetes-map-type: granular
                   latitude:
@@ -260,8 +260,8 @@ spec:
                     additionalProperties:
                       type: string
                     description: |-
-                      (Map of String) Custom labels to be included with collected metrics and logs.
-                      Custom labels to be included with collected metrics and logs.
+                      (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
+                      Custom labels to be included with collected metrics and logs. The maximum number of labels for private probes is 3.
                     type: object
                     x-kubernetes-map-type: granular
                   latitude:

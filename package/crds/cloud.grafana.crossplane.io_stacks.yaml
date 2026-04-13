@@ -335,6 +335,13 @@ spec:
                       (String) Name of the Fleet Management instance configured for this stack.
                       Name of the Fleet Management instance configured for this stack.
                     type: string
+                  fleetManagementPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for Fleet Management when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   fleetManagementPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for Fleet Management when using AWS PrivateLink (only for AWS stacks)
@@ -387,6 +394,13 @@ spec:
                   graphiteName:
                     description: (String)
                     type: string
+                  graphitePrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for Graphite when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for Graphite when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   graphitePrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for Graphite when using AWS PrivateLink (only for AWS stacks)
@@ -444,6 +458,13 @@ spec:
                   logsName:
                     description: (String)
                     type: string
+                  logsPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for Logs when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for Logs when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   logsPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for Logs when using AWS PrivateLink (only for AWS stacks)
@@ -502,6 +523,13 @@ spec:
                       (String) Organization slug to assign to this stack.
                       Organization slug to assign to this stack.
                     type: string
+                  otlpPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for OTLP when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for OTLP when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   otlpPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for OTLP when using AWS PrivateLink (only for AWS stacks)
@@ -531,6 +559,13 @@ spec:
                       cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
                       Base URL of the OTLP instance configured for this stack. The username is the stack's ID (`id` attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/ for docs on how to use this.
                     type: string
+                  pdcApiPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for PDC's API when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for PDC's API when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   pdcApiPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for PDC's API when using AWS PrivateLink (only for AWS stacks)
@@ -555,6 +590,13 @@ spec:
                       (String) Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
                       Service Name for PDC's API when using AWS PrivateLink (only for AWS stacks)
                     type: string
+                  pdcGatewayPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   pdcGatewayPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
@@ -587,6 +629,13 @@ spec:
                   profilesName:
                     description: (String)
                     type: string
+                  profilesPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for Profiles when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for Profiles when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   profilesPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for Profiles when using AWS PrivateLink (only for AWS stacks)
@@ -630,6 +679,13 @@ spec:
                       (String) Prometheus name for this instance.
                       Prometheus name for this instance.
                     type: string
+                  prometheusPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for Prometheus when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for Prometheus when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   prometheusPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for Prometheus when using AWS PrivateLink (only for AWS stacks)
@@ -702,6 +758,13 @@ spec:
                   tracesName:
                     description: (String)
                     type: string
+                  tracesPrivateConnectivityInfoAvailabilityZoneIds:
+                    description: |-
+                      (List of String) Availability Zone IDs for Traces when using AWS PrivateLink (only for AWS stacks)
+                      Availability Zone IDs for Traces when using AWS PrivateLink (only for AWS stacks)
+                    items:
+                      type: string
+                    type: array
                   tracesPrivateConnectivityInfoAvailabilityZones:
                     description: |-
                       (List of String) Availability Zones for Traces when using AWS PrivateLink (only for AWS stacks)
