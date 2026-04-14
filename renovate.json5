@@ -23,6 +23,14 @@
       ],
     },
     {
+      // Disable auto-updates for hashicorp/terraform-plugin-* packages
+      // These are transitive dependencies that should update alongside terraform-provider-grafana
+      enabled: false,
+      matchPackageNames: [
+        '/^github\\.com/hashicorp/terraform-plugin-/',
+      ],
+    },
+    {
       // When terraform-provider-grafana is updated, run make submodules and make generate
       matchPackageNames: [
         'github.com/grafana/terraform-provider-grafana/v4',
