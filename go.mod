@@ -10,7 +10,7 @@ require (
 	github.com/crossplane/upjet/v2 v2.2.0
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.53.0
-	github.com/grafana/synthetic-monitoring-api-go-client v0.19.9
+	github.com/grafana/synthetic-monitoring-api-go-client v0.19.11
 	github.com/grafana/terraform-provider-grafana/v4 v4.30.0
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/hashicorp/terraform-plugin-framework v1.15.0
