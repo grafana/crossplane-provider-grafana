@@ -20,7 +20,7 @@ for check_types in \
 
   # Add ProbeNames field to CheckParameters struct (after Probes field)
   # Using sed for reliable in-place replacement with proper whitespace
-  sed -i 's/\(	Probes \[\]\*float64 `json:"probes,omitempty" tf:"probes,omitempty"`\)/\1\
+  sed -i.bak 's/\(	Probes \[\]\*float64 `json:"probes,omitempty" tf:"probes,omitempty"`\)/\1\
 \
 	\/\/ CUSTOM FIELD: List of probe names to resolve to probe IDs.\
 	\/\/ If set, this will override the Probes field with the resolved probe IDs on every reconciliation.\
