@@ -20,6 +20,9 @@ type ResourceInitParameters struct {
 	// Whether the resource can be edited from the Grafana UI. Set to `true` to allow UI modifications; not supported by all resources.
 	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// style manifest, typically from yamldecode(file(...)) or jsondecode(file(...)). Must contain apiVersion, kind, metadata (with name or uid), and spec. If you start from an exported manifest, remove noisy server-managed metadata such as resourceVersion, generation, and managedFields, or import the resource first and use the normalized state shape. If metadata.namespace is set, it must match the namespace selected from provider org_id or stack_id / autodiscovery. Top-level manifest fields are limited to apiVersion, kind, metadata, spec, and the ignored status field. The secure field must not be set here; use the top-level secure argument instead.
 	// Kubernetes-style manifest, typically from `yamldecode(file(...))` or `jsondecode(file(...))`. Must contain `apiVersion`, `kind`, `metadata` (with `name` or `uid`), and `spec`. If you start from an exported manifest, remove noisy server-managed metadata such as `resourceVersion`, `generation`, and `managedFields`, or import the resource first and use the normalized state shape. If `metadata.namespace` is set, it must match the namespace selected from provider `org_id` or `stack_id` / autodiscovery. Top-level manifest fields are limited to `apiVersion`, `kind`, `metadata`, `spec`, and the ignored `status` field. The `secure` field must not be set here; use the top-level `secure` argument instead.
 	Manifest *v1.JSON `json:"manifest,omitempty" tf:"manifest,omitempty"`
@@ -41,6 +44,9 @@ type ResourceObservation struct {
 	// (String) The API resource UUID assigned by Grafana. This is not used for import; import uses the object name stored in metadata.uid.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// style manifest, typically from yamldecode(file(...)) or jsondecode(file(...)). Must contain apiVersion, kind, metadata (with name or uid), and spec. If you start from an exported manifest, remove noisy server-managed metadata such as resourceVersion, generation, and managedFields, or import the resource first and use the normalized state shape. If metadata.namespace is set, it must match the namespace selected from provider org_id or stack_id / autodiscovery. Top-level manifest fields are limited to apiVersion, kind, metadata, spec, and the ignored status field. The secure field must not be set here; use the top-level secure argument instead.
 	// Kubernetes-style manifest, typically from `yamldecode(file(...))` or `jsondecode(file(...))`. Must contain `apiVersion`, `kind`, `metadata` (with `name` or `uid`), and `spec`. If you start from an exported manifest, remove noisy server-managed metadata such as `resourceVersion`, `generation`, and `managedFields`, or import the resource first and use the normalized state shape. If `metadata.namespace` is set, it must match the namespace selected from provider `org_id` or `stack_id` / autodiscovery. Top-level manifest fields are limited to `apiVersion`, `kind`, `metadata`, `spec`, and the ignored `status` field. The `secure` field must not be set here; use the top-level `secure` argument instead.
 	Manifest *v1.JSON `json:"manifest,omitempty" tf:"manifest,omitempty"`
@@ -59,6 +65,10 @@ type ResourceParameters struct {
 	// Whether the resource can be edited from the Grafana UI. Set to `true` to allow UI modifications; not supported by all resources.
 	// +kubebuilder:validation:Optional
 	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
+
+	// Override the identity stamped on this resource's manager metadata.
+	// +kubebuilder:validation:Optional
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
 	// style manifest, typically from yamldecode(file(...)) or jsondecode(file(...)). Must contain apiVersion, kind, metadata (with name or uid), and spec. If you start from an exported manifest, remove noisy server-managed metadata such as resourceVersion, generation, and managedFields, or import the resource first and use the normalized state shape. If metadata.namespace is set, it must match the namespace selected from provider org_id or stack_id / autodiscovery. Top-level manifest fields are limited to apiVersion, kind, metadata, spec, and the ignored status field. The secure field must not be set here; use the top-level secure argument instead.
 	// Kubernetes-style manifest, typically from `yamldecode(file(...))` or `jsondecode(file(...))`. Must contain `apiVersion`, `kind`, `metadata` (with `name` or `uid`), and `spec`. If you start from an exported manifest, remove noisy server-managed metadata such as `resourceVersion`, `generation`, and `managedFields`, or import the resource first and use the normalized state shape. If `metadata.namespace` is set, it must match the namespace selected from provider `org_id` or `stack_id` / autodiscovery. Top-level manifest fields are limited to `apiVersion`, `kind`, `metadata`, `spec`, and the ignored `status` field. The `secure` field must not be set here; use the top-level `secure` argument instead.

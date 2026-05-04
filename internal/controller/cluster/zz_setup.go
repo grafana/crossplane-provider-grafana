@@ -31,6 +31,7 @@ import (
 	accesspolicyrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicyrotatingtoken"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicytoken"
 	appo11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/appo11yconfigv1alpha1"
+	dbo11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/dbo11yconfigv1alpha1"
 	k8so11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/k8so11yconfigv1alpha1"
 	orgmember "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/orgmember"
 	plugininstallation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/plugininstallation"
@@ -40,6 +41,7 @@ import (
 	stackserviceaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/stackserviceaccount"
 	stackserviceaccountrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/stackserviceaccountrotatingtoken"
 	stackserviceaccounttoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/stackserviceaccounttoken"
+	cloudintegration "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloudintegrations/cloudintegration"
 	awsaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloudprovider/awsaccount"
 	awscloudwatchscrapejob "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloudprovider/awscloudwatchscrapejob"
 	awsresourcemetadatascrapejob "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloudprovider/awsresourcemetadatascrapejob"
@@ -143,6 +145,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		accesspolicyrotatingtoken.Setup,
 		accesspolicytoken.Setup,
 		appo11yconfigv1alpha1.Setup,
+		dbo11yconfigv1alpha1.Setup,
 		k8so11yconfigv1alpha1.Setup,
 		orgmember.Setup,
 		plugininstallation.Setup,
@@ -152,6 +155,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		stackserviceaccount.Setup,
 		stackserviceaccountrotatingtoken.Setup,
 		stackserviceaccounttoken.Setup,
+		cloudintegration.Setup,
 		awsaccount.Setup,
 		awscloudwatchscrapejob.Setup,
 		awsresourcemetadatascrapejob.Setup,
@@ -261,6 +265,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		accesspolicyrotatingtoken.SetupGated,
 		accesspolicytoken.SetupGated,
 		appo11yconfigv1alpha1.SetupGated,
+		dbo11yconfigv1alpha1.SetupGated,
 		k8so11yconfigv1alpha1.SetupGated,
 		orgmember.SetupGated,
 		plugininstallation.SetupGated,
@@ -270,6 +275,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		stackserviceaccount.SetupGated,
 		stackserviceaccountrotatingtoken.SetupGated,
 		stackserviceaccounttoken.SetupGated,
+		cloudintegration.SetupGated,
 		awsaccount.SetupGated,
 		awscloudwatchscrapejob.SetupGated,
 		awsresourcemetadatascrapejob.SetupGated,

@@ -148,11 +148,21 @@ spec:
                       this stack.
                     format: int64
                     type: integer
+                  cloudProviderURL:
+                    description: Base URL of the Cloud Provider API for this stack's
+                      cluster. This can be used with the `cloud_provider_url` provider
+                      config option to manage Cloud Provider resources for this stack.
+                    type: string
                   clusterName:
                     description: Name of the cluster where this stack resides.
                     type: string
                   clusterSlug:
                     description: Slug of the cluster where this stack resides.
+                    type: string
+                  connectionsAPIURL:
+                    description: Base URL of the Connections API for this stack's
+                      cluster. This can be used with the `connections_api_url` provider
+                      config option to manage Connections resources for this stack.
                     type: string
                   deleteProtection:
                     description: Whether to enable delete protection for the stack,
@@ -493,6 +503,13 @@ spec:
                     type: integer
                   regionSlug:
                     description: The region this stack is deployed to.
+                    type: string
+                  smURL:
+                    description: 'Base URL of the Synthetic Monitoring API for this
+                      stack''s region. This can be used with the `sm_url` provider
+                      config option. Note: Synthetic Monitoring requires activation
+                      either via the `grafana_synthetic_monitoring_installation` resource
+                      or manually in the Grafana Cloud UI before it can be used.'
                     type: string
                   status:
                     description: Status of the stack.

@@ -7,9 +7,11 @@ Copyright 2026 Grafana Labs
 package slo
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"context"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
-	sdkschema "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-go/tftypes"
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/slo/v1alpha1"
 	tfdatasource "github.com/grafana/crossplane-provider-grafana/v2/pkg/tfdatasource"
@@ -19,42 +21,11 @@ var SLOsSpec = tfdatasource.Spec{
 	DataSourceName: "grafana_slos",
 	ManagedKind:    v1alpha1.SLOs_GroupVersionKind,
 	NewManaged:     func() resource.Managed { return &v1alpha1.SLOs{} },
-	Read: tfdatasource.NewLegacyReadFn(
-		"grafana_slos",
-		legacyDSSLOs,
-		func(mg resource.Managed) map[string]string {
-			attrs := map[string]string{}
-			return attrs
+	Read: tfdatasource.NewFrameworkReadFn(
+		newDSSLOs,
+		func(_ resource.Managed) map[string]tftypes.Value {
+			return nil
 		},
-		func(mg resource.Managed, d *sdkschema.ResourceData) {
-			cr := mg.(*v1alpha1.SLOs)
-			meta.SetExternalName(cr, d.Id())
-			if v, ok := d.GetOk("slos"); ok {
-				var items []v1alpha1.SLOsSLOs
-				var list []interface{}
-				list, _ = v.([]interface{})
-				for _, raw := range list {
-					item := v1alpha1.SLOsSLOs{}
-					m, _ := raw.(map[string]interface{})
-					if val, ok := m["description"].(string); ok {
-						item.Description = &val
-					}
-					if val, ok := m["folder_uid"].(string); ok {
-						item.FolderUID = &val
-					}
-					if val, ok := m["name"].(string); ok {
-						item.Name = &val
-					}
-					if val, ok := m["search_expression"].(string); ok {
-						item.SearchExpression = &val
-					}
-					if val, ok := m["uuid"].(string); ok {
-						item.UUID = &val
-					}
-					items = append(items, item)
-				}
-				cr.Status.AtProvider.SLOs = items
-			}
-		},
+		func(_ context.Context, _ resource.Managed, _ tfsdk.State) {},
 	),
 }

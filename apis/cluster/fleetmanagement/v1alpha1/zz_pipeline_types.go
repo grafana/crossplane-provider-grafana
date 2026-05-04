@@ -34,6 +34,9 @@ type PipelineInitParameters struct {
 	// (String) Name of the pipeline which is the unique identifier for the pipeline
 	// Name of the pipeline which is the unique identifier for the pipeline
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// If omitted, the namespace default is used. If omitted, the namespace `default` is used.
+	TerraformSourceNamespace *string `json:"terraformSourceNamespace,omitempty" tf:"terraform_source_namespace,omitempty"`
 }
 
 type PipelineObservation struct {
@@ -60,6 +63,9 @@ type PipelineObservation struct {
 	// (String) Name of the pipeline which is the unique identifier for the pipeline
 	// Name of the pipeline which is the unique identifier for the pipeline
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// If omitted, the namespace default is used. If omitted, the namespace `default` is used.
+	TerraformSourceNamespace *string `json:"terraformSourceNamespace,omitempty" tf:"terraform_source_namespace,omitempty"`
 }
 
 type PipelineParameters struct {
@@ -88,6 +94,10 @@ type PipelineParameters struct {
 	// Name of the pipeline which is the unique identifier for the pipeline
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// If omitted, the namespace default is used. If omitted, the namespace `default` is used.
+	// +kubebuilder:validation:Optional
+	TerraformSourceNamespace *string `json:"terraformSourceNamespace,omitempty" tf:"terraform_source_namespace,omitempty"`
 }
 
 // PipelineSpec defines the desired state of Pipeline

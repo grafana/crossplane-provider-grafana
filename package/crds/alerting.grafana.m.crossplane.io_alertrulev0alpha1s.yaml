@@ -68,8 +68,8 @@ spec:
                     properties:
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
-                          The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
                         description: |-
@@ -82,6 +82,10 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      managerIdentity:
+                        description: Override the identity stamped on this resource's
+                          manager metadata.
+                        type: string
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -144,50 +148,108 @@ spec:
                         type: string
                       notificationSettings:
                         description: |-
-                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
-                          Notification settings for the rule. If specified, it overrides the notification policies.
+                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
+                          Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing
                         properties:
                           activeTimings:
                             description: |-
-                              (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
-                              A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                              (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+                              Deprecated. A list of time interval names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
                           contactPoint:
                             description: |-
-                              (String) The contact point to route notifications that match this rule to.
-                              The contact point to route notifications that match this rule to.
+                              (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+                              Deprecated. The contact point to route notifications that match this rule to.
                             type: string
                           groupBy:
                             description: |-
-                              (List of String) A list of alert labels to group alerts into notifications by.
-                              A list of alert labels to group alerts into notifications by.
+                              (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+                              Deprecated. A list of alert labels to group alerts into notifications by.
                             items:
                               type: string
                             type: array
                           groupInterval:
                             description: |-
-                              (String) Minimum time interval between two notifications for the same group.
-                              Minimum time interval between two notifications for the same group.
+                              (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+                              Deprecated. Minimum time interval between two notifications for the same group.
                             type: string
                           groupWait:
                             description: |-
-                              (String) Time to wait to buffer alerts of the same group before sending a notification.
-                              Time to wait to buffer alerts of the same group before sending a notification.
+                              (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+                              Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
                             type: string
                           muteTimings:
                             description: |-
-                              (List of String) A list of mute timing names to apply to alerts that match this policy.
-                              A list of mute timing names to apply to alerts that match this policy.
+                              (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+                              Deprecated. A list of mute timing names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
+                          namedRoutingTree:
+                            description: |-
+                              (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
+                              Route notifications to a specific routing tree.
+                            properties:
+                              routingTree:
+                                description: |-
+                                  (String) The name of the routing tree to use.
+                                  The name of the routing tree to use.
+                                type: string
+                            type: object
                           repeatInterval:
                             description: |-
                               sending a notification if an alert is still firing.
-                              Minimum time interval for re-sending a notification if an alert is still firing.
+                              Deprecated. Minimum time interval for re-sending a notification if an alert is still firing.
                             type: string
+                          simplifiedRouting:
+                            description: |-
+                              (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
+                              Simplified routing to a contact point with optional grouping and timing overrides.
+                            properties:
+                              activeTimings:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+                                  A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                                items:
+                                  type: string
+                                type: array
+                              contactPoint:
+                                description: |-
+                                  (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+                                  The contact point to route notifications that match this rule to.
+                                type: string
+                              groupBy:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+                                  A list of alert labels to group alerts into notifications by.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: |-
+                                  (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+                                  Minimum time interval between two notifications for the same group.
+                                type: string
+                              groupWait:
+                                description: |-
+                                  (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+                                  Time to wait to buffer alerts of the same group before sending a notification.
+                                type: string
+                              muteTimings:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: |-
+                                  sending a notification if an alert is still firing.
+                                  Minimum time interval for re-sending a notification if an alert is still firing.
+                                type: string
+                            type: object
                         type: object
                       panelRef:
                         additionalProperties:
@@ -240,8 +302,8 @@ spec:
                     properties:
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
-                          The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
                         description: |-
@@ -254,6 +316,10 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      managerIdentity:
+                        description: Override the identity stamped on this resource's
+                          manager metadata.
+                        type: string
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -316,50 +382,108 @@ spec:
                         type: string
                       notificationSettings:
                         description: |-
-                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
-                          Notification settings for the rule. If specified, it overrides the notification policies.
+                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
+                          Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing
                         properties:
                           activeTimings:
                             description: |-
-                              (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
-                              A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                              (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+                              Deprecated. A list of time interval names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
                           contactPoint:
                             description: |-
-                              (String) The contact point to route notifications that match this rule to.
-                              The contact point to route notifications that match this rule to.
+                              (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+                              Deprecated. The contact point to route notifications that match this rule to.
                             type: string
                           groupBy:
                             description: |-
-                              (List of String) A list of alert labels to group alerts into notifications by.
-                              A list of alert labels to group alerts into notifications by.
+                              (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+                              Deprecated. A list of alert labels to group alerts into notifications by.
                             items:
                               type: string
                             type: array
                           groupInterval:
                             description: |-
-                              (String) Minimum time interval between two notifications for the same group.
-                              Minimum time interval between two notifications for the same group.
+                              (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+                              Deprecated. Minimum time interval between two notifications for the same group.
                             type: string
                           groupWait:
                             description: |-
-                              (String) Time to wait to buffer alerts of the same group before sending a notification.
-                              Time to wait to buffer alerts of the same group before sending a notification.
+                              (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+                              Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
                             type: string
                           muteTimings:
                             description: |-
-                              (List of String) A list of mute timing names to apply to alerts that match this policy.
-                              A list of mute timing names to apply to alerts that match this policy.
+                              (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+                              Deprecated. A list of mute timing names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
+                          namedRoutingTree:
+                            description: |-
+                              (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
+                              Route notifications to a specific routing tree.
+                            properties:
+                              routingTree:
+                                description: |-
+                                  (String) The name of the routing tree to use.
+                                  The name of the routing tree to use.
+                                type: string
+                            type: object
                           repeatInterval:
                             description: |-
                               sending a notification if an alert is still firing.
-                              Minimum time interval for re-sending a notification if an alert is still firing.
+                              Deprecated. Minimum time interval for re-sending a notification if an alert is still firing.
                             type: string
+                          simplifiedRouting:
+                            description: |-
+                              (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
+                              Simplified routing to a contact point with optional grouping and timing overrides.
+                            properties:
+                              activeTimings:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+                                  A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                                items:
+                                  type: string
+                                type: array
+                              contactPoint:
+                                description: |-
+                                  (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+                                  The contact point to route notifications that match this rule to.
+                                type: string
+                              groupBy:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+                                  A list of alert labels to group alerts into notifications by.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: |-
+                                  (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+                                  Minimum time interval between two notifications for the same group.
+                                type: string
+                              groupWait:
+                                description: |-
+                                  (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+                                  Time to wait to buffer alerts of the same group before sending a notification.
+                                type: string
+                              muteTimings:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: |-
+                                  sending a notification if an alert is still firing.
+                                  Minimum time interval for re-sending a notification if an alert is still firing.
+                                type: string
+                            type: object
                         type: object
                       panelRef:
                         additionalProperties:
@@ -482,8 +606,8 @@ spec:
                         x-kubernetes-map-type: granular
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
-                          The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
                         description: |-
@@ -511,6 +635,10 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      managerIdentity:
+                        description: Override the identity stamped on this resource's
+                          manager metadata.
+                        type: string
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -573,50 +701,108 @@ spec:
                         type: string
                       notificationSettings:
                         description: |-
-                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
-                          Notification settings for the rule. If specified, it overrides the notification policies.
+                          (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
+                          Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing
                         properties:
                           activeTimings:
                             description: |-
-                              (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
-                              A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                              (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+                              Deprecated. A list of time interval names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
                           contactPoint:
                             description: |-
-                              (String) The contact point to route notifications that match this rule to.
-                              The contact point to route notifications that match this rule to.
+                              (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+                              Deprecated. The contact point to route notifications that match this rule to.
                             type: string
                           groupBy:
                             description: |-
-                              (List of String) A list of alert labels to group alerts into notifications by.
-                              A list of alert labels to group alerts into notifications by.
+                              (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+                              Deprecated. A list of alert labels to group alerts into notifications by.
                             items:
                               type: string
                             type: array
                           groupInterval:
                             description: |-
-                              (String) Minimum time interval between two notifications for the same group.
-                              Minimum time interval between two notifications for the same group.
+                              (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+                              Deprecated. Minimum time interval between two notifications for the same group.
                             type: string
                           groupWait:
                             description: |-
-                              (String) Time to wait to buffer alerts of the same group before sending a notification.
-                              Time to wait to buffer alerts of the same group before sending a notification.
+                              (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+                              Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
                             type: string
                           muteTimings:
                             description: |-
-                              (List of String) A list of mute timing names to apply to alerts that match this policy.
-                              A list of mute timing names to apply to alerts that match this policy.
+                              (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+                              Deprecated. A list of mute timing names to apply to alerts that match this policy.
                             items:
                               type: string
                             type: array
+                          namedRoutingTree:
+                            description: |-
+                              (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
+                              Route notifications to a specific routing tree.
+                            properties:
+                              routingTree:
+                                description: |-
+                                  (String) The name of the routing tree to use.
+                                  The name of the routing tree to use.
+                                type: string
+                            type: object
                           repeatInterval:
                             description: |-
                               sending a notification if an alert is still firing.
-                              Minimum time interval for re-sending a notification if an alert is still firing.
+                              Deprecated. Minimum time interval for re-sending a notification if an alert is still firing.
                             type: string
+                          simplifiedRouting:
+                            description: |-
+                              (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
+                              Simplified routing to a contact point with optional grouping and timing overrides.
+                            properties:
+                              activeTimings:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+                                  A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+                                items:
+                                  type: string
+                                type: array
+                              contactPoint:
+                                description: |-
+                                  (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+                                  The contact point to route notifications that match this rule to.
+                                type: string
+                              groupBy:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+                                  A list of alert labels to group alerts into notifications by.
+                                items:
+                                  type: string
+                                type: array
+                              groupInterval:
+                                description: |-
+                                  (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+                                  Minimum time interval between two notifications for the same group.
+                                type: string
+                              groupWait:
+                                description: |-
+                                  (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+                                  Time to wait to buffer alerts of the same group before sending a notification.
+                                type: string
+                              muteTimings:
+                                description: |-
+                                  (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+                                  A list of mute timing names to apply to alerts that match this policy.
+                                items:
+                                  type: string
+                                type: array
+                              repeatInterval:
+                                description: |-
+                                  sending a notification if an alert is still firing.
+                                  Minimum time interval for re-sending a notification if an alert is still firing.
+                                type: string
+                            type: object
                         type: object
                       panelRef:
                         additionalProperties:

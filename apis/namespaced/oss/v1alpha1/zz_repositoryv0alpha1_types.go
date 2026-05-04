@@ -253,8 +253,8 @@ type RepositoryV0Alpha1InitParameters struct {
 
 type RepositoryV0Alpha1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -269,8 +269,8 @@ type RepositoryV0Alpha1MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -292,8 +292,8 @@ type RepositoryV0Alpha1MetadataObservation struct {
 
 type RepositoryV0Alpha1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -331,6 +331,9 @@ type RepositoryV0Alpha1Observation struct {
 
 type RepositoryV0Alpha1OptionsInitParameters struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -338,12 +341,19 @@ type RepositoryV0Alpha1OptionsInitParameters struct {
 
 type RepositoryV0Alpha1OptionsObservation struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type RepositoryV0Alpha1OptionsParameters struct {
+
+	// Override the identity stamped on this resource's manager metadata.
+	// +kubebuilder:validation:Optional
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -462,6 +472,10 @@ type RepositoryV0Alpha1SpecInitParameters struct {
 	// Repository provider type: local, github, git, bitbucket, or gitlab.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
+	// Webhook delivery configuration.
+	Webhook *WebhookInitParameters `json:"webhook,omitempty" tf:"webhook,omitempty"`
+
 	// (List of String) Allowed change workflows: write, branch.
 	// Allowed change workflows: write, branch.
 	Workflows []*string `json:"workflows,omitempty" tf:"workflows,omitempty"`
@@ -508,6 +522,10 @@ type RepositoryV0Alpha1SpecObservation struct {
 	// (String) Repository provider type: local, github, git, bitbucket, or gitlab.
 	// Repository provider type: local, github, git, bitbucket, or gitlab.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
+	// Webhook delivery configuration.
+	Webhook *WebhookObservation `json:"webhook,omitempty" tf:"webhook,omitempty"`
 
 	// (List of String) Allowed change workflows: write, branch.
 	// Allowed change workflows: write, branch.
@@ -565,6 +583,11 @@ type RepositoryV0Alpha1SpecParameters struct {
 	// Repository provider type: local, github, git, bitbucket, or gitlab.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
+
+	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
+	// Webhook delivery configuration.
+	// +kubebuilder:validation:Optional
+	Webhook *WebhookParameters `json:"webhook,omitempty" tf:"webhook,omitempty"`
 
 	// (List of String) Allowed change workflows: write, branch.
 	// Allowed change workflows: write, branch.
@@ -679,6 +702,28 @@ type SyncParameters struct {
 	// Sync target: instance or folder.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target" tf:"target,omitempty"`
+}
+
+type WebhookInitParameters struct {
+
+	// (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
+	// Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
+	BaseURL *string `json:"baseUrl,omitempty" tf:"base_url,omitempty"`
+}
+
+type WebhookObservation struct {
+
+	// (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
+	// Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
+	BaseURL *string `json:"baseUrl,omitempty" tf:"base_url,omitempty"`
+}
+
+type WebhookParameters struct {
+
+	// (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
+	// Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
+	// +kubebuilder:validation:Optional
+	BaseURL *string `json:"baseUrl,omitempty" tf:"base_url,omitempty"`
 }
 
 // RepositoryV0Alpha1Spec defines the desired state of RepositoryV0Alpha1

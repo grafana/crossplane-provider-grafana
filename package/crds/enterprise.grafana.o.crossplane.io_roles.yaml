@@ -165,10 +165,7 @@ spec:
                     description: Unique identifier of the role. Used for assignments.
                     type: string
                   version:
-                    description: Version of the role. On create, must be `1`. On update,
-                      must be exactly one greater than the previous state. This field
-                      or `auto_increment_version` should be set; `auto_increment_version`
-                      is recommended.
+                    description: Version of the role. The server manages this automatically.
                     format: int64
                     type: integer
                 type: object

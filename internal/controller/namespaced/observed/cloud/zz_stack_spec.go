@@ -60,6 +60,11 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.AlertmanagerUserID = &v
 				}
 			}
+			if v, ok := d.GetOk("cloud_provider_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.CloudProviderURL = &s
+				}
+			}
 			if v, ok := d.GetOk("cluster_name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.ClusterName = &s
@@ -68,6 +73,11 @@ var StackSpec = tfdatasource.Spec{
 			if v, ok := d.GetOk("cluster_slug"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.ClusterSlug = &s
+				}
+			}
+			if v, ok := d.GetOk("connections_api_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ConnectionsAPIURL = &s
 				}
 			}
 			if v, ok := d.GetOk("delete_protection"); ok {
@@ -366,6 +376,11 @@ var StackSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.RegionSlug = &s
 				}
 			}
+			if v, ok := d.GetOk("sm_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.SMURL = &s
+				}
+			}
 			if v, ok := d.GetOk("status"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Status = &s
@@ -438,11 +453,17 @@ var StackSpec = tfdatasource.Spec{
 		if cr.Status.AtProvider.AlertmanagerUserID != nil {
 			cd["alertmanager_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.AlertmanagerUserID, 10))
 		}
+		if cr.Status.AtProvider.CloudProviderURL != nil {
+			cd["cloud_provider_url"] = []byte(*cr.Status.AtProvider.CloudProviderURL)
+		}
 		if cr.Status.AtProvider.ClusterName != nil {
 			cd["cluster_name"] = []byte(*cr.Status.AtProvider.ClusterName)
 		}
 		if cr.Status.AtProvider.ClusterSlug != nil {
 			cd["cluster_slug"] = []byte(*cr.Status.AtProvider.ClusterSlug)
+		}
+		if cr.Status.AtProvider.ConnectionsAPIURL != nil {
+			cd["connections_api_url"] = []byte(*cr.Status.AtProvider.ConnectionsAPIURL)
 		}
 		if cr.Status.AtProvider.DeleteProtection != nil {
 			cd["delete_protection"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.DeleteProtection))
@@ -602,6 +623,9 @@ var StackSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.RegionSlug != nil {
 			cd["region_slug"] = []byte(*cr.Status.AtProvider.RegionSlug)
+		}
+		if cr.Status.AtProvider.SMURL != nil {
+			cd["sm_url"] = []byte(*cr.Status.AtProvider.SMURL)
 		}
 		if cr.Status.AtProvider.Status != nil {
 			cd["status"] = []byte(*cr.Status.AtProvider.Status)

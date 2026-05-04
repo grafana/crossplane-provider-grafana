@@ -2,7 +2,7 @@ name: grafana/grafana
 resources:
     grafana_annotation:
         subCategory: Grafana OSS
-        description: Manages Grafana annotations. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+        description: Manages Grafana annotations. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/annotations/
         name: grafana_annotation
         title: grafana_annotation Resource - terraform-provider-grafana
         examples:
@@ -210,11 +210,12 @@ resources:
             explain: (Block, Optional) Generate AI explanation and store in an annotation. (see below for nested schema)
             expr: (String) Log query expression to execute.
             external: (Block, Optional) Call an external HTTP service for enrichment. (see below for nested schema)
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
             if: (Block, Optional) Condition to evaluate. (see below for nested schema)
             label_matchers: '(List of Object) Label matchers that an alert must satisfy for this enrichment to apply. Each matcher is an object with: ''type'' (string, one of: =, !=, =~, !~), ''name'' (string, label key to match), ''value'' (string, label value to compare against, supports regex for =~/!~ operators). (see below for nested schema)'
             logs_query: (Block, Optional) Logs query configuration for querying log data sources. (see below for nested schema)
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             max_lines: (Number) Maximum number of log lines to include. Defaults to 3.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String)
@@ -261,9 +262,10 @@ resources:
         argumentDocs:
             allow_ui_updates: (Boolean) Set to true to allow editing the resource from the Grafana UI. By default, resources managed by Terraform cannot be edited in the UI. Enabling this option will cause divergence between the Terraform configuration and the resource in Grafana.
             annotations: (Map of String) Annotations of the resource.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
             json: (String) The JSON representation of the dashboard spec.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -299,9 +301,10 @@ resources:
         argumentDocs:
             allow_ui_updates: (Boolean) Set to true to allow editing the resource from the Grafana UI. By default, resources managed by Terraform cannot be edited in the UI. Enabling this option will cause divergence between the Terraform configuration and the resource in Grafana.
             annotations: (Map of String) Annotations of the resource.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
-            json: (String) The JSON representation of the dashboard v2 spec.
+            json: '(String) The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)'
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -337,9 +340,10 @@ resources:
         argumentDocs:
             allow_ui_updates: (Boolean) Set to true to allow editing the resource from the Grafana UI. By default, resources managed by Terraform cannot be edited in the UI. Enabling this option will cause divergence between the Terraform configuration and the resource in Grafana.
             annotations: (Map of String) Annotations of the resource.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
-            json: (String) The JSON representation of the dashboard v2beta1 spec.
+            json: '(String) The JSON representation of the dashboard v2beta1 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)'
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -395,6 +399,7 @@ resources:
                       "name": "my-dashboard"
                     },
                     "spec": {
+                      "annotations": null,
                       "cursorSync": "Off",
                       "elements": {},
                       "layout": {
@@ -403,8 +408,19 @@ resources:
                           "items": []
                         }
                       },
+                      "links": null,
                       "preload": false,
-                      "title": "My Dashboard"
+                      "tags": null,
+                      "timeSettings": {
+                        "autoRefresh": "",
+                        "autoRefreshIntervals": null,
+                        "fiscalYearStartMonth": 0,
+                        "from": "",
+                        "hideTimepicker": false,
+                        "to": ""
+                      },
+                      "title": "My Dashboard",
+                      "variables": null
                     }
                   }
                 }
@@ -455,6 +471,7 @@ resources:
         argumentDocs:
             allow_ui_updates: (Boolean) Whether the resource can be edited from the Grafana UI. Defaults to false — Terraform-managed resources are locked from UI edits unless you opt in. Set to true to allow UI modifications; not supported by all resources.
             id: (String) The API resource UUID assigned by Grafana. This is not used for import; import uses the object name stored in metadata.uid.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             manifest: (Dynamic) Kubernetes-style manifest, typically from yamldecode(file(...)) or jsondecode(file(...)). Must contain apiVersion, kind, metadata (with name or uid), and spec. Use HCL merge() to inject Terraform variables. If you start from an exported manifest, remove noisy server-managed metadata such as resourceVersion, generation, and managedFields, or import the resource first and use the normalized state shape. If metadata.namespace is set, it must match the namespace selected from provider org_id or stack_id / autodiscovery. Top-level manifest fields are limited to apiVersion, kind, metadata, spec, and the ignored status field. The secure field must not be set here; use the top-level secure argument instead.
             secure: (Dynamic, Write-only) Write-only secure values map. Each key must contain exactly one of create or name; empty objects are invalid.
             secure_version: (Number) Set this to 1 when using secure, then increment it whenever you want Terraform to re-apply secure values.
@@ -468,9 +485,10 @@ resources:
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
             equal: (List of String) Labels that must have equal values in source and target alerts for the inhibition to take effect.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
             label: (String)
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -513,10 +531,11 @@ resources:
                 }
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
             interval: (String) The interval of the playlist.
             items: (List of Object) The items of the playlist. (see below for nested schema)
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -558,10 +577,11 @@ resources:
                 }
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
             interval: (String) The interval of the playlist.
             items: (List of Object) The items of the playlist. (see below for nested schema)
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -597,8 +617,9 @@ resources:
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
             enabled: (Boolean) Whether application observability is enabled.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -612,6 +633,45 @@ resources:
               #!/bin/bash
               # Import an existing app observability config by its UID
               terraform import grafana_apps_productactivation_appo11yconfig_v1alpha1.example my-app-o11y-config
+    grafana_apps_productactivation_dbo11yconfig_v1alpha1:
+        subCategory: Cloud
+        description: 'Manages Grafana Database Observability configurations using the Grafana APIs. This resource allows you to enable or disable database observability features. Note: This is a singleton resource. The UID is automatically set to "global" and there can only be one per namespace.'
+        name: grafana_apps_productactivation_dbo11yconfig_v1alpha1
+        title: grafana_apps_productactivation_dbo11yconfig_v1alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "global"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "enabled": true
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            enabled: (Boolean) Whether database observability is enabled.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+            id: (String) The ID of the resource derived from UUID.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements:
+            - |-
+              #!/bin/bash
+              # Import an existing database observability config by its UID
+              terraform import grafana_apps_productactivation_dbo11yconfig_v1alpha1.example my-db-o11y-config
     grafana_apps_productactivation_k8so11yconfig_v1alpha1:
         subCategory: Cloud
         description: 'Manages Grafana Kubernetes Observability configurations using the Grafana APIs. This resource allows you to enable or disable Kubernetes observability features. Note: This is a singleton resource. The UID is automatically set to "global" and there can only be one per namespace.'
@@ -635,8 +695,9 @@ resources:
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
             enabled: (Boolean) Whether Kubernetes observability is enabled.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -667,7 +728,7 @@ resources:
                   "secure": [
                     {
                       "private_key": {
-                        "create": "replace-me"
+                        "create": "${filebase64(\"${path.module}/private-key.pem\")}"
                       }
                     }
                   ],
@@ -691,10 +752,11 @@ resources:
             annotations: (Map of String) Annotations of the resource.
             app_id: (String) GitHub App ID.
             description: (String) Connection description.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             github: (Block, Optional) GitHub App configuration. (see below for nested schema)
             id: (String) The ID of the resource derived from UUID.
             installation_id: (String) GitHub App installation ID.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -751,6 +813,11 @@ resources:
                       ],
                       "title": "My GitHub Folder Repository",
                       "type": "github",
+                      "webhook": [
+                        {
+                          "base_url": "https://grafana.example.com"
+                        }
+                      ],
                       "workflows": [
                         "write",
                         "branch"
@@ -813,7 +880,7 @@ resources:
                       "secure": [
                         {
                           "private_key": {
-                            "create": "replace-me"
+                            "create": "${filebase64(\"${path.module}/private-key.pem\")}"
                           }
                         }
                       ],
@@ -993,12 +1060,13 @@ resources:
                 }
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
+            base_url: (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
             bitbucket: (Block, Optional) Bitbucket repository configuration. (see below for nested schema)
             branch: (String) Branch to sync.
             connection: (Block, Optional) Connection resource reference. (see below for nested schema)
             description: (String) Repository description.
             enabled: (Boolean) Whether sync is enabled.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             generate_dashboard_previews: (Boolean) Whether to generate dashboard previews.
             git: (Block, Optional) Generic git repository configuration. (see below for nested schema)
             github: (Block, Optional) GitHub repository configuration. (see below for nested schema)
@@ -1006,6 +1074,7 @@ resources:
             id: (String) The ID of the resource derived from UUID.
             interval_seconds: (Number) Sync interval in seconds.
             local: (Block, Optional) Local filesystem repository configuration. (see below for nested schema)
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String) Connection resource name.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
@@ -1024,6 +1093,7 @@ resources:
             url: (String) The full URL of the resource.
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
+            webhook: (Block, Optional) Webhook delivery configuration. (see below for nested schema)
             webhook_secret: (Map of String, Write-only) Webhook secret.
             workflows: '(List of String) Allowed change workflows: write, branch.'
         importStatements: []
@@ -1060,7 +1130,11 @@ resources:
                       "no_data_state": "KeepLast",
                       "notification_settings": [
                         {
-                          "contact_point": "grafana-default-email"
+                          "simplified_routing": [
+                            {
+                              "contact_point": "grafana-default-email"
+                            }
+                          ]
                         }
                       ],
                       "panel_ref": {
@@ -1085,30 +1159,34 @@ resources:
                       "title": "Alert Rule Folder"
                     }
         argumentDocs:
-            active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+            active_timings: (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
             annotations: (Map of String) Annotations of the resource.
-            contact_point: (String) The contact point to route notifications that match this rule to.
+            contact_point: (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
             exec_err_state: (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
             expressions: (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             for: (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
-            group_by: (List of String) A list of alert labels to group alerts into notifications by.
-            group_interval: (String) Minimum time interval between two notifications for the same group.
-            group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification.
+            group_by: (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+            group_interval: (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+            group_wait: (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
             id: (String) The ID of the resource derived from UUID.
             interval: (String) The interval at which the alert rule should be evaluated.
             keep_firing_for: (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
             labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             missing_series_evals_to_resolve: (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
-            mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
+            mute_timings: (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+            named_routing_tree: (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
-            notification_settings: (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
+            notification_settings: (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             panel_ref: (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
             paused: (Boolean) Sets whether the rule should be paused or not.
-            repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing.
+            repeat_interval: (String, Deprecated) Deprecated. Minimum time interval for re-sending a notification if an alert is still firing.
+            routing_tree: (String) The name of the routing tree to use.
+            simplified_routing: (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             title: (String) The title of the alert rule.
             trigger: (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
@@ -1164,10 +1242,11 @@ resources:
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
             expressions: (Map of String) A sequence of stages that describe the contents of the rule. Each value is a JSON string representing an expression object.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
             interval: (String) The interval at which the recording rule should be evaluated.
             labels: (Map of String) Key-value pairs to attach to the recorded metric.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             metric: (String) The name of the metric to write to.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
@@ -1209,8 +1288,9 @@ resources:
             aws: (Block, Optional) AWS Secrets Manager configuration. (see below for nested schema)
             description: (String) Keeper description.
             external_id: (String) Assume role external ID.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -1230,8 +1310,9 @@ resources:
             annotations: (Map of String) Annotations of the resource.
             decrypters: (List of String) List of decrypters allowed to read this secure value.
             description: (String) Secure value description.
-            folder_uid: (String) The UID of the folder to save the resource in.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             id: (String) The ID of the resource derived from UUID.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -2485,6 +2566,33 @@ resources:
             updated_at: (String) Last update date of the access policy token.
         importStatements:
             - terraform import grafana_cloud_access_policy_token.name "{{ region }}:{{ tokenId }}"
+    grafana_cloud_integration:
+        subCategory: Cloud Integrations
+        description: 'Manages Grafana Cloud integrations. Official documentation https://grafana.com/docs/grafana-cloud/data-configuration/integrations/ This provider lets you manage Grafana Cloud Integrations. Alerts can optionally be disabled. Please note: Grafana Cloud Integrations do not support in-place upgrades, and require a teardown and reapply to resolve version drift. As such it is recommended to have a separate TF plan for integrations to cleanly destroy them as needed. Update, only triggered on config change, is implemented as a complete uninstall, then reinstall of the integration in question. Required access policy scopes: folders:readfolders:writedashboards:readdashboards:writerules:readrules:write Based on: https://grafana.com/docs/grafana/latest/alerting/alerting-rules/alerting-migration/#import-rules-with-grafana-alerting Note: This resource creates folders and dashboards as part of the integration installation process, which requires additional permissions beyond the basic integration scopes.'
+        name: grafana_cloud_integration
+        title: grafana_cloud_integration Resource - terraform-provider-grafana
+        examples:
+            - name: linux-node
+              manifest: |-
+                {
+                  "slug": "linux-node"
+                }
+            - name: kafka
+              manifest: |-
+                {
+                  "alerts_enabled": false,
+                  "slug": "kafka"
+                }
+        argumentDocs:
+            alerts_enabled: (Boolean) Whether alerts are enabled for this integration.
+            dashboard_folder: (String) The dashboard folder associated with this integration.
+            id: (String) The Terraform resource ID. Set to the integration slug.
+            installed_version: (String) The version of the installed integration.
+            latest_version: (String) The latest version available for this integration.
+            name: (String) The display name of the integration.
+            slug: (String) The slug of the integration to install (e.g., 'docker', 'linux-node').
+        importStatements:
+            - terraform import grafana_cloud_integration.name "{{ slug }}"
     grafana_cloud_org_member Resource - terraform-provider-grafana:
         subCategory: Cloud
         description: Manages the membership of a user in an organization.
@@ -2875,8 +2983,10 @@ resources:
             alertmanager_status: (String) Status of the Alertmanager instance configured for this stack.
             alertmanager_url: (String) Base URL of the Alertmanager instance configured for this stack.
             alertmanager_user_id: (Number) User ID of the Alertmanager instance configured for this stack.
+            cloud_provider_url: (String) Base URL of the Cloud Provider API for this stack's cluster. This can be used with the cloud_provider_url provider config option to manage Cloud Provider resources for this stack.
             cluster_name: (String) Name of the cluster where this stack resides.
             cluster_slug: (String) Slug of the cluster where this stack resides.
+            connections_api_url: (String) Base URL of the Connections API for this stack's cluster. This can be used with the connections_api_url provider config option to manage Connections resources for this stack.
             delete_protection: (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
             description: (String) Description of stack.
             fleet_management_name: (String) Name of the Fleet Management instance configured for this stack.
@@ -2957,6 +3067,7 @@ resources:
             prometheus_user_id: (Number) Prometheus user ID. Used for e.g. remote_write.
             region_slug: '(String) Region slug to assign to this stack. Changing region will destroy the existing stack and create a new one in the desired region. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.'
             slug: (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
+            sm_url: '(String) Base URL of the Synthetic Monitoring API for this stack''s region. This can be used with the sm_url provider config option. Note: Synthetic Monitoring requires activation either via the grafana_synthetic_monitoring_installation resource or manually in the Grafana Cloud UI before it can be used.'
             status: (String) Status of the stack.
             traces_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
             traces_name: (String)
@@ -2975,7 +3086,7 @@ resources:
             - terraform import grafana_cloud_stack.name "{{ stackSlugOrID }}"
     grafana_cloud_stack_service_account:
         subCategory: Cloud
-        description: 'Manages service accounts of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api Required access policy scopes: stacks:readstack-service-accounts:write'
+        description: 'Manages service accounts of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/serviceaccount/#service-account-api Required access policy scopes: stacks:readstack-service-accounts:write'
         name: grafana_cloud_stack_service_account
         title: grafana_cloud_stack_service_account Resource - terraform-provider-grafana
         examples:
@@ -2997,7 +3108,7 @@ resources:
             - terraform import grafana_cloud_stack_service_account.name "{{ stackSlug }}:{{ serviceAccountID }}"
     grafana_cloud_stack_service_account_rotating_token:
         subCategory: Cloud
-        description: 'Manages and rotates service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api Required access policy scopes: stack-service-accounts:write'
+        description: 'Manages and rotates service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/serviceaccount/#service-account-api Required access policy scopes: stack-service-accounts:write'
         name: grafana_cloud_stack_service_account_rotating_token
         title: grafana_cloud_stack_service_account_rotating_token Resource - terraform-provider-grafana
         examples:
@@ -3036,7 +3147,7 @@ resources:
         importStatements: []
     grafana_cloud_stack_service_account_token:
         subCategory: Cloud
-        description: 'Manages service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api Required access policy scopes: stack-service-accounts:write'
+        description: 'Manages service account tokens of a Grafana Cloud stack using the Cloud API This can be used to bootstrap a management service account token for a new stack Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/serviceaccount/#service-account-api Required access policy scopes: stack-service-accounts:write'
         name: grafana_cloud_stack_service_account_token
         title: grafana_cloud_stack_service_account_token Resource - terraform-provider-grafana
         examples:
@@ -3099,7 +3210,7 @@ resources:
             - terraform import grafana_connections_metrics_endpoint_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_contact_point:
         subCategory: Alerting
-        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting contact points. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/alerting_provisioning/#contact-points This resource requires Grafana 9.1.0 or later.
         name: grafana_contact_point
         title: grafana_contact_point Resource - terraform-provider-grafana
         examples:
@@ -3311,7 +3422,7 @@ resources:
               terraform import grafana_dashboard.name "{{ orgID }}:{{ uid }}"
     grafana_dashboard_permission:
         subCategory: Grafana OSS
-        description: Manages the entire set of permissions for a dashboard. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+        description: Manages the entire set of permissions for a dashboard. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/dashboard_permissions/
         name: grafana_dashboard_permission
         title: grafana_dashboard_permission Resource - terraform-provider-grafana
         examples:
@@ -3460,7 +3571,7 @@ resources:
               terraform import grafana_dashboard_permission_item.name "{{ orgID }}:{{ dashboardUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_dashboard_public:
         subCategory: Grafana OSS
-        description: 'Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/share-dashboards-panels/shared-dashboards/HTTP API https://grafana.com/docs/grafana/next/developers/http_api/dashboard_public/'
+        description: 'Manages Grafana public dashboards. Note: This resource is available only with Grafana 10.2+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/share-dashboards-panels/shared-dashboards/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/dashboard_public/'
         name: grafana_dashboard_public
         title: grafana_dashboard_public Resource - terraform-provider-grafana
         examples:
@@ -3555,7 +3666,7 @@ resources:
               terraform import grafana_dashboard_public.name "{{ orgID }}:{{ dashboardUID }}:{{ publicDashboardUID }}"
     grafana_data_source:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
+        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
         name: grafana_data_source
         title: grafana_data_source Resource - terraform-provider-grafana
         examples:
@@ -3663,7 +3774,7 @@ resources:
               terraform import grafana_data_source_cache_config.name "{{ orgID }}:{{ datasource_uid }}"
     grafana_data_source_config:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). Use this resource for configuring multiple datasources, when that configuration (json_data_encoded field) requires circular references like in the example below. When using the
+        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). Use this resource for configuring multiple datasources, when that configuration (json_data_encoded field) requires circular references like in the example below. When using the
         name: grafana_data_source_config
         title: grafana_data_source_config Resource - terraform-provider-grafana
         examples:
@@ -3754,7 +3865,7 @@ resources:
               terraform import grafana_data_source_config.name "{{ orgID }}:{{ uid }}"
     grafana_data_source_config_lbac_rules:
         subCategory: Grafana Enterprise
-        description: 'Manages LBAC rules for a data source. !> Warning: The resource is experimental and will be subject to change. This resource manages the entire LBAC rules tree, and will overwrite any existing rules. Official documentation https://grafana.com/docs/grafana/latest/administration/data-source-management/teamlbac/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/ This resource requires Grafana >=11.5.0.'
+        description: 'Manages LBAC rules for a data source. !> Warning: The resource is experimental and will be subject to change. This resource manages the entire LBAC rules tree, and will overwrite any existing rules. Official documentation https://grafana.com/docs/grafana/latest/administration/data-source-management/teamlbac/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/datasource_lbac_rules/ This resource requires Grafana >=11.5.0.'
         name: grafana_data_source_config_lbac_rules
         title: grafana_data_source_config_lbac_rules Resource - terraform-provider-grafana
         examples:
@@ -3792,7 +3903,7 @@ resources:
             - terraform import grafana_data_source_config_lbac_rules.name "{{ datasource_uid }}"
     grafana_data_source_permission:
         subCategory: Grafana Enterprise
-        description: Manages the entire set of permissions for a datasource. Permissions that aren't specified when applying this resource will be removed. HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+        description: Manages the entire set of permissions for a datasource. Permissions that aren't specified when applying this resource will be removed. HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/datasource_permissions/
         name: grafana_data_source_permission
         title: grafana_data_source_permission Resource - terraform-provider-grafana
         examples:
@@ -4040,7 +4151,7 @@ resources:
             - terraform import grafana_fleet_management_collector.name "{{ id }}"
     grafana_fleet_management_pipeline:
         subCategory: Fleet Management
-        description: 'Manages Grafana Fleet Management pipelines. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/as-code/infrastructure-as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
+        description: 'Manages Grafana Fleet Management pipelines. Pipelines are always sent to the API with a Terraform pipeline source (SOURCE_TYPE_TERRAFORM) so Fleet Management can show them as Terraform-managed. Use the optional terraform_source_namespace argument (defaults to the string "default") for a stable namespace per root or workspace. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/as-code/infrastructure-as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
         name: grafana_fleet_management_pipeline
         title: grafana_fleet_management_pipeline Resource - terraform-provider-grafana
         examples:
@@ -4062,11 +4173,12 @@ resources:
             id: (String) Server-assigned ID of the pipeline
             matchers: (List of String) Used to match against collectors and assign pipelines to them; follows the syntax of Prometheus Alertmanager matchers
             name: (String) Name of the pipeline which is the unique identifier for the pipeline
+            terraform_source_namespace: (String) Namespace sent with the pipeline source (always SOURCE_TYPE_TERRAFORM in the Fleet Management API). Use a stable value per Terraform root or workspace so the UI shows Terraform as the source and API sync semantics stay consistent. If omitted, the namespace default is used.
         importStatements:
             - terraform import grafana_fleet_management_pipeline.name "{{ name }}"
     grafana_folder:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/manage-dashboards/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+        description: Official documentation https://grafana.com/docs/grafana/latest/dashboards/manage-dashboards/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/folder/
         name: grafana_folder
         title: grafana_folder Resource - terraform-provider-grafana
         examples:
@@ -4107,7 +4219,7 @@ resources:
               terraform import grafana_folder.name "{{ orgID }}:{{ uid }}"
     grafana_folder_permission:
         subCategory: Grafana OSS
-        description: Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+        description: Manages the entire set of permissions for a folder. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/folder_permissions/
         name: grafana_folder_permission
         title: grafana_folder_permission Resource - terraform-provider-grafana
         examples:
@@ -4624,7 +4736,7 @@ resources:
             - terraform import grafana_k6_schedule.name "{{ load_test_id }}"
     grafana_library_panel:
         subCategory: Grafana OSS
-        description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/manage-library-panels/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+        description: Manages Grafana library panels. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/manage-library-panels/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/library_element/
         name: grafana_library_panel
         title: grafana_library_panel Resource - terraform-provider-grafana
         examples:
@@ -4939,7 +5051,7 @@ resources:
             - terraform import grafana_machine_learning_outlier_detector.name "{{ id }}"
     grafana_message_template:
         subCategory: Alerting
-        description: Manages Grafana Alerting notification template groups, including notification templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-template-groups This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting notification template groups, including notification templates. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/alerting_provisioning/#notification-template-groups This resource requires Grafana 9.1.0 or later.
         name: grafana_message_template
         title: grafana_message_template Resource - terraform-provider-grafana
         examples:
@@ -4961,7 +5073,7 @@ resources:
               terraform import grafana_message_template.name "{{ orgID }}:{{ name }}"
     grafana_mute_timing:
         subCategory: Alerting
-        description: Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting mute timings. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/alerting_provisioning/#mute-timings This resource requires Grafana 9.1.0 or later.
         name: grafana_mute_timing
         title: grafana_mute_timing Resource - terraform-provider-grafana
         examples:
@@ -5017,7 +5129,7 @@ resources:
               terraform import grafana_mute_timing.name "{{ orgID }}:{{ name }}"
     grafana_notification_policy:
         subCategory: Alerting
-        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree and overwrites its policies. However, it does not overwrite internal policies created when alert rules directly set a contact point for notifications. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
+        description: Sets the global notification policy for Grafana. !> This resource manages the entire notification policy tree and overwrites its policies. However, it does not overwrite internal policies created when alert rules directly set a contact point for notifications. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/alerting_provisioning/#notification-policies This resource requires Grafana 9.1.0 or later.
         name: grafana_notification_policy
         title: grafana_notification_policy Resource - terraform-provider-grafana
         examples:
@@ -5732,7 +5844,7 @@ resources:
             - terraform import grafana_oncall_user_notification_rule.name "{{ id }}"
     grafana_organization:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/org/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth. This resource is also not compatible with Grafana Cloud, as it does not allow basic auth.
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/org/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth. This resource is also not compatible with Grafana Cloud, as it does not allow basic auth.
         name: grafana_organization
         title: grafana_organization Resource - terraform-provider-grafana
         examples:
@@ -5793,7 +5905,7 @@ resources:
             - terraform import grafana_organization.name "{{ id }}"
     grafana_organization_preferences:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/preferences/#get-current-org-prefs
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/organization-management/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/preferences/#get-current-org-prefs
         name: grafana_organization_preferences
         title: grafana_organization_preferences Resource - terraform-provider-grafana
         examples:
@@ -5815,7 +5927,7 @@ resources:
             - terraform import grafana_organization_preferences.name "{{ orgID }}"
     grafana_playlist:
         subCategory: Grafana OSS
-        description: Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
+        description: Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/playlist/
         name: grafana_playlist
         title: grafana_playlist Resource - terraform-provider-grafana
         examples:
@@ -5852,7 +5964,7 @@ resources:
               terraform import grafana_playlist.name "{{ orgID }}:{{ uid }}"
     grafana_report:
         subCategory: Grafana Enterprise
-        description: 'Note: This resource is available only with Grafana Enterprise 7.+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-reports/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/reporting/'
+        description: 'Note: This resource is available only with Grafana Enterprise 7.+. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-reports/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/reporting/'
         name: grafana_report
         title: grafana_report Resource - terraform-provider-grafana
         examples:
@@ -5916,7 +6028,7 @@ resources:
               terraform import grafana_report.name "{{ orgID }}:{{ id }}"
     grafana_role:
         subCategory: Grafana Enterprise
-        description: 'Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
+        description: 'Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/access_control/'
         name: grafana_role
         title: grafana_role Resource - terraform-provider-grafana
         examples:
@@ -5940,12 +6052,11 @@ resources:
                       "scope": "users:*"
                     }
                   ],
-                  "uid": "superuseruid",
-                  "version": 1
+                  "uid": "superuseruid"
                 }
         argumentDocs:
             action: '(String) Specific action users granted with the role will be allowed to perform (for example: users:read)'
-            auto_increment_version: (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
+            auto_increment_version: (Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).
             description: (String) Description of the role.
             display_name: (String) Display name of the role. Available with Grafana 8.5+.
             global: (Boolean) Boolean to state whether the role is available across all organizations or not. Defaults to false.
@@ -5957,14 +6068,14 @@ resources:
             permissions: (Block Set) Specific set of actions granted by the role. (see below for nested schema)
             scope: '(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.'
             uid: (String) Unique identifier of the role. Used for assignments.
-            version: (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
+            version: (Number, Deprecated) Version of the role. The server manages this automatically.
         importStatements:
             - |-
               terraform import grafana_role.name "{{ uid }}"
               terraform import grafana_role.name "{{ orgID }}:{{ uid }}"
     grafana_role_assignment:
         subCategory: Grafana Enterprise
-        description: 'Manages the entire set of assignments for a role. Assignments that aren''t specified when applying this resource will be removed. Note: This resource is available only with Grafana Enterprise 9.2+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
+        description: 'Manages the entire set of assignments for a role. Assignments that aren''t specified when applying this resource will be removed. Note: This resource is available only with Grafana Enterprise 9.2+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/access_control/'
         name: grafana_role_assignment
         title: grafana_role_assignment Resource - terraform-provider-grafana
         examples:
@@ -6160,7 +6271,7 @@ resources:
               terraform import grafana_role_assignment_item.name "{{ orgID }}:{{ roleUID }}:{{ type (user, team or service_account) }}:{{ identifier }}"
     grafana_rule_group:
         subCategory: Alerting
-        description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
+        description: Manages Grafana Alerting rule groups. Official documentation https://grafana.com/docs/grafana/latest/alerting/set-up/provision-alerting-resources/terraform-provisioning/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/alerting_provisioning/#alert-rules This resource requires Grafana 9.1.0 or later.
         name: grafana_rule_group
         title: grafana_rule_group Resource - terraform-provider-grafana
         examples:
@@ -6266,7 +6377,7 @@ resources:
               terraform import grafana_rule_group.name "{{ orgID }}:{{ folderUID }}:{{ title }}"
     grafana_scim_config:
         subCategory: Grafana Enterprise
-        description: 'Note: This resource is available only with Grafana Enterprise. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-scim-provisioning/'
+        description: 'Note: Available in Grafana Enterprise https://grafana.com/docs/grafana/latest/introduction/grafana-enterprise/ and Grafana Cloud https://grafana.com/docs/grafana-cloud/. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-access/configure-scim-provisioning/'
         name: grafana_scim_config
         title: grafana_scim_config Resource - terraform-provider-grafana
         examples:
@@ -6277,6 +6388,34 @@ resources:
                   "enable_user_sync": true,
                   "reject_non_provisioned_users": false
                 }
+            - name: default
+              manifest: |-
+                {
+                  "enable_group_sync": false,
+                  "enable_user_sync": true,
+                  "provider": "${grafana.stack}",
+                  "reject_non_provisioned_users": false
+                }
+              references:
+                provider: grafana.stack
+              dependencies:
+                grafana_cloud_stack.my_stack: |-
+                    {
+                      "name": "my-stack",
+                      "slug": "my-stack"
+                    }
+                grafana_cloud_stack_service_account.cloud_sa: |-
+                    {
+                      "name": "scim-terraform",
+                      "role": "Admin",
+                      "stack_slug": "${grafana_cloud_stack.my_stack.slug}"
+                    }
+                grafana_cloud_stack_service_account_token.cloud_sa: |-
+                    {
+                      "name": "scim-terraform",
+                      "service_account_id": "${grafana_cloud_stack_service_account.cloud_sa.id}",
+                      "stack_slug": "${grafana_cloud_stack.my_stack.slug}"
+                    }
         argumentDocs:
             enable_group_sync: (Boolean) Whether group synchronization is enabled.
             enable_user_sync: (Boolean) Whether user synchronization is enabled.
@@ -6289,7 +6428,7 @@ resources:
               terraform import grafana_scim_config.name "{{ orgID }}"
     grafana_service_account:
         subCategory: Grafana OSS
-        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
+        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/serviceaccount/#service-account-api'
         name: grafana_service_account
         title: grafana_service_account Resource - terraform-provider-grafana
         examples:
@@ -6437,7 +6576,7 @@ resources:
               terraform import grafana_service_account_permission_item.name "{{ orgID }}:{{ serviceAccountID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_service_account_rotating_token:
         subCategory: Grafana OSS
-        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
+        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/serviceaccount/#service-account-api'
         name: grafana_service_account_rotating_token
         title: grafana_service_account_rotating_token Resource - terraform-provider-grafana
         examples:
@@ -6472,7 +6611,7 @@ resources:
         importStatements: []
     grafana_service_account_token:
         subCategory: Grafana OSS
-        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api'
+        description: 'Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/serviceaccount/#service-account-api'
         name: grafana_service_account_token
         title: grafana_service_account_token Resource - terraform-provider-grafana
         examples:
@@ -6731,44 +6870,44 @@ resources:
                   ]
                 }
         argumentDocs:
-            advanced_options: '(Block List, Max: 1) Advanced Options for Alert Rules (see below for nested schema)'
+            advanced_options: (Block List) Advanced Options for Alert Rules (see below for nested schema)
             alerting: |-
-                (Block List, Max: 1) Configures the alerting rules that will be generated for each
+                (Block List) Configures the alerting rules that will be generated for each
                 time window associated with the SLO. Grafana SLOs can generate
                 alerts when the short-term error budget burn is very high, the
                 long-term error budget burn rate is high, or when the remaining
                 error budget is below a certain threshold. Annotations and Labels support templating. (see below for nested schema)
             annotation: (Block List) Annotations will be attached to all alerts generated by any of these rules. (see below for nested schema)
             description: (String) Description is a free-text field that can provide more context to an SLO.
-            destination_datasource: '(Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)'
+            destination_datasource: (Block List) Required. Destination Datasource sets the datasource defined for an SLO. (see below for nested schema)
             enrichment: (Block List) Enrichments to attach only to Fast Burn alerts. (see below for nested schema)
-            fastburn: '(Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)'
-            folder_uid: (String) UID for the SLO folder
-            freeform: '(Block List, Max: 1) (see below for nested schema)'
-            grafana_queries: '(Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)'
+            fastburn: (Block List) Alerting Rules generated for Fast Burn alerts (see below for nested schema)
+            folder_uid: (String) UID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
+            freeform: (Block List) Freeform query configuration. (see below for nested schema)
+            grafana_queries: (Block List) Array for holding a set of grafana queries (see below for nested schema)
             group_by_labels: (List of String) Defines Group By Labels used for per-label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
-            id: (String) The ID of this resource.
+            id: (String) The Terraform resource ID (same as UUID).
             key: (String) Key for filtering and identification
             label: (Block List) Additional labels that will be attached to all metrics generated from the query. These labels are useful for grouping SLOs in dashboard views that you create by hand. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$" (see below for nested schema)
             min_failures: (Number) Minimum number of failed events to trigger an alert
             name: (String) Name should be a short description of your indicator. Consider names like "API Availability"
-            objectives: '(Block List, Min: 1) Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)'
-            query: '(Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)'
-            ratio: '(Block List, Max: 1) (see below for nested schema)'
-            search_expression: (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
-            slowburn: '(Block List, Max: 1) Alerting Rules generated for Slow Burn alerts (see below for nested schema)'
+            objectives: (Block List) Required. Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
+            query: (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
+            ratio: (Block List) Ratio query configuration. (see below for nested schema)
+            search_expression: (String) The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+            slowburn: (Block List) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
             success_metric: (String) Counter metric for success events (numerator)
             total_metric: (String) Metric for total events (denominator)
-            type: '(String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"'
+            type: (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
             uid: (String) UID for the Datasource
             uuid: (String) UUID for the SLO. Custom UUIDs can be set. If not provided, a random UUID will be generated by the API.
-            value: (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+            value: (String) Templatable value
             window: (String) A Prometheus-parsable time duration string like 24h, 60m. This is the time window the objective is measured over.
         importStatements:
             - terraform import grafana_slo.name "{{ uuid }}"
     grafana_sso_settings:
         subCategory: Grafana OSS
-        description: Manages Grafana SSO Settings for OAuth2, SAML and LDAP. Support for LDAP is currently in preview, it will be available in Grafana starting with v11.3. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+        description: Manages Grafana SSO Settings for OAuth2, SAML and LDAP. Support for LDAP is currently in preview, it will be available in Grafana starting with v11.3. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/sso-settings/
         name: grafana_sso_settings
         title: grafana_sso_settings Resource - terraform-provider-grafana
         examples:
@@ -7832,7 +7971,7 @@ resources:
               terraform import grafana_synthetic_monitoring_probe.name "{{ id }}:{{ authToken }}"
     grafana_team:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/team-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/team-management/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/team/
         name: grafana_team
         title: grafana_team Resource - terraform-provider-grafana
         examples:
@@ -7907,7 +8046,7 @@ resources:
               terraform import grafana_team_external_group.name "{{ orgID }}:{{ teamID }}"
     grafana_user:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/user/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth. This resource is also not compatible with Grafana Cloud, as it does not allow basic auth.
+        description: Official documentation https://grafana.com/docs/grafana/latest/administration/user-management/server-user-management/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/user/ This resource represents an instance-scoped resource and uses Grafana's admin APIs. It does not work with API tokens or service accounts which are org-scoped. You must use basic auth. This resource is also not compatible with Grafana Cloud, as it does not allow basic auth.
         name: grafana_user
         title: grafana_user Resource - terraform-provider-grafana
         examples:

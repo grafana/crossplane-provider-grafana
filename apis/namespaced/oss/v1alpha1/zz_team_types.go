@@ -127,7 +127,7 @@ type TeamInitParameters struct {
 	// (Block List) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
-	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+	// * [HTTP API](https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/team_sync/)
 	TeamSync []TeamSyncInitParameters `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
 }
 
@@ -167,7 +167,7 @@ type TeamObservation struct {
 	// (Block List) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
-	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+	// * [HTTP API](https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/team_sync/)
 	TeamSync []TeamSyncObservation `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
 
 	// (String) The team uid assigned to this team by Grafana.
@@ -233,7 +233,7 @@ type TeamParameters struct {
 	// (Block List) Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// Sync external auth provider groups with this Grafana team. Only available in Grafana Enterprise.
 	// * [Official documentation](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/)
-	// * [HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
+	// * [HTTP API](https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/team_sync/)
 	// +kubebuilder:validation:Optional
 	TeamSync []TeamSyncParameters `json:"teamSync,omitempty" tf:"team_sync,omitempty"`
 }
@@ -287,7 +287,7 @@ type TeamStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Team is the Schema for the Teams API. Official documentation https://grafana.com/docs/grafana/latest/administration/team-management/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/team/
+// Team is the Schema for the Teams API. Official documentation https://grafana.com/docs/grafana/latest/administration/team-management/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/team/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
