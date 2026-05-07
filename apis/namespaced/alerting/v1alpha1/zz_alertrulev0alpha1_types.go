@@ -31,8 +31,8 @@ type AlertruleV0Alpha1InitParameters struct {
 
 type AlertruleV0Alpha1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -47,8 +47,8 @@ type AlertruleV0Alpha1MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -70,8 +70,8 @@ type AlertruleV0Alpha1MetadataObservation struct {
 
 type AlertruleV0Alpha1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -101,6 +101,9 @@ type AlertruleV0Alpha1Observation struct {
 
 type AlertruleV0Alpha1OptionsInitParameters struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -108,12 +111,19 @@ type AlertruleV0Alpha1OptionsInitParameters struct {
 
 type AlertruleV0Alpha1OptionsObservation struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type AlertruleV0Alpha1OptionsParameters struct {
+
+	// Override the identity stamped on this resource's manager metadata.
+	// +kubebuilder:validation:Optional
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -176,8 +186,8 @@ type AlertruleV0Alpha1SpecInitParameters struct {
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies.
+	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing
 	NotificationSettings *NotificationSettingsInitParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
@@ -235,8 +245,8 @@ type AlertruleV0Alpha1SpecObservation struct {
 	// Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
-	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies.
+	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing
 	NotificationSettings *NotificationSettingsObservation `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
@@ -302,10 +312,10 @@ type AlertruleV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	NoDataState *string `json:"noDataState" tf:"no_data_state,omitempty"`
 
-	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)
-	// Notification settings for the rule. If specified, it overrides the notification policies.
+	// (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
+	// Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing
 	// +kubebuilder:validation:Optional
-	NotificationSettings *NotificationSettingsParameters `json:"notificationSettings" tf:"notification_settings,omitempty"`
+	NotificationSettings *NotificationSettingsParameters `json:"notificationSettings,omitempty" tf:"notification_settings,omitempty"`
 
 	// (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
 	// Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
@@ -329,60 +339,177 @@ type AlertruleV0Alpha1SpecParameters struct {
 	Trigger *TriggerParameters `json:"trigger" tf:"trigger,omitempty"`
 }
 
+type NamedRoutingTreeInitParameters struct {
+
+	// (String) The name of the routing tree to use.
+	// The name of the routing tree to use.
+	RoutingTree *string `json:"routingTree,omitempty" tf:"routing_tree,omitempty"`
+}
+
+type NamedRoutingTreeObservation struct {
+
+	// (String) The name of the routing tree to use.
+	// The name of the routing tree to use.
+	RoutingTree *string `json:"routingTree,omitempty" tf:"routing_tree,omitempty"`
+}
+
+type NamedRoutingTreeParameters struct {
+
+	// (String) The name of the routing tree to use.
+	// The name of the routing tree to use.
+	// +kubebuilder:validation:Optional
+	RoutingTree *string `json:"routingTree,omitempty" tf:"routing_tree,omitempty"`
+}
+
 type NotificationSettingsInitParameters struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
-	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+	// (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+	// Deprecated. A list of time interval names to apply to alerts that match this policy.
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
-	// The contact point to route notifications that match this rule to.
+	// (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+	// Deprecated. The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by.
-	// A list of alert labels to group alerts into notifications by.
+	// (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+	// Deprecated. A list of alert labels to group alerts into notifications by.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group.
-	// Minimum time interval between two notifications for the same group.
+	// (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+	// Deprecated. Minimum time interval between two notifications for the same group.
 	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification.
-	// Time to wait to buffer alerts of the same group before sending a notification.
+	// (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+	// Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
-	// A list of mute timing names to apply to alerts that match this policy.
+	// (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+	// Deprecated. A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
+	// (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
+	// Route notifications to a specific routing tree.
+	NamedRoutingTree *NamedRoutingTreeInitParameters `json:"namedRoutingTree,omitempty" tf:"named_routing_tree,omitempty"`
+
 	// sending a notification if an alert is still firing.
-	// Minimum time interval for re-sending a notification if an alert is still firing.
+	// Deprecated. Minimum time interval for re-sending a notification if an alert is still firing.
 	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+
+	// (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
+	// Simplified routing to a contact point with optional grouping and timing overrides.
+	SimplifiedRouting *SimplifiedRoutingInitParameters `json:"simplifiedRouting,omitempty" tf:"simplified_routing,omitempty"`
 }
 
 type NotificationSettingsObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+	// (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+	// Deprecated. A list of time interval names to apply to alerts that match this policy.
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
+	// (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+	// Deprecated. The contact point to route notifications that match this rule to.
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+	// Deprecated. A list of alert labels to group alerts into notifications by.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+	// Deprecated. Minimum time interval between two notifications for the same group.
+	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+
+	// (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+	// Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+	// Deprecated. A list of mute timing names to apply to alerts that match this policy.
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
+	// Route notifications to a specific routing tree.
+	NamedRoutingTree *NamedRoutingTreeObservation `json:"namedRoutingTree,omitempty" tf:"named_routing_tree,omitempty"`
+
+	// sending a notification if an alert is still firing.
+	// Deprecated. Minimum time interval for re-sending a notification if an alert is still firing.
+	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+
+	// (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
+	// Simplified routing to a contact point with optional grouping and timing overrides.
+	SimplifiedRouting *SimplifiedRoutingObservation `json:"simplifiedRouting,omitempty" tf:"simplified_routing,omitempty"`
+}
+
+type NotificationSettingsParameters struct {
+
+	// (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+	// Deprecated. A list of time interval names to apply to alerts that match this policy.
+	// +kubebuilder:validation:Optional
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
+	// (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+	// Deprecated. The contact point to route notifications that match this rule to.
+	// +kubebuilder:validation:Optional
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+	// Deprecated. A list of alert labels to group alerts into notifications by.
+	// +kubebuilder:validation:Optional
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+	// Deprecated. Minimum time interval between two notifications for the same group.
+	// +kubebuilder:validation:Optional
+	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+
+	// (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+	// Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+	// +kubebuilder:validation:Optional
+	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+	// Deprecated. A list of mute timing names to apply to alerts that match this policy.
+	// +kubebuilder:validation:Optional
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
+	// Route notifications to a specific routing tree.
+	// +kubebuilder:validation:Optional
+	NamedRoutingTree *NamedRoutingTreeParameters `json:"namedRoutingTree,omitempty" tf:"named_routing_tree,omitempty"`
+
+	// sending a notification if an alert is still firing.
+	// Deprecated. Minimum time interval for re-sending a notification if an alert is still firing.
+	// +kubebuilder:validation:Optional
+	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+
+	// (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
+	// Simplified routing to a contact point with optional grouping and timing overrides.
+	// +kubebuilder:validation:Optional
+	SimplifiedRouting *SimplifiedRoutingParameters `json:"simplifiedRouting,omitempty" tf:"simplified_routing,omitempty"`
+}
+
+type SimplifiedRoutingInitParameters struct {
+
+	// (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
+	// (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by.
+	// (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
 	// A list of alert labels to group alerts into notifications by.
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group.
+	// (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
 	// Minimum time interval between two notifications for the same group.
 	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification.
+	// (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
 	// Time to wait to buffer alerts of the same group before sending a notification.
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
 	// A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
@@ -391,34 +518,65 @@ type NotificationSettingsObservation struct {
 	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
 }
 
-type NotificationSettingsParameters struct {
+type SimplifiedRoutingObservation struct {
 
-	// (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+	// (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
+	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
+	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
+
+	// (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
+	// The contact point to route notifications that match this rule to.
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
+
+	// (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
+	// A list of alert labels to group alerts into notifications by.
+	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
+
+	// (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
+	// Minimum time interval between two notifications for the same group.
+	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
+
+	// (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
+	// Time to wait to buffer alerts of the same group before sending a notification.
+	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
+
+	// (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
+	// A list of mute timing names to apply to alerts that match this policy.
+	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// sending a notification if an alert is still firing.
+	// Minimum time interval for re-sending a notification if an alert is still firing.
+	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
+}
+
+type SimplifiedRoutingParameters struct {
+
+	// (List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
 	// +kubebuilder:validation:Optional
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
+	// (String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to.
 	// +kubebuilder:validation:Optional
-	ContactPoint *string `json:"contactPoint" tf:"contact_point,omitempty"`
+	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
-	// (List of String) A list of alert labels to group alerts into notifications by.
+	// (List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.
 	// A list of alert labels to group alerts into notifications by.
 	// +kubebuilder:validation:Optional
 	GroupBy []*string `json:"groupBy,omitempty" tf:"group_by,omitempty"`
 
-	// (String) Minimum time interval between two notifications for the same group.
+	// (String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.
 	// Minimum time interval between two notifications for the same group.
 	// +kubebuilder:validation:Optional
 	GroupInterval *string `json:"groupInterval,omitempty" tf:"group_interval,omitempty"`
 
-	// (String) Time to wait to buffer alerts of the same group before sending a notification.
+	// (String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.
 	// Time to wait to buffer alerts of the same group before sending a notification.
 	// +kubebuilder:validation:Optional
 	GroupWait *string `json:"groupWait,omitempty" tf:"group_wait,omitempty"`
 
-	// (List of String) A list of mute timing names to apply to alerts that match this policy.
+	// (List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.
 	// A list of mute timing names to apply to alerts that match this policy.
 	// +kubebuilder:validation:Optional
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`

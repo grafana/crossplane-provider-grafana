@@ -706,6 +706,11 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 		*out = new(int64)
 		**out = **in
 	}
+	if in.CloudProviderURL != nil {
+		in, out := &in.CloudProviderURL, &out.CloudProviderURL
+		*out = new(string)
+		**out = **in
+	}
 	if in.ClusterName != nil {
 		in, out := &in.ClusterName, &out.ClusterName
 		*out = new(string)
@@ -713,6 +718,11 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 	}
 	if in.ClusterSlug != nil {
 		in, out := &in.ClusterSlug, &out.ClusterSlug
+		*out = new(string)
+		**out = **in
+	}
+	if in.ConnectionsAPIURL != nil {
+		in, out := &in.ConnectionsAPIURL, &out.ConnectionsAPIURL
 		*out = new(string)
 		**out = **in
 	}
@@ -1105,6 +1115,11 @@ func (in *StackObservation) DeepCopyInto(out *StackObservation) {
 	}
 	if in.RegionSlug != nil {
 		in, out := &in.RegionSlug, &out.RegionSlug
+		*out = new(string)
+		**out = **in
+	}
+	if in.SMURL != nil {
+		in, out := &in.SMURL, &out.SMURL
 		*out = new(string)
 		**out = **in
 	}

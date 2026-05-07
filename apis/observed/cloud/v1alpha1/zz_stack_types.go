@@ -39,11 +39,17 @@ type StackObservation struct {
 	// User ID of the Alertmanager instance configured for this stack.
 	AlertmanagerUserID *int64 `json:"alertmanagerUserID,omitempty"`
 
+	// Base URL of the Cloud Provider API for this stack's cluster. This can be used with the `cloud_provider_url` provider config option to manage Cloud Provider resources for this stack.
+	CloudProviderURL *string `json:"cloudProviderURL,omitempty"`
+
 	// Name of the cluster where this stack resides.
 	ClusterName *string `json:"clusterName,omitempty"`
 
 	// Slug of the cluster where this stack resides.
 	ClusterSlug *string `json:"clusterSlug,omitempty"`
+
+	// Base URL of the Connections API for this stack's cluster. This can be used with the `connections_api_url` provider config option to manage Connections resources for this stack.
+	ConnectionsAPIURL *string `json:"connectionsAPIURL,omitempty"`
 
 	// Whether to enable delete protection for the stack, preventing accidental deletion.
 	DeleteProtection *bool `json:"deleteProtection,omitempty"`
@@ -266,6 +272,9 @@ type StackObservation struct {
 
 	// The region this stack is deployed to.
 	RegionSlug *string `json:"regionSlug,omitempty"`
+
+	// Base URL of the Synthetic Monitoring API for this stack's region. This can be used with the `sm_url` provider config option. Note: Synthetic Monitoring requires activation either via the `grafana_synthetic_monitoring_installation` resource or manually in the Grafana Cloud UI before it can be used.
+	SMURL *string `json:"smURL,omitempty"`
 
 	// Status of the stack.
 	Status *string `json:"status,omitempty"`

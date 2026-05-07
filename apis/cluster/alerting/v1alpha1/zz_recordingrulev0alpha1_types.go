@@ -30,8 +30,8 @@ type RecordingruleV0Alpha1InitParameters struct {
 
 type RecordingruleV0Alpha1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -46,8 +46,8 @@ type RecordingruleV0Alpha1MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -69,8 +69,8 @@ type RecordingruleV0Alpha1MetadataObservation struct {
 
 type RecordingruleV0Alpha1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -100,6 +100,9 @@ type RecordingruleV0Alpha1Observation struct {
 
 type RecordingruleV0Alpha1OptionsInitParameters struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -107,12 +110,19 @@ type RecordingruleV0Alpha1OptionsInitParameters struct {
 
 type RecordingruleV0Alpha1OptionsObservation struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type RecordingruleV0Alpha1OptionsParameters struct {
+
+	// Override the identity stamped on this resource's manager metadata.
+	// +kubebuilder:validation:Optional
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.

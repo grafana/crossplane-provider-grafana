@@ -30,8 +30,8 @@ type DashboardV2Beta1InitParameters struct {
 
 type DashboardV2Beta1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -46,8 +46,8 @@ type DashboardV2Beta1MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -69,8 +69,8 @@ type DashboardV2Beta1MetadataObservation struct {
 
 type DashboardV2Beta1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
-	// The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -104,6 +104,9 @@ type DashboardV2Beta1OptionsInitParameters struct {
 	// Set to true to allow editing the resource from the Grafana UI.
 	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -114,6 +117,9 @@ type DashboardV2Beta1OptionsObservation struct {
 	// (Boolean) Set to true to allow editing the resource from the Grafana UI.
 	// Set to true to allow editing the resource from the Grafana UI.
 	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
+
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -126,6 +132,10 @@ type DashboardV2Beta1OptionsParameters struct {
 	// Set to true to allow editing the resource from the Grafana UI.
 	// +kubebuilder:validation:Optional
 	AllowUIUpdates *bool `json:"allowUiUpdates,omitempty" tf:"allow_ui_updates,omitempty"`
+
+	// Override the identity stamped on this resource's manager metadata.
+	// +kubebuilder:validation:Optional
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
 	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -153,8 +163,8 @@ type DashboardV2Beta1Parameters struct {
 
 type DashboardV2Beta1SpecInitParameters struct {
 
-	// (String) The JSON representation of the dashboard v2beta1 spec.
-	// The JSON representation of the dashboard v2beta1 spec.
+	// (String) The JSON representation of the dashboard v2beta1 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
+	// The JSON representation of the dashboard v2beta1 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
 	JSON *string `json:"json,omitempty" tf:"json,omitempty"`
 
 	// (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -168,8 +178,8 @@ type DashboardV2Beta1SpecInitParameters struct {
 
 type DashboardV2Beta1SpecObservation struct {
 
-	// (String) The JSON representation of the dashboard v2beta1 spec.
-	// The JSON representation of the dashboard v2beta1 spec.
+	// (String) The JSON representation of the dashboard v2beta1 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
+	// The JSON representation of the dashboard v2beta1 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
 	JSON *string `json:"json,omitempty" tf:"json,omitempty"`
 
 	// (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -183,8 +193,8 @@ type DashboardV2Beta1SpecObservation struct {
 
 type DashboardV2Beta1SpecParameters struct {
 
-	// (String) The JSON representation of the dashboard v2beta1 spec.
-	// The JSON representation of the dashboard v2beta1 spec.
+	// (String) The JSON representation of the dashboard v2beta1 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
+	// The JSON representation of the dashboard v2beta1 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
 	// +kubebuilder:validation:Optional
 	JSON *string `json:"json" tf:"json,omitempty"`
 

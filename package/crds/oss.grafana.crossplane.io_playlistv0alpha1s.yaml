@@ -82,8 +82,8 @@ spec:
                     properties:
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
-                          The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
                         description: |-
@@ -96,6 +96,10 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      managerIdentity:
+                        description: Override the identity stamped on this resource's
+                          manager metadata.
+                        type: string
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -153,8 +157,8 @@ spec:
                     properties:
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
-                          The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
                         description: |-
@@ -167,6 +171,10 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      managerIdentity:
+                        description: Override the identity stamped on this resource's
+                          manager metadata.
+                        type: string
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
@@ -322,8 +330,8 @@ spec:
                         x-kubernetes-map-type: granular
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
-                          The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
                         description: |-
@@ -351,6 +359,10 @@ spec:
                       (Block, Optional) Options for applying the resource. (see below for nested schema)
                       Options for applying the resource.
                     properties:
+                      managerIdentity:
+                        description: Override the identity stamped on this resource's
+                          manager metadata.
+                        type: string
                       overwrite:
                         description: |-
                           (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.

@@ -19,6 +19,9 @@ func (tr *AccessPolicyToken) Hub() {}
 func (tr *Appo11YconfigV1Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *Dbo11YconfigV1Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *K8So11YconfigV1Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.

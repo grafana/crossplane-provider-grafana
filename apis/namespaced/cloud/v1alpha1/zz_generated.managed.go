@@ -167,6 +167,46 @@ func (mg *Appo11YconfigV1Alpha1) SetWriteConnectionSecretToReference(r *xpv1.Loc
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) GetManagementPolicies() xpv1.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) SetConditions(c ...xpv1.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) SetManagementPolicies(r xpv1.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this Dbo11YconfigV1Alpha1.
+func (mg *Dbo11YconfigV1Alpha1) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this K8So11YconfigV1Alpha1.
 func (mg *K8So11YconfigV1Alpha1) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
 	return mg.Status.GetCondition(ct)

@@ -127,7 +127,7 @@ type ServiceAccountStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ServiceAccount is the Schema for the ServiceAccounts API. Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/#service-account-api
+// ServiceAccount is the Schema for the ServiceAccounts API. Note: This resource is available only with Grafana 9.1+. Official documentation https://grafana.com/docs/grafana/latest/administration/service-accounts/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/serviceaccount/#service-account-api
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

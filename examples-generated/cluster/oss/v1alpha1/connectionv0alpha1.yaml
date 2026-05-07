@@ -12,7 +12,7 @@ spec:
     - uid: my-github-connection
     secure:
     - privateKey:
-        create: replace-me
+        create: ${filebase64("${path.module}/private-key.pem")}
     secureVersion: 1
     spec:
     - description: GitHub App connection used by a folder-scoped Git Sync repository

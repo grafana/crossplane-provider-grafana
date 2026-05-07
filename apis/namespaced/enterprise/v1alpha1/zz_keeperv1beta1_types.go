@@ -86,7 +86,7 @@ type KeeperV1Beta1InitParameters struct {
 
 type KeeperV1Beta1MetadataInitParameters struct {
 
-	// The UID of the folder to save the resource in.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// The unique identifier of the resource.
@@ -99,7 +99,7 @@ type KeeperV1Beta1MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// The UID of the folder to save the resource in.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// The unique identifier of the resource.
@@ -117,7 +117,7 @@ type KeeperV1Beta1MetadataObservation struct {
 
 type KeeperV1Beta1MetadataParameters struct {
 
-	// The UID of the folder to save the resource in.
+	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -156,17 +156,27 @@ type KeeperV1Beta1Parameters struct {
 
 type OptionsInitParameters struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type OptionsObservation struct {
 
+	// Override the identity stamped on this resource's manager metadata.
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
+
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
 
 type OptionsParameters struct {
+
+	// Override the identity stamped on this resource's manager metadata.
+	// +kubebuilder:validation:Optional
+	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// +kubebuilder:validation:Optional

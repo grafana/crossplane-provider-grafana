@@ -78,6 +78,7 @@ var CategoryConfig = map[string]CategoryInfo{
 	"SLO":                    {"slo", 0},
 	"Synthetic Monitoring":   {"sm", 2},
 	"Cloud Provider":         {"cloudprovider", 2},
+	"Cloud Integrations":     {"cloudintegrations", 0},
 	"Connections":            {"connections", 1},
 	"Fleet Management":       {"fleetmanagement", 2},
 	"Frontend Observability": {"frontendobservability", 2},
