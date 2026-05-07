@@ -253,6 +253,14 @@ schema-version-diff:
 .PHONY: submodules fallthrough run crds.clean
 
 # ====================================================================================
+# Release
+
+release:
+	@./scripts/release.sh
+
+.PHONY: release
+
+# ====================================================================================
 # Special Targets
 
 define CROSSPLANE_MAKE_HELP

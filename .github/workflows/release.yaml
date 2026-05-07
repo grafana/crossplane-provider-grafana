@@ -22,12 +22,66 @@ jobs:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         persist-credentials: false
+    - name: Unshallow
+      run: git fetch --prune --unshallow
+    - name: Generate changelog
+      id: changelog
+      uses: orhun/git-cliff-action@c93ef52f3d0ddcdcc9bd5447d98d458a11cd4f72 # v4.7.1
+      with:
+        args: --latest --strip header
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Compute expected version
+      id: expected_version
+      uses: orhun/git-cliff-action@c93ef52f3d0ddcdcc9bd5447d98d458a11cd4f72 # v4.7.1
+      with:
+        args: --bumped-version
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Validate semver bump
+      env:
+        TAG_NAME: ${{ github.ref_name }}
+        EXPECTED_VERSION: ${{ steps.expected_version.outputs.content }}
+      run: |
+        # git-cliff computes the minimum required version based on conventional commits
+        expected="${EXPECTED_VERSION}"
+        actual="${TAG_NAME}"
+
+        echo "Minimum required version: $expected"
+        echo "Actual tag: $actual"
+
+        # Compare major.minor.patch — actual must be >= expected
+        IFS='.' read -r exp_major exp_minor exp_patch <<< "${expected#v}"
+        IFS='.' read -r act_major act_minor act_patch <<< "${actual#v}"
+
+        if [ "$act_major" -gt "$exp_major" ]; then
+          echo "Semver validation passed (major exceeds minimum)."
+          exit 0
+        elif [ "$act_major" -lt "$exp_major" ]; then
+          echo "::error::Tag $actual does not meet minimum required version $expected (major version too low)"
+          exit 1
+        fi
+
+        if [ "$act_minor" -gt "$exp_minor" ]; then
+          echo "Semver validation passed (minor exceeds minimum)."
+          exit 0
+        elif [ "$act_minor" -lt "$exp_minor" ]; then
+          echo "::error::Tag $actual does not meet minimum required version $expected (minor version too low)"
+          exit 1
+        fi
+
+        if [ "$act_patch" -lt "$exp_patch" ]; then
+          echo "::error::Tag $actual does not meet minimum required version $expected (patch version too low)"
+          exit 1
+        fi
+
+        echo "Semver validation passed."
     - run: ./hack/merge-crds.sh
     - uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
       with:
         allowUpdates: true
         artifacts: "dist/*"
-        body: "See https://marketplace.upbound.io/providers/grafana/provider-grafana/ for API documentation."
+        bodyFile: ${{ steps.changelog.outputs.changelog }}
 
   deploy:
     name: Trigger Argo Workflow Deployment
