@@ -1,5 +1,83 @@
 # Contributing
 
+## Submitting changes
+
+1. **Fork the repo** and create a branch from `main`.
+2. **Make your changes.** Follow the existing code style and patterns.
+3. **Run the linter** before opening a PR: `make lint`.
+4. **Open a pull request** against `main` — see [PR title format](#pr-title-format) below.
+
+## PR title format
+
+This repository uses **squash merges**, so all commits in a PR are combined
+into a single commit when merged. The **PR title becomes the commit message**,
+so it must follow the
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format:
+
+```
+<type>(<scope>): <subject>
+```
+
+A CI check validates the PR title and will block merging if it doesn't conform.
+
+### Types
+
+| Type | Purpose |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, no logic change |
+| `refactor` | Code change that neither fixes a bug nor adds a feature |
+| `perf` | Performance improvement |
+| `test` | Adding or updating tests |
+| `build` | Build system or external dependencies |
+| `ci` | CI/CD configuration |
+| `chore` | Maintenance tasks, dependency updates, housekeeping |
+
+### Scope
+
+Scope is optional but recommended. Use the affected resource name when
+applicable. Scopes must be lowercase with no spaces.
+
+### Subject
+
+The subject should be lowercase, use imperative mood ("add" not "added"), and
+not end with a period.
+
+### Breaking changes
+
+Breaking changes should be avoided whenever possible. Crossplane users depend
+on stable CRD schemas, and breaking changes force manual migration of managed
+resources and compositions.
+
+When a breaking change is unavoidable, append `!` after the type (and scope, if
+present):
+
+```
+feat(folder)!: rename uid to folder_uid
+```
+
+Breaking changes must be explained in the PR description body. When squash
+merging, expand the commit message body to include a `BREAKING CHANGE:` footer
+describing what changed and how users should migrate. For example:
+
+```
+feat(folder)!: rename uid to folder_uid
+
+BREAKING CHANGE: The `uid` field on the Folder managed resource has been
+renamed to `folder_uid`. Update your compositions and claims accordingly.
+```
+
+### Examples
+
+- `feat(dashboard): add uid attribute`
+- `fix(folder): handle missing parent on import`
+- `refactor(team): simplify group mapping logic`
+- `feat(folder)!: rename uid to folder_uid`
+- `chore: update Go dependencies`
+- `docs: update contributing guide`
+
 ## Update resources
 
 Steps to update resources from the latest Terraform provider version:

@@ -23,10 +23,11 @@
       ],
     },
     {
-      // When terraform-provider-grafana is updated, run make submodules and make generate
+      // Terraform provider updates bring new/updated resources, use feat(deps) to trigger a minor release
       matchPackageNames: [
         'github.com/grafana/terraform-provider-grafana/v4',
       ],
+      semanticCommitType: 'feat',
       postUpgradeTasks: {
         commands: [
           'make submodules',
@@ -37,6 +38,13 @@
         ],
         executionMode: 'branch',
       },
+    },
+    {
+      // Other Go module updates affect the compiled binary, use fix(deps) to trigger a patch release
+      matchManagers: [
+        'gomod',
+      ],
+      semanticCommitType: 'fix',
     },
   ],
 }
