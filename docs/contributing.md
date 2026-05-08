@@ -4,7 +4,7 @@
 
 1. **Fork the repo** and create a branch from `main`.
 2. **Make your changes.** Follow the existing code style and patterns.
-3. **Run the linter** before opening a PR: `golangci-lint run ./... -v` (with the version from `.tool-versions`).
+3. **Run the linter** before opening a PR: `make lint`.
 4. **Open a pull request** against `main` — see [PR title format](#pr-title-format) below.
 
 ## PR title format
