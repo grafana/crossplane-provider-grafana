@@ -1,0 +1,70 @@
+name: Renovate Post-Upgrade Tasks
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  post-upgrade:
+    runs-on: ubuntu-24.04
+    if: github.event.pull_request.user.login == 'renovate-sh-app[bot]'
+
+    permissions:
+      contents: read
+      id-token: write # needed for Vault OIDC
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fe104658747b27e96e4f7e80cd0a94068e53901d # v2.16.1
+        with:
+          egress-policy: audit
+
+      - name: Get GitHub App Token
+        id: get-github-token
+        uses: grafana/shared-workflows/actions/create-github-app-token@create-github-app-token/v0.2.2
+        with:
+          github_app: TODO # fill in with the correct GitHub App name
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ steps.get-github-token.outputs.token }}
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
+        with:
+          go-version-file: go.mod
+
+      - name: Find the Go Build Cache
+        id: go
+        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+
+      - name: Cache the Go Build Cache
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        with:
+          path: ${{ steps.go.outputs.cache }}
+          key: ${{ runner.os }}-build-post-upgrade-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-build-post-upgrade-
+
+      - name: Cache Go Dependencies
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        with:
+          path: .work/pkg
+          key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-pkg-
+
+      - name: Run post-upgrade tasks
+        uses: ./.github/actions/renovate-post-upgrade
+        with:
+          base-ref: ${{ github.base_ref }}
+          rules: |
+            [
+              {
+                "packages": ["github.com/grafana/terraform-provider-grafana/v4"],
+                "commands": ["make submodules", "make generate"],
+                "files": ["go.mod"]
+              }
+            ]

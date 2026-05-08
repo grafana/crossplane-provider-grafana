@@ -1,0 +1,131 @@
+name: Renovate Post-Upgrade Tasks
+description: >
+  Detect which packages changed in a Renovate PR and run corresponding
+  post-upgrade commands. Commits and pushes the results back to the PR branch.
+
+inputs:
+  rules:
+    description: >
+      JSON array of rule objects. Each rule must have:
+        - packages: string[] — package names to match in the diff
+        - commands: string[] — commands to run when a package matches
+        - files:    string[] — files to diff against the base branch
+      Example:
+        [
+          {
+            "packages": ["github.com/grafana/terraform-provider-grafana/v4"],
+            "commands": ["make submodules", "make generate"],
+            "files": ["go.mod"]
+          }
+        ]
+    required: true
+
+  base-ref:
+    description: Base branch to diff against (e.g. "main")
+    required: true
+
+outputs:
+  has-commands:
+    description: Whether any rules matched and commands were run
+    value: ${{ steps.detect.outputs.has-commands }}
+  commands:
+    description: Newline-separated list of commands that were run
+    value: ${{ steps.detect.outputs.commands }}
+
+runs:
+  using: composite
+  steps:
+    - name: Detect updated packages
+      id: detect
+      shell: bash
+      env:
+        RULES: ${{ inputs.rules }}
+        BASE_REF: ${{ inputs.base-ref }}
+      run: |
+        set -euo pipefail
+        commands=""
+
+        # Iterate over each rule in the JSON array
+        rule_count=$(echo "$RULES" | jq 'length')
+
+        for (( i=0; i<rule_count; i++ )); do
+          rule=$(echo "$RULES" | jq -c ".[$i]")
+
+          # Get the files to diff for this rule
+          files=$(echo "$rule" | jq -r '.files[]')
+
+          # Build the combined diff for all files in this rule
+          diff=""
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            file_diff=$(git diff "origin/${BASE_REF}...HEAD" -- "$file" 2>/dev/null || true)
+            diff="${diff}${file_diff}"$'\n'
+          done <<< "$files"
+
+          # Check if any package matches the diff
+          matched=false
+          packages=$(echo "$rule" | jq -r '.packages[]')
+          while IFS= read -r pkg; do
+            [ -z "$pkg" ] && continue
+            if echo "$diff" | grep -qF "$pkg"; then
+              echo "Matched package '$pkg' in rule $i"
+              matched=true
+              break
+            fi
+          done <<< "$packages"
+
+          if [ "$matched" = true ]; then
+            # Collect commands from this rule, deduplicating
+            rule_commands=$(echo "$rule" | jq -r '.commands[]')
+            while IFS= read -r cmd; do
+              [ -z "$cmd" ] && continue
+              if ! echo "$commands" | grep -qxF "$cmd"; then
+                commands="${commands}${cmd}"$'\n'
+              fi
+            done <<< "$rule_commands"
+          fi
+        done
+
+        # Trim trailing newline
+        commands=$(echo "$commands" | sed '/^$/d')
+
+        if [ -n "$commands" ]; then
+          echo "Commands to run:"
+          echo "$commands"
+          echo "has-commands=true" >> "$GITHUB_OUTPUT"
+          {
+            echo "commands<<COMMANDS_EOF"
+            echo "$commands"
+            echo "COMMANDS_EOF"
+          } >> "$GITHUB_OUTPUT"
+        else
+          echo "No matching packages found"
+          echo "has-commands=false" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Run post-upgrade commands
+      if: steps.detect.outputs.has-commands == 'true'
+      shell: bash
+      run: |
+        set -euo pipefail
+        while IFS= read -r cmd; do
+          [ -z "$cmd" ] && continue
+          echo "::group::Running: $cmd"
+          eval "$cmd"
+          echo "::endgroup::"
+        done <<< "${{ steps.detect.outputs.commands }}"
+
+    - name: Commit and push changes
+      if: steps.detect.outputs.has-commands == 'true'
+      shell: bash
+      run: |
+        set -euo pipefail
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add -A
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "chore: run post-upgrade tasks"
+          git push
+        fi
