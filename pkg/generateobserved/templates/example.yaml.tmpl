@@ -1,0 +1,16 @@
+apiVersion: {{ .Group }}
+kind: {{ .DS.KindName }}
+metadata:
+  name: example-{{ .DS.FileName }}
+  namespace: default
+spec:
+  forProvider:
+{{- if not .DS.ForProviderFields }}
+    {}
+{{- else }}
+{{- range .DS.ForProviderFields }}
+    {{ .JSONName }}: {{ exampleValue . }}
+{{- end }}
+{{- end }}
+  providerConfigRef:
+    name: example
