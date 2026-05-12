@@ -36,11 +36,6 @@ func main() {
 	crdDir := os.Args[1]
 	outDir := os.Args[2]
 
-	// Clean output directory.
-	if err := os.RemoveAll(outDir); err != nil { //nolint:gosec // G703: paths are build-time constants from go:generate.
-		log.Fatalf("Failed to clean output directory %s: %v", outDir, err) //nolint:gosec // G706: build tool, not a server.
-	}
-
 	files, err := filepath.Glob(filepath.Join(crdDir, "*.yaml"))
 	if err != nil {
 		log.Fatalf("Failed to glob CRD files: %v", err)
