@@ -30,15 +30,15 @@ import (
 
 func main() {
 	if len(os.Args) != 3 {
-		log.Fatalf("Usage: %s <crd-dir> <output-dir>", os.Args[0])
+		log.Fatalf("Usage: %s <crd-dir> <output-dir>", os.Args[0]) //nolint:gosec // G706: build tool, not a server.
 	}
 
 	crdDir := os.Args[1]
 	outDir := os.Args[2]
 
 	// Clean output directory.
-	if err := os.RemoveAll(outDir); err != nil {
-		log.Fatalf("Failed to clean output directory %s: %v", outDir, err)
+	if err := os.RemoveAll(outDir); err != nil { //nolint:gosec // G703: paths are build-time constants from go:generate.
+		log.Fatalf("Failed to clean output directory %s: %v", outDir, err) //nolint:gosec // G706: build tool, not a server.
 	}
 
 	files, err := filepath.Glob(filepath.Join(crdDir, "*.yaml"))
@@ -50,7 +50,7 @@ func main() {
 	for _, f := range files {
 		n, err := processCRD(f, outDir)
 		if err != nil {
-			log.Fatalf("Failed to process %s: %v", f, err)
+			log.Fatalf("Failed to process %s: %v", f, err) //nolint:gosec // G706: build tool, not a server.
 		}
 		count += n
 	}
@@ -61,7 +61,7 @@ func main() {
 // processCRD reads a single CRD YAML file and writes JSON Schema files
 // for each version it defines. Returns the number of schemas written.
 func processCRD(path, outDir string) (int, error) {
-	data, err := os.ReadFile(path)
+	data, err := os.ReadFile(path) //nolint:gosec // G304: path comes from filepath.Glob, not user input.
 	if err != nil {
 		return 0, fmt.Errorf("read file: %w", err)
 	}
@@ -114,7 +114,7 @@ func processCRD(path, outDir string) (int, error) {
 
 		// Write JSON schema file.
 		dir := filepath.Join(outDir, group)
-		if err := os.MkdirAll(dir, 0o755); err != nil {
+		if err := os.MkdirAll(dir, 0o750); err != nil {
 			return count, fmt.Errorf("create directory %s: %w", dir, err)
 		}
 
@@ -128,7 +128,7 @@ func processCRD(path, outDir string) (int, error) {
 		}
 
 		outPath := filepath.Join(dir, filename)
-		if err := os.WriteFile(outPath, append(jsonData, '\n'), 0o644); err != nil {
+		if err := os.WriteFile(outPath, append(jsonData, '\n'), 0o600); err != nil {
 			return count, fmt.Errorf("write %s: %w", outPath, err)
 		}
 		count++
