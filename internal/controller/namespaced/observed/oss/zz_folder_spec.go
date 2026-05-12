@@ -31,12 +31,15 @@ var FolderSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
 			}
+
 			if cr.Spec.ForProvider.Title != nil {
 				attrs["title"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Title)
 			}
+
 			if cr.Spec.ForProvider.UID != nil {
 				attrs["uid"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.UID)
 			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -47,26 +50,31 @@ var FolderSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("parent_folder_uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.ParentFolderUID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("title"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Title = &s
 				}
 			}
+
 			if v, ok := d.GetOk("uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.UID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("url"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.URL = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

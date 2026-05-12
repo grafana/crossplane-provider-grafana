@@ -35,6 +35,7 @@ var ScheduleSetSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Schedules = v
 				}
 			}
+
 		},
 	),
 }

@@ -32,6 +32,7 @@ var LibraryPanelSetSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.OrgID)
 			}
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -42,12 +43,14 @@ var LibraryPanelSetSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.OrgID = v
 				}
 			}
+
 			{
 				var v []string
 				if diags := state.GetAttribute(ctx, path.Root("panels"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Panels = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

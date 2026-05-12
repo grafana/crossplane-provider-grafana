@@ -32,9 +32,11 @@ var PrivateDataSourceConnectNetworksSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.NameFilter != nil {
 				attrs["name_filter"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.NameFilter)
 			}
+
 			if cr.Spec.ForProvider.RegionFilter != nil {
 				attrs["region_filter"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.RegionFilter)
 			}
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -45,18 +47,21 @@ var PrivateDataSourceConnectNetworksSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.NameFilter = v
 				}
 			}
+
 			{
 				var v []string
 				if diags := state.GetAttribute(ctx, path.Root("private_data_source_connect_networks"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.PrivateDataSourceConnectNetworks = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("region_filter"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.RegionFilter = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

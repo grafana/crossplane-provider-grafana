@@ -33,6 +33,7 @@ var ProbeSetSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.FilterDeprecated != nil {
 				attrs["filter_deprecated"] = tftypes.NewValue(tftypes.Bool, *cr.Spec.ForProvider.FilterDeprecated)
 			}
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -43,7 +44,9 @@ var ProbeSetSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.FilterDeprecated = v
 				}
 			}
+
 			// TODO: complex type map[string]string for probes
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

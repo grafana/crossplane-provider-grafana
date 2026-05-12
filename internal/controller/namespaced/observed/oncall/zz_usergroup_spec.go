@@ -27,6 +27,7 @@ var UserGroupSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.UserGroup)
 			attrs := map[string]string{}
 			attrs["slack_handle"] = cr.Spec.ForProvider.SlackHandle
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -37,6 +38,7 @@ var UserGroupSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.SlackID = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

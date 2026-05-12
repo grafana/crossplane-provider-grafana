@@ -35,6 +35,7 @@ var UserSetSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Users = v
 				}
 			}
+
 		},
 	),
 }

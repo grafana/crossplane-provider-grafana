@@ -32,12 +32,15 @@ var UserSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.Email != nil {
 				attrs["email"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Email)
 			}
+
 			if cr.Spec.ForProvider.Login != nil {
 				attrs["login"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Login)
 			}
+
 			if cr.Spec.ForProvider.UserID != nil {
 				attrs["user_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.UserID)
 			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -48,27 +51,32 @@ var UserSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Email = &s
 				}
 			}
+
 			if v, ok := d.GetOk("is_admin"); ok {
 				if b, ok := v.(bool); ok {
 					cr.Status.AtProvider.IsAdmin = &b
 				}
 			}
+
 			if v, ok := d.GetOk("login"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Login = &s
 				}
 			}
+
 			if v, ok := d.GetOk("name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Name = &s
 				}
 			}
+
 			if v, ok := d.GetOk("user_id"); ok {
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.UserID = &v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

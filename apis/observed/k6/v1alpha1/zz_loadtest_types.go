@@ -14,8 +14,7 @@ import (
 )
 
 // LoadTestParameters defines the input parameters for the grafana_k6_load_test data source.
-type LoadTestParameters struct {
-}
+type LoadTestParameters struct{}
 
 // LoadTestObservation holds the observed (computed) fields from the grafana_k6_load_test data source.
 type LoadTestObservation struct {

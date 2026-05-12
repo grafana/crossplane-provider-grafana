@@ -38,30 +38,35 @@ var ProjectSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Created = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("grafana_folder_uid"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.GrafanaFolderUID = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("is_default"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.IsDefault = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("updated"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Updated = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

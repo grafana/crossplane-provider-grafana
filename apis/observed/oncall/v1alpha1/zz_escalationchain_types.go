@@ -21,8 +21,7 @@ type EscalationChainParameters struct {
 }
 
 // EscalationChainObservation holds the observed (computed) fields from the grafana_oncall_escalation_chain data source.
-type EscalationChainObservation struct {
-}
+type EscalationChainObservation struct{}
 
 type EscalationChainSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`

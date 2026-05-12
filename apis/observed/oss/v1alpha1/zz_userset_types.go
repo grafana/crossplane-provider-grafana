@@ -31,8 +31,7 @@ type UsersUsers struct {
 }
 
 // UserSetParameters defines the input parameters for the grafana_users data source.
-type UserSetParameters struct {
-}
+type UserSetParameters struct{}
 
 // UserSetObservation holds the observed (computed) fields from the grafana_users data source.
 type UserSetObservation struct {

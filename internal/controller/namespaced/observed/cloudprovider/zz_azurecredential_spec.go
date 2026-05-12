@@ -30,7 +30,9 @@ var AzureCredentialSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.AzureCredential)
 			attrs := map[string]tftypes.Value{}
 			attrs["resource_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.ResourceID)
+
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -41,30 +43,35 @@ var AzureCredentialSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.ClientID = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("client_secret"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ClientSecret = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
+
 			{
 				var v []string
 				if diags := state.GetAttribute(ctx, path.Root("resource_tags_to_add_to_metrics"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.ResourceTagsToAddToMetrics = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("tenant_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.TenantID = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

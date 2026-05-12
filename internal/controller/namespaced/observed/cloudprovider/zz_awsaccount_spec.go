@@ -30,7 +30,9 @@ var AwsAccountSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.AwsAccount)
 			attrs := map[string]tftypes.Value{}
 			attrs["resource_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.ResourceID)
+
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -41,18 +43,21 @@ var AwsAccountSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Name = v
 				}
 			}
+
 			{
 				var v []string
 				if diags := state.GetAttribute(ctx, path.Root("regions"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Regions = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("role_arn"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.RoleArn = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

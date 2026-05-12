@@ -27,7 +27,9 @@ var LabelSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Label)
 			attrs := map[string]tftypes.Value{}
 			attrs["key"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Key)
+
 			attrs["value"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Value)
+
 			return attrs
 		},
 		func(_ context.Context, _ resource.Managed, _ tfsdk.State) {},

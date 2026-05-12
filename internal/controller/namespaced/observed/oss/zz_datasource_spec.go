@@ -32,12 +32,15 @@ var DataSourceSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.Name != nil {
 				attrs["name"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Name)
 			}
+
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
 			}
+
 			if cr.Spec.ForProvider.UID != nil {
 				attrs["uid"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.UID)
 			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -48,66 +51,79 @@ var DataSourceSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.AccessMode = &s
 				}
 			}
+
 			if v, ok := d.GetOk("basic_auth_enabled"); ok {
 				if b, ok := v.(bool); ok {
 					cr.Status.AtProvider.BasicAuthEnabled = &b
 				}
 			}
+
 			if v, ok := d.GetOk("basic_auth_username"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.BasicAuthUsername = &s
 				}
 			}
+
 			if v, ok := d.GetOk("database_name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.DatabaseName = &s
 				}
 			}
+
 			if v, ok := d.GetOk("is_default"); ok {
 				if b, ok := v.(bool); ok {
 					cr.Status.AtProvider.IsDefault = &b
 				}
 			}
+
 			if v, ok := d.GetOk("json_data_encoded"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.JSONDataEncoded = &s
 				}
 			}
+
 			if v, ok := d.GetOk("name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Name = &s
 				}
 			}
+
 			if v, ok := d.GetOk("org_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("private_data_source_connect_network_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.PrivateDataSourceConnectNetworkID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("type"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Type = &s
 				}
 			}
+
 			if v, ok := d.GetOk("uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.UID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("url"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.URL = &s
 				}
 			}
+
 			if v, ok := d.GetOk("username"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Username = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

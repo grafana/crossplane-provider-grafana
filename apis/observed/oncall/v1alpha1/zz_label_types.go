@@ -25,8 +25,7 @@ type LabelParameters struct {
 }
 
 // LabelObservation holds the observed (computed) fields from the grafana_oncall_label data source.
-type LabelObservation struct {
-}
+type LabelObservation struct{}
 
 type LabelSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`

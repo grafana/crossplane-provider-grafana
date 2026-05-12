@@ -31,6 +31,7 @@ var ScheduleSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Schedule)
 			attrs := map[string]tftypes.Value{}
 			attrs["load_test_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.LoadTestID)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -41,24 +42,28 @@ var ScheduleSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.CreatedBy = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("deactivated"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Deactivated = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("next_run"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.NextRun = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("starts"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Starts = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

@@ -14,8 +14,7 @@ import (
 )
 
 // ProjectParameters defines the input parameters for the grafana_k6_project data source.
-type ProjectParameters struct {
-}
+type ProjectParameters struct{}
 
 // ProjectObservation holds the observed (computed) fields from the grafana_k6_project data source.
 type ProjectObservation struct {
