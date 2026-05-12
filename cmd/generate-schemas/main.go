@@ -114,7 +114,7 @@ func processCRD(path, outDir string) (int, error) {
 
 		// Write JSON schema file.
 		dir := filepath.Join(outDir, group)
-		if err := os.MkdirAll(dir, 0o750); err != nil {
+		if err := os.MkdirAll(dir, 0o750); err != nil { //nolint:gosec // G703: paths are build-time constants from go:generate.
 			return count, fmt.Errorf("create directory %s: %w", dir, err)
 		}
 
@@ -128,7 +128,7 @@ func processCRD(path, outDir string) (int, error) {
 		}
 
 		outPath := filepath.Join(dir, filename)
-		if err := os.WriteFile(outPath, append(jsonData, '\n'), 0o600); err != nil {
+		if err := os.WriteFile(outPath, append(jsonData, '\n'), 0o600); err != nil { //nolint:gosec // G703: paths are build-time constants from go:generate.
 			return count, fmt.Errorf("write %s: %w", outPath, err)
 		}
 		count++
