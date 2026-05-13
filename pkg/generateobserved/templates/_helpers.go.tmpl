@@ -302,7 +302,7 @@ type {{ .Name }} struct {
    =================================================================== */ -}}
 {{- define "_fieldDoc" -}}
 {{- if .Description -}}
-{{- range splitLines .Description }}
+{{- range splitLines .Description -}}
 	// {{ . }}
 {{ end -}}
 {{- end -}}
