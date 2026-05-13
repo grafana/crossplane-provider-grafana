@@ -14,8 +14,7 @@ import (
 )
 
 // IPSParameters defines the input parameters for the grafana_cloud_ips data source.
-type IPSParameters struct {
-}
+type IPSParameters struct{}
 
 // IPSObservation holds the observed (computed) fields from the grafana_cloud_ips data source.
 type IPSObservation struct {

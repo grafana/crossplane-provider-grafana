@@ -31,6 +31,7 @@ var ProbeSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Probe)
 			attrs := map[string]tftypes.Value{}
 			attrs["name"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Name)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -41,33 +42,41 @@ var ProbeSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.DisableBrowserChecks = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("disable_scripted_checks"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.DisableScriptedChecks = v
 				}
 			}
+
 			// TODO: complex type map[string]string for labels
+
 			// TODO: complex type *float64 for latitude
+
 			// TODO: complex type *float64 for longitude
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("public"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Public = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("region"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Region = v
 				}
 			}
+
 			{
 				var v *int64
 				if diags := state.GetAttribute(ctx, path.Root("tenant_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.TenantID = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

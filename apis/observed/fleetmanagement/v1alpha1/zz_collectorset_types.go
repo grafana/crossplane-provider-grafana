@@ -14,8 +14,7 @@ import (
 )
 
 // CollectorSetParameters defines the input parameters for the grafana_fleet_management_collectors data source.
-type CollectorSetParameters struct {
-}
+type CollectorSetParameters struct{}
 
 // CollectorSetObservation holds the observed (computed) fields from the grafana_fleet_management_collectors data source.
 type CollectorSetObservation struct {

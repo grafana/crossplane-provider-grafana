@@ -37,36 +37,42 @@ var LoadTestSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.BaselineTestRunID = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("created"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Created = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("project_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ProjectID = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("script"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Script = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("updated"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Updated = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

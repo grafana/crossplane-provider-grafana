@@ -27,6 +27,7 @@ var TeamSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Team)
 			attrs := map[string]string{}
 			attrs["name"] = cr.Spec.ForProvider.Name
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -37,11 +38,13 @@ var TeamSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.AvatarURL = &s
 				}
 			}
+
 			if v, ok := d.GetOk("email"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Email = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

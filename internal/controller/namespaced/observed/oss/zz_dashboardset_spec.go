@@ -30,13 +30,17 @@ var DashboardSetSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.DashboardSet)
 			attrs := map[string]string{}
 			attrs["folder_uids"] = fmt.Sprintf("%v", cr.Spec.ForProvider.FolderUIDs)
+
 			if cr.Spec.ForProvider.Limit != nil {
 				attrs["limit"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Limit)
 			}
+
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
 			}
+
 			attrs["tags"] = fmt.Sprintf("%v", cr.Spec.ForProvider.Tags)
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -62,19 +66,24 @@ var DashboardSetSpec = tfdatasource.Spec{
 				}
 				cr.Status.AtProvider.Dashboards = items
 			}
+
 			// TODO: complex type []string for folder_uids
+
 			if v, ok := d.GetOk("limit"); ok {
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.Limit = &v
 				}
 			}
+
 			if v, ok := d.GetOk("org_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			// TODO: complex type []string for tags
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

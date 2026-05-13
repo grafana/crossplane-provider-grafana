@@ -21,8 +21,7 @@ type AwsCloudwatchScrapeJobSetParameters struct {
 }
 
 // AwsCloudwatchScrapeJobSetObservation holds the observed (computed) fields from the grafana_cloud_provider_aws_cloudwatch_scrape_jobs data source.
-type AwsCloudwatchScrapeJobSetObservation struct {
-}
+type AwsCloudwatchScrapeJobSetObservation struct{}
 
 type AwsCloudwatchScrapeJobSetSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`

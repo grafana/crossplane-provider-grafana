@@ -15,7 +15,6 @@ import (
 
 // StackParameters defines the input parameters for the grafana_cloud_stack data source.
 type StackParameters struct {
-	//
 	// Subdomain that the Grafana instance will be available at (i.e. setting slug to “<stack_slug>” will make the instance
 	// available at “https://<stack_slug>.grafana.net".
 	// +kubebuilder:validation:Required

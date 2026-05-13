@@ -22,34 +22,37 @@ import (
 )
 
 // dsInfo holds metadata about a single data source for code generation.
+// Fields are exported for access by Go templates.
 type dsInfo struct {
-	tfName      string
-	kindName    string
-	fileName    string
-	catInfo     CategoryRule
-	isLegacySDK bool
+	TFName      string
+	KindName    string
+	FileName    string
+	CatInfo     CategoryRule
+	IsLegacySDK bool
 
-	legacySchema *sdkschema.Resource
-	fwDS         datasource.DataSource
+	LegacySchema *sdkschema.Resource
+	FwDS         datasource.DataSource
 
-	forProviderFields []fieldInfo
-	atProviderFields  []fieldInfo
+	ForProviderFields []fieldInfo
+	AtProviderFields  []fieldInfo
 }
 
+// fieldInfo describes a single schema field for code generation.
+// Fields are exported for access by Go templates.
 type fieldInfo struct {
-	tfName      string
-	goName      string
-	jsonName    string
-	goType      string
-	required    bool
-	description string
+	TFName      string
+	GoName      string
+	JSONName    string
+	GoType      string
+	Required    bool
+	Description string
 
-	// nestedFields holds the fields of a nested struct type (for List/Set of objects).
-	nestedFields []fieldInfo
-	// nestedStructName is the Go type name for the nested struct (e.g. "UsersUser").
-	nestedStructName string
-	// isSet is true when the field is a TypeSet (vs TypeList). Affects how data is extracted.
-	isSet bool
+	// NestedFields holds the fields of a nested struct type (for List/Set of objects).
+	NestedFields []fieldInfo
+	// NestedStructName is the Go type name for the nested struct (e.g. "UsersUser").
+	NestedStructName string
+	// IsSet is true when the field is a TypeSet (vs TypeList). Affects how data is extracted.
+	IsSet bool
 }
 
 // Generate introspects the given TF providers and emits all observed resource
@@ -73,13 +76,13 @@ func Generate(cfg Config, legacyProvider *sdkschema.Provider, frameworkProvider 
 	for _, dsList := range grouped {
 		kindSet := map[string]*dsInfo{}
 		for _, ds := range dsList {
-			kindSet[ds.kindName] = ds
+			kindSet[ds.KindName] = ds
 		}
 		for _, ds := range dsList {
-			singular := strings.TrimSuffix(ds.kindName, "s")
-			if singular != ds.kindName && kindSet[singular] != nil {
-				ds.kindName = singular + "Set"
-				ds.fileName = strings.ToLower(singular) + "set"
+			singular := strings.TrimSuffix(ds.KindName, "s")
+			if singular != ds.KindName && kindSet[singular] != nil {
+				ds.KindName = singular + "Set"
+				ds.FileName = strings.ToLower(singular) + "set"
 			}
 		}
 	}
@@ -103,12 +106,12 @@ func collectLegacyDataSources(cfg Config, p *sdkschema.Provider, grouped map[str
 			continue
 		}
 		info := &dsInfo{
-			tfName:       name,
-			catInfo:      *ci,
-			isLegacySDK:  true,
-			legacySchema: ds,
+			TFName:       name,
+			CatInfo:      *ci,
+			IsLegacySDK:  true,
+			LegacySchema: ds,
 		}
-		info.kindName, info.fileName = deriveNames(cfg, acronyms, name, ci.TFPrefix)
+		info.KindName, info.FileName = deriveNames(cfg, acronyms, name, ci.TFPrefix)
 		parseLegacySchema(acronyms, info)
 		grouped[ci.DirName] = append(grouped[ci.DirName], info)
 	}
@@ -134,12 +137,12 @@ func collectFrameworkDataSources(cfg Config, fwp fwprovider.Provider, grouped ma
 		}
 
 		info := &dsInfo{
-			tfName:      name,
-			catInfo:     *ci,
-			isLegacySDK: false,
-			fwDS:        ds,
+			TFName:      name,
+			CatInfo:     *ci,
+			IsLegacySDK: false,
+			FwDS:        ds,
 		}
-		info.kindName, info.fileName = deriveNames(cfg, acronyms, name, ci.TFPrefix)
+		info.KindName, info.FileName = deriveNames(cfg, acronyms, name, ci.TFPrefix)
 		parseFWSchema(acronyms, info, ds)
 		grouped[ci.DirName] = append(grouped[ci.DirName], info)
 	}
@@ -178,7 +181,7 @@ func sortedGroupNames(grouped map[string][]*dsInfo) []string {
 	sort.Strings(names)
 	for _, name := range names {
 		sort.Slice(grouped[name], func(i, j int) bool {
-			return grouped[name][i].tfName < grouped[name][j].tfName
+			return grouped[name][i].TFName < grouped[name][j].TFName
 		})
 	}
 	return names
@@ -197,21 +200,21 @@ func countTotal(grouped map[string][]*dsInfo) int {
 // =============================================================================
 
 func parseLegacySchema(acronyms map[string]bool, info *dsInfo) {
-	if info.legacySchema == nil || info.legacySchema.Schema == nil {
-		log.Fatalf("data source %q has nil schema", info.tfName)
+	if info.LegacySchema == nil || info.LegacySchema.Schema == nil {
+		log.Fatalf("data source %q has nil schema", info.TFName)
 	}
-	for name, field := range info.legacySchema.Schema {
+	for name, field := range info.LegacySchema.Schema {
 		if name == "id" {
 			continue
 		}
-		fi := buildLegacyFieldInfo(acronyms, info.kindName, name, field)
+		fi := buildLegacyFieldInfo(acronyms, info.KindName, name, field)
 		if field.Required || field.Optional {
-			info.forProviderFields = append(info.forProviderFields, fi)
+			info.ForProviderFields = append(info.ForProviderFields, fi)
 		}
 		// All fields are observable outputs in data sources: TF data sources
 		// populate every field on read, including Optional inputs.
 		if field.Computed || field.Optional {
-			info.atProviderFields = append(info.atProviderFields, fi)
+			info.AtProviderFields = append(info.AtProviderFields, fi)
 		}
 	}
 	sortFields(info)
@@ -219,29 +222,29 @@ func parseLegacySchema(acronyms map[string]bool, info *dsInfo) {
 
 func buildLegacyFieldInfo(acronyms map[string]bool, parentName, name string, field *sdkschema.Schema) fieldInfo {
 	fi := fieldInfo{
-		tfName:      name,
-		goName:      snakeToCamel(acronyms, name),
-		jsonName:    snakeToCamelJSON(acronyms, name),
-		goType:      sdkTypeToGo(field),
-		required:    field.Required,
-		description: field.Description,
+		TFName:      name,
+		GoName:      snakeToCamel(acronyms, name),
+		JSONName:    snakeToCamelJSON(acronyms, name),
+		GoType:      sdkTypeToGo(field),
+		Required:    field.Required,
+		Description: field.Description,
 	}
 
 	// Handle nested resource elements in List/Set types.
 	if field.Type == sdkschema.TypeList || field.Type == sdkschema.TypeSet {
 		if res, ok := field.Elem.(*sdkschema.Resource); ok {
 			structName := parentName + snakeToCamel(acronyms, name)
-			fi.nestedStructName = structName
-			fi.goType = "[]" + structName
-			fi.isSet = field.Type == sdkschema.TypeSet
+			fi.NestedStructName = structName
+			fi.GoType = "[]" + structName
+			fi.IsSet = field.Type == sdkschema.TypeSet
 
 			nested := make([]fieldInfo, 0, len(res.Schema))
 			for nestedName, nestedField := range res.Schema {
 				nfi := buildLegacyFieldInfo(acronyms, structName, nestedName, nestedField)
 				nested = append(nested, nfi)
 			}
-			sort.Slice(nested, func(i, j int) bool { return nested[i].tfName < nested[j].tfName })
-			fi.nestedFields = nested
+			sort.Slice(nested, func(i, j int) bool { return nested[i].TFName < nested[j].TFName })
+			fi.NestedFields = nested
 		}
 	}
 
@@ -255,12 +258,12 @@ func parseFWSchema(acronyms map[string]bool, info *dsInfo, ds datasource.DataSou
 	}
 	s, ok := ds.(schemaer)
 	if !ok {
-		log.Fatalf("data source %q does not implement Schema", info.tfName)
+		log.Fatalf("data source %q does not implement Schema", info.TFName)
 	}
 	var resp datasource.SchemaResponse
 	s.Schema(ctx, datasource.SchemaRequest{}, &resp)
 	if resp.Diagnostics.HasError() {
-		log.Fatalf("schema for %q has errors: %v", info.tfName, resp.Diagnostics.Errors())
+		log.Fatalf("schema for %q has errors: %v", info.TFName, resp.Diagnostics.Errors())
 	}
 
 	for name, attr := range resp.Schema.Attributes {
@@ -268,31 +271,31 @@ func parseFWSchema(acronyms map[string]bool, info *dsInfo, ds datasource.DataSou
 			continue
 		}
 		fi := fieldInfo{
-			tfName:      name,
-			goName:      snakeToCamel(acronyms, name),
-			jsonName:    snakeToCamelJSON(acronyms, name),
-			goType:      fwAttrTypeToGo(attr),
-			required:    attr.IsRequired(),
-			description: attr.GetMarkdownDescription(),
+			TFName:      name,
+			GoName:      snakeToCamel(acronyms, name),
+			JSONName:    snakeToCamelJSON(acronyms, name),
+			GoType:      fwAttrTypeToGo(attr),
+			Required:    attr.IsRequired(),
+			Description: attr.GetMarkdownDescription(),
 		}
-		if fi.description == "" {
-			fi.description = attr.GetDescription()
+		if fi.Description == "" {
+			fi.Description = attr.GetDescription()
 		}
 		if attr.IsRequired() || attr.IsOptional() {
-			info.forProviderFields = append(info.forProviderFields, fi)
+			info.ForProviderFields = append(info.ForProviderFields, fi)
 		}
 		// All fields are observable outputs in data sources: TF data sources
 		// populate every field on read, including Optional inputs.
 		if attr.IsComputed() || attr.IsOptional() {
-			info.atProviderFields = append(info.atProviderFields, fi)
+			info.AtProviderFields = append(info.AtProviderFields, fi)
 		}
 	}
 	sortFields(info)
 }
 
 func sortFields(info *dsInfo) {
-	sort.Slice(info.forProviderFields, func(i, j int) bool { return info.forProviderFields[i].tfName < info.forProviderFields[j].tfName })
-	sort.Slice(info.atProviderFields, func(i, j int) bool { return info.atProviderFields[i].tfName < info.atProviderFields[j].tfName })
+	sort.Slice(info.ForProviderFields, func(i, j int) bool { return info.ForProviderFields[i].TFName < info.ForProviderFields[j].TFName })
+	sort.Slice(info.AtProviderFields, func(i, j int) bool { return info.AtProviderFields[i].TFName < info.AtProviderFields[j].TFName })
 }
 
 func sdkTypeToGo(field *sdkschema.Schema) string {
@@ -386,7 +389,7 @@ func emitFiles(cfg Config, grouped map[string][]*dsInfo, groupNames []string) {
 
 	for _, groupName := range groupNames {
 		dsList := grouped[groupName]
-		ci := dsList[0].catInfo
+		ci := dsList[0].CatInfo
 
 		apiDir := filepath.Join(apisBase, groupName, cfg.APIVersion)
 		ctrlDir := filepath.Join(ctrlBase, groupName)
@@ -399,9 +402,9 @@ func emitFiles(cfg Config, grouped map[string][]*dsInfo, groupNames []string) {
 		writeFormatted(filepath.Join(apiDir, "zz_groupversion_info.go"), generateGroupVersionInfo(cfg, ci))
 
 		for _, ds := range dsList {
-			writeFormatted(filepath.Join(apiDir, "zz_"+ds.fileName+"_types.go"), generateTypes(cfg, ds))
-			writeFormatted(filepath.Join(ctrlDir, "zz_"+ds.fileName+"_spec.go"), generateSpec(cfg, ds, ci))
-			writeRaw(filepath.Join(examplesDir, ds.fileName+".yaml"), generateExample(cfg, ds, ci))
+			writeFormatted(filepath.Join(apiDir, "zz_"+ds.FileName+"_types.go"), generateTypes(cfg, ds))
+			writeFormatted(filepath.Join(ctrlDir, "zz_"+ds.FileName+"_spec.go"), generateSpec(cfg, ds, ci))
+			writeRaw(filepath.Join(examplesDir, ds.FileName+".yaml"), generateExample(cfg, ds, ci))
 		}
 
 		writeFormatted(filepath.Join(ctrlDir, "zz_setup.go"), generateGroupSetup(cfg, dsList, ci))

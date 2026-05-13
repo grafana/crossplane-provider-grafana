@@ -21,8 +21,7 @@ type OutgoingWebhookParameters struct {
 }
 
 // OutgoingWebhookObservation holds the observed (computed) fields from the grafana_oncall_outgoing_webhook data source.
-type OutgoingWebhookObservation struct {
-}
+type OutgoingWebhookObservation struct{}
 
 type OutgoingWebhookSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`

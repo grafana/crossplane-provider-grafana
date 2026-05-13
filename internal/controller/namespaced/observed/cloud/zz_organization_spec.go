@@ -32,6 +32,7 @@ var OrganizationSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.Slug != nil {
 				attrs["slug"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.Slug)
 			}
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -42,30 +43,35 @@ var OrganizationSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.CreatedAt = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("slug"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Slug = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("updated_at"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.UpdatedAt = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("url"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.URL = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

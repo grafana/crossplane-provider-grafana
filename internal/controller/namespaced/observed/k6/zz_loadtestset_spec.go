@@ -32,7 +32,9 @@ var LoadTestSetSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.Name != nil {
 				attrs["name"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.Name)
 			}
+
 			attrs["project_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.ProjectID)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -43,12 +45,14 @@ var LoadTestSetSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.LoadTests = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

@@ -27,6 +27,7 @@ var AwsCloudwatchScrapeJobSetSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.AwsCloudwatchScrapeJobSet)
 			attrs := map[string]tftypes.Value{}
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
+
 			return attrs
 		},
 		func(_ context.Context, _ resource.Managed, _ tfsdk.State) {},

@@ -30,9 +30,11 @@ var ServiceAccountSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.ServiceAccount)
 			attrs := map[string]string{}
 			attrs["name"] = cr.Spec.ForProvider.Name
+
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
 			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -43,16 +45,19 @@ var ServiceAccountSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.IsDisabled = &b
 				}
 			}
+
 			if v, ok := d.GetOk("org_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("role"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Role = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

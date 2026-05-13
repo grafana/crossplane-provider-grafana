@@ -29,6 +29,7 @@ var RoleSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Role)
 			attrs := map[string]string{}
 			attrs["name"] = cr.Spec.ForProvider.Name
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -39,31 +40,37 @@ var RoleSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Description = &s
 				}
 			}
+
 			if v, ok := d.GetOk("display_name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.DisplayName = &s
 				}
 			}
+
 			if v, ok := d.GetOk("global"); ok {
 				if b, ok := v.(bool); ok {
 					cr.Status.AtProvider.Global = &b
 				}
 			}
+
 			if v, ok := d.GetOk("group"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Group = &s
 				}
 			}
+
 			if v, ok := d.GetOk("hidden"); ok {
 				if b, ok := v.(bool); ok {
 					cr.Status.AtProvider.Hidden = &b
 				}
 			}
+
 			if v, ok := d.GetOk("org_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("permissions"); ok {
 				var items []v1alpha1.RolePermissions
 				var list []interface{}
@@ -83,17 +90,20 @@ var RoleSpec = tfdatasource.Spec{
 				}
 				cr.Status.AtProvider.Permissions = items
 			}
+
 			if v, ok := d.GetOk("uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.UID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("version"); ok {
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.Version = &v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

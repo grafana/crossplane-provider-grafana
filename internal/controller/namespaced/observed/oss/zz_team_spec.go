@@ -31,12 +31,15 @@ var TeamSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Team)
 			attrs := map[string]tftypes.Value{}
 			attrs["name"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Name)
+
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.OrgID)
 			}
+
 			if cr.Spec.ForProvider.ReadTeamSync != nil {
 				attrs["read_team_sync"] = tftypes.NewValue(tftypes.Bool, *cr.Spec.ForProvider.ReadTeamSync)
 			}
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -47,36 +50,42 @@ var TeamSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Email = v
 				}
 			}
+
 			{
 				var v []string
 				if diags := state.GetAttribute(ctx, path.Root("members"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Members = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("org_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.OrgID = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("read_team_sync"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ReadTeamSync = v
 				}
 			}
+
 			{
 				var v *int64
 				if diags := state.GetAttribute(ctx, path.Root("team_id"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.TeamID = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("team_uid"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.TeamUID = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

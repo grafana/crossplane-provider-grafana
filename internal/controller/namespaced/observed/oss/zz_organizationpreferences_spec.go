@@ -31,6 +31,7 @@ var OrganizationPreferencesSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
 			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -41,26 +42,31 @@ var OrganizationPreferencesSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.HomeDashboardUID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("org_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("theme"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Theme = &s
 				}
 			}
+
 			if v, ok := d.GetOk("timezone"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Timezone = &s
 				}
 			}
+
 			if v, ok := d.GetOk("week_start"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.WeekStart = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

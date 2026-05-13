@@ -26,6 +26,7 @@ var EscalationChainSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.EscalationChain)
 			attrs := map[string]string{}
 			attrs["name"] = cr.Spec.ForProvider.Name
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {

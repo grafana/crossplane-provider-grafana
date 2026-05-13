@@ -38,14 +38,18 @@ var CollectorSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.CollectorType = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("enabled"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Enabled = v
 				}
 			}
+
 			// TODO: complex type map[string]string for local_attributes
+
 			// TODO: complex type map[string]string for remote_attributes
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

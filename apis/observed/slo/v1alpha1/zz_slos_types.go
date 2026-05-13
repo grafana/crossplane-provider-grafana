@@ -14,12 +14,10 @@ import (
 )
 
 // SLOsParameters defines the input parameters for the grafana_slos data source.
-type SLOsParameters struct {
-}
+type SLOsParameters struct{}
 
 // SLOsObservation holds the observed (computed) fields from the grafana_slos data source.
-type SLOsObservation struct {
-}
+type SLOsObservation struct{}
 
 type SLOsSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`

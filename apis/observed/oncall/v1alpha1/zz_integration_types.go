@@ -14,8 +14,7 @@ import (
 )
 
 // IntegrationParameters defines the input parameters for the grafana_oncall_integration data source.
-type IntegrationParameters struct {
-}
+type IntegrationParameters struct{}
 
 // IntegrationObservation holds the observed (computed) fields from the grafana_oncall_integration data source.
 type IntegrationObservation struct {

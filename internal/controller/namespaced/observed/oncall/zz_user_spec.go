@@ -30,6 +30,7 @@ var UserSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.User)
 			attrs := map[string]tftypes.Value{}
 			attrs["username"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Username)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -40,12 +41,14 @@ var UserSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Email = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("role"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Role = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

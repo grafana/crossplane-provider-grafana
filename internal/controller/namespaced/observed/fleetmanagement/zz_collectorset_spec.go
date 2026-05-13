@@ -35,6 +35,7 @@ var CollectorSetSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Collectors = v
 				}
 			}
+
 		},
 	),
 }

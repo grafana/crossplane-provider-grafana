@@ -30,7 +30,9 @@ var AppSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.App)
 			attrs := map[string]tftypes.Value{}
 			attrs["name"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Name)
+
 			attrs["stack_id"] = tftypes.NewValue(tftypes.Number, cr.Spec.ForProvider.StackID)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -41,14 +43,18 @@ var AppSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.AllowedOrigins = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("collector_endpoint"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.CollectorEndpoint = v
 				}
 			}
+
 			// TODO: complex type map[string]string for extra_log_attributes
+
 			// TODO: complex type map[string]string for settings
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

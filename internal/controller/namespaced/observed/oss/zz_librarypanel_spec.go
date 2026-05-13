@@ -32,12 +32,15 @@ var LibraryPanelSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.Name != nil {
 				attrs["name"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Name)
 			}
+
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
 			}
+
 			if cr.Spec.ForProvider.UID != nil {
 				attrs["uid"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.UID)
 			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -48,64 +51,77 @@ var LibraryPanelSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Created = &s
 				}
 			}
+
 			// TODO: complex type []int64 for dashboard_ids
+
 			if v, ok := d.GetOk("description"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Description = &s
 				}
 			}
+
 			if v, ok := d.GetOk("folder_name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.FolderName = &s
 				}
 			}
+
 			if v, ok := d.GetOk("folder_uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.FolderUID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("model_json"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.ModelJSON = &s
 				}
 			}
+
 			if v, ok := d.GetOk("name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Name = &s
 				}
 			}
+
 			if v, ok := d.GetOk("org_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("panel_id"); ok {
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.PanelID = &v
 				}
 			}
+
 			if v, ok := d.GetOk("type"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Type = &s
 				}
 			}
+
 			if v, ok := d.GetOk("uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.UID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("updated"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Updated = &s
 				}
 			}
+
 			if v, ok := d.GetOk("version"); ok {
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.Version = &v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

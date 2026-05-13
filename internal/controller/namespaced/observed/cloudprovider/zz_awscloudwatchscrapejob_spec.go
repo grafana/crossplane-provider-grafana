@@ -31,7 +31,9 @@ var AwsCloudwatchScrapeJobSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.AwsCloudwatchScrapeJob)
 			attrs := map[string]tftypes.Value{}
 			attrs["name"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.Name)
+
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -42,43 +44,51 @@ var AwsCloudwatchScrapeJobSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.AwsAccountResourceID = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("disabled_reason"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.DisabledReason = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("enabled"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Enabled = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("export_tags"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.ExportTags = v
 				}
 			}
+
 			{
 				var v []string
 				if diags := state.GetAttribute(ctx, path.Root("regions"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Regions = v
 				}
 			}
+
 			{
 				var v *bool
 				if diags := state.GetAttribute(ctx, path.Root("regions_subset_override_used"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.RegionsSubsetOverrideUsed = v
 				}
 			}
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("role_arn"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.RoleArn = v
 				}
 			}
+
 			// TODO: complex type map[string]string for static_labels
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

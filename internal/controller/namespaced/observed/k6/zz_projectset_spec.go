@@ -32,6 +32,7 @@ var ProjectSetSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.Name != nil {
 				attrs["name"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.Name)
 			}
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -42,12 +43,14 @@ var ProjectSetSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.Name = v
 				}
 			}
+
 			{
 				var v []string
 				if diags := state.GetAttribute(ctx, path.Root("projects"), &v); !diags.HasError() && len(v) > 0 {
 					cr.Status.AtProvider.Projects = v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

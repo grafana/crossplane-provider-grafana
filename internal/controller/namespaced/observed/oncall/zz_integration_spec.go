@@ -35,16 +35,19 @@ var IntegrationSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.InboundEmail = &s
 				}
 			}
+
 			if v, ok := d.GetOk("link"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Link = &s
 				}
 			}
+
 			if v, ok := d.GetOk("name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Name = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

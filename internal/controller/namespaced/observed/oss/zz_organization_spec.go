@@ -26,14 +26,18 @@ var OrganizationSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.Organization)
 			attrs := map[string]string{}
 			attrs["name"] = cr.Spec.ForProvider.Name
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
 			cr := mg.(*v1alpha1.Organization)
 			meta.SetExternalName(cr, d.Id())
 			// TODO: complex type []string for admins
+
 			// TODO: complex type []string for editors
+
 			// TODO: complex type []string for viewers
+
 		},
 	),
 }

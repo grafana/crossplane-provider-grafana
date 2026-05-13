@@ -32,12 +32,15 @@ var DashboardSpec = tfdatasource.Spec{
 			if cr.Spec.ForProvider.DashboardID != nil {
 				attrs["dashboard_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.DashboardID)
 			}
+
 			if cr.Spec.ForProvider.OrgID != nil {
 				attrs["org_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.OrgID)
 			}
+
 			if cr.Spec.ForProvider.UID != nil {
 				attrs["uid"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.UID)
 			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -48,53 +51,63 @@ var DashboardSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.ConfigJSON = &s
 				}
 			}
+
 			if v, ok := d.GetOk("dashboard_id"); ok {
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.DashboardID = &v
 				}
 			}
+
 			if v, ok := d.GetOk("folder_uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.FolderUID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("is_starred"); ok {
 				if b, ok := v.(bool); ok {
 					cr.Status.AtProvider.IsStarred = &b
 				}
 			}
+
 			if v, ok := d.GetOk("org_id"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.OrgID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("slug"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Slug = &s
 				}
 			}
+
 			if v, ok := d.GetOk("title"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.Title = &s
 				}
 			}
+
 			if v, ok := d.GetOk("uid"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.UID = &s
 				}
 			}
+
 			if v, ok := d.GetOk("url"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.URL = &s
 				}
 			}
+
 			if v, ok := d.GetOk("version"); ok {
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.Version = &v
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

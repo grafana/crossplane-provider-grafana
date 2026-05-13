@@ -14,8 +14,7 @@ import (
 )
 
 // ScheduleSetParameters defines the input parameters for the grafana_k6_schedules data source.
-type ScheduleSetParameters struct {
-}
+type ScheduleSetParameters struct{}
 
 // ScheduleSetObservation holds the observed (computed) fields from the grafana_k6_schedules data source.
 type ScheduleSetObservation struct {

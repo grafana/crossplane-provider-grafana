@@ -27,6 +27,7 @@ var SlackChannelSpec = tfdatasource.Spec{
 			cr := mg.(*v1alpha1.SlackChannel)
 			attrs := map[string]string{}
 			attrs["name"] = cr.Spec.ForProvider.Name
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -37,6 +38,7 @@ var SlackChannelSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.SlackID = &s
 				}
 			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
