@@ -1,0 +1,309 @@
+{{- /*
+  _helpers.go.tmpl — snippet templates used by funcmap helpers.
+  Each {{define}} block is called from a Go FuncMap wrapper via executeTemplate.
+*/ -}}
+
+{{- /* ===================================================================
+   _toAttrsLegacy: convert ForProvider field → map[string]string entry (legacy SDK)
+   Data: fieldInfo
+   =================================================================== */ -}}
+{{- define "_toAttrsLegacy" -}}
+{{- if hasPrefix .GoType "*" -}}
+			if cr.Spec.ForProvider.{{ .GoName }} != nil {
+				attrs[{{ printf "%q" .TFName }}] = fmt.Sprintf("%v", *cr.Spec.ForProvider.{{ .GoName }})
+			}
+{{ else if eq .GoType "string" -}}
+			attrs[{{ printf "%q" .TFName }}] = cr.Spec.ForProvider.{{ .GoName }}
+{{ else -}}
+			attrs[{{ printf "%q" .TFName }}] = fmt.Sprintf("%v", cr.Spec.ForProvider.{{ .GoName }})
+{{ end -}}
+{{- end -}}
+
+{{- /* ===================================================================
+   _fromResourceData: extract scalar field from legacy SDK ResourceData
+   Data: fieldInfo
+   =================================================================== */ -}}
+{{- define "_fromResourceData" -}}
+{{- if eq .GoType "*string" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.{{ .GoName }} = &s
+				}
+			}
+{{ else if eq .GoType "string" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.{{ .GoName }} = s
+				}
+			}
+{{ else if eq .GoType "*int64" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if i, ok := v.(int); ok {
+					v := int64(i)
+					cr.Status.AtProvider.{{ .GoName }} = &v
+				}
+			}
+{{ else if eq .GoType "int64" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if i, ok := v.(int); ok {
+					cr.Status.AtProvider.{{ .GoName }} = int64(i)
+				}
+			}
+{{ else if eq .GoType "*float64" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if f, ok := v.(float64); ok {
+					cr.Status.AtProvider.{{ .GoName }} = &f
+				}
+			}
+{{ else if eq .GoType "float64" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if f, ok := v.(float64); ok {
+					cr.Status.AtProvider.{{ .GoName }} = f
+				}
+			}
+{{ else if eq .GoType "*bool" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.{{ .GoName }} = &b
+				}
+			}
+{{ else if eq .GoType "bool" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.{{ .GoName }} = b
+				}
+			}
+{{ else -}}
+			// TODO: complex type {{ .GoType }} for {{ .TFName }}
+{{ end -}}
+{{- end -}}
+
+{{- /* ===================================================================
+   _nestedFromResourceData: extract nested (List/Set of objects) field
+   Data: fieldInfo (with .NestedFields, .NestedStructName, .IsSet)
+   =================================================================== */ -}}
+{{- define "_nestedFromResourceData" -}}
+			if v, ok := d.GetOk({{ printf "%q" .TFName }}); ok {
+				var items []v1alpha1.{{ .NestedStructName }}
+				var list []interface{}
+{{- if .IsSet }}
+				if s, ok := v.(*sdkschema.Set); ok {
+					list = s.List()
+				}
+{{- else }}
+				list, _ = v.([]interface{})
+{{- end }}
+				for _, raw := range list {
+					item := v1alpha1.{{ .NestedStructName }}{}
+{{- if hasScalarNestedFields .NestedFields }}
+					m, _ := raw.(map[string]interface{})
+{{- range .NestedFields }}
+{{- if and (not .NestedFields) (isScalar .GoType) }}
+{{- if eq .GoType "string" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(string); ok {
+						item.{{ .GoName }} = val
+					}
+{{- else if eq .GoType "*string" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(string); ok {
+						item.{{ .GoName }} = &val
+					}
+{{- else if eq .GoType "int64" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(int); ok {
+						v := int64(val)
+						item.{{ .GoName }} = v
+					}
+{{- else if eq .GoType "*int64" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(int); ok {
+						v := int64(val)
+						item.{{ .GoName }} = &v
+					}
+{{- else if eq .GoType "bool" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(bool); ok {
+						item.{{ .GoName }} = val
+					}
+{{- else if eq .GoType "*bool" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(bool); ok {
+						item.{{ .GoName }} = &val
+					}
+{{- else if eq .GoType "float64" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(float64); ok {
+						item.{{ .GoName }} = val
+					}
+{{- else if eq .GoType "*float64" }}
+					if val, ok := m[{{ printf "%q" .TFName }}].(float64); ok {
+						item.{{ .GoName }} = &val
+					}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- else }}
+					_ = raw
+{{- end }}
+					items = append(items, item)
+				}
+				cr.Status.AtProvider.{{ .GoName }} = items
+			}
+{{ end -}}
+
+{{- /* ===================================================================
+   _toTFTypesValue: convert ForProvider field → tftypes.Value (framework)
+   Data: fieldInfo
+   =================================================================== */ -}}
+{{- define "_toTFTypesValue" -}}
+{{- if eq .GoType "string" -}}
+			attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.{{ .GoName }})
+{{ else if eq .GoType "*string" -}}
+			if cr.Spec.ForProvider.{{ .GoName }} != nil {
+				attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.{{ .GoName }})
+			}
+{{ else if eq .GoType "int64" -}}
+			attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.Number, cr.Spec.ForProvider.{{ .GoName }})
+{{ else if eq .GoType "*int64" -}}
+			if cr.Spec.ForProvider.{{ .GoName }} != nil {
+				attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.Number, *cr.Spec.ForProvider.{{ .GoName }})
+			}
+{{ else if eq .GoType "bool" -}}
+			attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.Bool, cr.Spec.ForProvider.{{ .GoName }})
+{{ else if eq .GoType "*bool" -}}
+			if cr.Spec.ForProvider.{{ .GoName }} != nil {
+				attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.Bool, *cr.Spec.ForProvider.{{ .GoName }})
+			}
+{{ else if eq .GoType "float64" -}}
+			attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.Number, cr.Spec.ForProvider.{{ .GoName }})
+{{ else if eq .GoType "*float64" -}}
+			if cr.Spec.ForProvider.{{ .GoName }} != nil {
+				attrs[{{ printf "%q" .TFName }}] = tftypes.NewValue(tftypes.Number, *cr.Spec.ForProvider.{{ .GoName }})
+			}
+{{ else -}}
+			// TODO: complex type {{ .GoType }} for {{ .TFName }}
+{{ end -}}
+{{- end -}}
+
+{{- /* ===================================================================
+   _fromState: extract field from Plugin Framework tfsdk.State
+   Data: fieldInfo
+   =================================================================== */ -}}
+{{- define "_fromState" -}}
+{{- if eq .GoType "*string" -}}
+			{
+				var v *string
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else if eq .GoType "string" -}}
+			{
+				var v string
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else if eq .GoType "*int64" -}}
+			{
+				var v *int64
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else if eq .GoType "int64" -}}
+			{
+				var v int64
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else if eq .GoType "*bool" -}}
+			{
+				var v *bool
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else if eq .GoType "bool" -}}
+			{
+				var v bool
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else if eq .GoType "[]string" -}}
+			{
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() && len(v) > 0 {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else -}}
+			// TODO: complex type {{ .GoType }} for {{ .TFName }}
+{{ end -}}
+{{- end -}}
+
+{{- /* ===================================================================
+   _connectionDetails: emit the ConnectionDetailsFn field
+   Data: connectionDetailsData{KindName string, Scalars []fieldInfo}
+   =================================================================== */ -}}
+{{- define "_connectionDetails" -}}
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.{{ .KindName }})
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+{{- range .Scalars }}
+{{- if eq .GoType "*string" }}
+		if cr.Status.AtProvider.{{ .GoName }} != nil {
+			cd[{{ printf "%q" .TFName }}] = []byte(*cr.Status.AtProvider.{{ .GoName }})
+		}
+{{- else if eq .GoType "string" }}
+		if cr.Status.AtProvider.{{ .GoName }} != "" {
+			cd[{{ printf "%q" .TFName }}] = []byte(cr.Status.AtProvider.{{ .GoName }})
+		}
+{{- else if eq .GoType "*int64" }}
+		if cr.Status.AtProvider.{{ .GoName }} != nil {
+			cd[{{ printf "%q" .TFName }}] = []byte(strconv.FormatInt(*cr.Status.AtProvider.{{ .GoName }}, 10))
+		}
+{{- else if eq .GoType "int64" }}
+		cd[{{ printf "%q" .TFName }}] = []byte(strconv.FormatInt(cr.Status.AtProvider.{{ .GoName }}, 10))
+{{- else if eq .GoType "*float64" }}
+		if cr.Status.AtProvider.{{ .GoName }} != nil {
+			cd[{{ printf "%q" .TFName }}] = []byte(strconv.FormatFloat(*cr.Status.AtProvider.{{ .GoName }}, 'f', -1, 64))
+		}
+{{- else if eq .GoType "float64" }}
+		cd[{{ printf "%q" .TFName }}] = []byte(strconv.FormatFloat(cr.Status.AtProvider.{{ .GoName }}, 'f', -1, 64))
+{{- else if eq .GoType "*bool" }}
+		if cr.Status.AtProvider.{{ .GoName }} != nil {
+			cd[{{ printf "%q" .TFName }}] = []byte(strconv.FormatBool(*cr.Status.AtProvider.{{ .GoName }}))
+		}
+{{- else if eq .GoType "bool" }}
+		cd[{{ printf "%q" .TFName }}] = []byte(strconv.FormatBool(cr.Status.AtProvider.{{ .GoName }}))
+{{- end }}
+{{- end }}
+		return cd
+	},
+{{ end -}}
+
+{{- /* ===================================================================
+   _nestedStruct: emit a single nested Go struct definition
+   Data: nestedStructData{Name string, Fields []fieldInfo}
+   =================================================================== */ -}}
+{{- define "_nestedStruct" -}}
+type {{ .Name }} struct {
+{{- range .Fields }}
+{{ fieldDoc . -}}
+	{{ .GoName }} {{ .GoType }} `json:"{{ .JSONName }},omitempty"`
+{{ end -}}
+}
+
+{{ end -}}
+
+{{- /* ===================================================================
+   _fieldDoc: emit Go doc comment for a struct field
+   Data: fieldInfo
+   =================================================================== */ -}}
+{{- define "_fieldDoc" -}}
+{{- if .Description -}}
+{{- range splitLines .Description }}
+	// {{ . }}
+{{ end -}}
+{{- end -}}
+{{- end -}}
