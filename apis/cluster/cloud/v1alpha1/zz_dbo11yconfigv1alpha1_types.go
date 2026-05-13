@@ -15,85 +15,67 @@ import (
 
 type Dbo11YconfigV1Alpha1InitParameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *Dbo11YconfigV1Alpha1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *Dbo11YconfigV1Alpha1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *Dbo11YconfigV1Alpha1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type Dbo11YconfigV1Alpha1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type Dbo11YconfigV1Alpha1MetadataObservation struct {
 
-	// (Map of String) Annotations of the resource.
 	// Annotations of the resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The full URL of the resource.
 	// The full URL of the resource.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String) The globally unique identifier of a resource, used by the API for tracking.
 	// The globally unique identifier of a resource, used by the API for tracking.
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
-	// (String) The version of the resource.
 	// The version of the resource.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type Dbo11YconfigV1Alpha1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
 }
 
 type Dbo11YconfigV1Alpha1Observation struct {
-
-	// (String) The ID of the resource derived from UUID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *Dbo11YconfigV1Alpha1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *Dbo11YconfigV1Alpha1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *Dbo11YconfigV1Alpha1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
@@ -103,7 +85,6 @@ type Dbo11YconfigV1Alpha1OptionsInitParameters struct {
 	// Override the identity stamped on this resource's manager metadata.
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
@@ -113,7 +94,6 @@ type Dbo11YconfigV1Alpha1OptionsObservation struct {
 	// Override the identity stamped on this resource's manager metadata.
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
@@ -124,7 +104,6 @@ type Dbo11YconfigV1Alpha1OptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -132,17 +111,14 @@ type Dbo11YconfigV1Alpha1OptionsParameters struct {
 
 type Dbo11YconfigV1Alpha1Parameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
 	Metadata *Dbo11YconfigV1Alpha1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
 	Options *Dbo11YconfigV1Alpha1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
 	Spec *Dbo11YconfigV1Alpha1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
@@ -150,21 +126,18 @@ type Dbo11YconfigV1Alpha1Parameters struct {
 
 type Dbo11YconfigV1Alpha1SpecInitParameters struct {
 
-	// (Boolean) Whether database observability is enabled.
 	// Whether database observability is enabled.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type Dbo11YconfigV1Alpha1SpecObservation struct {
 
-	// (Boolean) Whether database observability is enabled.
 	// Whether database observability is enabled.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type Dbo11YconfigV1Alpha1SpecParameters struct {
 
-	// (Boolean) Whether database observability is enabled.
 	// Whether database observability is enabled.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled" tf:"enabled,omitempty"`
@@ -197,7 +170,7 @@ type Dbo11YconfigV1Alpha1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Dbo11YconfigV1Alpha1 is the Schema for the Dbo11YconfigV1Alpha1s API. Manages Grafana Database Observability configurations using the Grafana APIs. This resource allows you to enable or disable database observability features. Note: This is a singleton resource. The UID is automatically set to "global" and there can only be one per namespace.
+// Dbo11YconfigV1Alpha1 is the Schema for the Dbo11YconfigV1Alpha1s API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

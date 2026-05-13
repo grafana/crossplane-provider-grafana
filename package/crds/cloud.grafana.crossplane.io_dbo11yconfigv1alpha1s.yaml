@@ -34,11 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Dbo11YconfigV1Alpha1 is the Schema for the Dbo11YconfigV1Alpha1s
-          API. Manages Grafana Database Observability configurations using the Grafana
-          APIs. This resource allows you to enable or disable database observability
-          features. Note: This is a singleton resource. The UID is automatically set
-          to "global" and there can only be one per namespace.'
+        description: Dbo11YconfigV1Alpha1 is the Schema for the Dbo11YconfigV1Alpha1s
+          API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -77,45 +74,36 @@ spec:
               forProvider:
                 properties:
                   metadata:
-                    description: |-
-                      (Block, Optional) The metadata of the resource. (see below for nested schema)
-                      The metadata of the resource.
+                    description: The metadata of the resource.
                     properties:
                       folderUid:
-                        description: |-
-                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
-                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                        description: The UID of the folder to save the resource in.
+                          For example, it's supported for dashboards and folders.
+                          To know if it's supported for the specific resource you're
+                          using check the documentation.
                         type: string
                       uid:
-                        description: |-
-                          (String) The unique identifier of the resource.
-                          The unique identifier of the resource.
+                        description: The unique identifier of the resource.
                         type: string
                     type: object
                   options:
-                    description: |-
-                      (Block, Optional) Options for applying the resource. (see below for nested schema)
-                      Options for applying the resource.
+                    description: Options for applying the resource.
                     properties:
                       managerIdentity:
                         description: Override the identity stamped on this resource's
                           manager metadata.
                         type: string
                       overwrite:
-                        description: |-
-                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        description: Set to true if you want to overwrite existing
+                          resource with newer version, same resource title in folder
+                          or same resource uid.
                         type: boolean
                     type: object
                   spec:
-                    description: |-
-                      (Block, Optional) The spec of the resource. (see below for nested schema)
-                      The spec of the resource.
+                    description: The spec of the resource.
                     properties:
                       enabled:
-                        description: |-
-                          (Boolean) Whether database observability is enabled.
-                          Whether database observability is enabled.
+                        description: Whether database observability is enabled.
                         type: boolean
                     type: object
                 type: object
@@ -133,45 +121,36 @@ spec:
                   autoscaler.
                 properties:
                   metadata:
-                    description: |-
-                      (Block, Optional) The metadata of the resource. (see below for nested schema)
-                      The metadata of the resource.
+                    description: The metadata of the resource.
                     properties:
                       folderUid:
-                        description: |-
-                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
-                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                        description: The UID of the folder to save the resource in.
+                          For example, it's supported for dashboards and folders.
+                          To know if it's supported for the specific resource you're
+                          using check the documentation.
                         type: string
                       uid:
-                        description: |-
-                          (String) The unique identifier of the resource.
-                          The unique identifier of the resource.
+                        description: The unique identifier of the resource.
                         type: string
                     type: object
                   options:
-                    description: |-
-                      (Block, Optional) Options for applying the resource. (see below for nested schema)
-                      Options for applying the resource.
+                    description: Options for applying the resource.
                     properties:
                       managerIdentity:
                         description: Override the identity stamped on this resource's
                           manager metadata.
                         type: string
                       overwrite:
-                        description: |-
-                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        description: Set to true if you want to overwrite existing
+                          resource with newer version, same resource title in folder
+                          or same resource uid.
                         type: boolean
                     type: object
                   spec:
-                    description: |-
-                      (Block, Optional) The spec of the resource. (see below for nested schema)
-                      The spec of the resource.
+                    description: The spec of the resource.
                     properties:
                       enabled:
-                        description: |-
-                          (Boolean) Whether database observability is enabled.
-                          Whether database observability is enabled.
+                        description: Whether database observability is enabled.
                         type: boolean
                     type: object
                 type: object
@@ -277,71 +256,54 @@ spec:
               atProvider:
                 properties:
                   id:
-                    description: (String) The ID of the resource derived from UUID.
                     type: string
                   metadata:
-                    description: |-
-                      (Block, Optional) The metadata of the resource. (see below for nested schema)
-                      The metadata of the resource.
+                    description: The metadata of the resource.
                     properties:
                       annotations:
                         additionalProperties:
                           type: string
-                        description: |-
-                          (Map of String) Annotations of the resource.
-                          Annotations of the resource.
+                        description: Annotations of the resource.
                         type: object
                         x-kubernetes-map-type: granular
                       folderUid:
-                        description: |-
-                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
-                          The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+                        description: The UID of the folder to save the resource in.
+                          For example, it's supported for dashboards and folders.
+                          To know if it's supported for the specific resource you're
+                          using check the documentation.
                         type: string
                       uid:
-                        description: |-
-                          (String) The unique identifier of the resource.
-                          The unique identifier of the resource.
+                        description: The unique identifier of the resource.
                         type: string
                       url:
-                        description: |-
-                          (String) The full URL of the resource.
-                          The full URL of the resource.
+                        description: The full URL of the resource.
                         type: string
                       uuid:
-                        description: |-
-                          (String) The globally unique identifier of a resource, used by the API for tracking.
-                          The globally unique identifier of a resource, used by the API for tracking.
+                        description: The globally unique identifier of a resource,
+                          used by the API for tracking.
                         type: string
                       version:
-                        description: |-
-                          (String) The version of the resource.
-                          The version of the resource.
+                        description: The version of the resource.
                         type: string
                     type: object
                   options:
-                    description: |-
-                      (Block, Optional) Options for applying the resource. (see below for nested schema)
-                      Options for applying the resource.
+                    description: Options for applying the resource.
                     properties:
                       managerIdentity:
                         description: Override the identity stamped on this resource's
                           manager metadata.
                         type: string
                       overwrite:
-                        description: |-
-                          (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-                          Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+                        description: Set to true if you want to overwrite existing
+                          resource with newer version, same resource title in folder
+                          or same resource uid.
                         type: boolean
                     type: object
                   spec:
-                    description: |-
-                      (Block, Optional) The spec of the resource. (see below for nested schema)
-                      The spec of the resource.
+                    description: The spec of the resource.
                     properties:
                       enabled:
-                        description: |-
-                          (Boolean) Whether database observability is enabled.
-                          Whether database observability is enabled.
+                        description: Whether database observability is enabled.
                         type: boolean
                     type: object
                 type: object

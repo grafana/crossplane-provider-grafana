@@ -30,7 +30,7 @@ type DashboardV2InitParameters struct {
 
 type DashboardV2MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -46,7 +46,7 @@ type DashboardV2MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -69,7 +69,7 @@ type DashboardV2MetadataObservation struct {
 
 type DashboardV2MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
@@ -163,7 +163,7 @@ type DashboardV2Parameters struct {
 
 type DashboardV2SpecInitParameters struct {
 
-	// (String) The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
+	// (String) The JSON representation of the dashboard v2 spec.
 	// The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
 	JSON *string `json:"json,omitempty" tf:"json,omitempty"`
 
@@ -178,7 +178,7 @@ type DashboardV2SpecInitParameters struct {
 
 type DashboardV2SpecObservation struct {
 
-	// (String) The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
+	// (String) The JSON representation of the dashboard v2 spec.
 	// The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
 	JSON *string `json:"json,omitempty" tf:"json,omitempty"`
 
@@ -193,7 +193,7 @@ type DashboardV2SpecObservation struct {
 
 type DashboardV2SpecParameters struct {
 
-	// (String) The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
+	// (String) The JSON representation of the dashboard v2 spec.
 	// The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file("dashboard.json")).spec)
 	// +kubebuilder:validation:Optional
 	JSON *string `json:"json" tf:"json,omitempty"`

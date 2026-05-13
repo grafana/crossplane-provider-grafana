@@ -43,7 +43,7 @@
               "type": "string"
             },
             "terraformSourceNamespace": {
-              "description": "If omitted, the namespace default is used. If omitted, the namespace `default` is used.",
+              "description": "If omitted, the namespace `default` is used.",
               "type": "string"
             }
           },
@@ -77,7 +77,7 @@
               "type": "string"
             },
             "terraformSourceNamespace": {
-              "description": "If omitted, the namespace default is used. If omitted, the namespace `default` is used.",
+              "description": "If omitted, the namespace `default` is used.",
               "type": "string"
             }
           },
@@ -190,7 +190,7 @@
               "type": "string"
             },
             "terraformSourceNamespace": {
-              "description": "If omitted, the namespace default is used. If omitted, the namespace `default` is used.",
+              "description": "If omitted, the namespace `default` is used.",
               "type": "string"
             }
           },

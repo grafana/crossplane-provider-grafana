@@ -124,7 +124,7 @@ type MessageTemplateStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// MessageTemplate is the Schema for the MessageTemplates API. Manages Grafana Alerting notification template groups, including notification templates. Official documentation https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/alerting_provisioning/#notification-template-groups This resource requires Grafana 9.1.0 or later.
+// MessageTemplate is the Schema for the MessageTemplates API. Manages Grafana Alerting notification template groups, including notification templates. Official documentation https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/#notification-template-groups This resource requires Grafana 9.1.0 or later.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

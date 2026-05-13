@@ -1584,7 +1584,7 @@ type SsoSettingsStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2, SAML and LDAP. Support for LDAP is currently in preview, it will be available in Grafana starting with v11.3. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/sso-settings/
+// SsoSettings is the Schema for the SsoSettingss API. Manages Grafana SSO Settings for OAuth2, SAML and LDAP. Support for LDAP is currently in preview, it will be available in Grafana starting with v11.3. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -127,7 +127,7 @@ type ScimConfigStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// ScimConfig is the Schema for the ScimConfigs API. Note: Available in Grafana Enterprise https://grafana.com/docs/grafana/latest/introduction/grafana-enterprise/ and Grafana Cloud https://grafana.com/docs/grafana-cloud/. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-access/configure-scim-provisioning/
+// ScimConfig is the Schema for the ScimConfigs API. Note: This resource is available only with Grafana Enterprise. Official documentation https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-scim-provisioning/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

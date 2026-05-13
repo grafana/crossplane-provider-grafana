@@ -20,3 +20,4 @@ spec:
     - action: org.users:read
       scope: users:*
     uid: superuseruid
+    version: 1

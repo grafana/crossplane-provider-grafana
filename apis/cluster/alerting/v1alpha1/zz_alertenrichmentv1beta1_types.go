@@ -829,7 +829,7 @@ type LogsQueryParameters struct {
 
 type MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -845,7 +845,7 @@ type MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -868,7 +868,7 @@ type MetadataObservation struct {
 
 type MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// (String) The UID of the folder to save the resource in.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`

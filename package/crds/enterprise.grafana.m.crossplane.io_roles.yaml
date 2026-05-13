@@ -36,7 +36,7 @@ spec:
       openAPIV3Schema:
         description: 'Role is the Schema for the Roles API. Note: This resource is
           available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP
-          API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/access_control/'
+          API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/'
         properties:
           apiVersion:
             description: |-
@@ -62,7 +62,7 @@ spec:
                 properties:
                   autoIncrementVersion:
                     description: |-
-                      (Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).
+                      (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
                       Whether the role version should be incremented automatically on updates (and set to 1 on creation).
                     type: boolean
                   description:
@@ -205,7 +205,7 @@ spec:
                     type: string
                   version:
                     description: |-
-                      (Number, Deprecated) Version of the role. The server manages this automatically.
+                      (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
                       Version of the role. The server manages this automatically.
                     type: number
                 type: object
@@ -224,7 +224,7 @@ spec:
                 properties:
                   autoIncrementVersion:
                     description: |-
-                      (Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).
+                      (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
                       Whether the role version should be incremented automatically on updates (and set to 1 on creation).
                     type: boolean
                   description:
@@ -367,7 +367,7 @@ spec:
                     type: string
                   version:
                     description: |-
-                      (Number, Deprecated) Version of the role. The server manages this automatically.
+                      (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
                       Version of the role. The server manages this automatically.
                     type: number
                 type: object
@@ -441,7 +441,7 @@ spec:
                 properties:
                   autoIncrementVersion:
                     description: |-
-                      (Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).
+                      (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
                       Whether the role version should be incremented automatically on updates (and set to 1 on creation).
                     type: boolean
                   description:
@@ -507,7 +507,7 @@ spec:
                     type: string
                   version:
                     description: |-
-                      (Number, Deprecated) Version of the role. The server manages this automatically.
+                      (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
                       Version of the role. The server manages this automatically.
                     type: number
                 type: object

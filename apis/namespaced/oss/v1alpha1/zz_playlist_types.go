@@ -163,7 +163,7 @@ type PlaylistStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Playlist is the Schema for the Playlists API. Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/playlist/
+// Playlist is the Schema for the Playlists API. Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

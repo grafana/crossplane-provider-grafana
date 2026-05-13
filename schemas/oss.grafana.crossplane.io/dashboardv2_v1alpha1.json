@@ -33,7 +33,7 @@
               "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -67,7 +67,7 @@
               "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
               "properties": {
                 "json": {
-                  "description": "(String) The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)\nThe JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)",
+                  "description": "(String) The JSON representation of the dashboard v2 spec.\nThe JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)",
                   "type": "string"
                 },
                 "tags": {
@@ -96,7 +96,7 @@
               "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -130,7 +130,7 @@
               "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
               "properties": {
                 "json": {
-                  "description": "(String) The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)\nThe JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)",
+                  "description": "(String) The JSON representation of the dashboard v2 spec.\nThe JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)",
                   "type": "string"
                 },
                 "tags": {
@@ -269,7 +269,7 @@
                   "x-kubernetes-map-type": "granular"
                 },
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -315,7 +315,7 @@
               "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
               "properties": {
                 "json": {
-                  "description": "(String) The JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)\nThe JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)",
+                  "description": "(String) The JSON representation of the dashboard v2 spec.\nThe JSON representation of the dashboard v2 spec. Must be the spec object only — not the full Kubernetes envelope. Use: json = jsonencode(jsondecode(file(\"dashboard.json\")).spec)",
                   "type": "string"
                 },
                 "tags": {

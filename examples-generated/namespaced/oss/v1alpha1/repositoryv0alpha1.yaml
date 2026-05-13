@@ -27,8 +27,6 @@ spec:
         target: folder
       title: My GitHub Folder Repository
       type: github
-      webhook:
-      - baseUrl: https://grafana.example.com
       workflows:
       - write
       - branch

@@ -1,5 +1,5 @@
 {
-  "description": "CloudIntegration is the Schema for the CloudIntegrations API. Manages Grafana Cloud integrations. Official documentation https://grafana.com/docs/grafana-cloud/data-configuration/integrations/ This provider lets you manage Grafana Cloud Integrations. Alerts can optionally be disabled. Please note: Grafana Cloud Integrations do not support in-place upgrades, and require a teardown and reapply to resolve version drift. As such it is recommended to have a separate TF plan for integrations to cleanly destroy them as needed. Update, only triggered on config change, is implemented as a complete uninstall, then reinstall of the integration in question. Required access policy scopes: folders:readfolders:writedashboards:readdashboards:writerules:readrules:write Based on: https://grafana.com/docs/grafana/latest/alerting/alerting-rules/alerting-migration/#import-rules-with-grafana-alerting Note: This resource creates folders and dashboards as part of the integration installation process, which requires additional permissions beyond the basic integration scopes.",
+  "description": "CloudIntegration is the Schema for the CloudIntegrations API. \u003cno value\u003e",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -29,11 +29,11 @@
           "additionalProperties": false,
           "properties": {
             "alertsEnabled": {
-              "description": "(Boolean) Whether alerts are enabled for this integration.\nWhether alerts are enabled for this integration.",
+              "description": "Whether alerts are enabled for this integration.",
               "type": "boolean"
             },
             "slug": {
-              "description": "node').\nThe slug of the integration to install (e.g., 'docker', 'linux-node').",
+              "description": "The slug of the integration to install (e.g., 'docker', 'linux-node').",
               "type": "string"
             }
           },
@@ -44,11 +44,11 @@
           "description": "THIS IS A BETA FIELD. It will be honored\nunless the Management Policies feature flag is disabled.\nInitProvider holds the same fields as ForProvider, with the exception\nof Identifier and other resource reference fields. The fields that are\nin InitProvider are merged into ForProvider when the resource is created.\nThe same fields are also added to the terraform ignore_changes hook, to\navoid updating them after creation. This is useful for fields that are\nrequired on creation, but we do not desire to update them after creation,\nfor example because of an external controller is managing them, like an\nautoscaler.",
           "properties": {
             "alertsEnabled": {
-              "description": "(Boolean) Whether alerts are enabled for this integration.\nWhether alerts are enabled for this integration.",
+              "description": "Whether alerts are enabled for this integration.",
               "type": "boolean"
             },
             "slug": {
-              "description": "node').\nThe slug of the integration to install (e.g., 'docker', 'linux-node').",
+              "description": "The slug of the integration to install (e.g., 'docker', 'linux-node').",
               "type": "string"
             }
           },
@@ -153,31 +153,30 @@
           "additionalProperties": false,
           "properties": {
             "alertsEnabled": {
-              "description": "(Boolean) Whether alerts are enabled for this integration.\nWhether alerts are enabled for this integration.",
+              "description": "Whether alerts are enabled for this integration.",
               "type": "boolean"
             },
             "dashboardFolder": {
-              "description": "(String) The dashboard folder associated with this integration.\nThe dashboard folder associated with this integration.",
+              "description": "The dashboard folder associated with this integration.",
               "type": "string"
             },
             "id": {
-              "description": "Set to the integration slug.",
               "type": "string"
             },
             "installedVersion": {
-              "description": "(String) The version of the installed integration.\nThe version of the installed integration.",
+              "description": "The version of the installed integration.",
               "type": "string"
             },
             "latestVersion": {
-              "description": "(String) The latest version available for this integration.\nThe latest version available for this integration.",
+              "description": "The latest version available for this integration.",
               "type": "string"
             },
             "name": {
-              "description": "(String) The display name of the integration.\nThe display name of the integration.",
+              "description": "The display name of the integration.",
               "type": "string"
             },
             "slug": {
-              "description": "node').\nThe slug of the integration to install (e.g., 'docker', 'linux-node').",
+              "description": "The slug of the integration to install (e.g., 'docker', 'linux-node').",
               "type": "string"
             }
           },

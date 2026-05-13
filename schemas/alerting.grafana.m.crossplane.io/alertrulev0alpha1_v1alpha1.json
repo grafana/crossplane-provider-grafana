@@ -24,7 +24,7 @@
               "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -99,36 +99,36 @@
                 },
                 "notificationSettings": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)\nNotification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing",
+                  "description": "(Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)\nNotification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing",
                   "properties": {
                     "activeTimings": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.\nDeprecated. A list of time interval names to apply to alerts that match this policy.",
+                      "description": "(List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.\nDeprecated. A list of time interval names to apply to alerts that match this policy.",
                       "items": {
                         "type": "string"
                       },
                       "type": "array"
                     },
                     "contactPoint": {
-                      "description": "(String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.\nDeprecated. The contact point to route notifications that match this rule to.",
+                      "description": "(String) The contact point to route notifications that match this rule to.\nDeprecated. The contact point to route notifications that match this rule to.",
                       "type": "string"
                     },
                     "groupBy": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.\nDeprecated. A list of alert labels to group alerts into notifications by.",
+                      "description": "(List of String) A list of alert labels to group alerts into notifications by.\nDeprecated. A list of alert labels to group alerts into notifications by.",
                       "items": {
                         "type": "string"
                       },
                       "type": "array"
                     },
                     "groupInterval": {
-                      "description": "(String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.\nDeprecated. Minimum time interval between two notifications for the same group.",
+                      "description": "(String) Minimum time interval between two notifications for the same group.\nDeprecated. Minimum time interval between two notifications for the same group.",
                       "type": "string"
                     },
                     "groupWait": {
-                      "description": "(String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.\nDeprecated. Time to wait to buffer alerts of the same group before sending a notification.",
+                      "description": "(String) Time to wait to buffer alerts of the same group before sending a notification.\nDeprecated. Time to wait to buffer alerts of the same group before sending a notification.",
                       "type": "string"
                     },
                     "muteTimings": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.\nDeprecated. A list of mute timing names to apply to alerts that match this policy.",
+                      "description": "(List of String) A list of mute timing names to apply to alerts that match this policy.\nDeprecated. A list of mute timing names to apply to alerts that match this policy.",
                       "items": {
                         "type": "string"
                       },
@@ -136,10 +136,10 @@
                     },
                     "namedRoutingTree": {
                       "additionalProperties": false,
-                      "description": "(Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)\nRoute notifications to a specific routing tree.",
+                      "description": "Route notifications to a specific routing tree.",
                       "properties": {
                         "routingTree": {
-                          "description": "(String) The name of the routing tree to use.\nThe name of the routing tree to use.",
+                          "description": "The name of the routing tree to use.",
                           "type": "string"
                         }
                       },
@@ -151,36 +151,36 @@
                     },
                     "simplifiedRouting": {
                       "additionalProperties": false,
-                      "description": "(Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)\nSimplified routing to a contact point with optional grouping and timing overrides.",
+                      "description": "Simplified routing to a contact point with optional grouping and timing overrides.",
                       "properties": {
                         "activeTimings": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.\nA list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.",
+                          "description": "(List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.\nA list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.",
                           "items": {
                             "type": "string"
                           },
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
+                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
                           "type": "string"
                         },
                         "groupBy": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.\nA list of alert labels to group alerts into notifications by.",
+                          "description": "(List of String) A list of alert labels to group alerts into notifications by.\nA list of alert labels to group alerts into notifications by.",
                           "items": {
                             "type": "string"
                           },
                           "type": "array"
                         },
                         "groupInterval": {
-                          "description": "(String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.\nMinimum time interval between two notifications for the same group.",
+                          "description": "(String) Minimum time interval between two notifications for the same group.\nMinimum time interval between two notifications for the same group.",
                           "type": "string"
                         },
                         "groupWait": {
-                          "description": "(String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.\nTime to wait to buffer alerts of the same group before sending a notification.",
+                          "description": "(String) Time to wait to buffer alerts of the same group before sending a notification.\nTime to wait to buffer alerts of the same group before sending a notification.",
                           "type": "string"
                         },
                         "muteTimings": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.\nA list of mute timing names to apply to alerts that match this policy.",
+                          "description": "(List of String) A list of mute timing names to apply to alerts that match this policy.\nA list of mute timing names to apply to alerts that match this policy.",
                           "items": {
                             "type": "string"
                           },
@@ -238,7 +238,7 @@
               "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -313,36 +313,36 @@
                 },
                 "notificationSettings": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)\nNotification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing",
+                  "description": "(Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)\nNotification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing",
                   "properties": {
                     "activeTimings": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.\nDeprecated. A list of time interval names to apply to alerts that match this policy.",
+                      "description": "(List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.\nDeprecated. A list of time interval names to apply to alerts that match this policy.",
                       "items": {
                         "type": "string"
                       },
                       "type": "array"
                     },
                     "contactPoint": {
-                      "description": "(String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.\nDeprecated. The contact point to route notifications that match this rule to.",
+                      "description": "(String) The contact point to route notifications that match this rule to.\nDeprecated. The contact point to route notifications that match this rule to.",
                       "type": "string"
                     },
                     "groupBy": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.\nDeprecated. A list of alert labels to group alerts into notifications by.",
+                      "description": "(List of String) A list of alert labels to group alerts into notifications by.\nDeprecated. A list of alert labels to group alerts into notifications by.",
                       "items": {
                         "type": "string"
                       },
                       "type": "array"
                     },
                     "groupInterval": {
-                      "description": "(String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.\nDeprecated. Minimum time interval between two notifications for the same group.",
+                      "description": "(String) Minimum time interval between two notifications for the same group.\nDeprecated. Minimum time interval between two notifications for the same group.",
                       "type": "string"
                     },
                     "groupWait": {
-                      "description": "(String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.\nDeprecated. Time to wait to buffer alerts of the same group before sending a notification.",
+                      "description": "(String) Time to wait to buffer alerts of the same group before sending a notification.\nDeprecated. Time to wait to buffer alerts of the same group before sending a notification.",
                       "type": "string"
                     },
                     "muteTimings": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.\nDeprecated. A list of mute timing names to apply to alerts that match this policy.",
+                      "description": "(List of String) A list of mute timing names to apply to alerts that match this policy.\nDeprecated. A list of mute timing names to apply to alerts that match this policy.",
                       "items": {
                         "type": "string"
                       },
@@ -350,10 +350,10 @@
                     },
                     "namedRoutingTree": {
                       "additionalProperties": false,
-                      "description": "(Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)\nRoute notifications to a specific routing tree.",
+                      "description": "Route notifications to a specific routing tree.",
                       "properties": {
                         "routingTree": {
-                          "description": "(String) The name of the routing tree to use.\nThe name of the routing tree to use.",
+                          "description": "The name of the routing tree to use.",
                           "type": "string"
                         }
                       },
@@ -365,36 +365,36 @@
                     },
                     "simplifiedRouting": {
                       "additionalProperties": false,
-                      "description": "(Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)\nSimplified routing to a contact point with optional grouping and timing overrides.",
+                      "description": "Simplified routing to a contact point with optional grouping and timing overrides.",
                       "properties": {
                         "activeTimings": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.\nA list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.",
+                          "description": "(List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.\nA list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.",
                           "items": {
                             "type": "string"
                           },
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
+                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
                           "type": "string"
                         },
                         "groupBy": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.\nA list of alert labels to group alerts into notifications by.",
+                          "description": "(List of String) A list of alert labels to group alerts into notifications by.\nA list of alert labels to group alerts into notifications by.",
                           "items": {
                             "type": "string"
                           },
                           "type": "array"
                         },
                         "groupInterval": {
-                          "description": "(String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.\nMinimum time interval between two notifications for the same group.",
+                          "description": "(String) Minimum time interval between two notifications for the same group.\nMinimum time interval between two notifications for the same group.",
                           "type": "string"
                         },
                         "groupWait": {
-                          "description": "(String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.\nTime to wait to buffer alerts of the same group before sending a notification.",
+                          "description": "(String) Time to wait to buffer alerts of the same group before sending a notification.\nTime to wait to buffer alerts of the same group before sending a notification.",
                           "type": "string"
                         },
                         "muteTimings": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.\nA list of mute timing names to apply to alerts that match this policy.",
+                          "description": "(List of String) A list of mute timing names to apply to alerts that match this policy.\nA list of mute timing names to apply to alerts that match this policy.",
                           "items": {
                             "type": "string"
                           },
@@ -539,7 +539,7 @@
                   "x-kubernetes-map-type": "granular"
                 },
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -626,36 +626,36 @@
                 },
                 "notificationSettings": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)\nNotification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing",
+                  "description": "(Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. (see below for nested schema)\nNotification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing",
                   "properties": {
                     "activeTimings": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.\nDeprecated. A list of time interval names to apply to alerts that match this policy.",
+                      "description": "(List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.\nDeprecated. A list of time interval names to apply to alerts that match this policy.",
                       "items": {
                         "type": "string"
                       },
                       "type": "array"
                     },
                     "contactPoint": {
-                      "description": "(String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.\nDeprecated. The contact point to route notifications that match this rule to.",
+                      "description": "(String) The contact point to route notifications that match this rule to.\nDeprecated. The contact point to route notifications that match this rule to.",
                       "type": "string"
                     },
                     "groupBy": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.\nDeprecated. A list of alert labels to group alerts into notifications by.",
+                      "description": "(List of String) A list of alert labels to group alerts into notifications by.\nDeprecated. A list of alert labels to group alerts into notifications by.",
                       "items": {
                         "type": "string"
                       },
                       "type": "array"
                     },
                     "groupInterval": {
-                      "description": "(String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.\nDeprecated. Minimum time interval between two notifications for the same group.",
+                      "description": "(String) Minimum time interval between two notifications for the same group.\nDeprecated. Minimum time interval between two notifications for the same group.",
                       "type": "string"
                     },
                     "groupWait": {
-                      "description": "(String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.\nDeprecated. Time to wait to buffer alerts of the same group before sending a notification.",
+                      "description": "(String) Time to wait to buffer alerts of the same group before sending a notification.\nDeprecated. Time to wait to buffer alerts of the same group before sending a notification.",
                       "type": "string"
                     },
                     "muteTimings": {
-                      "description": "(List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.\nDeprecated. A list of mute timing names to apply to alerts that match this policy.",
+                      "description": "(List of String) A list of mute timing names to apply to alerts that match this policy.\nDeprecated. A list of mute timing names to apply to alerts that match this policy.",
                       "items": {
                         "type": "string"
                       },
@@ -663,10 +663,10 @@
                     },
                     "namedRoutingTree": {
                       "additionalProperties": false,
-                      "description": "(Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)\nRoute notifications to a specific routing tree.",
+                      "description": "Route notifications to a specific routing tree.",
                       "properties": {
                         "routingTree": {
-                          "description": "(String) The name of the routing tree to use.\nThe name of the routing tree to use.",
+                          "description": "The name of the routing tree to use.",
                           "type": "string"
                         }
                       },
@@ -678,36 +678,36 @@
                     },
                     "simplifiedRouting": {
                       "additionalProperties": false,
-                      "description": "(Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)\nSimplified routing to a contact point with optional grouping and timing overrides.",
+                      "description": "Simplified routing to a contact point with optional grouping and timing overrides.",
                       "properties": {
                         "activeTimings": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of time interval names to apply to alerts that match this policy.\nA list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.",
+                          "description": "(List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.\nA list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.",
                           "items": {
                             "type": "string"
                           },
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String, Deprecated) Deprecated. The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
+                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
                           "type": "string"
                         },
                         "groupBy": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of alert labels to group alerts into notifications by.\nA list of alert labels to group alerts into notifications by.",
+                          "description": "(List of String) A list of alert labels to group alerts into notifications by.\nA list of alert labels to group alerts into notifications by.",
                           "items": {
                             "type": "string"
                           },
                           "type": "array"
                         },
                         "groupInterval": {
-                          "description": "(String, Deprecated) Deprecated. Minimum time interval between two notifications for the same group.\nMinimum time interval between two notifications for the same group.",
+                          "description": "(String) Minimum time interval between two notifications for the same group.\nMinimum time interval between two notifications for the same group.",
                           "type": "string"
                         },
                         "groupWait": {
-                          "description": "(String, Deprecated) Deprecated. Time to wait to buffer alerts of the same group before sending a notification.\nTime to wait to buffer alerts of the same group before sending a notification.",
+                          "description": "(String) Time to wait to buffer alerts of the same group before sending a notification.\nTime to wait to buffer alerts of the same group before sending a notification.",
                           "type": "string"
                         },
                         "muteTimings": {
-                          "description": "(List of String, Deprecated) Deprecated. A list of mute timing names to apply to alerts that match this policy.\nA list of mute timing names to apply to alerts that match this policy.",
+                          "description": "(List of String) A list of mute timing names to apply to alerts that match this policy.\nA list of mute timing names to apply to alerts that match this policy.",
                           "items": {
                             "type": "string"
                           },
