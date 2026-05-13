@@ -17,7 +17,7 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.30.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.39.0
 	github.com/pkg/errors v0.9.1
-	go.uber.org/zap v1.27.1
+	go.uber.org/zap v1.28.0
 	golang.org/x/tools v0.44.0
 	k8s.io/api v0.35.3
 	k8s.io/apiextensions-apiserver v0.35.3
