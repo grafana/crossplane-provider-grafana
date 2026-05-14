@@ -25,6 +25,7 @@ var Specs = []tfdatasource.Spec{
 	OrganizationUserSpec,
 	ServiceAccountSpec,
 	TeamSpec,
+	TeamSetSpec,
 	UserSpec,
 	UserSetSpec,
 }

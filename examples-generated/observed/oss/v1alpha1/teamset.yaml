@@ -1,0 +1,11 @@
+apiVersion: oss.grafana.o.crossplane.io/v1alpha1
+kind: TeamSet
+metadata:
+  name: example-teamset
+  namespace: default
+spec:
+  forProvider:
+    orgID: "example-org_id"
+    query: "example-query"
+  providerConfigRef:
+    name: example

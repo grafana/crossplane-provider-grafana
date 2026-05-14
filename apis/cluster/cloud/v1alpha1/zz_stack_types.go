@@ -48,8 +48,8 @@ type StackInitParameters struct {
 	// Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
 	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
 
-	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
-	// How long to wait for readiness (if enabled). Defaults to `5m0s`.
+	// (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
+	// How long to wait for readiness (if enabled). Defaults to `10m0s`.
 	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
 }
 
@@ -452,8 +452,8 @@ type StackObservation struct {
 	// Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
 	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
 
-	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
-	// How long to wait for readiness (if enabled). Defaults to `5m0s`.
+	// (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
+	// How long to wait for readiness (if enabled). Defaults to `10m0s`.
 	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
 }
 
@@ -500,8 +500,8 @@ type StackParameters struct {
 	// +kubebuilder:validation:Optional
 	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
 
-	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
-	// How long to wait for readiness (if enabled). Defaults to `5m0s`.
+	// (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
+	// How long to wait for readiness (if enabled). Defaults to `10m0s`.
 	// +kubebuilder:validation:Optional
 	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
 }

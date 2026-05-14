@@ -18,6 +18,7 @@ var fwFactories = resolveFrameworkFactories()
 
 var newDSLibraryPanelSet = fwFactories["grafana_library_panels"]
 var newDSTeam = fwFactories["grafana_team"]
+var newDSTeamSet = fwFactories["grafana_teams"]
 
 func resolveFrameworkFactories() map[string]func() datasource.DataSourceWithConfigure {
 	ctx := context.Background()

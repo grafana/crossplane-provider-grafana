@@ -65,7 +65,7 @@
               "type": "boolean"
             },
             "waitForReadinessTimeout": {
-              "description": "(String) How long to wait for readiness (if enabled). Defaults to 5m0s.\nHow long to wait for readiness (if enabled). Defaults to `5m0s`.",
+              "description": "(String) How long to wait for readiness (if enabled). Defaults to 10m0s.\nHow long to wait for readiness (if enabled). Defaults to `10m0s`.",
               "type": "string"
             }
           },
@@ -112,7 +112,7 @@
               "type": "boolean"
             },
             "waitForReadinessTimeout": {
-              "description": "(String) How long to wait for readiness (if enabled). Defaults to 5m0s.\nHow long to wait for readiness (if enabled). Defaults to `5m0s`.",
+              "description": "(String) How long to wait for readiness (if enabled). Defaults to 10m0s.\nHow long to wait for readiness (if enabled). Defaults to `10m0s`.",
               "type": "string"
             }
           },
@@ -718,7 +718,7 @@
               "type": "boolean"
             },
             "waitForReadinessTimeout": {
-              "description": "(String) How long to wait for readiness (if enabled). Defaults to 5m0s.\nHow long to wait for readiness (if enabled). Defaults to `5m0s`.",
+              "description": "(String) How long to wait for readiness (if enabled). Defaults to 10m0s.\nHow long to wait for readiness (if enabled). Defaults to `10m0s`.",
               "type": "string"
             }
           },
