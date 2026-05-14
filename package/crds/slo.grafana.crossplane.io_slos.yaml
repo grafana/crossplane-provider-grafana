@@ -89,7 +89,7 @@ spec:
                       properties:
                         advancedOptions:
                           description: |-
-                            (Block List, Max: 1) Advanced Options for Alert Rules (see below for nested schema)
+                            (Block List) Advanced Options for Alert Rules (see below for nested schema)
                             Advanced Options for Alert Rules
                           items:
                             properties:
@@ -113,14 +113,14 @@ spec:
                                 type: string
                               value:
                                 description: |-
-                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  (String) Templatable value
                                   Templatable value
                                 type: string
                             type: object
                           type: array
                         fastburn:
                           description: |-
-                            (Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)
+                            (Block List) Alerting Rules generated for Fast Burn alerts (see below for nested schema)
                             Alerting Rules generated for Fast Burn alerts
                           items:
                             properties:
@@ -137,7 +137,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -150,7 +150,7 @@ spec:
                                   properties:
                                     type:
                                       description: |-
-                                        (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                                        (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                         Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                       type: string
                                   type: object
@@ -168,7 +168,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -188,14 +188,14 @@ spec:
                                 type: string
                               value:
                                 description: |-
-                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  (String) Templatable value
                                   Templatable value
                                 type: string
                             type: object
                           type: array
                         slowburn:
                           description: |-
-                            (Block List, Max: 1) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
+                            (Block List) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
                             Alerting Rules generated for Slow Burn alerts
                           items:
                             properties:
@@ -212,7 +212,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -225,7 +225,7 @@ spec:
                                   properties:
                                     type:
                                       description: |-
-                                        (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                                        (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                         Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                       type: string
                                   type: object
@@ -243,7 +243,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -259,7 +259,7 @@ spec:
                     type: string
                   destinationDatasource:
                     description: |-
-                      (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+                      (Block List) Required. Destination Datasource sets the datasource defined for an SLO. (see below for nested schema)
                       **Required.** Destination Datasource sets the datasource defined for an SLO.
                     items:
                       properties:
@@ -348,7 +348,7 @@ spec:
                     type: array
                   folderUid:
                     description: |-
-                      (String) UID for the SLO folder
+                      empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
                       UID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
                     type: string
                   label:
@@ -364,7 +364,7 @@ spec:
                           type: string
                         value:
                           description: |-
-                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            (String) Templatable value
                             Templatable value
                           type: string
                       type: object
@@ -376,13 +376,13 @@ spec:
                     type: string
                   objectives:
                     description: |-
-                      (Block List, Min: 1) Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
+                      (Block List) Required. Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
                       **Required.** Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget.
                     items:
                       properties:
                         value:
                           description: |-
-                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            (String) Templatable value
                             Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
                           type: number
                         window:
@@ -394,39 +394,39 @@ spec:
                     type: array
                   query:
                     description: |-
-                      (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
+                      (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
                       **Required.** Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
                     items:
                       properties:
                         freeform:
                           description: |-
-                            (Block List, Max: 1) (see below for nested schema)
+                            (Block List) Freeform query configuration. (see below for nested schema)
                             Freeform query configuration.
                           items:
                             properties:
                               query:
                                 description: |-
-                                  (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
+                                  (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
                                   Freeform Query Field - valid promQl
                                 type: string
                             type: object
                           type: array
                         grafanaQueries:
                           description: |-
-                            (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                            (Block List) Array for holding a set of grafana queries (see below for nested schema)
                             Array for holding a set of grafana queries
                           items:
                             properties:
                               grafanaQueries:
                                 description: |-
-                                  (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                                  (Block List) Array for holding a set of grafana queries (see below for nested schema)
                                   Query Object - Array of Grafana Query JSON objects
                                 type: string
                             type: object
                           type: array
                         ratio:
                           description: |-
-                            (Block List, Max: 1) (see below for nested schema)
+                            (Block List) Ratio query configuration. (see below for nested schema)
                             Ratio query configuration.
                           items:
                             properties:
@@ -451,14 +451,14 @@ spec:
                           type: array
                         type:
                           description: |-
-                            (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                            (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                             Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
                           type: string
                       type: object
                     type: array
                   searchExpression:
                     description: |-
-                      (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                      empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
                       The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
                     type: string
                   uuid:
@@ -494,7 +494,7 @@ spec:
                       properties:
                         advancedOptions:
                           description: |-
-                            (Block List, Max: 1) Advanced Options for Alert Rules (see below for nested schema)
+                            (Block List) Advanced Options for Alert Rules (see below for nested schema)
                             Advanced Options for Alert Rules
                           items:
                             properties:
@@ -518,14 +518,14 @@ spec:
                                 type: string
                               value:
                                 description: |-
-                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  (String) Templatable value
                                   Templatable value
                                 type: string
                             type: object
                           type: array
                         fastburn:
                           description: |-
-                            (Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)
+                            (Block List) Alerting Rules generated for Fast Burn alerts (see below for nested schema)
                             Alerting Rules generated for Fast Burn alerts
                           items:
                             properties:
@@ -542,7 +542,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -555,7 +555,7 @@ spec:
                                   properties:
                                     type:
                                       description: |-
-                                        (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                                        (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                         Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                       type: string
                                   type: object
@@ -573,7 +573,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -593,14 +593,14 @@ spec:
                                 type: string
                               value:
                                 description: |-
-                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  (String) Templatable value
                                   Templatable value
                                 type: string
                             type: object
                           type: array
                         slowburn:
                           description: |-
-                            (Block List, Max: 1) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
+                            (Block List) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
                             Alerting Rules generated for Slow Burn alerts
                           items:
                             properties:
@@ -617,7 +617,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -630,7 +630,7 @@ spec:
                                   properties:
                                     type:
                                       description: |-
-                                        (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                                        (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                         Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                       type: string
                                   type: object
@@ -648,7 +648,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -664,7 +664,7 @@ spec:
                     type: string
                   destinationDatasource:
                     description: |-
-                      (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+                      (Block List) Required. Destination Datasource sets the datasource defined for an SLO. (see below for nested schema)
                       **Required.** Destination Datasource sets the datasource defined for an SLO.
                     items:
                       properties:
@@ -753,7 +753,7 @@ spec:
                     type: array
                   folderUid:
                     description: |-
-                      (String) UID for the SLO folder
+                      empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
                       UID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
                     type: string
                   label:
@@ -769,7 +769,7 @@ spec:
                           type: string
                         value:
                           description: |-
-                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            (String) Templatable value
                             Templatable value
                           type: string
                       type: object
@@ -781,13 +781,13 @@ spec:
                     type: string
                   objectives:
                     description: |-
-                      (Block List, Min: 1) Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
+                      (Block List) Required. Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
                       **Required.** Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget.
                     items:
                       properties:
                         value:
                           description: |-
-                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            (String) Templatable value
                             Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
                           type: number
                         window:
@@ -799,39 +799,39 @@ spec:
                     type: array
                   query:
                     description: |-
-                      (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
+                      (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
                       **Required.** Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
                     items:
                       properties:
                         freeform:
                           description: |-
-                            (Block List, Max: 1) (see below for nested schema)
+                            (Block List) Freeform query configuration. (see below for nested schema)
                             Freeform query configuration.
                           items:
                             properties:
                               query:
                                 description: |-
-                                  (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
+                                  (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
                                   Freeform Query Field - valid promQl
                                 type: string
                             type: object
                           type: array
                         grafanaQueries:
                           description: |-
-                            (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                            (Block List) Array for holding a set of grafana queries (see below for nested schema)
                             Array for holding a set of grafana queries
                           items:
                             properties:
                               grafanaQueries:
                                 description: |-
-                                  (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                                  (Block List) Array for holding a set of grafana queries (see below for nested schema)
                                   Query Object - Array of Grafana Query JSON objects
                                 type: string
                             type: object
                           type: array
                         ratio:
                           description: |-
-                            (Block List, Max: 1) (see below for nested schema)
+                            (Block List) Ratio query configuration. (see below for nested schema)
                             Ratio query configuration.
                           items:
                             properties:
@@ -856,14 +856,14 @@ spec:
                           type: array
                         type:
                           description: |-
-                            (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                            (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                             Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
                           type: string
                       type: object
                     type: array
                   searchExpression:
                     description: |-
-                      (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                      empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
                       The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
                     type: string
                   uuid:
@@ -986,7 +986,7 @@ spec:
                       properties:
                         advancedOptions:
                           description: |-
-                            (Block List, Max: 1) Advanced Options for Alert Rules (see below for nested schema)
+                            (Block List) Advanced Options for Alert Rules (see below for nested schema)
                             Advanced Options for Alert Rules
                           items:
                             properties:
@@ -1010,14 +1010,14 @@ spec:
                                 type: string
                               value:
                                 description: |-
-                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  (String) Templatable value
                                   Templatable value
                                 type: string
                             type: object
                           type: array
                         fastburn:
                           description: |-
-                            (Block List, Max: 1) Alerting Rules generated for Fast Burn alerts (see below for nested schema)
+                            (Block List) Alerting Rules generated for Fast Burn alerts (see below for nested schema)
                             Alerting Rules generated for Fast Burn alerts
                           items:
                             properties:
@@ -1034,7 +1034,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -1047,7 +1047,7 @@ spec:
                                   properties:
                                     type:
                                       description: |-
-                                        (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                                        (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                         Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                       type: string
                                   type: object
@@ -1065,7 +1065,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -1085,14 +1085,14 @@ spec:
                                 type: string
                               value:
                                 description: |-
-                                  (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                  (String) Templatable value
                                   Templatable value
                                 type: string
                             type: object
                           type: array
                         slowburn:
                           description: |-
-                            (Block List, Max: 1) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
+                            (Block List) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
                             Alerting Rules generated for Slow Burn alerts
                           items:
                             properties:
@@ -1109,7 +1109,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -1122,7 +1122,7 @@ spec:
                                   properties:
                                     type:
                                       description: |-
-                                        (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                                        (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                         Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                                       type: string
                                   type: object
@@ -1140,7 +1140,7 @@ spec:
                                       type: string
                                     value:
                                       description: |-
-                                        (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                                        (String) Templatable value
                                         Templatable value
                                       type: string
                                   type: object
@@ -1156,7 +1156,7 @@ spec:
                     type: string
                   destinationDatasource:
                     description: |-
-                      (Block List, Min: 1, Max: 1) Destination Datasource sets the datasource defined for an SLO (see below for nested schema)
+                      (Block List) Required. Destination Datasource sets the datasource defined for an SLO. (see below for nested schema)
                       **Required.** Destination Datasource sets the datasource defined for an SLO.
                     items:
                       properties:
@@ -1169,11 +1169,10 @@ spec:
                     type: array
                   folderUid:
                     description: |-
-                      (String) UID for the SLO folder
+                      empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
                       UID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
                     type: string
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   label:
                     description: |-
@@ -1188,7 +1187,7 @@ spec:
                           type: string
                         value:
                           description: |-
-                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            (String) Templatable value
                             Templatable value
                           type: string
                       type: object
@@ -1200,13 +1199,13 @@ spec:
                     type: string
                   objectives:
                     description: |-
-                      (Block List, Min: 1) Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
+                      (Block List) Required. Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
                       **Required.** Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget.
                     items:
                       properties:
                         value:
                           description: |-
-                            (Number) Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
+                            (String) Templatable value
                             Value between 0 and 1. If the value of the query is above the objective, the SLO is met.
                           type: number
                         window:
@@ -1218,39 +1217,39 @@ spec:
                     type: array
                   query:
                     description: |-
-                      (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
+                      (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
                       **Required.** Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
                     items:
                       properties:
                         freeform:
                           description: |-
-                            (Block List, Max: 1) (see below for nested schema)
+                            (Block List) Freeform query configuration. (see below for nested schema)
                             Freeform query configuration.
                           items:
                             properties:
                               query:
                                 description: |-
-                                  (Block List, Min: 1) Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
+                                  (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
                                   Freeform Query Field - valid promQl
                                 type: string
                             type: object
                           type: array
                         grafanaQueries:
                           description: |-
-                            (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                            (Block List) Array for holding a set of grafana queries (see below for nested schema)
                             Array for holding a set of grafana queries
                           items:
                             properties:
                               grafanaQueries:
                                 description: |-
-                                  (Block List, Max: 1) Array for holding a set of grafana queries (see below for nested schema)
+                                  (Block List) Array for holding a set of grafana queries (see below for nested schema)
                                   Query Object - Array of Grafana Query JSON objects
                                 type: string
                             type: object
                           type: array
                         ratio:
                           description: |-
-                            (Block List, Max: 1) (see below for nested schema)
+                            (Block List) Ratio query configuration. (see below for nested schema)
                             Ratio query configuration.
                           items:
                             properties:
@@ -1275,14 +1274,14 @@ spec:
                           type: array
                         type:
                           description: |-
-                            (String) Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
+                            (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
                             Query type must be one of: "freeform", "query", "ratio", "grafana_queries" or "threshold"
                           type: string
                       type: object
                     type: array
                   searchExpression:
                     description: |-
-                      (String) The name of a search expression in Grafana Asserts. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+                      empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
                       The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
                     type: string
                   uuid:

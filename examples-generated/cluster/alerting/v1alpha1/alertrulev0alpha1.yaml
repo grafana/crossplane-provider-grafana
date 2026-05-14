@@ -82,7 +82,8 @@ spec:
       missingSeriesEvalsToResolve: 5
       noDataState: KeepLast
       notificationSettings:
-      - contactPoint: grafana-default-email
+      - simplifiedRouting:
+        - contactPoint: grafana-default-email
       panelRef:
         dashboard_uid: dashboard123
         panel_id: "5"

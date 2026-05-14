@@ -16,7 +16,7 @@ import (
 
 type RoleInitParameters struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
+	// (Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).
 	// Whether the role version should be incremented automatically on updates (and set to 1 on creation).
 	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
@@ -67,14 +67,14 @@ type RoleInitParameters struct {
 	// Unique identifier of the role. Used for assignments.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
+	// (Number, Deprecated) Version of the role. The server manages this automatically.
 	// Version of the role. The server manages this automatically.
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type RoleObservation struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
+	// (Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).
 	// Whether the role version should be incremented automatically on updates (and set to 1 on creation).
 	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
 
@@ -117,14 +117,14 @@ type RoleObservation struct {
 	// Unique identifier of the role. Used for assignments.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
+	// (Number, Deprecated) Version of the role. The server manages this automatically.
 	// Version of the role. The server manages this automatically.
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type RoleParameters struct {
 
-	// (Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.
+	// (Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).
 	// Whether the role version should be incremented automatically on updates (and set to 1 on creation).
 	// +kubebuilder:validation:Optional
 	AutoIncrementVersion *bool `json:"autoIncrementVersion,omitempty" tf:"auto_increment_version,omitempty"`
@@ -185,7 +185,7 @@ type RoleParameters struct {
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.
+	// (Number, Deprecated) Version of the role. The server manages this automatically.
 	// Version of the role. The server manages this automatically.
 	// +kubebuilder:validation:Optional
 	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
@@ -253,7 +253,7 @@ type RoleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Role is the Schema for the Roles API. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+// Role is the Schema for the Roles API. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/access_control/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

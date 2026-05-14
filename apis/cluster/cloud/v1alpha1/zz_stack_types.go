@@ -48,7 +48,7 @@ type StackInitParameters struct {
 	// Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
 	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
 
-	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+	// (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
 	// How long to wait for readiness (if enabled). Defaults to `10m0s`.
 	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
 }
@@ -75,7 +75,7 @@ type StackObservation struct {
 	// User ID of the Alertmanager instance configured for this stack.
 	AlertmanagerUserID *float64 `json:"alertmanagerUserId,omitempty" tf:"alertmanager_user_id,omitempty"`
 
-	// (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+	// (String) Base URL of the Cloud Provider API for this stack's cluster. This can be used with the cloud_provider_url provider config option to manage Cloud Provider resources for this stack.
 	// Base URL of the Cloud Provider API for this stack's cluster. This can be used with the `cloud_provider_url` provider config option to manage Cloud Provider resources for this stack.
 	CloudProviderURL *string `json:"cloudProviderUrl,omitempty" tf:"cloud_provider_url,omitempty"`
 
@@ -87,7 +87,7 @@ type StackObservation struct {
 	// Slug of the cluster where this stack resides.
 	ClusterSlug *string `json:"clusterSlug,omitempty" tf:"cluster_slug,omitempty"`
 
-	// (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+	// (String) Base URL of the Connections API for this stack's cluster. This can be used with the connections_api_url provider config option to manage Connections resources for this stack.
 	// Base URL of the Connections API for this stack's cluster. This can be used with the `connections_api_url` provider config option to manage Connections resources for this stack.
 	ConnectionsAPIURL *string `json:"connectionsApiUrl,omitempty" tf:"connections_api_url,omitempty"`
 
@@ -399,7 +399,7 @@ type StackObservation struct {
 	// Subdomain that the Grafana instance will be available at. Setting slug to `<stack_slug>` will make the instance available at `https://<stack_slug>.grafana.net`.
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
-	// (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+	// (String) Base URL of the Synthetic Monitoring API for this stack's region. This can be used with the sm_url provider config option. Note: Synthetic Monitoring requires activation either via the grafana_synthetic_monitoring_installation resource or manually in the Grafana Cloud UI before it can be used.
 	// Base URL of the Synthetic Monitoring API for this stack's region. This can be used with the `sm_url` provider config option. Note: Synthetic Monitoring requires activation either via the `grafana_synthetic_monitoring_installation` resource or manually in the Grafana Cloud UI before it can be used.
 	SmURL *string `json:"smUrl,omitempty" tf:"sm_url,omitempty"`
 
@@ -452,7 +452,7 @@ type StackObservation struct {
 	// Whether to wait for readiness of the stack after creating it. The check is a HEAD request to the stack URL (Grafana instance). Defaults to `true`.
 	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
 
-	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+	// (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
 	// How long to wait for readiness (if enabled). Defaults to `10m0s`.
 	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`
 }
@@ -500,7 +500,7 @@ type StackParameters struct {
 	// +kubebuilder:validation:Optional
 	WaitForReadiness *bool `json:"waitForReadiness,omitempty" tf:"wait_for_readiness,omitempty"`
 
-	// (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+	// (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
 	// How long to wait for readiness (if enabled). Defaults to `10m0s`.
 	// +kubebuilder:validation:Optional
 	WaitForReadinessTimeout *string `json:"waitForReadinessTimeout,omitempty" tf:"wait_for_readiness_timeout,omitempty"`

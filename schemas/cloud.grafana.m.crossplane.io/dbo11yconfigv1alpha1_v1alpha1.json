@@ -1,5 +1,5 @@
 {
-  "description": "Dbo11YconfigV1Alpha1 is the Schema for the Dbo11YconfigV1Alpha1s API. \u003cno value\u003e",
+  "description": "Dbo11YconfigV1Alpha1 is the Schema for the Dbo11YconfigV1Alpha1s API. Manages Grafana Database Observability configurations using the Grafana APIs. This resource allows you to enable or disable database observability features. Note: This is a singleton resource. The UID is automatically set to \"global\" and there can only be one per namespace.",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -21,14 +21,14 @@
           "properties": {
             "metadata": {
               "additionalProperties": false,
-              "description": "The metadata of the resource.",
+              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
-                  "description": "The unique identifier of the resource.",
+                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
                   "type": "string"
                 }
               },
@@ -36,14 +36,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "Options for applying the resource.",
+              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -51,10 +51,10 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "The spec of the resource.",
+              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
               "properties": {
                 "enabled": {
-                  "description": "Whether database observability is enabled.",
+                  "description": "(Boolean) Whether database observability is enabled.\nWhether database observability is enabled.",
                   "type": "boolean"
                 }
               },
@@ -69,14 +69,14 @@
           "properties": {
             "metadata": {
               "additionalProperties": false,
-              "description": "The metadata of the resource.",
+              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
-                  "description": "The unique identifier of the resource.",
+                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
                   "type": "string"
                 }
               },
@@ -84,14 +84,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "Options for applying the resource.",
+              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -99,10 +99,10 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "The spec of the resource.",
+              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
               "properties": {
                 "enabled": {
-                  "description": "Whether database observability is enabled.",
+                  "description": "(Boolean) Whether database observability is enabled.\nWhether database observability is enabled.",
                   "type": "boolean"
                 }
               },
@@ -191,38 +191,39 @@
           "additionalProperties": false,
           "properties": {
             "id": {
+              "description": "(String) The ID of the resource derived from UUID.",
               "type": "string"
             },
             "metadata": {
               "additionalProperties": false,
-              "description": "The metadata of the resource.",
+              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "annotations": {
                   "additionalProperties": {
                     "type": "string"
                   },
-                  "description": "Annotations of the resource.",
+                  "description": "(Map of String) Annotations of the resource.\nAnnotations of the resource.",
                   "type": "object",
                   "x-kubernetes-map-type": "granular"
                 },
                 "folderUid": {
-                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
-                  "description": "The unique identifier of the resource.",
+                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
                   "type": "string"
                 },
                 "url": {
-                  "description": "The full URL of the resource.",
+                  "description": "(String) The full URL of the resource.\nThe full URL of the resource.",
                   "type": "string"
                 },
                 "uuid": {
-                  "description": "The globally unique identifier of a resource, used by the API for tracking.",
+                  "description": "(String) The globally unique identifier of a resource, used by the API for tracking.\nThe globally unique identifier of a resource, used by the API for tracking.",
                   "type": "string"
                 },
                 "version": {
-                  "description": "The version of the resource.",
+                  "description": "(String) The version of the resource.\nThe version of the resource.",
                   "type": "string"
                 }
               },
@@ -230,14 +231,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "Options for applying the resource.",
+              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -245,10 +246,10 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "The spec of the resource.",
+              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
               "properties": {
                 "enabled": {
-                  "description": "Whether database observability is enabled.",
+                  "description": "(Boolean) Whether database observability is enabled.\nWhether database observability is enabled.",
                   "type": "boolean"
                 }
               },

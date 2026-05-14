@@ -1,5 +1,5 @@
 {
-  "description": "Playlist is the Schema for the Playlists API. Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/playlist/",
+  "description": "Playlist is the Schema for the Playlists API. Manages Grafana playlists. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/playlist/",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",

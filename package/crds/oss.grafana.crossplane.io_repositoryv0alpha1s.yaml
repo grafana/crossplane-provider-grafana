@@ -81,7 +81,7 @@ spec:
                     properties:
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                           The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
@@ -295,11 +295,13 @@ spec:
                           Repository provider type: local, github, git, bitbucket, or gitlab.
                         type: string
                       webhook:
-                        description: Webhook delivery configuration.
+                        description: |-
+                          (Block, Optional) Webhook delivery configuration. (see below for nested schema)
+                          Webhook delivery configuration.
                         properties:
                           baseUrl:
                             description: |-
-                              (String) The full URL of the resource.
+                              (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
                               Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
                             type: string
                         type: object
@@ -332,7 +334,7 @@ spec:
                     properties:
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                           The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
@@ -546,11 +548,13 @@ spec:
                           Repository provider type: local, github, git, bitbucket, or gitlab.
                         type: string
                       webhook:
-                        description: Webhook delivery configuration.
+                        description: |-
+                          (Block, Optional) Webhook delivery configuration. (see below for nested schema)
+                          Webhook delivery configuration.
                         properties:
                           baseUrl:
                             description: |-
-                              (String) The full URL of the resource.
+                              (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
                               Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
                             type: string
                         type: object
@@ -681,7 +685,7 @@ spec:
                         x-kubernetes-map-type: granular
                       folderUid:
                         description: |-
-                          (String) The UID of the folder to save the resource in.
+                          (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                           The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
                         type: string
                       uid:
@@ -910,11 +914,13 @@ spec:
                           Repository provider type: local, github, git, bitbucket, or gitlab.
                         type: string
                       webhook:
-                        description: Webhook delivery configuration.
+                        description: |-
+                          (Block, Optional) Webhook delivery configuration. (see below for nested schema)
+                          Webhook delivery configuration.
                         properties:
                           baseUrl:
                             description: |-
-                              (String) The full URL of the resource.
+                              (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
                               Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
                             type: string
                         type: object

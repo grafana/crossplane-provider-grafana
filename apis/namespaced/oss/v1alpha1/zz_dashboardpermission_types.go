@@ -243,7 +243,7 @@ type DashboardPermissionStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// DashboardPermission is the Schema for the DashboardPermissions API. Manages the entire set of permissions for a dashboard. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+// DashboardPermission is the Schema for the DashboardPermissions API. Manages the entire set of permissions for a dashboard. Permissions that aren't specified when applying this resource will be removed. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/dashboard_permissions/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -1,5 +1,5 @@
 {
-  "description": "Role is the Schema for the Roles API. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/access_control/",
+  "description": "Role is the Schema for the Roles API. Note: This resource is available only with Grafana Enterprise 8.+. Official documentation https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/access_control/",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -20,7 +20,7 @@
           "additionalProperties": false,
           "properties": {
             "autoIncrementVersion": {
-              "description": "(Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.\nWhether the role version should be incremented automatically on updates (and set to 1 on creation).",
+              "description": "(Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).\nWhether the role version should be incremented automatically on updates (and set to 1 on creation).",
               "type": "boolean"
             },
             "description": {
@@ -162,7 +162,7 @@
               "type": "string"
             },
             "version": {
-              "description": "(Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.\nVersion of the role. The server manages this automatically.",
+              "description": "(Number, Deprecated) Version of the role. The server manages this automatically.\nVersion of the role. The server manages this automatically.",
               "type": "number"
             }
           },
@@ -173,7 +173,7 @@
           "description": "THIS IS A BETA FIELD. It will be honored\nunless the Management Policies feature flag is disabled.\nInitProvider holds the same fields as ForProvider, with the exception\nof Identifier and other resource reference fields. The fields that are\nin InitProvider are merged into ForProvider when the resource is created.\nThe same fields are also added to the terraform ignore_changes hook, to\navoid updating them after creation. This is useful for fields that are\nrequired on creation, but we do not desire to update them after creation,\nfor example because of an external controller is managing them, like an\nautoscaler.",
           "properties": {
             "autoIncrementVersion": {
-              "description": "(Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.\nWhether the role version should be incremented automatically on updates (and set to 1 on creation).",
+              "description": "(Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).\nWhether the role version should be incremented automatically on updates (and set to 1 on creation).",
               "type": "boolean"
             },
             "description": {
@@ -315,7 +315,7 @@
               "type": "string"
             },
             "version": {
-              "description": "(Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.\nVersion of the role. The server manages this automatically.",
+              "description": "(Number, Deprecated) Version of the role. The server manages this automatically.\nVersion of the role. The server manages this automatically.",
               "type": "number"
             }
           },
@@ -397,7 +397,7 @@
           "additionalProperties": false,
           "properties": {
             "autoIncrementVersion": {
-              "description": "(Boolean) Whether the role version should be incremented automatically on updates (and set to 1 on creation). Recommended for most configurations. This field or version should be set.\nWhether the role version should be incremented automatically on updates (and set to 1 on creation).",
+              "description": "(Boolean, Deprecated) Whether the role version should be incremented automatically on updates (and set to 1 on creation).\nWhether the role version should be incremented automatically on updates (and set to 1 on creation).",
               "type": "boolean"
             },
             "description": {
@@ -455,7 +455,7 @@
               "type": "string"
             },
             "version": {
-              "description": "(Number) Version of the role. On create, must be 1. On update, must be exactly one greater than the previous state. This field or auto_increment_version should be set; auto_increment_version is recommended.\nVersion of the role. The server manages this automatically.",
+              "description": "(Number, Deprecated) Version of the role. The server manages this automatically.\nVersion of the role. The server manages this automatically.",
               "type": "number"
             }
           },

@@ -24,7 +24,7 @@
               "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -223,10 +223,10 @@
                 },
                 "webhook": {
                   "additionalProperties": false,
-                  "description": "Webhook delivery configuration.",
+                  "description": "(Block, Optional) Webhook delivery configuration. (see below for nested schema)\nWebhook delivery configuration.",
                   "properties": {
                     "baseUrl": {
-                      "description": "(String) The full URL of the resource.\nOptional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.",
+                      "description": "(String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.\nOptional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.",
                       "type": "string"
                     }
                   },
@@ -254,7 +254,7 @@
               "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -453,10 +453,10 @@
                 },
                 "webhook": {
                   "additionalProperties": false,
-                  "description": "Webhook delivery configuration.",
+                  "description": "(Block, Optional) Webhook delivery configuration. (see below for nested schema)\nWebhook delivery configuration.",
                   "properties": {
                     "baseUrl": {
-                      "description": "(String) The full URL of the resource.\nOptional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.",
+                      "description": "(String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.\nOptional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.",
                       "type": "string"
                     }
                   },
@@ -571,7 +571,7 @@
                   "x-kubernetes-map-type": "granular"
                 },
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "uid": {
@@ -782,10 +782,10 @@
                 },
                 "webhook": {
                   "additionalProperties": false,
-                  "description": "Webhook delivery configuration.",
+                  "description": "(Block, Optional) Webhook delivery configuration. (see below for nested schema)\nWebhook delivery configuration.",
                   "properties": {
                     "baseUrl": {
-                      "description": "(String) The full URL of the resource.\nOptional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.",
+                      "description": "(String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.\nOptional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.",
                       "type": "string"
                     }
                   },

@@ -15,42 +15,53 @@ import (
 
 type CloudIntegrationInitParameters struct {
 
+	// (Boolean) Whether alerts are enabled for this integration.
 	// Whether alerts are enabled for this integration.
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty" tf:"alerts_enabled,omitempty"`
 
+	// node').
 	// The slug of the integration to install (e.g., 'docker', 'linux-node').
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 }
 
 type CloudIntegrationObservation struct {
 
+	// (Boolean) Whether alerts are enabled for this integration.
 	// Whether alerts are enabled for this integration.
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty" tf:"alerts_enabled,omitempty"`
 
+	// (String) The dashboard folder associated with this integration.
 	// The dashboard folder associated with this integration.
 	DashboardFolder *string `json:"dashboardFolder,omitempty" tf:"dashboard_folder,omitempty"`
 
+	// Set to the integration slug.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The version of the installed integration.
 	// The version of the installed integration.
 	InstalledVersion *string `json:"installedVersion,omitempty" tf:"installed_version,omitempty"`
 
+	// (String) The latest version available for this integration.
 	// The latest version available for this integration.
 	LatestVersion *string `json:"latestVersion,omitempty" tf:"latest_version,omitempty"`
 
+	// (String) The display name of the integration.
 	// The display name of the integration.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// node').
 	// The slug of the integration to install (e.g., 'docker', 'linux-node').
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 }
 
 type CloudIntegrationParameters struct {
 
+	// (Boolean) Whether alerts are enabled for this integration.
 	// Whether alerts are enabled for this integration.
 	// +kubebuilder:validation:Optional
 	AlertsEnabled *bool `json:"alertsEnabled,omitempty" tf:"alerts_enabled,omitempty"`
 
+	// node').
 	// The slug of the integration to install (e.g., 'docker', 'linux-node').
 	// +kubebuilder:validation:Optional
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
@@ -83,7 +94,7 @@ type CloudIntegrationStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// CloudIntegration is the Schema for the CloudIntegrations API. <no value>
+// CloudIntegration is the Schema for the CloudIntegrations API. Manages Grafana Cloud integrations. Official documentation https://grafana.com/docs/grafana-cloud/data-configuration/integrations/ This provider lets you manage Grafana Cloud Integrations. Alerts can optionally be disabled. Please note: Grafana Cloud Integrations do not support in-place upgrades, and require a teardown and reapply to resolve version drift. As such it is recommended to have a separate TF plan for integrations to cleanly destroy them as needed. Update, only triggered on config change, is implemented as a complete uninstall, then reinstall of the integration in question. Required access policy scopes: folders:readfolders:writedashboards:readdashboards:writerules:readrules:write Based on: https://grafana.com/docs/grafana/latest/alerting/alerting-rules/alerting-migration/#import-rules-with-grafana-alerting Note: This resource creates folders and dashboards as part of the integration installation process, which requires additional permissions beyond the basic integration scopes.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

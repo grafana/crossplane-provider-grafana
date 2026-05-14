@@ -103,7 +103,8 @@ spec:
                       Name of the pipeline which is the unique identifier for the pipeline
                     type: string
                   terraformSourceNamespace:
-                    description: If omitted, the namespace `default` is used.
+                    description: If omitted, the namespace default is used. If omitted,
+                      the namespace `default` is used.
                     type: string
                 type: object
               initProvider:
@@ -147,7 +148,8 @@ spec:
                       Name of the pipeline which is the unique identifier for the pipeline
                     type: string
                   terraformSourceNamespace:
-                    description: If omitted, the namespace `default` is used.
+                    description: If omitted, the namespace default is used. If omitted,
+                      the namespace `default` is used.
                     type: string
                 type: object
               managementPolicies:
@@ -281,7 +283,8 @@ spec:
                       Name of the pipeline which is the unique identifier for the pipeline
                     type: string
                   terraformSourceNamespace:
-                    description: If omitted, the namespace `default` is used.
+                    description: If omitted, the namespace default is used. If omitted,
+                      the namespace `default` is used.
                     type: string
                 type: object
               conditions:

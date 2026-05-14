@@ -119,7 +119,7 @@ spec:
                     type: boolean
                   waitForReadinessTimeout:
                     description: |-
-                      (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+                      (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
                       How long to wait for readiness (if enabled). Defaults to `10m0s`.
                     type: string
                 type: object
@@ -181,7 +181,7 @@ spec:
                     type: boolean
                   waitForReadinessTimeout:
                     description: |-
-                      (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+                      (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
                       How long to wait for readiness (if enabled). Defaults to `10m0s`.
                     type: string
                 type: object
@@ -312,7 +312,7 @@ spec:
                     type: number
                   cloudProviderUrl:
                     description: |-
-                      (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+                      (String) Base URL of the Cloud Provider API for this stack's cluster. This can be used with the cloud_provider_url provider config option to manage Cloud Provider resources for this stack.
                       Base URL of the Cloud Provider API for this stack's cluster. This can be used with the `cloud_provider_url` provider config option to manage Cloud Provider resources for this stack.
                     type: string
                   clusterName:
@@ -327,7 +327,7 @@ spec:
                     type: string
                   connectionsApiUrl:
                     description: |-
-                      (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+                      (String) Base URL of the Connections API for this stack's cluster. This can be used with the connections_api_url provider config option to manage Connections resources for this stack.
                       Base URL of the Connections API for this stack's cluster. This can be used with the `connections_api_url` provider config option to manage Connections resources for this stack.
                     type: string
                   deleteProtection:
@@ -757,7 +757,7 @@ spec:
                     type: string
                   smUrl:
                     description: |-
-                      (String) Custom URL for the Grafana instance. Must have a CNAME setup to point to .grafana.net before creating the stack
+                      (String) Base URL of the Synthetic Monitoring API for this stack's region. This can be used with the sm_url provider config option. Note: Synthetic Monitoring requires activation either via the grafana_synthetic_monitoring_installation resource or manually in the Grafana Cloud UI before it can be used.
                       Base URL of the Synthetic Monitoring API for this stack's region. This can be used with the `sm_url` provider config option. Note: Synthetic Monitoring requires activation either via the `grafana_synthetic_monitoring_installation` resource or manually in the Grafana Cloud UI before it can be used.
                     type: string
                   status:
@@ -827,7 +827,7 @@ spec:
                     type: boolean
                   waitForReadinessTimeout:
                     description: |-
-                      (String) How long to wait for readiness (if enabled). Defaults to 5m0s.
+                      (String) How long to wait for readiness (if enabled). Defaults to 10m0s.
                       How long to wait for readiness (if enabled). Defaults to `10m0s`.
                     type: string
                 type: object

@@ -253,7 +253,7 @@ type RepositoryV0Alpha1InitParameters struct {
 
 type RepositoryV0Alpha1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -269,7 +269,7 @@ type RepositoryV0Alpha1MetadataObservation struct {
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -292,7 +292,7 @@ type RepositoryV0Alpha1MetadataObservation struct {
 
 type RepositoryV0Alpha1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in.
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
@@ -472,6 +472,7 @@ type RepositoryV0Alpha1SpecInitParameters struct {
 	// Repository provider type: local, github, git, bitbucket, or gitlab.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
 	// Webhook delivery configuration.
 	Webhook *WebhookInitParameters `json:"webhook,omitempty" tf:"webhook,omitempty"`
 
@@ -522,6 +523,7 @@ type RepositoryV0Alpha1SpecObservation struct {
 	// Repository provider type: local, github, git, bitbucket, or gitlab.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
 	// Webhook delivery configuration.
 	Webhook *WebhookObservation `json:"webhook,omitempty" tf:"webhook,omitempty"`
 
@@ -582,6 +584,7 @@ type RepositoryV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 
+	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
 	// Webhook delivery configuration.
 	// +kubebuilder:validation:Optional
 	Webhook *WebhookParameters `json:"webhook,omitempty" tf:"webhook,omitempty"`
@@ -703,21 +706,21 @@ type SyncParameters struct {
 
 type WebhookInitParameters struct {
 
-	// (String) The full URL of the resource.
+	// (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
 	// Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
 	BaseURL *string `json:"baseUrl,omitempty" tf:"base_url,omitempty"`
 }
 
 type WebhookObservation struct {
 
-	// (String) The full URL of the resource.
+	// (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
 	// Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
 	BaseURL *string `json:"baseUrl,omitempty" tf:"base_url,omitempty"`
 }
 
 type WebhookParameters struct {
 
-	// (String) The full URL of the resource.
+	// (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
 	// Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
 	// +kubebuilder:validation:Optional
 	BaseURL *string `json:"baseUrl,omitempty" tf:"base_url,omitempty"`
