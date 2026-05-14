@@ -9,7 +9,7 @@ metadata:
 spec:
   forProvider:
     cron:
-    - schedule: 0 10 1 * *
+      schedule: 0 10 1 * *
       timezone: UTC
     loadTestId: ${grafana_k6_load_test.scheduled_test.id}
     starts: "2024-12-25T10:00:00Z"

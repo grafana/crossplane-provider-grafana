@@ -9,9 +9,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - uid: example-playlist
+      uid: example-playlist
     spec:
-    - interval: 5m
+      interval: 5m
       items:
       - type: dashboard_by_uid
         value: example-dashboard

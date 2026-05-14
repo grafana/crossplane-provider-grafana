@@ -10,9 +10,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - uid: test_enrichment
+      uid: test_enrichment
     spec:
-    - alertRuleUids:
+      alertRuleUids:
       - alert-rule-1
       - alert-rule-2
       annotationMatchers:
