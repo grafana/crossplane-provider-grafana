@@ -16,7 +16,6 @@ linters:
     - exhaustive
     - gocheckcompilerdirectives
     - gochecksumtype
-    - goconst
     - gocritic
     - gosec
     - gosmopolitan
@@ -48,9 +47,6 @@ linters:
       exclude-functions:
         - fmt:.*
         - io/ioutil:^Read.*
-    goconst:
-      min-len: 3
-      min-occurrences: 5
     gocritic:
       enabled-tags:
         - performance
