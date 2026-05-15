@@ -67,7 +67,7 @@ func main() {
 func flattenObjectBlocks(pc *ujconfig.Provider, dir string) error {
 	kindPaths := collectObjectBlockPaths(pc)
 
-	return filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+	return filepath.Walk(filepath.Clean(dir), func(path string, info os.FileInfo, err error) error {
 		if err != nil || info.IsDir() || !strings.HasSuffix(info.Name(), ".yaml") {
 			return err
 		}
