@@ -150,6 +150,94 @@ func (mg *PluginInstallation) ResolveReferences(ctx context.Context, c client.Re
 	return nil
 }
 
+// ResolveReferences of this PrivateDataSourceConnectNetwork.
+func (mg *PrivateDataSourceConnectNetwork) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackIdentifier),
+		Extract:      grafana.ComputedFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.CloudStackRef,
+		Selector:     mg.Spec.ForProvider.CloudStackSelector,
+		To: reference.To{
+			List:    &StackList{},
+			Managed: &Stack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.StackIdentifier")
+	}
+	mg.Spec.ForProvider.StackIdentifier = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackIdentifier),
+		Extract:      grafana.ComputedFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.CloudStackRef,
+		Selector:     mg.Spec.InitProvider.CloudStackSelector,
+		To: reference.To{
+			List:    &StackList{},
+			Managed: &Stack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.StackIdentifier")
+	}
+	mg.Spec.InitProvider.StackIdentifier = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this PrivateDataSourceConnectNetworkToken.
+func (mg *PrivateDataSourceConnectNetworkToken) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.PdcNetworkID),
+		Extract:      grafana.ComputedFieldExtractor("pdcNetworkId"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.PdcNetworkRef,
+		Selector:     mg.Spec.ForProvider.PdcNetworkSelector,
+		To: reference.To{
+			List:    &PrivateDataSourceConnectNetworkList{},
+			Managed: &PrivateDataSourceConnectNetwork{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.PdcNetworkID")
+	}
+	mg.Spec.ForProvider.PdcNetworkID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.PdcNetworkRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.PdcNetworkID),
+		Extract:      grafana.ComputedFieldExtractor("pdcNetworkId"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.PdcNetworkRef,
+		Selector:     mg.Spec.InitProvider.PdcNetworkSelector,
+		To: reference.To{
+			List:    &PrivateDataSourceConnectNetworkList{},
+			Managed: &PrivateDataSourceConnectNetwork{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.PdcNetworkID")
+	}
+	mg.Spec.InitProvider.PdcNetworkID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.PdcNetworkRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this StackServiceAccount.
 func (mg *StackServiceAccount) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)

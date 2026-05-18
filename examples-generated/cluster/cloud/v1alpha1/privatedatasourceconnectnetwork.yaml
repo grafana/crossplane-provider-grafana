@@ -8,10 +8,12 @@ metadata:
   name: test
 spec:
   forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_cloud_stack
     displayName: My PDC
     name: my-pdc
     region: prod-us-east-0
-    stackIdentifier: ${data.grafana_cloud_stack.current.id}
 
 ---
 
@@ -27,5 +29,7 @@ spec:
   forProvider:
     displayName: My PDC Token
     name: my-pdc-token
-    pdcNetworkId: ${grafana_cloud_private_data_source_connect_network.test.pdc_network_id}
+    pdcNetworkSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
     region: prod-us-east-0
