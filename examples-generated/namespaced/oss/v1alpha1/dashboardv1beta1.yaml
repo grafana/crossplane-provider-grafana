@@ -10,9 +10,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - uid: example-dashboard
+      uid: example-dashboard
     spec:
-    - json: |-
+      json: |-
         ${jsonencode({
               title         = "Example Dashboard"
               uid           = "example-dashboard"

@@ -10,25 +10,25 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - uid: my-github-folder-repo
+      uid: my-github-folder-repo
     secure:
-    - token:
+      token:
         create: replace-me
     secureVersion: 1
     spec:
-    - description: Folder-scoped GitHub repository authenticated directly with a token
+      description: Folder-scoped GitHub repository authenticated directly with a token
       github:
-      - branch: main
+        branch: main
         path: grafanatftest
         url: https://github.com/example/grafana-dashboards
       sync:
-      - enabled: true
+        enabled: true
         intervalSeconds: 60
         target: folder
       title: My GitHub Folder Repository
       type: github
       webhook:
-      - baseUrl: https://grafana.example.com
+        baseUrl: https://grafana.example.com
       workflows:
       - write
       - branch
