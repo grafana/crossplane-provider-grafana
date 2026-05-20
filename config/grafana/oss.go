@@ -7,8 +7,10 @@ package grafana
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
 )
 
 func configureOSS(p *ujconfig.Provider) {
@@ -135,6 +137,23 @@ func configureOSS(p *ujconfig.Provider) {
 			RefFieldName:      "MemberRefs",
 			SelectorFieldName: "MemberSelector",
 			Extractor:         fieldExtractor("email"),
+		}
+		// On first reconcile the crossplane.io/external-name annotation is
+		// empty, so terraform-provider-grafana's ReadTeam parses an empty
+		// "[orgID:]teamID" composite ID and surfaces a fatal diagnostic
+		// instead of returning not-found. Match that specific diagnostic
+		// and treat it as resource-not-found so upjet triggers Create.
+		// See https://github.com/grafana/crossplane-provider-grafana/issues/562.
+		r.ExternalName.IsNotFoundDiagnosticFn = func(diags []*tfprotov6.Diagnostic) bool {
+			for _, d := range diags {
+				if d == nil || d.Severity != tfprotov6.DiagnosticSeverityError {
+					continue
+				}
+				if strings.Contains(d.Detail, `Failed to parse resource ID: expected int for field "id"`) {
+					return true
+				}
+			}
+			return false
 		}
 	})
 	p.AddResourceConfigurator(
