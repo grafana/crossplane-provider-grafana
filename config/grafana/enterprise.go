@@ -32,6 +32,24 @@ func configureEnterprise(p *ujconfig.Provider) {
 			SelectorFieldName: "UserSelector",
 		}
 	})
+	p.AddResourceConfigurator("grafana_data_source_permission_item", func(r *ujconfig.Resource) {
+		r.References["datasource_uid"] = ujconfig.Reference{
+			TerraformName:     "grafana_data_source",
+			RefFieldName:      "DataSourceRef",
+			SelectorFieldName: "DataSourceSelector",
+			Extractor:         optionalFieldExtractor("uid"),
+		}
+		r.References["team"] = ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}
+		r.References["user"] = ujconfig.Reference{
+			TerraformName:     "grafana_user",
+			RefFieldName:      "UserRef",
+			SelectorFieldName: "UserSelector",
+		}
+	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
