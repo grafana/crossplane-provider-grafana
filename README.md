@@ -37,6 +37,52 @@ You can see the API reference [here](https://marketplace.upbound.io/providers/gr
 
 For information on configuring provider credentials and ProviderConfig secret fields, see the [ProviderConfig Secret Fields documentation](docs/providerconfig-secret-fields.md).
 
+## Signature Verification
+
+Published packages are cryptographically signed using [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) keyless signing with GitHub Actions OIDC. This lets you verify that a package was built by this repository's CI pipeline and hasn't been tampered with.
+
+### Verify a package signature
+
+```bash
+cosign verify \
+  ghcr.io/grafana/provider-grafana:v2.10.0 \
+  --certificate-identity-regexp 'https://github.com/grafana/crossplane-provider-grafana/.github/workflows/ci.*' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com'
+```
+
+The same works for packages on the Upbound Marketplace:
+
+```bash
+cosign verify \
+  xpkg.upbound.io/grafana/provider-grafana:v2.10.0 \
+  --certificate-identity-regexp 'https://github.com/grafana/crossplane-provider-grafana/.github/workflows/ci.*' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com'
+```
+
+### Automatic verification in Crossplane
+
+Crossplane 1.18+ supports automatic signature verification on package install via [ImageConfig](https://docs.crossplane.io/latest/packages/image-configs/#configuring-signature-verification):
+
+```yaml
+apiVersion: pkg.crossplane.io/v1beta1
+kind: ImageConfig
+metadata:
+  name: verify-provider-grafana
+spec:
+  matchImages:
+    - prefix: "ghcr.io/grafana/provider-grafana:"
+    - prefix: "xpkg.upbound.io/grafana/provider-grafana:"
+  verification:
+    provider: Cosign
+    cosign:
+      authorities:
+        - name: grafana-ci
+          keyless:
+            identities:
+              - issuer: https://token.actions.githubusercontent.com
+                subjectRegExp: https://github.com/grafana/crossplane-provider-grafana/.github/workflows/ci.*
+```
+
 ## Contributing
 
 See [docs/contributing.md](docs/contributing.md) for development setup and contribution guidelines.

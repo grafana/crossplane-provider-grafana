@@ -380,6 +380,12 @@ jobs:
       - name: Install Crossplane CLI
         run: make build.init
 
+      - name: Install cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+
+      - name: Install crane
+        uses: imjasonh/setup-crane@6da1ae018866400525525ce74ff892880c099987 # v0.5
+
       - name: Get Upbound Credentials from Vault
         uses: grafana/shared-workflows/actions/get-vault-secrets@a53fc80bc30b0a16a262520465db899fa3af08b7 # get-vault-secrets/v1.3.2
         with:
@@ -402,6 +408,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Determine package version
+        id: version
+        run: echo "version=$(git describe --dirty --always --tags | sed 's|.*/||; s/-/./2; s/-/./2; s/-/./2')" >> "$GITHUB_OUTPUT"
+
       - name: Publish Artifacts to Upbound
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
@@ -409,8 +419,19 @@ jobs:
           REGISTRY_ORGS: xpkg.upbound.io/grafana
           XPKG_REG_ORGS: xpkg.upbound.io/grafana
 
+      - name: Sign package on Upbound
+        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
+        run: |
+          DIGEST=$(crane digest "xpkg.upbound.io/grafana/provider-grafana:${{ steps.version.outputs.version }}")
+          cosign sign --yes "xpkg.upbound.io/grafana/provider-grafana@${DIGEST}"
+
       - name: Publish Artifacts to GHCR
         run: make publish BRANCH_NAME=${GITHUB_REF##*/} RELEASE_BRANCH_FILTER="%"
         env:
           REGISTRY_ORGS: ghcr.io/${{ github.repository_owner }}
           XPKG_REG_ORGS: ghcr.io/${{ github.repository_owner }}
+
+      - name: Sign package on GHCR
+        run: |
+          DIGEST=$(crane digest "ghcr.io/${{ github.repository_owner }}/provider-grafana:${{ steps.version.outputs.version }}")
+          cosign sign --yes "ghcr.io/${{ github.repository_owner }}/provider-grafana@${DIGEST}"
