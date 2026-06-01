@@ -58,6 +58,30 @@ func TestIsEmptyResourceIDDiagnostic(t *testing.T) {
 			diags: []*tfprotov6.Diagnostic{nil},
 			want:  false,
 		},
+		"string id hits list endpoint - folder": {
+			diags: []*tfprotov6.Diagnostic{{
+				Severity: tfprotov6.DiagnosticSeverityError,
+				Summary:  "Failed to get folder",
+				Detail:   `json: cannot unmarshal array into Go value of type models.Folder`,
+			}},
+			want: true,
+		},
+		"string id hits list endpoint - message template": {
+			diags: []*tfprotov6.Diagnostic{{
+				Severity: tfprotov6.DiagnosticSeverityError,
+				Summary:  "Failed to read message template",
+				Detail:   `json: cannot unmarshal array into Go value of type models.NotificationTemplate`,
+			}},
+			want: true,
+		},
+		"unmarshal array warning ignored": {
+			diags: []*tfprotov6.Diagnostic{{
+				Severity: tfprotov6.DiagnosticSeverityWarning,
+				Summary:  "Failed to get folder",
+				Detail:   `json: cannot unmarshal array into Go value of type models.Folder`,
+			}},
+			want: false,
+		},
 	}
 
 	for name, tc := range cases {
