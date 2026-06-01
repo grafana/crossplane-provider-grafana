@@ -273,7 +273,7 @@ jobs:
       - name: Sign package on Upbound
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
         run: |
-          DIGEST=$(crane digest "xpkg.upbound.io/grafana/provider-grafana:${{ steps.version.outputs.version }}")
+          DIGEST=$(crane digest "xpkg.upbound.io/grafana/provider-grafana:${{ steps.version.outputs.version }}" 2>/dev/null) || { echo "Package not found, skipping signing"; exit 0; }
           cosign sign --yes "xpkg.upbound.io/grafana/provider-grafana@${DIGEST}"
 
       - name: Publish Artifacts to GHCR
@@ -284,5 +284,5 @@ jobs:
 
       - name: Sign package on GHCR
         run: |
-          DIGEST=$(crane digest "ghcr.io/${{ github.repository_owner }}/provider-grafana:${{ steps.version.outputs.version }}")
+          DIGEST=$(crane digest "ghcr.io/${{ github.repository_owner }}/provider-grafana:${{ steps.version.outputs.version }}" 2>/dev/null) || { echo "Package not found, skipping signing"; exit 0; }
           cosign sign --yes "ghcr.io/${{ github.repository_owner }}/provider-grafana@${DIGEST}"
