@@ -56,11 +56,20 @@ func isEmptyResourceIDDiagnostic(diags []*tfprotov6.Diagnostic) bool {
 			continue
 		}
 		msg := diag.Summary + ": " + diag.Detail
-		if !strings.Contains(msg, "parse resource ID") {
-			continue
+
+		// Int-typed and composite IDs: parsing the empty id fails.
+		if strings.Contains(msg, "parse resource ID") {
+			if strings.Contains(msg, `got ""`) ||
+				strings.Contains(msg, `id "" does not match expected format`) {
+				return true
+			}
 		}
-		if strings.Contains(msg, `got ""`) ||
-			strings.Contains(msg, `id "" does not match expected format`) {
+
+		// String-typed IDs: the empty id parses successfully as an empty
+		// string, causing the API call to hit a list endpoint instead of
+		// a get-by-id endpoint. The list endpoint returns a JSON array
+		// where a single object is expected.
+		if strings.Contains(msg, "cannot unmarshal array") {
 			return true
 		}
 	}
