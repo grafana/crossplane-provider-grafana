@@ -37,6 +37,10 @@ You can see the API reference [here](https://marketplace.upbound.io/providers/gr
 
 For information on configuring provider credentials and ProviderConfig secret fields, see the [ProviderConfig Secret Fields documentation](docs/providerconfig-secret-fields.md).
 
+## Signature Verification
+
+Published packages are cryptographically signed. See [docs/signature-verification.md](docs/signature-verification.md) for verification instructions.
+
 ## Contributing
 
 See [docs/contributing.md](docs/contributing.md) for development setup and contribution guidelines.
