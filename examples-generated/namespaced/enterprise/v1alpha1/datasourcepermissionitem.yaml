@@ -9,9 +9,13 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    datasourceUid: ${grafana_data_source.foo.uid}
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo
     permission: Edit
-    team: ${grafana_team.team.id}
+    teamSelector:
+      matchLabels:
+        testing.upbound.io/example-name: team
 
 ---
 

@@ -16,12 +16,24 @@ import (
 
 type DataSourcePermissionItemInitParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
 
 	// (String) The UID of the datasource.
 	// The UID of the datasource.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
@@ -49,11 +61,33 @@ type DataSourcePermissionItemInitParameters struct {
 
 	// (String) the team onto which the permission is to be assigned
 	// the team onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Team
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	Team *string `json:"team,omitempty" tf:"team,omitempty"`
+
+	// Reference to a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
+
+	// Reference to a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type DataSourcePermissionItemObservation struct {
@@ -92,6 +126,14 @@ type DataSourcePermissionItemObservation struct {
 
 type DataSourcePermissionItemParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	// +kubebuilder:validation:Optional
@@ -99,6 +141,10 @@ type DataSourcePermissionItemParameters struct {
 
 	// (String) The UID of the datasource.
 	// The UID of the datasource.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
@@ -130,13 +176,35 @@ type DataSourcePermissionItemParameters struct {
 
 	// (String) the team onto which the permission is to be assigned
 	// the team onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Team
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
+	// Reference to a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
+
+	// Reference to a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // DataSourcePermissionItemSpec defines the desired state of DataSourcePermissionItem
@@ -175,7 +243,6 @@ type DataSourcePermissionItemStatus struct {
 type DataSourcePermissionItem struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.datasourceUid) || (has(self.initProvider) && has(self.initProvider.datasourceUid))",message="spec.forProvider.datasourceUid is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
 	Spec   DataSourcePermissionItemSpec   `json:"spec"`
 	Status DataSourcePermissionItemStatus `json:"status,omitempty"`

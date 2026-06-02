@@ -11,6 +11,7 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/config"
 	"github.com/crossplane/upjet/v2/pkg/types/name"
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
+	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
 )
 
 // GroupKindOverrides overrides the group and kind of the resource if it matches
@@ -38,9 +39,32 @@ func KindOverrides() config.ResourceOption {
 func ExternalNameConfigurations() config.ResourceOption {
 	return func(r *config.Resource) {
 		if _, ok := GroupMap[r.Name]; ok {
-			r.ExternalName = config.IdentifierFromProvider
+			r.ExternalName = identifierFromProviderTreatingEmptyIDAsNotFound()
 		}
 	}
+}
+
+func identifierFromProviderTreatingEmptyIDAsNotFound() config.ExternalName {
+	externalName := config.IdentifierFromProvider
+	externalName.IsNotFoundDiagnosticFn = isEmptyResourceIDDiagnostic
+	return externalName
+}
+
+func isEmptyResourceIDDiagnostic(diags []*tfprotov6.Diagnostic) bool {
+	for _, diag := range diags {
+		if diag == nil || diag.Severity != tfprotov6.DiagnosticSeverityError {
+			continue
+		}
+		msg := diag.Summary + ": " + diag.Detail
+		if !strings.Contains(msg, "parse resource ID") {
+			continue
+		}
+		if strings.Contains(msg, `got ""`) ||
+			strings.Contains(msg, `id "" does not match expected format`) {
+			return true
+		}
+	}
+	return false
 }
 
 // GroupKindCalculator returns the correct group and kind name for given TF
