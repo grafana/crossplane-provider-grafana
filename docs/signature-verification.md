@@ -1,10 +1,16 @@
 # Signature Verification
 
-Published packages are cryptographically signed using [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) keyless signing with GitHub Actions OIDC. This lets you verify that a package was built by this repository's CI pipeline and hasn't been tampered with.
+Published packages are cryptographically signed and include an SBOM (software bill of materials) attestation. Both are produced using [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) keyless signing with GitHub Actions OIDC. This lets you verify that a package was built by this repository's CI pipeline and hasn't been tampered with.
 
 ## How it works
 
-After each package publish, the CI pipeline signs the xpkg artifact using cosign's keyless mode. This uses the GitHub Actions OIDC identity token to obtain a short-lived certificate from Sigstore's Fulcio CA, and records the signature in Sigstore's Rekor transparency log. No long-lived signing keys are involved.
+After each package publish, the CI pipeline:
+
+1. **Signs** the xpkg artifact using cosign's keyless mode
+2. **Generates an SBOM** in SPDX format using [syft](https://github.com/anchore/syft)
+3. **Attaches the SBOM** as a signed in-toto attestation using `cosign attest`
+
+Keyless signing uses the GitHub Actions OIDC identity token to obtain a short-lived certificate from Sigstore's Fulcio CA, and records the signature in Sigstore's Rekor transparency log. No long-lived signing keys are involved.
 
 Packages are signed on both registries:
 
@@ -27,6 +33,26 @@ cosign verify \
   xpkg.upbound.io/grafana/provider-grafana:v2.10.0 \
   --certificate-identity-regexp 'https://github.com/grafana/crossplane-provider-grafana/.github/workflows/ci.*' \
   --certificate-oidc-issuer 'https://token.actions.githubusercontent.com'
+```
+
+## Verify the SBOM attestation
+
+```bash
+cosign verify-attestation \
+  ghcr.io/grafana/provider-grafana:v2.10.0 \
+  --certificate-identity-regexp 'https://github.com/grafana/crossplane-provider-grafana/.github/workflows/ci.*' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+  --type spdxjson
+```
+
+To extract the SBOM contents:
+
+```bash
+cosign verify-attestation \
+  ghcr.io/grafana/provider-grafana:v2.10.0 \
+  --certificate-identity-regexp 'https://github.com/grafana/crossplane-provider-grafana/.github/workflows/ci.*' \
+  --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+  --type spdxjson | jq -r '.payload' | base64 -d | jq '.predicate'
 ```
 
 ## Automatic verification in Crossplane
