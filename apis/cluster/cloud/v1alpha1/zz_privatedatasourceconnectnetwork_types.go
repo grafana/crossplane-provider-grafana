@@ -15,6 +15,14 @@ import (
 
 type PrivateDataSourceConnectNetworkInitParameters struct {
 
+	// Reference to a Stack in cloud to populate stackIdentifier.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackIdentifier.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (String) Display name of the PDC network. Defaults to the name.
 	// Display name of the PDC network. Defaults to the name.
 	DisplayName *string `json:"displayName,omitempty" tf:"display_name,omitempty"`
@@ -29,6 +37,10 @@ type PrivateDataSourceConnectNetworkInitParameters struct {
 
 	// (String) The identifier of the stack.
 	// The identifier of the stack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
 }
 
@@ -68,6 +80,14 @@ type PrivateDataSourceConnectNetworkObservation struct {
 
 type PrivateDataSourceConnectNetworkParameters struct {
 
+	// Reference to a Stack in cloud to populate stackIdentifier.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackIdentifier.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (String) Display name of the PDC network. Defaults to the name.
 	// Display name of the PDC network. Defaults to the name.
 	// +kubebuilder:validation:Optional
@@ -85,6 +105,10 @@ type PrivateDataSourceConnectNetworkParameters struct {
 
 	// (String) The identifier of the stack.
 	// The identifier of the stack.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackIdentifier *string `json:"stackIdentifier,omitempty" tf:"stack_identifier,omitempty"`
 }
@@ -127,7 +151,6 @@ type PrivateDataSourceConnectNetwork struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackIdentifier) || (has(self.initProvider) && has(self.initProvider.stackIdentifier))",message="spec.forProvider.stackIdentifier is a required parameter"
 	Spec   PrivateDataSourceConnectNetworkSpec   `json:"spec"`
 	Status PrivateDataSourceConnectNetworkStatus `json:"status,omitempty"`
 }

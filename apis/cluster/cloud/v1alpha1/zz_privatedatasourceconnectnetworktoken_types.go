@@ -29,7 +29,19 @@ type PrivateDataSourceConnectNetworkTokenInitParameters struct {
 
 	// (String) ID of the private data source network for which to create a token.
 	// ID of the private data source network for which to create a token.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.PrivateDataSourceConnectNetwork
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("pdcNetworkId")
+	// +crossplane:generate:reference:refFieldName=PdcNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=PdcNetworkSelector
 	PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+
+	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
+	// +kubebuilder:validation:Optional
+	PdcNetworkRef *v1.Reference `json:"pdcNetworkRef,omitempty" tf:"-"`
+
+	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
+	// +kubebuilder:validation:Optional
+	PdcNetworkSelector *v1.Selector `json:"pdcNetworkSelector,omitempty" tf:"-"`
 
 	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
@@ -89,8 +101,20 @@ type PrivateDataSourceConnectNetworkTokenParameters struct {
 
 	// (String) ID of the private data source network for which to create a token.
 	// ID of the private data source network for which to create a token.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.PrivateDataSourceConnectNetwork
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("pdcNetworkId")
+	// +crossplane:generate:reference:refFieldName=PdcNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=PdcNetworkSelector
 	// +kubebuilder:validation:Optional
 	PdcNetworkID *string `json:"pdcNetworkId,omitempty" tf:"pdc_network_id,omitempty"`
+
+	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
+	// +kubebuilder:validation:Optional
+	PdcNetworkRef *v1.Reference `json:"pdcNetworkRef,omitempty" tf:"-"`
+
+	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
+	// +kubebuilder:validation:Optional
+	PdcNetworkSelector *v1.Selector `json:"pdcNetworkSelector,omitempty" tf:"-"`
 
 	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
@@ -135,7 +159,6 @@ type PrivateDataSourceConnectNetworkToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.pdcNetworkId) || (has(self.initProvider) && has(self.initProvider.pdcNetworkId))",message="spec.forProvider.pdcNetworkId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.region) || (has(self.initProvider) && has(self.initProvider.region))",message="spec.forProvider.region is a required parameter"
 	Spec   PrivateDataSourceConnectNetworkTokenSpec   `json:"spec"`
 	Status PrivateDataSourceConnectNetworkTokenStatus `json:"status,omitempty"`
