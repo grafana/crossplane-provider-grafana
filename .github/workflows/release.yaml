@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write
     steps:
     - name: Harden the runner (Audit all outbound calls)
       uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
@@ -82,6 +83,69 @@ jobs:
         allowUpdates: true
         artifacts: "dist/*"
         bodyFile: ${{ steps.changelog.outputs.changelog }}
+
+    - name: Install crane
+      uses: imjasonh/setup-crane@6da1ae018866400525525ce74ff892880c099987 # v0.5
+
+    - name: Install syft
+      uses: anchore/sbom-action/download-syft@e22c389904149dbc22b58101806040fa8d37a610 # v0.24.0
+
+    - name: Install up CLI
+      uses: upbound/action-up@2c4d9663b902087b0808b79fe2c7ec68424d87d8 # v1.2.0
+      with:
+        skip-login: true
+
+    - name: Get Upbound Credentials from Vault
+      uses: grafana/shared-workflows/actions/get-vault-secrets@a53fc80bc30b0a16a262520465db899fa3af08b7 # get-vault-secrets/v1.3.2
+      with:
+        common_secrets: |
+          UPBOUND_MARKETPLACE_PUSH_ROBOT_ID=upbound:access-id
+          UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN=upbound:token
+
+    - name: Login to Upbound
+      uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+      if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
+      with:
+        registry: xpkg.upbound.io
+        username: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID }}
+        password: ${{ env.UPBOUND_MARKETPLACE_PUSH_ROBOT_TOKEN }}
+
+    - name: Prepare Marketplace extensions
+      if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
+      run: |
+        VERSION="${GITHUB_REF#refs/tags/}"
+        REF="xpkg.upbound.io/grafana/provider-grafana:${VERSION}"
+
+        # Wait for the package to be available (published by ci_tag workflow)
+        for i in $(seq 1 30); do
+          crane digest "${REF}" 2>/dev/null && break
+          echo "Waiting for ${REF} to be available... (attempt ${i}/30)"
+          sleep 30
+        done
+
+        DIGEST=$(crane digest "${REF}" 2>/dev/null) || { echo "::error::Package ${REF} not found after waiting"; exit 1; }
+
+        # SBOM
+        mkdir -p extensions/sbom
+        syft "${REF}@${DIGEST}" -o spdx-json=extensions/sbom/sbom.spdx.json
+
+        # Release notes
+        mkdir -p extensions/release-notes
+        cp "${{ steps.changelog.outputs.changelog }}" extensions/release-notes/release_notes.md
+
+        # Readme
+        mkdir -p extensions/readme
+        cp README.md extensions/readme/readme.md
+
+        # Icon is already committed at extensions/icons/icon.svg
+
+    - name: Append extensions to Marketplace
+      if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_ID != ''
+      run: |
+        VERSION="${GITHUB_REF#refs/tags/}"
+        up alpha xpkg append \
+          --extensions-root=./extensions \
+          "xpkg.upbound.io/grafana/provider-grafana:${VERSION}"
 
   deploy:
     name: Trigger Argo Workflow Deployment
