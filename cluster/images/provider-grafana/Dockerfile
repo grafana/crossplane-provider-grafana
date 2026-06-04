@@ -1,14 +1,11 @@
-FROM alpine:3.23.4@sha256:5b10f432ef3da1b8d4c7eb6c487f2f5a8f096bc91145e68878dd4a5019afde11
-RUN apk --no-cache add ca-certificates bash
+FROM gcr.io/distroless/static:nonroot@sha256:3592aa8171c77482f62bbc4164e6a2d141c6122554ace66e5cc910cadb961ff0
 
 ARG TARGETOS
 ARG TARGETARCH
 
 ADD "bin/${TARGETOS}_${TARGETARCH}/provider" /usr/local/bin/provider
 
-ENV USER_ID=65532
-
-USER ${USER_ID}
+USER 65532
 EXPOSE 8080
 
 ENTRYPOINT ["provider"]
