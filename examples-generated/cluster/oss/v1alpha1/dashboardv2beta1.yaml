@@ -9,9 +9,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - uid: example-dashboard-v2
+      uid: example-dashboard-v2
     spec:
-    - json: |-
+      json: |-
         ${jsonencode({
               title       = "Example Dashboard V2"
               cursorSync  = "Off"

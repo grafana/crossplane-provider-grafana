@@ -10,11 +10,11 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - folderUid: ${grafana_folder.recordingrule_folder.uid}
+      folderUid: ${grafana_folder.recordingrule_folder.uid}
       uid: example-recording-rule
     provider: ${grafana.local}
     spec:
-    - expressions:
+      expressions:
         A: |-
           ${jsonencode({
                   model = {
@@ -42,7 +42,7 @@ spec:
       targetDatasourceUid: target_ds_uid
       title: Example Recording Rule
       trigger:
-      - interval: 1m
+        interval: 1m
 
 ---
 

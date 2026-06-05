@@ -10,15 +10,15 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - uid: my-github-connection
+      uid: my-github-connection
     secure:
-    - privateKey:
+      privateKey:
         create: ${filebase64("${path.module}/private-key.pem")}
     secureVersion: 1
     spec:
-    - description: GitHub App connection used by a folder-scoped Git Sync repository
+      description: GitHub App connection used by a folder-scoped Git Sync repository
       github:
-      - appId: "12345"
+        appId: "12345"
         installationId: "67890"
       title: My GitHub App Connection
       type: github
