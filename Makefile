@@ -49,7 +49,20 @@ GO_SUBDIRS += cmd internal apis
 KIND_VERSION = v0.30.0
 UPTEST_VERSION = v2.1.0
 CRDDIFF_VERSION = v0.12.1
+# NOTE: CROSSPLANE_CLI_VERSION must be set before the include so that the := in
+# k8s_tools.mk picks up the correct version for the binary path.
+CROSSPLANE_CLI_VERSION = v2.3.1
 -include build/makelib/k8s_tools.mk
+
+# Override Crossplane CLI download target: starting from v2.3.0 the CLI moved
+# to its own repository (crossplane/cli) served from cli.crossplane.io with the
+# binary renamed from "crank" to "crossplane". The build submodule still uses
+# the old releases.crossplane.io URL which returns intermittent 403 errors.
+$(CROSSPLANE_CLI):
+	@$(INFO) installing Crossplane CLI $(CROSSPLANE_CLI_VERSION)
+	@curl -fsSLo $(CROSSPLANE_CLI) --create-dirs https://cli.crossplane.io/$(CROSSPLANE_CLI_CHANNEL)/$(CROSSPLANE_CLI_VERSION)/bin/$(SAFEHOST_PLATFORM)/crossplane || $(FAIL)
+	@chmod +x $(CROSSPLANE_CLI)
+	@$(OK) installing Crossplane CLI $(CROSSPLANE_CLI_VERSION)
 
 # ====================================================================================
 # Setup Images
@@ -162,7 +175,6 @@ run: go.build
 # ====================================================================================
 # End to End Testing
 CROSSPLANE_VERSION = 2.0.2
-CROSSPLANE_CLI_VERSION = v2.0.2
 CROSSPLANE_NAMESPACE = upbound-system
 
 # Auto-discover all example YAMLs for uptest; override with UPTEST_EXAMPLE_LIST env var.
