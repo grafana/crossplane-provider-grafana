@@ -9,7 +9,7 @@ require (
 	github.com/crossplane/crossplane-tools v0.0.0-20251017183449-dd4517244339
 	github.com/crossplane/upjet/v2 v2.2.0
 	github.com/google/go-cmp v0.7.0
-	github.com/grafana/synthetic-monitoring-agent v0.58.0
+	github.com/grafana/synthetic-monitoring-agent v0.58.3
 	github.com/grafana/synthetic-monitoring-api-go-client v0.19.13
 	github.com/grafana/terraform-provider-grafana/v4 v4.36.2
 	github.com/hashicorp/terraform-json v0.27.2
@@ -216,11 +216,11 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/exp v0.0.0-20260410095643-746e56fc9e2f // indirect
+	golang.org/x/exp v0.0.0-20260603202125-055de637280b // indirect
 	golang.org/x/mod v0.36.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
 	golang.org/x/oauth2 v0.36.0 // indirect
-	golang.org/x/sync v0.20.0 // indirect
+	golang.org/x/sync v0.21.0 // indirect
 	golang.org/x/sys v0.45.0 // indirect
 	golang.org/x/telemetry v0.0.0-20260508192327-42602be52be6 // indirect
 	golang.org/x/term v0.43.0 // indirect
