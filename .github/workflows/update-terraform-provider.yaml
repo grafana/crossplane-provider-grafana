@@ -18,8 +18,6 @@ permissions:
 jobs:
   update-provider:
     runs-on: ubuntu-24.04
-    outputs:
-      version: ${{ steps.params.outputs.version }}
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
@@ -124,7 +122,7 @@ jobs:
       - name: Create failure issue
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ needs.update-provider.outputs.version || 'unknown' }}
+          VERSION: ${{ github.event.client_payload.version || github.event.inputs.version || 'unknown' }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           existing=$(gh issue list --repo "$GITHUB_REPOSITORY" \
