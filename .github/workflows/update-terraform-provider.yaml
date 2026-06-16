@@ -12,12 +12,13 @@ on:
 
 permissions:
   contents: read
-  id-token: write # for GATB OIDC auth
-  issues: write   # for creating failure notification issues
 
 jobs:
   update-provider:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write # for GATB OIDC auth
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
@@ -118,6 +119,8 @@ jobs:
     runs-on: ubuntu-24.04
     needs: update-provider
     if: failure()
+    permissions:
+      issues: write
     steps:
       - name: Create failure issue
         env:
