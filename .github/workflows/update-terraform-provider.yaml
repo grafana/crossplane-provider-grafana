@@ -13,10 +13,13 @@ on:
 permissions:
   contents: read
   id-token: write # for GATB OIDC auth
+  issues: write   # for creating failure notification issues
 
 jobs:
   update-provider:
     runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.params.outputs.version }}
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
@@ -109,3 +112,40 @@ jobs:
           delete-branch: true
           committer: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
           author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
+
+  # Open a GitHub issue if the update job fails so the team is aware.
+  # Common failure: make generate panics when a new resource category was
+  # added upstream (see docs/contributing.md#update-resources).
+  notify-on-failure:
+    runs-on: ubuntu-24.04
+    needs: update-provider
+    if: failure()
+    steps:
+      - name: Create failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.update-provider.outputs.version || 'unknown' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" \
+            --label "automated-update-failure" \
+            --search "terraform-provider-grafana ${VERSION}" \
+            --state open --json number --jq '.[0].number // empty')
+
+          if [ -n "$existing" ]; then
+            echo "Issue #${existing} already exists, skipping."
+            exit 0
+          fi
+
+          gh issue create --repo "$GITHUB_REPOSITORY" \
+            --title "Automated terraform-provider-grafana update to ${VERSION} failed" \
+            --label "automated-update-failure" \
+            --body "The [update-terraform-provider](${RUN_URL}) workflow failed while trying to update \`terraform-provider-grafana\` to \`${VERSION}\`.
+
+          This likely requires manual intervention — common causes include:
+          - A new resource category was added upstream (requires adding an entry to \`categoryConfig\` in \`groups.go\`)
+          - Breaking API changes in the provider
+
+          See [docs/contributing.md#update-resources](https://github.com/grafana/crossplane-provider-grafana/blob/main/docs/contributing.md#update-resources) for guidance.
+
+          **Workflow run**: ${RUN_URL}"
