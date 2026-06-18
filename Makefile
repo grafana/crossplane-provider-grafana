@@ -58,10 +58,18 @@ CROSSPLANE_CLI_VERSION = v2.3.1
 # to its own repository (crossplane/cli) served from cli.crossplane.io with the
 # binary renamed from "crank" to "crossplane". The build submodule still uses
 # the old releases.crossplane.io URL which returns intermittent 403 errors.
+#
+# Download to a unique temp file and rename atomically so that parallel make
+# invocations needing the same target don't race on the destination path
+# (curl exits with code 23 "Failure writing output to destination" when two
+# downloads collide on the same file).
 $(CROSSPLANE_CLI):
 	@$(INFO) installing Crossplane CLI $(CROSSPLANE_CLI_VERSION)
-	@curl -fsSLo $(CROSSPLANE_CLI) --create-dirs https://cli.crossplane.io/$(CROSSPLANE_CLI_CHANNEL)/$(CROSSPLANE_CLI_VERSION)/bin/$(SAFEHOST_PLATFORM)/crossplane || $(FAIL)
-	@chmod +x $(CROSSPLANE_CLI)
+	@mkdir -p $(@D)
+	@tmp=$$(mktemp $(@D)/crossplane-cli.XXXXXX) && \
+		curl -fsSLo $$tmp https://cli.crossplane.io/$(CROSSPLANE_CLI_CHANNEL)/$(CROSSPLANE_CLI_VERSION)/bin/$(SAFEHOST_PLATFORM)/crossplane && \
+		chmod +x $$tmp && \
+		mv -f $$tmp $@ || $(FAIL)
 	@$(OK) installing Crossplane CLI $(CROSSPLANE_CLI_VERSION)
 
 # ====================================================================================
