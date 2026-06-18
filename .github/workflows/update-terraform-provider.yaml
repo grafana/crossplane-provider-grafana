@@ -1,0 +1,152 @@
+name: Update Terraform Provider
+
+on:
+  repository_dispatch:
+    types: [terraform-provider-update]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g. v4.37.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  update-provider:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write # for GATB OIDC auth
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
+      # Use a GitHub App token so the PR commit triggers CI workflows.
+      # Commits made with GITHUB_TOKEN do not trigger pull_request events.
+      # Prerequisites:
+      #   - The terraform-provider-grafana GitHub App must be installed on this repo
+      #   - GATB config in deployment_tools must exist for this workflow
+      #     (see terraform/repositories/crossplane-provider-grafana/github-app-configs/config.yaml)
+      - name: Generate GitHub App token
+        id: app_token
+        uses: grafana/shared-workflows/actions/create-github-app-token@ae92934a14a48b94494dbc06d74a81d47fe08a40 # create-github-app-token/v0.2.2
+        with:
+          github_app: terraform-provider-grafana
+
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: true
+          token: ${{ steps.app_token.outputs.token }}
+
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
+        with:
+          go-version-file: go.mod
+
+      - name: Resolve version and build PR body
+        id: params
+        env:
+          DISPATCH_VERSION: ${{ github.event.client_payload.version }}
+          DISPATCH_CHANGELOG: ${{ github.event.client_payload.changelog }}
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            version="$DISPATCH_VERSION"
+            changelog="$DISPATCH_CHANGELOG"
+          else
+            version="$INPUT_VERSION"
+            changelog=""
+          fi
+
+          if [ -z "$version" ]; then
+            echo "::error::No version provided"
+            exit 1
+          fi
+
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+          # Build PR body with changelog when available
+          {
+            echo "## Automated dependency update"
+            echo ""
+            echo "Updates \`terraform-provider-grafana\` to ${version}."
+            echo ""
+            echo "**Release**: https://github.com/grafana/terraform-provider-grafana/releases/tag/${version}"
+            if [ -n "$changelog" ]; then
+              echo ""
+              echo "### Changelog"
+              echo ""
+              echo "$changelog"
+            fi
+            echo ""
+            echo "---"
+            echo "*This PR was automatically created by the [update-terraform-provider](https://github.com/grafana/crossplane-provider-grafana/actions/workflows/update-terraform-provider.yaml) workflow.*"
+          } > /tmp/pr-body.md
+
+      - name: Update dependency
+        env:
+          VERSION: ${{ steps.params.outputs.version }}
+        run: |
+          go get "github.com/grafana/terraform-provider-grafana/v4@${VERSION}"
+          go mod tidy
+
+      - name: Run make submodules and generate
+        run: |
+          make submodules
+          make generate
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
+        with:
+          token: ${{ steps.app_token.outputs.token }}
+          title: 'feat(deps): update terraform-provider-grafana to ${{ steps.params.outputs.version }}'
+          commit-message: 'feat(deps): update terraform-provider-grafana to ${{ steps.params.outputs.version }}'
+          body-path: /tmp/pr-body.md
+          branch: automated/update-terraform-provider-${{ steps.params.outputs.version }}
+          delete-branch: true
+          committer: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
+          author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
+
+  # Open a GitHub issue if the update job fails so the team is aware.
+  # Common failure: make generate panics when a new resource category was
+  # added upstream (see docs/contributing.md#update-resources).
+  notify-on-failure:
+    runs-on: ubuntu-24.04
+    needs: update-provider
+    if: failure()
+    permissions:
+      issues: write
+    steps:
+      - name: Create failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ github.event.client_payload.version || github.event.inputs.version || 'unknown' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          existing=$(gh issue list --repo "$GITHUB_REPOSITORY" \
+            --label "automated-update-failure" \
+            --search "terraform-provider-grafana ${VERSION}" \
+            --state open --json number --jq '.[0].number // empty')
+
+          if [ -n "$existing" ]; then
+            echo "Issue #${existing} already exists, skipping."
+            exit 0
+          fi
+
+          gh issue create --repo "$GITHUB_REPOSITORY" \
+            --title "Automated terraform-provider-grafana update to ${VERSION} failed" \
+            --label "automated-update-failure" \
+            --body "The [update-terraform-provider](${RUN_URL}) workflow failed while trying to update \`terraform-provider-grafana\` to \`${VERSION}\`.
+
+          This likely requires manual intervention — common causes include:
+          - A new resource category was added upstream (requires adding an entry to \`categoryConfig\` in \`groups.go\`)
+          - Breaking API changes in the provider
+
+          See [docs/contributing.md#update-resources](https://github.com/grafana/crossplane-provider-grafana/blob/main/docs/contributing.md#update-resources) for guidance.
+
+          **Workflow run**: ${RUN_URL}"
