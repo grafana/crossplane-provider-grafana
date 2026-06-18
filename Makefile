@@ -101,10 +101,6 @@ fallthrough: submodules
 # we ensure image is present in daemon.
 xpkg.build.provider-grafana: do.build.images
 
-# NOTE(hasheddan): we ensure up is installed prior to running platform-specific
-# build steps in parallel to avoid encountering an installation race condition.
-build.init: $(CROSSPLANE_CLI)
-
 # ====================================================================================
 # Setup Terraform for fetching provider schema
 TERRAFORM := $(TOOLS_HOST_DIR)/terraform-$(TERRAFORM_VERSION)
