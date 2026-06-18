@@ -9,10 +9,10 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - folderUid: ${grafana_folder.alertrule_folder.uid}
+      folderUid: ${grafana_folder.alertrule_folder.uid}
       uid: example-alert-rule
     spec:
-    - annotations:
+      annotations:
         runbook_url: https://example.com
       execErrState: KeepLast
       expressions:
@@ -82,15 +82,15 @@ spec:
       missingSeriesEvalsToResolve: 5
       noDataState: KeepLast
       notificationSettings:
-      - simplifiedRouting:
-        - contactPoint: grafana-default-email
+        simplifiedRouting:
+          contactPoint: grafana-default-email
       panelRef:
         dashboard_uid: dashboard123
         panel_id: "5"
       paused: true
       title: Example Alert Rule
       trigger:
-      - interval: 1m
+        interval: 1m
 
 ---
 

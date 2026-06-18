@@ -10,6 +10,6 @@ metadata:
 spec:
   forProvider:
     metadata:
-    - uid: global
+      uid: global
     spec:
-    - enabled: true
+      enabled: true
