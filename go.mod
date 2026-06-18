@@ -2,8 +2,6 @@ module github.com/grafana/crossplane-provider-grafana/v2
 
 go 1.26.3
 
-toolchain go1.26.4
-
 require (
 	dario.cat/mergo v1.0.2
 	github.com/alecthomas/kingpin/v2 v2.4.0
