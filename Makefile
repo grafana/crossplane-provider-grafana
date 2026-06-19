@@ -72,6 +72,14 @@ $(CROSSPLANE_CLI):
 		mv -f $$tmp $@ || $(FAIL)
 	@$(OK) installing Crossplane CLI $(CROSSPLANE_CLI_VERSION)
 
+# Wire `make build.init` to install the Crossplane CLI. The upstream build
+# submodule references $(CROSSPLANE_CLI) in recipe bodies (notably the
+# xpkg.release.publish.* targets) but never lists it as a prerequisite, so
+# make does not build it automatically. The publish-artifacts CI job calls
+# `make build.init` to populate tools but, without this, the CLI is missing
+# when `make publish` later tries to invoke it.
+build.init: $(CROSSPLANE_CLI)
+
 # ====================================================================================
 # Setup Images
 
