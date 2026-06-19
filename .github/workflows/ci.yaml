@@ -84,9 +84,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Go
-        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
-        with:
-          go-version-file: go.mod
+        uses: ./.github/actions/setup-go
 
       - name: Find the Go Build Cache
         id: go
@@ -136,9 +134,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Go
-        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
-        with:
-          go-version-file: go.mod
+        uses: ./.github/actions/setup-go
 
       - name: Find the Go Build Cache
         id: go
@@ -187,9 +183,7 @@ jobs:
         run: git fetch --prune --unshallow
 
       - name: Setup Go
-        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
-        with:
-          go-version-file: go.mod
+        uses: ./.github/actions/setup-go
 
       - name: Find the Go Build Cache
         id: go
@@ -237,9 +231,7 @@ jobs:
         run: git fetch --prune --unshallow
 
       - name: Setup Go
-        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
-        with:
-          go-version-file: go.mod
+        uses: ./.github/actions/setup-go
 
       - name: Find the Go Build Cache
         id: go
@@ -300,9 +292,7 @@ jobs:
         run: git fetch --prune --unshallow
 
       - name: Setup Go
-        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
-        with:
-          go-version-file: go.mod
+        uses: ./.github/actions/setup-go
 
       - name: Find the Go Build Cache
         id: go
