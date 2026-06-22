@@ -80,10 +80,59 @@ renamed to `folder_uid`. Update your compositions and claims accordingly.
 
 ## Update resources
 
-Steps to update resources from the latest Terraform provider version:
+Resources are regenerated from the upstream Terraform provider whenever its
+version changes.
 
-> **Note:** Renovate will generally update the Terraform provider dependency
-> automatically, so there is no need to do this manually in normal circumstances.
+### Automated updates
+
+The [update-terraform-provider](../.github/workflows/update-terraform-provider.yaml)
+workflow handles updates automatically. It is triggered when a new
+`terraform-provider-grafana` release is published (via `repository_dispatch`)
+and can also be run manually from the Actions tab with a version input. The
+workflow:
+
+1. Bumps the provider version and commits the `go.mod`/`go.sum` change.
+2. Runs `go mod tidy`.
+3. Runs `make submodules && make generate` (only if `go mod tidy` succeeded).
+4. Commits the regenerated output (only if both previous steps succeeded).
+5. Opens a pull request on the
+   `automated/update-terraform-provider-<version>` branch and requests a
+   review from the `@grafana/platform-monitoring` team.
+
+The PR is **always** created, even when steps 2-4 fail, so that a human can
+fix things up on top of the automated commits. If `go mod tidy` fails,
+generation is skipped and the PR contains only the version bump commit.
+
+#### When manual intervention is required
+
+If `go mod tidy` or `make generate` fails, the PR is opened **as a draft** with
+a "⚠️ Manual intervention required" section describing which step failed and a
+link to the workflow run. Look for the open draft PR on the
+`automated/update-terraform-provider-<version>` branch.
+
+To resolve it, check out the branch, fix the issue, and push additional
+commits, then mark the PR ready for review:
+
+```console
+git fetch origin
+git checkout automated/update-terraform-provider-<version>
+# fix the issue (see manual steps below), then:
+make submodules && make generate
+git commit -am "fix generated resources"
+git push
+```
+
+The most common cause is a new resource category added upstream, which makes
+`make generate` panic with a message telling you to add an entry to
+`categoryConfig` in [groups.go](../config/groups.go).
+
+If the workflow fails *before* a PR can be created (e.g. dependency resolution
+or the branch push fails), it opens a GitHub issue labeled
+`automated-update-failure` instead.
+
+### Manual updates
+
+If you need to update resources by hand:
 
 1. Update the Terraform provider version in the [go.mod](../go.mod) file.
 2. Generate the resources:
