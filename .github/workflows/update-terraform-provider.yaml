@@ -186,6 +186,9 @@ jobs:
             if [ "$NEEDS_INTERVENTION" = "true" ]; then
               gh pr ready "$existing" --repo "$GITHUB_REPOSITORY" --undo || true
             fi
+            # Re-request team review; ignored if already requested or reviewed.
+            gh pr edit "$existing" --repo "$GITHUB_REPOSITORY" \
+              --add-reviewer "grafana/platform-monitoring" || true
             exit 0
           fi
 
@@ -194,11 +197,14 @@ jobs:
             draft_flag="--draft"
           fi
 
+          # Request a review from the platform-monitoring team so they are looped
+          # in on every update PR, including drafts that need intervention.
           gh pr create --repo "$GITHUB_REPOSITORY" \
             --base main \
             --head "$BRANCH" \
             --title "feat(deps): update terraform-provider-grafana to ${VERSION}" \
             --body-file /tmp/pr-body.md \
+            --reviewer "grafana/platform-monitoring" \
             $draft_flag
 
   # Catastrophic fallback: only fires when the automated flow failed before a PR
