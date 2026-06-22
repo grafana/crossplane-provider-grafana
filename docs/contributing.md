@@ -93,13 +93,14 @@ workflow:
 
 1. Bumps the provider version and commits the `go.mod`/`go.sum` change.
 2. Runs `go mod tidy`.
-3. Runs `make submodules && make generate`.
-4. Commits the regenerated output.
+3. Runs `make submodules && make generate` (only if `go mod tidy` succeeded).
+4. Commits the regenerated output (only if both previous steps succeeded).
 5. Opens a pull request on the
    `automated/update-terraform-provider-<version>` branch.
 
 The PR is **always** created, even when steps 2-4 fail, so that a human can
-fix things up on top of the automated commits.
+fix things up on top of the automated commits. If `go mod tidy` fails,
+generation is skipped and the PR contains only the version bump commit.
 
 #### When manual intervention is required
 

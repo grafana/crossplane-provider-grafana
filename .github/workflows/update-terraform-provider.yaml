@@ -97,24 +97,28 @@ jobs:
           git add go.mod go.sum
           git commit -m "feat(deps): update terraform-provider-grafana to ${VERSION}"
 
-      # May fail (e.g. dependency resolution issues). Recorded, not fatal.
+      # May fail (e.g. dependency resolution issues). On failure we stop the
+      # generation pipeline and open the PR with just the version bump commit.
       - name: Run go mod tidy
         id: tidy
         continue-on-error: true
         run: go mod tidy
 
-      # May fail: make generate panics when a new resource category was added
-      # upstream (see docs/contributing.md#update-resources). Recorded, not fatal.
+      # Only run when go mod tidy succeeded; running it on a broken module would
+      # just produce noise. May fail: make generate panics when a new resource
+      # category was added upstream (see docs/contributing.md#update-resources).
       - name: Run make submodules and generate
         id: generate
+        if: steps.tidy.outcome == 'success'
         continue-on-error: true
         run: |
           make submodules
           make generate
 
-      # Commit 2: the regenerated output. Skipped gracefully when there is
-      # nothing to commit (e.g. generation failed before producing changes).
+      # Commit 2: the regenerated output. Only when both go mod tidy and
+      # generation succeeded. Skipped gracefully when there is nothing to commit.
       - name: Commit generated output
+        if: steps.tidy.outcome == 'success' && steps.generate.outcome == 'success'
         env:
           VERSION: ${{ steps.params.outputs.version }}
         run: |
@@ -133,7 +137,9 @@ jobs:
         run: git push --force-with-lease origin "HEAD:refs/heads/${BRANCH}"
 
       # Prepend a manual-intervention notice to the PR body when a step failed,
-      # and decide whether the PR should be opened as a draft.
+      # and decide whether the PR should be opened as a draft. When go mod tidy
+      # fails, make generate is skipped (outcome != 'success'), so only the
+      # failed steps that actually ran are listed.
       - name: Compose PR body
         id: body
         env:
@@ -145,14 +151,13 @@ jobs:
           needs_intervention=false
           : > /tmp/pr-body.md
 
-          if [ "$TIDY_OUTCOME" = "failure" ] || [ "$GENERATE_OUTCOME" = "failure" ]; then
+          if [ "$TIDY_OUTCOME" != "success" ] || [ "$GENERATE_OUTCOME" != "success" ]; then
             needs_intervention=true
 
             failed_steps=""
             if [ "$TIDY_OUTCOME" = "failure" ]; then
-              failed_steps="${failed_steps}- \`go mod tidy\`"$'\n'
-            fi
-            if [ "$GENERATE_OUTCOME" = "failure" ]; then
+              failed_steps="${failed_steps}- \`go mod tidy\` failed; \`make submodules && make generate\` was skipped"$'\n'
+            elif [ "$GENERATE_OUTCOME" = "failure" ]; then
               failed_steps="${failed_steps}- \`make submodules && make generate\`"$'\n'
             fi
 
