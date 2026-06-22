@@ -147,6 +147,7 @@ jobs:
         env:
           TIDY_OUTCOME: ${{ steps.tidy.outcome }}
           GENERATE_OUTCOME: ${{ steps.generate.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           needs_intervention=false
           {
@@ -171,6 +172,8 @@ jobs:
               echo "\`make generate\` panic. Add an entry to \`categoryConfig\` in"
               echo "[config/groups.go](https://github.com/grafana/crossplane-provider-grafana/blob/main/config/groups.go)."
               echo "See [docs/contributing.md#update-resources](https://github.com/grafana/crossplane-provider-grafana/blob/main/docs/contributing.md#update-resources) for guidance."
+              echo ""
+              echo "**Workflow run**: ${RUN_URL}"
               echo ""
               echo "---"
               echo ""
