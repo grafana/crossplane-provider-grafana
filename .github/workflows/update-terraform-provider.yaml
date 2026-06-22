@@ -52,6 +52,7 @@ jobs:
           DISPATCH_VERSION: ${{ github.event.client_payload.version }}
           DISPATCH_CHANGELOG: ${{ github.event.client_payload.changelog }}
           INPUT_VERSION: ${{ github.event.inputs.version }}
+          TEMPLATE: .github/workflows/templates/update-terraform-provider-pr-body.md
         run: |
           if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
             version="$DISPATCH_VERSION"
@@ -69,24 +70,15 @@ jobs:
           echo "version=${version}" >> "$GITHUB_OUTPUT"
           echo "branch=automated/update-terraform-provider-${version}" >> "$GITHUB_OUTPUT"
 
-          # Build the base PR body. A "manual intervention" section is prepended
-          # later if go mod tidy or make generate fail.
-          {
-            echo "## Automated dependency update"
-            echo ""
-            echo "Updates \`terraform-provider-grafana\` to ${version}."
-            echo ""
-            echo "**Release**: https://github.com/grafana/terraform-provider-grafana/releases/tag/${version}"
-            if [ -n "$changelog" ]; then
-              echo ""
-              echo "### Changelog"
-              echo ""
-              echo "$changelog"
-            fi
-            echo ""
-            echo "---"
-            echo "*This PR was automatically created by the [update-terraform-provider](https://github.com/grafana/crossplane-provider-grafana/actions/workflows/update-terraform-provider.yaml) workflow.*"
-          } > /tmp/pr-body-base.md
+          # Render the base PR body from the template. A "manual intervention"
+          # section is prepended later if go mod tidy or make generate fail.
+          changelog_section=""
+          if [ -n "$changelog" ]; then
+            changelog_section=$(printf '\n### Changelog\n\n%s\n\n' "$changelog")
+          fi
+
+          export VERSION="$version" CHANGELOG_SECTION="$changelog_section"
+          envsubst '${VERSION} ${CHANGELOG_SECTION}' < "$TEMPLATE" > /tmp/pr-body-base.md
 
       # Commit 1: bump the dependency version only. This commit always succeeds
       # so that a branch and PR can be created even when later steps fail.
@@ -148,37 +140,26 @@ jobs:
           TIDY_OUTCOME: ${{ steps.tidy.outcome }}
           GENERATE_OUTCOME: ${{ steps.generate.outcome }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TEMPLATE: .github/workflows/templates/update-terraform-provider-intervention.md
         run: |
           needs_intervention=false
-          {
-            if [ "$TIDY_OUTCOME" = "failure" ] || [ "$GENERATE_OUTCOME" = "failure" ]; then
-              needs_intervention=true
-              echo "## ⚠️ Manual intervention required"
-              echo ""
-              echo "The automated generation steps did not complete successfully. This PR"
-              echo "contains the version bump commit and any partial generated output."
-              echo "Please check out the branch, resolve the issues, and push additional"
-              echo "commits before merging."
-              echo ""
-              echo "**Failed steps:**"
-              if [ "$TIDY_OUTCOME" = "failure" ]; then
-                echo "- \`go mod tidy\`"
-              fi
-              if [ "$GENERATE_OUTCOME" = "failure" ]; then
-                echo "- \`make submodules && make generate\`"
-              fi
-              echo ""
-              echo "Common cause: a new resource category was added upstream, which makes"
-              echo "\`make generate\` panic. Add an entry to \`categoryConfig\` in"
-              echo "[config/groups.go](https://github.com/grafana/crossplane-provider-grafana/blob/main/config/groups.go)."
-              echo "See [docs/contributing.md#update-resources](https://github.com/grafana/crossplane-provider-grafana/blob/main/docs/contributing.md#update-resources) for guidance."
-              echo ""
-              echo "**Workflow run**: ${RUN_URL}"
-              echo ""
-              echo "---"
-              echo ""
+          : > /tmp/pr-body.md
+
+          if [ "$TIDY_OUTCOME" = "failure" ] || [ "$GENERATE_OUTCOME" = "failure" ]; then
+            needs_intervention=true
+
+            failed_steps=""
+            if [ "$TIDY_OUTCOME" = "failure" ]; then
+              failed_steps="${failed_steps}- \`go mod tidy\`"$'\n'
             fi
-          } > /tmp/pr-body.md
+            if [ "$GENERATE_OUTCOME" = "failure" ]; then
+              failed_steps="${failed_steps}- \`make submodules && make generate\`"$'\n'
+            fi
+
+            export RUN_URL FAILED_STEPS="$failed_steps"
+            envsubst '${RUN_URL} ${FAILED_STEPS}' < "$TEMPLATE" > /tmp/pr-body.md
+          fi
+
           cat /tmp/pr-body-base.md >> /tmp/pr-body.md
 
           echo "needs_intervention=${needs_intervention}" >> "$GITHUB_OUTPUT"
