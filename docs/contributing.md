@@ -103,6 +103,12 @@ The PR is **always** created, even when steps 2-4 fail, so that a human can
 fix things up on top of the automated commits. If `go mod tidy` fails,
 generation is skipped and the PR contains only the version bump commit.
 
+Commits are created through the GitHub API (via the `createCommitOnBranch`
+GraphQL mutation, see
+[scripts/create-signed-commit.sh](../.github/workflows/scripts/create-signed-commit.sh))
+so they are verified/signed, which is required by the branch rules. A plain
+`git push` of locally-created commits would be rejected.
+
 #### When manual intervention is required
 
 If `go mod tidy` or `make generate` fails, the PR is opened **as a draft** with

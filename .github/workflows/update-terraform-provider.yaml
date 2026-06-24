@@ -80,27 +80,53 @@ jobs:
           export VERSION="$version" CHANGELOG_SECTION="$changelog_section"
           envsubst '${VERSION} ${CHANGELOG_SECTION}' < "$TEMPLATE" > /tmp/pr-body-base.md
 
+      # Create the remote branch at the current base commit so that
+      # createCommitOnBranch has a ref to commit onto. Commits are then created
+      # via the GitHub API (see create-signed-commit.sh) so they are verified;
+      # plain `git push` of locally-created commits would fail branch rules that
+      # require signed commits.
+      #
+      # If the branch already exists (e.g. a re-run, or a human is iterating on
+      # it), it is left untouched and the automated commit steps are skipped so
+      # we never clobber existing work. The PR step still re-requests review.
+      - name: Prepare branch
+        id: branch
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+          BRANCH: ${{ steps.params.outputs.branch }}
+        run: |
+          if gh api "repos/${GITHUB_REPOSITORY}/git/refs/heads/${BRANCH}" >/dev/null 2>&1; then
+            echo "Branch ${BRANCH} already exists; skipping automated commits."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          base_oid=$(git rev-parse HEAD)
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/git/refs" \
+            -f ref="refs/heads/${BRANCH}" -f sha="$base_oid" >/dev/null
+          git checkout -B "$BRANCH"
+          echo "exists=false" >> "$GITHUB_OUTPUT"
+
       # Commit 1: bump the dependency version only. This commit always succeeds
       # so that a branch and PR can be created even when later steps fail.
       - name: Commit version bump
+        if: steps.branch.outputs.exists == 'false'
         env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
           VERSION: ${{ steps.params.outputs.version }}
           BRANCH: ${{ steps.params.outputs.branch }}
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-          git checkout -B "$BRANCH"
-
           go get "github.com/grafana/terraform-provider-grafana/v4@${VERSION}"
 
           git add go.mod go.sum
-          git commit -m "feat(deps): update terraform-provider-grafana to ${VERSION}"
+          ./.github/workflows/scripts/create-signed-commit.sh "$BRANCH" \
+            "feat(deps): update terraform-provider-grafana to ${VERSION}"
 
       # May fail (e.g. dependency resolution issues). On failure we stop the
       # generation pipeline and open the PR with just the version bump commit.
       - name: Run go mod tidy
         id: tidy
+        if: steps.branch.outputs.exists == 'false'
         continue-on-error: true
         run: go mod tidy
 
@@ -109,7 +135,7 @@ jobs:
       # category was added upstream (see docs/contributing.md#update-resources).
       - name: Run make submodules and generate
         id: generate
-        if: steps.tidy.outcome == 'success'
+        if: steps.branch.outputs.exists == 'false' && steps.tidy.outcome == 'success'
         continue-on-error: true
         run: |
           make submodules
@@ -118,23 +144,32 @@ jobs:
       # Commit 2: the regenerated output. Only when both go mod tidy and
       # generation succeeded. Skipped gracefully when there is nothing to commit.
       - name: Commit generated output
-        if: steps.tidy.outcome == 'success' && steps.generate.outcome == 'success'
+        if: steps.branch.outputs.exists == 'false' && steps.tidy.outcome == 'success' && steps.generate.outcome == 'success'
         env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
           VERSION: ${{ steps.params.outputs.version }}
+          BRANCH: ${{ steps.params.outputs.branch }}
         run: |
           git add -A
-          if git diff --cached --quiet; then
-            echo "No generated changes to commit."
-          else
-            git commit -m "chore(deps): regenerate resources for terraform-provider-grafana ${VERSION}"
-          fi
+          ./.github/workflows/scripts/create-signed-commit.sh "$BRANCH" \
+            "chore(deps): regenerate resources for terraform-provider-grafana ${VERSION}"
 
-      # Push the branch regardless of go mod tidy / make generate outcomes so a
-      # human can intervene on top of the automated commits.
-      - name: Push branch
+      # When the branch already existed we leave it (and any open PR) untouched
+      # beyond re-requesting review, so we never overwrite in-progress work.
+      - name: Re-request review on existing PR
+        if: steps.branch.outputs.exists == 'true'
         env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
           BRANCH: ${{ steps.params.outputs.branch }}
-        run: git push --force-with-lease origin "HEAD:refs/heads/${BRANCH}"
+        run: |
+          existing=$(gh pr list --repo "$GITHUB_REPOSITORY" \
+            --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" --repo "$GITHUB_REPOSITORY" \
+              --add-reviewer "grafana/platform-monitoring" || true
+          else
+            echo "Branch ${BRANCH} exists but has no open PR; leaving as-is."
+          fi
 
       # Prepend a manual-intervention notice to the PR body when a step failed,
       # and decide whether the PR should be opened as a draft. When go mod tidy
@@ -142,6 +177,7 @@ jobs:
       # failed steps that actually ran are listed.
       - name: Compose PR body
         id: body
+        if: steps.branch.outputs.exists == 'false'
         env:
           TIDY_OUTCOME: ${{ steps.tidy.outcome }}
           GENERATE_OUTCOME: ${{ steps.generate.outcome }}
@@ -169,29 +205,15 @@ jobs:
 
           echo "needs_intervention=${needs_intervention}" >> "$GITHUB_OUTPUT"
 
-      # Always create the PR (idempotent) so a human can build on top of it.
+      # Create the PR for the freshly created branch.
       - name: Create pull request
+        if: steps.branch.outputs.exists == 'false'
         env:
           GH_TOKEN: ${{ steps.app_token.outputs.token }}
           VERSION: ${{ steps.params.outputs.version }}
           BRANCH: ${{ steps.params.outputs.branch }}
           NEEDS_INTERVENTION: ${{ steps.body.outputs.needs_intervention }}
         run: |
-          existing=$(gh pr list --repo "$GITHUB_REPOSITORY" \
-            --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
-
-          if [ -n "$existing" ]; then
-            echo "PR #${existing} already exists for ${BRANCH}, updating body."
-            gh pr edit "$existing" --repo "$GITHUB_REPOSITORY" --body-file /tmp/pr-body.md
-            if [ "$NEEDS_INTERVENTION" = "true" ]; then
-              gh pr ready "$existing" --repo "$GITHUB_REPOSITORY" --undo || true
-            fi
-            # Re-request team review; ignored if already requested or reviewed.
-            gh pr edit "$existing" --repo "$GITHUB_REPOSITORY" \
-              --add-reviewer "grafana/platform-monitoring" || true
-            exit 0
-          fi
-
           draft_flag=""
           if [ "$NEEDS_INTERVENTION" = "true" ]; then
             draft_flag="--draft"
@@ -208,9 +230,9 @@ jobs:
             $draft_flag
 
   # Catastrophic fallback: only fires when the automated flow failed before a PR
-  # could be created (e.g. go get or the branch push failed). When generation
-  # steps fail but a PR is produced, the PR itself carries the intervention
-  # notice and no issue is opened.
+  # could be created (e.g. go get, branch creation, or the commit API call
+  # failed). When generation steps fail but a PR is produced, the PR itself
+  # carries the intervention notice and no issue is opened.
   notify-on-failure:
     runs-on: ubuntu-24.04
     needs: update-provider
@@ -239,7 +261,7 @@ jobs:
             --label "automated-update-failure" \
             --body "The [update-terraform-provider](${RUN_URL}) workflow failed before it could open a pull request for \`terraform-provider-grafana\` \`${VERSION}\`.
 
-          No PR was created, so manual action is required. This usually means an early step (dependency resolution or branch push) failed.
+          No PR was created, so manual action is required. This usually means an early step (dependency resolution, branch creation, or the commit API call) failed.
 
           See [docs/contributing.md#update-resources](https://github.com/grafana/crossplane-provider-grafana/blob/main/docs/contributing.md#update-resources) for guidance.
 
