@@ -74,7 +74,6 @@ jobs:
 
       - name: Setup Go
         uses: ./.github/actions/setup-go
-          cache: 'false'
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
@@ -102,7 +101,6 @@ jobs:
 
       - name: Setup Go
         uses: ./.github/actions/setup-go
-          cache: 'false'
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
@@ -129,7 +127,6 @@ jobs:
 
       - name: Setup Go
         uses: ./.github/actions/setup-go
-          cache: 'false'
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
@@ -155,7 +152,6 @@ jobs:
 
       - name: Setup Go
         uses: ./.github/actions/setup-go
-          cache: 'false'
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
@@ -225,7 +221,6 @@ jobs:
 
       - name: Setup Go
         uses: ./.github/actions/setup-go
-          cache: 'false'
 
       - name: Install cosign
         uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
