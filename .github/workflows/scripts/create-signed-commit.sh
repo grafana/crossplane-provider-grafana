@@ -76,7 +76,13 @@ input=$(jq -cn \
     fileChanges: $changes
   }')
 
-new_oid=$(gh api graphql -f query="$mutation" -F input="$input" \
+# Pass the query and variables as a single JSON request body. `gh api graphql`
+# with -F cannot coerce a JSON string into a nested input object, so build the
+# full GraphQL payload ({query, variables}) and feed it on stdin via --input -.
+request=$(jq -cn --arg query "$mutation" --argjson input "$input" \
+  '{query: $query, variables: {input: $input}}')
+
+new_oid=$(gh api graphql --input - <<<"$request" \
   --jq '.data.createCommitOnBranch.commit.oid')
 
 echo "Created signed commit ${new_oid} on ${branch}."
