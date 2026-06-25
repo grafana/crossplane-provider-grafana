@@ -1,0 +1,14 @@
+apiVersion: assistant.grafana.m.crossplane.io/v1alpha1
+kind: Quickstart
+metadata:
+  annotations:
+    meta.upbound.io/example-id: assistant/v1alpha1/quickstart
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    prompt: How healthy are my SLOs right now?
+    scope: tenant
+    title: SLO health

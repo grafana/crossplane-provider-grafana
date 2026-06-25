@@ -3439,6 +3439,16 @@ func (in *GooglechatInitParameters) DeepCopyInto(out *GooglechatInitParameters) 
 		*out = new(bool)
 		**out = **in
 	}
+	if in.HideOpenButton != nil {
+		in, out := &in.HideOpenButton, &out.HideOpenButton
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HideVersionInfo != nil {
+		in, out := &in.HideVersionInfo, &out.HideVersionInfo
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
 		*out = new(string)
@@ -3486,6 +3496,16 @@ func (in *GooglechatObservation) DeepCopyInto(out *GooglechatObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.HideOpenButton != nil {
+		in, out := &in.HideOpenButton, &out.HideOpenButton
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HideVersionInfo != nil {
+		in, out := &in.HideVersionInfo, &out.HideVersionInfo
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Message != nil {
 		in, out := &in.Message, &out.Message
 		*out = new(string)
@@ -3518,6 +3538,16 @@ func (in *GooglechatParameters) DeepCopyInto(out *GooglechatParameters) {
 	*out = *in
 	if in.DisableResolveMessage != nil {
 		in, out := &in.DisableResolveMessage, &out.DisableResolveMessage
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HideOpenButton != nil {
+		in, out := &in.HideOpenButton, &out.HideOpenButton
+		*out = new(bool)
+		**out = **in
+	}
+	if in.HideVersionInfo != nil {
+		in, out := &in.HideVersionInfo, &out.HideVersionInfo
 		*out = new(bool)
 		**out = **in
 	}

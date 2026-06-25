@@ -27,6 +27,10 @@ import (
 	suppressedassertionsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/suppressedassertionsconfig"
 	thresholds "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/thresholds"
 	traceconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/traceconfig"
+	mcpserver "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/mcpserver"
+	quickstart "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/quickstart"
+	rule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/rule"
+	skill "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/skill"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicy"
 	accesspolicyrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicyrotatingtoken"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/cloud/accesspolicytoken"
@@ -141,6 +145,10 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		suppressedassertionsconfig.Setup,
 		thresholds.Setup,
 		traceconfig.Setup,
+		mcpserver.Setup,
+		quickstart.Setup,
+		rule.Setup,
+		skill.Setup,
 		accesspolicy.Setup,
 		accesspolicyrotatingtoken.Setup,
 		accesspolicytoken.Setup,
@@ -261,6 +269,10 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		suppressedassertionsconfig.SetupGated,
 		thresholds.SetupGated,
 		traceconfig.SetupGated,
+		mcpserver.SetupGated,
+		quickstart.SetupGated,
+		rule.SetupGated,
+		skill.SetupGated,
 		accesspolicy.SetupGated,
 		accesspolicyrotatingtoken.SetupGated,
 		accesspolicytoken.SetupGated,

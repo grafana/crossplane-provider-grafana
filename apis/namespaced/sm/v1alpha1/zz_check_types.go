@@ -186,6 +186,28 @@ type BrowserParameters struct {
 	Script *string `json:"script" tf:"script,omitempty"`
 }
 
+type ChannelsInitParameters struct {
+
+	// (Block List, Max: 1) K6 channel configuration. (see below for nested schema)
+	// K6 channel configuration.
+	K6 []K6InitParameters `json:"k6,omitempty" tf:"k6,omitempty"`
+}
+
+type ChannelsObservation struct {
+
+	// (Block List, Max: 1) K6 channel configuration. (see below for nested schema)
+	// K6 channel configuration.
+	K6 []K6Observation `json:"k6,omitempty" tf:"k6,omitempty"`
+}
+
+type ChannelsParameters struct {
+
+	// (Block List, Max: 1) K6 channel configuration. (see below for nested schema)
+	// K6 channel configuration.
+	// +kubebuilder:validation:Optional
+	K6 []K6Parameters `json:"k6,omitempty" tf:"k6,omitempty"`
+}
+
 type CheckInitParameters struct {
 
 	// (String) Can be set to none, low, medium, or high to correspond to the check alert levels. Defaults to none.
@@ -196,9 +218,17 @@ type CheckInitParameters struct {
 	// Metrics are reduced by default. Set this to `false` if you'd like to publish all metrics. We maintain a [full list of metrics](https://github.com/grafana/synthetic-monitoring-agent/tree/main/internal/scraper/testdata) collected for each. Defaults to `true`.
 	BasicMetricsOnly *bool `json:"basicMetricsOnly,omitempty" tf:"basic_metrics_only,omitempty"`
 
+	// (Block List, Max: 1) Channels to assign the check to. See Manage k6 versions for details. If not specified for scripted/browser checks, the API assigns a default k6 channel. (see below for nested schema)
+	// Channels to assign the check to. See [Manage k6 versions](https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/manage-k6-versions/) for details. If not specified for scripted/browser checks, the API assigns a default k6 channel.
+	Channels []ChannelsInitParameters `json:"channels,omitempty" tf:"channels,omitempty"`
+
 	// (Boolean) Whether to enable the check. Defaults to true.
 	// Whether to enable the check. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) The UID of the Grafana folder to associate the check with.
+	// The UID of the Grafana folder to associate the check with.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to 60000.
 	// How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to `60000`.
@@ -247,9 +277,17 @@ type CheckObservation struct {
 	// Metrics are reduced by default. Set this to `false` if you'd like to publish all metrics. We maintain a [full list of metrics](https://github.com/grafana/synthetic-monitoring-agent/tree/main/internal/scraper/testdata) collected for each. Defaults to `true`.
 	BasicMetricsOnly *bool `json:"basicMetricsOnly,omitempty" tf:"basic_metrics_only,omitempty"`
 
+	// (Block List, Max: 1) Channels to assign the check to. See Manage k6 versions for details. If not specified for scripted/browser checks, the API assigns a default k6 channel. (see below for nested schema)
+	// Channels to assign the check to. See [Manage k6 versions](https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/manage-k6-versions/) for details. If not specified for scripted/browser checks, the API assigns a default k6 channel.
+	Channels []ChannelsObservation `json:"channels,omitempty" tf:"channels,omitempty"`
+
 	// (Boolean) Whether to enable the check. Defaults to true.
 	// Whether to enable the check. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) The UID of the Grafana folder to associate the check with.
+	// The UID of the Grafana folder to associate the check with.
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to 60000.
 	// How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to `60000`.
@@ -307,10 +345,20 @@ type CheckParameters struct {
 	// +kubebuilder:validation:Optional
 	BasicMetricsOnly *bool `json:"basicMetricsOnly,omitempty" tf:"basic_metrics_only,omitempty"`
 
+	// (Block List, Max: 1) Channels to assign the check to. See Manage k6 versions for details. If not specified for scripted/browser checks, the API assigns a default k6 channel. (see below for nested schema)
+	// Channels to assign the check to. See [Manage k6 versions](https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/manage-k6-versions/) for details. If not specified for scripted/browser checks, the API assigns a default k6 channel.
+	// +kubebuilder:validation:Optional
+	Channels []ChannelsParameters `json:"channels,omitempty" tf:"channels,omitempty"`
+
 	// (Boolean) Whether to enable the check. Defaults to true.
 	// Whether to enable the check. Defaults to `true`.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) The UID of the Grafana folder to associate the check with.
+	// The UID of the Grafana folder to associate the check with.
+	// +kubebuilder:validation:Optional
+	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to 60000.
 	// How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to `60000`.
@@ -1089,6 +1137,28 @@ type HeadersParameters struct {
 	// Value of the header to send
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
+}
+
+type K6InitParameters struct {
+
+	// (String) The ID of the check.
+	// The ID of the k6 channel.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type K6Observation struct {
+
+	// (String) The ID of the check.
+	// The ID of the k6 channel.
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+}
+
+type K6Parameters struct {
+
+	// (String) The ID of the check.
+	// The ID of the k6 channel.
+	// +kubebuilder:validation:Optional
+	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 }
 
 type MultihttpInitParameters struct {

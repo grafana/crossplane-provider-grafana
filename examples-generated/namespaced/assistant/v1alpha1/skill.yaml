@@ -1,0 +1,16 @@
+apiVersion: assistant.grafana.m.crossplane.io/v1alpha1
+kind: Skill
+metadata:
+  annotations:
+    meta.upbound.io/example-id: assistant/v1alpha1/skill
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    body: |
+      1. Check deployment pipeline status.
+      2. Verify SLO error budget before promoting.
+    name: Deploy readiness check
+    scope: tenant

@@ -12,6 +12,7 @@ import (
 
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/alerting/v1alpha1"
 	v1alpha1asserts "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/asserts/v1alpha1"
+	v1alpha1assistant "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/assistant/v1alpha1"
 	v1alpha1cloud "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1"
 	v1alpha1cloudintegrations "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloudintegrations/v1alpha1"
 	v1alpha1cloudprovider "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloudprovider/v1alpha1"
@@ -34,6 +35,7 @@ func init() {
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1asserts.SchemeBuilder.AddToScheme,
+		v1alpha1assistant.SchemeBuilder.AddToScheme,
 		v1alpha1cloud.SchemeBuilder.AddToScheme,
 		v1alpha1cloudintegrations.SchemeBuilder.AddToScheme,
 		v1alpha1cloudprovider.SchemeBuilder.AddToScheme,
