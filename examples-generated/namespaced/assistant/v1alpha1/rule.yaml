@@ -1,0 +1,17 @@
+apiVersion: assistant.grafana.m.crossplane.io/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: assistant/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    applications:
+    - assistant
+    name: Prefer RED metrics
+    priority: 10
+    ruleContent: When summarizing service health, prefer RED metrics.
+    scope: tenant

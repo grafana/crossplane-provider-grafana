@@ -2401,6 +2401,119 @@ resources:
             values: (List of String) Values to match against.
         importStatements:
             - terraform import grafana_asserts_trace_config.name "{{ name }}"
+    grafana_assistant_mcp_server:
+        subCategory: Grafana Assistant
+        description: Manages a Grafana Assistant MCP server integration.
+        name: grafana_assistant_mcp_server
+        title: grafana_assistant_mcp_server Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "applications": [
+                    "assistant"
+                  ],
+                  "configuration": [
+                    {
+                      "url": "https://example.com/mcp/"
+                    }
+                  ],
+                  "custom_headers": {
+                    "Authorization": "Bearer ${var.mcp_token}"
+                  },
+                  "name": "Example MCP server",
+                  "scope": "tenant"
+                }
+        argumentDocs:
+            applications: '(List of String) Applications where this resource applies. Valid values: assistant, loop, all. Defaults to all applications when unset.'
+            builtin_id: (String) Built-in provider ID (e.g. cursor). When set, tools are provided locally.
+            configuration: (Block, Optional) MCP server configuration. (see below for nested schema)
+            custom_headers: (Map of String, Sensitive) Custom HTTP headers sent to the MCP server. Values are write-only and not returned by the API.
+            description: (String) Optional description.
+            enabled: (Boolean) Whether the resource is enabled.
+            id: (String) The UUID of the resource.
+            name: (String) The MCP server integration name.
+            scope: (String) Whether the resource is visible to the whole tenant (tenant) or only the creating user (user).
+            tool_approval_policies: (Map of String) Tool approval policies keyed by tool name (auto_approve, always_ask, or empty for default).
+            tool_preferences: (Map of String) Tool preferences keyed by tool name (enabled or disabled).
+            url: (String) MCP server URL.
+        importStatements:
+            - terraform import grafana_assistant_mcp_server.name "{{ id }}"
+    grafana_assistant_quickstart:
+        subCategory: Grafana Assistant
+        description: Manages a Grafana Assistant quickstart prompt shown to users.
+        name: grafana_assistant_quickstart
+        title: grafana_assistant_quickstart Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "prompt": "How healthy are my SLOs right now?",
+                  "scope": "tenant",
+                  "title": "SLO health"
+                }
+        argumentDocs:
+            context_items: (String) Optional JSON array of context items for the quickstart.
+            enabled: (Boolean) Whether the resource is enabled.
+            id: (String) The UUID of the resource.
+            prompt: (String) The quickstart question text.
+            scope: (String) Whether the resource is visible to the whole tenant (tenant) or only the creating user (user).
+            title: (String) Optional title for the quickstart.
+        importStatements:
+            - terraform import grafana_assistant_quickstart.name "{{ id }}"
+    grafana_assistant_rule:
+        subCategory: Grafana Assistant
+        description: Manages a Grafana Assistant rule that is injected into the assistant system prompt.
+        name: grafana_assistant_rule
+        title: grafana_assistant_rule Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "applications": [
+                    "assistant"
+                  ],
+                  "name": "Prefer RED metrics",
+                  "priority": 10,
+                  "rule_content": "When summarizing service health, prefer RED metrics.",
+                  "scope": "tenant"
+                }
+        argumentDocs:
+            applications: '(List of String) Applications where this resource applies. Valid values: assistant, loop, infrastructure_memory (rules only), all. Defaults to all applications when unset.'
+            description: (String) Optional description of the rule.
+            enabled: (Boolean) Whether the resource is enabled.
+            id: (String) The UUID of the resource.
+            name: (String) The rule name.
+            priority: (Number) Rule priority (lower values apply first).
+            rule_content: (String) The rule text included in the assistant system prompt.
+            scope: (String) Whether the resource is visible to the whole tenant (tenant) or only the creating user (user).
+        importStatements:
+            - terraform import grafana_assistant_rule.name "{{ id }}"
+    grafana_assistant_skill:
+        subCategory: Grafana Assistant
+        description: Manages a Grafana Assistant skill.
+        name: grafana_assistant_skill
+        title: grafana_assistant_skill Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "body": "1. Check deployment pipeline status.\n2. Verify SLO error budget before promoting.\n",
+                  "name": "Deploy readiness check",
+                  "scope": "tenant"
+                }
+        argumentDocs:
+            allowed_tools: (Block List) MCP tools to auto-approve when this skill is invoked. (see below for nested schema)
+            body: (String) The skill content.
+            context_items: (String) Optional JSON array of context items referenced by the skill.
+            id: (String) The UUID of the resource.
+            include_in_knowledgebase: (Boolean) Whether the skill is included in the knowledgebase.
+            integration_id: (String) Integration UUID.
+            name: (String) The skill name.
+            scope: (String) Whether the resource is visible to the whole tenant (tenant) or only the creating user (user).
+            tool_name: (String) MCP tool name.
+        importStatements:
+            - terraform import grafana_assistant_skill.name "{{ id }}"
     grafana_cloud_access_policy:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
@@ -3287,6 +3400,8 @@ resources:
             handler: (String) A custom handler to execute in addition to the check.
             header: (String) The header in which the HMAC signature will be included. Defaults to X-Grafana-Alerting-Signature.
             headers: (Map of String) Custom headers to attach to the request.
+            hide_open_button: (Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+            hide_version_info: (Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.
             hmac_config: '(Block Set, Max: 1) HMAC signature configuration options. (see below for nested schema)'
             http_config: '(Block Set, Max: 1) Common HTTP client options. (see below for nested schema)'
             http_method: (String) The HTTP method to use in the request. Defaults to POST.
@@ -5660,7 +5775,7 @@ resources:
         argumentDocs:
             channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
             enabled: (Boolean) Enable notification in MS teams. Defaults to true.
-            escalation_chain_id: (String) The ID of the escalation chain.
+            escalation_chain_id: (String) The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
             id: (String) The ID of this resource.
             integration_id: (String) The ID of the integration.
             msteams: '(Block List, Max: 1) MS teams-specific settings for a route. (see below for nested schema)'
@@ -7240,6 +7355,7 @@ resources:
               manifest: |-
                 {
                   "enabled": false,
+                  "folder_uid": "test-folder-uid",
                   "job": "HTTP Defaults",
                   "labels": {
                     "foo": "bar"
@@ -7734,6 +7850,7 @@ resources:
             browser: '(Block Set, Max: 1) Settings for browser check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/. (see below for nested schema)'
             ca_cert: (String) CA certificate in PEM format.
             cache_busting_query_param_name: (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
+            channels: '(Block List, Max: 1) Channels to assign the check to. See Manage k6 versions for details. If not specified for scripted/browser checks, the API assigns a default k6 channel. (see below for nested schema)'
             client_cert: (String) Client certificate in PEM format.
             client_key: (String, Sensitive) Client key in PEM format.
             compression: (String) Check fails if the response body is not compressed using this compression algorithm. One of none, identity, br, gzip, deflate.
@@ -7754,6 +7871,7 @@ resources:
             fail_if_not_matches_regexp: (Set of String) Fail if value does not match regex.
             fail_if_not_ssl: (Boolean) Fail if SSL is not present. Defaults to false.
             fail_if_ssl: (Boolean) Fail if SSL is present. Defaults to false.
+            folder_uid: (String) The UID of the Grafana folder to associate the check with.
             frequency: (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to 60000.
             grpc: '(Block Set, Max: 1) Settings for gRPC Health check. The target must be of the form <host>:<port>, where the host portion must be a valid hostname or IP address. (see below for nested schema)'
             header: (String) Header name.
@@ -7763,6 +7881,7 @@ resources:
             insecure_skip_verify: (Boolean) Disable target certificate validation. Defaults to false.
             ip_version: (String) Options are V4, V6, Any. Specifies whether the corresponding check will be performed using IPv4 or IPv6. The Any value indicates that IPv6 should be used, falling back to IPv4 if that's not available. Defaults to V4.
             job: (String) Name used for job label.
+            k6: '(Block List, Max: 1) K6 channel configuration. (see below for nested schema)'
             labels: (Map of String) Custom labels to be included with collected metrics and logs. The maximum number of labels that can be specified per check is 5. These are applied, along with the probe-specific labels, to the outgoing metrics. The names and values of the labels cannot be empty, and the maximum length is 32 bytes.
             max_hops: (Number) Maximum TTL for the trace Defaults to 64.
             max_unknown_hops: (Number) Maximum number of hosts to travers that give no response Defaults to 15.

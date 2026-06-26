@@ -279,6 +279,16 @@ spec:
                             (Boolean) Whether to disable sending resolve messages. Defaults to false.
                             Whether to disable sending resolve messages. Defaults to `false`.
                           type: boolean
+                        hideOpenButton:
+                          description: |-
+                            (Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+                            Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+                          type: boolean
+                        hideVersionInfo:
+                          description: |-
+                            (Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.
+                            Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.
+                          type: boolean
                         message:
                           description: |-
                             (String) The templated content of the message.
@@ -2282,6 +2292,16 @@ spec:
                             (Boolean) Whether to disable sending resolve messages. Defaults to false.
                             Whether to disable sending resolve messages. Defaults to `false`.
                           type: boolean
+                        hideOpenButton:
+                          description: |-
+                            (Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+                            Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+                          type: boolean
+                        hideVersionInfo:
+                          description: |-
+                            (Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.
+                            Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.
+                          type: boolean
                         message:
                           description: |-
                             (String) The templated content of the message.
@@ -4193,6 +4213,16 @@ spec:
                           description: |-
                             (Boolean) Whether to disable sending resolve messages. Defaults to false.
                             Whether to disable sending resolve messages. Defaults to `false`.
+                          type: boolean
+                        hideOpenButton:
+                          description: |-
+                            (Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+                            Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+                          type: boolean
+                        hideVersionInfo:
+                          description: |-
+                            (Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.
+                            Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.
                           type: boolean
                         message:
                           description: |-

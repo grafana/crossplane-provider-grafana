@@ -704,6 +704,14 @@ type GooglechatInitParameters struct {
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// (Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+	// Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+	HideOpenButton *bool `json:"hideOpenButton,omitempty" tf:"hide_open_button,omitempty"`
+
+	// (Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.
+	// Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.
+	HideVersionInfo *bool `json:"hideVersionInfo,omitempty" tf:"hide_version_info,omitempty"`
+
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
@@ -725,6 +733,14 @@ type GooglechatObservation struct {
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
 
+	// (Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+	// Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+	HideOpenButton *bool `json:"hideOpenButton,omitempty" tf:"hide_open_button,omitempty"`
+
+	// (Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.
+	// Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.
+	HideVersionInfo *bool `json:"hideVersionInfo,omitempty" tf:"hide_version_info,omitempty"`
+
 	// (String) The templated content of the message.
 	// The templated content of the message.
 	Message *string `json:"message,omitempty" tf:"message,omitempty"`
@@ -744,6 +760,16 @@ type GooglechatParameters struct {
 	// Whether to disable sending resolve messages. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	DisableResolveMessage *bool `json:"disableResolveMessage,omitempty" tf:"disable_resolve_message,omitempty"`
+
+	// (Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+	// Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.
+	// +kubebuilder:validation:Optional
+	HideOpenButton *bool `json:"hideOpenButton,omitempty" tf:"hide_open_button,omitempty"`
+
+	// (Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.
+	// Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	HideVersionInfo *bool `json:"hideVersionInfo,omitempty" tf:"hide_version_info,omitempty"`
 
 	// (String) The templated content of the message.
 	// The templated content of the message.

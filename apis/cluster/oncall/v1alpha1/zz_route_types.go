@@ -15,8 +15,8 @@ import (
 
 type RouteInitParameters struct {
 
-	// (String) The ID of the escalation chain.
-	// The ID of the escalation chain.
+	// (String) The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
+	// The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector
@@ -107,8 +107,8 @@ type RouteMsteamsParameters struct {
 
 type RouteObservation struct {
 
-	// (String) The ID of the escalation chain.
-	// The ID of the escalation chain.
+	// (String) The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
+	// The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
 	EscalationChainID *string `json:"escalationChainId,omitempty" tf:"escalation_chain_id,omitempty"`
 
 	// (String) The ID of this resource.
@@ -145,8 +145,8 @@ type RouteObservation struct {
 
 type RouteParameters struct {
 
-	// (String) The ID of the escalation chain.
-	// The ID of the escalation chain.
+	// (String) The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
+	// The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oncall/v1alpha1.EscalationChain
 	// +crossplane:generate:reference:refFieldName=EscalationChainRef
 	// +crossplane:generate:reference:selectorFieldName=EscalationChainSelector

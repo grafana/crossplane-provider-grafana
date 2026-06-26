@@ -253,6 +253,14 @@
                     "description": "(Boolean) Whether to disable sending resolve messages. Defaults to false.\nWhether to disable sending resolve messages. Defaults to `false`.",
                     "type": "boolean"
                   },
+                  "hideOpenButton": {
+                    "description": "(Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.\nWhether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.",
+                    "type": "boolean"
+                  },
+                  "hideVersionInfo": {
+                    "description": "(Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.\nWhether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.",
+                    "type": "boolean"
+                  },
                   "message": {
                     "description": "(String) The templated content of the message.\nThe templated content of the message.",
                     "type": "string"
@@ -2379,6 +2387,14 @@
                     "description": "(Boolean) Whether to disable sending resolve messages. Defaults to false.\nWhether to disable sending resolve messages. Defaults to `false`.",
                     "type": "boolean"
                   },
+                  "hideOpenButton": {
+                    "description": "(Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.\nWhether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.",
+                    "type": "boolean"
+                  },
+                  "hideVersionInfo": {
+                    "description": "(Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.\nWhether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.",
+                    "type": "boolean"
+                  },
                   "message": {
                     "description": "(String) The templated content of the message.\nThe templated content of the message.",
                     "type": "string"
@@ -4397,6 +4413,14 @@
                 "properties": {
                   "disableResolveMessage": {
                     "description": "(Boolean) Whether to disable sending resolve messages. Defaults to false.\nWhether to disable sending resolve messages. Defaults to `false`.",
+                    "type": "boolean"
+                  },
+                  "hideOpenButton": {
+                    "description": "(Boolean) Whether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.\nWhether to hide the Open URL button in the message. This feature requires Grafana 12.4.0 or later.",
+                    "type": "boolean"
+                  },
+                  "hideVersionInfo": {
+                    "description": "(Boolean) Whether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to false.\nWhether to hide the version info in the message. This feature requires Grafana 12.4.0 or later. Defaults to `false`.",
                     "type": "boolean"
                   },
                   "message": {

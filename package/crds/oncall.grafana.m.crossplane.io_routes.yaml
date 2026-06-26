@@ -60,8 +60,8 @@ spec:
                 properties:
                   escalationChainId:
                     description: |-
-                      (String) The ID of the escalation chain.
-                      The ID of the escalation chain.
+                      (String) The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
+                      The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
                     type: string
                   escalationChainRef:
                     description: Reference to a EscalationChain in oncall to populate
@@ -399,8 +399,8 @@ spec:
                 properties:
                   escalationChainId:
                     description: |-
-                      (String) The ID of the escalation chain.
-                      The ID of the escalation chain.
+                      (String) The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
+                      The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
                     type: string
                   escalationChainRef:
                     description: Reference to a EscalationChain in oncall to populate
@@ -797,8 +797,8 @@ spec:
                 properties:
                   escalationChainId:
                     description: |-
-                      (String) The ID of the escalation chain.
-                      The ID of the escalation chain.
+                      (String) The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
+                      The ID of the escalation chain. Omit or set to null for a route with no escalation chain.
                     type: string
                   id:
                     description: (String) The ID of this resource.

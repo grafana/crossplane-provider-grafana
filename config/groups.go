@@ -102,6 +102,7 @@ type CategoryInfo struct {
 // upstream Terraform provider.
 var CategoryConfig = map[string]CategoryInfo{
 	"Alerting":               {"alerting", 0},
+	"Grafana Assistant":      {"assistant", 1},
 	"Cloud":                  {"cloud", 1},
 	"Grafana Enterprise":     {"enterprise", 0},
 	"Grafana OSS":            {"oss", 0},
