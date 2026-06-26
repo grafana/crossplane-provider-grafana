@@ -31,4 +31,8 @@ for check_types in \
   echo "  Patched: ${check_types}"
 done
 
+# Clean up the .bak files created by sed
+cd "${PROJECT_ROOT}"
+git clean -fd -- ':(glob)**/*.bak'
+
 echo "SM Check types patched successfully"
