@@ -62,4 +62,8 @@ else
   echo "  Warning: ${NAMESPACED_TYPES} not found, skipping"
 fi
 
+# Clean up the .bak files created by sed
+cd "${PROJECT_ROOT}"
+git clean -fd -- ':(glob)**/*.bak'
+
 echo "OnCall contact point types patched successfully"
