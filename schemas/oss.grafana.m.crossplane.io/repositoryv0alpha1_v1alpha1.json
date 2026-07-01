@@ -53,6 +53,14 @@
               "additionalProperties": false,
               "description": "(see below for nested schema)\nSensitive credentials.",
               "properties": {
+                "commitSigningKey": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.\nPrivate key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.",
+                  "type": "object",
+                  "x-kubernetes-map-type": "granular"
+                },
                 "token": {
                   "additionalProperties": {
                     "type": "string"
@@ -85,7 +93,7 @@
                   "description": "(Block, Optional) Bitbucket repository configuration. (see below for nested schema)\nBitbucket repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -98,6 +106,52 @@
                     },
                     "url": {
                       "description": "(String) The full URL of the resource.\nRepository URL.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "branch": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch naming options for the branch workflow.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the branch name field in Save drawers is read-only.",
+                      "type": "boolean"
+                    },
+                    "nameTemplate": {
+                      "description": "(String) Template for the branch name created in the branch workflow.\nTemplate for the branch name created in the branch workflow.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "commit": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Commit message and signing options. (see below for nested schema)\nCommit message and signing options.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.",
+                      "type": "boolean"
+                    },
+                    "signerEmail": {
+                      "description": "(String) Email used as the commit signer. Defaults to \"noreply@grafana.com\" when empty.\nEmail used as the commit signer. Defaults to \"noreply@grafana.com\" when empty.",
+                      "type": "string"
+                    },
+                    "signerName": {
+                      "description": "(String) Name used as the commit signer. Defaults to \"Grafana\" when empty.\nName used as the commit signer. Defaults to \"Grafana\" when empty.",
+                      "type": "string"
+                    },
+                    "signingMethod": {
+                      "description": "(String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.\nMethod used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.",
+                      "type": "string"
+                    },
+                    "singleResourceMessageTemplate": {
+                      "description": "resource UI operations.\nTemplate for commit messages produced by single-resource UI operations.",
+                      "type": "string"
+                    },
+                    "smimeCertificate": {
+                      "description": "encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.\nPEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.",
                       "type": "string"
                     }
                   },
@@ -123,7 +177,7 @@
                   "description": "(Block, Optional) Generic git repository configuration. (see below for nested schema)\nGeneric git repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -146,7 +200,7 @@
                   "description": "(Block, Optional) GitHub repository configuration. (see below for nested schema)\nGitHub repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "generateDashboardPreviews": {
@@ -164,12 +218,39 @@
                   },
                   "type": "object"
                 },
+                "githubEnterprise": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)\nGitHub Enterprise Server repository configuration.",
+                  "properties": {
+                    "branch": {
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
+                      "type": "string"
+                    },
+                    "generateDashboardPreviews": {
+                      "description": "(Boolean) Whether to generate dashboard previews.\nWhether to generate dashboard previews.",
+                      "type": "boolean"
+                    },
+                    "path": {
+                      "description": "(String) Optional subdirectory path.\nOptional subdirectory path.",
+                      "type": "string"
+                    },
+                    "serverUrl": {
+                      "description": "managed GitHub Enterprise Server instance.\nBase URL of the self-managed GitHub Enterprise Server instance.",
+                      "type": "string"
+                    },
+                    "url": {
+                      "description": "(String) The full URL of the resource.\nRepository URL.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "gitlab": {
                   "additionalProperties": false,
                   "description": "(Block, Optional) GitLab repository configuration. (see below for nested schema)\nGitLab repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -194,6 +275,21 @@
                   },
                   "type": "object"
                 },
+                "pullRequest": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Pull request options for the branch workflow. (see below for nested schema)\nPull request options for the branch workflow.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the pull request title field in Save drawers is read-only.",
+                      "type": "boolean"
+                    },
+                    "titleTemplate": {
+                      "description": "(String) Template for pull request titles.\nTemplate for pull request titles.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "sync": {
                   "additionalProperties": false,
                   "description": "(Block, Optional) Sync configuration. (see below for nested schema)\nSync configuration.",
@@ -207,7 +303,7 @@
                       "type": "number"
                     },
                     "target": {
-                      "description": "(String) Sync target: instance or folder.\nSync target: instance or folder.",
+                      "description": "(String) Sync target: instance, folder, or folderless.\nSync target: instance, folder, or folderless.",
                       "type": "string"
                     }
                   },
@@ -218,7 +314,7 @@
                   "type": "string"
                 },
                 "type": {
-                  "description": "(String) Repository provider type: local, github, git, bitbucket, or gitlab.\nRepository provider type: local, github, git, bitbucket, or gitlab.",
+                  "description": "(String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.\nRepository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.",
                   "type": "string"
                 },
                 "webhook": {
@@ -283,6 +379,14 @@
               "additionalProperties": false,
               "description": "(see below for nested schema)\nSensitive credentials.",
               "properties": {
+                "commitSigningKey": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.\nPrivate key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.",
+                  "type": "object",
+                  "x-kubernetes-map-type": "granular"
+                },
                 "token": {
                   "additionalProperties": {
                     "type": "string"
@@ -315,7 +419,7 @@
                   "description": "(Block, Optional) Bitbucket repository configuration. (see below for nested schema)\nBitbucket repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -328,6 +432,52 @@
                     },
                     "url": {
                       "description": "(String) The full URL of the resource.\nRepository URL.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "branch": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch naming options for the branch workflow.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the branch name field in Save drawers is read-only.",
+                      "type": "boolean"
+                    },
+                    "nameTemplate": {
+                      "description": "(String) Template for the branch name created in the branch workflow.\nTemplate for the branch name created in the branch workflow.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "commit": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Commit message and signing options. (see below for nested schema)\nCommit message and signing options.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.",
+                      "type": "boolean"
+                    },
+                    "signerEmail": {
+                      "description": "(String) Email used as the commit signer. Defaults to \"noreply@grafana.com\" when empty.\nEmail used as the commit signer. Defaults to \"noreply@grafana.com\" when empty.",
+                      "type": "string"
+                    },
+                    "signerName": {
+                      "description": "(String) Name used as the commit signer. Defaults to \"Grafana\" when empty.\nName used as the commit signer. Defaults to \"Grafana\" when empty.",
+                      "type": "string"
+                    },
+                    "signingMethod": {
+                      "description": "(String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.\nMethod used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.",
+                      "type": "string"
+                    },
+                    "singleResourceMessageTemplate": {
+                      "description": "resource UI operations.\nTemplate for commit messages produced by single-resource UI operations.",
+                      "type": "string"
+                    },
+                    "smimeCertificate": {
+                      "description": "encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.\nPEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.",
                       "type": "string"
                     }
                   },
@@ -353,7 +503,7 @@
                   "description": "(Block, Optional) Generic git repository configuration. (see below for nested schema)\nGeneric git repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -376,7 +526,7 @@
                   "description": "(Block, Optional) GitHub repository configuration. (see below for nested schema)\nGitHub repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "generateDashboardPreviews": {
@@ -394,12 +544,39 @@
                   },
                   "type": "object"
                 },
+                "githubEnterprise": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)\nGitHub Enterprise Server repository configuration.",
+                  "properties": {
+                    "branch": {
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
+                      "type": "string"
+                    },
+                    "generateDashboardPreviews": {
+                      "description": "(Boolean) Whether to generate dashboard previews.\nWhether to generate dashboard previews.",
+                      "type": "boolean"
+                    },
+                    "path": {
+                      "description": "(String) Optional subdirectory path.\nOptional subdirectory path.",
+                      "type": "string"
+                    },
+                    "serverUrl": {
+                      "description": "managed GitHub Enterprise Server instance.\nBase URL of the self-managed GitHub Enterprise Server instance.",
+                      "type": "string"
+                    },
+                    "url": {
+                      "description": "(String) The full URL of the resource.\nRepository URL.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "gitlab": {
                   "additionalProperties": false,
                   "description": "(Block, Optional) GitLab repository configuration. (see below for nested schema)\nGitLab repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -424,6 +601,21 @@
                   },
                   "type": "object"
                 },
+                "pullRequest": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Pull request options for the branch workflow. (see below for nested schema)\nPull request options for the branch workflow.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the pull request title field in Save drawers is read-only.",
+                      "type": "boolean"
+                    },
+                    "titleTemplate": {
+                      "description": "(String) Template for pull request titles.\nTemplate for pull request titles.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "sync": {
                   "additionalProperties": false,
                   "description": "(Block, Optional) Sync configuration. (see below for nested schema)\nSync configuration.",
@@ -437,7 +629,7 @@
                       "type": "number"
                     },
                     "target": {
-                      "description": "(String) Sync target: instance or folder.\nSync target: instance or folder.",
+                      "description": "(String) Sync target: instance, folder, or folderless.\nSync target: instance, folder, or folderless.",
                       "type": "string"
                     }
                   },
@@ -448,7 +640,7 @@
                   "type": "string"
                 },
                 "type": {
-                  "description": "(String) Repository provider type: local, github, git, bitbucket, or gitlab.\nRepository provider type: local, github, git, bitbucket, or gitlab.",
+                  "description": "(String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.\nRepository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.",
                   "type": "string"
                 },
                 "webhook": {
@@ -612,6 +804,14 @@
               "additionalProperties": false,
               "description": "(see below for nested schema)\nSensitive credentials.",
               "properties": {
+                "commitSigningKey": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.\nPrivate key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.",
+                  "type": "object",
+                  "x-kubernetes-map-type": "granular"
+                },
                 "token": {
                   "additionalProperties": {
                     "type": "string"
@@ -644,7 +844,7 @@
                   "description": "(Block, Optional) Bitbucket repository configuration. (see below for nested schema)\nBitbucket repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -657,6 +857,52 @@
                     },
                     "url": {
                       "description": "(String) The full URL of the resource.\nRepository URL.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "branch": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch naming options for the branch workflow.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the branch name field in Save drawers is read-only.",
+                      "type": "boolean"
+                    },
+                    "nameTemplate": {
+                      "description": "(String) Template for the branch name created in the branch workflow.\nTemplate for the branch name created in the branch workflow.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "commit": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Commit message and signing options. (see below for nested schema)\nCommit message and signing options.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.",
+                      "type": "boolean"
+                    },
+                    "signerEmail": {
+                      "description": "(String) Email used as the commit signer. Defaults to \"noreply@grafana.com\" when empty.\nEmail used as the commit signer. Defaults to \"noreply@grafana.com\" when empty.",
+                      "type": "string"
+                    },
+                    "signerName": {
+                      "description": "(String) Name used as the commit signer. Defaults to \"Grafana\" when empty.\nName used as the commit signer. Defaults to \"Grafana\" when empty.",
+                      "type": "string"
+                    },
+                    "signingMethod": {
+                      "description": "(String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.\nMethod used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.",
+                      "type": "string"
+                    },
+                    "singleResourceMessageTemplate": {
+                      "description": "resource UI operations.\nTemplate for commit messages produced by single-resource UI operations.",
+                      "type": "string"
+                    },
+                    "smimeCertificate": {
+                      "description": "encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.\nPEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.",
                       "type": "string"
                     }
                   },
@@ -682,7 +928,7 @@
                   "description": "(Block, Optional) Generic git repository configuration. (see below for nested schema)\nGeneric git repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -705,7 +951,7 @@
                   "description": "(Block, Optional) GitHub repository configuration. (see below for nested schema)\nGitHub repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "generateDashboardPreviews": {
@@ -723,12 +969,39 @@
                   },
                   "type": "object"
                 },
+                "githubEnterprise": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)\nGitHub Enterprise Server repository configuration.",
+                  "properties": {
+                    "branch": {
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
+                      "type": "string"
+                    },
+                    "generateDashboardPreviews": {
+                      "description": "(Boolean) Whether to generate dashboard previews.\nWhether to generate dashboard previews.",
+                      "type": "boolean"
+                    },
+                    "path": {
+                      "description": "(String) Optional subdirectory path.\nOptional subdirectory path.",
+                      "type": "string"
+                    },
+                    "serverUrl": {
+                      "description": "managed GitHub Enterprise Server instance.\nBase URL of the self-managed GitHub Enterprise Server instance.",
+                      "type": "string"
+                    },
+                    "url": {
+                      "description": "(String) The full URL of the resource.\nRepository URL.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "gitlab": {
                   "additionalProperties": false,
                   "description": "(Block, Optional) GitLab repository configuration. (see below for nested schema)\nGitLab repository configuration.",
                   "properties": {
                     "branch": {
-                      "description": "(String) Branch to sync.\nBranch to sync.",
+                      "description": "(Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)\nBranch to sync.",
                       "type": "string"
                     },
                     "path": {
@@ -753,6 +1026,21 @@
                   },
                   "type": "object"
                 },
+                "pullRequest": {
+                  "additionalProperties": false,
+                  "description": "(Block, Optional) Pull request options for the branch workflow. (see below for nested schema)\nPull request options for the branch workflow.",
+                  "properties": {
+                    "enforceTemplate": {
+                      "description": "only.\nWhen true, the pull request title field in Save drawers is read-only.",
+                      "type": "boolean"
+                    },
+                    "titleTemplate": {
+                      "description": "(String) Template for pull request titles.\nTemplate for pull request titles.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "sync": {
                   "additionalProperties": false,
                   "description": "(Block, Optional) Sync configuration. (see below for nested schema)\nSync configuration.",
@@ -766,7 +1054,7 @@
                       "type": "number"
                     },
                     "target": {
-                      "description": "(String) Sync target: instance or folder.\nSync target: instance or folder.",
+                      "description": "(String) Sync target: instance, folder, or folderless.\nSync target: instance, folder, or folderless.",
                       "type": "string"
                     }
                   },
@@ -777,7 +1065,7 @@
                   "type": "string"
                 },
                 "type": {
-                  "description": "(String) Repository provider type: local, github, git, bitbucket, or gitlab.\nRepository provider type: local, github, git, bitbucket, or gitlab.",
+                  "description": "(String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.\nRepository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.",
                   "type": "string"
                 },
                 "webhook": {

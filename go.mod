@@ -257,7 +257,7 @@ require (
 
 replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9
 
-// terraform-provider-grafana v4.39.0 pulls in the k8s.io v0.36 stack (via
+// The Grafana TF provider v4.39.0 pulls in the k8s.io v0.36 stack (via
 // grafana-app-sdk and grafana/apps/provisioning). client-go v0.36 added
 // HasSyncedChecker() to cache.ResourceEventHandlerRegistration, which the
 // controller-runtime v0.22 that crossplane-runtime v2.1.x pins does not

@@ -8,6 +8,7 @@ package cloudprovider
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
@@ -52,6 +53,13 @@ var AzureCredentialSpec = tfdatasource.Spec{
 			}
 
 			{
+				var v *bool
+				if diags := state.GetAttribute(ctx, path.Root("enabled"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.Enabled = v
+				}
+			}
+
+			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
@@ -85,6 +93,9 @@ var AzureCredentialSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.ClientSecret != nil {
 			cd["client_secret"] = []byte(*cr.Status.AtProvider.ClientSecret)
+		}
+		if cr.Status.AtProvider.Enabled != nil {
+			cd["enabled"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.Enabled))
 		}
 		if cr.Status.AtProvider.Name != nil {
 			cd["name"] = []byte(*cr.Status.AtProvider.Name)

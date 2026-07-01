@@ -510,6 +510,11 @@ func (in *AzureCredentialObservation) DeepCopyInto(out *AzureCredentialObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.Enabled != nil {
+		in, out := &in.Enabled, &out.Enabled
+		*out = new(bool)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)

@@ -44,5 +44,5 @@ spec:
       key: example-key
       name: example-secret
     type: prometheus
-    uid: prometheus-ds-test-uid
+    uid: prom-ds-test-uid
     url: https://my-instance.com
