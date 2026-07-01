@@ -32,6 +32,9 @@ type AzureCredentialObservation struct {
 	// The client secret of the Azure Credential.
 	ClientSecret *string `json:"clientSecret,omitempty"`
 
+	// Whether the Azure Credential is enabled or not.
+	Enabled *bool `json:"enabled,omitempty"`
+
 	// The name of the Azure Credential.
 	Name *string `json:"name,omitempty"`
 

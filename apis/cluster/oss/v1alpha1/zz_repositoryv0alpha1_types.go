@@ -15,7 +15,7 @@ import (
 
 type BitbucketInitParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -34,7 +34,7 @@ type BitbucketInitParameters struct {
 
 type BitbucketObservation struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -53,7 +53,7 @@ type BitbucketObservation struct {
 
 type BitbucketParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
@@ -72,6 +72,128 @@ type BitbucketParameters struct {
 	// Repository URL.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type BranchInitParameters struct {
+
+	// only.
+	// When true, the branch name field in Save drawers is read-only.
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Template for the branch name created in the branch workflow.
+	// Template for the branch name created in the branch workflow.
+	NameTemplate *string `json:"nameTemplate,omitempty" tf:"name_template,omitempty"`
+}
+
+type BranchObservation struct {
+
+	// only.
+	// When true, the branch name field in Save drawers is read-only.
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Template for the branch name created in the branch workflow.
+	// Template for the branch name created in the branch workflow.
+	NameTemplate *string `json:"nameTemplate,omitempty" tf:"name_template,omitempty"`
+}
+
+type BranchParameters struct {
+
+	// only.
+	// When true, the branch name field in Save drawers is read-only.
+	// +kubebuilder:validation:Optional
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Template for the branch name created in the branch workflow.
+	// Template for the branch name created in the branch workflow.
+	// +kubebuilder:validation:Optional
+	NameTemplate *string `json:"nameTemplate,omitempty" tf:"name_template,omitempty"`
+}
+
+type CommitInitParameters struct {
+
+	// only.
+	// When true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+	// Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+	SignerEmail *string `json:"signerEmail,omitempty" tf:"signer_email,omitempty"`
+
+	// (String) Name used as the commit signer. Defaults to "Grafana" when empty.
+	// Name used as the commit signer. Defaults to "Grafana" when empty.
+	SignerName *string `json:"signerName,omitempty" tf:"signer_name,omitempty"`
+
+	// (String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.
+	// Method used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.
+	SigningMethod *string `json:"signingMethod,omitempty" tf:"signing_method,omitempty"`
+
+	// resource UI operations.
+	// Template for commit messages produced by single-resource UI operations.
+	SingleResourceMessageTemplate *string `json:"singleResourceMessageTemplate,omitempty" tf:"single_resource_message_template,omitempty"`
+
+	// encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.
+	// PEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.
+	SmimeCertificate *string `json:"smimeCertificate,omitempty" tf:"smime_certificate,omitempty"`
+}
+
+type CommitObservation struct {
+
+	// only.
+	// When true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+	// Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+	SignerEmail *string `json:"signerEmail,omitempty" tf:"signer_email,omitempty"`
+
+	// (String) Name used as the commit signer. Defaults to "Grafana" when empty.
+	// Name used as the commit signer. Defaults to "Grafana" when empty.
+	SignerName *string `json:"signerName,omitempty" tf:"signer_name,omitempty"`
+
+	// (String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.
+	// Method used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.
+	SigningMethod *string `json:"signingMethod,omitempty" tf:"signing_method,omitempty"`
+
+	// resource UI operations.
+	// Template for commit messages produced by single-resource UI operations.
+	SingleResourceMessageTemplate *string `json:"singleResourceMessageTemplate,omitempty" tf:"single_resource_message_template,omitempty"`
+
+	// encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.
+	// PEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.
+	SmimeCertificate *string `json:"smimeCertificate,omitempty" tf:"smime_certificate,omitempty"`
+}
+
+type CommitParameters struct {
+
+	// only.
+	// When true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.
+	// +kubebuilder:validation:Optional
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+	// Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+	// +kubebuilder:validation:Optional
+	SignerEmail *string `json:"signerEmail,omitempty" tf:"signer_email,omitempty"`
+
+	// (String) Name used as the commit signer. Defaults to "Grafana" when empty.
+	// Name used as the commit signer. Defaults to "Grafana" when empty.
+	// +kubebuilder:validation:Optional
+	SignerName *string `json:"signerName,omitempty" tf:"signer_name,omitempty"`
+
+	// (String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.
+	// Method used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.
+	// +kubebuilder:validation:Optional
+	SigningMethod *string `json:"signingMethod,omitempty" tf:"signing_method,omitempty"`
+
+	// resource UI operations.
+	// Template for commit messages produced by single-resource UI operations.
+	// +kubebuilder:validation:Optional
+	SingleResourceMessageTemplate *string `json:"singleResourceMessageTemplate,omitempty" tf:"single_resource_message_template,omitempty"`
+
+	// encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.
+	// PEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.
+	// +kubebuilder:validation:Optional
+	SmimeCertificate *string `json:"smimeCertificate,omitempty" tf:"smime_certificate,omitempty"`
 }
 
 type ConnectionInitParameters struct {
@@ -98,7 +220,7 @@ type ConnectionParameters struct {
 
 type GitInitParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -117,7 +239,7 @@ type GitInitParameters struct {
 
 type GitObservation struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -136,7 +258,7 @@ type GitObservation struct {
 
 type GitParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
@@ -157,9 +279,83 @@ type GitParameters struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 }
 
+type GithubEnterpriseInitParameters struct {
+
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+	// Branch to sync.
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// (Boolean) Whether to generate dashboard previews.
+	// Whether to generate dashboard previews.
+	GenerateDashboardPreviews *bool `json:"generateDashboardPreviews,omitempty" tf:"generate_dashboard_previews,omitempty"`
+
+	// (String) Optional subdirectory path.
+	// Optional subdirectory path.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// managed GitHub Enterprise Server instance.
+	// Base URL of the self-managed GitHub Enterprise Server instance.
+	ServerURL *string `json:"serverUrl,omitempty" tf:"server_url,omitempty"`
+
+	// (String) The full URL of the resource.
+	// Repository URL.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GithubEnterpriseObservation struct {
+
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+	// Branch to sync.
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// (Boolean) Whether to generate dashboard previews.
+	// Whether to generate dashboard previews.
+	GenerateDashboardPreviews *bool `json:"generateDashboardPreviews,omitempty" tf:"generate_dashboard_previews,omitempty"`
+
+	// (String) Optional subdirectory path.
+	// Optional subdirectory path.
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// managed GitHub Enterprise Server instance.
+	// Base URL of the self-managed GitHub Enterprise Server instance.
+	ServerURL *string `json:"serverUrl,omitempty" tf:"server_url,omitempty"`
+
+	// (String) The full URL of the resource.
+	// Repository URL.
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
+type GithubEnterpriseParameters struct {
+
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+	// Branch to sync.
+	// +kubebuilder:validation:Optional
+	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// (Boolean) Whether to generate dashboard previews.
+	// Whether to generate dashboard previews.
+	// +kubebuilder:validation:Optional
+	GenerateDashboardPreviews *bool `json:"generateDashboardPreviews,omitempty" tf:"generate_dashboard_previews,omitempty"`
+
+	// (String) Optional subdirectory path.
+	// Optional subdirectory path.
+	// +kubebuilder:validation:Optional
+	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+
+	// managed GitHub Enterprise Server instance.
+	// Base URL of the self-managed GitHub Enterprise Server instance.
+	// +kubebuilder:validation:Optional
+	ServerURL *string `json:"serverUrl,omitempty" tf:"server_url,omitempty"`
+
+	// (String) The full URL of the resource.
+	// Repository URL.
+	// +kubebuilder:validation:Optional
+	URL *string `json:"url,omitempty" tf:"url,omitempty"`
+}
+
 type GitlabInitParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -174,7 +370,7 @@ type GitlabInitParameters struct {
 
 type GitlabObservation struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -189,7 +385,7 @@ type GitlabObservation struct {
 
 type GitlabParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
@@ -225,6 +421,41 @@ type LocalParameters struct {
 	// Filesystem path.
 	// +kubebuilder:validation:Optional
 	Path *string `json:"path,omitempty" tf:"path,omitempty"`
+}
+
+type PullRequestInitParameters struct {
+
+	// only.
+	// When true, the pull request title field in Save drawers is read-only.
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Template for pull request titles.
+	// Template for pull request titles.
+	TitleTemplate *string `json:"titleTemplate,omitempty" tf:"title_template,omitempty"`
+}
+
+type PullRequestObservation struct {
+
+	// only.
+	// When true, the pull request title field in Save drawers is read-only.
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Template for pull request titles.
+	// Template for pull request titles.
+	TitleTemplate *string `json:"titleTemplate,omitempty" tf:"title_template,omitempty"`
+}
+
+type PullRequestParameters struct {
+
+	// only.
+	// When true, the pull request title field in Save drawers is read-only.
+	// +kubebuilder:validation:Optional
+	EnforceTemplate *bool `json:"enforceTemplate,omitempty" tf:"enforce_template,omitempty"`
+
+	// (String) Template for pull request titles.
+	// Template for pull request titles.
+	// +kubebuilder:validation:Optional
+	TitleTemplate *string `json:"titleTemplate,omitempty" tf:"title_template,omitempty"`
 }
 
 type RepositoryV0Alpha1InitParameters struct {
@@ -390,6 +621,11 @@ type RepositoryV0Alpha1Parameters struct {
 
 type RepositoryV0Alpha1SecureInitParameters struct {
 
+	// only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.
+	// Private key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.
+	// +mapType=granular
+	CommitSigningKey map[string]*string `json:"commitSigningKey,omitempty" tf:"commit_signing_key,omitempty"`
+
 	// only) Token for repository authentication.
 	// Token for repository authentication.
 	// +mapType=granular
@@ -403,6 +639,11 @@ type RepositoryV0Alpha1SecureInitParameters struct {
 
 type RepositoryV0Alpha1SecureObservation struct {
 
+	// only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.
+	// Private key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.
+	// +mapType=granular
+	CommitSigningKey map[string]*string `json:"commitSigningKey,omitempty" tf:"commit_signing_key,omitempty"`
+
 	// only) Token for repository authentication.
 	// Token for repository authentication.
 	// +mapType=granular
@@ -415,6 +656,12 @@ type RepositoryV0Alpha1SecureObservation struct {
 }
 
 type RepositoryV0Alpha1SecureParameters struct {
+
+	// only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.
+	// Private key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	CommitSigningKey map[string]*string `json:"commitSigningKey,omitempty" tf:"commit_signing_key,omitempty"`
 
 	// only) Token for repository authentication.
 	// Token for repository authentication.
@@ -435,6 +682,14 @@ type RepositoryV0Alpha1SpecInitParameters struct {
 	// Bitbucket repository configuration.
 	Bitbucket *BitbucketInitParameters `json:"bitbucket,omitempty" tf:"bitbucket,omitempty"`
 
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+	// Branch naming options for the branch workflow.
+	Branch *BranchInitParameters `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// (Block, Optional) Commit message and signing options. (see below for nested schema)
+	// Commit message and signing options.
+	Commit *CommitInitParameters `json:"commit,omitempty" tf:"commit,omitempty"`
+
 	// (Block, Optional) Connection resource reference. (see below for nested schema)
 	// Connection resource reference.
 	Connection *ConnectionInitParameters `json:"connection,omitempty" tf:"connection,omitempty"`
@@ -451,6 +706,10 @@ type RepositoryV0Alpha1SpecInitParameters struct {
 	// GitHub repository configuration.
 	Github *SpecGithubInitParameters `json:"github,omitempty" tf:"github,omitempty"`
 
+	// (Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)
+	// GitHub Enterprise Server repository configuration.
+	GithubEnterprise *GithubEnterpriseInitParameters `json:"githubEnterprise,omitempty" tf:"github_enterprise,omitempty"`
+
 	// (Block, Optional) GitLab repository configuration. (see below for nested schema)
 	// GitLab repository configuration.
 	Gitlab *GitlabInitParameters `json:"gitlab,omitempty" tf:"gitlab,omitempty"`
@@ -458,6 +717,10 @@ type RepositoryV0Alpha1SpecInitParameters struct {
 	// (Block, Optional) Local filesystem repository configuration. (see below for nested schema)
 	// Local filesystem repository configuration.
 	Local *LocalInitParameters `json:"local,omitempty" tf:"local,omitempty"`
+
+	// (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
+	// Pull request options for the branch workflow.
+	PullRequest *PullRequestInitParameters `json:"pullRequest,omitempty" tf:"pull_request,omitempty"`
 
 	// (Block, Optional) Sync configuration. (see below for nested schema)
 	// Sync configuration.
@@ -467,8 +730,8 @@ type RepositoryV0Alpha1SpecInitParameters struct {
 	// Display name shown in the UI.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-	// (String) Repository provider type: local, github, git, bitbucket, or gitlab.
-	// Repository provider type: local, github, git, bitbucket, or gitlab.
+	// (String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
+	// Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
@@ -486,6 +749,14 @@ type RepositoryV0Alpha1SpecObservation struct {
 	// Bitbucket repository configuration.
 	Bitbucket *BitbucketObservation `json:"bitbucket,omitempty" tf:"bitbucket,omitempty"`
 
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+	// Branch naming options for the branch workflow.
+	Branch *BranchObservation `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// (Block, Optional) Commit message and signing options. (see below for nested schema)
+	// Commit message and signing options.
+	Commit *CommitObservation `json:"commit,omitempty" tf:"commit,omitempty"`
+
 	// (Block, Optional) Connection resource reference. (see below for nested schema)
 	// Connection resource reference.
 	Connection *ConnectionObservation `json:"connection,omitempty" tf:"connection,omitempty"`
@@ -502,6 +773,10 @@ type RepositoryV0Alpha1SpecObservation struct {
 	// GitHub repository configuration.
 	Github *SpecGithubObservation `json:"github,omitempty" tf:"github,omitempty"`
 
+	// (Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)
+	// GitHub Enterprise Server repository configuration.
+	GithubEnterprise *GithubEnterpriseObservation `json:"githubEnterprise,omitempty" tf:"github_enterprise,omitempty"`
+
 	// (Block, Optional) GitLab repository configuration. (see below for nested schema)
 	// GitLab repository configuration.
 	Gitlab *GitlabObservation `json:"gitlab,omitempty" tf:"gitlab,omitempty"`
@@ -509,6 +784,10 @@ type RepositoryV0Alpha1SpecObservation struct {
 	// (Block, Optional) Local filesystem repository configuration. (see below for nested schema)
 	// Local filesystem repository configuration.
 	Local *LocalObservation `json:"local,omitempty" tf:"local,omitempty"`
+
+	// (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
+	// Pull request options for the branch workflow.
+	PullRequest *PullRequestObservation `json:"pullRequest,omitempty" tf:"pull_request,omitempty"`
 
 	// (Block, Optional) Sync configuration. (see below for nested schema)
 	// Sync configuration.
@@ -518,8 +797,8 @@ type RepositoryV0Alpha1SpecObservation struct {
 	// Display name shown in the UI.
 	Title *string `json:"title,omitempty" tf:"title,omitempty"`
 
-	// (String) Repository provider type: local, github, git, bitbucket, or gitlab.
-	// Repository provider type: local, github, git, bitbucket, or gitlab.
+	// (String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
+	// Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Block, Optional) Webhook delivery configuration. (see below for nested schema)
@@ -537,6 +816,16 @@ type RepositoryV0Alpha1SpecParameters struct {
 	// Bitbucket repository configuration.
 	// +kubebuilder:validation:Optional
 	Bitbucket *BitbucketParameters `json:"bitbucket,omitempty" tf:"bitbucket,omitempty"`
+
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+	// Branch naming options for the branch workflow.
+	// +kubebuilder:validation:Optional
+	Branch *BranchParameters `json:"branch,omitempty" tf:"branch,omitempty"`
+
+	// (Block, Optional) Commit message and signing options. (see below for nested schema)
+	// Commit message and signing options.
+	// +kubebuilder:validation:Optional
+	Commit *CommitParameters `json:"commit,omitempty" tf:"commit,omitempty"`
 
 	// (Block, Optional) Connection resource reference. (see below for nested schema)
 	// Connection resource reference.
@@ -558,6 +847,11 @@ type RepositoryV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	Github *SpecGithubParameters `json:"github,omitempty" tf:"github,omitempty"`
 
+	// (Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)
+	// GitHub Enterprise Server repository configuration.
+	// +kubebuilder:validation:Optional
+	GithubEnterprise *GithubEnterpriseParameters `json:"githubEnterprise,omitempty" tf:"github_enterprise,omitempty"`
+
 	// (Block, Optional) GitLab repository configuration. (see below for nested schema)
 	// GitLab repository configuration.
 	// +kubebuilder:validation:Optional
@@ -567,6 +861,11 @@ type RepositoryV0Alpha1SpecParameters struct {
 	// Local filesystem repository configuration.
 	// +kubebuilder:validation:Optional
 	Local *LocalParameters `json:"local,omitempty" tf:"local,omitempty"`
+
+	// (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
+	// Pull request options for the branch workflow.
+	// +kubebuilder:validation:Optional
+	PullRequest *PullRequestParameters `json:"pullRequest,omitempty" tf:"pull_request,omitempty"`
 
 	// (Block, Optional) Sync configuration. (see below for nested schema)
 	// Sync configuration.
@@ -578,8 +877,8 @@ type RepositoryV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	Title *string `json:"title" tf:"title,omitempty"`
 
-	// (String) Repository provider type: local, github, git, bitbucket, or gitlab.
-	// Repository provider type: local, github, git, bitbucket, or gitlab.
+	// (String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
+	// Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type" tf:"type,omitempty"`
 
@@ -596,7 +895,7 @@ type RepositoryV0Alpha1SpecParameters struct {
 
 type SpecGithubInitParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -615,7 +914,7 @@ type SpecGithubInitParameters struct {
 
 type SpecGithubObservation struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
 
@@ -634,7 +933,7 @@ type SpecGithubObservation struct {
 
 type SpecGithubParameters struct {
 
-	// (String) Branch to sync.
+	// (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
 	// Branch to sync.
 	// +kubebuilder:validation:Optional
 	Branch *string `json:"branch,omitempty" tf:"branch,omitempty"`
@@ -665,8 +964,8 @@ type SyncInitParameters struct {
 	// Sync interval in seconds.
 	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
 
-	// (String) Sync target: instance or folder.
-	// Sync target: instance or folder.
+	// (String) Sync target: instance, folder, or folderless.
+	// Sync target: instance, folder, or folderless.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 }
 
@@ -680,8 +979,8 @@ type SyncObservation struct {
 	// Sync interval in seconds.
 	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
 
-	// (String) Sync target: instance or folder.
-	// Sync target: instance or folder.
+	// (String) Sync target: instance, folder, or folderless.
+	// Sync target: instance, folder, or folderless.
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 }
 
@@ -697,8 +996,8 @@ type SyncParameters struct {
 	// +kubebuilder:validation:Optional
 	IntervalSeconds *float64 `json:"intervalSeconds,omitempty" tf:"interval_seconds,omitempty"`
 
-	// (String) Sync target: instance or folder.
-	// Sync target: instance or folder.
+	// (String) Sync target: instance, folder, or folderless.
+	// Sync target: instance, folder, or folderless.
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target" tf:"target,omitempty"`
 }
