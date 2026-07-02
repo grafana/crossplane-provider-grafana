@@ -62,6 +62,10 @@ type AzureCredentialInitParameters struct {
 	// The client secret of the Azure Credential.
 	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
+	// (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
+	// Whether the Azure Credential is enabled or not. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
 	// (String) The name of the Azure Credential.
 	// The name of the Azure Credential.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -93,6 +97,10 @@ type AzureCredentialObservation struct {
 	// (String) The client ID of the Azure Credential.
 	// The client ID of the Azure Credential.
 	ClientID *string `json:"clientId,omitempty" tf:"client_id,omitempty"`
+
+	// (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
+	// Whether the Azure Credential is enabled or not. Defaults to `true`.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// This has the format "{{ stack_id }}:{{ resource_id }}".
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -139,6 +147,11 @@ type AzureCredentialParameters struct {
 	// The client secret of the Azure Credential.
 	// +kubebuilder:validation:Optional
 	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+
+	// (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
+	// Whether the Azure Credential is enabled or not. Defaults to `true`.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) The name of the Azure Credential.
 	// The name of the Azure Credential.

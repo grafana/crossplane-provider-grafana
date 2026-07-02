@@ -110,6 +110,14 @@ spec:
                       (see below for nested schema)
                       Sensitive credentials.
                     properties:
+                      commitSigningKey:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.
+                          Private key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.
+                        type: object
+                        x-kubernetes-map-type: granular
                       token:
                         additionalProperties:
                           type: string
@@ -144,7 +152,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -161,6 +169,58 @@ spec:
                             description: |-
                               (String) The full URL of the resource.
                               Repository URL.
+                            type: string
+                        type: object
+                      branch:
+                        description: |-
+                          (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+                          Branch naming options for the branch workflow.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the branch name field in Save drawers is read-only.
+                            type: boolean
+                          nameTemplate:
+                            description: |-
+                              (String) Template for the branch name created in the branch workflow.
+                              Template for the branch name created in the branch workflow.
+                            type: string
+                        type: object
+                      commit:
+                        description: |-
+                          (Block, Optional) Commit message and signing options. (see below for nested schema)
+                          Commit message and signing options.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.
+                            type: boolean
+                          signerEmail:
+                            description: |-
+                              (String) Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+                              Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+                            type: string
+                          signerName:
+                            description: |-
+                              (String) Name used as the commit signer. Defaults to "Grafana" when empty.
+                              Name used as the commit signer. Defaults to "Grafana" when empty.
+                            type: string
+                          signingMethod:
+                            description: |-
+                              (String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.
+                              Method used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.
+                            type: string
+                          singleResourceMessageTemplate:
+                            description: |-
+                              resource UI operations.
+                              Template for commit messages produced by single-resource UI operations.
+                            type: string
+                          smimeCertificate:
+                            description: |-
+                              encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.
+                              PEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.
                             type: string
                         type: object
                       connection:
@@ -186,7 +246,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -212,7 +272,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           generateDashboardPreviews:
@@ -231,6 +291,37 @@ spec:
                               Repository URL.
                             type: string
                         type: object
+                      githubEnterprise:
+                        description: |-
+                          (Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)
+                          GitHub Enterprise Server repository configuration.
+                        properties:
+                          branch:
+                            description: |-
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+                              Branch to sync.
+                            type: string
+                          generateDashboardPreviews:
+                            description: |-
+                              (Boolean) Whether to generate dashboard previews.
+                              Whether to generate dashboard previews.
+                            type: boolean
+                          path:
+                            description: |-
+                              (String) Optional subdirectory path.
+                              Optional subdirectory path.
+                            type: string
+                          serverUrl:
+                            description: |-
+                              managed GitHub Enterprise Server instance.
+                              Base URL of the self-managed GitHub Enterprise Server instance.
+                            type: string
+                          url:
+                            description: |-
+                              (String) The full URL of the resource.
+                              Repository URL.
+                            type: string
+                        type: object
                       gitlab:
                         description: |-
                           (Block, Optional) GitLab repository configuration. (see below for nested schema)
@@ -238,7 +329,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -263,6 +354,22 @@ spec:
                               Filesystem path.
                             type: string
                         type: object
+                      pullRequest:
+                        description: |-
+                          (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
+                          Pull request options for the branch workflow.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the pull request title field in Save drawers is read-only.
+                            type: boolean
+                          titleTemplate:
+                            description: |-
+                              (String) Template for pull request titles.
+                              Template for pull request titles.
+                            type: string
+                        type: object
                       sync:
                         description: |-
                           (Block, Optional) Sync configuration. (see below for nested schema)
@@ -280,8 +387,8 @@ spec:
                             type: number
                           target:
                             description: |-
-                              (String) Sync target: instance or folder.
-                              Sync target: instance or folder.
+                              (String) Sync target: instance, folder, or folderless.
+                              Sync target: instance, folder, or folderless.
                             type: string
                         type: object
                       title:
@@ -291,8 +398,8 @@ spec:
                         type: string
                       type:
                         description: |-
-                          (String) Repository provider type: local, github, git, bitbucket, or gitlab.
-                          Repository provider type: local, github, git, bitbucket, or gitlab.
+                          (String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
+                          Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
                         type: string
                       webhook:
                         description: |-
@@ -363,6 +470,14 @@ spec:
                       (see below for nested schema)
                       Sensitive credentials.
                     properties:
+                      commitSigningKey:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.
+                          Private key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.
+                        type: object
+                        x-kubernetes-map-type: granular
                       token:
                         additionalProperties:
                           type: string
@@ -397,7 +512,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -414,6 +529,58 @@ spec:
                             description: |-
                               (String) The full URL of the resource.
                               Repository URL.
+                            type: string
+                        type: object
+                      branch:
+                        description: |-
+                          (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+                          Branch naming options for the branch workflow.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the branch name field in Save drawers is read-only.
+                            type: boolean
+                          nameTemplate:
+                            description: |-
+                              (String) Template for the branch name created in the branch workflow.
+                              Template for the branch name created in the branch workflow.
+                            type: string
+                        type: object
+                      commit:
+                        description: |-
+                          (Block, Optional) Commit message and signing options. (see below for nested schema)
+                          Commit message and signing options.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.
+                            type: boolean
+                          signerEmail:
+                            description: |-
+                              (String) Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+                              Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+                            type: string
+                          signerName:
+                            description: |-
+                              (String) Name used as the commit signer. Defaults to "Grafana" when empty.
+                              Name used as the commit signer. Defaults to "Grafana" when empty.
+                            type: string
+                          signingMethod:
+                            description: |-
+                              (String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.
+                              Method used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.
+                            type: string
+                          singleResourceMessageTemplate:
+                            description: |-
+                              resource UI operations.
+                              Template for commit messages produced by single-resource UI operations.
+                            type: string
+                          smimeCertificate:
+                            description: |-
+                              encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.
+                              PEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.
                             type: string
                         type: object
                       connection:
@@ -439,7 +606,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -465,7 +632,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           generateDashboardPreviews:
@@ -484,6 +651,37 @@ spec:
                               Repository URL.
                             type: string
                         type: object
+                      githubEnterprise:
+                        description: |-
+                          (Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)
+                          GitHub Enterprise Server repository configuration.
+                        properties:
+                          branch:
+                            description: |-
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+                              Branch to sync.
+                            type: string
+                          generateDashboardPreviews:
+                            description: |-
+                              (Boolean) Whether to generate dashboard previews.
+                              Whether to generate dashboard previews.
+                            type: boolean
+                          path:
+                            description: |-
+                              (String) Optional subdirectory path.
+                              Optional subdirectory path.
+                            type: string
+                          serverUrl:
+                            description: |-
+                              managed GitHub Enterprise Server instance.
+                              Base URL of the self-managed GitHub Enterprise Server instance.
+                            type: string
+                          url:
+                            description: |-
+                              (String) The full URL of the resource.
+                              Repository URL.
+                            type: string
+                        type: object
                       gitlab:
                         description: |-
                           (Block, Optional) GitLab repository configuration. (see below for nested schema)
@@ -491,7 +689,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -516,6 +714,22 @@ spec:
                               Filesystem path.
                             type: string
                         type: object
+                      pullRequest:
+                        description: |-
+                          (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
+                          Pull request options for the branch workflow.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the pull request title field in Save drawers is read-only.
+                            type: boolean
+                          titleTemplate:
+                            description: |-
+                              (String) Template for pull request titles.
+                              Template for pull request titles.
+                            type: string
+                        type: object
                       sync:
                         description: |-
                           (Block, Optional) Sync configuration. (see below for nested schema)
@@ -533,8 +747,8 @@ spec:
                             type: number
                           target:
                             description: |-
-                              (String) Sync target: instance or folder.
-                              Sync target: instance or folder.
+                              (String) Sync target: instance, folder, or folderless.
+                              Sync target: instance, folder, or folderless.
                             type: string
                         type: object
                       title:
@@ -544,8 +758,8 @@ spec:
                         type: string
                       type:
                         description: |-
-                          (String) Repository provider type: local, github, git, bitbucket, or gitlab.
-                          Repository provider type: local, github, git, bitbucket, or gitlab.
+                          (String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
+                          Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
                         type: string
                       webhook:
                         description: |-
@@ -729,6 +943,14 @@ spec:
                       (see below for nested schema)
                       Sensitive credentials.
                     properties:
+                      commitSigningKey:
+                        additionalProperties:
+                          type: string
+                        description: |-
+                          only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.
+                          Private key used to sign commits the repository writes back. The format is selected by `spec.commit.signing_method`.
+                        type: object
+                        x-kubernetes-map-type: granular
                       token:
                         additionalProperties:
                           type: string
@@ -763,7 +985,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -780,6 +1002,58 @@ spec:
                             description: |-
                               (String) The full URL of the resource.
                               Repository URL.
+                            type: string
+                        type: object
+                      branch:
+                        description: |-
+                          (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+                          Branch naming options for the branch workflow.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the branch name field in Save drawers is read-only.
+                            type: boolean
+                          nameTemplate:
+                            description: |-
+                              (String) Template for the branch name created in the branch workflow.
+                              Template for the branch name created in the branch workflow.
+                            type: string
+                        type: object
+                      commit:
+                        description: |-
+                          (Block, Optional) Commit message and signing options. (see below for nested schema)
+                          Commit message and signing options.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the commit message field in Save drawers is pre-filled from the template and rendered read-only.
+                            type: boolean
+                          signerEmail:
+                            description: |-
+                              (String) Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+                              Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+                            type: string
+                          signerName:
+                            description: |-
+                              (String) Name used as the commit signer. Defaults to "Grafana" when empty.
+                              Name used as the commit signer. Defaults to "Grafana" when empty.
+                            type: string
+                          signingMethod:
+                            description: |-
+                              (String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.
+                              Method used to sign commits with the key in `secure.commit_signing_key`: gpg, ssh, or smime. When empty, commits are not signed.
+                            type: string
+                          singleResourceMessageTemplate:
+                            description: |-
+                              resource UI operations.
+                              Template for commit messages produced by single-resource UI operations.
+                            type: string
+                          smimeCertificate:
+                            description: |-
+                              encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.
+                              PEM-encoded X.509 certificate paired with `secure.commit_signing_key` when `signing_method` is smime. This is public, not a secret.
                             type: string
                         type: object
                       connection:
@@ -805,7 +1079,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -831,7 +1105,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           generateDashboardPreviews:
@@ -850,6 +1124,37 @@ spec:
                               Repository URL.
                             type: string
                         type: object
+                      githubEnterprise:
+                        description: |-
+                          (Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)
+                          GitHub Enterprise Server repository configuration.
+                        properties:
+                          branch:
+                            description: |-
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+                              Branch to sync.
+                            type: string
+                          generateDashboardPreviews:
+                            description: |-
+                              (Boolean) Whether to generate dashboard previews.
+                              Whether to generate dashboard previews.
+                            type: boolean
+                          path:
+                            description: |-
+                              (String) Optional subdirectory path.
+                              Optional subdirectory path.
+                            type: string
+                          serverUrl:
+                            description: |-
+                              managed GitHub Enterprise Server instance.
+                              Base URL of the self-managed GitHub Enterprise Server instance.
+                            type: string
+                          url:
+                            description: |-
+                              (String) The full URL of the resource.
+                              Repository URL.
+                            type: string
+                        type: object
                       gitlab:
                         description: |-
                           (Block, Optional) GitLab repository configuration. (see below for nested schema)
@@ -857,7 +1162,7 @@ spec:
                         properties:
                           branch:
                             description: |-
-                              (String) Branch to sync.
+                              (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
                               Branch to sync.
                             type: string
                           path:
@@ -882,6 +1187,22 @@ spec:
                               Filesystem path.
                             type: string
                         type: object
+                      pullRequest:
+                        description: |-
+                          (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
+                          Pull request options for the branch workflow.
+                        properties:
+                          enforceTemplate:
+                            description: |-
+                              only.
+                              When true, the pull request title field in Save drawers is read-only.
+                            type: boolean
+                          titleTemplate:
+                            description: |-
+                              (String) Template for pull request titles.
+                              Template for pull request titles.
+                            type: string
+                        type: object
                       sync:
                         description: |-
                           (Block, Optional) Sync configuration. (see below for nested schema)
@@ -899,8 +1220,8 @@ spec:
                             type: number
                           target:
                             description: |-
-                              (String) Sync target: instance or folder.
-                              Sync target: instance or folder.
+                              (String) Sync target: instance, folder, or folderless.
+                              Sync target: instance, folder, or folderless.
                             type: string
                         type: object
                       title:
@@ -910,8 +1231,8 @@ spec:
                         type: string
                       type:
                         description: |-
-                          (String) Repository provider type: local, github, git, bitbucket, or gitlab.
-                          Repository provider type: local, github, git, bitbucket, or gitlab.
+                          (String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
+                          Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.
                         type: string
                       webhook:
                         description: |-

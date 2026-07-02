@@ -61,7 +61,7 @@
                     "type": "string"
                   },
                   "values": {
-                    "description": "(List of String) Values to match against.\nValues to match against.",
+                    "description": "(List of String) Values to match against. Required for all operators except \"IS NULL\" and \"IS NOT NULL\", which must not have any values.\nValues to match against. Required for all operators except \"IS NULL\" and \"IS NOT NULL\", which must not have any values.",
                     "items": {
                       "type": "string"
                     },
@@ -129,7 +129,7 @@
                     "type": "string"
                   },
                   "values": {
-                    "description": "(List of String) Values to match against.\nValues to match against.",
+                    "description": "(List of String) Values to match against. Required for all operators except \"IS NULL\" and \"IS NOT NULL\", which must not have any values.\nValues to match against. Required for all operators except \"IS NULL\" and \"IS NOT NULL\", which must not have any values.",
                     "items": {
                       "type": "string"
                     },
@@ -284,7 +284,7 @@
                     "type": "string"
                   },
                   "values": {
-                    "description": "(List of String) Values to match against.\nValues to match against.",
+                    "description": "(List of String) Values to match against. Required for all operators except \"IS NULL\" and \"IS NOT NULL\", which must not have any values.\nValues to match against. Required for all operators except \"IS NULL\" and \"IS NOT NULL\", which must not have any values.",
                     "items": {
                       "type": "string"
                     },

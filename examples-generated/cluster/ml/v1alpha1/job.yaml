@@ -43,5 +43,5 @@ spec:
       name: example-secret
       namespace: upbound-system
     type: prometheus
-    uid: prometheus-ds-test-uid
+    uid: prom-ds-test-uid
     url: https://my-instance.com

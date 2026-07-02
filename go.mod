@@ -256,3 +256,21 @@ require (
 )
 
 replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9
+
+// The Grafana TF provider v4.39.x pulls in the k8s.io v0.36 stack (via
+// grafana-app-sdk and grafana/apps/provisioning). client-go v0.36 added
+// HasSyncedChecker() to cache.ResourceEventHandlerRegistration, which the
+// controller-runtime v0.22 that crossplane-runtime v2.1.x pins does not
+// implement, breaking codegen. Pin the k8s.io modules back to v0.35 as a
+// matched set until controller-runtime v0.24 lands via crossplane-runtime
+// (crossplane/crossplane-runtime#1037) and upjet adopts it (crossplane/upjet#664).
+// See https://github.com/grafana/crossplane-provider-grafana/issues/601.
+replace (
+	k8s.io/api => k8s.io/api v0.35.3
+	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.35.3
+	k8s.io/apimachinery => k8s.io/apimachinery v0.35.3
+	k8s.io/apiserver => k8s.io/apiserver v0.35.3
+	k8s.io/client-go => k8s.io/client-go v0.35.3
+	k8s.io/code-generator => k8s.io/code-generator v0.35.3
+	k8s.io/component-base => k8s.io/component-base v0.35.3
+)
