@@ -109,14 +109,14 @@ require (
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260622091431-7fe3d665bcc0 // indirect
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20260414120814-5b95bb183fae // indirect
 	github.com/grafana/grafana-plugin-sdk-go v0.292.0 // indirect
-	github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.0-20250925121631-89b988ca553e // indirect
-	github.com/grafana/grafana/apps/alerting/notifications v0.0.0-20260323093832-0cb690db9135 // indirect
-	github.com/grafana/grafana/apps/alerting/rules v0.0.0-20260414202405-94b5db3554f5 // indirect
-	github.com/grafana/grafana/apps/dashboard v0.0.0-20260424050122-76eba5631b44 // indirect
-	github.com/grafana/grafana/apps/playlist v0.0.0-20260401194530-e00074701ba3 // indirect
-	github.com/grafana/grafana/apps/provisioning v0.0.0-20260611010225-797a1ed3cfdb // indirect
-	github.com/grafana/grafana/apps/secret v0.0.0-20260224124528-75b1e0cf0f79 // indirect
-	github.com/grafana/grafana/pkg/apimachinery v0.0.0-20260225160729-8b7042cc192e // indirect
+	github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.85-test // indirect
+	github.com/grafana/grafana/apps/alerting/notifications v0.0.85-test // indirect
+	github.com/grafana/grafana/apps/alerting/rules v0.0.85-test // indirect
+	github.com/grafana/grafana/apps/dashboard v0.0.85-test // indirect
+	github.com/grafana/grafana/apps/playlist v0.0.85-test // indirect
+	github.com/grafana/grafana/apps/provisioning v0.0.85-test // indirect
+	github.com/grafana/grafana/apps/secret v0.0.85-test // indirect
+	github.com/grafana/grafana/pkg/apimachinery v0.0.85-test // indirect
 	github.com/grafana/k6-cloud-openapi-client-go v0.0.0-20251022100644-dd6cfbb68f85 // indirect
 	github.com/grafana/machine-learning-go-client v0.8.2 // indirect
 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
