@@ -122,7 +122,7 @@ require (
 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.9 // indirect
 	github.com/grafana/river v0.3.0 // indirect
-	github.com/grafana/slo-openapi-client/go/slo v0.0.0-20260327172536-7bee3b953aed // indirect
+	github.com/grafana/slo-openapi-client/go/slo v0.0.0-20260601093053-2dcb0e110cba // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.1-0.20191002090509-6af20e3a5340 // indirect
