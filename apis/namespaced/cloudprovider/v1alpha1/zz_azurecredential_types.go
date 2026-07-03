@@ -84,6 +84,11 @@ type AzureCredentialInitParameters struct {
 	// The StackID of the Grafana Cloud instance.
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
+	// (Map of String) A set of static labels to add to all metrics exported using this credential.
+	// A set of static labels to add to all metrics exported using this credential.
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
+
 	// (String) The tenant ID of the Azure Credential.
 	// The tenant ID of the Azure Credential.
 	TenantID *string `json:"tenantId,omitempty" tf:"tenant_id,omitempty"`
@@ -126,6 +131,11 @@ type AzureCredentialObservation struct {
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// (Map of String) A set of static labels to add to all metrics exported using this credential.
+	// A set of static labels to add to all metrics exported using this credential.
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
 
 	// (String) The tenant ID of the Azure Credential.
 	// The tenant ID of the Azure Credential.
@@ -174,6 +184,12 @@ type AzureCredentialParameters struct {
 	// The StackID of the Grafana Cloud instance.
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// (Map of String) A set of static labels to add to all metrics exported using this credential.
+	// A set of static labels to add to all metrics exported using this credential.
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
 
 	// (String) The tenant ID of the Azure Credential.
 	// The tenant ID of the Azure Credential.

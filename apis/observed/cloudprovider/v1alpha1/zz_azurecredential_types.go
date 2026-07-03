@@ -41,6 +41,9 @@ type AzureCredentialObservation struct {
 	// The list of resource tags to add to metrics.
 	ResourceTagsToAddToMetrics []string `json:"resourceTagsToAddToMetrics,omitempty"`
 
+	// A set of static labels to add to all metrics exported using this credential.
+	StaticLabels map[string]string `json:"staticLabels,omitempty"`
+
 	// The tenant ID of the Azure Credential.
 	TenantID *string `json:"tenantID,omitempty"`
 }
