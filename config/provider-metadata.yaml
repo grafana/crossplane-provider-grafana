@@ -1062,14 +1062,18 @@ resources:
             annotations: (Map of String) Annotations of the resource.
             base_url: (String) Optional public webhook base URL override used when incoming webhook delivery must target a different host than the Grafana UI URL.
             bitbucket: (Block, Optional) Bitbucket repository configuration. (see below for nested schema)
-            branch: (String) Branch to sync.
+            branch: (Block, Optional) Branch naming options for the branch workflow. (see below for nested schema)
+            commit: (Block, Optional) Commit message and signing options. (see below for nested schema)
+            commit_signing_key: (Map of String, Write-only) Private key used to sign commits the repository writes back. The format is selected by spec.commit.signing_method.
             connection: (Block, Optional) Connection resource reference. (see below for nested schema)
             description: (String) Repository description.
             enabled: (Boolean) Whether sync is enabled.
+            enforce_template: (Boolean) When true, the branch name field in Save drawers is read-only.
             folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
             generate_dashboard_previews: (Boolean) Whether to generate dashboard previews.
             git: (Block, Optional) Generic git repository configuration. (see below for nested schema)
             github: (Block, Optional) GitHub repository configuration. (see below for nested schema)
+            github_enterprise: (Block, Optional) GitHub Enterprise Server repository configuration. (see below for nested schema)
             gitlab: (Block, Optional) GitLab repository configuration. (see below for nested schema)
             id: (String) The ID of the resource derived from UUID.
             interval_seconds: (Number) Sync interval in seconds.
@@ -1077,18 +1081,27 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String) Connection resource name.
+            name_template: (String) Template for the branch name created in the branch workflow.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             path: (String) Optional subdirectory path.
+            pull_request: (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
             secure: (Block, Optional) Sensitive credentials. Values are write-only and never stored in Terraform state. (see below for nested schema)
             secure_version: (Number) Set this to 1 when using secure, then increment it to trigger re-application of secure values.
+            server_url: (String) Base URL of the self-managed GitHub Enterprise Server instance.
+            signer_email: (String) Email used as the commit signer. Defaults to "noreply@grafana.com" when empty.
+            signer_name: (String) Name used as the commit signer. Defaults to "Grafana" when empty.
+            signing_method: '(String) Method used to sign commits with the key in secure.commit_signing_key: gpg, ssh, or smime. When empty, commits are not signed.'
+            single_resource_message_template: (String) Template for commit messages produced by single-resource UI operations.
+            smime_certificate: (String) PEM-encoded X.509 certificate paired with secure.commit_signing_key when signing_method is smime. This is public, not a secret.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             sync: (Block, Optional) Sync configuration. (see below for nested schema)
-            target: '(String) Sync target: instance or folder.'
+            target: '(String) Sync target: instance, folder, or folderless.'
             title: (String) Display name shown in the UI.
+            title_template: (String) Template for pull request titles.
             token: (Map of String, Write-only) Token for repository authentication.
             token_user: (String) Username for PAT auth.
-            type: '(String) Repository provider type: local, github, git, bitbucket, or gitlab.'
+            type: '(String) Repository provider type: local, github, githubEnterprise, git, bitbucket, or gitlab.'
             uid: (String) The unique identifier of the resource.
             url: (String) The full URL of the resource.
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
@@ -1521,7 +1534,7 @@ resources:
             read: (String)
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
-            values: (List of String) Values to match against.
+            values: (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
         importStatements:
             - terraform import grafana_asserts_log_config.name "{{ name }}"
     grafana_asserts_notification_alerts_config:
@@ -1744,7 +1757,7 @@ resources:
             read: (String)
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
-            values: (List of String) Values to match against.
+            values: (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
         importStatements:
             - terraform import grafana_asserts_profile_config.name "{{ name }}"
     grafana_asserts_prom_rule_file:
@@ -2398,7 +2411,7 @@ resources:
             read: (String)
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
-            values: (List of String) Values to match against.
+            values: (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
         importStatements:
             - terraform import grafana_asserts_trace_config.name "{{ name }}"
     grafana_assistant_mcp_server:
@@ -3061,6 +3074,7 @@ resources:
             client_id: (String) The client ID of the Azure Credential.
             client_secret: (String, Sensitive) The client secret of the Azure Credential.
             dimensions: (List of String)
+            enabled: (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ resource_id }}".
             key: (String) The key of the tag filter.
             metric_configuration: (List of Object) (see below for nested schema)
@@ -5006,7 +5020,7 @@ resources:
                       "name": "prometheus-ds-test",
                       "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
                       "type": "prometheus",
-                      "uid": "prometheus-ds-test-uid",
+                      "uid": "prom-ds-test-uid",
                       "url": "https://my-instance.com"
                     }
             - name: test_job
@@ -5038,7 +5052,7 @@ resources:
                       "name": "prometheus-ds-test",
                       "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
                       "type": "prometheus",
-                      "uid": "prometheus-ds-test-uid",
+                      "uid": "prom-ds-test-uid",
                       "url": "https://my-instance.com"
                     }
             - name: test_job
@@ -5066,7 +5080,7 @@ resources:
                       "name": "prometheus-ds-test",
                       "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
                       "type": "prometheus",
-                      "uid": "prometheus-ds-test-uid",
+                      "uid": "prom-ds-test-uid",
                       "url": "https://my-instance.com"
                     }
             - name: test_job
@@ -5095,7 +5109,7 @@ resources:
                       "name": "prometheus-ds-test",
                       "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
                       "type": "prometheus",
-                      "uid": "prometheus-ds-test-uid",
+                      "uid": "prom-ds-test-uid",
                       "url": "https://my-instance.com"
                     }
                 grafana_machine_learning_holiday.test_holiday: |-

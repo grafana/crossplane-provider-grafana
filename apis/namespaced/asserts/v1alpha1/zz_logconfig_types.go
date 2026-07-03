@@ -156,8 +156,8 @@ type MatchInitParameters struct {
 	// Entity property to match.
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
+	// (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
+	// Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -171,8 +171,8 @@ type MatchObservation struct {
 	// Entity property to match.
 	Property *string `json:"property,omitempty" tf:"property,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
+	// (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
+	// Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
 	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
@@ -188,10 +188,10 @@ type MatchParameters struct {
 	// +kubebuilder:validation:Optional
 	Property *string `json:"property" tf:"property,omitempty"`
 
-	// (List of String) Values to match against.
-	// Values to match against.
+	// (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
+	// Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
 	// +kubebuilder:validation:Optional
-	Values []*string `json:"values" tf:"values,omitempty"`
+	Values []*string `json:"values,omitempty" tf:"values,omitempty"`
 }
 
 // LogConfigSpec defines the desired state of LogConfig

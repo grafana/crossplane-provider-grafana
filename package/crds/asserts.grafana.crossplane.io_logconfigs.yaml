@@ -124,8 +124,8 @@ spec:
                           type: string
                         values:
                           description: |-
-                            (List of String) Values to match against.
-                            Values to match against.
+                            (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
+                            Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
                           items:
                             type: string
                           type: array
@@ -206,8 +206,8 @@ spec:
                           type: string
                         values:
                           description: |-
-                            (List of String) Values to match against.
-                            Values to match against.
+                            (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
+                            Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
                           items:
                             type: string
                           type: array
@@ -386,8 +386,8 @@ spec:
                           type: string
                         values:
                           description: |-
-                            (List of String) Values to match against.
-                            Values to match against.
+                            (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
+                            Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
                           items:
                             type: string
                           type: array
