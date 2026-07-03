@@ -525,6 +525,13 @@ func (in *AzureCredentialObservation) DeepCopyInto(out *AzureCredentialObservati
 		*out = make([]string, len(*in))
 		copy(*out, *in)
 	}
+	if in.StaticLabels != nil {
+		in, out := &in.StaticLabels, &out.StaticLabels
+		*out = make(map[string]string, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
+	}
 	if in.TenantID != nil {
 		in, out := &in.TenantID, &out.TenantID
 		*out = new(string)

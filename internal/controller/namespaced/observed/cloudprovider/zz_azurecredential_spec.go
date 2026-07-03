@@ -73,6 +73,8 @@ var AzureCredentialSpec = tfdatasource.Spec{
 				}
 			}
 
+			// TODO: complex type map[string]string for static_labels
+
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("tenant_id"), &v); !diags.HasError() && v != nil {

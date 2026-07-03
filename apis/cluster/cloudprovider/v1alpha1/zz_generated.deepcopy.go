@@ -1150,6 +1150,22 @@ func (in *AzureCredentialInitParameters) DeepCopyInto(out *AzureCredentialInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.StaticLabels != nil {
+		in, out := &in.StaticLabels, &out.StaticLabels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.TenantID != nil {
 		in, out := &in.TenantID, &out.TenantID
 		*out = new(string)
@@ -1257,6 +1273,22 @@ func (in *AzureCredentialObservation) DeepCopyInto(out *AzureCredentialObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.StaticLabels != nil {
+		in, out := &in.StaticLabels, &out.StaticLabels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.TenantID != nil {
 		in, out := &in.TenantID, &out.TenantID
 		*out = new(string)
@@ -1322,6 +1354,22 @@ func (in *AzureCredentialParameters) DeepCopyInto(out *AzureCredentialParameters
 		in, out := &in.StackID, &out.StackID
 		*out = new(string)
 		**out = **in
+	}
+	if in.StaticLabels != nil {
+		in, out := &in.StaticLabels, &out.StaticLabels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
 	}
 	if in.TenantID != nil {
 		in, out := &in.TenantID, &out.TenantID

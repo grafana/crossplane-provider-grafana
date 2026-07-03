@@ -3066,6 +3066,10 @@ resources:
                     "tag2"
                   ],
                   "stack_id": "1",
+                  "static_labels": {
+                    "label1": "value1",
+                    "label2": "value2"
+                  },
                   "tenant_id": "my-tenant-id"
                 }
         argumentDocs:
@@ -3085,6 +3089,7 @@ resources:
             resource_type_configurations: (List of Object) The list of resource type configurations. (see below for nested schema)
             resource_type_name: (String)
             stack_id: (String) The StackID of the Grafana Cloud instance. Part of the Terraform Resource ID.
+            static_labels: (Map of String) A set of static labels to add to all metrics exported using this credential.
             subscription_id: (String) The subscription ID of the Azure account.
             tenant_id: (String) The tenant ID of the Azure Credential.
             value: (String) The value of the tag filter.
