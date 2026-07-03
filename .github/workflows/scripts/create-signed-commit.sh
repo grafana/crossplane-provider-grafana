@@ -39,20 +39,38 @@ if [ "${#changed[@]}" -eq 0 ] && [ "${#deleted[@]}" -eq 0 ]; then
 fi
 
 # Build the FileChanges object as JSON: { additions: [...], deletions: [...] }.
-additions="[]"
+#
+# The base64-encoded contents of a file (and the accumulated JSON that holds
+# them) can be large - many megabytes across a full regeneration. Passing such
+# values via `jq --arg`/`--argjson` places the whole blob on the command line,
+# which can exceed the OS ARG_MAX limit and fail with "Argument list too long".
+# To stay within argv limits we stream large data through temp files with
+# `--rawfile`/`--slurpfile` instead of putting it on argv.
+tmp_b64=$(mktemp)
+tmp_additions=$(mktemp)
+tmp_deletions=$(mktemp)
+tmp_changes=$(mktemp)
+tmp_input=$(mktemp)
+trap 'rm -f "$tmp_b64" "$tmp_additions" "$tmp_deletions" "$tmp_changes" "$tmp_input"' EXIT
+
+printf '[]' >"$tmp_additions"
 for path in "${changed[@]}"; do
-  contents=$(base64 -w0 "$path")
-  additions=$(jq -c --arg p "$path" --arg c "$contents" \
-    '. += [{path: $p, contents: $c}]' <<<"$additions")
+  base64 -w0 "$path" >"$tmp_b64"
+  jq -c --arg p "$path" --rawfile c "$tmp_b64" \
+    '. += [{path: $p, contents: $c}]' "$tmp_additions" >"${tmp_additions}.new"
+  mv "${tmp_additions}.new" "$tmp_additions"
 done
 
-deletions="[]"
+printf '[]' >"$tmp_deletions"
 for path in "${deleted[@]}"; do
-  deletions=$(jq -c --arg p "$path" '. += [{path: $p}]' <<<"$deletions")
+  jq -c --arg p "$path" '. += [{path: $p}]' "$tmp_deletions" >"${tmp_deletions}.new"
+  mv "${tmp_deletions}.new" "$tmp_deletions"
 done
 
-file_changes=$(jq -cn --argjson a "$additions" --argjson d "$deletions" \
-  '{additions: $a, deletions: $d}')
+# Combine additions/deletions into the FileChanges object, reading both large
+# arrays from files (--slurpfile wraps each in an outer array we index with [0]).
+jq -cn --slurpfile a "$tmp_additions" --slurpfile d "$tmp_deletions" \
+  '{additions: $a[0], deletions: $d[0]}' >"$tmp_changes"
 
 # The mutation requires the current head OID of the branch as an optimistic lock.
 head_oid=$(git rev-parse HEAD)
@@ -63,24 +81,24 @@ mutation='mutation($input: CreateCommitOnBranchInput!) {
   createCommitOnBranch(input: $input) { commit { oid url } }
 }'
 
-input=$(jq -cn \
+jq -cn \
   --arg repo "${owner}/${repo}" \
   --arg branch "refs/heads/${branch}" \
   --arg oid "$head_oid" \
   --arg headline "$message" \
-  --argjson changes "$file_changes" \
+  --slurpfile changes "$tmp_changes" \
   '{
     branch: {repositoryNameWithOwner: $repo, branchName: $branch},
     expectedHeadOid: $oid,
     message: {headline: $headline},
-    fileChanges: $changes
-  }')
+    fileChanges: $changes[0]
+  }' >"$tmp_input"
 
 # Pass the query and variables as a single JSON request body. `gh api graphql`
 # with -F cannot coerce a JSON string into a nested input object, so build the
 # full GraphQL payload ({query, variables}) and feed it on stdin via --input -.
-request=$(jq -cn --arg query "$mutation" --argjson input "$input" \
-  '{query: $query, variables: {input: $input}}')
+request=$(jq -cn --arg query "$mutation" --slurpfile input "$tmp_input" \
+  '{query: $query, variables: {input: $input[0]}}')
 
 new_oid=$(gh api graphql --input - <<<"$request" \
   --jq '.data.createCommitOnBranch.commit.oid')
