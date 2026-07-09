@@ -105,7 +105,7 @@ require (
 	github.com/grafana/fleet-management-api v1.2.0 // indirect
 	github.com/grafana/grafana-app-sdk v0.56.0 // indirect
 	github.com/grafana/grafana-app-sdk/logging v0.55.0 // indirect
-	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 // indirect
+	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260629155649-5ff3c8b77401 // indirect
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260622091431-7fe3d665bcc0 // indirect
 	github.com/grafana/grafana-openapi-client-go v0.0.0-20260414120814-5b95bb183fae // indirect
 	github.com/grafana/grafana-plugin-sdk-go v0.292.0 // indirect
