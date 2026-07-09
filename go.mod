@@ -255,7 +255,7 @@ require (
 	sigs.k8s.io/structured-merge-diff/v6 v6.4.0 // indirect
 )
 
-replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9
+replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.2.0
 
 // The Grafana TF provider v4.39.x pulls in the k8s.io v0.36 stack (via
 // grafana-app-sdk and grafana/apps/provisioning). client-go v0.36 added
