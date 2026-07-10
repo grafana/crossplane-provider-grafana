@@ -125,7 +125,7 @@ require (
 	github.com/grafana/slo-openapi-client/go/slo v0.0.0-20260601093053-2dcb0e110cba // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3 // indirect
-	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.1-0.20191002090509-6af20e3a5340 // indirect
+	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.1-0.20230405093142-a5446fa24890 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
