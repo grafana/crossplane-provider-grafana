@@ -206,7 +206,7 @@ resources:
               terraform import grafana_annotation.name "{{ orgID }}:{{ id }}"
     grafana_apps_alertenrichment_alertenrichment_v1beta1:
         subCategory: Alerting
-        description: Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is generally available.
+        description: Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is currently in public preview. Grafana Labs offers limited support, and breaking changes might occur prior to the feature being made generally available.
         name: grafana_apps_alertenrichment_alertenrichment_v1beta1
         title: grafana_apps_alertenrichment_alertenrichment_v1beta1 Resource - terraform-provider-grafana
         examples:
@@ -400,7 +400,6 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             raw_query: (Block, Optional) Raw query configuration for advanced data source queries. (see below for nested schema)
             receivers: (List of String) Receiver names to match. If empty, applies to all receivers.
@@ -449,7 +448,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -489,7 +487,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -529,7 +526,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -707,7 +703,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             source_matchers: (List of Object) Matchers that must be satisfied for an alert to be a source of inhibition. (see below for nested schema)
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -839,7 +834,6 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             mute_time_intervals: (List of String) A list of time interval names that mute this route during the specified times.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             receiver: (String) The default contact point to route all unmatched notifications to.
             repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
@@ -851,64 +845,6 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             value: (String) The label value to match against.
             version: (String) The version of the resource.
-        importStatements: []
-    grafana_apps_notifications_timeinterval_v1beta1:
-        subCategory: Alerting
-        description: Manages Grafana Time Intervals. Requires Grafana 13.4.0-41840432882 or later, which accepts a time interval UID set by the client. Grafana 13.3.0 rejects the create call with HTTP 400 - object's metadata.name should be empty.
-        name: grafana_apps_notifications_timeinterval_v1beta1
-        title: grafana_apps_notifications_timeinterval_v1beta1 Resource - terraform-provider-grafana
-        examples:
-            - name: example
-              manifest: |-
-                {
-                  "metadata": [
-                    {
-                      "uid": "business-hours"
-                    }
-                  ],
-                  "spec": [
-                    {
-                      "name": "business-hours",
-                      "time_intervals": [
-                        {
-                          "times": [
-                            {
-                              "end_time": "17:00",
-                              "start_time": "09:00"
-                            }
-                          ],
-                          "weekdays": [
-                            "monday:friday"
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-        argumentDocs:
-            annotations: (Map of String) Annotations of the resource.
-            days_of_month: (List of String) Days of the month (1-31, negative values count from end of month).
-            end_time: (String)
-            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
-            id: (String) The ID of the resource derived from UUID.
-            location: (String) IANA timezone name (e.g. America/New_York). Defaults to UTC when unset.
-            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
-            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
-            months: (List of String) Months of the year (e.g. january, february).
-            name: (String) The name of the time interval.
-            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
-            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
-            start_time: (String)
-            time_intervals: (Block List) A list of time interval definitions. (see below for nested schema)
-            times: (List of Object) Ranges of time within a day. (see below for nested schema)
-            uid: (String) The unique identifier of the resource.
-            url: (String) The full URL of the resource.
-            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
-            version: (String) The version of the resource.
-            weekdays: (List of String) Days of the week (e.g. monday, tuesday).
-            years: (List of String) Calendar years (e.g. 2024, 2025:2027).
         importStatements: []
     grafana_apps_playlist_playlist_v0alpha1:
         subCategory: Grafana Apps
@@ -946,7 +882,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             title: (String) The title of the playlist.
@@ -993,7 +928,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             title: (String) The title of the playlist.
@@ -1032,7 +966,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             uid: (String) The unique identifier of the resource.
@@ -1072,7 +1005,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             uid: (String) The unique identifier of the resource.
@@ -1112,7 +1044,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             uid: (String) The unique identifier of the resource.
@@ -1172,7 +1103,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             private_key: (Map of String, Write-only) Private key for GitHub App authentication.
             secure: (Block, Optional) Sensitive credentials. Values are write-only and never stored in Terraform state. (see below for nested schema)
@@ -1497,7 +1427,6 @@ resources:
             name: (String) Connection resource name.
             name_template: (String) Template for the branch name created in the branch workflow.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             path: (String) Optional subdirectory path.
             pull_request: (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
@@ -1569,7 +1498,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             properties_json: (String) The datasource query for the target, as a JSON string (use jsonencode()).
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -1590,7 +1518,7 @@ resources:
               terraform import grafana_apps_queries_query_v1.example example-saved-query
     grafana_apps_rules_alertrule_v0alpha1:
         subCategory: Alerting
-        description: 'Manages Grafana Alert Rules. ~> Deprecated: This resource uses the v0alpha1 API. Use grafana_apps_rules_alertrule_v1beta1 instead. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.'
+        description: Manages Grafana Alert Rules. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
         name: grafana_apps_rules_alertrule_v0alpha1
         title: grafana_apps_rules_alertrule_v0alpha1 Resource - terraform-provider-grafana
         examples:
@@ -1672,7 +1600,6 @@ resources:
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
             notification_settings: (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             panel_ref: (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
             paused: (Boolean) Sets whether the rule should be paused or not.
@@ -1687,132 +1614,9 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
         importStatements: []
-    grafana_apps_rules_alertrule_v1beta1:
-        subCategory: Alerting
-        description: Manages Grafana Alert Rules. This resource uses the rules.alerting.grafana.app/v1beta1 API, which requires Grafana 13.3 or later.
-        name: grafana_apps_rules_alertrule_v1beta1
-        title: grafana_apps_rules_alertrule_v1beta1 Resource - terraform-provider-grafana
-        examples:
-            - name: example
-              manifest: |-
-                {
-                  "metadata": [
-                    {
-                      "folder_uid": "${grafana_folder.alertrule_folder.uid}",
-                      "uid": "example-alert-rule"
-                    }
-                  ],
-                  "spec": [
-                    {
-                      "annotations": {
-                        "runbook_url": "https://example.com"
-                      },
-                      "exec_err_state": "KeepLast",
-                      "expressions": {
-                        "A": {
-                          "datasource_uid": "ds_uid",
-                          "model": "${jsonencode({\n          datasource = {\n            type = \"prometheus\"\n            uid  = \"ds_uid\"\n          }\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        })}",
-                          "query_type": "",
-                          "relative_time_range": {
-                            "from": "600s",
-                            "to": "0s"
-                          },
-                          "source": true
-                        },
-                        "B": {
-                          "datasource_uid": "__expr__",
-                          "model": "${jsonencode({\n          conditions = [\n            {\n              evaluator = {\n                params = [1]\n                type   = \"gt\"\n              }\n              operator = {\n                type = \"and\"\n              }\n              query = {\n                params = [\"C\"]\n              }\n              reducer = {\n                params = []\n                type   = \"last\"\n              }\n              type = \"query\"\n            }\n          ]\n          datasource = {\n            type = \"__expr__\"\n            uid  = \"__expr__\"\n          }\n          expression    = \"A\"\n          intervalMs    = 1000\n          maxDataPoints = 43200\n          refId         = \"C\"\n          type          = \"threshold\"\n        })}",
-                          "query_type": "",
-                          "relative_time_range": null,
-                          "source": false
-                        }
-                      },
-                      "for": "5m",
-                      "labels": {
-                        "severity": "critical"
-                      },
-                      "missing_series_evals_to_resolve": 5,
-                      "no_data_state": "KeepLast",
-                      "notification_settings": [
-                        {
-                          "simplified_routing": [
-                            {
-                              "contact_point": "grafana-default-email"
-                            }
-                          ]
-                        }
-                      ],
-                      "panel_ref": {
-                        "dashboard_uid": "dashboard123",
-                        "panel_id": 5
-                      },
-                      "paused": true,
-                      "title": "Example Alert Rule",
-                      "trigger": [
-                        {
-                          "interval": "1m"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              references:
-                metadata.folder_uid: grafana_folder.alertrule_folder.uid
-              dependencies:
-                grafana_folder.alertrule_folder: |-
-                    {
-                      "title": "Alert Rule Folder"
-                    }
-        argumentDocs:
-            active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time.
-            annotations: (Map of String) Annotations of the resource.
-            contact_point: (String) The contact point to route notifications that match this rule to.
-            dashboard_uid: (String)
-            datasource_uid: (String)
-            exec_err_state: (String) Describes what state to enter when the rule's query is invalid and the rule cannot be executed. Options are OK, Error, KeepLast, and Alerting.
-            expressions: (Map of Object) The stages of the rule, keyed by reference ID. Each expression is an object with model (the query or expression model as a JSON string, for example from jsonencode), datasource_uid (the datasource to run against; __expr__ for server-side expressions), query_type, relative_time_range (an object with from and to durations) and source. Exactly one expression must set source = true. Every field must be set; use null for unused fields. (see below for nested schema)
-            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
-            for: (String) The amount of time for which the rule must be breached for the rule to be considered to be Firing. Before this time has elapsed, the rule is only considered to be Pending.
-            from: (String)
-            group_by: (List of String) A list of alert labels to group alerts into notifications by.
-            group_interval: (String) Minimum time interval between two notifications for the same group.
-            group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification.
-            id: (String) The ID of the resource derived from UUID.
-            interval: (String) The interval at which the alert rule should be evaluated.
-            keep_firing_for: (String) The amount of time for which the rule will considered to be Recovering after initially Firing. Before this time has elapsed, the rule will continue to fire once it's been triggered.
-            labels: (Map of String) Key-value pairs to attach to the alert rule that can be used in matching, grouping, and routing.
-            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
-            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
-            missing_series_evals_to_resolve: (Number) The number of missing series evaluations that must occur before the rule is considered to be resolved.
-            model: (String)
-            mute_timings: (List of String) A list of mute timing names to apply to alerts that match this policy.
-            named_routing_tree: (Block, Optional) Route notifications to a specific routing tree. (see below for nested schema)
-            no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
-            notification_settings: (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. Specify exactly one of simplified_routing or named_routing_tree. (see below for nested schema)
-            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
-            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-            panel_id: (Number)
-            panel_ref: (Object) Reference to the dashboard panel this alert rule is associated with, as an object with dashboard_uid (string) and panel_id (number). (see below for nested schema)
-            paused: (Boolean) Sets whether the rule should be paused or not.
-            query_type: (String)
-            relative_time_range: (Object) (see below for nested schema)
-            repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing.
-            routing_tree: (String) The name of the routing tree to use.
-            simplified_routing: (Block, Optional) Simplified routing to a contact point with optional grouping and timing overrides. (see below for nested schema)
-            source: (Boolean)
-            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
-            title: (String) The title of the alert rule.
-            to: (String)
-            trigger: (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
-            uid: (String) The unique identifier of the resource.
-            url: (String) The full URL of the resource.
-            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
-            version: (String) The version of the resource.
-        importStatements: []
     grafana_apps_rules_recordingrule_v0alpha1:
         subCategory: Alerting
-        description: 'Manages Grafana Recording Rules. ~> Deprecated: This resource uses the v0alpha1 API. Use grafana_apps_rules_recordingrule_v1beta1 instead.'
+        description: Manages Grafana Recording Rules.
         name: grafana_apps_rules_recordingrule_v0alpha1
         title: grafana_apps_rules_recordingrule_v0alpha1 Resource - terraform-provider-grafana
         examples:
@@ -1865,93 +1669,11 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             metric: (String) The name of the metric to write to.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             paused: (Boolean) Sets whether the recording rule should be paused or not.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             target_datasource_uid: (String) The UID of the datasource to write the metric to.
             title: (String) The title of the recording rule.
-            trigger: (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
-            uid: (String) The unique identifier of the resource.
-            url: (String) The full URL of the resource.
-            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
-            version: (String) The version of the resource.
-        importStatements: []
-    grafana_apps_rules_recordingrule_v1beta1:
-        subCategory: Alerting
-        description: Manages Grafana Recording Rules. This resource uses the rules.alerting.grafana.app/v1beta1 API, which requires Grafana 13.3 or later.
-        name: grafana_apps_rules_recordingrule_v1beta1
-        title: grafana_apps_rules_recordingrule_v1beta1 Resource - terraform-provider-grafana
-        examples:
-            - name: example
-              manifest: |-
-                {
-                  "metadata": [
-                    {
-                      "folder_uid": "${grafana_folder.recordingrule_folder.uid}",
-                      "uid": "example-recording-rule"
-                    }
-                  ],
-                  "spec": [
-                    {
-                      "expressions": {
-                        "A": {
-                          "datasource_uid": "ds_uid",
-                          "model": "${jsonencode({\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        })}",
-                          "query_type": "",
-                          "relative_time_range": {
-                            "from": "600s",
-                            "to": "0s"
-                          },
-                          "source": true
-                        }
-                      },
-                      "labels": {
-                        "foo": "bar"
-                      },
-                      "metric": "tf-metric",
-                      "paused": true,
-                      "target_datasource_uid": "target_ds_uid",
-                      "title": "Example Recording Rule",
-                      "trigger": [
-                        {
-                          "interval": "1m"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              references:
-                metadata.folder_uid: grafana_folder.recordingrule_folder.uid
-              dependencies:
-                grafana_folder.recordingrule_folder: |-
-                    {
-                      "title": "Recording Rule Folder"
-                    }
-        argumentDocs:
-            annotations: (Map of String) Annotations of the resource.
-            datasource_uid: (String)
-            expressions: (Map of Object) The stages of the rule, keyed by reference ID. Each expression is an object with model (the query or expression model as a JSON string, for example from jsonencode), datasource_uid (the datasource to run against; __expr__ for server-side expressions), query_type, relative_time_range (an object with from and to durations) and source. Exactly one expression must set source = true. Every field must be set; use null for unused fields. (see below for nested schema)
-            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
-            from: (String)
-            id: (String) The ID of the resource derived from UUID.
-            interval: (String) The interval at which the recording rule should be evaluated.
-            labels: (Map of String) Key-value pairs to attach to the recorded metric.
-            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
-            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
-            metric: (String) The name of the metric to write to.
-            model: (String)
-            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
-            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-            paused: (Boolean) Sets whether the recording rule should be paused or not.
-            query_type: (String)
-            relative_time_range: (Object) (see below for nested schema)
-            source: (Boolean)
-            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
-            target_datasource_uid: (String) The UID of the datasource to write the metric to.
-            title: (String) The title of the recording rule.
-            to: (String)
             trigger: (Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)
             uid: (String) The unique identifier of the resource.
             url: (String) The full URL of the resource.
@@ -1960,7 +1682,7 @@ resources:
         importStatements: []
     grafana_apps_rules_rulesequence_v0alpha1:
         subCategory: Alerting
-        description: 'Manages Grafana Rule Sequences. ~> Deprecated: This resource uses the v0alpha1 API. Use grafana_apps_rules_rulesequence_v1beta1 instead. A rule sequence groups existing alert rules and recording rules so they are evaluated in order, at a shared interval, within a single folder. All referenced rules must live in the same folder as the sequence (set metadata.folder_uid). This resource is currently in alpha and is subject to change.'
+        description: Manages Grafana Rule Sequences. A rule sequence groups existing alert rules and recording rules so they are evaluated in order, at a shared interval, within a single folder. All referenced rules must live in the same folder as the sequence (set metadata.folder_uid). This resource is currently in alpha and is subject to change.
         name: grafana_apps_rules_rulesequence_v0alpha1
         title: grafana_apps_rules_rulesequence_v0alpha1 Resource - terraform-provider-grafana
         examples:
@@ -2058,135 +1780,6 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
-            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
-            recording_rules: (List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)
-            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
-            trigger: (Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)
-            uid: (String) The unique identifier of the resource.
-            url: (String) The full URL of the resource.
-            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
-            version: (String) The version of the resource.
-        importStatements: []
-    grafana_apps_rules_rulesequence_v1beta1:
-        subCategory: Alerting
-        description: Manages Grafana Rule Sequences. A rule sequence groups existing alert rules and recording rules so they are evaluated in order, at a shared interval, within a single folder. All referenced rules must live in the same folder as the sequence (set metadata.folder_uid). This resource uses the rules.alerting.grafana.app/v1beta1 API, which requires Grafana 13.3 or later.
-        name: grafana_apps_rules_rulesequence_v1beta1
-        title: grafana_apps_rules_rulesequence_v1beta1 Resource - terraform-provider-grafana
-        examples:
-            - name: example
-              manifest: |-
-                {
-                  "metadata": [
-                    {
-                      "folder_uid": "${grafana_folder.rulesequence_folder.uid}",
-                      "uid": "example-rule-sequence"
-                    }
-                  ],
-                  "spec": [
-                    {
-                      "alert_rules": [
-                        {
-                          "name": "${grafana_apps_rules_alertrule_v1beta1.example.metadata[0].uid}"
-                        }
-                      ],
-                      "recording_rules": [
-                        {
-                          "name": "${grafana_apps_rules_recordingrule_v1beta1.example.metadata[0].uid}"
-                        }
-                      ],
-                      "trigger": [
-                        {
-                          "interval": "1m"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              references:
-                metadata.folder_uid: grafana_folder.rulesequence_folder.uid
-              dependencies:
-                grafana_apps_rules_alertrule_v1beta1.example: |-
-                    {
-                      "metadata": [
-                        {
-                          "folder_uid": "${grafana_folder.rulesequence_folder.uid}",
-                          "uid": "example-seq-alert-rule"
-                        }
-                      ],
-                      "spec": [
-                        {
-                          "exec_err_state": "KeepLast",
-                          "expressions": {
-                            "A": {
-                              "datasource_uid": "ds_uid",
-                              "model": "${jsonencode({\n          datasource = {\n            type = \"prometheus\"\n            uid  = \"ds_uid\"\n          }\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        })}",
-                              "query_type": "",
-                              "relative_time_range": {
-                                "from": "600s",
-                                "to": "0s"
-                              },
-                              "source": true
-                            }
-                          },
-                          "no_data_state": "KeepLast",
-                          "title": "Example Sequence Alert Rule",
-                          "trigger": [
-                            {
-                              "interval": "1m"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                grafana_apps_rules_recordingrule_v1beta1.example: |-
-                    {
-                      "metadata": [
-                        {
-                          "folder_uid": "${grafana_folder.rulesequence_folder.uid}",
-                          "uid": "example-seq-recording-rule"
-                        }
-                      ],
-                      "spec": [
-                        {
-                          "expressions": {
-                            "A": {
-                              "datasource_uid": "ds_uid",
-                              "model": "${jsonencode({\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        })}",
-                              "query_type": "",
-                              "relative_time_range": {
-                                "from": "600s",
-                                "to": "0s"
-                              },
-                              "source": true
-                            }
-                          },
-                          "metric": "tf-seq-metric",
-                          "target_datasource_uid": "target_ds_uid",
-                          "title": "Example Sequence Recording Rule",
-                          "trigger": [
-                            {
-                              "interval": "1m"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                grafana_folder.rulesequence_folder: |-
-                    {
-                      "title": "Rule Sequence Folder"
-                    }
-        argumentDocs:
-            alert_rules: (List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)
-            annotations: (Map of String) Annotations of the resource.
-            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
-            id: (String) The ID of the resource derived from UUID.
-            interval: (String) The interval at which the rules in the sequence should be evaluated.
-            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
-            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
-            name: (String)
-            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             recording_rules: (List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -2206,7 +1799,6 @@ resources:
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from the keeper name.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             uid: (String) The unique identifier of the resource.
             url: (String) The full URL of the resource.
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
@@ -2229,7 +1821,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             region: (String) AWS region.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -2252,7 +1843,6 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             ref: (String) Reference to an existing secret managed by the keeper.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -2354,7 +1944,6 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String) Name (metadata.uid) of the component this service depends on.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
-            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             owner_ref: (Block, Optional) Reference to the team owning the service. Set name to the Grafana team UID; api_version and kind default to a Grafana IAM team reference. (see below for nested schema)
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -3446,97 +3035,6 @@ resources:
             values: (List of String) Values to match against. Required for all operators except "IS NULL" and "IS NOT NULL", which must not have any values.
         importStatements:
             - terraform import grafana_asserts_trace_config.name "{{ name }}"
-    grafana_assistant_automation:
-        subCategory: Grafana Assistant
-        description: 'Manages a Grafana Assistant Automation: a saved Assistant prompt that runs on demand or on a cron schedule. Each run creates its own Assistant conversation. Automations are a Grafana Cloud-only feature and require the Grafana Assistant app. execution_mode selects the identity used for runs. The default user mode uses the creator''s Grafana permissions. service_account mode requires tenant scope and organization Admin permission to configure. Authenticating Terraform with a service-account token does not automatically select service_account execution. Runtime memory and run history remain backend-owned.'
-        name: grafana_assistant_automation
-        title: grafana_assistant_automation Resource - terraform-provider-grafana
-        examples:
-            - name: daily_incident_report
-              manifest: |-
-                {
-                  "description": "Every morning, summarize the alerts that fired for the ecommerce app.",
-                  "enabled": true,
-                  "execution_mode": "user",
-                  "labels": {
-                    "application": "ecommerce",
-                    "managed_by": "terraform"
-                  },
-                  "name": "Daily ecommerce incident report",
-                  "notifications": [
-                    {
-                      "slack": [
-                        {
-                          "enabled": true,
-                          "notify_on": [
-                            "completed",
-                            "failed"
-                          ],
-                          "target": [
-                            {
-                              "channel_id": "C0123456789",
-                              "type": "channel"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ],
-                  "prompt": "Produce a daily report on the incidents for the main alerts that fired in\nthe last 24 hours for the ecommerce app in the ecommerce-prod namespace.\n\nFor each alert: how long it fired, which services were affected, and\nwhether it correlates with a deploy. Close with the single most important\nthing to look at today.\n",
-                  "schedule_cron": "0 9 * * *",
-                  "schedule_timezone": "Europe/Paris",
-                  "scope": "tenant"
-                }
-            - name: on_critical_finding
-              manifest: |-
-                {
-                  "enabled": false,
-                  "execution_mode": "service_account",
-                  "name": "Investigate critical Watcher findings",
-                  "prompt": "Investigate the critical finding supplied by the Watcher event.",
-                  "scope": "tenant",
-                  "triggers": {
-                    "c971a626-703b-4472-8eb0-e92aaf705af9": {
-                      "config": "${jsonencode({\n        watcherId = \"52fcc709-4ab5-45c8-8f79-a1c1d6abef17\"\n      })}",
-                      "type": "watcher_finding"
-                    }
-                  }
-                }
-            - name: manual_report
-              manifest: |-
-                {
-                  "enabled": false,
-                  "name": "On-demand incident report",
-                  "prompt": "Summarize the incidents from the past 24 hours."
-                }
-        argumentDocs:
-            addresses: (List of String) Recipient email addresses, up to 25.
-            channel_id: (String) Slack channel ID. Required for a channel target.
-            config: (String)
-            context_items: (String) Context items attached to the prompt, as a JSON array string.
-            description: (String) Optional description.
-            email: (Block, Optional) Email delivery. Email notifications must be enabled for the stack. (see below for nested schema)
-            enabled: (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-            execution_mode: '(String) Run identity: user (default) or service_account. service_account requires scope = tenant and Grafana organization Admin permission, including updates to an existing service-account automation.'
-            id: (String) The UUID of the resource.
-            labels: (Map of String) Operator labels. Omit or use an empty map to remove managed labels.
-            name: (String) Human-friendly automation name.
-            next_run_at: (String) Read-only timestamp calculated by Grafana for the next scheduled run. Refreshed when Terraform reads the automation; absent when there is no enabled schedule or no occurrence before its deadline. This is scheduling information, not confirmation that a run executed.
-            notifications: (Block, Optional) Where to send the result of each run. Webhook notifications are not supported by this resource because their URL and credentials are write-only secure settings the API never returns. (see below for nested schema)
-            notify_on: (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
-            prompt: (String) The prompt sent to Assistant on each run. Prefix with /<skill-name> to start from a skill.
-            schedule_cron: (String) Standard 5-field cron expression, or multiple expressions separated by semicolons. For example 0 9 * * 1-5; 0 10 * * 0. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
-            schedule_ends_at: (String) Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
-            schedule_timezone: (String) IANA timezone the schedule is interpreted in, for example Europe/Paris. Defaults to UTC when schedule_cron is set; absent for manual-only automations.
-            scope: (String) Visibility. user keeps the automation private to its creator; tenant shares it with everybody in the org.
-            slack: (Block, Optional) Slack delivery. Requires the Slack workspace to already be connected to the stack, which is a one-time manual step in Assistant settings. (see below for nested schema)
-            target: (Block, Optional) Where the notification is posted. (see below for nested schema)
-            team_id: (String) Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
-            triggers: (Map of Object) Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift. (see below for nested schema)
-            type: (String) Target type. One of channel or dm. Required when a target block is present.
-            user_id: (String) Slack user ID for a dm target. Omit to use the creator’s verified Slack mapping.
-        importStatements:
-            - terraform import grafana_assistant_automation.name "{{ id }}"
     grafana_assistant_mcp_server:
         subCategory: Grafana Assistant
         description: Manages a Grafana Assistant MCP server integration.
@@ -3560,43 +3058,15 @@ resources:
                   "name": "Example MCP server",
                   "scope": "tenant"
                 }
-            - name: github
-              manifest: |-
-                {
-                  "applications": [
-                    "assistant"
-                  ],
-                  "configuration": [
-                    {
-                      "url": "https://api.githubcopilot.com/mcp/"
-                    }
-                  ],
-                  "github_app": [
-                    {
-                      "app_id": 123456,
-                      "installation_id": 12345678,
-                      "private_key": "${var.github_app_private_key}"
-                    }
-                  ],
-                  "name": "GitHub",
-                  "scope": "tenant"
-                }
-              references:
-                github_app.private_key: var.github_app_private_key
         argumentDocs:
-            app_id: (Number) The GitHub App ID.
             applications: '(List of String) Applications where this resource applies. Valid values: assistant, loop, all. Defaults to all applications when unset.'
             builtin_id: (String) Built-in provider ID (e.g. cursor). When set, tools are provided locally.
             configuration: (Block, Optional) MCP server configuration. (see below for nested schema)
             custom_headers: (Map of String, Sensitive) Custom HTTP headers sent to the MCP server. Values are write-only and not returned by the API.
             description: (String) Optional description.
             enabled: (Boolean) Whether the resource is enabled.
-            github_app: (Block, Optional) GitHub App installation credentials, used instead of a personal access token for tenant scoped GitHub MCP servers (https://api.githubcopilot.com/mcp or https://<HOSTNAME>.ghe.com/mcp). The Assistant mints short-lived installation tokens from these credentials and uses them in place of any Authorization custom header. All three attributes are required when the block is set. Removing the block clears the credentials. (see below for nested schema)
             id: (String) The UUID of the resource.
-            installation_id: (Number) The ID of the GitHub App installation on your organization.
             name: (String) The MCP server integration name.
-            private_key: (String, Sensitive, Write-only) The GitHub App private key in PEM format. Terraform sends it to the API but never stores it in state.
-            private_key_hash: (String, Sensitive) SHA-256 hash of the private key Terraform last sent, used to detect key changes in configuration. A key changed outside Terraform is not detected, because the API never returns the key.
             scope: (String) Whether the resource is visible to the whole tenant (tenant) or only the creating user (user).
             tool_approval_policies: (Map of String) Tool approval policies keyed by tool name (auto_approve, always_ask, or empty for default).
             tool_preferences: (Map of String) Tool preferences keyed by tool name (enabled or disabled).
@@ -4003,7 +3473,7 @@ resources:
             - terraform import grafana_cloud_private_data_source_connect_network_token.name "{{ region }}:{{ tokenId }}"
     grafana_cloud_provider_aws_account:
         subCategory: Cloud Provider
-        description: This resource allows you to link your AWS Account to Grafana Cloud for use in creating Cloud Provider resources. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/aws/
+        description: This resource allows you to link your AWS Account to Grafana Cloud for use in creating Cloud Provider resources. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_account
         title: grafana_cloud_provider_aws_account Resource - terraform-provider-grafana
         examples:
@@ -4032,7 +3502,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_account.name "{{ stack_id }}:{{ resource_id }}"
     grafana_cloud_provider_aws_cloudwatch_scrape_job:
         subCategory: Cloud Provider
-        description: This resource allows you to scrape AWS CloudWatch metrics in Grafana Cloud without needing to run your own infrastructure. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/aws/
+        description: This resource allows you to scrape AWS CloudWatch metrics in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_cloudwatch_scrape_job
         title: grafana_cloud_provider_aws_cloudwatch_scrape_job Resource - terraform-provider-grafana
         examples:
@@ -4111,7 +3581,6 @@ resources:
             custom_namespace: (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             disabled_reason: (String) When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
             enabled: (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to true.
-            enhanced_metric: (Block List) Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one metric or enhanced_metric block must be configured. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             export_tags: (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info. Defaults to true.
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
             key: (String) The key of the tag filter.
@@ -4130,7 +3599,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_cloudwatch_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_provider_aws_resource_metadata_scrape_job:
         subCategory: Cloud Provider
-        description: This resource allows you to scrape AWS resource metadata such as ARN and tags as info metrics in Grafana Cloud without needing to run your own infrastructure. Use this resource if you aren't using grafana_cloud_provider_aws_cloudwatch_scrape_job, but still want to have AWS resource metadata available in Grafana Cloud, for example for use with our AWS Metrics Streams integration and/or Knowledge Graph features. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/aws/
+        description: This resource allows you to scrape AWS resource metadata such as ARN and tags as info metrics in Grafana Cloud without needing to run your own infrastructure. Use this resource if you aren't using grafana_cloud_provider_aws_cloudwatch_scrape_job, but still want to have AWS resource metadata available in Grafana Cloud, for example for use with our AWS Metrics Streams integration and/or Knowledge Graph features. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_resource_metadata_scrape_job
         title: grafana_cloud_provider_aws_resource_metadata_scrape_job Resource - terraform-provider-grafana
         examples:
@@ -4189,7 +3658,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_resource_metadata_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_provider_azure_credential:
         subCategory: Cloud Provider
-        description: This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/azure/
+        description: This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/
         name: grafana_cloud_provider_azure_credential
         title: grafana_cloud_provider_azure_credential Resource - terraform-provider-grafana
         examples:
@@ -4511,9 +3980,6 @@ resources:
                   "name": "my-scrape-job",
                   "scrape_interval_seconds": 120,
                   "stack_id": "1",
-                  "static_labels": {
-                    "example": "value"
-                  },
                   "url": "https://grafana.com/metrics"
                 }
         argumentDocs:
@@ -4526,7 +3992,6 @@ resources:
             name: (String) The name of the metrics endpoint scrape job. Part of the Terraform Resource ID.
             scrape_interval_seconds: '(Number) Frequency for scraping the metrics endpoint: 30, 60, or 120 seconds.'
             stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
-            static_labels: (Map of String) Extra labels to add to scraped series
             url: (String) The url to scrape metrics from; a valid HTTPs URL is required.
         importStatements:
             - terraform import grafana_connections_metrics_endpoint_scrape_job.name "{{ stack_id }}:{{ name }}"
@@ -4990,7 +4455,7 @@ resources:
               terraform import grafana_dashboard_public.name "{{ orgID }}:{{ dashboardUID }}:{{ publicDashboardUID }}"
     grafana_data_source:
         subCategory: Grafana OSS
-        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). This resource should generally not be used for Grafana Cloud provisioned data sources since the configuration in these data sources is bound to work inside the Grafana Cloud platform only.  Use the grafana_cloud_stack https://registry.terraform.io/providers/grafana/grafana/latest/docs/resources/cloud_stack resource fields instead.
+        description: Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
         name: grafana_data_source
         title: grafana_data_source Resource - terraform-provider-grafana
         examples:
@@ -5039,14 +4504,6 @@ resources:
                   "type": "prometheus",
                   "url": "https://my-instances.com"
                 }
-            - name: amp
-              manifest: |-
-                {
-                  "json_data_encoded": "${jsonencode({\n    httpMethod    = \"POST\"\n    authType      = \"default\"\n    defaultRegion = \"us-east-1\"\n    assumeRoleArn = \"arn:aws:iam::123456789012:role/my-grafana-role\"\n  })}",
-                  "name": "amp",
-                  "type": "grafana-amazonprometheus-datasource",
-                  "url": "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example"
-                }
         argumentDocs:
             access_mode: '(String) The method by which Grafana will access the data source: proxy or direct. Defaults to proxy.'
             basic_auth_enabled: (Boolean) Whether to enable basic auth for the data source. Defaults to false.
@@ -5062,7 +4519,7 @@ resources:
             secure_json_data_encoded: (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
             type: (String) The data source type. Must be one of the supported data source keywords.
             uid: (String) Unique identifier. If unset, this will be automatically generated.
-            url: (String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
+            url: (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
             username: (String) (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
         importStatements:
             - |-
@@ -5460,7 +4917,7 @@ resources:
               terraform import grafana_data_source_permission_item.name "{{ orgID }}:{{ datasourceUID }}:{{ type (role, team, or user) }}:{{ identifier }}"
     grafana_fleet_management_collector:
         subCategory: Fleet Management
-        description: 'Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
+        description: 'Manages Grafana Fleet Management collectors. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/collector-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/as-code/infrastructure-as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
         name: grafana_fleet_management_collector
         title: grafana_fleet_management_collector Resource - terraform-provider-grafana
         examples:
@@ -5483,7 +4940,7 @@ resources:
             - terraform import grafana_fleet_management_collector.name "{{ id }}"
     grafana_fleet_management_pipeline:
         subCategory: Fleet Management
-        description: 'Manages Grafana Fleet Management pipelines. Pipelines are always sent to the API with a Terraform pipeline source (SOURCE_TYPE_TERRAFORM) so Fleet Management can show them as Terraform-managed. Use the optional terraform_source_namespace argument (defaults to the string "default") for a stable namespace per root or workspace. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
+        description: 'Manages Grafana Fleet Management pipelines. Pipelines are always sent to the API with a Terraform pipeline source (SOURCE_TYPE_TERRAFORM) so Fleet Management can show them as Terraform-managed. Use the optional terraform_source_namespace argument (defaults to the string "default") for a stable namespace per root or workspace. Official documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/API documentation https://grafana.com/docs/grafana-cloud/send-data/fleet-management/api-reference/pipeline-api/Step-by-step guide https://grafana.com/docs/grafana-cloud/as-code/infrastructure-as-code/terraform/terraform-fleet-management/ Required access policy scopes: fleet-management:readfleet-management:write'
         name: grafana_fleet_management_pipeline
         title: grafana_fleet_management_pipeline Resource - terraform-provider-grafana
         examples:
@@ -5735,130 +5192,6 @@ resources:
             stack_id: (Number) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
         importStatements:
             - terraform import grafana_frontend_o11y_app.name "{{ stack_id }}:{{ name }}"
-    grafana_incident_custom_field:
-        subCategory: Incident
-        description: 'Manages a Grafana Incident custom field, which records extra information on every incident, such as the affected team or the customer impact. The Incident API enforces a few rules that affect Terraform: The slug must be unique among the organization''s incident custom fields, archived ones included. It can be changed without replacing the field.The type cannot be changed after the field is created, so changing type replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one''s slug.A select option is identified by its value. Changing an option''s label, description, color or icon updates it in place, but changing its value deletes the option and adds a new one. Option values must be unique within the field.A field or select option that is a value on any incident, open or resolved, cannot be deleted, archived or not. Deleting it, removing the option, or changing the option''s value or the field''s type, which deletes and creates it again, fails. To stop managing a field with Terraform without deleting it, use a removed block with lifecycle { destroy = false }.To retire a field or a select option that incidents use, archive it instead: set archived = true. Archived fields and options can''t be used on new incidents, but incidents that already use them keep them.Default values are not managed by this resource, since the Incident API does not expose them. A default set in the UI is kept. Only fields in the incident domain are supported. Fields synced with Grafana labels and system-managed fields cannot be imported. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/'
-        name: grafana_incident_custom_field
-        title: grafana_incident_custom_field Resource - terraform-provider-grafana
-        examples:
-            - name: affected_team
-              manifest: |-
-                {
-                  "description": "The team that owns the affected service.",
-                  "name": "Affected team",
-                  "select_option": [
-                    {
-                      "label": "Payments",
-                      "value": "payments"
-                    },
-                    {
-                      "description": "Cart, checkout and order confirmation.",
-                      "label": "Checkout",
-                      "value": "checkout"
-                    },
-                    {
-                      "archived": true,
-                      "label": "Billing",
-                      "value": "billing"
-                    }
-                  ],
-                  "slug": "affected_team",
-                  "type": "single-select"
-                }
-            - name: customer_ticket
-              manifest: |-
-                {
-                  "name": "Customer ticket",
-                  "required": true,
-                  "slug": "customer_ticket",
-                  "type": "string"
-                }
-            - name: customer_impact
-              manifest: |-
-                {
-                  "description": "Whether customers were affected.",
-                  "name": "Customer impact",
-                  "required": true,
-                  "slug": "customer_impact",
-                  "type": "bool"
-                }
-            - name: customers_notified_at
-              manifest: |-
-                {
-                  "name": "Customers notified at",
-                  "slug": "customers_notified_at",
-                  "type": "date"
-                }
-        argumentDocs:
-            archived: (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
-            archived = true: . Archived fields and options can't be used on new incidents, but incidents that already use them keep them.
-            color: '(String) The color of the custom field, as a CSS color such as #FF5286.'
-            description: (String) A description of what the custom field records.
-            icon: (String) The name of the icon shown for the custom field.
-            id: (String) The UUID of the custom field.
-            label: (String) The display label of the option.
-            name: (String) The display name of the custom field, for example Affected team.
-            removed: block with lifecycle { destroy = false }.
-            required: (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
-            select_option: (Block Set) An option of a single-select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
-            select_option_ids: (Map of String) The UUIDs of the select options, keyed by the option value.
-            slug: (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
-            type: replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
-            value: (String) The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, -, _ and ., starting and ending with a letter or digit.
-        importStatements:
-            - terraform import grafana_incident_custom_field.name "{{ id }}"
-    grafana_incident_role:
-        subCategory: Incident
-        description: 'Manages a Grafana Incident role that can be assigned to people during an incident. The Incident API enforces two limits that affect Terraform: Creating or unarchiving a role fails when the organization already has 5 active (non-archived) roles.Deleting or archiving a role fails when the organization has 2 or fewer active roles. Terraform applies independent resources in parallel, so a configuration that frees an active slot and fills it in the same apply may fail depending on which call reaches the API first. Order the two with depends_on, putting the dependency on whichever role frees the slot:'
-        name: grafana_incident_role
-        title: grafana_incident_role Resource - terraform-provider-grafana
-        examples:
-            - name: commander
-              manifest: |-
-                {
-                  "description": "Coordinates the response and owns the incident.",
-                  "important": true,
-                  "mandatory": true,
-                  "name": "Commander"
-                }
-        argumentDocs:
-            archived: (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
-            description: (String) A description of what the role is responsible for.
-            id: (String) The numeric ID of the role.
-            important: (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
-            mandatory: (Boolean) Whether this role must be assigned on every incident. Defaults to false.
-            name: (String) The name of the role, for example Commander.
-        importStatements:
-            - terraform import grafana_incident_role.name "{{ id }}"
-    grafana_incident_severity:
-        subCategory: Incident
-        description: 'Manages a Grafana Incident severity, which expresses the impact of an incident. The Incident API enforces a few rules that affect Terraform: Severities can be created at levels 1 to 5, and labels and levels must be unique within the organization, including archived severities. Besides Pending, an organization can therefore hold at most 5 severities, archived or not. A new organization starts with Pending, Critical, Major and Minor, which leaves two levels free. When a new severity''s level or label is already taken, the error names the severity that holds it.An archived severity keeps its label and level, so neither can be reused until it is deleted. Archiving a severity does not free its level for another one.The level cannot be changed after the severity is created, so changing level replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one''s level or label.A severity that any incident uses, open or closed, cannot be deleted, and that includes the delete a replacement makes. Set archived = true to retire it instead, which keeps the incident history intact. To stop managing it without deleting it, use a removed block with lifecycle { destroy = false }. The Pending severity Every organization has a system-managed Pending severity at level -1, which incidents get when they are declared without one. It can be imported and its label, description, icon and colors changed, but it cannot be archived, its level cannot change, and a second one cannot be created. Destroying it only removes it from the Terraform state; the severity itself is left in place. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/'
-        name: grafana_incident_severity
-        title: grafana_incident_severity Resource - terraform-provider-grafana
-        examples:
-            - name: informational
-              manifest: |-
-                {
-                  "dark_color": "rgba(110, 159, 255, 1)",
-                  "description": "No customer impact, tracked for awareness.",
-                  "icon": "angle-double-down",
-                  "label": "Informational",
-                  "level": 4,
-                  "light_color": "rgba(31, 98, 224, 1)"
-                }
-        argumentDocs:
-            "1": to 5, and labels and levels must be unique within the organization, including archived severities. Besides Pending, an organization can therefore hold at most 5 severities, archived or not. A new organization starts with Pending, Critical, Major and Minor, which leaves two levels free. When a new severity's level or label is already taken, the error names the severity that holds it.
-            archived: (Boolean) Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to false.
-            archived = true: to retire it instead, which keeps the incident history intact. To stop managing it without deleting it, use a removed block with lifecycle { destroy = false }.
-            dark_color: '(String) The color of the severity in dark mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).'
-            description: (String) A description of when the severity applies.
-            icon: (String) The name of the icon shown for the severity in the UI and in Slack. One of angle-double-down, angle-double-up, bolt, bug, exclamation, exclamation-triangle, fire, question-circle or shield.
-            id: (String) The ID of the severity.
-            label: (String) The display label of the severity, for example Critical. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
-            level: replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one's level or label.
-            light_color: '(String) The color of the severity in light mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).'
-        importStatements:
-            - terraform import grafana_incident_severity.name "{{ id }}"
     grafana_k6_installation:
         subCategory: k6
         description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ The provider''s cloud_access_policy_token needs the following scopes to manage the resources in the example below: stacks:readstacks:writestacks:deletestack-service-accounts:write'
@@ -6915,7 +6248,7 @@ resources:
             acknowledge_signal: (String) Template for sending a signal to acknowledge the Incident.
             channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
             default_route: '(Block List, Min: 1, Max: 1) The Default route for all alerts from the given integration (see below for nested schema)'
-            dynamic_labels: (List of Map of String) A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
+            dynamic_labels: (List of Map of String) A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
             email: '(Block List, Max: 1) Templates for Email. (see below for nested schema)'
             enabled: (Boolean) Enable notification in MS teams. Defaults to true.
             escalation_chain_id: (String) The ID of the escalation chain.
@@ -6923,7 +6256,7 @@ resources:
             id: (String) The ID of this resource.
             image_url: (String) Template for Alert image url.
             inbound_email: (String) The inbound email address for the integration. Only available for integration type inbound_email.
-            labels: (List of Map of String) A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
+            labels: (List of Map of String) A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
             link: (String) The link for using in an integrated tool.
             message: (String) Template for Alert message.
             microsoft_teams: '(Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)'
@@ -6985,22 +6318,11 @@ resources:
                   "duration": "${60 * 60 * 12}",
                   "frequency": "weekly",
                   "interval": 1,
-                  "lifecycle": [
-                    {
-                      "precondition": [
-                        {
-                          "condition": "${length(local.emea_missing_emails) == 0}",
-                          "error_message": "No OnCall user has these emails: ${join(\", \", local.emea_missing_emails)}"
-                        }
-                      ]
-                    }
-                  ],
                   "name": "EMEA Weekday Shift",
-                  "rolling_users": "${[\n    for email in local.emea_rotation : [local.oncall_user_ids_by_email[lower(email)]]\n  ]}",
+                  "rolling_users": "${[for k in flatten([\n    local.teams_map_of_user_id.emea,\n  ]) : [k]]}",
                   "start": "2022-02-28T03:00:00",
                   "start_rotation_from_user_index": 0,
                   "team_id": "${data.grafana_oncall_team.my_team.id}",
-                  "time_zone": "UTC",
                   "type": "rolling_users",
                   "week_start": "MO"
                 }
@@ -7200,31 +6522,6 @@ resources:
             user_group_id: (String) Slack user group id. Members of user group will be updated when on-call users change.
         importStatements:
             - terraform import grafana_oncall_schedule.name "{{ id }}"
-    grafana_oncall_team_access_management:
-        subCategory: OnCall
-        description: Manages the Team Access Management setting of a Grafana OnCall team. Destroying this resource resets the team's setting to the OnCall default (resources visible to all users). Official documentation https://grafana.com/docs/oncall/latest/set-up/manage-access/teams/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/teams/
-        name: grafana_oncall_team_access_management
-        title: grafana_oncall_team_access_management Resource - terraform-provider-grafana
-        examples:
-            - name: example
-              manifest: |-
-                {
-                  "is_sharing_resources_to_all": false,
-                  "team_id": "${data.grafana_oncall_team.example.id}"
-                }
-              references:
-                team_id: data.grafana_oncall_team.example.id
-              dependencies:
-                grafana_team.example: |-
-                    {
-                      "name": "Example team"
-                    }
-        argumentDocs:
-            id: (String) The ID of this resource.
-            is_sharing_resources_to_all: (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
-            team_id: (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
-        importStatements:
-            - terraform import grafana_oncall_team_access_management.name "{{ id }}"
     grafana_oncall_user_notification_rule:
         subCategory: OnCall
         description: 'HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/personal_notification_rules/ Note: you must be running Grafana OnCall >= v1.8.0 to use this resource.'
@@ -7329,7 +6626,7 @@ resources:
             duration: (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
             id: (String) The ID of this resource.
             important: (Boolean) Boolean value which indicates if a rule is “important”
-            position: (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
+            position: (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
             type: '(String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.'
             user_id: (String) User ID
         importStatements:
@@ -7830,7 +7127,7 @@ resources:
             active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
             annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
             condition: (String) The ref_id of the query node in the data field to use as the alert condition.
-            contact_point: (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+            contact_point: (String) The contact point to route notifications that match this rule to.
             data: '(Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)'
             datasource_uid: (String) The UID of the datasource being queried, or "-100" if this stage is an expression stage.
             disable_provenance: (Boolean) Allow modifying the rule group from other sources than Terraform or the Grafana API. Defaults to false.
@@ -7854,7 +7151,6 @@ resources:
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
             notification_settings: '(Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag ''alertingSimplifiedRouting'' to be enabled. (see below for nested schema)'
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
-            policy: (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
             query_type: (String) An optional identifier for the type of query being executed. Defaults to ``.
             record: '(Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag ''grafanaManagedRecordingRules'' to be enabled. (see below for nested schema)'
             ref_id: (String) A unique string to identify this query stage within a rule.
@@ -8297,49 +7593,6 @@ resources:
                     }
                   ]
                 }
-            - name: source_datasource
-              manifest: |-
-                {
-                  "description": "Terraform Description - Separate Source Datasource",
-                  "destination_datasource": [
-                    {
-                      "uid": "grafanacloud-prom"
-                    }
-                  ],
-                  "label": [
-                    {
-                      "key": "slo",
-                      "value": "terraform"
-                    }
-                  ],
-                  "name": "Terraform Testing - Separate Source Datasource",
-                  "objectives": [
-                    {
-                      "value": 0.995,
-                      "window": "30d"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "freeform": [
-                        {
-                          "query": "sum(rate(apiserver_request_total{code!=\"500\"}[$__rate_interval])) / sum(rate(apiserver_request_total[$__rate_interval]))",
-                          "source_datasource_uid": "${grafana_data_source.source_prometheus.uid}"
-                        }
-                      ],
-                      "type": "freeform"
-                    }
-                  ]
-                }
-              references:
-                query.freeform.source_datasource_uid: grafana_data_source.source_prometheus.uid
-              dependencies:
-                grafana_data_source.source_prometheus: |-
-                    {
-                      "name": "SLO Source Prometheus",
-                      "type": "prometheus",
-                      "url": "https://prometheus.example.com/"
-                    }
             - name: test
               manifest: |-
                 {
@@ -8405,40 +7658,6 @@ resources:
                     }
                   ]
                 }
-            - name: search_expression
-              manifest: |-
-                {
-                  "description": "Terraform Description - Entity Search Expression",
-                  "destination_datasource": [
-                    {
-                      "uid": "grafanacloud-prom"
-                    }
-                  ],
-                  "label": [
-                    {
-                      "key": "slo",
-                      "value": "terraform"
-                    }
-                  ],
-                  "name": "Terraform Testing - Entity Search Expression",
-                  "objectives": [
-                    {
-                      "value": 0.995,
-                      "window": "30d"
-                    }
-                  ],
-                  "query": [
-                    {
-                      "freeform": [
-                        {
-                          "query": "sum(rate(apiserver_request_total{code!=\"500\"}[$__rate_interval])) / sum(rate(apiserver_request_total[$__rate_interval]))"
-                        }
-                      ],
-                      "type": "freeform"
-                    }
-                  ],
-                  "search_expression": "shipping connected services"
-                }
         argumentDocs:
             advanced_options: (Block List) Advanced Options for Alert Rules (see below for nested schema)
             alerting: |-
@@ -8464,9 +7683,8 @@ resources:
             objectives: (Block List) Required. Over each rolling time window, the remaining error budget will be calculated, and separate alerts can be generated for each time window based on the SLO burn rate or remaining error budget. (see below for nested schema)
             query: (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
             ratio: (Block List) Ratio query configuration. (see below for nested schema)
-            search_expression: (String) A Knowledge Graph search expression scoping this SLO to a set of entities, for example "shipping connected services". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a workbench_troubleshoot_url annotation pointing at the matching entities. See predefined searches for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.
+            search_expression: (String) The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
             slowburn: (Block List) Alerting Rules generated for Slow Burn alerts (see below for nested schema)
-            source_datasource_uid: (String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
             success_metric: (String) Counter metric for success events (numerator)
             total_metric: (String) Metric for total events (denominator)
             type: (String) Type of the alert enrichment. Currently only "assistantInvestigation" is supported.
@@ -8881,50 +8099,6 @@ resources:
                     }
                   ],
                   "target": "https://grafana.org"
-                }
-              references:
-                probes: data.grafana_synthetic_monitoring_probes.main.probes.Mumbai
-            - name: http
-              manifest: |-
-                {
-                  "enabled": true,
-                  "job": "HTTP Secret Manager",
-                  "labels": {
-                    "environment": "production",
-                    "service": "api"
-                  },
-                  "probes": [
-                    "${data.grafana_synthetic_monitoring_probes.main.probes.Mumbai}"
-                  ],
-                  "settings": [
-                    {
-                      "http": [
-                        {
-                          "basic_auth": [
-                            {
-                              "password": "$${secrets.my-api-password}",
-                              "username": "admin"
-                            }
-                          ],
-                          "bearer_token": "$${secrets.my-api-token}",
-                          "fail_if_not_ssl": true,
-                          "fail_if_ssl": false,
-                          "headers": [
-                            "Accept: application/json",
-                            "User-Agent: Terraform-Synthetic-Monitoring"
-                          ],
-                          "ip_version": "V4",
-                          "method": "GET",
-                          "valid_status_codes": [
-                            200,
-                            201,
-                            202
-                          ]
-                        }
-                      ]
-                    }
-                  ],
-                  "target": "https://api.example.com"
                 }
               references:
                 probes: data.grafana_synthetic_monitoring_probes.main.probes.Mumbai
@@ -9345,14 +8519,14 @@ resources:
             attribute: (String) The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
             basic_auth: '(Block Set, Max: 1) Basic auth settings. (see below for nested schema)'
             basic_metrics_only: (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
-            bearer_token: (String, Sensitive) Token for use with bearer authorization header. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+            bearer_token: (String, Sensitive) Token for use with bearer authorization header.
             body: (String) The body of the HTTP request used in probe.
             browser: '(Block Set, Max: 1) Settings for browser check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/. (see below for nested schema)'
-            ca_cert: (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+            ca_cert: (String) CA certificate in PEM format.
             cache_busting_query_param_name: (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
             channels: '(Block List, Max: 1) Channels to assign the check to. See Manage k6 versions for details. If not specified for scripted/browser checks, the API assigns a default k6 channel. (see below for nested schema)'
-            client_cert: (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
-            client_key: (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+            client_cert: (String) Client certificate in PEM format.
+            client_key: (String, Sensitive) Client key in PEM format.
             compression: (String) Check fails if the response body is not compressed using this compression algorithm. One of none, identity, br, gzip, deflate.
             condition: '(String) The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS'
             content_encoding: (String) The content encoding of the body
@@ -9389,7 +8563,7 @@ resources:
             multihttp: '(Block Set, Max: 1) Settings for MultiHTTP check. The target must be a URL (http or https) (see below for nested schema)'
             name: (String) Name of the header to send
             no_follow_redirects: (Boolean) Do not follow redirects. Defaults to false.
-            password: (String, Sensitive) Basic auth password. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+            password: (String, Sensitive) Basic auth password.
             payload: (String) The body payload
             payload_size: (Number) Payload size. Defaults to 0.
             ping: '(Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)'
@@ -9406,7 +8580,7 @@ resources:
             request: '(Block Set, Max: 1) An individual MultiHTTP request (see below for nested schema)'
             script: (String)
             scripted: '(Block Set, Max: 1) Settings for scripted check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6/. (see below for nested schema)'
-            secret_manager_enabled: (Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.<name>} references. On refresh, the provider keeps the value from state, so changes made outside Terraform don't show a diff. Defaults to false.
+            secret_manager_enabled: (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so the reference is passed through literally rather than interpolated by Terraform. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
             send: (String) Data to send.
             server: (String) DNS server address to target. Defaults to 8.8.8.8.
             server_name: (String) Used to verify the hostname for the targets.

@@ -15,16 +15,28 @@ import (
 
 type DataInitParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// 100" if this stage is an expression stage.
 	// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) Custom JSON data to send to the specified datasource when querying.
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to ``.
-	// An optional identifier for the type of query being executed. Defaults to ``.
+	// (String) An optional identifier for the type of query being executed. Defaults to “.
+	// An optional identifier for the type of query being executed. Defaults to “.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -46,8 +58,8 @@ type DataObservation struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to ``.
-	// An optional identifier for the type of query being executed. Defaults to ``.
+	// (String) An optional identifier for the type of query being executed. Defaults to “.
+	// An optional identifier for the type of query being executed. Defaults to “.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -61,18 +73,30 @@ type DataObservation struct {
 
 type DataParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// 100" if this stage is an expression stage.
 	// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
-	DatasourceUID *string `json:"datasourceUid" tf:"datasource_uid,omitempty"`
+	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) Custom JSON data to send to the specified datasource when querying.
 	// Custom JSON data to send to the specified datasource when querying.
 	// +kubebuilder:validation:Optional
 	Model *string `json:"model" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to ``.
-	// An optional identifier for the type of query being executed. Defaults to ``.
+	// (String) An optional identifier for the type of query being executed. Defaults to “.
+	// An optional identifier for the type of query being executed. Defaults to “.
 	// +kubebuilder:validation:Optional
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
@@ -132,8 +156,20 @@ type RecordInitParameters struct {
 	// The name of the metric to write to.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v2.NamespacedReference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v2.NamespacedSelector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
 
@@ -164,8 +200,20 @@ type RecordParameters struct {
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v2.NamespacedReference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v2.NamespacedSelector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	// +kubebuilder:validation:Optional
 	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
@@ -370,7 +418,7 @@ type RuleNotificationSettingsInitParameters struct {
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/alerting/v1alpha1.ContactPoint
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
@@ -402,7 +450,6 @@ type RuleNotificationSettingsInitParameters struct {
 	// A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
 	// The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 
@@ -417,7 +464,7 @@ type RuleNotificationSettingsObservation struct {
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
@@ -437,7 +484,6 @@ type RuleNotificationSettingsObservation struct {
 	// A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
 	// The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 
@@ -453,7 +499,7 @@ type RuleNotificationSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+	// (String) The contact point to route notifications that match this rule to.
 	// The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/alerting/v1alpha1.ContactPoint
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
@@ -490,7 +536,6 @@ type RuleNotificationSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
-	// (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
 	// The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
 	// +kubebuilder:validation:Optional
 	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`

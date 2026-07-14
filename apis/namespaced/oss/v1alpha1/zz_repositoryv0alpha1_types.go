@@ -198,8 +198,20 @@ type CommitParameters struct {
 
 type ConnectionInitParameters struct {
 
+	// Reference to a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionRef *v2.NamespacedReference `json:"connectionRef,omitempty" tf:"-"`
+
+	// Selector for a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionSelector *v2.NamespacedSelector `json:"connectionSelector,omitempty" tf:"-"`
+
 	// (String) Connection resource name.
 	// Connection resource name.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.ConnectionV0Alpha1
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("metadata.uid")
+	// +crossplane:generate:reference:refFieldName=ConnectionRef
+	// +crossplane:generate:reference:selectorFieldName=ConnectionSelector
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -212,8 +224,20 @@ type ConnectionObservation struct {
 
 type ConnectionParameters struct {
 
+	// Reference to a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionRef *v2.NamespacedReference `json:"connectionRef,omitempty" tf:"-"`
+
+	// Selector for a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionSelector *v2.NamespacedSelector `json:"connectionSelector,omitempty" tf:"-"`
+
 	// (String) Connection resource name.
 	// Connection resource name.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.ConnectionV0Alpha1
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("metadata.uid")
+	// +crossplane:generate:reference:refFieldName=ConnectionRef
+	// +crossplane:generate:reference:selectorFieldName=ConnectionSelector
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -483,11 +507,23 @@ type RepositoryV0Alpha1InitParameters struct {
 
 type RepositoryV0Alpha1MetadataInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
@@ -507,7 +543,7 @@ type RepositoryV0Alpha1MetadataObservation struct {
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
@@ -530,12 +566,24 @@ type RepositoryV0Alpha1MetadataObservation struct {
 
 type RepositoryV0Alpha1MetadataParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	// +kubebuilder:validation:Optional
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`

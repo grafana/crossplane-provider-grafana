@@ -40,6 +40,23 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 		mg.Spec.ForProvider.DestinationDatasource[i3].Ref = rsp.ResolvedReference
 
 	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.FolderRef,
+		Selector:     mg.Spec.ForProvider.FolderSelector,
+		To: reference.To{
+			List:    &v1alpha1.FolderList{},
+			Managed: &v1alpha1.Folder{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.FolderUID")
+	}
+	mg.Spec.ForProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
+
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.DestinationDatasource); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DestinationDatasource[i3].UID),
@@ -59,6 +76,22 @@ func (mg *SLO) ResolveReferences(ctx context.Context, c client.Reader) error {
 		mg.Spec.InitProvider.DestinationDatasource[i3].Ref = rsp.ResolvedReference
 
 	}
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.FolderRef,
+		Selector:     mg.Spec.InitProvider.FolderSelector,
+		To: reference.To{
+			List:    &v1alpha1.FolderList{},
+			Managed: &v1alpha1.Folder{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.FolderUID")
+	}
+	mg.Spec.InitProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
 
 	return nil
 }

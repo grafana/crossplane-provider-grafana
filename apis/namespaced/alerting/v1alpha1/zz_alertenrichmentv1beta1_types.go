@@ -285,12 +285,24 @@ type DataSourceInitParameters struct {
 
 type DataSourceLogsQueryInitParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
 	// (String) Log query expression to execute.
@@ -323,6 +335,14 @@ type DataSourceLogsQueryObservation struct {
 
 type DataSourceLogsQueryParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	// +kubebuilder:validation:Optional
@@ -330,6 +350,10 @@ type DataSourceLogsQueryParameters struct {
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
@@ -768,12 +792,24 @@ type LabelMatchersParameters struct {
 
 type LogsQueryInitParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
 	// (String) Log query expression to execute.
@@ -806,6 +842,14 @@ type LogsQueryObservation struct {
 
 type LogsQueryParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	// +kubebuilder:validation:Optional
@@ -813,6 +857,10 @@ type LogsQueryParameters struct {
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
@@ -829,11 +877,23 @@ type LogsQueryParameters struct {
 
 type MetadataInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
@@ -853,7 +913,7 @@ type MetadataObservation struct {
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
@@ -876,12 +936,24 @@ type MetadataObservation struct {
 
 type MetadataParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	// +kubebuilder:validation:Optional
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -1333,12 +1405,24 @@ type StepDataSourceInitParameters struct {
 
 type StepDataSourceLogsQueryInitParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
 	// (String) Log query expression to execute.
@@ -1371,6 +1455,14 @@ type StepDataSourceLogsQueryObservation struct {
 
 type StepDataSourceLogsQueryParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	// +kubebuilder:validation:Optional
@@ -1378,6 +1470,10 @@ type StepDataSourceLogsQueryParameters struct {
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
@@ -1893,7 +1989,7 @@ type AlertenrichmentV1Beta1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AlertenrichmentV1Beta1 is the Schema for the AlertenrichmentV1Beta1s API. Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is generally available.
+// AlertenrichmentV1Beta1 is the Schema for the AlertenrichmentV1Beta1s API. Manages Grafana Cloud Alert Enrichment https://grafana.com/docs/grafana-cloud/alerting-and-irm/alerting/configure-notifications/alert-enrichment/. Alert enrichment is currently in public preview. Grafana Labs offers limited support, and breaking changes might occur prior to the feature being made generally available.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

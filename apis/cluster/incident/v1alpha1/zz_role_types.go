@@ -15,76 +15,60 @@ import (
 
 type RoleInitParameters struct {
 
-	// (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
 	// Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) A description of what the role is responsible for.
 	// A description of what the role is responsible for.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
 	// Whether assigning this role is recorded as an important activity on the incident. Defaults to `false`.
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
-	// (Boolean) Whether this role must be assigned on every incident. Defaults to false.
 	// Whether this role must be assigned on every incident. Defaults to `false`.
 	Mandatory *bool `json:"mandatory,omitempty" tf:"mandatory,omitempty"`
 
-	// (String) The name of the role, for example Commander.
 	// The name of the role, for example `Commander`.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type RoleObservation struct {
 
-	// (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
 	// Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) A description of what the role is responsible for.
 	// A description of what the role is responsible for.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The numeric ID of the role.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
 	// Whether assigning this role is recorded as an important activity on the incident. Defaults to `false`.
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
-	// (Boolean) Whether this role must be assigned on every incident. Defaults to false.
 	// Whether this role must be assigned on every incident. Defaults to `false`.
 	Mandatory *bool `json:"mandatory,omitempty" tf:"mandatory,omitempty"`
 
-	// (String) The name of the role, for example Commander.
 	// The name of the role, for example `Commander`.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type RoleParameters struct {
 
-	// (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
 	// Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) A description of what the role is responsible for.
 	// A description of what the role is responsible for.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
 	// Whether assigning this role is recorded as an important activity on the incident. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
-	// (Boolean) Whether this role must be assigned on every incident. Defaults to false.
 	// Whether this role must be assigned on every incident. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Mandatory *bool `json:"mandatory,omitempty" tf:"mandatory,omitempty"`
 
-	// (String) The name of the role, for example Commander.
 	// The name of the role, for example `Commander`.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -117,7 +101,7 @@ type RoleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Role is the Schema for the Roles API. Manages a Grafana Incident role that can be assigned to people during an incident.Deleting or archiving a role fails when the organization has 2 or fewer active roles. Order the two with depends_on, putting the dependency on whichever role frees the slot:
+// Role is the Schema for the Roles API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

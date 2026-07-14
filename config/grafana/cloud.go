@@ -15,6 +15,20 @@ import (
 )
 
 func configureCloud(p *ujconfig.Provider) {
+	p.AddResourceConfigurator("grafana_cloud_org_member", func(r *ujconfig.Resource) {
+		r.References["org"] = observedRef(
+			"github.com/grafana/crossplane-provider-grafana/v2/apis/observed/cloud/v1alpha1.Organization",
+			"Organization",
+		)
+	})
+	p.AddResourceConfigurator("grafana_cloud_access_policy_rotating_token", func(r *ujconfig.Resource) {
+		r.References["access_policy_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_access_policy",
+			RefFieldName:      "AccessPolicyRef",
+			SelectorFieldName: "AccessPolicySelector",
+			Extractor:         computedFieldExtractor("policyId"),
+		}
+	})
 	p.AddResourceConfigurator("grafana_cloud_access_policy", func(r *ujconfig.Resource) {
 		r.References["realm.identifier"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",
@@ -229,6 +243,19 @@ func configureCloud(p *ujconfig.Provider) {
 			}
 
 			return conn, nil
+		}
+	})
+	p.AddResourceConfigurator("grafana_cloud_stack_service_account_rotating_token", func(r *ujconfig.Resource) {
+		r.References["stack_slug"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack",
+			RefFieldName:      "CloudStackRef",
+			SelectorFieldName: "CloudStackSelector",
+			Extractor:         fieldExtractor("slug"),
+		}
+		r.References["service_account_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_stack_service_account",
+			RefFieldName:      "ServiceAccountRef",
+			SelectorFieldName: "ServiceAccountSelector",
 		}
 	})
 	p.AddResourceConfigurator("grafana_cloud_private_data_source_connect_network", func(r *ujconfig.Resource) {

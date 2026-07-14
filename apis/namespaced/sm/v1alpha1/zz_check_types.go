@@ -89,7 +89,7 @@ type AssertionsParameters struct {
 
 type BasicAuthInitParameters struct {
 
-	// (String, Sensitive) Basic auth password. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Basic auth password.
 	// Basic auth password. It can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
@@ -107,7 +107,7 @@ type BasicAuthObservation struct {
 
 type BasicAuthParameters struct {
 
-	// (String, Sensitive) Basic auth password. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Basic auth password.
 	// Basic auth password. It can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
@@ -225,8 +225,20 @@ type CheckInitParameters struct {
 	// Whether to enable the check. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the Grafana folder to associate the check with.
 	// The UID of the Grafana folder to associate the check with.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (Number) How often the check runs in milliseconds (the value is not truly a "frequency" but a "period"). The minimum acceptable value is 1 second (1000 ms), and the maximum is 1 hour (3600000 ms). Defaults to 60000.
@@ -354,8 +366,20 @@ type CheckParameters struct {
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the Grafana folder to associate the check with.
 	// The UID of the Grafana folder to associate the check with.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -756,7 +780,7 @@ type HTTPInitParameters struct {
 	// Basic auth settings.
 	BasicAuth []BasicAuthInitParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
-	// (String, Sensitive) Token for use with bearer authorization header. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Token for use with bearer authorization header.
 	// Token for use with bearer authorization header. It can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	BearerTokenSecretRef *v2.LocalSecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
 
@@ -824,7 +848,7 @@ type HTTPInitParameters struct {
 	// Proxy URL.
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
 
-	// (Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.<name>} references. Defaults to false.
+	// (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
 	// The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold `${secrets.<name>}` references. Defaults to `false`.
 	SecretManagerEnabled *bool `json:"secretManagerEnabled,omitempty" tf:"secret_manager_enabled,omitempty"`
 
@@ -913,7 +937,7 @@ type HTTPObservation struct {
 	// Proxy URL.
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
 
-	// (Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.<name>} references. Defaults to false.
+	// (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
 	// The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold `${secrets.<name>}` references. Defaults to `false`.
 	SecretManagerEnabled *bool `json:"secretManagerEnabled,omitempty" tf:"secret_manager_enabled,omitempty"`
 
@@ -939,7 +963,7 @@ type HTTPParameters struct {
 	// +kubebuilder:validation:Optional
 	BasicAuth []BasicAuthParameters `json:"basicAuth,omitempty" tf:"basic_auth,omitempty"`
 
-	// (String, Sensitive) Token for use with bearer authorization header. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Token for use with bearer authorization header.
 	// Token for use with bearer authorization header. It can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	BearerTokenSecretRef *v2.LocalSecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
@@ -1023,7 +1047,7 @@ type HTTPParameters struct {
 	// +kubebuilder:validation:Optional
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
 
-	// (Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.<name>} references. Defaults to false.
+	// (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
 	// The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold `${secrets.<name>}` references. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	SecretManagerEnabled *bool `json:"secretManagerEnabled,omitempty" tf:"secret_manager_enabled,omitempty"`
@@ -1048,15 +1072,15 @@ type HTTPParameters struct {
 
 type HTTPTLSConfigInitParameters struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
-	// (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientKeySecretRef *v2.LocalSecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
@@ -1071,11 +1095,11 @@ type HTTPTLSConfigInitParameters struct {
 
 type HTTPTLSConfigObservation struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
@@ -1090,17 +1114,17 @@ type HTTPTLSConfigObservation struct {
 
 type HTTPTLSConfigParameters struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
-	// (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	ClientKeySecretRef *v2.LocalSecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
@@ -1631,15 +1655,15 @@ type TCPParameters struct {
 
 type TCPTLSConfigInitParameters struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
-	// (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientKeySecretRef *v2.LocalSecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
@@ -1654,11 +1678,11 @@ type TCPTLSConfigInitParameters struct {
 
 type TCPTLSConfigObservation struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
@@ -1673,17 +1697,17 @@ type TCPTLSConfigObservation struct {
 
 type TCPTLSConfigParameters struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
-	// (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	ClientKeySecretRef *v2.LocalSecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
@@ -1701,15 +1725,15 @@ type TCPTLSConfigParameters struct {
 
 type TLSConfigInitParameters struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
-	// (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientKeySecretRef *v2.LocalSecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
@@ -1724,11 +1748,11 @@ type TLSConfigInitParameters struct {
 
 type TLSConfigObservation struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
@@ -1743,17 +1767,17 @@ type TLSConfigObservation struct {
 
 type TLSConfigParameters struct {
 
-	// (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) CA certificate in PEM format.
 	// CA certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	CACert *string `json:"caCert,omitempty" tf:"ca_cert,omitempty"`
 
-	// (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String) Client certificate in PEM format.
 	// Client certificate in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	ClientCert *string `json:"clientCert,omitempty" tf:"client_cert,omitempty"`
 
-	// (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format. In HTTP checks, it can hold a `${secrets.<name>}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
 	// +kubebuilder:validation:Optional
 	ClientKeySecretRef *v2.LocalSecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`

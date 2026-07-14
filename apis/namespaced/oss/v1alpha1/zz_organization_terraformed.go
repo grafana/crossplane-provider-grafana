@@ -118,7 +118,12 @@ func (tr *Organization) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("AdminUser"))
+	opts = append(opts, resource.WithNameFilter("Admins"))
+	opts = append(opts, resource.WithNameFilter("Editors"))
 	opts = append(opts, resource.WithNameFilter("OrgID"))
+	opts = append(opts, resource.WithNameFilter("UsersWithoutAccess"))
+	opts = append(opts, resource.WithNameFilter("Viewers"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

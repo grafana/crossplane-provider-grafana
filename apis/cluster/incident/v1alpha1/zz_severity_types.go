@@ -15,102 +15,80 @@ import (
 
 type SeverityInitParameters struct {
 
-	// (Boolean) Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to false.
 	// Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the severity in dark mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).
 	// The color of the severity in dark mode, as a CSS color such as `#FF5286` or `rgb(255, 82, 134)`.
 	DarkColor *string `json:"darkColor,omitempty" tf:"dark_color,omitempty"`
 
-	// (String) A description of when the severity applies.
 	// A description of when the severity applies.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// double-down, angle-double-up, bolt, bug, exclamation, exclamation-triangle, fire, question-circle or shield.
 	// The name of the icon shown for the severity in the UI and in Slack. One of `angle-double-down`, `angle-double-up`, `bolt`, `bug`, `exclamation`, `exclamation-triangle`, `fire`, `question-circle` or `shield`.
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display label of the severity, for example Critical. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
 	// The display label of the severity, for example `Critical`. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one's level or label.
 	// The level of the severity, from `1` to `5`; lower is more severe. It must be unique within the organization, including archived severities. Level `-1` belongs to the system-managed Pending severity, which can be imported but not created. Changing it forces a new severity to be created.
 	Level *float64 `json:"level,omitempty" tf:"level,omitempty"`
 
-	// (String) The color of the severity in light mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).
 	// The color of the severity in light mode, as a CSS color such as `#FF5286` or `rgb(255, 82, 134)`.
 	LightColor *string `json:"lightColor,omitempty" tf:"light_color,omitempty"`
 }
 
 type SeverityObservation struct {
 
-	// (Boolean) Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to false.
 	// Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the severity in dark mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).
 	// The color of the severity in dark mode, as a CSS color such as `#FF5286` or `rgb(255, 82, 134)`.
 	DarkColor *string `json:"darkColor,omitempty" tf:"dark_color,omitempty"`
 
-	// (String) A description of when the severity applies.
 	// A description of when the severity applies.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The ID of the severity.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// double-down, angle-double-up, bolt, bug, exclamation, exclamation-triangle, fire, question-circle or shield.
 	// The name of the icon shown for the severity in the UI and in Slack. One of `angle-double-down`, `angle-double-up`, `bolt`, `bug`, `exclamation`, `exclamation-triangle`, `fire`, `question-circle` or `shield`.
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display label of the severity, for example Critical. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
 	// The display label of the severity, for example `Critical`. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one's level or label.
 	// The level of the severity, from `1` to `5`; lower is more severe. It must be unique within the organization, including archived severities. Level `-1` belongs to the system-managed Pending severity, which can be imported but not created. Changing it forces a new severity to be created.
 	Level *float64 `json:"level,omitempty" tf:"level,omitempty"`
 
-	// (String) The color of the severity in light mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).
 	// The color of the severity in light mode, as a CSS color such as `#FF5286` or `rgb(255, 82, 134)`.
 	LightColor *string `json:"lightColor,omitempty" tf:"light_color,omitempty"`
 }
 
 type SeverityParameters struct {
 
-	// (Boolean) Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to false.
 	// Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the severity in dark mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).
 	// The color of the severity in dark mode, as a CSS color such as `#FF5286` or `rgb(255, 82, 134)`.
 	// +kubebuilder:validation:Optional
 	DarkColor *string `json:"darkColor,omitempty" tf:"dark_color,omitempty"`
 
-	// (String) A description of when the severity applies.
 	// A description of when the severity applies.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// double-down, angle-double-up, bolt, bug, exclamation, exclamation-triangle, fire, question-circle or shield.
 	// The name of the icon shown for the severity in the UI and in Slack. One of `angle-double-down`, `angle-double-up`, `bolt`, `bug`, `exclamation`, `exclamation-triangle`, `fire`, `question-circle` or `shield`.
 	// +kubebuilder:validation:Optional
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display label of the severity, for example Critical. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
 	// The display label of the severity, for example `Critical`. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one's level or label.
 	// The level of the severity, from `1` to `5`; lower is more severe. It must be unique within the organization, including archived severities. Level `-1` belongs to the system-managed Pending severity, which can be imported but not created. Changing it forces a new severity to be created.
 	// +kubebuilder:validation:Optional
 	Level *float64 `json:"level,omitempty" tf:"level,omitempty"`
 
-	// (String) The color of the severity in light mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).
 	// The color of the severity in light mode, as a CSS color such as `#FF5286` or `rgb(255, 82, 134)`.
 	// +kubebuilder:validation:Optional
 	LightColor *string `json:"lightColor,omitempty" tf:"light_color,omitempty"`
@@ -143,7 +121,7 @@ type SeverityStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Severity is the Schema for the Severitys API. Manages a Grafana Incident severity, which expresses the impact of an incident. Besides Pending, an organization can therefore hold at most 5 severities, archived or not. A new organization starts with Pending, Critical, Major and Minor, which leaves two levels free. When a new severity's level or label is already taken, the error names the severity that holds it.An archived severity keeps its label and level, so neither can be reused until it is deleted. Archiving a severity does not free its level for another one.The level cannot be changed after the severity is created, so changing level replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one's level or label.A severity that any incident uses, open or closed, cannot be deleted, and that includes the delete a replacement makes. Set archived = true to retire it instead, which keeps the incident history intact. To stop managing it without deleting it, use a removed block with lifecycle { destroy = false }. The Pending severity Every organization has a system-managed Pending severity at level -1, which incidents get when they are declared without one. It can be imported and its label, description, icon and colors changed, but it cannot be archived, its level cannot change, and a second one cannot be created. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/
+// Severity is the Schema for the Severitys API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

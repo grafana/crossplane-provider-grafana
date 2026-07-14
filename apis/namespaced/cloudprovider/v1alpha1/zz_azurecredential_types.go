@@ -62,6 +62,14 @@ type AzureCredentialInitParameters struct {
 	// The client secret of the Azure Credential.
 	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
 	// Whether the Azure Credential is enabled or not. Defaults to `true`.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -81,6 +89,10 @@ type AzureCredentialInitParameters struct {
 
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
 	// (Map of String) A set of static labels to add to all metrics exported using this credential.
@@ -158,6 +170,14 @@ type AzureCredentialParameters struct {
 	// +kubebuilder:validation:Optional
 	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
 	// Whether the Azure Credential is enabled or not. Defaults to `true`.
 	// +kubebuilder:validation:Optional
@@ -181,6 +201,10 @@ type AzureCredentialParameters struct {
 
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
@@ -326,7 +350,7 @@ type AzureCredentialStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AzureCredential is the Schema for the AzureCredentials API. This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. Refer to Configure authentication for the Grafana Provider https://grafana. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/azure/
+// AzureCredential is the Schema for the AzureCredentials API. This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -338,7 +362,6 @@ type AzureCredential struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clientId) || (has(self.initProvider) && has(self.initProvider.clientId))",message="spec.forProvider.clientId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.clientSecretSecretRef)",message="spec.forProvider.clientSecretSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.tenantId) || (has(self.initProvider) && has(self.initProvider.tenantId))",message="spec.forProvider.tenantId is a required parameter"
 	Spec   AzureCredentialSpec   `json:"spec"`
 	Status AzureCredentialStatus `json:"status,omitempty"`

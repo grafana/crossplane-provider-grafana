@@ -15,133 +15,104 @@ import (
 
 type CustomFieldInitParameters struct {
 
-	// (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
 	// Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the custom field, as a CSS color such as #FF5286.
 	// The color of the custom field, as a CSS color such as `#FF5286`.
 	Color *string `json:"color,omitempty" tf:"color,omitempty"`
 
-	// (String) A description of what the custom field records.
 	// A description of what the custom field records.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The name of the icon shown for the custom field.
 	// The name of the icon shown for the custom field.
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display name of the custom field, for example Affected team.
 	// The display name of the custom field, for example `Affected team`.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
 	// Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.
 	Required *bool `json:"required,omitempty" tf:"required,omitempty"`
 
-	// select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
 	// An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.
 	SelectOption []SelectOptionInitParameters `json:"selectOption,omitempty" tf:"select_option,omitempty"`
 
-	// (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
 	// The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
-	// replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
 	// The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date & time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type CustomFieldObservation struct {
 
-	// (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
 	// Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the custom field, as a CSS color such as #FF5286.
 	// The color of the custom field, as a CSS color such as `#FF5286`.
 	Color *string `json:"color,omitempty" tf:"color,omitempty"`
 
-	// (String) A description of what the custom field records.
 	// A description of what the custom field records.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The UUID of the custom field.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (String) The name of the icon shown for the custom field.
 	// The name of the icon shown for the custom field.
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display name of the custom field, for example Affected team.
 	// The display name of the custom field, for example `Affected team`.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
 	// Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.
 	Required *bool `json:"required,omitempty" tf:"required,omitempty"`
 
-	// select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
 	// An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.
 	SelectOption []SelectOptionObservation `json:"selectOption,omitempty" tf:"select_option,omitempty"`
 
-	// (Map of String) The UUIDs of the select options, keyed by the option value.
 	// The UUIDs of the select options, keyed by the option value.
 	// +mapType=granular
 	SelectOptionIds map[string]*string `json:"selectOptionIds,omitempty" tf:"select_option_ids,omitempty"`
 
-	// (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
 	// The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
-	// replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
 	// The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date & time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type CustomFieldParameters struct {
 
-	// (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
 	// Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the custom field, as a CSS color such as #FF5286.
 	// The color of the custom field, as a CSS color such as `#FF5286`.
 	// +kubebuilder:validation:Optional
 	Color *string `json:"color,omitempty" tf:"color,omitempty"`
 
-	// (String) A description of what the custom field records.
 	// A description of what the custom field records.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The name of the icon shown for the custom field.
 	// The name of the icon shown for the custom field.
 	// +kubebuilder:validation:Optional
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display name of the custom field, for example Affected team.
 	// The display name of the custom field, for example `Affected team`.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
 	// Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Required *bool `json:"required,omitempty" tf:"required,omitempty"`
 
-	// select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
 	// An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.
 	// +kubebuilder:validation:Optional
 	SelectOption []SelectOptionParameters `json:"selectOption,omitempty" tf:"select_option,omitempty"`
 
-	// (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
 	// The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
 	// +kubebuilder:validation:Optional
 	Slug *string `json:"slug,omitempty" tf:"slug,omitempty"`
 
-	// replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
 	// The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date & time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -149,86 +120,68 @@ type CustomFieldParameters struct {
 
 type SelectOptionInitParameters struct {
 
-	// (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
 	// Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the custom field, as a CSS color such as #FF5286.
 	// The color of the option, as a CSS color such as `#FF5286`.
 	Color *string `json:"color,omitempty" tf:"color,omitempty"`
 
-	// (String) A description of what the custom field records.
 	// A description of when the option applies.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The name of the icon shown for the custom field.
 	// The name of the icon shown for the option.
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display label of the option.
 	// The display label of the option.
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// , _ and ., starting and ending with a letter or digit.
 	// The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SelectOptionObservation struct {
 
-	// (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
 	// Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the custom field, as a CSS color such as #FF5286.
 	// The color of the option, as a CSS color such as `#FF5286`.
 	Color *string `json:"color,omitempty" tf:"color,omitempty"`
 
-	// (String) A description of what the custom field records.
 	// A description of when the option applies.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The name of the icon shown for the custom field.
 	// The name of the icon shown for the option.
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display label of the option.
 	// The display label of the option.
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
-	// , _ and ., starting and ending with a letter or digit.
 	// The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SelectOptionParameters struct {
 
-	// (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
 	// Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	Archived *bool `json:"archived,omitempty" tf:"archived,omitempty"`
 
-	// (String) The color of the custom field, as a CSS color such as #FF5286.
 	// The color of the option, as a CSS color such as `#FF5286`.
 	// +kubebuilder:validation:Optional
 	Color *string `json:"color,omitempty" tf:"color,omitempty"`
 
-	// (String) A description of what the custom field records.
 	// A description of when the option applies.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (String) The name of the icon shown for the custom field.
 	// The name of the icon shown for the option.
 	// +kubebuilder:validation:Optional
 	Icon *string `json:"icon,omitempty" tf:"icon,omitempty"`
 
-	// (String) The display label of the option.
 	// The display label of the option.
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label" tf:"label,omitempty"`
 
-	// , _ and ., starting and ending with a letter or digit.
 	// The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value" tf:"value,omitempty"`
@@ -261,7 +214,7 @@ type CustomFieldStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// CustomField is the Schema for the CustomFields API. Manages a Grafana Incident custom field, which records extra information on every incident, such as the affected team or the customer impact. It can be changed without replacing the field.The type cannot be changed after the field is created, so changing type replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.A select option is identified by its value. Changing an option's label, description, color or icon updates it in place, but changing its value deletes the option and adds a new one. Option values must be unique within the field.A field or select option that is a value on any incident, open or resolved, cannot be deleted, archived or not. Deleting it, removing the option, or changing the option's value or the field's type, which deletes and creates it again, fails.To retire a field or a select option that incidents use, archive it instead: set archived = true. Archived fields and options can't be used on new incidents, but incidents that already use them keep them.Default values are not managed by this resource, since the Incident API does not expose them. A default set in the UI is kept. Only fields in the incident domain are supported. Fields synced with Grafana labels and system-managed fields cannot be imported. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/
+// CustomField is the Schema for the CustomFields API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

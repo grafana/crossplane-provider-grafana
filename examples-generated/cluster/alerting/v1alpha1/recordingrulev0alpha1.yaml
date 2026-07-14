@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-      folderUid: ${grafana_folder.recordingrule_folder.uid}
+      folderSelector:
+        matchLabels:
+          testing.upbound.io/example-name: recordingrule_folder
       uid: example-recording-rule
     provider: ${grafana.local}
     spec:
@@ -38,7 +40,9 @@ spec:
         foo: bar
       metric: tf-metric
       paused: true
-      targetDatasourceUid: target_ds_uid
+      targetDataSourceSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       title: Example Recording Rule
       trigger:
         interval: 1m

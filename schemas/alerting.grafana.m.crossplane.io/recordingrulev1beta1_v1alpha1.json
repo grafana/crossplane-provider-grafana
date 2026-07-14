@@ -1,5 +1,5 @@
 {
-  "description": "RecordingruleV1Beta1 is the Schema for the RecordingruleV1Beta1s API. Manages Grafana Recording Rules. This resource uses the rules.alerting.grafana.app/v1beta1 API, which requires Grafana 13.3 or later.",
+  "description": "RecordingruleV1Beta1 is the Schema for the RecordingruleV1Beta1s API. \u003cno value\u003e",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -21,18 +21,18 @@
           "properties": {
             "metadata": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
+              "description": "The metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "orgId": {
-                  "description": "hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.\nThe Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
                   "type": "number"
                 },
                 "uid": {
-                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
+                  "description": "The unique identifier of the resource.",
                   "type": "string"
                 }
               },
@@ -40,14 +40,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
+              "description": "Options for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -55,79 +55,72 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
+              "description": "The spec of the resource.",
               "properties": {
                 "expressions": {
                   "additionalProperties": {
                     "additionalProperties": false,
                     "properties": {
                       "datasourceUid": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "model": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "queryType": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "relativeTimeRange": {
                         "additionalProperties": false,
-                        "description": "(Object) (see below for nested schema)",
                         "properties": {
                           "from": {
-                            "description": "(String)",
                             "type": "string"
                           },
                           "to": {
-                            "description": "(String)",
                             "type": "string"
                           }
                         },
                         "type": "object"
                       },
                       "source": {
-                        "description": "(Boolean)",
                         "type": "boolean"
                       }
                     },
                     "type": "object"
                   },
-                  "description": "side expressions), query_type, relative_time_range (an object with from and to durations) and source. Exactly one expression must set source = true. Every field must be set; use null for unused fields. (see below for nested schema)\nThe stages of the rule, keyed by reference ID. Each expression is an object with `model` (the query or expression model as a JSON string, for example from `jsonencode`), `datasource_uid` (the datasource to run against; `__expr__` for server-side expressions), `query_type`, `relative_time_range` (an object with `from` and `to` durations) and `source`. Exactly one expression must set `source = true`. Every field must be set; use `null` for unused fields.",
+                  "description": "The stages of the rule, keyed by reference ID. Each expression is an object with `model` (the query or expression model as a JSON string, for example from `jsonencode`), `datasource_uid` (the datasource to run against; `__expr__` for server-side expressions), `query_type`, `relative_time_range` (an object with `from` and `to` durations) and `source`. Exactly one expression must set `source = true`. Every field must be set; use `null` for unused fields.",
                   "type": "object"
                 },
                 "labels": {
                   "additionalProperties": {
                     "type": "string"
                   },
-                  "description": "value pairs to attach to the recorded metric.\nKey-value pairs to attach to the recorded metric.",
+                  "description": "Key-value pairs to attach to the recorded metric.",
                   "type": "object",
                   "x-kubernetes-map-type": "granular"
                 },
                 "metric": {
-                  "description": "(String) The name of the metric to write to.\nThe name of the metric to write to.",
+                  "description": "The name of the metric to write to.",
                   "type": "string"
                 },
                 "paused": {
-                  "description": "(Boolean) Sets whether the recording rule should be paused or not.\nSets whether the recording rule should be paused or not.",
+                  "description": "Sets whether the recording rule should be paused or not.",
                   "type": "boolean"
                 },
                 "targetDatasourceUid": {
-                  "description": "(String) The UID of the datasource to write the metric to.\nThe UID of the datasource to write the metric to.",
+                  "description": "The UID of the datasource to write the metric to.",
                   "type": "string"
                 },
                 "title": {
-                  "description": "(String) The title of the recording rule.\nThe title of the recording rule.",
+                  "description": "The title of the recording rule.",
                   "type": "string"
                 },
                 "trigger": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)\nThe trigger configuration for the recording rule.",
+                  "description": "The trigger configuration for the recording rule.",
                   "properties": {
                     "interval": {
-                      "description": "(String) The interval at which the recording rule should be evaluated.\nThe interval at which the recording rule should be evaluated.",
+                      "description": "The interval at which the recording rule should be evaluated.",
                       "type": "string"
                     }
                   },
@@ -145,18 +138,18 @@
           "properties": {
             "metadata": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
+              "description": "The metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "orgId": {
-                  "description": "hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.\nThe Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
                   "type": "number"
                 },
                 "uid": {
-                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
+                  "description": "The unique identifier of the resource.",
                   "type": "string"
                 }
               },
@@ -164,14 +157,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
+              "description": "Options for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -179,79 +172,72 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
+              "description": "The spec of the resource.",
               "properties": {
                 "expressions": {
                   "additionalProperties": {
                     "additionalProperties": false,
                     "properties": {
                       "datasourceUid": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "model": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "queryType": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "relativeTimeRange": {
                         "additionalProperties": false,
-                        "description": "(Object) (see below for nested schema)",
                         "properties": {
                           "from": {
-                            "description": "(String)",
                             "type": "string"
                           },
                           "to": {
-                            "description": "(String)",
                             "type": "string"
                           }
                         },
                         "type": "object"
                       },
                       "source": {
-                        "description": "(Boolean)",
                         "type": "boolean"
                       }
                     },
                     "type": "object"
                   },
-                  "description": "side expressions), query_type, relative_time_range (an object with from and to durations) and source. Exactly one expression must set source = true. Every field must be set; use null for unused fields. (see below for nested schema)\nThe stages of the rule, keyed by reference ID. Each expression is an object with `model` (the query or expression model as a JSON string, for example from `jsonencode`), `datasource_uid` (the datasource to run against; `__expr__` for server-side expressions), `query_type`, `relative_time_range` (an object with `from` and `to` durations) and `source`. Exactly one expression must set `source = true`. Every field must be set; use `null` for unused fields.",
+                  "description": "The stages of the rule, keyed by reference ID. Each expression is an object with `model` (the query or expression model as a JSON string, for example from `jsonencode`), `datasource_uid` (the datasource to run against; `__expr__` for server-side expressions), `query_type`, `relative_time_range` (an object with `from` and `to` durations) and `source`. Exactly one expression must set `source = true`. Every field must be set; use `null` for unused fields.",
                   "type": "object"
                 },
                 "labels": {
                   "additionalProperties": {
                     "type": "string"
                   },
-                  "description": "value pairs to attach to the recorded metric.\nKey-value pairs to attach to the recorded metric.",
+                  "description": "Key-value pairs to attach to the recorded metric.",
                   "type": "object",
                   "x-kubernetes-map-type": "granular"
                 },
                 "metric": {
-                  "description": "(String) The name of the metric to write to.\nThe name of the metric to write to.",
+                  "description": "The name of the metric to write to.",
                   "type": "string"
                 },
                 "paused": {
-                  "description": "(Boolean) Sets whether the recording rule should be paused or not.\nSets whether the recording rule should be paused or not.",
+                  "description": "Sets whether the recording rule should be paused or not.",
                   "type": "boolean"
                 },
                 "targetDatasourceUid": {
-                  "description": "(String) The UID of the datasource to write the metric to.\nThe UID of the datasource to write the metric to.",
+                  "description": "The UID of the datasource to write the metric to.",
                   "type": "string"
                 },
                 "title": {
-                  "description": "(String) The title of the recording rule.\nThe title of the recording rule.",
+                  "description": "The title of the recording rule.",
                   "type": "string"
                 },
                 "trigger": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)\nThe trigger configuration for the recording rule.",
+                  "description": "The trigger configuration for the recording rule.",
                   "properties": {
                     "interval": {
-                      "description": "(String) The interval at which the recording rule should be evaluated.\nThe interval at which the recording rule should be evaluated.",
+                      "description": "The interval at which the recording rule should be evaluated.",
                       "type": "string"
                     }
                   },
@@ -333,43 +319,42 @@
           "additionalProperties": false,
           "properties": {
             "id": {
-              "description": "(String) The ID of the resource derived from UUID.",
               "type": "string"
             },
             "metadata": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
+              "description": "The metadata of the resource.",
               "properties": {
                 "annotations": {
                   "additionalProperties": {
                     "type": "string"
                   },
-                  "description": "(Map of String) Annotations of the resource.\nAnnotations of the resource.",
+                  "description": "Annotations of the resource.",
                   "type": "object",
                   "x-kubernetes-map-type": "granular"
                 },
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "orgId": {
-                  "description": "hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.\nThe Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
                   "type": "number"
                 },
                 "uid": {
-                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
+                  "description": "The unique identifier of the resource.",
                   "type": "string"
                 },
                 "url": {
-                  "description": "(String) The full URL of the resource.\nThe full URL of the resource.",
+                  "description": "The full URL of the resource.",
                   "type": "string"
                 },
                 "uuid": {
-                  "description": "(String) The globally unique identifier of a resource, used by the API for tracking.\nThe globally unique identifier of a resource, used by the API for tracking.",
+                  "description": "The globally unique identifier of a resource, used by the API for tracking.",
                   "type": "string"
                 },
                 "version": {
-                  "description": "(String) The version of the resource.\nThe version of the resource.",
+                  "description": "The version of the resource.",
                   "type": "string"
                 }
               },
@@ -377,14 +362,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
+              "description": "Options for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -392,79 +377,72 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
+              "description": "The spec of the resource.",
               "properties": {
                 "expressions": {
                   "additionalProperties": {
                     "additionalProperties": false,
                     "properties": {
                       "datasourceUid": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "model": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "queryType": {
-                        "description": "(String)",
                         "type": "string"
                       },
                       "relativeTimeRange": {
                         "additionalProperties": false,
-                        "description": "(Object) (see below for nested schema)",
                         "properties": {
                           "from": {
-                            "description": "(String)",
                             "type": "string"
                           },
                           "to": {
-                            "description": "(String)",
                             "type": "string"
                           }
                         },
                         "type": "object"
                       },
                       "source": {
-                        "description": "(Boolean)",
                         "type": "boolean"
                       }
                     },
                     "type": "object"
                   },
-                  "description": "side expressions), query_type, relative_time_range (an object with from and to durations) and source. Exactly one expression must set source = true. Every field must be set; use null for unused fields. (see below for nested schema)\nThe stages of the rule, keyed by reference ID. Each expression is an object with `model` (the query or expression model as a JSON string, for example from `jsonencode`), `datasource_uid` (the datasource to run against; `__expr__` for server-side expressions), `query_type`, `relative_time_range` (an object with `from` and `to` durations) and `source`. Exactly one expression must set `source = true`. Every field must be set; use `null` for unused fields.",
+                  "description": "The stages of the rule, keyed by reference ID. Each expression is an object with `model` (the query or expression model as a JSON string, for example from `jsonencode`), `datasource_uid` (the datasource to run against; `__expr__` for server-side expressions), `query_type`, `relative_time_range` (an object with `from` and `to` durations) and `source`. Exactly one expression must set `source = true`. Every field must be set; use `null` for unused fields.",
                   "type": "object"
                 },
                 "labels": {
                   "additionalProperties": {
                     "type": "string"
                   },
-                  "description": "value pairs to attach to the recorded metric.\nKey-value pairs to attach to the recorded metric.",
+                  "description": "Key-value pairs to attach to the recorded metric.",
                   "type": "object",
                   "x-kubernetes-map-type": "granular"
                 },
                 "metric": {
-                  "description": "(String) The name of the metric to write to.\nThe name of the metric to write to.",
+                  "description": "The name of the metric to write to.",
                   "type": "string"
                 },
                 "paused": {
-                  "description": "(Boolean) Sets whether the recording rule should be paused or not.\nSets whether the recording rule should be paused or not.",
+                  "description": "Sets whether the recording rule should be paused or not.",
                   "type": "boolean"
                 },
                 "targetDatasourceUid": {
-                  "description": "(String) The UID of the datasource to write the metric to.\nThe UID of the datasource to write the metric to.",
+                  "description": "The UID of the datasource to write the metric to.",
                   "type": "string"
                 },
                 "title": {
-                  "description": "(String) The title of the recording rule.\nThe title of the recording rule.",
+                  "description": "The title of the recording rule.",
                   "type": "string"
                 },
                 "trigger": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) The trigger configuration for the recording rule. (see below for nested schema)\nThe trigger configuration for the recording rule.",
+                  "description": "The trigger configuration for the recording rule.",
                   "properties": {
                     "interval": {
-                      "description": "(String) The interval at which the recording rule should be evaluated.\nThe interval at which the recording rule should be evaluated.",
+                      "description": "The interval at which the recording rule should be evaluated.",
                       "type": "string"
                     }
                   },

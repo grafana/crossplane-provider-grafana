@@ -1,5 +1,5 @@
 {
-  "description": "CustomField is the Schema for the CustomFields API. Manages a Grafana Incident custom field, which records extra information on every incident, such as the affected team or the customer impact. It can be changed without replacing the field.The type cannot be changed after the field is created, so changing type replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.A select option is identified by its value. Changing an option's label, description, color or icon updates it in place, but changing its value deletes the option and adds a new one. Option values must be unique within the field.A field or select option that is a value on any incident, open or resolved, cannot be deleted, archived or not. Deleting it, removing the option, or changing the option's value or the field's type, which deletes and creates it again, fails.To retire a field or a select option that incidents use, archive it instead: set archived = true. Archived fields and options can't be used on new incidents, but incidents that already use them keep them.Default values are not managed by this resource, since the Incident API does not expose them. A default set in the UI is kept. Only fields in the incident domain are supported. Fields synced with Grafana labels and system-managed fields cannot be imported. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/",
+  "description": "CustomField is the Schema for the CustomFields API. \u003cno value\u003e",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -20,56 +20,56 @@
           "additionalProperties": false,
           "properties": {
             "archived": {
-              "description": "(Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.\nWhether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.",
+              "description": "Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.",
               "type": "boolean"
             },
             "color": {
-              "description": "(String) The color of the custom field, as a CSS color such as #FF5286.\nThe color of the custom field, as a CSS color such as `#FF5286`.",
+              "description": "The color of the custom field, as a CSS color such as `#FF5286`.",
               "type": "string"
             },
             "description": {
-              "description": "(String) A description of what the custom field records.\nA description of what the custom field records.",
+              "description": "A description of what the custom field records.",
               "type": "string"
             },
             "icon": {
-              "description": "(String) The name of the icon shown for the custom field.\nThe name of the icon shown for the custom field.",
+              "description": "The name of the icon shown for the custom field.",
               "type": "string"
             },
             "name": {
-              "description": "(String) The display name of the custom field, for example Affected team.\nThe display name of the custom field, for example `Affected team`.",
+              "description": "The display name of the custom field, for example `Affected team`.",
               "type": "string"
             },
             "required": {
-              "description": "(Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.\nWhether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.",
+              "description": "Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.",
               "type": "boolean"
             },
             "selectOption": {
-              "description": "select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)\nAn option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.",
+              "description": "An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.",
               "items": {
                 "additionalProperties": false,
                 "properties": {
                   "archived": {
-                    "description": "(Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.\nWhether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.",
+                    "description": "Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.",
                     "type": "boolean"
                   },
                   "color": {
-                    "description": "(String) The color of the custom field, as a CSS color such as #FF5286.\nThe color of the option, as a CSS color such as `#FF5286`.",
+                    "description": "The color of the option, as a CSS color such as `#FF5286`.",
                     "type": "string"
                   },
                   "description": {
-                    "description": "(String) A description of what the custom field records.\nA description of when the option applies.",
+                    "description": "A description of when the option applies.",
                     "type": "string"
                   },
                   "icon": {
-                    "description": "(String) The name of the icon shown for the custom field.\nThe name of the icon shown for the option.",
+                    "description": "The name of the icon shown for the option.",
                     "type": "string"
                   },
                   "label": {
-                    "description": "(String) The display label of the option.\nThe display label of the option.",
+                    "description": "The display label of the option.",
                     "type": "string"
                   },
                   "value": {
-                    "description": ", _ and ., starting and ending with a letter or digit.\nThe value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.",
+                    "description": "The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.",
                     "type": "string"
                   }
                 },
@@ -78,11 +78,11 @@
               "type": "array"
             },
             "slug": {
-              "description": "(String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.\nThe slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.",
+              "description": "The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.",
               "type": "string"
             },
             "type": {
-              "description": "replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.\nThe type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date \u0026 time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.",
+              "description": "The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date \u0026 time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.",
               "type": "string"
             }
           },
@@ -93,56 +93,56 @@
           "description": "THIS IS A BETA FIELD. It will be honored\nunless the Management Policies feature flag is disabled.\nInitProvider holds the same fields as ForProvider, with the exception\nof Identifier and other resource reference fields. The fields that are\nin InitProvider are merged into ForProvider when the resource is created.\nThe same fields are also added to the terraform ignore_changes hook, to\navoid updating them after creation. This is useful for fields that are\nrequired on creation, but we do not desire to update them after creation,\nfor example because of an external controller is managing them, like an\nautoscaler.",
           "properties": {
             "archived": {
-              "description": "(Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.\nWhether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.",
+              "description": "Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.",
               "type": "boolean"
             },
             "color": {
-              "description": "(String) The color of the custom field, as a CSS color such as #FF5286.\nThe color of the custom field, as a CSS color such as `#FF5286`.",
+              "description": "The color of the custom field, as a CSS color such as `#FF5286`.",
               "type": "string"
             },
             "description": {
-              "description": "(String) A description of what the custom field records.\nA description of what the custom field records.",
+              "description": "A description of what the custom field records.",
               "type": "string"
             },
             "icon": {
-              "description": "(String) The name of the icon shown for the custom field.\nThe name of the icon shown for the custom field.",
+              "description": "The name of the icon shown for the custom field.",
               "type": "string"
             },
             "name": {
-              "description": "(String) The display name of the custom field, for example Affected team.\nThe display name of the custom field, for example `Affected team`.",
+              "description": "The display name of the custom field, for example `Affected team`.",
               "type": "string"
             },
             "required": {
-              "description": "(Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.\nWhether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.",
+              "description": "Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.",
               "type": "boolean"
             },
             "selectOption": {
-              "description": "select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)\nAn option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.",
+              "description": "An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.",
               "items": {
                 "additionalProperties": false,
                 "properties": {
                   "archived": {
-                    "description": "(Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.\nWhether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.",
+                    "description": "Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.",
                     "type": "boolean"
                   },
                   "color": {
-                    "description": "(String) The color of the custom field, as a CSS color such as #FF5286.\nThe color of the option, as a CSS color such as `#FF5286`.",
+                    "description": "The color of the option, as a CSS color such as `#FF5286`.",
                     "type": "string"
                   },
                   "description": {
-                    "description": "(String) A description of what the custom field records.\nA description of when the option applies.",
+                    "description": "A description of when the option applies.",
                     "type": "string"
                   },
                   "icon": {
-                    "description": "(String) The name of the icon shown for the custom field.\nThe name of the icon shown for the option.",
+                    "description": "The name of the icon shown for the option.",
                     "type": "string"
                   },
                   "label": {
-                    "description": "(String) The display label of the option.\nThe display label of the option.",
+                    "description": "The display label of the option.",
                     "type": "string"
                   },
                   "value": {
-                    "description": ", _ and ., starting and ending with a letter or digit.\nThe value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.",
+                    "description": "The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.",
                     "type": "string"
                   }
                 },
@@ -151,11 +151,11 @@
               "type": "array"
             },
             "slug": {
-              "description": "(String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.\nThe slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.",
+              "description": "The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.",
               "type": "string"
             },
             "type": {
-              "description": "replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.\nThe type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date \u0026 time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.",
+              "description": "The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date \u0026 time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.",
               "type": "string"
             }
           },
@@ -245,60 +245,59 @@
           "additionalProperties": false,
           "properties": {
             "archived": {
-              "description": "(Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.\nWhether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.",
+              "description": "Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.",
               "type": "boolean"
             },
             "color": {
-              "description": "(String) The color of the custom field, as a CSS color such as #FF5286.\nThe color of the custom field, as a CSS color such as `#FF5286`.",
+              "description": "The color of the custom field, as a CSS color such as `#FF5286`.",
               "type": "string"
             },
             "description": {
-              "description": "(String) A description of what the custom field records.\nA description of what the custom field records.",
+              "description": "A description of what the custom field records.",
               "type": "string"
             },
             "icon": {
-              "description": "(String) The name of the icon shown for the custom field.\nThe name of the icon shown for the custom field.",
+              "description": "The name of the icon shown for the custom field.",
               "type": "string"
             },
             "id": {
-              "description": "(String) The UUID of the custom field.",
               "type": "string"
             },
             "name": {
-              "description": "(String) The display name of the custom field, for example Affected team.\nThe display name of the custom field, for example `Affected team`.",
+              "description": "The display name of the custom field, for example `Affected team`.",
               "type": "string"
             },
             "required": {
-              "description": "(Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.\nWhether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.",
+              "description": "Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.",
               "type": "boolean"
             },
             "selectOption": {
-              "description": "select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)\nAn option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.",
+              "description": "An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.",
               "items": {
                 "additionalProperties": false,
                 "properties": {
                   "archived": {
-                    "description": "(Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.\nWhether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.",
+                    "description": "Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.",
                     "type": "boolean"
                   },
                   "color": {
-                    "description": "(String) The color of the custom field, as a CSS color such as #FF5286.\nThe color of the option, as a CSS color such as `#FF5286`.",
+                    "description": "The color of the option, as a CSS color such as `#FF5286`.",
                     "type": "string"
                   },
                   "description": {
-                    "description": "(String) A description of what the custom field records.\nA description of when the option applies.",
+                    "description": "A description of when the option applies.",
                     "type": "string"
                   },
                   "icon": {
-                    "description": "(String) The name of the icon shown for the custom field.\nThe name of the icon shown for the option.",
+                    "description": "The name of the icon shown for the option.",
                     "type": "string"
                   },
                   "label": {
-                    "description": "(String) The display label of the option.\nThe display label of the option.",
+                    "description": "The display label of the option.",
                     "type": "string"
                   },
                   "value": {
-                    "description": ", _ and ., starting and ending with a letter or digit.\nThe value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.",
+                    "description": "The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.",
                     "type": "string"
                   }
                 },
@@ -310,16 +309,16 @@
               "additionalProperties": {
                 "type": "string"
               },
-              "description": "(Map of String) The UUIDs of the select options, keyed by the option value.\nThe UUIDs of the select options, keyed by the option value.",
+              "description": "The UUIDs of the select options, keyed by the option value.",
               "type": "object",
               "x-kubernetes-map-type": "granular"
             },
             "slug": {
-              "description": "(String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.\nThe slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.",
+              "description": "The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.",
               "type": "string"
             },
             "type": {
-              "description": "replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.\nThe type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date \u0026 time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.",
+              "description": "The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date \u0026 time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.",
               "type": "string"
             }
           },

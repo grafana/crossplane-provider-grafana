@@ -14,118 +14,92 @@ import (
 )
 
 type AlertRulesInitParameters struct {
-
-	// (String)
 	Name *string `json:"name,omitempty" tf:"name"`
 }
 
 type AlertRulesObservation struct {
-
-	// (String)
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type AlertRulesParameters struct {
 
-	// (String)
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name"`
 }
 
 type RulesequenceV1Beta1InitParameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *RulesequenceV1Beta1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *RulesequenceV1Beta1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *RulesequenceV1Beta1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type RulesequenceV1Beta1MetadataInitParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type RulesequenceV1Beta1MetadataObservation struct {
 
-	// (Map of String) Annotations of the resource.
 	// Annotations of the resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The full URL of the resource.
 	// The full URL of the resource.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String) The globally unique identifier of a resource, used by the API for tracking.
 	// The globally unique identifier of a resource, used by the API for tracking.
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
-	// (String) The version of the resource.
 	// The version of the resource.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type RulesequenceV1Beta1MetadataParameters struct {
 
-	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	// +kubebuilder:validation:Optional
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
 }
 
 type RulesequenceV1Beta1Observation struct {
-
-	// (String) The ID of the resource derived from UUID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *RulesequenceV1Beta1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *RulesequenceV1Beta1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *RulesequenceV1Beta1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
@@ -135,7 +109,6 @@ type RulesequenceV1Beta1OptionsInitParameters struct {
 	// Override the identity stamped on this resource's manager metadata.
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
@@ -145,7 +118,6 @@ type RulesequenceV1Beta1OptionsObservation struct {
 	// Override the identity stamped on this resource's manager metadata.
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
@@ -156,7 +128,6 @@ type RulesequenceV1Beta1OptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
-	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -164,17 +135,14 @@ type RulesequenceV1Beta1OptionsParameters struct {
 
 type RulesequenceV1Beta1Parameters struct {
 
-	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
 	Metadata *RulesequenceV1Beta1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
-	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
 	Options *RulesequenceV1Beta1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
-	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
 	Spec *RulesequenceV1Beta1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
@@ -182,47 +150,38 @@ type RulesequenceV1Beta1Parameters struct {
 
 type RulesequenceV1Beta1SpecInitParameters struct {
 
-	// (List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)
 	// The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).
 	AlertRules []AlertRulesInitParameters `json:"alertRules,omitempty" tf:"alert_rules,omitempty"`
 
-	// (List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)
 	// The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).
 	RecordingRules []SpecRecordingRulesInitParameters `json:"recordingRules,omitempty" tf:"recording_rules,omitempty"`
 
-	// (Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)
 	// The trigger configuration shared by every rule in the sequence.
 	Trigger *RulesequenceV1Beta1SpecTriggerInitParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type RulesequenceV1Beta1SpecObservation struct {
 
-	// (List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)
 	// The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).
 	AlertRules []AlertRulesObservation `json:"alertRules,omitempty" tf:"alert_rules,omitempty"`
 
-	// (List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)
 	// The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).
 	RecordingRules []SpecRecordingRulesObservation `json:"recordingRules,omitempty" tf:"recording_rules,omitempty"`
 
-	// (Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)
 	// The trigger configuration shared by every rule in the sequence.
 	Trigger *RulesequenceV1Beta1SpecTriggerObservation `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type RulesequenceV1Beta1SpecParameters struct {
 
-	// (List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)
 	// The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).
 	// +kubebuilder:validation:Optional
 	AlertRules []AlertRulesParameters `json:"alertRules,omitempty" tf:"alert_rules,omitempty"`
 
-	// (List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)
 	// The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).
 	// +kubebuilder:validation:Optional
 	RecordingRules []SpecRecordingRulesParameters `json:"recordingRules" tf:"recording_rules,omitempty"`
 
-	// (Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)
 	// The trigger configuration shared by every rule in the sequence.
 	// +kubebuilder:validation:Optional
 	Trigger *RulesequenceV1Beta1SpecTriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
@@ -230,41 +189,33 @@ type RulesequenceV1Beta1SpecParameters struct {
 
 type RulesequenceV1Beta1SpecTriggerInitParameters struct {
 
-	// (String) The interval at which the rules in the sequence should be evaluated.
 	// The interval at which the rules in the sequence should be evaluated.
 	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type RulesequenceV1Beta1SpecTriggerObservation struct {
 
-	// (String) The interval at which the rules in the sequence should be evaluated.
 	// The interval at which the rules in the sequence should be evaluated.
 	Interval *string `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type RulesequenceV1Beta1SpecTriggerParameters struct {
 
-	// (String) The interval at which the rules in the sequence should be evaluated.
 	// The interval at which the rules in the sequence should be evaluated.
 	// +kubebuilder:validation:Optional
 	Interval *string `json:"interval" tf:"interval,omitempty"`
 }
 
 type SpecRecordingRulesInitParameters struct {
-
-	// (String)
 	Name *string `json:"name,omitempty" tf:"name"`
 }
 
 type SpecRecordingRulesObservation struct {
-
-	// (String)
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
 type SpecRecordingRulesParameters struct {
 
-	// (String)
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name" tf:"name"`
 }
@@ -296,7 +247,7 @@ type RulesequenceV1Beta1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// RulesequenceV1Beta1 is the Schema for the RulesequenceV1Beta1s API. Manages Grafana Rule Sequences. A rule sequence groups existing alert rules and recording rules so they are evaluated in order, at a shared interval, within a single folder. All referenced rules must live in the same folder as the sequence (set metadata.folder_uid). This resource uses the rules.alerting.grafana.app/v1beta1 API, which requires Grafana 13.3 or later.
+// RulesequenceV1Beta1 is the Schema for the RulesequenceV1Beta1s API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

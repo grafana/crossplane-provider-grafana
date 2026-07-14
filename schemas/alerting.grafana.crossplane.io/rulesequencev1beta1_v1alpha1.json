@@ -1,5 +1,5 @@
 {
-  "description": "RulesequenceV1Beta1 is the Schema for the RulesequenceV1Beta1s API. Manages Grafana Rule Sequences. A rule sequence groups existing alert rules and recording rules so they are evaluated in order, at a shared interval, within a single folder. All referenced rules must live in the same folder as the sequence (set metadata.folder_uid). This resource uses the rules.alerting.grafana.app/v1beta1 API, which requires Grafana 13.3 or later.",
+  "description": "RulesequenceV1Beta1 is the Schema for the RulesequenceV1Beta1s API. \u003cno value\u003e",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -30,18 +30,18 @@
           "properties": {
             "metadata": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
+              "description": "The metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "orgId": {
-                  "description": "hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.\nThe Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
                   "type": "number"
                 },
                 "uid": {
-                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
+                  "description": "The unique identifier of the resource.",
                   "type": "string"
                 }
               },
@@ -49,14 +49,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
+              "description": "Options for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -64,15 +64,14 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
+              "description": "The spec of the resource.",
               "properties": {
                 "alertRules": {
-                  "description": "(List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)\nThe alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).",
+                  "description": "The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).",
                   "items": {
                     "additionalProperties": false,
                     "properties": {
                       "name": {
-                        "description": "(String)",
                         "type": "string"
                       }
                     },
@@ -81,12 +80,11 @@
                   "type": "array"
                 },
                 "recordingRules": {
-                  "description": "(List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)\nThe recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).",
+                  "description": "The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).",
                   "items": {
                     "additionalProperties": false,
                     "properties": {
                       "name": {
-                        "description": "(String)",
                         "type": "string"
                       }
                     },
@@ -96,10 +94,10 @@
                 },
                 "trigger": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)\nThe trigger configuration shared by every rule in the sequence.",
+                  "description": "The trigger configuration shared by every rule in the sequence.",
                   "properties": {
                     "interval": {
-                      "description": "(String) The interval at which the rules in the sequence should be evaluated.\nThe interval at which the rules in the sequence should be evaluated.",
+                      "description": "The interval at which the rules in the sequence should be evaluated.",
                       "type": "string"
                     }
                   },
@@ -117,18 +115,18 @@
           "properties": {
             "metadata": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
+              "description": "The metadata of the resource.",
               "properties": {
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "orgId": {
-                  "description": "hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.\nThe Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
                   "type": "number"
                 },
                 "uid": {
-                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
+                  "description": "The unique identifier of the resource.",
                   "type": "string"
                 }
               },
@@ -136,14 +134,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
+              "description": "Options for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -151,15 +149,14 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
+              "description": "The spec of the resource.",
               "properties": {
                 "alertRules": {
-                  "description": "(List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)\nThe alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).",
+                  "description": "The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).",
                   "items": {
                     "additionalProperties": false,
                     "properties": {
                       "name": {
-                        "description": "(String)",
                         "type": "string"
                       }
                     },
@@ -168,12 +165,11 @@
                   "type": "array"
                 },
                 "recordingRules": {
-                  "description": "(List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)\nThe recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).",
+                  "description": "The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).",
                   "items": {
                     "additionalProperties": false,
                     "properties": {
                       "name": {
-                        "description": "(String)",
                         "type": "string"
                       }
                     },
@@ -183,10 +179,10 @@
                 },
                 "trigger": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)\nThe trigger configuration shared by every rule in the sequence.",
+                  "description": "The trigger configuration shared by every rule in the sequence.",
                   "properties": {
                     "interval": {
-                      "description": "(String) The interval at which the rules in the sequence should be evaluated.\nThe interval at which the rules in the sequence should be evaluated.",
+                      "description": "The interval at which the rules in the sequence should be evaluated.",
                       "type": "string"
                     }
                   },
@@ -291,43 +287,42 @@
           "additionalProperties": false,
           "properties": {
             "id": {
-              "description": "(String) The ID of the resource derived from UUID.",
               "type": "string"
             },
             "metadata": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The metadata of the resource. (see below for nested schema)\nThe metadata of the resource.",
+              "description": "The metadata of the resource.",
               "properties": {
                 "annotations": {
                   "additionalProperties": {
                     "type": "string"
                   },
-                  "description": "(Map of String) Annotations of the resource.\nAnnotations of the resource.",
+                  "description": "Annotations of the resource.",
                   "type": "object",
                   "x-kubernetes-map-type": "granular"
                 },
                 "folderUid": {
-                  "description": "(String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.\nThe UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
+                  "description": "The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.",
                   "type": "string"
                 },
                 "orgId": {
-                  "description": "hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.\nThe Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
                   "type": "number"
                 },
                 "uid": {
-                  "description": "(String) The unique identifier of the resource.\nThe unique identifier of the resource.",
+                  "description": "The unique identifier of the resource.",
                   "type": "string"
                 },
                 "url": {
-                  "description": "(String) The full URL of the resource.\nThe full URL of the resource.",
+                  "description": "The full URL of the resource.",
                   "type": "string"
                 },
                 "uuid": {
-                  "description": "(String) The globally unique identifier of a resource, used by the API for tracking.\nThe globally unique identifier of a resource, used by the API for tracking.",
+                  "description": "The globally unique identifier of a resource, used by the API for tracking.",
                   "type": "string"
                 },
                 "version": {
-                  "description": "(String) The version of the resource.\nThe version of the resource.",
+                  "description": "The version of the resource.",
                   "type": "string"
                 }
               },
@@ -335,14 +330,14 @@
             },
             "options": {
               "additionalProperties": false,
-              "description": "(Block, Optional) Options for applying the resource. (see below for nested schema)\nOptions for applying the resource.",
+              "description": "Options for applying the resource.",
               "properties": {
                 "managerIdentity": {
                   "description": "Override the identity stamped on this resource's manager metadata.",
                   "type": "string"
                 },
                 "overwrite": {
-                  "description": "(Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.\nSet to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
+                  "description": "Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.",
                   "type": "boolean"
                 }
               },
@@ -350,15 +345,14 @@
             },
             "spec": {
               "additionalProperties": false,
-              "description": "(Block, Optional) The spec of the resource. (see below for nested schema)\nThe spec of the resource.",
+              "description": "The spec of the resource.",
               "properties": {
                 "alertRules": {
-                  "description": "(List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)\nThe alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).",
+                  "description": "The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its `name` (the rule's UID).",
                   "items": {
                     "additionalProperties": false,
                     "properties": {
                       "name": {
-                        "description": "(String)",
                         "type": "string"
                       }
                     },
@@ -367,12 +361,11 @@
                   "type": "array"
                 },
                 "recordingRules": {
-                  "description": "(List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)\nThe recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).",
+                  "description": "The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its `name` (the rule's UID).",
                   "items": {
                     "additionalProperties": false,
                     "properties": {
                       "name": {
-                        "description": "(String)",
                         "type": "string"
                       }
                     },
@@ -382,10 +375,10 @@
                 },
                 "trigger": {
                   "additionalProperties": false,
-                  "description": "(Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)\nThe trigger configuration shared by every rule in the sequence.",
+                  "description": "The trigger configuration shared by every rule in the sequence.",
                   "properties": {
                     "interval": {
-                      "description": "(String) The interval at which the rules in the sequence should be evaluated.\nThe interval at which the rules in the sequence should be evaluated.",
+                      "description": "The interval at which the rules in the sequence should be evaluated.",
                       "type": "string"
                     }
                   },

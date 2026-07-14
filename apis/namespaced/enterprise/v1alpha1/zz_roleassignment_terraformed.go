@@ -119,6 +119,8 @@ func (tr *RoleAssignment) LateInitialize(attrs []byte) (bool, error) {
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
 	opts = append(opts, resource.WithNameFilter("OrgID"))
+	opts = append(opts, resource.WithNameFilter("Teams"))
+	opts = append(opts, resource.WithNameFilter("Users"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

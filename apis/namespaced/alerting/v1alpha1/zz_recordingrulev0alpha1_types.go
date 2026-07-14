@@ -30,11 +30,23 @@ type RecordingruleV0Alpha1InitParameters struct {
 
 type RecordingruleV0Alpha1MetadataInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
@@ -54,7 +66,7 @@ type RecordingruleV0Alpha1MetadataObservation struct {
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
@@ -77,12 +89,24 @@ type RecordingruleV0Alpha1MetadataObservation struct {
 
 type RecordingruleV0Alpha1MetadataParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
-	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// (String) The ID of the resource derived from UUID.
 	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
 	// +kubebuilder:validation:Optional
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -181,8 +205,20 @@ type RecordingruleV0Alpha1SpecInitParameters struct {
 	// Sets whether the recording rule should be paused or not.
 	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v2.NamespacedReference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v2.NamespacedSelector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 
 	// (String) The title of the recording rule.
@@ -251,10 +287,22 @@ type RecordingruleV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v2.NamespacedReference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v2.NamespacedSelector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	// +kubebuilder:validation:Optional
-	TargetDatasourceUID *string `json:"targetDatasourceUid" tf:"target_datasource_uid,omitempty"`
+	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 
 	// (String) The title of the recording rule.
 	// The title of the recording rule.
@@ -316,7 +364,7 @@ type RecordingruleV0Alpha1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// RecordingruleV0Alpha1 is the Schema for the RecordingruleV0Alpha1s API. Manages Grafana Recording Rules. ~> Deprecated: This resource uses the v0alpha1 API. Use grafana_apps_rules_recordingrule_v1beta1 instead.
+// RecordingruleV0Alpha1 is the Schema for the RecordingruleV0Alpha1s API. Manages Grafana Recording Rules.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

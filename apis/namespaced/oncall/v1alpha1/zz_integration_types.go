@@ -140,11 +140,11 @@ type IntegrationInitParameters struct {
 	// The Default route for all alerts from the given integration
 	DefaultRoute []DefaultRouteInitParameters `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
 
-	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
+	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
 	// A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
 	DynamicLabels []map[string]*string `json:"dynamicLabels,omitempty" tf:"dynamic_labels,omitempty"`
 
-	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
+	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
 	// A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
 	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
@@ -183,7 +183,7 @@ type IntegrationObservation struct {
 	// The Default route for all alerts from the given integration
 	DefaultRoute []DefaultRouteObservation `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
 
-	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
+	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
 	// A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
 	DynamicLabels []map[string]*string `json:"dynamicLabels,omitempty" tf:"dynamic_labels,omitempty"`
 
@@ -194,7 +194,7 @@ type IntegrationObservation struct {
 	// The inbound email address for the integration. Only available for integration type `inbound_email`.
 	InboundEmail *string `json:"inboundEmail,omitempty" tf:"inbound_email,omitempty"`
 
-	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
+	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
 	// A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
 	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
@@ -226,12 +226,12 @@ type IntegrationParameters struct {
 	// +kubebuilder:validation:Optional
 	DefaultRoute []DefaultRouteParameters `json:"defaultRoute,omitempty" tf:"default_route,omitempty"`
 
-	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
+	// to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
 	// A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
 	// +kubebuilder:validation:Optional
 	DynamicLabels []map[string]*string `json:"dynamicLabels,omitempty" tf:"dynamic_labels,omitempty"`
 
-	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
+	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
 	// A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
 	// +kubebuilder:validation:Optional
 	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`

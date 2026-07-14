@@ -1,5 +1,5 @@
 {
-  "description": "DataSource is the Schema for the DataSources API. Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). This resource should generally not be used for Grafana Cloud provisioned data sources since the configuration in these data sources is bound to work inside the Grafana Cloud platform only.  Use the grafana_cloud_stack https://registry.io/providers/grafana/grafana/latest/docs/resources/cloud_stack resource fields instead.",
+  "description": "DataSource is the Schema for the DataSources API. Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -37,11 +37,11 @@
               "type": "boolean"
             },
             "basicAuthUsername": {
-              "description": "(String) Basic auth username. Defaults to ``.\nBasic auth username. Defaults to ``.",
+              "description": "(String) Basic auth username. Defaults to “.\nBasic auth username. Defaults to “.",
               "type": "string"
             },
             "databaseName": {
-              "description": "(String)  The name of the database to use on the selected data source server. Defaults to ``.\n(Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.",
+              "description": "(String)  The name of the database to use on the selected data source server. Defaults to “.\n(Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.",
               "type": "string"
             },
             "httpHeadersSecretRef": {
@@ -160,8 +160,88 @@
               "type": "object"
             },
             "privateDataSourceConnectNetworkId": {
-              "description": "(String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.\n(Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.",
+              "description": "(String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.\n(Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.",
               "type": "string"
+            },
+            "privateDataSourceConnectNetworkRef": {
+              "additionalProperties": false,
+              "description": "Reference to a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "privateDataSourceConnectNetworkSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             },
             "secureJsonDataEncodedSecretRef": {
               "additionalProperties": false,
@@ -196,11 +276,11 @@
               "type": "string"
             },
             "url": {
-              "description": "(String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.\nThe URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.",
+              "description": "(String) The URL for the data source. The type of URL required varies depending on the chosen data source type.\nThe URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.",
               "type": "string"
             },
             "username": {
-              "description": "(String)  The username to use to authenticate to the data source. Defaults to ``.\n(Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.",
+              "description": "(String)  The username to use to authenticate to the data source. Defaults to “.\n(Required by some data source types) The username to use to authenticate to the data source. Defaults to “.",
               "type": "string"
             }
           },
@@ -219,11 +299,11 @@
               "type": "boolean"
             },
             "basicAuthUsername": {
-              "description": "(String) Basic auth username. Defaults to ``.\nBasic auth username. Defaults to ``.",
+              "description": "(String) Basic auth username. Defaults to “.\nBasic auth username. Defaults to “.",
               "type": "string"
             },
             "databaseName": {
-              "description": "(String)  The name of the database to use on the selected data source server. Defaults to ``.\n(Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.",
+              "description": "(String)  The name of the database to use on the selected data source server. Defaults to “.\n(Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.",
               "type": "string"
             },
             "httpHeadersSecretRef": {
@@ -329,8 +409,88 @@
               "type": "object"
             },
             "privateDataSourceConnectNetworkId": {
-              "description": "(String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.\n(Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.",
+              "description": "(String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.\n(Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.",
               "type": "string"
+            },
+            "privateDataSourceConnectNetworkRef": {
+              "additionalProperties": false,
+              "description": "Reference to a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "privateDataSourceConnectNetworkSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
             },
             "secureJsonDataEncodedSecretRef": {
               "additionalProperties": false,
@@ -365,11 +525,11 @@
               "type": "string"
             },
             "url": {
-              "description": "(String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.\nThe URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.",
+              "description": "(String) The URL for the data source. The type of URL required varies depending on the chosen data source type.\nThe URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.",
               "type": "string"
             },
             "username": {
-              "description": "(String)  The username to use to authenticate to the data source. Defaults to ``.\n(Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.",
+              "description": "(String)  The username to use to authenticate to the data source. Defaults to “.\n(Required by some data source types) The username to use to authenticate to the data source. Defaults to “.",
               "type": "string"
             }
           },
@@ -486,11 +646,11 @@
               "type": "boolean"
             },
             "basicAuthUsername": {
-              "description": "(String) Basic auth username. Defaults to ``.\nBasic auth username. Defaults to ``.",
+              "description": "(String) Basic auth username. Defaults to “.\nBasic auth username. Defaults to “.",
               "type": "string"
             },
             "databaseName": {
-              "description": "(String)  The name of the database to use on the selected data source server. Defaults to ``.\n(Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.",
+              "description": "(String)  The name of the database to use on the selected data source server. Defaults to “.\n(Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.",
               "type": "string"
             },
             "id": {
@@ -514,7 +674,7 @@
               "type": "string"
             },
             "privateDataSourceConnectNetworkId": {
-              "description": "(String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.\n(Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.",
+              "description": "(String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.\n(Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.",
               "type": "string"
             },
             "type": {
@@ -526,11 +686,11 @@
               "type": "string"
             },
             "url": {
-              "description": "(String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.\nThe URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.",
+              "description": "(String) The URL for the data source. The type of URL required varies depending on the chosen data source type.\nThe URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.",
               "type": "string"
             },
             "username": {
-              "description": "(String)  The username to use to authenticate to the data source. Defaults to ``.\n(Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.",
+              "description": "(String)  The username to use to authenticate to the data source. Defaults to “.\n(Required by some data source types) The username to use to authenticate to the data source. Defaults to “.",
               "type": "string"
             }
           },

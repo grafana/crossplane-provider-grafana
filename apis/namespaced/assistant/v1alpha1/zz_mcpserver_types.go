@@ -82,43 +82,41 @@ type ConfigurationParameters struct {
 
 type GithubAppInitParameters struct {
 
-	// (Number) The GitHub App ID.
+	// (String) The UUID of the resource.
 	// The GitHub App ID.
 	AppID *float64 `json:"appId,omitempty" tf:"app_id,omitempty"`
 
-	// (Number) The ID of the GitHub App installation on your organization.
+	// (String) The UUID of the resource.
 	// The ID of the GitHub App installation on your organization.
 	InstallationID *float64 `json:"installationId,omitempty" tf:"installation_id,omitempty"`
 
-	// only) The GitHub App private key in PEM format.
 	// The GitHub App private key in PEM format.
 	PrivateKeySecretRef *v2.LocalSecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
 }
 
 type GithubAppObservation struct {
 
-	// (Number) The GitHub App ID.
+	// (String) The UUID of the resource.
 	// The GitHub App ID.
 	AppID *float64 `json:"appId,omitempty" tf:"app_id,omitempty"`
 
-	// (Number) The ID of the GitHub App installation on your organization.
+	// (String) The UUID of the resource.
 	// The ID of the GitHub App installation on your organization.
 	InstallationID *float64 `json:"installationId,omitempty" tf:"installation_id,omitempty"`
 }
 
 type GithubAppParameters struct {
 
-	// (Number) The GitHub App ID.
+	// (String) The UUID of the resource.
 	// The GitHub App ID.
 	// +kubebuilder:validation:Optional
 	AppID *float64 `json:"appId,omitempty" tf:"app_id,omitempty"`
 
-	// (Number) The ID of the GitHub App installation on your organization.
+	// (String) The UUID of the resource.
 	// The ID of the GitHub App installation on your organization.
 	// +kubebuilder:validation:Optional
 	InstallationID *float64 `json:"installationId,omitempty" tf:"installation_id,omitempty"`
 
-	// only) The GitHub App private key in PEM format.
 	// The GitHub App private key in PEM format.
 	// +kubebuilder:validation:Optional
 	PrivateKeySecretRef *v2.LocalSecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
@@ -144,7 +142,6 @@ type McpServerInitParameters struct {
 	// Whether the resource is enabled.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// lived installation tokens from these credentials and uses them in place of any Authorization custom header. All three attributes are required when the block is set. Removing the block clears the credentials. (see below for nested schema)
 	// GitHub App installation credentials, used instead of a personal access token for `tenant` scoped GitHub MCP servers (`https://api.githubcopilot.com/mcp` or `https://<HOSTNAME>.ghe.com/mcp`). The Assistant mints short-lived installation tokens from these credentials and uses them in place of any `Authorization` custom header. All three attributes are required when the block is set. Removing the block clears the credentials.
 	GithubApp *GithubAppInitParameters `json:"githubApp,omitempty" tf:"github_app,omitempty"`
 
@@ -175,7 +172,6 @@ type McpServerObservation struct {
 	// Whether the resource is enabled.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// lived installation tokens from these credentials and uses them in place of any Authorization custom header. All three attributes are required when the block is set. Removing the block clears the credentials. (see below for nested schema)
 	// GitHub App installation credentials, used instead of a personal access token for `tenant` scoped GitHub MCP servers (`https://api.githubcopilot.com/mcp` or `https://<HOSTNAME>.ghe.com/mcp`). The Assistant mints short-lived installation tokens from these credentials and uses them in place of any `Authorization` custom header. All three attributes are required when the block is set. Removing the block clears the credentials.
 	GithubApp *GithubAppObservation `json:"githubApp,omitempty" tf:"github_app,omitempty"`
 
@@ -218,7 +214,6 @@ type McpServerParameters struct {
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// lived installation tokens from these credentials and uses them in place of any Authorization custom header. All three attributes are required when the block is set. Removing the block clears the credentials. (see below for nested schema)
 	// GitHub App installation credentials, used instead of a personal access token for `tenant` scoped GitHub MCP servers (`https://api.githubcopilot.com/mcp` or `https://<HOSTNAME>.ghe.com/mcp`). The Assistant mints short-lived installation tokens from these credentials and uses them in place of any `Authorization` custom header. All three attributes are required when the block is set. Removing the block clears the credentials.
 	// +kubebuilder:validation:Optional
 	GithubApp *GithubAppParameters `json:"githubApp,omitempty" tf:"github_app,omitempty"`

@@ -12,7 +12,9 @@ spec:
     allowedLoadZones:
     - my-load-zone-1
     - other-load-zone
-    projectId: ${grafana_k6_project.test_project_allowed_load_zones.id}
+    projectSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_project_allowed_load_zones
 
 ---
 
