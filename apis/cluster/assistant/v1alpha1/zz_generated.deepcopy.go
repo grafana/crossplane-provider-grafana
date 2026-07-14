@@ -21,6 +21,16 @@ func (in *AllowedToolsInitParameters) DeepCopyInto(out *AllowedToolsInitParamete
 		*out = new(string)
 		**out = **in
 	}
+	if in.IntegrationRef != nil {
+		in, out := &in.IntegrationRef, &out.IntegrationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IntegrationSelector != nil {
+		in, out := &in.IntegrationSelector, &out.IntegrationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ToolName != nil {
 		in, out := &in.ToolName, &out.ToolName
 		*out = new(string)
@@ -70,6 +80,16 @@ func (in *AllowedToolsParameters) DeepCopyInto(out *AllowedToolsParameters) {
 		in, out := &in.IntegrationID, &out.IntegrationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.IntegrationRef != nil {
+		in, out := &in.IntegrationRef, &out.IntegrationRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IntegrationSelector != nil {
+		in, out := &in.IntegrationSelector, &out.IntegrationSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ToolName != nil {
 		in, out := &in.ToolName, &out.ToolName

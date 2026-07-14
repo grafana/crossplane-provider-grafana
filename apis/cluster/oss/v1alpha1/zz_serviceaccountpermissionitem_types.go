@@ -36,15 +36,48 @@ type ServiceAccountPermissionItemInitParameters struct {
 
 	// (String) The ID of the service account.
 	// The ID of the service account.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+
+	// Reference to a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+
+	// Selector for a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (String) the team onto which the permission is to be assigned
 	// the team onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	Team *string `json:"team,omitempty" tf:"team,omitempty"`
+
+	// Reference to a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
+
+	// Reference to a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type ServiceAccountPermissionItemObservation struct {
@@ -98,18 +131,51 @@ type ServiceAccountPermissionItemParameters struct {
 
 	// (String) The ID of the service account.
 	// The ID of the service account.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
+	// Reference to a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+
+	// Selector for a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+
 	// (String) the team onto which the permission is to be assigned
 	// the team onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Team
+	// +crossplane:generate:reference:refFieldName=TeamRef
+	// +crossplane:generate:reference:selectorFieldName=TeamSelector
 	// +kubebuilder:validation:Optional
 	Team *string `json:"team,omitempty" tf:"team,omitempty"`
 
+	// Reference to a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate team.
+	// +kubebuilder:validation:Optional
+	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:refFieldName=UserRef
+	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
+
+	// Reference to a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate user.
+	// +kubebuilder:validation:Optional
+	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // ServiceAccountPermissionItemSpec defines the desired state of ServiceAccountPermissionItem
@@ -149,7 +215,6 @@ type ServiceAccountPermissionItem struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.permission) || (has(self.initProvider) && has(self.initProvider.permission))",message="spec.forProvider.permission is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.serviceAccountId) || (has(self.initProvider) && has(self.initProvider.serviceAccountId))",message="spec.forProvider.serviceAccountId is a required parameter"
 	Spec   ServiceAccountPermissionItemSpec   `json:"spec"`
 	Status ServiceAccountPermissionItemStatus `json:"status,omitempty"`
 }

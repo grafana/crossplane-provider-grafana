@@ -12,7 +12,9 @@ spec:
     cron:
       schedule: 0 10 1 * *
       timezone: UTC
-    loadTestId: ${grafana_k6_load_test.scheduled_test.id}
+    loadTestSelector:
+      matchLabels:
+        testing.upbound.io/example-name: scheduled_test
     starts: "2024-12-25T10:00:00Z"
 
 ---

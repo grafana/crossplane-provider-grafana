@@ -8,12 +8,102 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1"
+	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// ResolveReferences of this Installation.
+func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.StackID),
+		Extract:      grafana.ComputedFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.CloudStackRef,
+		Selector:     mg.Spec.ForProvider.CloudStackSelector,
+		To: reference.To{
+			List:    &v1alpha1.StackList{},
+			Managed: &v1alpha1.Stack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.StackID")
+	}
+	mg.Spec.ForProvider.StackID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.CloudStackRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.StackID),
+		Extract:      grafana.ComputedFieldExtractor("id"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.CloudStackRef,
+		Selector:     mg.Spec.InitProvider.CloudStackSelector,
+		To: reference.To{
+			List:    &v1alpha1.StackList{},
+			Managed: &v1alpha1.Stack{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.StackID")
+	}
+	mg.Spec.InitProvider.StackID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.CloudStackRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this LoadTest.
 func (mg *LoadTest) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ProjectID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ProjectRef,
+		Selector:     mg.Spec.ForProvider.ProjectSelector,
+		To: reference.To{
+			List:    &ProjectList{},
+			Managed: &Project{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ProjectID")
+	}
+	mg.Spec.ForProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ProjectRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ProjectID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ProjectRef,
+		Selector:     mg.Spec.InitProvider.ProjectSelector,
+		To: reference.To{
+			List:    &ProjectList{},
+			Managed: &Project{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ProjectID")
+	}
+	mg.Spec.InitProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ProjectRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this ProjectAllowedLoadZones.
+func (mg *ProjectAllowedLoadZones) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPIResolver(c, mg)
 
 	var rsp reference.ResolutionResponse
@@ -96,6 +186,50 @@ func (mg *ProjectLimits) ResolveReferences(ctx context.Context, c client.Reader)
 	}
 	mg.Spec.InitProvider.ProjectID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.ProjectRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this Schedule.
+func (mg *Schedule) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.LoadTestID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.LoadTestRef,
+		Selector:     mg.Spec.ForProvider.LoadTestSelector,
+		To: reference.To{
+			List:    &LoadTestList{},
+			Managed: &LoadTest{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.LoadTestID")
+	}
+	mg.Spec.ForProvider.LoadTestID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.LoadTestRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.LoadTestID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.LoadTestRef,
+		Selector:     mg.Spec.InitProvider.LoadTestSelector,
+		To: reference.To{
+			List:    &LoadTestList{},
+			Managed: &LoadTest{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.LoadTestID")
+	}
+	mg.Spec.InitProvider.LoadTestID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.LoadTestRef = rsp.ResolvedReference
 
 	return nil
 }

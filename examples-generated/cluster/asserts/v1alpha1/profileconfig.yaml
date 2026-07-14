@@ -8,7 +8,9 @@ metadata:
   name: production
 spec:
   forProvider:
-    dataSourceUid: grafanacloud-profiles
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     defaultConfig: false
     entityPropertyToProfileLabelMapping:
       cluster: k8s_cluster_name

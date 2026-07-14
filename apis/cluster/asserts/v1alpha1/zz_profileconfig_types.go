@@ -15,8 +15,20 @@ import (
 
 type ProfileConfigInitParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) DataSource to be queried (e.g., a Pyroscope instance).
 	// DataSource to be queried (e.g., a Pyroscope instance).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
 	// (Boolean) Is it the default config, therefore undeletable?
@@ -122,8 +134,20 @@ type ProfileConfigObservation struct {
 
 type ProfileConfigParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) DataSource to be queried (e.g., a Pyroscope instance).
 	// DataSource to be queried (e.g., a Pyroscope instance).
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
@@ -190,7 +214,6 @@ type ProfileConfigStatus struct {
 type ProfileConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.dataSourceUid) || (has(self.initProvider) && has(self.initProvider.dataSourceUid))",message="spec.forProvider.dataSourceUid is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.defaultConfig) || (has(self.initProvider) && has(self.initProvider.defaultConfig))",message="spec.forProvider.defaultConfig is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.priority) || (has(self.initProvider) && has(self.initProvider.priority))",message="spec.forProvider.priority is a required parameter"

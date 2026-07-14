@@ -39,8 +39,10 @@ spec:
         - url: https://some-api.grafana.com/alert-enrichment
       - dataSource:
         - logsQuery:
-          - dataSourceType: loki
-            dataSourceUid: loki-uid-123
+          - dataSourceSelector:
+              matchLabels:
+                testing.upbound.io/example-name: example
+            dataSourceType: loki
             expr: '{job="my-app"} |= "error"'
             maxLines: 5
           timeout: 30s

@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    dataSourceUid: grafanacloud-traces
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     defaultConfig: false
     entityPropertyToTraceLabelMapping:
       cluster: resource.k8s.cluster.name

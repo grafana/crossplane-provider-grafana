@@ -14,6 +14,12 @@ import (
 )
 
 func configureEnterprise(p *ujconfig.Provider) {
+	p.AddResourceConfigurator("grafana_data_source_cache_config", func(r *ujconfig.Resource) {
+		r.References["datasource_uid"] = dataSourceReference("DataSource")
+	})
+	p.AddResourceConfigurator("grafana_data_source_config_lbac_rules", func(r *ujconfig.Resource) {
+		r.References["datasource_uid"] = dataSourceReference("DataSource")
+	})
 	p.AddResourceConfigurator("grafana_data_source_permission", func(r *ujconfig.Resource) {
 		r.References["datasource_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_data_source",
@@ -51,12 +57,7 @@ func configureEnterprise(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
-		r.References["dashboard_uid"] = ujconfig.Reference{
-			TerraformName:     "grafana_dashboard",
-			RefFieldName:      "DashboardRef",
-			SelectorFieldName: "DashboardSelector",
-			Extractor:         optionalFieldExtractor("uid"),
-		}
+		r.References["dashboards.uid"] = dashboardReference("Dashboard")
 	})
 	p.AddResourceConfigurator("grafana_role", func(r *ujconfig.Resource) {
 		r.InitializerFns = append(r.InitializerFns, createroleInitializer)

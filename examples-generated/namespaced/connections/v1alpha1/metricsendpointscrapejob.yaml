@@ -14,8 +14,10 @@ spec:
       name: example-secret
     authenticationBasicUsername: my-username
     authenticationMethod: basic
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     enabled: true
     name: my-scrape-job
     scrapeIntervalSeconds: 120
-    stackId: "1"
     url: https://grafana.com/metrics

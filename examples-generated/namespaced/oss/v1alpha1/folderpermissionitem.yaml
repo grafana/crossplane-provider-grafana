@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    folderUid: ${grafana_folder.collection.uid}
+    folderSelector:
+      matchLabels:
+        testing.upbound.io/example-name: collection
     permission: Edit
     role: Viewer
 

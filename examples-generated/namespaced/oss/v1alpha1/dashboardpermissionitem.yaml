@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    dashboardUid: ${grafana_dashboard.dashboard.uid}
+    dashboardSelector:
+      matchLabels:
+        testing.upbound.io/example-name: dashboard
     permission: View
     role: Viewer
 

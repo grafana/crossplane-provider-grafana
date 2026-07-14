@@ -15,8 +15,20 @@ import (
 
 type PreferencesInitParameters struct {
 
+	// Reference to a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardRef *v1.Reference `json:"homeDashboardRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardSelector *v1.Selector `json:"homeDashboardSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the dashboard to display when a team member logs in.
 	// The UID of the dashboard to display when a team member logs in.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=HomeDashboardRef
+	// +crossplane:generate:reference:selectorFieldName=HomeDashboardSelector
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
 	// (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme.
@@ -53,8 +65,20 @@ type PreferencesObservation struct {
 
 type PreferencesParameters struct {
 
+	// Reference to a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardRef *v1.Reference `json:"homeDashboardRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardSelector *v1.Selector `json:"homeDashboardSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the dashboard to display when a team member logs in.
 	// The UID of the dashboard to display when a team member logs in.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=HomeDashboardRef
+	// +crossplane:generate:reference:selectorFieldName=HomeDashboardSelector
 	// +kubebuilder:validation:Optional
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 

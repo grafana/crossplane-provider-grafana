@@ -15,9 +15,29 @@ import (
 
 type AwsCloudwatchScrapeJobInitParameters struct {
 
+	// Reference to a AwsAccount in cloudprovider to populate awsAccountResourceId.
+	// +kubebuilder:validation:Optional
+	AwsAccountRef *v1.Reference `json:"awsAccountRef,omitempty" tf:"-"`
+
 	// (String) The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the resource_id attribute of the grafana_cloud_provider_aws_account resource.
 	// The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the `resource_id` attribute of the `grafana_cloud_provider_aws_account` resource.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloudprovider/v1alpha1.AwsAccount
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("resourceId")
+	// +crossplane:generate:reference:refFieldName=AwsAccountRef
+	// +crossplane:generate:reference:selectorFieldName=AwsAccountSelector
 	AwsAccountResourceID *string `json:"awsAccountResourceId,omitempty" tf:"aws_account_resource_id,omitempty"`
+
+	// Selector for a AwsAccount in cloudprovider to populate awsAccountResourceId.
+	// +kubebuilder:validation:Optional
+	AwsAccountSelector *v1.Selector `json:"awsAccountSelector,omitempty" tf:"-"`
+
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
 	// Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
@@ -46,6 +66,10 @@ type AwsCloudwatchScrapeJobInitParameters struct {
 
 	// (String) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
 	// (Map of String) A set of static labels to add to all metrics exported by this scrape job.
@@ -104,10 +128,30 @@ type AwsCloudwatchScrapeJobObservation struct {
 
 type AwsCloudwatchScrapeJobParameters struct {
 
+	// Reference to a AwsAccount in cloudprovider to populate awsAccountResourceId.
+	// +kubebuilder:validation:Optional
+	AwsAccountRef *v1.Reference `json:"awsAccountRef,omitempty" tf:"-"`
+
 	// (String) The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the resource_id attribute of the grafana_cloud_provider_aws_account resource.
 	// The ID assigned by the Grafana Cloud Provider API to an AWS Account resource that should be associated with this CloudWatch Scrape Job. This can be provided by the `resource_id` attribute of the `grafana_cloud_provider_aws_account` resource.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloudprovider/v1alpha1.AwsAccount
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("resourceId")
+	// +crossplane:generate:reference:refFieldName=AwsAccountRef
+	// +crossplane:generate:reference:selectorFieldName=AwsAccountSelector
 	// +kubebuilder:validation:Optional
 	AwsAccountResourceID *string `json:"awsAccountResourceId,omitempty" tf:"aws_account_resource_id,omitempty"`
+
+	// Selector for a AwsAccount in cloudprovider to populate awsAccountResourceId.
+	// +kubebuilder:validation:Optional
+	AwsAccountSelector *v1.Selector `json:"awsAccountSelector,omitempty" tf:"-"`
+
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
 	// Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct `name` attribute. When accessing this as an attribute reference, it is a list of objects.
@@ -142,6 +186,10 @@ type AwsCloudwatchScrapeJobParameters struct {
 
 	// (String) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
@@ -424,9 +472,7 @@ type AwsCloudwatchScrapeJobStatus struct {
 type AwsCloudwatchScrapeJob struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.awsAccountResourceId) || (has(self.initProvider) && has(self.initProvider.awsAccountResourceId))",message="spec.forProvider.awsAccountResourceId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
 	Spec   AwsCloudwatchScrapeJobSpec   `json:"spec"`
 	Status AwsCloudwatchScrapeJobStatus `json:"status,omitempty"`
 }

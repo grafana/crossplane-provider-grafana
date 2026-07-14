@@ -14,6 +14,84 @@ import (
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
 
+// ResolveReferences of this Alert.
+func (mg *Alert) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.JobID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.JobRef,
+		Selector:     mg.Spec.ForProvider.JobSelector,
+		To: reference.To{
+			List:    &JobList{},
+			Managed: &Job{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.JobID")
+	}
+	mg.Spec.ForProvider.JobID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.JobRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OutlierID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.OutlierDetectorRef,
+		Selector:     mg.Spec.ForProvider.OutlierDetectorSelector,
+		To: reference.To{
+			List:    &OutlierDetectorList{},
+			Managed: &OutlierDetector{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OutlierID")
+	}
+	mg.Spec.ForProvider.OutlierID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OutlierDetectorRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.JobID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.JobRef,
+		Selector:     mg.Spec.InitProvider.JobSelector,
+		To: reference.To{
+			List:    &JobList{},
+			Managed: &Job{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.JobID")
+	}
+	mg.Spec.InitProvider.JobID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.JobRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OutlierID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.OutlierDetectorRef,
+		Selector:     mg.Spec.InitProvider.OutlierDetectorSelector,
+		To: reference.To{
+			List:    &OutlierDetectorList{},
+			Managed: &OutlierDetector{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OutlierID")
+	}
+	mg.Spec.InitProvider.OutlierID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OutlierDetectorRef = rsp.ResolvedReference
+
+	return nil
+}
+
 // ResolveReferences of this Job.
 func (mg *Job) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)

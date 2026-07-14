@@ -30,8 +30,20 @@ type RecordingruleV0Alpha1InitParameters struct {
 
 type RecordingruleV0Alpha1MetadataInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -69,8 +81,20 @@ type RecordingruleV0Alpha1MetadataObservation struct {
 
 type RecordingruleV0Alpha1MetadataParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -168,8 +192,20 @@ type RecordingruleV0Alpha1SpecInitParameters struct {
 	// Sets whether the recording rule should be paused or not.
 	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v1.Reference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v1.Selector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 
 	// (String) The title of the recording rule.
@@ -238,10 +274,22 @@ type RecordingruleV0Alpha1SpecParameters struct {
 	// +kubebuilder:validation:Optional
 	Paused *bool `json:"paused,omitempty" tf:"paused,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v1.Reference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v1.Selector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	// +kubebuilder:validation:Optional
-	TargetDatasourceUID *string `json:"targetDatasourceUid" tf:"target_datasource_uid,omitempty"`
+	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 
 	// (String) The title of the recording rule.
 	// The title of the recording rule.

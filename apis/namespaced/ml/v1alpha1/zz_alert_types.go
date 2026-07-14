@@ -27,7 +27,18 @@ type AlertInitParameters struct {
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
 	// The forecast this alert belongs to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/ml/v1alpha1.Job
+	// +crossplane:generate:reference:refFieldName=JobRef
+	// +crossplane:generate:reference:selectorFieldName=JobSelector
 	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
+
+	// Reference to a Job in ml to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobRef *v1.NamespacedReference `json:"jobRef,omitempty" tf:"-"`
+
+	// Selector for a Job in ml to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobSelector *v1.NamespacedSelector `json:"jobSelector,omitempty" tf:"-"`
 
 	// Labels to add to the alert generated in Grafana.
 	// +mapType=granular
@@ -36,7 +47,18 @@ type AlertInitParameters struct {
 	// How the alert should be processed when no data is returned by the underlying series
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
+	// Reference to a OutlierDetector in ml to populate outlierId.
+	// +kubebuilder:validation:Optional
+	OutlierDetectorRef *v1.NamespacedReference `json:"outlierDetectorRef,omitempty" tf:"-"`
+
+	// Selector for a OutlierDetector in ml to populate outlierId.
+	// +kubebuilder:validation:Optional
+	OutlierDetectorSelector *v1.NamespacedSelector `json:"outlierDetectorSelector,omitempty" tf:"-"`
+
 	// The forecast this alert belongs to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/ml/v1alpha1.OutlierDetector
+	// +crossplane:generate:reference:refFieldName=OutlierDetectorRef
+	// +crossplane:generate:reference:selectorFieldName=OutlierDetectorSelector
 	OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
 
 	// The threshold of points over the window that need to be anomalous to alert.
@@ -102,8 +124,19 @@ type AlertParameters struct {
 	For *string `json:"for,omitempty" tf:"for,omitempty"`
 
 	// The forecast this alert belongs to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/ml/v1alpha1.Job
+	// +crossplane:generate:reference:refFieldName=JobRef
+	// +crossplane:generate:reference:selectorFieldName=JobSelector
 	// +kubebuilder:validation:Optional
 	JobID *string `json:"jobId,omitempty" tf:"job_id,omitempty"`
+
+	// Reference to a Job in ml to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobRef *v1.NamespacedReference `json:"jobRef,omitempty" tf:"-"`
+
+	// Selector for a Job in ml to populate jobId.
+	// +kubebuilder:validation:Optional
+	JobSelector *v1.NamespacedSelector `json:"jobSelector,omitempty" tf:"-"`
 
 	// Labels to add to the alert generated in Grafana.
 	// +kubebuilder:validation:Optional
@@ -114,7 +147,18 @@ type AlertParameters struct {
 	// +kubebuilder:validation:Optional
 	NoDataState *string `json:"noDataState,omitempty" tf:"no_data_state,omitempty"`
 
+	// Reference to a OutlierDetector in ml to populate outlierId.
+	// +kubebuilder:validation:Optional
+	OutlierDetectorRef *v1.NamespacedReference `json:"outlierDetectorRef,omitempty" tf:"-"`
+
+	// Selector for a OutlierDetector in ml to populate outlierId.
+	// +kubebuilder:validation:Optional
+	OutlierDetectorSelector *v1.NamespacedSelector `json:"outlierDetectorSelector,omitempty" tf:"-"`
+
 	// The forecast this alert belongs to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/ml/v1alpha1.OutlierDetector
+	// +crossplane:generate:reference:refFieldName=OutlierDetectorRef
+	// +crossplane:generate:reference:selectorFieldName=OutlierDetectorSelector
 	// +kubebuilder:validation:Optional
 	OutlierID *string `json:"outlierId,omitempty" tf:"outlier_id,omitempty"`
 

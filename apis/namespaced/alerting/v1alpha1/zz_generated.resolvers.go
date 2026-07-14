@@ -8,12 +8,284 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oncall/v1alpha1"
-	v1alpha11 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1"
+	v1alpha11 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oncall/v1alpha1"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
+
+// ResolveReferences of this AlertenrichmentV1Beta1.
+func (mg *AlertenrichmentV1Beta1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.ForProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Metadata.FolderUID")
+		}
+		mg.Spec.ForProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.ForProvider.Spec != nil {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Spec.Step); i4++ {
+			if mg.Spec.ForProvider.Spec.Step[i4].Conditional != nil {
+				if mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else != nil {
+					for i7 := 0; i7 < len(mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step); i7++ {
+						if mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource != nil {
+							if mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery != nil {
+								rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+									CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceUID),
+									Extract:      grafana.OptionalFieldExtractor("uid"),
+									Namespace:    mg.GetNamespace(),
+									Reference:    mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceRef,
+									Selector:     mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceSelector,
+									To: reference.To{
+										List:    &v1alpha1.DataSourceList{},
+										Managed: &v1alpha1.DataSource{},
+									},
+								})
+								if err != nil {
+									return errors.Wrap(err, "mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceUID")
+								}
+								mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+								mg.Spec.ForProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceRef = rsp.ResolvedReference
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if mg.Spec.ForProvider.Spec != nil {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Spec.Step); i4++ {
+			if mg.Spec.ForProvider.Spec.Step[i4].Conditional != nil {
+				if mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then != nil {
+					for i7 := 0; i7 < len(mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step); i7++ {
+						if mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource != nil {
+							if mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery != nil {
+								rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+									CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceUID),
+									Extract:      grafana.OptionalFieldExtractor("uid"),
+									Namespace:    mg.GetNamespace(),
+									Reference:    mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceRef,
+									Selector:     mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceSelector,
+									To: reference.To{
+										List:    &v1alpha1.DataSourceList{},
+										Managed: &v1alpha1.DataSource{},
+									},
+								})
+								if err != nil {
+									return errors.Wrap(err, "mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceUID")
+								}
+								mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+								mg.Spec.ForProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceRef = rsp.ResolvedReference
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if mg.Spec.ForProvider.Spec != nil {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Spec.Step); i4++ {
+			if mg.Spec.ForProvider.Spec.Step[i4].DataSource != nil {
+				if mg.Spec.ForProvider.Spec.Step[i4].DataSource.LogsQuery != nil {
+					rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+						CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceUID),
+						Extract:      grafana.OptionalFieldExtractor("uid"),
+						Namespace:    mg.GetNamespace(),
+						Reference:    mg.Spec.ForProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceRef,
+						Selector:     mg.Spec.ForProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceSelector,
+						To: reference.To{
+							List:    &v1alpha1.DataSourceList{},
+							Managed: &v1alpha1.DataSource{},
+						},
+					})
+					if err != nil {
+						return errors.Wrap(err, "mg.Spec.ForProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceUID")
+					}
+					mg.Spec.ForProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+					mg.Spec.ForProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceRef = rsp.ResolvedReference
+
+				}
+			}
+		}
+	}
+	if mg.Spec.InitProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.InitProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Metadata.FolderUID")
+		}
+		mg.Spec.InitProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Spec != nil {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.Spec.Step); i4++ {
+			if mg.Spec.InitProvider.Spec.Step[i4].Conditional != nil {
+				if mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else != nil {
+					for i7 := 0; i7 < len(mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step); i7++ {
+						if mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource != nil {
+							if mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery != nil {
+								rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+									CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceUID),
+									Extract:      grafana.OptionalFieldExtractor("uid"),
+									Namespace:    mg.GetNamespace(),
+									Reference:    mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceRef,
+									Selector:     mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceSelector,
+									To: reference.To{
+										List:    &v1alpha1.DataSourceList{},
+										Managed: &v1alpha1.DataSource{},
+									},
+								})
+								if err != nil {
+									return errors.Wrap(err, "mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceUID")
+								}
+								mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+								mg.Spec.InitProvider.Spec.Step[i4].Conditional.Else.Step[i7].DataSource.LogsQuery.DataSourceRef = rsp.ResolvedReference
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if mg.Spec.InitProvider.Spec != nil {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.Spec.Step); i4++ {
+			if mg.Spec.InitProvider.Spec.Step[i4].Conditional != nil {
+				if mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then != nil {
+					for i7 := 0; i7 < len(mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step); i7++ {
+						if mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource != nil {
+							if mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery != nil {
+								rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+									CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceUID),
+									Extract:      grafana.OptionalFieldExtractor("uid"),
+									Namespace:    mg.GetNamespace(),
+									Reference:    mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceRef,
+									Selector:     mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceSelector,
+									To: reference.To{
+										List:    &v1alpha1.DataSourceList{},
+										Managed: &v1alpha1.DataSource{},
+									},
+								})
+								if err != nil {
+									return errors.Wrap(err, "mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceUID")
+								}
+								mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+								mg.Spec.InitProvider.Spec.Step[i4].Conditional.Then.Step[i7].DataSource.LogsQuery.DataSourceRef = rsp.ResolvedReference
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if mg.Spec.InitProvider.Spec != nil {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.Spec.Step); i4++ {
+			if mg.Spec.InitProvider.Spec.Step[i4].DataSource != nil {
+				if mg.Spec.InitProvider.Spec.Step[i4].DataSource.LogsQuery != nil {
+					rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+						CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceUID),
+						Extract:      grafana.OptionalFieldExtractor("uid"),
+						Namespace:    mg.GetNamespace(),
+						Reference:    mg.Spec.InitProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceRef,
+						Selector:     mg.Spec.InitProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceSelector,
+						To: reference.To{
+							List:    &v1alpha1.DataSourceList{},
+							Managed: &v1alpha1.DataSource{},
+						},
+					})
+					if err != nil {
+						return errors.Wrap(err, "mg.Spec.InitProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceUID")
+					}
+					mg.Spec.InitProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+					mg.Spec.InitProvider.Spec.Step[i4].DataSource.LogsQuery.DataSourceRef = rsp.ResolvedReference
+
+				}
+			}
+		}
+	}
+
+	return nil
+}
+
+// ResolveReferences of this AlertruleV0Alpha1.
+func (mg *AlertruleV0Alpha1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.ForProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Metadata.FolderUID")
+		}
+		mg.Spec.ForProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.InitProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Metadata.FolderUID")
+		}
+		mg.Spec.InitProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
 
 // ResolveReferences of this ContactPoint.
 func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) error {
@@ -30,8 +302,8 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 			Reference:    mg.Spec.ForProvider.Oncall[i3].OncallIntegrationRef,
 			Selector:     mg.Spec.ForProvider.Oncall[i3].OncallIntegrationSelector,
 			To: reference.To{
-				List:    &v1alpha1.IntegrationList{},
-				Managed: &v1alpha1.Integration{},
+				List:    &v1alpha11.IntegrationList{},
+				Managed: &v1alpha11.Integration{},
 			},
 		})
 		if err != nil {
@@ -48,8 +320,8 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -66,8 +338,8 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 			Reference:    mg.Spec.InitProvider.Oncall[i3].OncallIntegrationRef,
 			Selector:     mg.Spec.InitProvider.Oncall[i3].OncallIntegrationSelector,
 			To: reference.To{
-				List:    &v1alpha1.IntegrationList{},
-				Managed: &v1alpha1.Integration{},
+				List:    &v1alpha11.IntegrationList{},
+				Managed: &v1alpha11.Integration{},
 			},
 		})
 		if err != nil {
@@ -84,8 +356,8 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -93,6 +365,55 @@ func (mg *ContactPoint) ResolveReferences(ctx context.Context, c client.Reader) 
 	}
 	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this InhibitionruleV1Beta1.
+func (mg *InhibitionruleV1Beta1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.ForProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Metadata.FolderUID")
+		}
+		mg.Spec.ForProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.InitProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Metadata.FolderUID")
+		}
+		mg.Spec.InitProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
 
 	return nil
 }
@@ -111,8 +432,8 @@ func (mg *MessageTemplate) ResolveReferences(ctx context.Context, c client.Reade
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -128,8 +449,8 @@ func (mg *MessageTemplate) ResolveReferences(ctx context.Context, c client.Reade
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -155,8 +476,8 @@ func (mg *MuteTiming) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -172,8 +493,8 @@ func (mg *MuteTiming) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -217,8 +538,8 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -427,8 +748,8 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -617,6 +938,93 @@ func (mg *NotificationPolicy) ResolveReferences(ctx context.Context, c client.Re
 	return nil
 }
 
+// ResolveReferences of this RecordingruleV0Alpha1.
+func (mg *RecordingruleV0Alpha1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.ForProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Metadata.FolderUID")
+		}
+		mg.Spec.ForProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.ForProvider.Spec != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Spec.TargetDatasourceUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Spec.TargetDataSourceRef,
+			Selector:     mg.Spec.ForProvider.Spec.TargetDataSourceSelector,
+			To: reference.To{
+				List:    &v1alpha1.DataSourceList{},
+				Managed: &v1alpha1.DataSource{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Spec.TargetDatasourceUID")
+		}
+		mg.Spec.ForProvider.Spec.TargetDatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Spec.TargetDataSourceRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.InitProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Metadata.FolderUID")
+		}
+		mg.Spec.InitProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Spec != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Spec.TargetDatasourceUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Spec.TargetDataSourceRef,
+			Selector:     mg.Spec.InitProvider.Spec.TargetDataSourceSelector,
+			To: reference.To{
+				List:    &v1alpha1.DataSourceList{},
+				Managed: &v1alpha1.DataSource{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Spec.TargetDatasourceUID")
+		}
+		mg.Spec.InitProvider.Spec.TargetDatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Spec.TargetDataSourceRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this RuleGroup.
 func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
@@ -631,8 +1039,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.FolderRef,
 		Selector:     mg.Spec.ForProvider.FolderSelector,
 		To: reference.To{
-			List:    &v1alpha11.FolderList{},
-			Managed: &v1alpha11.Folder{},
+			List:    &v1alpha1.FolderList{},
+			Managed: &v1alpha1.Folder{},
 		},
 	})
 	if err != nil {
@@ -648,8 +1056,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.ForProvider.OrganizationRef,
 		Selector:     mg.Spec.ForProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -658,6 +1066,27 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Rule); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Rule[i3].Data); i4++ {
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Rule[i3].Data[i4].DatasourceUID),
+				Extract:      grafana.OptionalFieldExtractor("uid"),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.Rule[i3].Data[i4].DataSourceRef,
+				Selector:     mg.Spec.ForProvider.Rule[i3].Data[i4].DataSourceSelector,
+				To: reference.To{
+					List:    &v1alpha1.DataSourceList{},
+					Managed: &v1alpha1.DataSource{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.ForProvider.Rule[i3].Data[i4].DatasourceUID")
+			}
+			mg.Spec.ForProvider.Rule[i3].Data[i4].DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.ForProvider.Rule[i3].Data[i4].DataSourceRef = rsp.ResolvedReference
+
+		}
+	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Rule); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.ForProvider.Rule[i3].NotificationSettings); i4++ {
 			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -679,6 +1108,27 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 
 		}
 	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Rule); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.ForProvider.Rule[i3].Record); i4++ {
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Rule[i3].Record[i4].TargetDatasourceUID),
+				Extract:      grafana.OptionalFieldExtractor("uid"),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.ForProvider.Rule[i3].Record[i4].TargetDataSourceRef,
+				Selector:     mg.Spec.ForProvider.Rule[i3].Record[i4].TargetDataSourceSelector,
+				To: reference.To{
+					List:    &v1alpha1.DataSourceList{},
+					Managed: &v1alpha1.DataSource{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.ForProvider.Rule[i3].Record[i4].TargetDatasourceUID")
+			}
+			mg.Spec.ForProvider.Rule[i3].Record[i4].TargetDatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.ForProvider.Rule[i3].Record[i4].TargetDataSourceRef = rsp.ResolvedReference
+
+		}
+	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
 		Extract:      grafana.OptionalFieldExtractor("uid"),
@@ -686,8 +1136,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.FolderRef,
 		Selector:     mg.Spec.InitProvider.FolderSelector,
 		To: reference.To{
-			List:    &v1alpha11.FolderList{},
-			Managed: &v1alpha11.Folder{},
+			List:    &v1alpha1.FolderList{},
+			Managed: &v1alpha1.Folder{},
 		},
 	})
 	if err != nil {
@@ -703,8 +1153,8 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 		Reference:    mg.Spec.InitProvider.OrganizationRef,
 		Selector:     mg.Spec.InitProvider.OrganizationSelector,
 		To: reference.To{
-			List:    &v1alpha11.OrganizationList{},
-			Managed: &v1alpha11.Organization{},
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
 		},
 	})
 	if err != nil {
@@ -713,6 +1163,27 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Rule); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.Rule[i3].Data); i4++ {
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Rule[i3].Data[i4].DatasourceUID),
+				Extract:      grafana.OptionalFieldExtractor("uid"),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.Rule[i3].Data[i4].DataSourceRef,
+				Selector:     mg.Spec.InitProvider.Rule[i3].Data[i4].DataSourceSelector,
+				To: reference.To{
+					List:    &v1alpha1.DataSourceList{},
+					Managed: &v1alpha1.DataSource{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.InitProvider.Rule[i3].Data[i4].DatasourceUID")
+			}
+			mg.Spec.InitProvider.Rule[i3].Data[i4].DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.InitProvider.Rule[i3].Data[i4].DataSourceRef = rsp.ResolvedReference
+
+		}
+	}
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Rule); i3++ {
 		for i4 := 0; i4 < len(mg.Spec.InitProvider.Rule[i3].NotificationSettings); i4++ {
 			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
@@ -731,6 +1202,27 @@ func (mg *RuleGroup) ResolveReferences(ctx context.Context, c client.Reader) err
 			}
 			mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPoint = reference.ToPtrValue(rsp.ResolvedValue)
 			mg.Spec.InitProvider.Rule[i3].NotificationSettings[i4].ContactPointRef = rsp.ResolvedReference
+
+		}
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Rule); i3++ {
+		for i4 := 0; i4 < len(mg.Spec.InitProvider.Rule[i3].Record); i4++ {
+			rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Rule[i3].Record[i4].TargetDatasourceUID),
+				Extract:      grafana.OptionalFieldExtractor("uid"),
+				Namespace:    mg.GetNamespace(),
+				Reference:    mg.Spec.InitProvider.Rule[i3].Record[i4].TargetDataSourceRef,
+				Selector:     mg.Spec.InitProvider.Rule[i3].Record[i4].TargetDataSourceSelector,
+				To: reference.To{
+					List:    &v1alpha1.DataSourceList{},
+					Managed: &v1alpha1.DataSource{},
+				},
+			})
+			if err != nil {
+				return errors.Wrap(err, "mg.Spec.InitProvider.Rule[i3].Record[i4].TargetDatasourceUID")
+			}
+			mg.Spec.InitProvider.Rule[i3].Record[i4].TargetDatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+			mg.Spec.InitProvider.Rule[i3].Record[i4].TargetDataSourceRef = rsp.ResolvedReference
 
 		}
 	}

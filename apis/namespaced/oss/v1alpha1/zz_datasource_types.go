@@ -63,7 +63,19 @@ type DataSourceInitParameters struct {
 
 	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
 	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.PrivateDataSourceConnectNetwork
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("pdcNetworkId")
+	// +crossplane:generate:reference:refFieldName=PrivateDataSourceConnectNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=PrivateDataSourceConnectNetworkSelector
 	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
+
+	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkRef *v1.NamespacedReference `json:"privateDataSourceConnectNetworkRef,omitempty" tf:"-"`
+
+	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkSelector *v1.NamespacedSelector `json:"privateDataSourceConnectNetworkSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
@@ -204,8 +216,20 @@ type DataSourceParameters struct {
 
 	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
 	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.PrivateDataSourceConnectNetwork
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("pdcNetworkId")
+	// +crossplane:generate:reference:refFieldName=PrivateDataSourceConnectNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=PrivateDataSourceConnectNetworkSelector
 	// +kubebuilder:validation:Optional
 	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
+
+	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkRef *v1.NamespacedReference `json:"privateDataSourceConnectNetworkRef,omitempty" tf:"-"`
+
+	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkSelector *v1.NamespacedSelector `json:"privateDataSourceConnectNetworkSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
