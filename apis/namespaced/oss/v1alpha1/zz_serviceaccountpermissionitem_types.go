@@ -67,7 +67,8 @@ type ServiceAccountPermissionItemInitParameters struct {
 
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	User *string `json:"user,omitempty" tf:"user,omitempty"`
@@ -164,7 +165,8 @@ type ServiceAccountPermissionItemParameters struct {
 
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
 	// +crossplane:generate:reference:refFieldName=UserRef
 	// +crossplane:generate:reference:selectorFieldName=UserSelector
 	// +kubebuilder:validation:Optional

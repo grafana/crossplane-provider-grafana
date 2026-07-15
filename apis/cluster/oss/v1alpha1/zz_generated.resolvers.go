@@ -8,7 +8,8 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1"
+	v1alpha11 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -439,8 +440,8 @@ func (mg *DashboardPermissionItem) ResolveReferences(ctx context.Context, c clie
 		Reference:    mg.Spec.ForProvider.UserRef,
 		Selector:     mg.Spec.ForProvider.UserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -507,8 +508,8 @@ func (mg *DashboardPermissionItem) ResolveReferences(ctx context.Context, c clie
 		Reference:    mg.Spec.InitProvider.UserRef,
 		Selector:     mg.Spec.InitProvider.UserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -776,8 +777,8 @@ func (mg *DataSource) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.ForProvider.PrivateDataSourceConnectNetworkRef,
 		Selector:     mg.Spec.ForProvider.PrivateDataSourceConnectNetworkSelector,
 		To: reference.To{
-			List:    &v1alpha1.PrivateDataSourceConnectNetworkList{},
-			Managed: &v1alpha1.PrivateDataSourceConnectNetwork{},
+			List:    &v1alpha11.PrivateDataSourceConnectNetworkList{},
+			Managed: &v1alpha11.PrivateDataSourceConnectNetwork{},
 		},
 	})
 	if err != nil {
@@ -810,8 +811,8 @@ func (mg *DataSource) ResolveReferences(ctx context.Context, c client.Reader) er
 		Reference:    mg.Spec.InitProvider.PrivateDataSourceConnectNetworkRef,
 		Selector:     mg.Spec.InitProvider.PrivateDataSourceConnectNetworkSelector,
 		To: reference.To{
-			List:    &v1alpha1.PrivateDataSourceConnectNetworkList{},
-			Managed: &v1alpha1.PrivateDataSourceConnectNetwork{},
+			List:    &v1alpha11.PrivateDataSourceConnectNetworkList{},
+			Managed: &v1alpha11.PrivateDataSourceConnectNetwork{},
 		},
 	})
 	if err != nil {
@@ -1165,8 +1166,8 @@ func (mg *FolderPermissionItem) ResolveReferences(ctx context.Context, c client.
 		Reference:    mg.Spec.ForProvider.UserRef,
 		Selector:     mg.Spec.ForProvider.UserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1233,8 +1234,8 @@ func (mg *FolderPermissionItem) ResolveReferences(ctx context.Context, c client.
 		Reference:    mg.Spec.InitProvider.UserRef,
 		Selector:     mg.Spec.InitProvider.UserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1334,13 +1335,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.AdminUser),
-		Extract:      grafana.FieldExtractor("login"),
+		Extract:      grafana.OptionalFieldExtractor("login"),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.ForProvider.AdminUserRef,
 		Selector:     mg.Spec.ForProvider.AdminUserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1351,13 +1352,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Admins),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.AdminRefs,
 		Selector:      mg.Spec.ForProvider.AdminSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1368,13 +1369,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Editors),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.EditorRefs,
 		Selector:      mg.Spec.ForProvider.EditorSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1385,13 +1386,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.UsersWithoutAccess),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.UserWithoutAccessRefs,
 		Selector:      mg.Spec.ForProvider.UserWithoutAccessSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1402,13 +1403,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Viewers),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.ForProvider.ViewerRefs,
 		Selector:      mg.Spec.ForProvider.ViewerSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1419,13 +1420,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.AdminUser),
-		Extract:      grafana.FieldExtractor("login"),
+		Extract:      grafana.OptionalFieldExtractor("login"),
 		Namespace:    mg.GetNamespace(),
 		Reference:    mg.Spec.InitProvider.AdminUserRef,
 		Selector:     mg.Spec.InitProvider.AdminUserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1436,13 +1437,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Admins),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.AdminRefs,
 		Selector:      mg.Spec.InitProvider.AdminSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1453,13 +1454,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Editors),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.EditorRefs,
 		Selector:      mg.Spec.InitProvider.EditorSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1470,13 +1471,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.UsersWithoutAccess),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.UserWithoutAccessRefs,
 		Selector:      mg.Spec.InitProvider.UserWithoutAccessSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -1487,13 +1488,13 @@ func (mg *Organization) ResolveReferences(ctx context.Context, c client.Reader) 
 
 	mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Viewers),
-		Extract:       grafana.FieldExtractor("email"),
+		Extract:       grafana.OptionalFieldExtractor("email"),
 		Namespace:     mg.GetNamespace(),
 		References:    mg.Spec.InitProvider.ViewerRefs,
 		Selector:      mg.Spec.InitProvider.ViewerSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -2079,8 +2080,8 @@ func (mg *ServiceAccountPermissionItem) ResolveReferences(ctx context.Context, c
 		Reference:    mg.Spec.ForProvider.UserRef,
 		Selector:     mg.Spec.ForProvider.UserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {
@@ -2147,8 +2148,8 @@ func (mg *ServiceAccountPermissionItem) ResolveReferences(ctx context.Context, c
 		Reference:    mg.Spec.InitProvider.UserRef,
 		Selector:     mg.Spec.InitProvider.UserSelector,
 		To: reference.To{
-			List:    &UserList{},
-			Managed: &User{},
+			List:    &v1alpha1.UserList{},
+			Managed: &v1alpha1.User{},
 		},
 	})
 	if err != nil {

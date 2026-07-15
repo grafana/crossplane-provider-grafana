@@ -4,24 +4,7 @@ Copyright 2026 Grafana Labs
 
 package grafana
 
-import (
-	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
-)
-
-const externalNameExtractor = `github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()`
-
-// observedRef returns a ujconfig.Reference for an observed (datasource) oncall resource.
-// It uses Type directly (not TerraformName) because observed resources are not in the
-// Terraform resource map. The ExternalName extractor reads crossplane.io/external-name
-// which the observed controller populates with the resource ID.
-func observedRef(typePath, prefix string) ujconfig.Reference {
-	return ujconfig.Reference{
-		Type:              typePath,
-		RefFieldName:      prefix + "Ref",
-		SelectorFieldName: prefix + "Selector",
-		Extractor:         externalNameExtractor,
-	}
-}
+import ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
 const (
 	oncallTeamType         = "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oncall/v1alpha1.Team"
