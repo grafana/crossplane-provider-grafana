@@ -29,8 +29,8 @@ type OrganizationInitParameters struct {
 	// The login name of the configured default admin user for the Grafana
 	// installation. If unset, this value defaults to admin, the Grafana default.
 	// Defaults to `admin`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("login")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("login")
 	// +crossplane:generate:reference:refFieldName=AdminUserRef
 	// +crossplane:generate:reference:selectorFieldName=AdminUserSelector
 	AdminUser *string `json:"adminUser,omitempty" tf:"admin_user,omitempty"`
@@ -49,8 +49,8 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given admin
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=AdminRefs
 	// +crossplane:generate:reference:selectorFieldName=AdminSelector
 	// +listType=set
@@ -86,8 +86,8 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given editor
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=EditorRefs
 	// +crossplane:generate:reference:selectorFieldName=EditorSelector
 	// +listType=set
@@ -96,6 +96,214 @@ type OrganizationInitParameters struct {
 	// (String) The display name for the Grafana organization created.
 	// The display name for the Grafana organization created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// References to User in oss to populate observedUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedAdminRefs []v1.Reference `json:"observedAdminRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedAdminSelector *v1.Selector `json:"observedAdminSelector,omitempty" tf:"-"`
+
+	// Reference to a User in oss to populate observedUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedAdminUserRef *v1.Reference `json:"observedAdminUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate observedUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedAdminUserSelector *v1.Selector `json:"observedAdminUserSelector,omitempty" tf:"-"`
+
+	// References to User in oss to populate observedUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedEditorRefs []v1.Reference `json:"observedEditorRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedEditorSelector *v1.Selector `json:"observedEditorSelector,omitempty" tf:"-"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminRefs []v1.Reference `json:"observedOrganizationUserAdminRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminSelector *v1.Selector `json:"observedOrganizationUserAdminSelector,omitempty" tf:"-"`
+
+	// (String) The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to admin.
+	// The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to `admin`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("login")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserAdminUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserAdminUserSelector
+	ObservedOrganizationUserAdminUser *string `json:"observedOrganizationUserAdminUser,omitempty" tf:"observed_organization_user_admin_user,omitempty"`
+
+	// Reference to a OrganizationUser in oss to populate observedOrganizationUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminUserRef *v1.Reference `json:"observedOrganizationUserAdminUserRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationUser in oss to populate observedOrganizationUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminUserSelector *v1.Selector `json:"observedOrganizationUserAdminUserSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserAdminRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserAdminSelector
+	// +listType=set
+	ObservedOrganizationUserAdmins []*string `json:"observedOrganizationUserAdmins,omitempty" tf:"observed_organization_user_admins,omitempty"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserEditorRefs []v1.Reference `json:"observedOrganizationUserEditorRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserEditorSelector *v1.Selector `json:"observedOrganizationUserEditorSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserEditorRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserEditorSelector
+	// +listType=set
+	ObservedOrganizationUserEditors []*string `json:"observedOrganizationUserEditors,omitempty" tf:"observed_organization_user_editors,omitempty"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserUserWithoutAccessRefs []v1.Reference `json:"observedOrganizationUserUserWithoutAccessRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserUserWithoutAccessSelector *v1.Selector `json:"observedOrganizationUserUserWithoutAccessSelector,omitempty" tf:"-"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserViewerRefs []v1.Reference `json:"observedOrganizationUserViewerRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserViewerSelector *v1.Selector `json:"observedOrganizationUserViewerSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserViewerRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserViewerSelector
+	// +listType=set
+	ObservedOrganizationUserViewers []*string `json:"observedOrganizationUserViewers,omitempty" tf:"observed_organization_user_viewers,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserUserWithoutAccessRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserUserWithoutAccessSelector
+	// +listType=set
+	ObservedOrganizationUsersWithoutAccess []*string `json:"observedOrganizationUsersWithoutAccess,omitempty" tf:"observed_organization_users_without_access,omitempty"`
+
+	// (String) The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to admin.
+	// The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to `admin`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("login")
+	// +crossplane:generate:reference:refFieldName=ObservedAdminUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedAdminUserSelector
+	ObservedUserAdminUser *string `json:"observedUserAdminUser,omitempty" tf:"observed_user_admin_user,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedAdminRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedAdminSelector
+	// +listType=set
+	ObservedUserAdmins []*string `json:"observedUserAdmins,omitempty" tf:"observed_user_admins,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedEditorRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedEditorSelector
+	// +listType=set
+	ObservedUserEditors []*string `json:"observedUserEditors,omitempty" tf:"observed_user_editors,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedViewerRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedViewerSelector
+	// +listType=set
+	ObservedUserViewers []*string `json:"observedUserViewers,omitempty" tf:"observed_user_viewers,omitempty"`
+
+	// References to User in oss to populate observedUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedUserWithoutAccessRefs []v1.Reference `json:"observedUserWithoutAccessRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedUserWithoutAccessSelector *v1.Selector `json:"observedUserWithoutAccessSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedUserWithoutAccessRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserWithoutAccessSelector
+	// +listType=set
+	ObservedUsersWithoutAccess []*string `json:"observedUsersWithoutAccess,omitempty" tf:"observed_users_without_access,omitempty"`
+
+	// References to User in oss to populate observedUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedViewerRefs []v1.Reference `json:"observedViewerRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedViewerSelector *v1.Selector `json:"observedViewerSelector,omitempty" tf:"-"`
 
 	// References to User in oss to populate usersWithoutAccess.
 	// +kubebuilder:validation:Optional
@@ -111,8 +319,8 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given none access to the organization.
 	// Note: users specified here must already exist in Grafana, unless 'create_users' is
 	// set to true. This feature is only available in Grafana 10.2+.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=UserWithoutAccessRefs
 	// +crossplane:generate:reference:selectorFieldName=UserWithoutAccessSelector
 	// +listType=set
@@ -132,8 +340,8 @@ type OrganizationInitParameters struct {
 	// A list of email addresses corresponding to users who should be given viewer
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=ViewerRefs
 	// +crossplane:generate:reference:selectorFieldName=ViewerSelector
 	// +listType=set
@@ -191,6 +399,94 @@ type OrganizationObservation struct {
 	// The display name for the Grafana organization created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// (String) The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to admin.
+	// The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to `admin`.
+	ObservedOrganizationUserAdminUser *string `json:"observedOrganizationUserAdminUser,omitempty" tf:"observed_organization_user_admin_user,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +listType=set
+	ObservedOrganizationUserAdmins []*string `json:"observedOrganizationUserAdmins,omitempty" tf:"observed_organization_user_admins,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +listType=set
+	ObservedOrganizationUserEditors []*string `json:"observedOrganizationUserEditors,omitempty" tf:"observed_organization_user_editors,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +listType=set
+	ObservedOrganizationUserViewers []*string `json:"observedOrganizationUserViewers,omitempty" tf:"observed_organization_user_viewers,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// +listType=set
+	ObservedOrganizationUsersWithoutAccess []*string `json:"observedOrganizationUsersWithoutAccess,omitempty" tf:"observed_organization_users_without_access,omitempty"`
+
+	// (String) The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to admin.
+	// The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to `admin`.
+	ObservedUserAdminUser *string `json:"observedUserAdminUser,omitempty" tf:"observed_user_admin_user,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +listType=set
+	ObservedUserAdmins []*string `json:"observedUserAdmins,omitempty" tf:"observed_user_admins,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +listType=set
+	ObservedUserEditors []*string `json:"observedUserEditors,omitempty" tf:"observed_user_editors,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +listType=set
+	ObservedUserViewers []*string `json:"observedUserViewers,omitempty" tf:"observed_user_viewers,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// +listType=set
+	ObservedUsersWithoutAccess []*string `json:"observedUsersWithoutAccess,omitempty" tf:"observed_users_without_access,omitempty"`
+
 	// (Number) The organization id assigned to this organization by Grafana.
 	// The organization id assigned to this organization by Grafana.
 	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -230,8 +526,8 @@ type OrganizationParameters struct {
 	// The login name of the configured default admin user for the Grafana
 	// installation. If unset, this value defaults to admin, the Grafana default.
 	// Defaults to `admin`.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("login")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("login")
 	// +crossplane:generate:reference:refFieldName=AdminUserRef
 	// +crossplane:generate:reference:selectorFieldName=AdminUserSelector
 	// +kubebuilder:validation:Optional
@@ -251,8 +547,8 @@ type OrganizationParameters struct {
 	// A list of email addresses corresponding to users who should be given admin
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=AdminRefs
 	// +crossplane:generate:reference:selectorFieldName=AdminSelector
 	// +kubebuilder:validation:Optional
@@ -290,8 +586,8 @@ type OrganizationParameters struct {
 	// A list of email addresses corresponding to users who should be given editor
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=EditorRefs
 	// +crossplane:generate:reference:selectorFieldName=EditorSelector
 	// +kubebuilder:validation:Optional
@@ -302,6 +598,224 @@ type OrganizationParameters struct {
 	// The display name for the Grafana organization created.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// References to User in oss to populate observedUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedAdminRefs []v1.Reference `json:"observedAdminRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedAdminSelector *v1.Selector `json:"observedAdminSelector,omitempty" tf:"-"`
+
+	// Reference to a User in oss to populate observedUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedAdminUserRef *v1.Reference `json:"observedAdminUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate observedUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedAdminUserSelector *v1.Selector `json:"observedAdminUserSelector,omitempty" tf:"-"`
+
+	// References to User in oss to populate observedUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedEditorRefs []v1.Reference `json:"observedEditorRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedEditorSelector *v1.Selector `json:"observedEditorSelector,omitempty" tf:"-"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminRefs []v1.Reference `json:"observedOrganizationUserAdminRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserAdmins.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminSelector *v1.Selector `json:"observedOrganizationUserAdminSelector,omitempty" tf:"-"`
+
+	// (String) The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to admin.
+	// The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to `admin`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("login")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserAdminUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserAdminUserSelector
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminUser *string `json:"observedOrganizationUserAdminUser,omitempty" tf:"observed_organization_user_admin_user,omitempty"`
+
+	// Reference to a OrganizationUser in oss to populate observedOrganizationUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminUserRef *v1.Reference `json:"observedOrganizationUserAdminUserRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationUser in oss to populate observedOrganizationUserAdminUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserAdminUserSelector *v1.Selector `json:"observedOrganizationUserAdminUserSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserAdminRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserAdminSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedOrganizationUserAdmins []*string `json:"observedOrganizationUserAdmins,omitempty" tf:"observed_organization_user_admins,omitempty"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserEditorRefs []v1.Reference `json:"observedOrganizationUserEditorRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserEditors.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserEditorSelector *v1.Selector `json:"observedOrganizationUserEditorSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserEditorRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserEditorSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedOrganizationUserEditors []*string `json:"observedOrganizationUserEditors,omitempty" tf:"observed_organization_user_editors,omitempty"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserUserWithoutAccessRefs []v1.Reference `json:"observedOrganizationUserUserWithoutAccessRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserUserWithoutAccessSelector *v1.Selector `json:"observedOrganizationUserUserWithoutAccessSelector,omitempty" tf:"-"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserViewerRefs []v1.Reference `json:"observedOrganizationUserViewerRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserViewerSelector *v1.Selector `json:"observedOrganizationUserViewerSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserViewerRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserViewerSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedOrganizationUserViewers []*string `json:"observedOrganizationUserViewers,omitempty" tf:"observed_organization_user_viewers,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserUserWithoutAccessRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserUserWithoutAccessSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedOrganizationUsersWithoutAccess []*string `json:"observedOrganizationUsersWithoutAccess,omitempty" tf:"observed_organization_users_without_access,omitempty"`
+
+	// (String) The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to admin.
+	// The login name of the configured default admin user for the Grafana
+	// installation. If unset, this value defaults to admin, the Grafana default.
+	// Defaults to `admin`.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("login")
+	// +crossplane:generate:reference:refFieldName=ObservedAdminUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedAdminUserSelector
+	// +kubebuilder:validation:Optional
+	ObservedUserAdminUser *string `json:"observedUserAdminUser,omitempty" tf:"observed_user_admin_user,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given admin
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedAdminRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedAdminSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedUserAdmins []*string `json:"observedUserAdmins,omitempty" tf:"observed_user_admins,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given editor
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedEditorRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedEditorSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedUserEditors []*string `json:"observedUserEditors,omitempty" tf:"observed_user_editors,omitempty"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// A list of email addresses corresponding to users who should be given viewer
+	// access to the organization. Note: users specified here must already exist in
+	// Grafana unless 'create_users' is set to true.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedViewerRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedViewerSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedUserViewers []*string `json:"observedUserViewers,omitempty" tf:"observed_user_viewers,omitempty"`
+
+	// References to User in oss to populate observedUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedUserWithoutAccessRefs []v1.Reference `json:"observedUserWithoutAccessRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUsersWithoutAccess.
+	// +kubebuilder:validation:Optional
+	ObservedUserWithoutAccessSelector *v1.Selector `json:"observedUserWithoutAccessSelector,omitempty" tf:"-"`
+
+	// (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// A list of email addresses corresponding to users who should be given none access to the organization.
+	// Note: users specified here must already exist in Grafana, unless 'create_users' is
+	// set to true. This feature is only available in Grafana 10.2+.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedUserWithoutAccessRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserWithoutAccessSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedUsersWithoutAccess []*string `json:"observedUsersWithoutAccess,omitempty" tf:"observed_users_without_access,omitempty"`
+
+	// References to User in oss to populate observedUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedViewerRefs []v1.Reference `json:"observedViewerRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserViewers.
+	// +kubebuilder:validation:Optional
+	ObservedViewerSelector *v1.Selector `json:"observedViewerSelector,omitempty" tf:"-"`
 
 	// References to User in oss to populate usersWithoutAccess.
 	// +kubebuilder:validation:Optional
@@ -317,8 +831,8 @@ type OrganizationParameters struct {
 	// A list of email addresses corresponding to users who should be given none access to the organization.
 	// Note: users specified here must already exist in Grafana, unless 'create_users' is
 	// set to true. This feature is only available in Grafana 10.2+.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=UserWithoutAccessRefs
 	// +crossplane:generate:reference:selectorFieldName=UserWithoutAccessSelector
 	// +kubebuilder:validation:Optional
@@ -339,8 +853,8 @@ type OrganizationParameters struct {
 	// A list of email addresses corresponding to users who should be given viewer
 	// access to the organization. Note: users specified here must already exist in
 	// Grafana unless 'create_users' is set to true.
-	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
-	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=ViewerRefs
 	// +crossplane:generate:reference:selectorFieldName=ViewerSelector
 	// +kubebuilder:validation:Optional

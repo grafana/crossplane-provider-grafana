@@ -361,6 +361,894 @@ spec:
                       (String) The display name for the Grafana organization created.
                       The display name for the Grafana organization created.
                     type: string
+                  observedAdminRefs:
+                    description: References to User in oss to populate observedUserAdmins.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedAdminSelector:
+                    description: Selector for a list of User in oss to populate observedUserAdmins.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedAdminUserRef:
+                    description: Reference to a User in oss to populate observedUserAdminUser.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  observedAdminUserSelector:
+                    description: Selector for a User in oss to populate observedUserAdminUser.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedEditorRefs:
+                    description: References to User in oss to populate observedUserEditors.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedEditorSelector:
+                    description: Selector for a list of User in oss to populate observedUserEditors.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserAdminRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUserAdmins.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserAdminSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUserAdmins.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserAdminUser:
+                    description: |-
+                      (String) The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to admin.
+                      The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to `admin`.
+                    type: string
+                  observedOrganizationUserAdminUserRef:
+                    description: Reference to a OrganizationUser in oss to populate
+                      observedOrganizationUserAdminUser.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  observedOrganizationUserAdminUserSelector:
+                    description: Selector for a OrganizationUser in oss to populate
+                      observedOrganizationUserAdminUser.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserAdmins:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUserEditorRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUserEditors.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserEditorSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUserEditors.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserEditors:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUserUserWithoutAccessRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUsersWithoutAccess.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserUserWithoutAccessSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUsersWithoutAccess.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserViewerRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUserViewers.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserViewerSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUserViewers.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserViewers:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUsersWithoutAccess:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                      A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserAdminUser:
+                    description: |-
+                      (String) The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to admin.
+                      The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to `admin`.
+                    type: string
+                  observedUserAdmins:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserEditors:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserViewers:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserWithoutAccessRefs:
+                    description: References to User in oss to populate observedUsersWithoutAccess.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedUserWithoutAccessSelector:
+                    description: Selector for a list of User in oss to populate observedUsersWithoutAccess.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedUsersWithoutAccess:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                      A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedViewerRefs:
+                    description: References to User in oss to populate observedUserViewers.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedViewerSelector:
+                    description: Selector for a list of User in oss to populate observedUserViewers.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   userWithoutAccessRefs:
                     description: References to User in oss to populate usersWithoutAccess.
                     items:
@@ -836,6 +1724,894 @@ spec:
                       (String) The display name for the Grafana organization created.
                       The display name for the Grafana organization created.
                     type: string
+                  observedAdminRefs:
+                    description: References to User in oss to populate observedUserAdmins.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedAdminSelector:
+                    description: Selector for a list of User in oss to populate observedUserAdmins.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedAdminUserRef:
+                    description: Reference to a User in oss to populate observedUserAdminUser.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  observedAdminUserSelector:
+                    description: Selector for a User in oss to populate observedUserAdminUser.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedEditorRefs:
+                    description: References to User in oss to populate observedUserEditors.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedEditorSelector:
+                    description: Selector for a list of User in oss to populate observedUserEditors.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserAdminRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUserAdmins.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserAdminSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUserAdmins.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserAdminUser:
+                    description: |-
+                      (String) The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to admin.
+                      The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to `admin`.
+                    type: string
+                  observedOrganizationUserAdminUserRef:
+                    description: Reference to a OrganizationUser in oss to populate
+                      observedOrganizationUserAdminUser.
+                    properties:
+                      name:
+                        description: Name of the referenced object.
+                        type: string
+                      policy:
+                        description: Policies for referencing.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    required:
+                    - name
+                    type: object
+                  observedOrganizationUserAdminUserSelector:
+                    description: Selector for a OrganizationUser in oss to populate
+                      observedOrganizationUserAdminUser.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserAdmins:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUserEditorRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUserEditors.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserEditorSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUserEditors.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserEditors:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUserUserWithoutAccessRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUsersWithoutAccess.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserUserWithoutAccessSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUsersWithoutAccess.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserViewerRefs:
+                    description: References to OrganizationUser in oss to populate
+                      observedOrganizationUserViewers.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedOrganizationUserViewerSelector:
+                    description: Selector for a list of OrganizationUser in oss to
+                      populate observedOrganizationUserViewers.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedOrganizationUserViewers:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUsersWithoutAccess:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                      A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserAdminUser:
+                    description: |-
+                      (String) The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to admin.
+                      The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to `admin`.
+                    type: string
+                  observedUserAdmins:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserEditors:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserViewers:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserWithoutAccessRefs:
+                    description: References to User in oss to populate observedUsersWithoutAccess.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedUserWithoutAccessSelector:
+                    description: Selector for a list of User in oss to populate observedUsersWithoutAccess.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
+                  observedUsersWithoutAccess:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                      A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedViewerRefs:
+                    description: References to User in oss to populate observedUserViewers.
+                    items:
+                      description: A Reference to a named object.
+                      properties:
+                        name:
+                          description: Name of the referenced object.
+                          type: string
+                        policy:
+                          description: Policies for referencing.
+                          properties:
+                            resolution:
+                              default: Required
+                              description: |-
+                                Resolution specifies whether resolution of this reference is required.
+                                The default is 'Required', which means the reconcile will fail if the
+                                reference cannot be resolved. 'Optional' means this reference will be
+                                a no-op if it cannot be resolved.
+                              enum:
+                              - Required
+                              - Optional
+                              type: string
+                            resolve:
+                              description: |-
+                                Resolve specifies when this reference should be resolved. The default
+                                is 'IfNotPresent', which will attempt to resolve the reference only when
+                                the corresponding field is not present. Use 'Always' to resolve the
+                                reference on every reconcile.
+                              enum:
+                              - Always
+                              - IfNotPresent
+                              type: string
+                          type: object
+                      required:
+                      - name
+                      type: object
+                    type: array
+                  observedViewerSelector:
+                    description: Selector for a list of User in oss to populate observedUserViewers.
+                    properties:
+                      matchControllerRef:
+                        description: |-
+                          MatchControllerRef ensures an object with the same controller reference
+                          as the selecting object is selected.
+                        type: boolean
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        description: MatchLabels ensures an object with matching labels
+                          is selected.
+                        type: object
+                      policy:
+                        description: Policies for selection.
+                        properties:
+                          resolution:
+                            default: Required
+                            description: |-
+                              Resolution specifies whether resolution of this reference is required.
+                              The default is 'Required', which means the reconcile will fail if the
+                              reference cannot be resolved. 'Optional' means this reference will be
+                              a no-op if it cannot be resolved.
+                            enum:
+                            - Required
+                            - Optional
+                            type: string
+                          resolve:
+                            description: |-
+                              Resolve specifies when this reference should be resolved. The default
+                              is 'IfNotPresent', which will attempt to resolve the reference only when
+                              the corresponding field is not present. Use 'Always' to resolve the
+                              reference on every reconcile.
+                            enum:
+                            - Always
+                            - IfNotPresent
+                            type: string
+                        type: object
+                    type: object
                   userWithoutAccessRefs:
                     description: References to User in oss to populate usersWithoutAccess.
                     items:
@@ -1169,6 +2945,120 @@ spec:
                       (String) The display name for the Grafana organization created.
                       The display name for the Grafana organization created.
                     type: string
+                  observedOrganizationUserAdminUser:
+                    description: |-
+                      (String) The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to admin.
+                      The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to `admin`.
+                    type: string
+                  observedOrganizationUserAdmins:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUserEditors:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUserViewers:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedOrganizationUsersWithoutAccess:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                      A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserAdminUser:
+                    description: |-
+                      (String) The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to admin.
+                      The login name of the configured default admin user for the Grafana
+                      installation. If unset, this value defaults to admin, the Grafana default.
+                      Defaults to `admin`.
+                    type: string
+                  observedUserAdmins:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given admin
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserEditors:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given editor
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUserViewers:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                      A list of email addresses corresponding to users who should be given viewer
+                      access to the organization. Note: users specified here must already exist in
+                      Grafana unless 'create_users' is set to true.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  observedUsersWithoutAccess:
+                    description: |-
+                      (Set of String) A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                      A list of email addresses corresponding to users who should be given none access to the organization.
+                      Note: users specified here must already exist in Grafana, unless 'create_users' is
+                      set to true. This feature is only available in Grafana 10.2+.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   orgId:
                     description: |-
                       (Number) The organization id assigned to this organization by Grafana.

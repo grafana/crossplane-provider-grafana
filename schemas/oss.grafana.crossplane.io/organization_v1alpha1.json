@@ -304,6 +304,910 @@
               "description": "(String) The display name for the Grafana organization created.\nThe display name for the Grafana organization created.",
               "type": "string"
             },
+            "observedAdminRefs": {
+              "description": "References to User in oss to populate observedUserAdmins.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedAdminSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUserAdmins.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedAdminUserRef": {
+              "additionalProperties": false,
+              "description": "Reference to a User in oss to populate observedUserAdminUser.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "observedAdminUserSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a User in oss to populate observedUserAdminUser.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedEditorRefs": {
+              "description": "References to User in oss to populate observedUserEditors.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedEditorSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUserEditors.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserAdminRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUserAdmins.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserAdminSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUserAdmins.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserAdminUser": {
+              "description": "(String) The login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to admin.\nThe login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to `admin`.",
+              "type": "string"
+            },
+            "observedOrganizationUserAdminUserRef": {
+              "additionalProperties": false,
+              "description": "Reference to a OrganizationUser in oss to populate observedOrganizationUserAdminUser.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "observedOrganizationUserAdminUserSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a OrganizationUser in oss to populate observedOrganizationUserAdminUser.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserAdmins": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUserEditorRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUserEditors.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserEditorSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUserEditors.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserEditors": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUserUserWithoutAccessRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserUserWithoutAccessSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserViewerRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUserViewers.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserViewerSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUserViewers.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserViewers": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUsersWithoutAccess": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.\nA list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserAdminUser": {
+              "description": "(String) The login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to admin.\nThe login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to `admin`.",
+              "type": "string"
+            },
+            "observedUserAdmins": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserEditors": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserViewers": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserWithoutAccessRefs": {
+              "description": "References to User in oss to populate observedUsersWithoutAccess.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedUserWithoutAccessSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUsersWithoutAccess.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedUsersWithoutAccess": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.\nA list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedViewerRefs": {
+              "description": "References to User in oss to populate observedUserViewers.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedViewerSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUserViewers.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
             "userWithoutAccessRefs": {
               "description": "References to User in oss to populate usersWithoutAccess.",
               "items": {
@@ -771,6 +1675,910 @@
               "description": "(String) The display name for the Grafana organization created.\nThe display name for the Grafana organization created.",
               "type": "string"
             },
+            "observedAdminRefs": {
+              "description": "References to User in oss to populate observedUserAdmins.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedAdminSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUserAdmins.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedAdminUserRef": {
+              "additionalProperties": false,
+              "description": "Reference to a User in oss to populate observedUserAdminUser.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "observedAdminUserSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a User in oss to populate observedUserAdminUser.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedEditorRefs": {
+              "description": "References to User in oss to populate observedUserEditors.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedEditorSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUserEditors.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserAdminRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUserAdmins.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserAdminSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUserAdmins.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserAdminUser": {
+              "description": "(String) The login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to admin.\nThe login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to `admin`.",
+              "type": "string"
+            },
+            "observedOrganizationUserAdminUserRef": {
+              "additionalProperties": false,
+              "description": "Reference to a OrganizationUser in oss to populate observedOrganizationUserAdminUser.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "observedOrganizationUserAdminUserSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a OrganizationUser in oss to populate observedOrganizationUserAdminUser.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserAdmins": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUserEditorRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUserEditors.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserEditorSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUserEditors.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserEditors": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUserUserWithoutAccessRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserUserWithoutAccessSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUsersWithoutAccess.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserViewerRefs": {
+              "description": "References to OrganizationUser in oss to populate observedOrganizationUserViewers.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedOrganizationUserViewerSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of OrganizationUser in oss to populate observedOrganizationUserViewers.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedOrganizationUserViewers": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUsersWithoutAccess": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.\nA list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserAdminUser": {
+              "description": "(String) The login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to admin.\nThe login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to `admin`.",
+              "type": "string"
+            },
+            "observedUserAdmins": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserEditors": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserViewers": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserWithoutAccessRefs": {
+              "description": "References to User in oss to populate observedUsersWithoutAccess.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedUserWithoutAccessSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUsersWithoutAccess.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "observedUsersWithoutAccess": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.\nA list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedViewerRefs": {
+              "description": "References to User in oss to populate observedUserViewers.",
+              "items": {
+                "additionalProperties": false,
+                "description": "A Reference to a named object.",
+                "properties": {
+                  "name": {
+                    "description": "Name of the referenced object.",
+                    "type": "string"
+                  },
+                  "policy": {
+                    "additionalProperties": false,
+                    "description": "Policies for referencing.",
+                    "properties": {
+                      "resolution": {
+                        "default": "Required",
+                        "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                        "enum": [
+                          "Required",
+                          "Optional"
+                        ],
+                        "type": "string"
+                      },
+                      "resolve": {
+                        "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                        "enum": [
+                          "Always",
+                          "IfNotPresent"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "observedViewerSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a list of User in oss to populate observedUserViewers.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
             "userWithoutAccessRefs": {
               "description": "References to User in oss to populate usersWithoutAccess.",
               "items": {
@@ -1087,6 +2895,78 @@
             "name": {
               "description": "(String) The display name for the Grafana organization created.\nThe display name for the Grafana organization created.",
               "type": "string"
+            },
+            "observedOrganizationUserAdminUser": {
+              "description": "(String) The login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to admin.\nThe login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to `admin`.",
+              "type": "string"
+            },
+            "observedOrganizationUserAdmins": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUserEditors": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUserViewers": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedOrganizationUsersWithoutAccess": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.\nA list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserAdminUser": {
+              "description": "(String) The login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to admin.\nThe login name of the configured default admin user for the Grafana\ninstallation. If unset, this value defaults to admin, the Grafana default.\nDefaults to `admin`.",
+              "type": "string"
+            },
+            "observedUserAdmins": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given admin\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserEditors": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given editor\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUserViewers": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.\nA list of email addresses corresponding to users who should be given viewer\naccess to the organization. Note: users specified here must already exist in\nGrafana unless 'create_users' is set to true.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
+            },
+            "observedUsersWithoutAccess": {
+              "description": "(Set of String) A list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.\nA list of email addresses corresponding to users who should be given none access to the organization.\nNote: users specified here must already exist in Grafana, unless 'create_users' is\nset to true. This feature is only available in Grafana 10.2+.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "x-kubernetes-list-type": "set"
             },
             "orgId": {
               "description": "(Number) The organization id assigned to this organization by Grafana.\nThe organization id assigned to this organization by Grafana.",

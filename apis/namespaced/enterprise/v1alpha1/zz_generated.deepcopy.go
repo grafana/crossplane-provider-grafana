@@ -914,6 +914,51 @@ func (in *DataSourcePermissionItemInitParameters) DeepCopyInto(out *DataSourcePe
 		*out = new(string)
 		**out = **in
 	}
+	if in.ObservedOrganizationUser != nil {
+		in, out := &in.ObservedOrganizationUser, &out.ObservedOrganizationUser
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedOrganizationUserRef != nil {
+		in, out := &in.ObservedOrganizationUserRef, &out.ObservedOrganizationUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeam != nil {
+		in, out := &in.ObservedTeam, &out.ObservedTeam
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUser != nil {
+		in, out := &in.ObservedUser, &out.ObservedUser
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserRef != nil {
+		in, out := &in.ObservedUserRef, &out.ObservedUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -1031,6 +1076,21 @@ func (in *DataSourcePermissionItemObservation) DeepCopyInto(out *DataSourcePermi
 		*out = new(string)
 		**out = **in
 	}
+	if in.ObservedOrganizationUser != nil {
+		in, out := &in.ObservedOrganizationUser, &out.ObservedOrganizationUser
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeam != nil {
+		in, out := &in.ObservedTeam, &out.ObservedTeam
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUser != nil {
+		in, out := &in.ObservedUser, &out.ObservedUser
+		*out = new(string)
+		**out = **in
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -1090,6 +1150,51 @@ func (in *DataSourcePermissionItemParameters) DeepCopyInto(out *DataSourcePermis
 		in, out := &in.DatasourceUID, &out.DatasourceUID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ObservedOrganizationUser != nil {
+		in, out := &in.ObservedOrganizationUser, &out.ObservedOrganizationUser
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedOrganizationUserRef != nil {
+		in, out := &in.ObservedOrganizationUserRef, &out.ObservedOrganizationUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeam != nil {
+		in, out := &in.ObservedTeam, &out.ObservedTeam
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUser != nil {
+		in, out := &in.ObservedUser, &out.ObservedUser
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserRef != nil {
+		in, out := &in.ObservedUserRef, &out.ObservedUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
@@ -2042,6 +2147,51 @@ func (in *PermissionsInitParameters) DeepCopyInto(out *PermissionsInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.ObservedOrganizationUserID != nil {
+		in, out := &in.ObservedOrganizationUserID, &out.ObservedOrganizationUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedOrganizationUserRef != nil {
+		in, out := &in.ObservedOrganizationUserRef, &out.ObservedOrganizationUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserID != nil {
+		in, out := &in.ObservedUserID, &out.ObservedUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserRef != nil {
+		in, out := &in.ObservedUserRef, &out.ObservedUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Permission != nil {
 		in, out := &in.Permission, &out.Permission
 		*out = new(string)
@@ -2097,6 +2247,21 @@ func (in *PermissionsObservation) DeepCopyInto(out *PermissionsObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.ObservedOrganizationUserID != nil {
+		in, out := &in.ObservedOrganizationUserID, &out.ObservedOrganizationUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserID != nil {
+		in, out := &in.ObservedUserID, &out.ObservedUserID
+		*out = new(string)
+		**out = **in
+	}
 	if in.Permission != nil {
 		in, out := &in.Permission, &out.Permission
 		*out = new(string)
@@ -2131,6 +2296,51 @@ func (in *PermissionsParameters) DeepCopyInto(out *PermissionsParameters) {
 		in, out := &in.BuiltInRole, &out.BuiltInRole
 		*out = new(string)
 		**out = **in
+	}
+	if in.ObservedOrganizationUserID != nil {
+		in, out := &in.ObservedOrganizationUserID, &out.ObservedOrganizationUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedOrganizationUserRef != nil {
+		in, out := &in.ObservedOrganizationUserRef, &out.ObservedOrganizationUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserID != nil {
+		in, out := &in.ObservedUserID, &out.ObservedUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserRef != nil {
+		in, out := &in.ObservedUserRef, &out.ObservedUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Permission != nil {
 		in, out := &in.Permission, &out.Permission
@@ -2628,6 +2838,75 @@ func (in *RoleAssignment) DeepCopyObject() runtime.Object {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *RoleAssignmentInitParameters) DeepCopyInto(out *RoleAssignmentInitParameters) {
 	*out = *in
+	if in.ObservedOrganizationUserRefs != nil {
+		in, out := &in.ObservedOrganizationUserRefs, &out.ObservedOrganizationUserRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUsers != nil {
+		in, out := &in.ObservedOrganizationUsers, &out.ObservedOrganizationUsers
+		*out = make([]*float64, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(float64)
+				**out = **in
+			}
+		}
+	}
+	if in.ObservedTeamRefs != nil {
+		in, out := &in.ObservedTeamRefs, &out.ObservedTeamRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeams != nil {
+		in, out := &in.ObservedTeams, &out.ObservedTeams
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.ObservedUserRefs != nil {
+		in, out := &in.ObservedUserRefs, &out.ObservedUserRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUsers != nil {
+		in, out := &in.ObservedUsers, &out.ObservedUsers
+		*out = make([]*float64, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(float64)
+				**out = **in
+			}
+		}
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -2769,6 +3048,51 @@ func (in *RoleAssignmentItem) DeepCopyObject() runtime.Object {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *RoleAssignmentItemInitParameters) DeepCopyInto(out *RoleAssignmentItemInitParameters) {
 	*out = *in
+	if in.ObservedOrganizationUserID != nil {
+		in, out := &in.ObservedOrganizationUserID, &out.ObservedOrganizationUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedOrganizationUserRef != nil {
+		in, out := &in.ObservedOrganizationUserRef, &out.ObservedOrganizationUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserID != nil {
+		in, out := &in.ObservedUserID, &out.ObservedUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserRef != nil {
+		in, out := &in.ObservedUserRef, &out.ObservedUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -2896,6 +3220,21 @@ func (in *RoleAssignmentItemObservation) DeepCopyInto(out *RoleAssignmentItemObs
 		*out = new(string)
 		**out = **in
 	}
+	if in.ObservedOrganizationUserID != nil {
+		in, out := &in.ObservedOrganizationUserID, &out.ObservedOrganizationUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserID != nil {
+		in, out := &in.ObservedUserID, &out.ObservedUserID
+		*out = new(string)
+		**out = **in
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -2936,6 +3275,51 @@ func (in *RoleAssignmentItemObservation) DeepCopy() *RoleAssignmentItemObservati
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *RoleAssignmentItemParameters) DeepCopyInto(out *RoleAssignmentItemParameters) {
 	*out = *in
+	if in.ObservedOrganizationUserID != nil {
+		in, out := &in.ObservedOrganizationUserID, &out.ObservedOrganizationUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedOrganizationUserRef != nil {
+		in, out := &in.ObservedOrganizationUserRef, &out.ObservedOrganizationUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserID != nil {
+		in, out := &in.ObservedUserID, &out.ObservedUserID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedUserRef != nil {
+		in, out := &in.ObservedUserRef, &out.ObservedUserRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -3098,6 +3482,39 @@ func (in *RoleAssignmentObservation) DeepCopyInto(out *RoleAssignmentObservation
 		*out = new(string)
 		**out = **in
 	}
+	if in.ObservedOrganizationUsers != nil {
+		in, out := &in.ObservedOrganizationUsers, &out.ObservedOrganizationUsers
+		*out = make([]*float64, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(float64)
+				**out = **in
+			}
+		}
+	}
+	if in.ObservedTeams != nil {
+		in, out := &in.ObservedTeams, &out.ObservedTeams
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.ObservedUsers != nil {
+		in, out := &in.ObservedUsers, &out.ObservedUsers
+		*out = make([]*float64, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(float64)
+				**out = **in
+			}
+		}
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -3156,6 +3573,75 @@ func (in *RoleAssignmentObservation) DeepCopy() *RoleAssignmentObservation {
 // DeepCopyInto is an autogenerated deepcopy function, copying the receiver, writing into out. in must be non-nil.
 func (in *RoleAssignmentParameters) DeepCopyInto(out *RoleAssignmentParameters) {
 	*out = *in
+	if in.ObservedOrganizationUserRefs != nil {
+		in, out := &in.ObservedOrganizationUserRefs, &out.ObservedOrganizationUserRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ObservedOrganizationUserSelector != nil {
+		in, out := &in.ObservedOrganizationUserSelector, &out.ObservedOrganizationUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedOrganizationUsers != nil {
+		in, out := &in.ObservedOrganizationUsers, &out.ObservedOrganizationUsers
+		*out = make([]*float64, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(float64)
+				**out = **in
+			}
+		}
+	}
+	if in.ObservedTeamRefs != nil {
+		in, out := &in.ObservedTeamRefs, &out.ObservedTeamRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeams != nil {
+		in, out := &in.ObservedTeams, &out.ObservedTeams
+		*out = make([]*string, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(string)
+				**out = **in
+			}
+		}
+	}
+	if in.ObservedUserRefs != nil {
+		in, out := &in.ObservedUserRefs, &out.ObservedUserRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ObservedUserSelector != nil {
+		in, out := &in.ObservedUserSelector, &out.ObservedUserSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedUsers != nil {
+		in, out := &in.ObservedUsers, &out.ObservedUsers
+		*out = make([]*float64, len(*in))
+		for i := range *in {
+			if (*in)[i] != nil {
+				in, out := &(*in)[i], &(*out)[i]
+				*out = new(float64)
+				**out = **in
+			}
+		}
+	}
 	if in.OrgID != nil {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
@@ -4683,6 +5169,21 @@ func (in *TeamExternalGroupInitParameters) DeepCopyInto(out *TeamExternalGroupIn
 			}
 		}
 	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.TeamID != nil {
 		in, out := &in.TeamID, &out.TeamID
 		*out = new(string)
@@ -4761,6 +5262,11 @@ func (in *TeamExternalGroupObservation) DeepCopyInto(out *TeamExternalGroupObser
 		*out = new(string)
 		**out = **in
 	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
 	if in.TeamID != nil {
 		in, out := &in.TeamID, &out.TeamID
 		*out = new(string)
@@ -4791,6 +5297,21 @@ func (in *TeamExternalGroupParameters) DeepCopyInto(out *TeamExternalGroupParame
 				**out = **in
 			}
 		}
+	}
+	if in.ObservedTeamID != nil {
+		in, out := &in.ObservedTeamID, &out.ObservedTeamID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ObservedTeamRef != nil {
+		in, out := &in.ObservedTeamRef, &out.ObservedTeamRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ObservedTeamSelector != nil {
+		in, out := &in.ObservedTeamSelector, &out.ObservedTeamSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.TeamID != nil {
 		in, out := &in.TeamID, &out.TeamID
