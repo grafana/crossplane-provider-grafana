@@ -1,7 +1,3 @@
-/*
-Copyright 2026 Grafana Labs
-*/
-
 package grafana
 
 import (
@@ -66,7 +62,7 @@ func configureEnterprise(p *ujconfig.Provider) {
 			RefFieldName:      "ServiceAccountRefs",
 			SelectorFieldName: "ServiceAccountSelector",
 		}
-		addObservedReference(r, "teams", ujconfig.Reference{
+		addObservedListReference(r, "teams", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRefs",
 			SelectorFieldName: "TeamSelector",

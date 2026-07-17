@@ -31,6 +31,21 @@ type Alternative struct {
 // the original field and its reference unchanged. Resolved synthetic values
 // are consolidated into fieldPath by a TerraformConfigurationInjector.
 func Add(r *ujconfig.Resource, fieldPath string, alternatives ...Alternative) {
+	addAlternativeReferences(r, fieldPath, false, alternatives...)
+}
+
+// AddList adds alternative strongly typed references for a list or set field
+// while keeping the original field and its reference unchanged. Values
+// configured through the original field and any alternatives are concatenated
+// into the original Terraform field by a TerraformConfigurationInjector.
+func AddList(r *ujconfig.Resource, fieldPath string, alternatives ...Alternative) {
+	addAlternativeReferences(r, fieldPath, true, alternatives...)
+}
+
+// addAlternativeReferences creates synthetic schema fields beside fieldPath,
+// registers their Crossplane references, and installs the runtime translation
+// that maps their resolved values back to the original Terraform field.
+func addAlternativeReferences(r *ujconfig.Resource, fieldPath string, mergeCollections bool, alternatives ...Alternative) {
 	if len(alternatives) == 0 {
 		return
 	}
@@ -41,6 +56,9 @@ func Add(r *ujconfig.Resource, fieldPath string, alternatives ...Alternative) {
 	original, ok := parent[originalName]
 	if !ok {
 		panic(fmt.Sprintf("multirefs: Terraform field %q does not exist", fieldPath))
+	}
+	if mergeCollections && original.Type != schema.TypeList && original.Type != schema.TypeSet {
+		panic(fmt.Sprintf("multirefs: Terraform field %q is not a list or set", fieldPath))
 	}
 
 	alternativeNames := make([]string, 0, len(alternatives))
@@ -67,14 +85,17 @@ func Add(r *ujconfig.Resource, fieldPath string, alternatives ...Alternative) {
 		r.LateInitializer.IgnoredFields = append(r.LateInitializer.IgnoredFields, fieldPath)
 	}
 
-	r.TerraformConfigurationInjector = wrapInjector(
+	r.TerraformConfigurationInjector = chainAlternativeReferenceInjector(
 		r.TerraformConfigurationInjector,
 		parts[:len(parts)-1],
 		originalName,
 		alternativeNames,
+		mergeCollections,
 	)
 }
 
+// schemaMapAt follows a Terraform schema path and returns the schema map that
+// contains the final field. Each path segment must describe a nested object.
 func schemaMapAt(resource *schema.Resource, path []string) map[string]*schema.Schema {
 	current := resource.Schema
 	for _, segment := range path {
@@ -91,54 +112,144 @@ func schemaMapAt(resource *schema.Resource, path []string) map[string]*schema.Sc
 	return current
 }
 
-func wrapInjector(
-	current ujconfig.ConfigurationInjector,
+// parentVisitor processes the JSON and Terraform representations of the same
+// object after visitParents has navigated to the configured field's parent.
+type parentVisitor func(jsonParent, tfParent map[string]any) error
+
+// alternativeReferenceInjector translates synthetic Crossplane fields back to
+// the original field understood by the Terraform provider. Upjet resolves each
+// Ref or Selector into the field beside it, including the synthetic alternative
+// fields created by Add and AddList. Before Terraform receives the configuration,
+// this injector selects or merges those resolved values, writes the result under
+// originalName, and removes the synthetic Terraform keys.
+type alternativeReferenceInjector struct {
+	previous         ujconfig.ConfigurationInjector
+	parentPath       []string
+	originalName     string
+	alternativeNames []string
+	mergeCollections bool
+}
+
+// chainAlternativeReferenceInjector preserves an injector already configured
+// on the resource and appends alternative-reference translation to it.
+// Configuration features can install injectors independently, so the previous
+// injector must run first and its error must stop further modification.
+func chainAlternativeReferenceInjector(
+	previous ujconfig.ConfigurationInjector,
 	parentPath []string,
 	originalName string,
 	alternativeNames []string,
+	mergeCollections bool,
 ) ujconfig.ConfigurationInjector {
-	return func(jsonMap map[string]any, tfMap map[string]any) error {
-		if current != nil {
-			if err := current(jsonMap, tfMap); err != nil {
-				return err
-			}
+	injector := &alternativeReferenceInjector{
+		previous:         previous,
+		parentPath:       parentPath,
+		originalName:     originalName,
+		alternativeNames: alternativeNames,
+		mergeCollections: mergeCollections,
+	}
+	return injector.injectConfiguration
+}
+
+// injectConfiguration runs the existing injector and then translates
+// alternative references at every object reached through parentPath.
+func (i *alternativeReferenceInjector) injectConfiguration(jsonMap, tfMap map[string]any) error {
+	if i.previous != nil {
+		if err := i.previous(jsonMap, tfMap); err != nil {
+			return err
 		}
+	}
+	return visitParents(jsonMap, tfMap, i.parentPath, i.injectParent)
+}
 
-		return visitParents(jsonMap, tfMap, parentPath, func(jsonParent, tfParent map[string]any) error {
-			configured := make([]string, 0, len(alternativeNames)+1)
-			selectedName := ""
-			var selectedValue any
+// injectParent applies scalar-selection or collection-merge semantics to one
+// pair of corresponding JSON and Terraform parent objects.
+func (i *alternativeReferenceInjector) injectParent(jsonParent, tfParent map[string]any) error {
+	if i.mergeCollections {
+		return i.mergeCollectionValues(jsonParent, tfParent)
+	}
+	return i.selectScalarValue(jsonParent, tfParent)
+}
 
-			allNames := append([]string{originalName}, alternativeNames...)
-			for _, fieldName := range allNames {
-				jsonName := name.NewFromSnake(fieldName).LowerCamelComputed
-				if value, exists := jsonParent[jsonName]; exists && value != nil {
-					configured = append(configured, jsonName)
-					selectedName = fieldName
-					selectedValue = value
-				}
-			}
+// mergeCollectionValues concatenates values from the original collection and
+// every configured alternative. The original values come first, followed by
+// alternatives in registration order.
+func (i *alternativeReferenceInjector) mergeCollectionValues(jsonParent, tfParent map[string]any) error {
+	merged := make([]any, 0)
+	configured := false
+	for _, fieldName := range i.allFieldNames() {
+		jsonName := name.NewFromSnake(fieldName).LowerCamelComputed
+		value, exists := jsonParent[jsonName]
+		if !exists || value == nil {
+			continue
+		}
+		values, ok := value.([]any)
+		if !ok {
+			return fmt.Errorf("field %s must be a list or set", jsonName)
+		}
+		configured = true
+		merged = append(merged, values...)
+	}
 
-			if len(configured) > 1 {
-				return fmt.Errorf("only one of %s may be configured", strings.Join(configured, ", "))
-			}
+	i.removeAlternatives(tfParent)
+	if configured {
+		tfParent[i.originalName] = merged
+	}
+	return nil
+}
 
-			for _, alternativeName := range alternativeNames {
-				delete(tfParent, alternativeName)
-			}
-			if selectedName != "" && selectedName != originalName {
-				tfParent[originalName] = selectedValue
-			}
-			return nil
-		})
+// selectScalarValue requires the original field and its alternatives to be
+// mutually exclusive. A selected alternative is moved to the original
+// Terraform field; a directly configured original value is already in place.
+func (i *alternativeReferenceInjector) selectScalarValue(jsonParent, tfParent map[string]any) error {
+	configured := make([]string, 0, len(i.alternativeNames)+1)
+	selectedName := ""
+	var selectedValue any
+
+	for _, fieldName := range i.allFieldNames() {
+		jsonName := name.NewFromSnake(fieldName).LowerCamelComputed
+		if value, exists := jsonParent[jsonName]; exists && value != nil {
+			configured = append(configured, jsonName)
+			selectedName = fieldName
+			selectedValue = value
+		}
+	}
+
+	if len(configured) > 1 {
+		return fmt.Errorf("only one of %s may be configured", strings.Join(configured, ", "))
+	}
+
+	i.removeAlternatives(tfParent)
+	if selectedName != "" && selectedName != i.originalName {
+		tfParent[i.originalName] = selectedValue
+	}
+	return nil
+}
+
+// allFieldNames returns the original Terraform field followed by its synthetic
+// alternatives in registration order.
+func (i *alternativeReferenceInjector) allFieldNames() []string {
+	return append([]string{i.originalName}, i.alternativeNames...)
+}
+
+// removeAlternatives prevents synthetic fields unknown to the Terraform
+// provider from being included in its configuration.
+func (i *alternativeReferenceInjector) removeAlternatives(tfParent map[string]any) {
+	for _, alternativeName := range i.alternativeNames {
+		delete(tfParent, alternativeName)
 	}
 }
 
+// visitParents walks matching JSON and Terraform object trees until path is
+// exhausted, then calls visit for each corresponding parent object. JSON uses
+// lowerCamel field names while Terraform uses snake_case names. Nested object
+// collections are traversed element by element so references inside repeated
+// blocks are translated independently.
 func visitParents(
 	jsonNode any,
 	tfNode any,
 	path []string,
-	visit func(jsonParent, tfParent map[string]any) error,
+	visit parentVisitor,
 ) error {
 	jsonParent, jsonOK := jsonNode.(map[string]any)
 	tfParent, tfOK := tfNode.(map[string]any)

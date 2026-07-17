@@ -97,6 +97,41 @@ func TestAdd(t *testing.T) {
 	}
 }
 
+func TestAddList(t *testing.T) {
+	r := resourceWithTeamListField()
+	AddList(r, "teams",
+		Alternative{
+			Name:      "observed_teams",
+			Reference: ujconfig.Reference{Type: "example.org/observed.Team"},
+		},
+		Alternative{
+			Name:      "imported_teams",
+			Reference: ujconfig.Reference{Type: "example.org/imported.Team"},
+		},
+	)
+
+	jsonMap := map[string]any{
+		"teams":         []any{"managed"},
+		"observedTeams": []any{"observed"},
+		"importedTeams": []any{"imported"},
+	}
+	tfMap := map[string]any{
+		"teams":          []any{"managed"},
+		"observed_teams": []any{"observed"},
+		"imported_teams": []any{"imported"},
+	}
+	want := map[string]any{
+		"teams": []any{"managed", "observed", "imported"},
+	}
+
+	if err := r.TerraformConfigurationInjector(jsonMap, tfMap); err != nil {
+		t.Fatalf("TerraformConfigurationInjector() unexpected error = %v", err)
+	}
+	if diff := cmp.Diff(want, tfMap); diff != "" {
+		t.Errorf("Terraform map mismatch (-want +got):\n%s", diff)
+	}
+}
+
 func resourceWithTeamField() *ujconfig.Resource {
 	return &ujconfig.Resource{
 		TerraformResource: &schema.Resource{Schema: map[string]*schema.Schema{
@@ -120,6 +155,17 @@ func resourceWithNestedTeamField() *ujconfig.Resource {
 		}},
 		References: ujconfig.References{
 			"permissions.team_id": {TerraformName: "grafana_team"},
+		},
+	}
+}
+
+func resourceWithTeamListField() *ujconfig.Resource {
+	return &ujconfig.Resource{
+		TerraformResource: &schema.Resource{Schema: map[string]*schema.Schema{
+			"teams": {Type: schema.TypeList, Optional: true, Elem: &schema.Schema{Type: schema.TypeString}},
+		}},
+		References: ujconfig.References{
+			"teams": {TerraformName: "grafana_team"},
 		},
 	}
 }

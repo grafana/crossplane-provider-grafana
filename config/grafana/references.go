@@ -1,7 +1,3 @@
-/*
-Copyright 2026 Grafana Labs
-*/
-
 package grafana
 
 import (
@@ -54,7 +50,18 @@ func addObservedReference(
 	multirefs.Add(r, fieldPath, multirefs.Alternative{Name: syntheticName, Reference: observed})
 }
 
-// addUserReferences adds multiple references to lookup users (grafana_user, observed grafana_user, observed OrganizatioUser)
+func addObservedListReference(
+	r *ujconfig.Resource,
+	fieldPath string,
+	managed ujconfig.Reference,
+	syntheticName string,
+	observed ujconfig.Reference,
+) {
+	r.References[fieldPath] = managed
+	multirefs.AddList(r, fieldPath, multirefs.Alternative{Name: syntheticName, Reference: observed})
+}
+
+// addUserReferences adds multiple references to look up users (grafana_user, observed grafana_user, observed OrganizationUser)
 // Note that OSS Grafana supports grafana_user while Grafana Cloud does not support this API endpoint
 // For Grafana Cloud, organization user can be used instead to observe an existing user
 func addUserReferences(
@@ -97,10 +104,15 @@ func addUserReferences(
 	}
 
 	r.References[fieldPath] = managed
-	multirefs.Add(r, fieldPath,
-		multirefs.Alternative{Name: observedUserName, Reference: observedUser},
-		multirefs.Alternative{Name: observedOrganizationUserName, Reference: observedOrganizationUser},
-	)
+	alternatives := []multirefs.Alternative{
+		{Name: observedUserName, Reference: observedUser},
+		{Name: observedOrganizationUserName, Reference: observedOrganizationUser},
+	}
+	if plural {
+		multirefs.AddList(r, fieldPath, alternatives...)
+		return
+	}
+	multirefs.Add(r, fieldPath, alternatives...)
 }
 
 func dashboardReference(prefix string) ujconfig.Reference {
