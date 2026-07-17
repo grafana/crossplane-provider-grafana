@@ -237,6 +237,94 @@
                     "items": {
                       "additionalProperties": false,
                       "properties": {
+                        "dataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "description": "Namespace of the referenced object",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "dataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "namespace": {
+                              "description": "Namespace for the selector",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
                         "datasourceUid": {
                           "description": "100\" if this stage is an expression stage.\nThe UID of the datasource being queried, or \"-100\" if this stage is an expression stage.",
                           "type": "string"
@@ -459,6 +547,94 @@
                         "metric": {
                           "description": "(String) The name of the metric to write to.\nThe name of the metric to write to.",
                           "type": "string"
+                        },
+                        "targetDataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "description": "Namespace of the referenced object",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "targetDataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "namespace": {
+                              "description": "Namespace for the selector",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
                         },
                         "targetDatasourceUid": {
                           "description": "(String) The UID of the datasource to write the metric to.\nThe UID of the datasource to write the metric to.",
@@ -703,6 +879,94 @@
                     "items": {
                       "additionalProperties": false,
                       "properties": {
+                        "dataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "description": "Namespace of the referenced object",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "dataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "namespace": {
+                              "description": "Namespace for the selector",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
                         "datasourceUid": {
                           "description": "100\" if this stage is an expression stage.\nThe UID of the datasource being queried, or \"-100\" if this stage is an expression stage.",
                           "type": "string"
@@ -925,6 +1189,94 @@
                         "metric": {
                           "description": "(String) The name of the metric to write to.\nThe name of the metric to write to.",
                           "type": "string"
+                        },
+                        "targetDataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "description": "Namespace of the referenced object",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "targetDataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "namespace": {
+                              "description": "Namespace for the selector",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
                         },
                         "targetDatasourceUid": {
                           "description": "(String) The UID of the datasource to write the metric to.\nThe UID of the datasource to write the metric to.",

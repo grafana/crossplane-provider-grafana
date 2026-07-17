@@ -50,7 +50,11 @@ func Configure(p *ujconfig.Provider) {
 	}
 
 	configureAlerting(p)
+	configureApps(p)
+	configureAsserts(p)
+	configureAssistant(p)
 	configureCloud(p)
+	configureCloudProvider(p)
 	configureEnterprise(p)
 	configureOSS(p)
 	configureSyntheticMonitoring(p)

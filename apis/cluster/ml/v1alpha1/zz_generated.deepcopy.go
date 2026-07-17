@@ -74,6 +74,16 @@ func (in *AlertInitParameters) DeepCopyInto(out *AlertInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.JobRef != nil {
+		in, out := &in.JobRef, &out.JobRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.JobSelector != nil {
+		in, out := &in.JobSelector, &out.JobSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]*string, len(*in))
@@ -94,6 +104,16 @@ func (in *AlertInitParameters) DeepCopyInto(out *AlertInitParameters) {
 		in, out := &in.NoDataState, &out.NoDataState
 		*out = new(string)
 		**out = **in
+	}
+	if in.OutlierDetectorRef != nil {
+		in, out := &in.OutlierDetectorRef, &out.OutlierDetectorRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OutlierDetectorSelector != nil {
+		in, out := &in.OutlierDetectorSelector, &out.OutlierDetectorSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutlierID != nil {
 		in, out := &in.OutlierID, &out.OutlierID
@@ -285,6 +305,16 @@ func (in *AlertParameters) DeepCopyInto(out *AlertParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.JobRef != nil {
+		in, out := &in.JobRef, &out.JobRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.JobSelector != nil {
+		in, out := &in.JobSelector, &out.JobSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make(map[string]*string, len(*in))
@@ -305,6 +335,16 @@ func (in *AlertParameters) DeepCopyInto(out *AlertParameters) {
 		in, out := &in.NoDataState, &out.NoDataState
 		*out = new(string)
 		**out = **in
+	}
+	if in.OutlierDetectorRef != nil {
+		in, out := &in.OutlierDetectorRef, &out.OutlierDetectorRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OutlierDetectorSelector != nil {
+		in, out := &in.OutlierDetectorSelector, &out.OutlierDetectorSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.OutlierID != nil {
 		in, out := &in.OutlierID, &out.OutlierID

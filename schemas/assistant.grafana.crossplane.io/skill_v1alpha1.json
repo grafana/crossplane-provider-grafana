@@ -37,6 +37,86 @@
                     "description": "(String) Integration UUID.\nIntegration UUID.",
                     "type": "string"
                   },
+                  "integrationRef": {
+                    "additionalProperties": false,
+                    "description": "Reference to a McpServer in assistant to populate integrationId.",
+                    "properties": {
+                      "name": {
+                        "description": "Name of the referenced object.",
+                        "type": "string"
+                      },
+                      "policy": {
+                        "additionalProperties": false,
+                        "description": "Policies for referencing.",
+                        "properties": {
+                          "resolution": {
+                            "default": "Required",
+                            "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                            "enum": [
+                              "Required",
+                              "Optional"
+                            ],
+                            "type": "string"
+                          },
+                          "resolve": {
+                            "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                            "enum": [
+                              "Always",
+                              "IfNotPresent"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "integrationSelector": {
+                    "additionalProperties": false,
+                    "description": "Selector for a McpServer in assistant to populate integrationId.",
+                    "properties": {
+                      "matchControllerRef": {
+                        "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                        "type": "boolean"
+                      },
+                      "matchLabels": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "description": "MatchLabels ensures an object with matching labels is selected.",
+                        "type": "object"
+                      },
+                      "policy": {
+                        "additionalProperties": false,
+                        "description": "Policies for selection.",
+                        "properties": {
+                          "resolution": {
+                            "default": "Required",
+                            "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                            "enum": [
+                              "Required",
+                              "Optional"
+                            ],
+                            "type": "string"
+                          },
+                          "resolve": {
+                            "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                            "enum": [
+                              "Always",
+                              "IfNotPresent"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
                   "toolName": {
                     "description": "(String) MCP tool name.\nMCP tool name.",
                     "type": "string"
@@ -81,6 +161,86 @@
                   "integrationId": {
                     "description": "(String) Integration UUID.\nIntegration UUID.",
                     "type": "string"
+                  },
+                  "integrationRef": {
+                    "additionalProperties": false,
+                    "description": "Reference to a McpServer in assistant to populate integrationId.",
+                    "properties": {
+                      "name": {
+                        "description": "Name of the referenced object.",
+                        "type": "string"
+                      },
+                      "policy": {
+                        "additionalProperties": false,
+                        "description": "Policies for referencing.",
+                        "properties": {
+                          "resolution": {
+                            "default": "Required",
+                            "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                            "enum": [
+                              "Required",
+                              "Optional"
+                            ],
+                            "type": "string"
+                          },
+                          "resolve": {
+                            "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                            "enum": [
+                              "Always",
+                              "IfNotPresent"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "type": "object"
+                  },
+                  "integrationSelector": {
+                    "additionalProperties": false,
+                    "description": "Selector for a McpServer in assistant to populate integrationId.",
+                    "properties": {
+                      "matchControllerRef": {
+                        "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                        "type": "boolean"
+                      },
+                      "matchLabels": {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "description": "MatchLabels ensures an object with matching labels is selected.",
+                        "type": "object"
+                      },
+                      "policy": {
+                        "additionalProperties": false,
+                        "description": "Policies for selection.",
+                        "properties": {
+                          "resolution": {
+                            "default": "Required",
+                            "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                            "enum": [
+                              "Required",
+                              "Optional"
+                            ],
+                            "type": "string"
+                          },
+                          "resolve": {
+                            "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                            "enum": [
+                              "Always",
+                              "IfNotPresent"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
                   },
                   "toolName": {
                     "description": "(String) MCP tool name.\nMCP tool name.",

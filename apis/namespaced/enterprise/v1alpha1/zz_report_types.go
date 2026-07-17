@@ -16,6 +16,14 @@ import (
 
 type DashboardsInitParameters struct {
 
+	// Reference to a Dashboard in oss to populate uid.
+	// +kubebuilder:validation:Optional
+	DashboardRef *v1.NamespacedReference `json:"dashboardRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in oss to populate uid.
+	// +kubebuilder:validation:Optional
+	DashboardSelector *v1.NamespacedSelector `json:"dashboardSelector,omitempty" tf:"-"`
+
 	// (Map of String) Add report variables to the dashboard. Values should be separated by commas.
 	// Add report variables to the dashboard. Values should be separated by commas.
 	// +mapType=granular
@@ -27,6 +35,10 @@ type DashboardsInitParameters struct {
 
 	// (String) Dashboard uid.
 	// Dashboard uid.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
@@ -48,6 +60,14 @@ type DashboardsObservation struct {
 
 type DashboardsParameters struct {
 
+	// Reference to a Dashboard in oss to populate uid.
+	// +kubebuilder:validation:Optional
+	DashboardRef *v1.NamespacedReference `json:"dashboardRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in oss to populate uid.
+	// +kubebuilder:validation:Optional
+	DashboardSelector *v1.NamespacedSelector `json:"dashboardSelector,omitempty" tf:"-"`
+
 	// (Map of String) Add report variables to the dashboard. Values should be separated by commas.
 	// Add report variables to the dashboard. Values should be separated by commas.
 	// +kubebuilder:validation:Optional
@@ -61,8 +81,12 @@ type DashboardsParameters struct {
 
 	// (String) Dashboard uid.
 	// Dashboard uid.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DashboardRef
+	// +crossplane:generate:reference:selectorFieldName=DashboardSelector
 	// +kubebuilder:validation:Optional
-	UID *string `json:"uid" tf:"uid,omitempty"`
+	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type ReportInitParameters struct {

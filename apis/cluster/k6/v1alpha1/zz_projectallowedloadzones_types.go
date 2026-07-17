@@ -21,7 +21,18 @@ type ProjectAllowedLoadZonesInitParameters struct {
 
 	// (String) The identifier of the project to manage private allowed load zones for.
 	// The identifier of the project to manage private allowed load zones for.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 }
 
 type ProjectAllowedLoadZonesObservation struct {
@@ -47,8 +58,19 @@ type ProjectAllowedLoadZonesParameters struct {
 
 	// (String) The identifier of the project to manage private allowed load zones for.
 	// The identifier of the project to manage private allowed load zones for.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.Project
+	// +crossplane:generate:reference:refFieldName=ProjectRef
+	// +crossplane:generate:reference:selectorFieldName=ProjectSelector
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectRef *v1.Reference `json:"projectRef,omitempty" tf:"-"`
+
+	// Selector for a Project in k6 to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectSelector *v1.Selector `json:"projectSelector,omitempty" tf:"-"`
 }
 
 // ProjectAllowedLoadZonesSpec defines the desired state of ProjectAllowedLoadZones
@@ -88,7 +110,6 @@ type ProjectAllowedLoadZones struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.allowedLoadZones) || (has(self.initProvider) && has(self.initProvider.allowedLoadZones))",message="spec.forProvider.allowedLoadZones is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.projectId) || (has(self.initProvider) && has(self.initProvider.projectId))",message="spec.forProvider.projectId is a required parameter"
 	Spec   ProjectAllowedLoadZonesSpec   `json:"spec"`
 	Status ProjectAllowedLoadZonesStatus `json:"status,omitempty"`
 }

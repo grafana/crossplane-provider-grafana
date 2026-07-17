@@ -15,6 +15,54 @@ import (
 
 type RoleAssignmentItemInitParameters struct {
 
+	// (String) the user onto which the role is to be assigned
+	// the user onto which the role is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserSelector
+	ObservedOrganizationUserID *string `json:"observedOrganizationUserId,omitempty" tf:"observed_organization_user_id,omitempty"`
+
+	// Reference to a OrganizationUser in oss to populate observedOrganizationUserId.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserRef *v1.Reference `json:"observedOrganizationUserRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationUser in oss to populate observedOrganizationUserId.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserSelector *v1.Selector `json:"observedOrganizationUserSelector,omitempty" tf:"-"`
+
+	// (String) the team onto which the role is to be assigned
+	// the team onto which the role is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	ObservedTeamID *string `json:"observedTeamId,omitempty" tf:"observed_team_id,omitempty"`
+
+	// Reference to a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRef *v1.Reference `json:"observedTeamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.Selector `json:"observedTeamSelector,omitempty" tf:"-"`
+
+	// (String) the user onto which the role is to be assigned
+	// the user onto which the role is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserSelector
+	ObservedUserID *string `json:"observedUserId,omitempty" tf:"observed_user_id,omitempty"`
+
+	// Reference to a User in oss to populate observedUserId.
+	// +kubebuilder:validation:Optional
+	ObservedUserRef *v1.Reference `json:"observedUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate observedUserId.
+	// +kubebuilder:validation:Optional
+	ObservedUserSelector *v1.Selector `json:"observedUserSelector,omitempty" tf:"-"`
+
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
@@ -97,6 +145,18 @@ type RoleAssignmentItemObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) the user onto which the role is to be assigned
+	// the user onto which the role is to be assigned
+	ObservedOrganizationUserID *string `json:"observedOrganizationUserId,omitempty" tf:"observed_organization_user_id,omitempty"`
+
+	// (String) the team onto which the role is to be assigned
+	// the team onto which the role is to be assigned
+	ObservedTeamID *string `json:"observedTeamId,omitempty" tf:"observed_team_id,omitempty"`
+
+	// (String) the user onto which the role is to be assigned
+	// the user onto which the role is to be assigned
+	ObservedUserID *string `json:"observedUserId,omitempty" tf:"observed_user_id,omitempty"`
+
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -119,6 +179,57 @@ type RoleAssignmentItemObservation struct {
 }
 
 type RoleAssignmentItemParameters struct {
+
+	// (String) the user onto which the role is to be assigned
+	// the user onto which the role is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserSelector
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserID *string `json:"observedOrganizationUserId,omitempty" tf:"observed_organization_user_id,omitempty"`
+
+	// Reference to a OrganizationUser in oss to populate observedOrganizationUserId.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserRef *v1.Reference `json:"observedOrganizationUserRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationUser in oss to populate observedOrganizationUserId.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserSelector *v1.Selector `json:"observedOrganizationUserSelector,omitempty" tf:"-"`
+
+	// (String) the team onto which the role is to be assigned
+	// the team onto which the role is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	// +kubebuilder:validation:Optional
+	ObservedTeamID *string `json:"observedTeamId,omitempty" tf:"observed_team_id,omitempty"`
+
+	// Reference to a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRef *v1.Reference `json:"observedTeamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.Selector `json:"observedTeamSelector,omitempty" tf:"-"`
+
+	// (String) the user onto which the role is to be assigned
+	// the user onto which the role is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserSelector
+	// +kubebuilder:validation:Optional
+	ObservedUserID *string `json:"observedUserId,omitempty" tf:"observed_user_id,omitempty"`
+
+	// Reference to a User in oss to populate observedUserId.
+	// +kubebuilder:validation:Optional
+	ObservedUserRef *v1.Reference `json:"observedUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate observedUserId.
+	// +kubebuilder:validation:Optional
+	ObservedUserSelector *v1.Selector `json:"observedUserSelector,omitempty" tf:"-"`
 
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.

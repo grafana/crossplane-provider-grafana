@@ -15,6 +15,14 @@ import (
 
 type AwsAccountInitParameters struct {
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// readable name for this AWS Account resource.
 	// An optional human-readable name for this AWS Account resource.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -30,6 +38,10 @@ type AwsAccountInitParameters struct {
 
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
 
@@ -62,6 +74,14 @@ type AwsAccountObservation struct {
 
 type AwsAccountParameters struct {
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// readable name for this AWS Account resource.
 	// An optional human-readable name for this AWS Account resource.
 	// +kubebuilder:validation:Optional
@@ -80,6 +100,10 @@ type AwsAccountParameters struct {
 
 	// (String) The StackID of the Grafana Cloud instance.
 	// The StackID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
@@ -122,7 +146,6 @@ type AwsAccount struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.regions) || (has(self.initProvider) && has(self.initProvider.regions))",message="spec.forProvider.regions is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.roleArn) || (has(self.initProvider) && has(self.initProvider.roleArn))",message="spec.forProvider.roleArn is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
 	Spec   AwsAccountSpec   `json:"spec"`
 	Status AwsAccountStatus `json:"status,omitempty"`
 }

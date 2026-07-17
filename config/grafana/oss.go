@@ -36,6 +36,23 @@ func configureOSS(p *ujconfig.Provider) {
 			Extractor:         optionalFieldExtractor("uid"),
 		}
 	})
+	p.AddResourceConfigurator("grafana_dashboard_permission_item", func(r *ujconfig.Resource) {
+		r.References["dashboard_uid"] = dashboardReference("Dashboard")
+		addObservedReference(r, "team", ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}, "observed_team", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "user", "User", false, "", externalNameExtractor)
+	})
+	p.AddResourceConfigurator("grafana_data_source", func(r *ujconfig.Resource) {
+		r.References["private_data_source_connect_network_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_cloud_private_data_source_connect_network",
+			RefFieldName:      "PrivateDataSourceConnectNetworkRef",
+			SelectorFieldName: "PrivateDataSourceConnectNetworkSelector",
+			Extractor:         computedFieldExtractor("pdcNetworkId"),
+		}
+	})
 	p.AddResourceConfigurator("grafana_dashboard_permission", func(r *ujconfig.Resource) {
 		r.References["dashboard_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_dashboard",
@@ -43,16 +60,12 @@ func configureOSS(p *ujconfig.Provider) {
 			SelectorFieldName: "DashboardSelector",
 			Extractor:         optionalFieldExtractor("uid"),
 		}
-		r.References["permissions.team_id"] = ujconfig.Reference{
+		addObservedReference(r, "permissions.team_id", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRef",
 			SelectorFieldName: "TeamSelector",
-		}
-		r.References["permissions.user_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "UserRef",
-			SelectorFieldName: "UserSelector",
-		}
+		}, "observed_team_id", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "permissions.user_id", "User", false, "", externalNameExtractor)
 	})
 	p.AddResourceConfigurator("grafana_folder", func(r *ujconfig.Resource) {
 		r.References["parent_folder_uid"] = ujconfig.Reference{
@@ -69,16 +82,21 @@ func configureOSS(p *ujconfig.Provider) {
 			SelectorFieldName: "FolderSelector",
 			Extractor:         optionalFieldExtractor("uid"),
 		}
-		r.References["permissions.team_id"] = ujconfig.Reference{
+		addObservedReference(r, "permissions.team_id", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRef",
 			SelectorFieldName: "TeamSelector",
-		}
-		r.References["permissions.user_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "UserRef",
-			SelectorFieldName: "UserSelector",
-		}
+		}, "observed_team_id", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "permissions.user_id", "User", false, "", externalNameExtractor)
+	})
+	p.AddResourceConfigurator("grafana_folder_permission_item", func(r *ujconfig.Resource) {
+		r.References["folder_uid"] = folderReference()
+		addObservedReference(r, "team", ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}, "observed_team", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "user", "User", false, "", externalNameExtractor)
 	})
 	p.AddResourceConfigurator("grafana_library_panel", func(r *ujconfig.Resource) {
 		r.References["folder_uid"] = ujconfig.Reference{
@@ -94,16 +112,35 @@ func configureOSS(p *ujconfig.Provider) {
 			RefFieldName:      "ServiceAccountRef",
 			SelectorFieldName: "ServiceAccountSelector",
 		}
-		r.References["permissions.team_id"] = ujconfig.Reference{
+		addObservedReference(r, "permissions.team_id", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRef",
 			SelectorFieldName: "TeamSelector",
+		}, "observed_team_id", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "permissions.user_id", "User", false, "", externalNameExtractor)
+	})
+	p.AddResourceConfigurator("grafana_service_account_permission_item", func(r *ujconfig.Resource) {
+		r.References["service_account_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_service_account",
+			RefFieldName:      "ServiceAccountRef",
+			SelectorFieldName: "ServiceAccountSelector",
 		}
-		r.References["permissions.user_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "UserRef",
-			SelectorFieldName: "UserSelector",
+		addObservedReference(r, "team", ujconfig.Reference{
+			TerraformName:     "grafana_team",
+			RefFieldName:      "TeamRef",
+			SelectorFieldName: "TeamSelector",
+		}, "observed_team", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "user", "User", false, "", externalNameExtractor)
+	})
+	p.AddResourceConfigurator("grafana_service_account_rotating_token", func(r *ujconfig.Resource) {
+		r.References["service_account_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_service_account",
+			RefFieldName:      "ServiceAccountRef",
+			SelectorFieldName: "ServiceAccountSelector",
 		}
+	})
+	p.AddResourceConfigurator("grafana_organization_preferences", func(r *ujconfig.Resource) {
+		r.References["home_dashboard_uid"] = dashboardReference("HomeDashboard")
 	})
 	p.AddResourceConfigurator("grafana_service_account_token", func(r *ujconfig.Resource) {
 		r.References["service_account_id"] = ujconfig.Reference{
@@ -130,12 +167,15 @@ func configureOSS(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_team", func(r *ujconfig.Resource) {
-		r.References["members"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "MemberRefs",
-			SelectorFieldName: "MemberSelector",
-			Extractor:         fieldExtractor("email"),
-		}
+		addUserReferences(r, "members", "Member", true, fieldExtractor("email"), optionalFieldExtractor("email"))
+		r.References["preferences.home_dashboard_uid"] = dashboardReference("HomeDashboard")
+	})
+	p.AddResourceConfigurator("grafana_organization", func(r *ujconfig.Resource) {
+		addUserReferences(r, "admins", "Admin", true, fieldExtractor("email"), optionalFieldExtractor("email"))
+		addUserReferences(r, "editors", "Editor", true, fieldExtractor("email"), optionalFieldExtractor("email"))
+		addUserReferences(r, "viewers", "Viewer", true, fieldExtractor("email"), optionalFieldExtractor("email"))
+		addUserReferences(r, "users_without_access", "UserWithoutAccess", true, fieldExtractor("email"), optionalFieldExtractor("email"))
+		addUserReferences(r, "admin_user", "AdminUser", false, fieldExtractor("login"), optionalFieldExtractor("login"))
 	})
 	p.AddResourceConfigurator(
 		"grafana_apps_alertenrichment_alertenrichment_v1beta1",

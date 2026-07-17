@@ -286,12 +286,24 @@ type DataSourceInitParameters struct {
 
 type DataSourceLogsQueryInitParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
 	// (String) Log query expression to execute.
@@ -324,6 +336,14 @@ type DataSourceLogsQueryObservation struct {
 
 type DataSourceLogsQueryParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	// +kubebuilder:validation:Optional
@@ -331,6 +351,10 @@ type DataSourceLogsQueryParameters struct {
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
@@ -769,12 +793,24 @@ type LabelMatchersParameters struct {
 
 type LogsQueryInitParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
 	// (String) Log query expression to execute.
@@ -807,6 +843,14 @@ type LogsQueryObservation struct {
 
 type LogsQueryParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	// +kubebuilder:validation:Optional
@@ -814,6 +858,10 @@ type LogsQueryParameters struct {
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
@@ -830,8 +878,20 @@ type LogsQueryParameters struct {
 
 type MetadataInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -869,8 +929,20 @@ type MetadataObservation struct {
 
 type MetadataParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
@@ -1321,12 +1393,24 @@ type StepDataSourceInitParameters struct {
 
 type StepDataSourceLogsQueryInitParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	DataSourceType *string `json:"dataSourceType,omitempty" tf:"data_source_type,omitempty"`
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 
 	// (String) Log query expression to execute.
@@ -1359,6 +1443,14 @@ type StepDataSourceLogsQueryObservation struct {
 
 type StepDataSourceLogsQueryParameters struct {
 
+	// Reference to a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate dataSourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) Data source type (e.g., 'loki').
 	// Data source type (e.g., 'loki').
 	// +kubebuilder:validation:Optional
@@ -1366,6 +1458,10 @@ type StepDataSourceLogsQueryParameters struct {
 
 	// (String) UID of the data source to query.
 	// UID of the data source to query.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DataSourceUID *string `json:"dataSourceUid,omitempty" tf:"data_source_uid,omitempty"`
 

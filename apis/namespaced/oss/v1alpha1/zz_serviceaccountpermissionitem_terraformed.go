@@ -119,6 +119,8 @@ func (tr *ServiceAccountPermissionItem) LateInitialize(attrs []byte) (bool, erro
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
 	opts = append(opts, resource.WithNameFilter("OrgID"))
+	opts = append(opts, resource.WithNameFilter("Team"))
+	opts = append(opts, resource.WithNameFilter("User"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

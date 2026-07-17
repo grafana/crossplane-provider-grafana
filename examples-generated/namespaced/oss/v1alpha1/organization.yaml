@@ -9,14 +9,16 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    adminUser: admin
-    admins:
-    - admin@example.com
+    adminRefs:
+    - name: example
+    adminUserSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
     createUsers: true
-    editors:
-    - editor-01@example.com
-    - editor-02@example.com
+    editorRefs:
+    - name: example
+    - name: example
     name: Test Organization
-    viewers:
-    - viewer-01@example.com
-    - viewer-02@example.com
+    viewerRefs:
+    - name: example
+    - name: example
