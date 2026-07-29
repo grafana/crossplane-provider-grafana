@@ -32,6 +32,14 @@ type MetricsEndpointScrapeJobInitParameters struct {
 	// Method to pass authentication credentials: basic or bearer.
 	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether the metrics endpoint scrape job is enabled or not.
 	// Whether the metrics endpoint scrape job is enabled or not.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
@@ -46,6 +54,10 @@ type MetricsEndpointScrapeJobInitParameters struct {
 
 	// (String) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
 	// (String) The url to scrape metrics from; a valid HTTPs URL is required.
@@ -109,6 +121,14 @@ type MetricsEndpointScrapeJobParameters struct {
 	// +kubebuilder:validation:Optional
 	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (Boolean) Whether the metrics endpoint scrape job is enabled or not.
 	// Whether the metrics endpoint scrape job is enabled or not.
 	// +kubebuilder:validation:Optional
@@ -126,6 +146,10 @@ type MetricsEndpointScrapeJobParameters struct {
 
 	// (String) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
@@ -173,7 +197,6 @@ type MetricsEndpointScrapeJob struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.authenticationMethod) || (has(self.initProvider) && has(self.initProvider.authenticationMethod))",message="spec.forProvider.authenticationMethod is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.url) || (has(self.initProvider) && has(self.initProvider.url))",message="spec.forProvider.url is a required parameter"
 	Spec   MetricsEndpointScrapeJobSpec   `json:"spec"`
 	Status MetricsEndpointScrapeJobStatus `json:"status,omitempty"`

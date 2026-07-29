@@ -8,7 +8,9 @@ metadata:
   name: loki-cache
 spec:
   forProvider:
-    datasourceUid: ${grafana_data_source.loki.uid}
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: loki
     enabled: true
     ttlQueriesMs: 60000
     ttlResourcesMs: 300000

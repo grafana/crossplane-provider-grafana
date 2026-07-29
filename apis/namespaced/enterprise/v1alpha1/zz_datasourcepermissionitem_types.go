@@ -36,6 +36,54 @@ type DataSourcePermissionItemInitParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserSelector
+	ObservedOrganizationUser *string `json:"observedOrganizationUser,omitempty" tf:"observed_organization_user,omitempty"`
+
+	// Reference to a OrganizationUser in oss to populate observedOrganizationUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserRef *v1.NamespacedReference `json:"observedOrganizationUserRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationUser in oss to populate observedOrganizationUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserSelector *v1.NamespacedSelector `json:"observedOrganizationUserSelector,omitempty" tf:"-"`
+
+	// (String) the team onto which the permission is to be assigned
+	// the team onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	ObservedTeam *string `json:"observedTeam,omitempty" tf:"observed_team,omitempty"`
+
+	// Reference to a Team in oss to populate observedTeam.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRef *v1.NamespacedReference `json:"observedTeamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate observedTeam.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.NamespacedSelector `json:"observedTeamSelector,omitempty" tf:"-"`
+
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserSelector
+	ObservedUser *string `json:"observedUser,omitempty" tf:"observed_user,omitempty"`
+
+	// Reference to a User in oss to populate observedUser.
+	// +kubebuilder:validation:Optional
+	ObservedUserRef *v1.NamespacedReference `json:"observedUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate observedUser.
+	// +kubebuilder:validation:Optional
+	ObservedUserSelector *v1.NamespacedSelector `json:"observedUserSelector,omitempty" tf:"-"`
+
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
@@ -103,6 +151,18 @@ type DataSourcePermissionItemObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	ObservedOrganizationUser *string `json:"observedOrganizationUser,omitempty" tf:"observed_organization_user,omitempty"`
+
+	// (String) the team onto which the permission is to be assigned
+	// the team onto which the permission is to be assigned
+	ObservedTeam *string `json:"observedTeam,omitempty" tf:"observed_team,omitempty"`
+
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	ObservedUser *string `json:"observedUser,omitempty" tf:"observed_user,omitempty"`
+
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -147,6 +207,57 @@ type DataSourcePermissionItemParameters struct {
 	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
+
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserSelector
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUser *string `json:"observedOrganizationUser,omitempty" tf:"observed_organization_user,omitempty"`
+
+	// Reference to a OrganizationUser in oss to populate observedOrganizationUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserRef *v1.NamespacedReference `json:"observedOrganizationUserRef,omitempty" tf:"-"`
+
+	// Selector for a OrganizationUser in oss to populate observedOrganizationUser.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserSelector *v1.NamespacedSelector `json:"observedOrganizationUserSelector,omitempty" tf:"-"`
+
+	// (String) the team onto which the permission is to be assigned
+	// the team onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	// +kubebuilder:validation:Optional
+	ObservedTeam *string `json:"observedTeam,omitempty" tf:"observed_team,omitempty"`
+
+	// Reference to a Team in oss to populate observedTeam.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRef *v1.NamespacedReference `json:"observedTeamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate observedTeam.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.NamespacedSelector `json:"observedTeamSelector,omitempty" tf:"-"`
+
+	// (String) the user or service account onto which the permission is to be assigned
+	// the user or service account onto which the permission is to be assigned
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedUserRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserSelector
+	// +kubebuilder:validation:Optional
+	ObservedUser *string `json:"observedUser,omitempty" tf:"observed_user,omitempty"`
+
+	// Reference to a User in oss to populate observedUser.
+	// +kubebuilder:validation:Optional
+	ObservedUserRef *v1.NamespacedReference `json:"observedUserRef,omitempty" tf:"-"`
+
+	// Selector for a User in oss to populate observedUser.
+	// +kubebuilder:validation:Optional
+	ObservedUserSelector *v1.NamespacedSelector `json:"observedUserSelector,omitempty" tf:"-"`
 
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.

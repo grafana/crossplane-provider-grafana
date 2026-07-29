@@ -15,8 +15,20 @@ import (
 
 type DataSourceConfigLbacRulesInitParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource.
 	// The UID of the datasource.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// encoded LBAC rules for the data source. Map of team UIDs to lists of rule strings.
@@ -40,8 +52,20 @@ type DataSourceConfigLbacRulesObservation struct {
 
 type DataSourceConfigLbacRulesParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource.
 	// The UID of the datasource.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
@@ -87,7 +111,6 @@ type DataSourceConfigLbacRulesStatus struct {
 type DataSourceConfigLbacRules struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.datasourceUid) || (has(self.initProvider) && has(self.initProvider.datasourceUid))",message="spec.forProvider.datasourceUid is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.rules) || (has(self.initProvider) && has(self.initProvider.rules))",message="spec.forProvider.rules is a required parameter"
 	Spec   DataSourceConfigLbacRulesSpec   `json:"spec"`
 	Status DataSourceConfigLbacRulesStatus `json:"status,omitempty"`

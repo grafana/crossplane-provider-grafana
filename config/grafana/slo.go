@@ -10,6 +10,7 @@ import (
 
 func configureSLO(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("grafana_slo", func(r *ujconfig.Resource) {
+		r.References["folder_uid"] = folderReference()
 		r.References["destination_datasource.uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_data_source",
 			RefFieldName:      "Ref",

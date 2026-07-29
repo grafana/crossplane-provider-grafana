@@ -16,6 +16,14 @@ import (
 
 type StackServiceAccountRotatingTokenInitParameters struct {
 
+	// Reference to a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
 	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
 
@@ -33,9 +41,24 @@ type StackServiceAccountRotatingTokenInitParameters struct {
 
 	// (String) The ID of the service account to which the token belongs.
 	// The ID of the service account to which the token belongs.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.StackServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
+	// Reference to a StackServiceAccount in cloud to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+
+	// Selector for a StackServiceAccount in cloud to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+
 	// (String)
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 }
 
@@ -85,6 +108,14 @@ type StackServiceAccountRotatingTokenObservation struct {
 
 type StackServiceAccountRotatingTokenParameters struct {
 
+	// Reference to a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackSlug.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
 	// +kubebuilder:validation:Optional
 	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
@@ -106,10 +137,25 @@ type StackServiceAccountRotatingTokenParameters struct {
 
 	// (String) The ID of the service account to which the token belongs.
 	// The ID of the service account to which the token belongs.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.StackServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
 
+	// Reference to a StackServiceAccount in cloud to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+
+	// Selector for a StackServiceAccount in cloud to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+
 	// (String)
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("slug")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackSlug *string `json:"stackSlug,omitempty" tf:"stack_slug,omitempty"`
 }
@@ -153,8 +199,6 @@ type StackServiceAccountRotatingToken struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.earlyRotationWindowSeconds) || (has(self.initProvider) && has(self.initProvider.earlyRotationWindowSeconds))",message="spec.forProvider.earlyRotationWindowSeconds is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namePrefix) || (has(self.initProvider) && has(self.initProvider.namePrefix))",message="spec.forProvider.namePrefix is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.secondsToLive) || (has(self.initProvider) && has(self.initProvider.secondsToLive))",message="spec.forProvider.secondsToLive is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.serviceAccountId) || (has(self.initProvider) && has(self.initProvider.serviceAccountId))",message="spec.forProvider.serviceAccountId is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackSlug) || (has(self.initProvider) && has(self.initProvider.stackSlug))",message="spec.forProvider.stackSlug is a required parameter"
 	Spec   StackServiceAccountRotatingTokenSpec   `json:"spec"`
 	Status StackServiceAccountRotatingTokenStatus `json:"status,omitempty"`
 }

@@ -17,7 +17,19 @@ type AllowedToolsInitParameters struct {
 
 	// (String) Integration UUID.
 	// Integration UUID.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/assistant/v1alpha1.McpServer
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=IntegrationRef
+	// +crossplane:generate:reference:selectorFieldName=IntegrationSelector
 	IntegrationID *string `json:"integrationId,omitempty" tf:"integration_id,omitempty"`
+
+	// Reference to a McpServer in assistant to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationRef *v1.Reference `json:"integrationRef,omitempty" tf:"-"`
+
+	// Selector for a McpServer in assistant to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationSelector *v1.Selector `json:"integrationSelector,omitempty" tf:"-"`
 
 	// (String) MCP tool name.
 	// MCP tool name.
@@ -39,8 +51,20 @@ type AllowedToolsParameters struct {
 
 	// (String) Integration UUID.
 	// Integration UUID.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/assistant/v1alpha1.McpServer
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=IntegrationRef
+	// +crossplane:generate:reference:selectorFieldName=IntegrationSelector
 	// +kubebuilder:validation:Optional
-	IntegrationID *string `json:"integrationId" tf:"integration_id,omitempty"`
+	IntegrationID *string `json:"integrationId,omitempty" tf:"integration_id,omitempty"`
+
+	// Reference to a McpServer in assistant to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationRef *v1.Reference `json:"integrationRef,omitempty" tf:"-"`
+
+	// Selector for a McpServer in assistant to populate integrationId.
+	// +kubebuilder:validation:Optional
+	IntegrationSelector *v1.Selector `json:"integrationSelector,omitempty" tf:"-"`
 
 	// (String) MCP tool name.
 	// MCP tool name.

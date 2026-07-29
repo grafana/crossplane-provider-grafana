@@ -16,8 +16,20 @@ import (
 
 type PreferencesInitParameters struct {
 
+	// Reference to a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardRef *v1.NamespacedReference `json:"homeDashboardRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardSelector *v1.NamespacedSelector `json:"homeDashboardSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the dashboard to display when a team member logs in.
 	// The UID of the dashboard to display when a team member logs in.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=HomeDashboardRef
+	// +crossplane:generate:reference:selectorFieldName=HomeDashboardSelector
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
 	// (String) The default theme for this team. Available themes are light, dark, system, or an empty string for the default theme.
@@ -54,8 +66,20 @@ type PreferencesObservation struct {
 
 type PreferencesParameters struct {
 
+	// Reference to a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardRef *v1.NamespacedReference `json:"homeDashboardRef,omitempty" tf:"-"`
+
+	// Selector for a Dashboard in oss to populate homeDashboardUid.
+	// +kubebuilder:validation:Optional
+	HomeDashboardSelector *v1.NamespacedSelector `json:"homeDashboardSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the dashboard to display when a team member logs in.
 	// The UID of the dashboard to display when a team member logs in.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Dashboard
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=HomeDashboardRef
+	// +crossplane:generate:reference:selectorFieldName=HomeDashboardSelector
 	// +kubebuilder:validation:Optional
 	HomeDashboardUID *string `json:"homeDashboardUid,omitempty" tf:"home_dashboard_uid,omitempty"`
 
@@ -106,6 +130,40 @@ type TeamInitParameters struct {
 	// The display name for the Grafana team created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
+	// References to User in oss to populate observedUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedMemberRefs []v1.NamespacedReference `json:"observedMemberRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedMemberSelector *v1.NamespacedSelector `json:"observedMemberSelector,omitempty" tf:"-"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserMemberRefs []v1.NamespacedReference `json:"observedOrganizationUserMemberRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserMemberSelector *v1.NamespacedSelector `json:"observedOrganizationUserMemberSelector,omitempty" tf:"-"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserMemberRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserMemberSelector
+	// +listType=set
+	ObservedOrganizationUserMembers []*string `json:"observedOrganizationUserMembers,omitempty" tf:"observed_organization_user_members,omitempty"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedMemberRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedMemberSelector
+	// +listType=set
+	ObservedUserMembers []*string `json:"observedUserMembers,omitempty" tf:"observed_user_members,omitempty"`
+
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Organization
@@ -152,6 +210,16 @@ type TeamObservation struct {
 	// (String) The display name for the Grafana team created.
 	// The display name for the Grafana team created.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// +listType=set
+	ObservedOrganizationUserMembers []*string `json:"observedOrganizationUserMembers,omitempty" tf:"observed_organization_user_members,omitempty"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// +listType=set
+	ObservedUserMembers []*string `json:"observedUserMembers,omitempty" tf:"observed_user_members,omitempty"`
 
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
@@ -209,6 +277,42 @@ type TeamParameters struct {
 	// The display name for the Grafana team created.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// References to User in oss to populate observedUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedMemberRefs []v1.NamespacedReference `json:"observedMemberRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedMemberSelector *v1.NamespacedSelector `json:"observedMemberSelector,omitempty" tf:"-"`
+
+	// References to OrganizationUser in oss to populate observedOrganizationUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserMemberRefs []v1.NamespacedReference `json:"observedOrganizationUserMemberRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUserMembers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserMemberSelector *v1.NamespacedSelector `json:"observedOrganizationUserMemberSelector,omitempty" tf:"-"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserMemberRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserMemberSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedOrganizationUserMembers []*string `json:"observedOrganizationUserMembers,omitempty" tf:"observed_organization_user_members,omitempty"`
+
+	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("email")
+	// +crossplane:generate:reference:refFieldName=ObservedMemberRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedMemberSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedUserMembers []*string `json:"observedUserMembers,omitempty" tf:"observed_user_members,omitempty"`
 
 	// (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.

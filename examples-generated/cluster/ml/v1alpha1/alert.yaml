@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     anomalyCondition: any
-    jobId: ${grafana_machine_learning_job.test_alert_job.id}
+    jobSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test_alert_job
     noDataState: OK
     threshold: '>0.8'
     title: Test Alert

@@ -768,6 +768,16 @@ func (in *CheckInitParameters) DeepCopyInto(out *CheckInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.FolderRef != nil {
+		in, out := &in.FolderRef, &out.FolderRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FolderSelector != nil {
+		in, out := &in.FolderSelector, &out.FolderSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
@@ -1011,6 +1021,16 @@ func (in *CheckParameters) DeepCopyInto(out *CheckParameters) {
 		in, out := &in.Enabled, &out.Enabled
 		*out = new(bool)
 		**out = **in
+	}
+	if in.FolderRef != nil {
+		in, out := &in.FolderRef, &out.FolderRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.FolderSelector != nil {
+		in, out := &in.FolderSelector, &out.FolderSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID

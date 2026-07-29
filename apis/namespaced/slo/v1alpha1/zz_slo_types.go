@@ -574,8 +574,20 @@ type SLOInitParameters struct {
 	// **Required.** Destination Datasource sets the datasource defined for an SLO.
 	DestinationDatasource []DestinationDatasourceInitParameters `json:"destinationDatasource,omitempty" tf:"destination_datasource,omitempty"`
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
 	// UID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// "^[a-zA-Z_][a-zA-Z0-9_]*$" (see below for nested schema)
@@ -712,8 +724,20 @@ type SLOParameters struct {
 	// +kubebuilder:validation:Optional
 	DestinationDatasource []DestinationDatasourceParameters `json:"destinationDatasource,omitempty" tf:"destination_datasource,omitempty"`
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
 	// UID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 

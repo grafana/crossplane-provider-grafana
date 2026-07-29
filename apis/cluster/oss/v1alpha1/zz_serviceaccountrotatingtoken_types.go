@@ -32,7 +32,18 @@ type ServiceAccountRotatingTokenInitParameters struct {
 
 	// (String) The ID of the service account to which the token belongs.
 	// The ID of the service account to which the token belongs.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+
+	// Reference to a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+
+	// Selector for a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
 type ServiceAccountRotatingTokenObservation struct {
@@ -99,8 +110,19 @@ type ServiceAccountRotatingTokenParameters struct {
 
 	// (String) The ID of the service account to which the token belongs.
 	// The ID of the service account to which the token belongs.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.ServiceAccount
+	// +crossplane:generate:reference:refFieldName=ServiceAccountRef
+	// +crossplane:generate:reference:selectorFieldName=ServiceAccountSelector
 	// +kubebuilder:validation:Optional
 	ServiceAccountID *string `json:"serviceAccountId,omitempty" tf:"service_account_id,omitempty"`
+
+	// Reference to a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+
+	// Selector for a ServiceAccount in oss to populate serviceAccountId.
+	// +kubebuilder:validation:Optional
+	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
 // ServiceAccountRotatingTokenSpec defines the desired state of ServiceAccountRotatingToken
@@ -142,7 +164,6 @@ type ServiceAccountRotatingToken struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.earlyRotationWindowSeconds) || (has(self.initProvider) && has(self.initProvider.earlyRotationWindowSeconds))",message="spec.forProvider.earlyRotationWindowSeconds is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namePrefix) || (has(self.initProvider) && has(self.initProvider.namePrefix))",message="spec.forProvider.namePrefix is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.secondsToLive) || (has(self.initProvider) && has(self.initProvider.secondsToLive))",message="spec.forProvider.secondsToLive is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.serviceAccountId) || (has(self.initProvider) && has(self.initProvider.serviceAccountId))",message="spec.forProvider.serviceAccountId is a required parameter"
 	Spec   ServiceAccountRotatingTokenSpec   `json:"spec"`
 	Status ServiceAccountRotatingTokenStatus `json:"status,omitempty"`
 }

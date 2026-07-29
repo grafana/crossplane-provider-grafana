@@ -9,6 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -52,6 +53,16 @@ func (in *AppInitParameters) DeepCopyInto(out *AppInitParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.CloudStackRef != nil {
+		in, out := &in.CloudStackRef, &out.CloudStackRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CloudStackSelector != nil {
+		in, out := &in.CloudStackSelector, &out.CloudStackSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExtraLogAttributes != nil {
 		in, out := &in.ExtraLogAttributes, &out.ExtraLogAttributes
@@ -230,6 +241,16 @@ func (in *AppParameters) DeepCopyInto(out *AppParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.CloudStackRef != nil {
+		in, out := &in.CloudStackRef, &out.CloudStackRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CloudStackSelector != nil {
+		in, out := &in.CloudStackSelector, &out.CloudStackSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ExtraLogAttributes != nil {
 		in, out := &in.ExtraLogAttributes, &out.ExtraLogAttributes

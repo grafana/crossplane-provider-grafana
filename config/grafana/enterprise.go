@@ -1,7 +1,3 @@
-/*
-Copyright 2026 Grafana Labs
-*/
-
 package grafana
 
 import (
@@ -14,6 +10,12 @@ import (
 )
 
 func configureEnterprise(p *ujconfig.Provider) {
+	p.AddResourceConfigurator("grafana_data_source_cache_config", func(r *ujconfig.Resource) {
+		r.References["datasource_uid"] = dataSourceReference("DataSource")
+	})
+	p.AddResourceConfigurator("grafana_data_source_config_lbac_rules", func(r *ujconfig.Resource) {
+		r.References["datasource_uid"] = dataSourceReference("DataSource")
+	})
 	p.AddResourceConfigurator("grafana_data_source_permission", func(r *ujconfig.Resource) {
 		r.References["datasource_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_data_source",
@@ -21,16 +23,12 @@ func configureEnterprise(p *ujconfig.Provider) {
 			SelectorFieldName: "DataSourceSelector",
 			Extractor:         optionalFieldExtractor("uid"),
 		}
-		r.References["permissions.team_id"] = ujconfig.Reference{
+		addObservedReference(r, "permissions.team_id", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRef",
 			SelectorFieldName: "TeamSelector",
-		}
-		r.References["permissions.user_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "UserRef",
-			SelectorFieldName: "UserSelector",
-		}
+		}, "observed_team_id", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "permissions.user_id", "User", false, "", externalNameExtractor)
 	})
 	p.AddResourceConfigurator("grafana_data_source_permission_item", func(r *ujconfig.Resource) {
 		r.References["datasource_uid"] = ujconfig.Reference{
@@ -39,24 +37,15 @@ func configureEnterprise(p *ujconfig.Provider) {
 			SelectorFieldName: "DataSourceSelector",
 			Extractor:         optionalFieldExtractor("uid"),
 		}
-		r.References["team"] = ujconfig.Reference{
+		addObservedReference(r, "team", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRef",
 			SelectorFieldName: "TeamSelector",
-		}
-		r.References["user"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "UserRef",
-			SelectorFieldName: "UserSelector",
-		}
+		}, "observed_team", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "user", "User", false, "", externalNameExtractor)
 	})
 	p.AddResourceConfigurator("grafana_report", func(r *ujconfig.Resource) {
-		r.References["dashboard_uid"] = ujconfig.Reference{
-			TerraformName:     "grafana_dashboard",
-			RefFieldName:      "DashboardRef",
-			SelectorFieldName: "DashboardSelector",
-			Extractor:         optionalFieldExtractor("uid"),
-		}
+		r.References["dashboards.uid"] = dashboardReference("Dashboard")
 	})
 	p.AddResourceConfigurator("grafana_role", func(r *ujconfig.Resource) {
 		r.InitializerFns = append(r.InitializerFns, createroleInitializer)
@@ -73,16 +62,12 @@ func configureEnterprise(p *ujconfig.Provider) {
 			RefFieldName:      "ServiceAccountRefs",
 			SelectorFieldName: "ServiceAccountSelector",
 		}
-		r.References["teams"] = ujconfig.Reference{
+		addObservedListReference(r, "teams", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRefs",
 			SelectorFieldName: "TeamSelector",
-		}
-		r.References["users"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "UserRefs",
-			SelectorFieldName: "UserSelector",
-		}
+		}, "observed_teams", referenceWithFieldNames(observedRef(ossTeamType, "ObservedTeam"), "ObservedTeam", true))
+		addUserReferences(r, "users", "User", true, "", externalNameExtractor)
 		r.ExternalName = ujconfig.ExternalName{
 			SetIdentifierArgumentFn: ujconfig.NopSetIdentifierArgument,
 			GetExternalNameFn: func(tfstate map[string]any) (string, error) {
@@ -108,16 +93,12 @@ func configureEnterprise(p *ujconfig.Provider) {
 			RefFieldName:      "ServiceAccountRef",
 			SelectorFieldName: "ServiceAccountSelector",
 		}
-		r.References["team_id"] = ujconfig.Reference{
+		addObservedReference(r, "team_id", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRef",
 			SelectorFieldName: "TeamSelector",
-		}
-		r.References["user_id"] = ujconfig.Reference{
-			TerraformName:     "grafana_user",
-			RefFieldName:      "UserRef",
-			SelectorFieldName: "UserSelector",
-		}
+		}, "observed_team_id", observedRef(ossTeamType, "ObservedTeam"))
+		addUserReferences(r, "user_id", "User", false, "", externalNameExtractor)
 		r.TerraformCustomDiff = func(diff *terraform.InstanceDiff, state *terraform.InstanceState, config *terraform.ResourceConfig) (*terraform.InstanceDiff, error) {
 			// skip diff customization on create
 			if state == nil || state.Empty() {
@@ -173,10 +154,10 @@ func configureEnterprise(p *ujconfig.Provider) {
 		}
 	})
 	p.AddResourceConfigurator("grafana_team_external_group", func(r *ujconfig.Resource) {
-		r.References["team_id"] = ujconfig.Reference{
+		addObservedReference(r, "team_id", ujconfig.Reference{
 			TerraformName:     "grafana_team",
 			RefFieldName:      "TeamRef",
 			SelectorFieldName: "TeamSelector",
-		}
+		}, "observed_team_id", observedRef(ossTeamType, "ObservedTeam"))
 	})
 }

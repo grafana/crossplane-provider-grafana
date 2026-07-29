@@ -199,8 +199,20 @@ type CommitParameters struct {
 
 type ConnectionInitParameters struct {
 
+	// Reference to a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionRef *v1.NamespacedReference `json:"connectionRef,omitempty" tf:"-"`
+
+	// Selector for a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionSelector *v1.NamespacedSelector `json:"connectionSelector,omitempty" tf:"-"`
+
 	// (String) Connection resource name.
 	// Connection resource name.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.ConnectionV0Alpha1
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("metadata.uid")
+	// +crossplane:generate:reference:refFieldName=ConnectionRef
+	// +crossplane:generate:reference:selectorFieldName=ConnectionSelector
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
 
@@ -213,8 +225,20 @@ type ConnectionObservation struct {
 
 type ConnectionParameters struct {
 
+	// Reference to a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionRef *v1.NamespacedReference `json:"connectionRef,omitempty" tf:"-"`
+
+	// Selector for a ConnectionV0Alpha1 in oss to populate name.
+	// +kubebuilder:validation:Optional
+	ConnectionSelector *v1.NamespacedSelector `json:"connectionSelector,omitempty" tf:"-"`
+
 	// (String) Connection resource name.
 	// Connection resource name.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.ConnectionV0Alpha1
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("metadata.uid")
+	// +crossplane:generate:reference:refFieldName=ConnectionRef
+	// +crossplane:generate:reference:selectorFieldName=ConnectionSelector
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 }
@@ -484,8 +508,20 @@ type RepositoryV0Alpha1InitParameters struct {
 
 type RepositoryV0Alpha1MetadataInitParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
 	// (String) The unique identifier of the resource.
@@ -523,8 +559,20 @@ type RepositoryV0Alpha1MetadataObservation struct {
 
 type RepositoryV0Alpha1MetadataParameters struct {
 
+	// Reference to a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+
+	// Selector for a Folder in oss to populate folderUid.
+	// +kubebuilder:validation:Optional
+	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Folder
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=FolderRef
+	// +crossplane:generate:reference:selectorFieldName=FolderSelector
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 

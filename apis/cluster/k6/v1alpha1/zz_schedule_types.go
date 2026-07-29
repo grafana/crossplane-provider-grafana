@@ -130,7 +130,18 @@ type ScheduleInitParameters struct {
 
 	// (String) The identifier of the load test to schedule.
 	// The identifier of the load test to schedule.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.LoadTest
+	// +crossplane:generate:reference:refFieldName=LoadTestRef
+	// +crossplane:generate:reference:selectorFieldName=LoadTestSelector
 	LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
+
+	// Reference to a LoadTest in k6 to populate loadTestId.
+	// +kubebuilder:validation:Optional
+	LoadTestRef *v1.Reference `json:"loadTestRef,omitempty" tf:"-"`
+
+	// Selector for a LoadTest in k6 to populate loadTestId.
+	// +kubebuilder:validation:Optional
+	LoadTestSelector *v1.Selector `json:"loadTestSelector,omitempty" tf:"-"`
 
 	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
@@ -184,8 +195,19 @@ type ScheduleParameters struct {
 
 	// (String) The identifier of the load test to schedule.
 	// The identifier of the load test to schedule.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/k6/v1alpha1.LoadTest
+	// +crossplane:generate:reference:refFieldName=LoadTestRef
+	// +crossplane:generate:reference:selectorFieldName=LoadTestSelector
 	// +kubebuilder:validation:Optional
 	LoadTestID *string `json:"loadTestId,omitempty" tf:"load_test_id,omitempty"`
+
+	// Reference to a LoadTest in k6 to populate loadTestId.
+	// +kubebuilder:validation:Optional
+	LoadTestRef *v1.Reference `json:"loadTestRef,omitempty" tf:"-"`
+
+	// Selector for a LoadTest in k6 to populate loadTestId.
+	// +kubebuilder:validation:Optional
+	LoadTestSelector *v1.Selector `json:"loadTestSelector,omitempty" tf:"-"`
 
 	// (Block, Optional) The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of recurrence_rule and cron can be set. (see below for nested schema)
 	// The schedule recurrence settings. If not specified, the test will run only once on the 'starts' date. Only one of `recurrence_rule` and `cron` can be set.
@@ -234,7 +256,6 @@ type ScheduleStatus struct {
 type Schedule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.loadTestId) || (has(self.initProvider) && has(self.initProvider.loadTestId))",message="spec.forProvider.loadTestId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.starts) || (has(self.initProvider) && has(self.initProvider.starts))",message="spec.forProvider.starts is a required parameter"
 	Spec   ScheduleSpec   `json:"spec"`
 	Status ScheduleStatus `json:"status,omitempty"`

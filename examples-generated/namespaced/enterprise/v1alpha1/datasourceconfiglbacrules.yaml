@@ -9,7 +9,9 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    datasourceUid: ${grafana_data_source.test.uid}
+    dataSourceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
     rules: |-
       ${jsonencode({
           "${grafana_team.team.team_uid}" = [

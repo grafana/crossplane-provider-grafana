@@ -15,6 +15,57 @@ import (
 
 type RoleAssignmentInitParameters struct {
 
+	// References to OrganizationUser in oss to populate observedOrganizationUsers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserRefs []v1.Reference `json:"observedOrganizationUserRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUsers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserSelector *v1.Selector `json:"observedOrganizationUserSelector,omitempty" tf:"-"`
+
+	// (Set of Number) IDs of users that the role should be assigned to.
+	// IDs of users that the role should be assigned to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserSelector
+	// +listType=set
+	ObservedOrganizationUsers []*float64 `json:"observedOrganizationUsers,omitempty" tf:"observed_organization_users,omitempty"`
+
+	// References to Team in oss to populate observedTeams.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRefs []v1.Reference `json:"observedTeamRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Team in oss to populate observedTeams.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.Selector `json:"observedTeamSelector,omitempty" tf:"-"`
+
+	// (Set of String) IDs of teams that the role should be assigned to.
+	// IDs of teams that the role should be assigned to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	// +listType=set
+	ObservedTeams []*string `json:"observedTeams,omitempty" tf:"observed_teams,omitempty"`
+
+	// References to User in oss to populate observedUsers.
+	// +kubebuilder:validation:Optional
+	ObservedUserRefs []v1.Reference `json:"observedUserRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUsers.
+	// +kubebuilder:validation:Optional
+	ObservedUserSelector *v1.Selector `json:"observedUserSelector,omitempty" tf:"-"`
+
+	// (Set of Number) IDs of users that the role should be assigned to.
+	// IDs of users that the role should be assigned to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedUserRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserSelector
+	// +listType=set
+	ObservedUsers []*float64 `json:"observedUsers,omitempty" tf:"observed_users,omitempty"`
+
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1.Organization
@@ -100,6 +151,21 @@ type RoleAssignmentObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Set of Number) IDs of users that the role should be assigned to.
+	// IDs of users that the role should be assigned to.
+	// +listType=set
+	ObservedOrganizationUsers []*float64 `json:"observedOrganizationUsers,omitempty" tf:"observed_organization_users,omitempty"`
+
+	// (Set of String) IDs of teams that the role should be assigned to.
+	// IDs of teams that the role should be assigned to.
+	// +listType=set
+	ObservedTeams []*string `json:"observedTeams,omitempty" tf:"observed_teams,omitempty"`
+
+	// (Set of Number) IDs of users that the role should be assigned to.
+	// IDs of users that the role should be assigned to.
+	// +listType=set
+	ObservedUsers []*float64 `json:"observedUsers,omitempty" tf:"observed_users,omitempty"`
+
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
@@ -125,6 +191,60 @@ type RoleAssignmentObservation struct {
 }
 
 type RoleAssignmentParameters struct {
+
+	// References to OrganizationUser in oss to populate observedOrganizationUsers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserRefs []v1.Reference `json:"observedOrganizationUserRefs,omitempty" tf:"-"`
+
+	// Selector for a list of OrganizationUser in oss to populate observedOrganizationUsers.
+	// +kubebuilder:validation:Optional
+	ObservedOrganizationUserSelector *v1.Selector `json:"observedOrganizationUserSelector,omitempty" tf:"-"`
+
+	// (Set of Number) IDs of users that the role should be assigned to.
+	// IDs of users that the role should be assigned to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.OrganizationUser
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedOrganizationUserRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedOrganizationUserSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedOrganizationUsers []*float64 `json:"observedOrganizationUsers,omitempty" tf:"observed_organization_users,omitempty"`
+
+	// References to Team in oss to populate observedTeams.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRefs []v1.Reference `json:"observedTeamRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Team in oss to populate observedTeams.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.Selector `json:"observedTeamSelector,omitempty" tf:"-"`
+
+	// (Set of String) IDs of teams that the role should be assigned to.
+	// IDs of teams that the role should be assigned to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedTeams []*string `json:"observedTeams,omitempty" tf:"observed_teams,omitempty"`
+
+	// References to User in oss to populate observedUsers.
+	// +kubebuilder:validation:Optional
+	ObservedUserRefs []v1.Reference `json:"observedUserRefs,omitempty" tf:"-"`
+
+	// Selector for a list of User in oss to populate observedUsers.
+	// +kubebuilder:validation:Optional
+	ObservedUserSelector *v1.Selector `json:"observedUserSelector,omitempty" tf:"-"`
+
+	// (Set of Number) IDs of users that the role should be assigned to.
+	// IDs of users that the role should be assigned to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.User
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedUserRefs
+	// +crossplane:generate:reference:selectorFieldName=ObservedUserSelector
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	ObservedUsers []*float64 `json:"observedUsers,omitempty" tf:"observed_users,omitempty"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.

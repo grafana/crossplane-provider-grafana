@@ -63,6 +63,16 @@ func (in *MetricsEndpointScrapeJobInitParameters) DeepCopyInto(out *MetricsEndpo
 		*out = new(string)
 		**out = **in
 	}
+	if in.CloudStackRef != nil {
+		in, out := &in.CloudStackRef, &out.CloudStackRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CloudStackSelector != nil {
+		in, out := &in.CloudStackSelector, &out.CloudStackSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Enabled != nil {
 		in, out := &in.Enabled, &out.Enabled
 		*out = new(bool)
@@ -209,6 +219,16 @@ func (in *MetricsEndpointScrapeJobParameters) DeepCopyInto(out *MetricsEndpointS
 		in, out := &in.AuthenticationMethod, &out.AuthenticationMethod
 		*out = new(string)
 		**out = **in
+	}
+	if in.CloudStackRef != nil {
+		in, out := &in.CloudStackRef, &out.CloudStackRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.CloudStackSelector != nil {
+		in, out := &in.CloudStackSelector, &out.CloudStackSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Enabled != nil {
 		in, out := &in.Enabled, &out.Enabled

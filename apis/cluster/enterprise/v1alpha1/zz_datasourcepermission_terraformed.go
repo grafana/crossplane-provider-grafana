@@ -119,6 +119,8 @@ func (tr *DataSourcePermission) LateInitialize(attrs []byte) (bool, error) {
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
 	opts = append(opts, resource.WithNameFilter("OrgID"))
+	opts = append(opts, resource.WithNameFilter("Permissions.TeamID"))
+	opts = append(opts, resource.WithNameFilter("Permissions.UserID"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)

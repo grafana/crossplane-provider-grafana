@@ -20,6 +20,14 @@ type AppInitParameters struct {
 	// A list of allowed origins for CORS.
 	AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (Map of String) The extra attributes to append in each signal.
 	// The extra attributes to append in each signal.
 	// +mapType=granular
@@ -36,6 +44,10 @@ type AppInitParameters struct {
 
 	// (Number) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
 
@@ -78,6 +90,14 @@ type AppParameters struct {
 	// +kubebuilder:validation:Optional
 	AllowedOrigins []*string `json:"allowedOrigins,omitempty" tf:"allowed_origins,omitempty"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (Map of String) The extra attributes to append in each signal.
 	// The extra attributes to append in each signal.
 	// +kubebuilder:validation:Optional
@@ -97,6 +117,10 @@ type AppParameters struct {
 
 	// (Number) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackID *float64 `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
@@ -141,7 +165,6 @@ type App struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.extraLogAttributes) || (has(self.initProvider) && has(self.initProvider.extraLogAttributes))",message="spec.forProvider.extraLogAttributes is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))",message="spec.forProvider.name is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.settings) || (has(self.initProvider) && has(self.initProvider.settings))",message="spec.forProvider.settings is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
 	Spec   AppSpec   `json:"spec"`
 	Status AppStatus `json:"status,omitempty"`
 }

@@ -17,7 +17,19 @@ import (
 type OrgMemberInitParameters struct {
 
 	// The slug or ID of the organization.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/cloud/v1alpha1.Organization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	Org *string `json:"org,omitempty" tf:"org,omitempty"`
+
+	// Reference to a Organization in cloud to populate org.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in cloud to populate org.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Whether the user should receive billing emails.
 	ReceiveBillingEmails *bool `json:"receiveBillingEmails,omitempty" tf:"receive_billing_emails,omitempty"`
@@ -48,8 +60,20 @@ type OrgMemberObservation struct {
 type OrgMemberParameters struct {
 
 	// The slug or ID of the organization.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/cloud/v1alpha1.Organization
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=OrganizationRef
+	// +crossplane:generate:reference:selectorFieldName=OrganizationSelector
 	// +kubebuilder:validation:Optional
 	Org *string `json:"org,omitempty" tf:"org,omitempty"`
+
+	// Reference to a Organization in cloud to populate org.
+	// +kubebuilder:validation:Optional
+	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in cloud to populate org.
+	// +kubebuilder:validation:Optional
+	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Whether the user should receive billing emails.
 	// +kubebuilder:validation:Optional
@@ -100,7 +124,6 @@ type OrgMemberStatus struct {
 type OrgMember struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.org) || (has(self.initProvider) && has(self.initProvider.org))",message="spec.forProvider.org is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.role) || (has(self.initProvider) && has(self.initProvider.role))",message="spec.forProvider.role is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.user) || (has(self.initProvider) && has(self.initProvider.user))",message="spec.forProvider.user is a required parameter"
 	Spec   OrgMemberSpec   `json:"spec"`

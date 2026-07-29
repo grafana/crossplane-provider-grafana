@@ -16,8 +16,20 @@ import (
 
 type DataInitParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// 100" if this stage is an expression stage.
 	// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) Custom JSON data to send to the specified datasource when querying.
@@ -62,10 +74,22 @@ type DataObservation struct {
 
 type DataParameters struct {
 
+	// Reference to a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate datasourceUid.
+	// +kubebuilder:validation:Optional
+	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+
 	// 100" if this stage is an expression stage.
 	// The UID of the datasource being queried, or "-100" if this stage is an expression stage.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=DataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=DataSourceSelector
 	// +kubebuilder:validation:Optional
-	DatasourceUID *string `json:"datasourceUid" tf:"datasource_uid,omitempty"`
+	DatasourceUID *string `json:"datasourceUid,omitempty" tf:"datasource_uid,omitempty"`
 
 	// (String) Custom JSON data to send to the specified datasource when querying.
 	// Custom JSON data to send to the specified datasource when querying.
@@ -98,8 +122,20 @@ type RecordInitParameters struct {
 	// The name of the metric to write to.
 	Metric *string `json:"metric,omitempty" tf:"metric,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v1.NamespacedReference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v1.NamespacedSelector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }
 
@@ -130,8 +166,20 @@ type RecordParameters struct {
 	// +kubebuilder:validation:Optional
 	Metric *string `json:"metric" tf:"metric,omitempty"`
 
+	// Reference to a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceRef *v1.NamespacedReference `json:"targetDataSourceRef,omitempty" tf:"-"`
+
+	// Selector for a DataSource in oss to populate targetDatasourceUid.
+	// +kubebuilder:validation:Optional
+	TargetDataSourceSelector *v1.NamespacedSelector `json:"targetDataSourceSelector,omitempty" tf:"-"`
+
 	// (String) The UID of the datasource to write the metric to.
 	// The UID of the datasource to write the metric to.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.DataSource
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.OptionalFieldExtractor("uid")
+	// +crossplane:generate:reference:refFieldName=TargetDataSourceRef
+	// +crossplane:generate:reference:selectorFieldName=TargetDataSourceSelector
 	// +kubebuilder:validation:Optional
 	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
 }

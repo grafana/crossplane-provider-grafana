@@ -8,11 +8,56 @@ package v1alpha1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
-	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1"
+	v1alpha11 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1"
+	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
+
+// ResolveReferences of this Check.
+func (mg *Check) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.FolderUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.FolderRef,
+		Selector:     mg.Spec.ForProvider.FolderSelector,
+		To: reference.To{
+			List:    &v1alpha1.FolderList{},
+			Managed: &v1alpha1.Folder{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.FolderUID")
+	}
+	mg.Spec.ForProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.FolderRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.FolderUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.FolderRef,
+		Selector:     mg.Spec.InitProvider.FolderSelector,
+		To: reference.To{
+			List:    &v1alpha1.FolderList{},
+			Managed: &v1alpha1.Folder{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.FolderUID")
+	}
+	mg.Spec.InitProvider.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.FolderRef = rsp.ResolvedReference
+
+	return nil
+}
 
 // ResolveReferences of this CheckAlerts.
 func (mg *CheckAlerts) ResolveReferences(ctx context.Context, c client.Reader) error {
@@ -72,8 +117,8 @@ func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.ForProvider.CloudStackRef,
 		Selector:     mg.Spec.ForProvider.CloudStackSelector,
 		To: reference.To{
-			List:    &v1alpha1.StackList{},
-			Managed: &v1alpha1.Stack{},
+			List:    &v1alpha11.StackList{},
+			Managed: &v1alpha11.Stack{},
 		},
 	})
 	if err != nil {
@@ -89,8 +134,8 @@ func (mg *Installation) ResolveReferences(ctx context.Context, c client.Reader) 
 		Reference:    mg.Spec.InitProvider.CloudStackRef,
 		Selector:     mg.Spec.InitProvider.CloudStackSelector,
 		To: reference.To{
-			List:    &v1alpha1.StackList{},
-			Managed: &v1alpha1.Stack{},
+			List:    &v1alpha11.StackList{},
+			Managed: &v1alpha11.Stack{},
 		},
 	})
 	if err != nil {

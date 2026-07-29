@@ -23,6 +23,22 @@ type TeamExternalGroupInitParameters struct {
 
 	// (String) The Team ID
 	// The Team ID
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	ObservedTeamID *string `json:"observedTeamId,omitempty" tf:"observed_team_id,omitempty"`
+
+	// Reference to a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRef *v1.NamespacedReference `json:"observedTeamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.NamespacedSelector `json:"observedTeamSelector,omitempty" tf:"-"`
+
+	// (String) The Team ID
+	// The Team ID
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.Team
 	// +crossplane:generate:reference:refFieldName=TeamRef
 	// +crossplane:generate:reference:selectorFieldName=TeamSelector
@@ -49,6 +65,10 @@ type TeamExternalGroupObservation struct {
 
 	// (String) The Team ID
 	// The Team ID
+	ObservedTeamID *string `json:"observedTeamId,omitempty" tf:"observed_team_id,omitempty"`
+
+	// (String) The Team ID
+	// The Team ID
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 }
 
@@ -59,6 +79,23 @@ type TeamExternalGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Groups []*string `json:"groups,omitempty" tf:"groups,omitempty"`
+
+	// (String) The Team ID
+	// The Team ID
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1.Team
+	// +crossplane:generate:reference:extractor=github.com/crossplane/crossplane-runtime/v2/pkg/reference.ExternalName()
+	// +crossplane:generate:reference:refFieldName=ObservedTeamRef
+	// +crossplane:generate:reference:selectorFieldName=ObservedTeamSelector
+	// +kubebuilder:validation:Optional
+	ObservedTeamID *string `json:"observedTeamId,omitempty" tf:"observed_team_id,omitempty"`
+
+	// Reference to a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamRef *v1.NamespacedReference `json:"observedTeamRef,omitempty" tf:"-"`
+
+	// Selector for a Team in oss to populate observedTeamId.
+	// +kubebuilder:validation:Optional
+	ObservedTeamSelector *v1.NamespacedSelector `json:"observedTeamSelector,omitempty" tf:"-"`
 
 	// (String) The Team ID
 	// The Team ID

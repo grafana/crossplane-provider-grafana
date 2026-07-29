@@ -54,5 +54,7 @@ func configureAlerting(p *ujconfig.Provider) {
 			SelectorFieldName: "ContactPointSelector",
 			Extractor:         fieldExtractor("name"),
 		}
+		r.References["rule.data.datasource_uid"] = dataSourceReference("DataSource")
+		r.References["rule.record.target_datasource_uid"] = dataSourceReference("TargetDataSource")
 	})
 }

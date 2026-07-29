@@ -12,13 +12,15 @@ spec:
       key: example-key
       name: example-secret
       namespace: upbound-system
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: k6_stack
     grafanaSaTokenSecretRef:
       key: attribute.key
       name: example-cloud-stack-service-account-token
       namespace: upbound-system
     grafanaUser: admin
     provider: ${grafana.cloud}
-    stackId: ${grafana_cloud_stack.k6_stack.id}
 
 ---
 

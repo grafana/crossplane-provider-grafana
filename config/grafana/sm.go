@@ -11,6 +11,10 @@ import (
 )
 
 func configureSyntheticMonitoring(p *ujconfig.Provider) {
+	p.AddResourceConfigurator("grafana_synthetic_monitoring_check", func(r *ujconfig.Resource) {
+		r.References["folder_uid"] = folderReference()
+	})
+
 	p.AddResourceConfigurator("grafana_synthetic_monitoring_installation", func(r *ujconfig.Resource) {
 		r.References["stack_id"] = ujconfig.Reference{
 			TerraformName:     "grafana_cloud_stack",

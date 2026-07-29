@@ -18,7 +18,19 @@ type AccessPolicyRotatingTokenInitParameters struct {
 
 	// (String) ID of the access policy for which to create a token.
 	// ID of the access policy for which to create a token.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.AccessPolicy
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("policyId")
+	// +crossplane:generate:reference:refFieldName=AccessPolicyRef
+	// +crossplane:generate:reference:selectorFieldName=AccessPolicySelector
 	AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
+
+	// Reference to a AccessPolicy in cloud to populate accessPolicyId.
+	// +kubebuilder:validation:Optional
+	AccessPolicyRef *v1.NamespacedReference `json:"accessPolicyRef,omitempty" tf:"-"`
+
+	// Selector for a AccessPolicy in cloud to populate accessPolicyId.
+	// +kubebuilder:validation:Optional
+	AccessPolicySelector *v1.NamespacedSelector `json:"accessPolicySelector,omitempty" tf:"-"`
 
 	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
 	DeleteOnDestroy *bool `json:"deleteOnDestroy,omitempty" tf:"delete_on_destroy,omitempty"`
@@ -101,8 +113,20 @@ type AccessPolicyRotatingTokenParameters struct {
 
 	// (String) ID of the access policy for which to create a token.
 	// ID of the access policy for which to create a token.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.AccessPolicy
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("policyId")
+	// +crossplane:generate:reference:refFieldName=AccessPolicyRef
+	// +crossplane:generate:reference:selectorFieldName=AccessPolicySelector
 	// +kubebuilder:validation:Optional
 	AccessPolicyID *string `json:"accessPolicyId,omitempty" tf:"access_policy_id,omitempty"`
+
+	// Reference to a AccessPolicy in cloud to populate accessPolicyId.
+	// +kubebuilder:validation:Optional
+	AccessPolicyRef *v1.NamespacedReference `json:"accessPolicyRef,omitempty" tf:"-"`
+
+	// Selector for a AccessPolicy in cloud to populate accessPolicyId.
+	// +kubebuilder:validation:Optional
+	AccessPolicySelector *v1.NamespacedSelector `json:"accessPolicySelector,omitempty" tf:"-"`
 
 	// Use it with lifecycle { create_before_destroy = true } to make sure that the new token is created before the old one is deleted. Defaults to false. Use it with `lifecycle { create_before_destroy = true }` to make sure that the new token is created before the old one is deleted. Defaults to `false`.
 	// +kubebuilder:validation:Optional
@@ -170,7 +194,6 @@ type AccessPolicyRotatingTokenStatus struct {
 type AccessPolicyRotatingToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.accessPolicyId) || (has(self.initProvider) && has(self.initProvider.accessPolicyId))",message="spec.forProvider.accessPolicyId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.earlyRotationWindow) || (has(self.initProvider) && has(self.initProvider.earlyRotationWindow))",message="spec.forProvider.earlyRotationWindow is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.expireAfter) || (has(self.initProvider) && has(self.initProvider.expireAfter))",message="spec.forProvider.expireAfter is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.namePrefix) || (has(self.initProvider) && has(self.initProvider.namePrefix))",message="spec.forProvider.namePrefix is a required parameter"
