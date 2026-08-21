@@ -118,6 +118,7 @@ var CategoryConfig = map[string]CategoryInfo{
 	"Frontend Observability": {"frontendobservability", 2},
 	"k6":                     {"k6", 1},
 	"Knowledge Graph":        {"asserts", 1},
+	"Agent Observability":    {"agento11y", 1},
 }
 
 // GroupMap contains all overrides we'd like to make to the default group search.

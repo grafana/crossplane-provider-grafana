@@ -9,6 +9,11 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
+	collection "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/agento11y/collection"
+	evaluationrule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/agento11y/evaluationrule"
+	evaluator "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/agento11y/evaluator"
+	hookrule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/agento11y/hookrule"
+	ruleaction "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/agento11y/ruleaction"
 	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertenrichmentv1beta1"
 	alertrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertrulev0alpha1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/contactpoint"
@@ -17,7 +22,9 @@ import (
 	mutetiming "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/notificationpolicy"
 	recordingrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/recordingrulev0alpha1"
+	routingtreev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/routingtreev1beta1"
 	rulegroup "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/rulegroup"
+	rulesequencev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/rulesequencev0alpha1"
 	custommodelrules "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/custommodelrules"
 	logconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/logconfig"
 	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/notificationalertsconfig"
@@ -31,10 +38,12 @@ import (
 	quickstart "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/assistant/quickstart"
 	rule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/assistant/rule"
 	skill "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/assistant/skill"
+	termsacceptance "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/assistant/termsacceptance"
 	accesspolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/accesspolicy"
 	accesspolicyrotatingtoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/accesspolicyrotatingtoken"
 	accesspolicytoken "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/accesspolicytoken"
 	appo11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/appo11yconfigv1alpha1"
+	componentv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/componentv1alpha1"
 	dbo11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/dbo11yconfigv1alpha1"
 	k8so11yconfigv1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/k8so11yconfigv1alpha1"
 	orgmember "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/cloud/orgmember"
@@ -105,6 +114,7 @@ import (
 	playlist "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/playlist"
 	playlistv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/playlistv0alpha1"
 	playlistv1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/playlistv1"
+	queryv1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/queryv1"
 	repositoryv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/repositoryv0alpha1"
 	resource "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/resource"
 	serviceaccount "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/serviceaccount"
@@ -127,6 +137,11 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		collection.Setup,
+		evaluationrule.Setup,
+		evaluator.Setup,
+		hookrule.Setup,
+		ruleaction.Setup,
 		alertenrichmentv1beta1.Setup,
 		alertrulev0alpha1.Setup,
 		contactpoint.Setup,
@@ -135,7 +150,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		mutetiming.Setup,
 		notificationpolicy.Setup,
 		recordingrulev0alpha1.Setup,
+		routingtreev1beta1.Setup,
 		rulegroup.Setup,
+		rulesequencev0alpha1.Setup,
 		custommodelrules.Setup,
 		logconfig.Setup,
 		notificationalertsconfig.Setup,
@@ -149,10 +166,12 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		quickstart.Setup,
 		rule.Setup,
 		skill.Setup,
+		termsacceptance.Setup,
 		accesspolicy.Setup,
 		accesspolicyrotatingtoken.Setup,
 		accesspolicytoken.Setup,
 		appo11yconfigv1alpha1.Setup,
+		componentv1alpha1.Setup,
 		dbo11yconfigv1alpha1.Setup,
 		k8so11yconfigv1alpha1.Setup,
 		orgmember.Setup,
@@ -223,6 +242,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		playlist.Setup,
 		playlistv0alpha1.Setup,
 		playlistv1.Setup,
+		queryv1.Setup,
 		repositoryv0alpha1.Setup,
 		resource.Setup,
 		serviceaccount.Setup,
@@ -251,6 +271,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 // the supplied manager gated.
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		collection.SetupGated,
+		evaluationrule.SetupGated,
+		evaluator.SetupGated,
+		hookrule.SetupGated,
+		ruleaction.SetupGated,
 		alertenrichmentv1beta1.SetupGated,
 		alertrulev0alpha1.SetupGated,
 		contactpoint.SetupGated,
@@ -259,7 +284,9 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		mutetiming.SetupGated,
 		notificationpolicy.SetupGated,
 		recordingrulev0alpha1.SetupGated,
+		routingtreev1beta1.SetupGated,
 		rulegroup.SetupGated,
+		rulesequencev0alpha1.SetupGated,
 		custommodelrules.SetupGated,
 		logconfig.SetupGated,
 		notificationalertsconfig.SetupGated,
@@ -273,10 +300,12 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		quickstart.SetupGated,
 		rule.SetupGated,
 		skill.SetupGated,
+		termsacceptance.SetupGated,
 		accesspolicy.SetupGated,
 		accesspolicyrotatingtoken.SetupGated,
 		accesspolicytoken.SetupGated,
 		appo11yconfigv1alpha1.SetupGated,
+		componentv1alpha1.SetupGated,
 		dbo11yconfigv1alpha1.SetupGated,
 		k8so11yconfigv1alpha1.SetupGated,
 		orgmember.SetupGated,
@@ -347,6 +376,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		playlist.SetupGated,
 		playlistv0alpha1.SetupGated,
 		playlistv1.SetupGated,
+		queryv1.SetupGated,
 		repositoryv0alpha1.SetupGated,
 		resource.SetupGated,
 		serviceaccount.SetupGated,

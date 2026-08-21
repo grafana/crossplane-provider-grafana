@@ -27,7 +27,7 @@ type AccessPolicyInitParameters struct {
 	// Name of the access policy.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
+	// (Block List, Min: 1) (see below for nested schema)
 	Realm []RealmInitParameters `json:"realm,omitempty" tf:"realm,omitempty"`
 
 	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
@@ -65,7 +65,7 @@ type AccessPolicyObservation struct {
 	// ID of the access policy.
 	PolicyID *string `json:"policyId,omitempty" tf:"policy_id,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
+	// (Block List, Min: 1) (see below for nested schema)
 	Realm []RealmObservation `json:"realm,omitempty" tf:"realm,omitempty"`
 
 	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
@@ -99,7 +99,7 @@ type AccessPolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (Block Set, Min: 1) (see below for nested schema)
+	// (Block List, Min: 1) (see below for nested schema)
 	// +kubebuilder:validation:Optional
 	Realm []RealmParameters `json:"realm,omitempty" tf:"realm,omitempty"`
 

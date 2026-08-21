@@ -47,6 +47,13 @@ var LoadTestSpec = tfdatasource.Spec{
 
 			{
 				var v *string
+				if diags := state.GetAttribute(ctx, path.Root("k6_version"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.K6Version = v
+				}
+			}
+
+			{
+				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("name"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Name = v
 				}
@@ -86,6 +93,9 @@ var LoadTestSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.Created != nil {
 			cd["created"] = []byte(*cr.Status.AtProvider.Created)
+		}
+		if cr.Status.AtProvider.K6Version != nil {
+			cd["k6_version"] = []byte(*cr.Status.AtProvider.K6Version)
 		}
 		if cr.Status.AtProvider.Name != nil {
 			cd["name"] = []byte(*cr.Status.AtProvider.Name)

@@ -1,0 +1,40 @@
+apiVersion: alerting.grafana.m.crossplane.io/v1alpha1
+kind: RoutingtreeV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/routingtreev1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    metadata:
+      uid: my-routing-tree
+    spec:
+      defaults:
+        groupBy:
+        - grafana_folder
+        - alertname
+        groupInterval: 5m
+        groupWait: 30s
+        receiver: empty
+        repeatInterval: 4h
+      disableProvenance: false
+      routes:
+      - continue: false
+        groupBy:
+        - alertname
+        matchers:
+        - label: severity
+          type: =
+          value: critical
+        muteTimeIntervals: []
+        receiver: empty
+        routes:
+        - continue: true
+          matchers:
+          - label: team
+            type: =~
+            value: backend|platform
+          receiver: empty

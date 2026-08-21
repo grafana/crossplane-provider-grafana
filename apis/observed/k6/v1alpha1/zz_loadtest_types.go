@@ -24,6 +24,9 @@ type LoadTestObservation struct {
 	// The date when the load test was created.
 	Created *string `json:"created,omitempty"`
 
+	// Identifier of the k6 version used to run the test.
+	K6Version *string `json:"k6Version,omitempty"`
+
 	// Human-friendly identifier of the load test.
 	Name *string `json:"name,omitempty"`
 

@@ -1,0 +1,26 @@
+apiVersion: agento11y.grafana.m.crossplane.io/v1alpha1
+kind: Evaluator
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agento11y/v1alpha1/evaluator
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    config: |-
+      ${jsonencode({
+          pattern = "(?i)(api[_-]?key|password|secret)"
+        })}
+    description: Flags assistant responses that leak secrets.
+    evaluatorId: no_secrets
+    kind: regex
+    outputKeys: |-
+      ${jsonencode([
+          {
+            key  = "clean"
+            type = "bool"
+          }
+        ])}
+    version: "1"

@@ -9,9 +9,6 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    cloudAccessPolicyTokenSecretRef:
-      key: example-key
-      name: example-secret
     grafanaSaTokenSecretRef:
       key: attribute.key
       name: example-cloud-stack-service-account-token

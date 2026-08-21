@@ -67,6 +67,9 @@ func (tr *PlaylistV0Alpha1) Hub() {}
 func (tr *PlaylistV1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *QueryV1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *RepositoryV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.

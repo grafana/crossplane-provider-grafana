@@ -1285,6 +1285,11 @@ spec:
                   id:
                     description: (String) The ID of this resource.
                     type: string
+                  inboundEmail:
+                    description: |-
+                      (String) The inbound email address for the integration. Only available for integration type inbound_email.
+                      The inbound email address for the integration. Only available for integration type `inbound_email`.
+                    type: string
                   labels:
                     description: |-
                       to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).

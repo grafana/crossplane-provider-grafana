@@ -509,6 +509,11 @@ spec:
                                   (String) Proxy URL.
                                   Proxy URL.
                                 type: string
+                              secretManagerEnabled:
+                                description: |-
+                                  (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
+                                  Enable secret manager so that `${secrets.<name>}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.
+                                type: boolean
                               tlsConfig:
                                 description: |-
                                   (Block Set, Max: 1) TLS config. (see below for nested schema)
@@ -1344,6 +1349,11 @@ spec:
                                   (String) Proxy URL.
                                   Proxy URL.
                                 type: string
+                              secretManagerEnabled:
+                                description: |-
+                                  (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
+                                  Enable secret manager so that `${secrets.<name>}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.
+                                type: boolean
                               tlsConfig:
                                 description: |-
                                   (Block Set, Max: 1) TLS config. (see below for nested schema)
@@ -2205,6 +2215,11 @@ spec:
                                   (String) Proxy URL.
                                   Proxy URL.
                                 type: string
+                              secretManagerEnabled:
+                                description: |-
+                                  (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
+                                  Enable secret manager so that `${secrets.<name>}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.
+                                type: boolean
                               tlsConfig:
                                 description: |-
                                   (Block Set, Max: 1) TLS config. (see below for nested schema)

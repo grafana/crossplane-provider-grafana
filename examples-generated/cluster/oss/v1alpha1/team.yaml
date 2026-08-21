@@ -8,10 +8,32 @@ metadata:
   name: test-team
 spec:
   forProvider:
+    admins:
+    - ${grafana_user.team_admin.email}
     email: teamemail@example.com
     memberRefs:
     - name: viewer
     name: Test Team
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/team
+  labels:
+    testing.upbound.io/example-name: team_admin
+  name: team-admin
+spec:
+  forProvider:
+    email: team-admin@example.com
+    login: team-admin
+    name: Team Admin
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
 
 ---
 

@@ -15,9 +15,13 @@ import (
 
 type LoadTestInitParameters struct {
 
-	// (String) Identifier of a baseline test run used for results comparison.
+	// (String, Deprecated) Identifier of a baseline test run used for results comparison.
 	// Identifier of a baseline test run used for results comparison.
 	BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
+
+	// (String) Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+	// Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+	K6Version *string `json:"k6Version,omitempty" tf:"k6_version,omitempty"`
 
 	// friendly identifier of the load test.
 	// Human-friendly identifier of the load test.
@@ -45,7 +49,7 @@ type LoadTestInitParameters struct {
 
 type LoadTestObservation struct {
 
-	// (String) Identifier of a baseline test run used for results comparison.
+	// (String, Deprecated) Identifier of a baseline test run used for results comparison.
 	// Identifier of a baseline test run used for results comparison.
 	BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
 
@@ -55,6 +59,10 @@ type LoadTestObservation struct {
 
 	// (String) Numeric identifier of the load test.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// (String) Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+	// Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+	K6Version *string `json:"k6Version,omitempty" tf:"k6_version,omitempty"`
 
 	// friendly identifier of the load test.
 	// Human-friendly identifier of the load test.
@@ -75,10 +83,15 @@ type LoadTestObservation struct {
 
 type LoadTestParameters struct {
 
-	// (String) Identifier of a baseline test run used for results comparison.
+	// (String, Deprecated) Identifier of a baseline test run used for results comparison.
 	// Identifier of a baseline test run used for results comparison.
 	// +kubebuilder:validation:Optional
 	BaselineTestRunID *string `json:"baselineTestRunId,omitempty" tf:"baseline_test_run_id,omitempty"`
+
+	// (String) Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+	// Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+	// +kubebuilder:validation:Optional
+	K6Version *string `json:"k6Version,omitempty" tf:"k6_version,omitempty"`
 
 	// friendly identifier of the load test.
 	// Human-friendly identifier of the load test.

@@ -15,8 +15,8 @@ import (
 
 type QuickstartInitParameters struct {
 
-	// (String) Optional JSON array of context items for the quickstart.
-	// Optional JSON array of context items for the quickstart.
+	// encoded array of context items pre-attached to the quickstart. Each element is an Assistant ChatContextItem; only node.id, node.name, and node.data ({"type": ..., "data": {...}}) are required, e.g. {"node": {"id": ..., "name": ..., "data": {"type": ..., "data": {...}}}}. This is an advanced, internal-format field. The most reliable way to produce a valid value is to create a quickstart with the desired context through the Assistant UI, then copy the resulting contextItems JSON. Omit this field if no pre-attached context is needed. See the example for a typical datasource context item.
+	// Optional JSON-encoded array of context items pre-attached to the quickstart. Each element is an Assistant `ChatContextItem`; only `node.id`, `node.name`, and `node.data` (`{"type": ..., "data": {...}}`) are required, e.g. `{"node": {"id": ..., "name": ..., "data": {"type": ..., "data": {...}}}}`. This is an advanced, internal-format field. The most reliable way to produce a valid value is to create a quickstart with the desired context through the Assistant UI, then copy the resulting `contextItems` JSON. Omit this field if no pre-attached context is needed. See the example for a typical datasource context item.
 	ContextItems *string `json:"contextItems,omitempty" tf:"context_items,omitempty"`
 
 	// (Boolean) Whether the resource is enabled.
@@ -38,8 +38,8 @@ type QuickstartInitParameters struct {
 
 type QuickstartObservation struct {
 
-	// (String) Optional JSON array of context items for the quickstart.
-	// Optional JSON array of context items for the quickstart.
+	// encoded array of context items pre-attached to the quickstart. Each element is an Assistant ChatContextItem; only node.id, node.name, and node.data ({"type": ..., "data": {...}}) are required, e.g. {"node": {"id": ..., "name": ..., "data": {"type": ..., "data": {...}}}}. This is an advanced, internal-format field. The most reliable way to produce a valid value is to create a quickstart with the desired context through the Assistant UI, then copy the resulting contextItems JSON. Omit this field if no pre-attached context is needed. See the example for a typical datasource context item.
+	// Optional JSON-encoded array of context items pre-attached to the quickstart. Each element is an Assistant `ChatContextItem`; only `node.id`, `node.name`, and `node.data` (`{"type": ..., "data": {...}}`) are required, e.g. `{"node": {"id": ..., "name": ..., "data": {"type": ..., "data": {...}}}}`. This is an advanced, internal-format field. The most reliable way to produce a valid value is to create a quickstart with the desired context through the Assistant UI, then copy the resulting `contextItems` JSON. Omit this field if no pre-attached context is needed. See the example for a typical datasource context item.
 	ContextItems *string `json:"contextItems,omitempty" tf:"context_items,omitempty"`
 
 	// (Boolean) Whether the resource is enabled.
@@ -64,8 +64,8 @@ type QuickstartObservation struct {
 
 type QuickstartParameters struct {
 
-	// (String) Optional JSON array of context items for the quickstart.
-	// Optional JSON array of context items for the quickstart.
+	// encoded array of context items pre-attached to the quickstart. Each element is an Assistant ChatContextItem; only node.id, node.name, and node.data ({"type": ..., "data": {...}}) are required, e.g. {"node": {"id": ..., "name": ..., "data": {"type": ..., "data": {...}}}}. This is an advanced, internal-format field. The most reliable way to produce a valid value is to create a quickstart with the desired context through the Assistant UI, then copy the resulting contextItems JSON. Omit this field if no pre-attached context is needed. See the example for a typical datasource context item.
+	// Optional JSON-encoded array of context items pre-attached to the quickstart. Each element is an Assistant `ChatContextItem`; only `node.id`, `node.name`, and `node.data` (`{"type": ..., "data": {...}}`) are required, e.g. `{"node": {"id": ..., "name": ..., "data": {"type": ..., "data": {...}}}}`. This is an advanced, internal-format field. The most reliable way to produce a valid value is to create a quickstart with the desired context through the Assistant UI, then copy the resulting `contextItems` JSON. Omit this field if no pre-attached context is needed. See the example for a typical datasource context item.
 	// +kubebuilder:validation:Optional
 	ContextItems *string `json:"contextItems,omitempty" tf:"context_items,omitempty"`
 

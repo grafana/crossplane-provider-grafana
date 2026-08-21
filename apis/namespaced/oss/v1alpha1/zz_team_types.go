@@ -77,6 +77,11 @@ type PreferencesParameters struct {
 
 type TeamInitParameters struct {
 
+	// (Set of String) A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into members are demoted; administrators only present in state (for example from the UI) are preserved until admins is set explicitly, including to [].
+	// A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into `members` are demoted; administrators only present in state (for example from the UI) are preserved until `admins` is set explicitly, including to `[]`.
+	// +listType=set
+	Admins []*string `json:"admins,omitempty" tf:"admins,omitempty"`
+
 	// (String) An email address for the team.
 	// An email address for the team.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
@@ -93,8 +98,8 @@ type TeamInitParameters struct {
 	// +kubebuilder:validation:Optional
 	MemberSelector *v1.NamespacedSelector `json:"memberSelector,omitempty" tf:"-"`
 
-	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
-	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=MemberRefs
@@ -133,6 +138,11 @@ type TeamInitParameters struct {
 
 type TeamObservation struct {
 
+	// (Set of String) A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into members are demoted; administrators only present in state (for example from the UI) are preserved until admins is set explicitly, including to [].
+	// A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into `members` are demoted; administrators only present in state (for example from the UI) are preserved until `admins` is set explicitly, including to `[]`.
+	// +listType=set
+	Admins []*string `json:"admins,omitempty" tf:"admins,omitempty"`
+
 	// (String) An email address for the team.
 	// An email address for the team.
 	Email *string `json:"email,omitempty" tf:"email,omitempty"`
@@ -144,8 +154,8 @@ type TeamObservation struct {
 	// Ignores team members that have been added to team by [Team Sync](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-team-sync/). Team Sync can be provisioned using [grafana_team_external_group resource](https://registry.io/providers/grafana/grafana/latest/docs/resources/team_external_group).
 	IgnoreExternallySyncedMembers *bool `json:"ignoreExternallySyncedMembers,omitempty" tf:"ignore_externally_synced_members,omitempty"`
 
-	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
-	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
 	// +listType=set
 	Members []*string `json:"members,omitempty" tf:"members,omitempty"`
 
@@ -177,6 +187,12 @@ type TeamObservation struct {
 
 type TeamParameters struct {
 
+	// (Set of String) A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into members are demoted; administrators only present in state (for example from the UI) are preserved until admins is set explicitly, including to [].
+	// A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into `members` are demoted; administrators only present in state (for example from the UI) are preserved until `admins` is set explicitly, including to `[]`.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	Admins []*string `json:"admins,omitempty" tf:"admins,omitempty"`
+
 	// (String) An email address for the team.
 	// An email address for the team.
 	// +kubebuilder:validation:Optional
@@ -195,8 +211,8 @@ type TeamParameters struct {
 	// +kubebuilder:validation:Optional
 	MemberSelector *v1.NamespacedSelector `json:"memberSelector,omitempty" tf:"-"`
 
-	// (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
-	// A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+	// (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
+	// A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1.User
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("email")
 	// +crossplane:generate:reference:refFieldName=MemberRefs

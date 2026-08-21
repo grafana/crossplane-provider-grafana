@@ -1,0 +1,30 @@
+apiVersion: cloud.grafana.m.crossplane.io/v1alpha1
+kind: ComponentV1Alpha1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/componentv1alpha1
+  labels:
+    testing.upbound.io/example-name: payments
+  name: payments
+  namespace: upbound-system
+spec:
+  forProvider:
+    metadata:
+      uid: payments-api
+    spec:
+      title: Payments API
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloud/v1alpha1/componentv1alpha1
+  labels:
+    testing.upbound.io/example-name: checkout
+  name: checkout
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Checkout Team

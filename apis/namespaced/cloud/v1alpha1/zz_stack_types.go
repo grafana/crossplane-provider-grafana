@@ -56,6 +56,10 @@ type StackInitParameters struct {
 
 type StackObservation struct {
 
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.
+	AlertmanagerAllowlistURL *string `json:"alertmanagerAllowlistUrl,omitempty" tf:"alertmanager_allowlist_url,omitempty"`
+
 	// separated list of CNAMEs that can be whitelisted to access the Alertmanager instances
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Alertmanager instances (Optional)
 	AlertmanagerIPAllowListCname *string `json:"alertmanagerIpAllowListCname,omitempty" tf:"alertmanager_ip_allow_list_cname,omitempty"`
@@ -100,6 +104,10 @@ type StackObservation struct {
 	// Description of stack.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.
+	FleetManagementAllowlistURL *string `json:"fleetManagementAllowlistUrl,omitempty" tf:"fleet_management_allowlist_url,omitempty"`
+
 	// (String) Name of the Fleet Management instance configured for this stack.
 	// Name of the Fleet Management instance configured for this stack.
 	FleetManagementName *string `json:"fleetManagementName,omitempty" tf:"fleet_management_name,omitempty"`
@@ -136,9 +144,17 @@ type StackObservation struct {
 	// User ID of the Fleet Management instance configured for this stack.
 	FleetManagementUserID *float64 `json:"fleetManagementUserId,omitempty" tf:"fleet_management_user_id,omitempty"`
 
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.
+	GrafanasAllowlistURL *string `json:"grafanasAllowlistUrl,omitempty" tf:"grafanas_allowlist_url,omitempty"`
+
 	// separated list of CNAMEs that can be whitelisted to access the grafana instance
 	// Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
 	GrafanasIPAllowListCname *string `json:"grafanasIpAllowListCname,omitempty" tf:"grafanas_ip_allow_list_cname,omitempty"`
+
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.
+	GraphiteAllowlistURL *string `json:"graphiteAllowlistUrl,omitempty" tf:"graphite_allowlist_url,omitempty"`
 
 	// separated list of CNAMEs that can be whitelisted to access the Graphite instance
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Graphite instance (Optional)
@@ -187,6 +203,10 @@ type StackObservation struct {
 	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-._]+$" and stacks cannot have more than 10 labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
+
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.
+	LogsAllowlistURL *string `json:"logsAllowlistUrl,omitempty" tf:"logs_allowlist_url,omitempty"`
 
 	// separated list of CNAMEs that can be whitelisted to access the Logs instance
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
@@ -308,6 +328,10 @@ type StackObservation struct {
 	// Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
 	PdcGatewayPrivateConnectivityInfoServiceName *string `json:"pdcGatewayPrivateConnectivityInfoServiceName,omitempty" tf:"pdc_gateway_private_connectivity_info_service_name,omitempty"`
 
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.
+	ProfilesAllowlistURL *string `json:"profilesAllowlistUrl,omitempty" tf:"profiles_allowlist_url,omitempty"`
+
 	// separated list of CNAMEs that can be whitelisted to access the Profiles instance
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)
 	ProfilesIPAllowListCname *string `json:"profilesIpAllowListCname,omitempty" tf:"profiles_ip_allow_list_cname,omitempty"`
@@ -343,6 +367,10 @@ type StackObservation struct {
 
 	// (Number)
 	ProfilesUserID *float64 `json:"profilesUserId,omitempty" tf:"profiles_user_id,omitempty"`
+
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.
+	PrometheusAllowlistURL *string `json:"prometheusAllowlistUrl,omitempty" tf:"prometheus_allowlist_url,omitempty"`
 
 	// separated list of CNAMEs that can be whitelisted to access the Prometheus instance
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)
@@ -407,6 +435,10 @@ type StackObservation struct {
 	// (String) Status of the stack.
 	// Status of the stack.
 	Status *string `json:"status,omitempty" tf:"status,omitempty"`
+
+	// (String) Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.
+	TracesAllowlistURL *string `json:"tracesAllowlistUrl,omitempty" tf:"traces_allowlist_url,omitempty"`
 
 	// separated list of CNAMEs that can be whitelisted to access the Traces instance
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
