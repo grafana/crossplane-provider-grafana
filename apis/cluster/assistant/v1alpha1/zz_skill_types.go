@@ -58,6 +58,10 @@ type SkillInitParameters struct {
 	// The skill content.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
+	// (String) The slash command name that invokes the skill. Setting this enables the skill as a command.
+	// The slash command name that invokes the skill. Setting this enables the skill as a command.
+	CommandName *string `json:"commandName,omitempty" tf:"command_name,omitempty"`
+
 	// (String) Optional JSON array of context items referenced by the skill.
 	// Optional JSON array of context items referenced by the skill.
 	ContextItems *string `json:"contextItems,omitempty" tf:"context_items,omitempty"`
@@ -84,6 +88,10 @@ type SkillObservation struct {
 	// (String) The skill content.
 	// The skill content.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (String) The slash command name that invokes the skill. Setting this enables the skill as a command.
+	// The slash command name that invokes the skill. Setting this enables the skill as a command.
+	CommandName *string `json:"commandName,omitempty" tf:"command_name,omitempty"`
 
 	// (String) Optional JSON array of context items referenced by the skill.
 	// Optional JSON array of context items referenced by the skill.
@@ -116,6 +124,11 @@ type SkillParameters struct {
 	// The skill content.
 	// +kubebuilder:validation:Optional
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
+
+	// (String) The slash command name that invokes the skill. Setting this enables the skill as a command.
+	// The slash command name that invokes the skill. Setting this enables the skill as a command.
+	// +kubebuilder:validation:Optional
+	CommandName *string `json:"commandName,omitempty" tf:"command_name,omitempty"`
 
 	// (String) Optional JSON array of context items referenced by the skill.
 	// Optional JSON array of context items referenced by the skill.

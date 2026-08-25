@@ -8,10 +8,6 @@ metadata:
   name: k6-installation
 spec:
   forProvider:
-    cloudAccessPolicyTokenSecretRef:
-      key: example-key
-      name: example-secret
-      namespace: upbound-system
     grafanaSaTokenSecretRef:
       key: attribute.key
       name: example-cloud-stack-service-account-token

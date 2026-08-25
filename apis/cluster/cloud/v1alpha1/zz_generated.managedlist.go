@@ -43,6 +43,15 @@ func (l *Appo11YconfigV1Alpha1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this ComponentV1Alpha1List.
+func (l *ComponentV1Alpha1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this Dbo11YconfigV1Alpha1List.
 func (l *Dbo11YconfigV1Alpha1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))

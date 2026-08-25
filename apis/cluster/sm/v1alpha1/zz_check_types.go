@@ -824,6 +824,10 @@ type HTTPInitParameters struct {
 	// Proxy URL.
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
 
+	// (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
+	// Enable secret manager so that `${secrets.<name>}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.
+	SecretManagerEnabled *bool `json:"secretManagerEnabled,omitempty" tf:"secret_manager_enabled,omitempty"`
+
 	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.
 	TLSConfig []HTTPTLSConfigInitParameters `json:"tlsConfig,omitempty" tf:"tls_config,omitempty"`
@@ -908,6 +912,10 @@ type HTTPObservation struct {
 	// (String) Proxy URL.
 	// Proxy URL.
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
+
+	// (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
+	// Enable secret manager so that `${secrets.<name>}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.
+	SecretManagerEnabled *bool `json:"secretManagerEnabled,omitempty" tf:"secret_manager_enabled,omitempty"`
 
 	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.
@@ -1014,6 +1022,11 @@ type HTTPParameters struct {
 	// Proxy URL.
 	// +kubebuilder:validation:Optional
 	ProxyURL *string `json:"proxyUrl,omitempty" tf:"proxy_url,omitempty"`
+
+	// (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
+	// Enable secret manager so that `${secrets.<name>}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.
+	// +kubebuilder:validation:Optional
+	SecretManagerEnabled *bool `json:"secretManagerEnabled,omitempty" tf:"secret_manager_enabled,omitempty"`
 
 	// (Block Set, Max: 1) TLS config. (see below for nested schema)
 	// TLS config.

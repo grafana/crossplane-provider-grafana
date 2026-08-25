@@ -191,6 +191,10 @@ type IntegrationObservation struct {
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (String) The inbound email address for the integration. Only available for integration type inbound_email.
+	// The inbound email address for the integration. Only available for integration type `inbound_email`.
+	InboundEmail *string `json:"inboundEmail,omitempty" tf:"inbound_email,omitempty"`
+
 	// to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
 	// A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the `grafana_oncall_label` datasource).
 	Labels []map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`

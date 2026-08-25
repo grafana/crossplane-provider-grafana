@@ -30,10 +30,13 @@ type TeamParameters struct {
 
 // TeamObservation holds the observed (computed) fields from the grafana_team data source.
 type TeamObservation struct {
+	// A set of email addresses corresponding to users who are administrators of the team.
+	Admins []string `json:"admins,omitempty"`
+
 	// An email address for the team.
 	Email *string `json:"email,omitempty"`
 
-	// A set of email addresses corresponding to users who are members of the team.
+	// A set of email addresses corresponding to users who are ordinary members of the team.
 	Members []string `json:"members,omitempty"`
 
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.

@@ -40,8 +40,9 @@ spec:
           UI to install k6. This resource cannot be imported but it can be used on
           an existing k6 App installation without issues. Note that this resource
           must be used on a provider configured with Grafana Cloud credentials. Official
-          documentation https://grafana.com/docs/grafana-cloud/testing/k6/ Required
-          access policy scopes: stacks:readstacks:writesubscriptions:readorgs:readstack-service-accounts:write'
+          documentation https://grafana.com/docs/grafana-cloud/testing/k6/ The provider''s
+          cloud_access_policy_token needs the following scopes to manage the resources
+          in the example below: stacks:readstacks:writestacks:deletestack-service-accounts:write'
         properties:
           apiVersion:
             description: |-
@@ -67,8 +68,8 @@ spec:
                 properties:
                   cloudAccessPolicyTokenSecretRef:
                     description: |-
-                      (String, Sensitive) The Grafana Cloud access policy.
-                      The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
+                      (String, Sensitive, Deprecated) Deprecated: The Grafana Cloud access policy token. It is no longer used to install the k6 App and can be safely removed.
+                      Deprecated: The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) token. It is no longer used to install the k6 App and can be safely removed.
                     properties:
                       key:
                         type: string
@@ -124,8 +125,8 @@ spec:
                 properties:
                   cloudAccessPolicyTokenSecretRef:
                     description: |-
-                      (String, Sensitive) The Grafana Cloud access policy.
-                      The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
+                      (String, Sensitive, Deprecated) Deprecated: The Grafana Cloud access policy token. It is no longer used to install the k6 App and can be safely removed.
+                      Deprecated: The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) token. It is no longer used to install the k6 App and can be safely removed.
                     properties:
                       key:
                         type: string
@@ -166,7 +167,6 @@ spec:
                       The identifier of the stack to install k6 on.
                     type: string
                 required:
-                - cloudAccessPolicyTokenSecretRef
                 - grafanaSaTokenSecretRef
                 type: object
               managementPolicies:
@@ -228,10 +228,6 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.cloudAccessPolicyTokenSecretRef is a required
-                parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.cloudAccessPolicyTokenSecretRef)'
             - message: spec.forProvider.grafanaSaTokenSecretRef is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
                 || ''Update'' in self.managementPolicies) || has(self.forProvider.grafanaSaTokenSecretRef)'

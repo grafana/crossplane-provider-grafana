@@ -23,6 +23,9 @@ type StackParameters struct {
 
 // StackObservation holds the observed (computed) fields from the grafana_cloud_stack data source.
 type StackObservation struct {
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.
+	AlertmanagerAllowlistURL *string `json:"alertmanagerAllowlistURL,omitempty"`
+
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Alertmanager instances (Optional)
 	AlertmanagerIPAllowListCname *string `json:"alertmanagerIPAllowListCname,omitempty"`
 
@@ -56,6 +59,9 @@ type StackObservation struct {
 	// Description of stack.
 	Description *string `json:"description,omitempty"`
 
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.
+	FleetManagementAllowlistURL *string `json:"fleetManagementAllowlistURL,omitempty"`
+
 	// Name of the Fleet Management instance configured for this stack.
 	FleetManagementName *string `json:"fleetManagementName,omitempty"`
 
@@ -83,8 +89,14 @@ type StackObservation struct {
 	// User ID of the Fleet Management instance configured for this stack.
 	FleetManagementUserID *int64 `json:"fleetManagementUserID,omitempty"`
 
+	// Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.
+	GrafanasAllowlistURL *string `json:"grafanasAllowlistURL,omitempty"`
+
 	// Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
 	GrafanasIPAllowListCname *string `json:"grafanasIPAllowListCname,omitempty"`
+
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.
+	GraphiteAllowlistURL *string `json:"graphiteAllowlistURL,omitempty"`
 
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Graphite instance (Optional)
 	GraphiteIPAllowListCname *string `json:"graphiteIPAllowListCname,omitempty"`
@@ -117,6 +129,9 @@ type StackObservation struct {
 
 	// A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-._]+$" and stacks cannot have more than 10 labels.
 	Labels map[string]string `json:"labels,omitempty"`
+
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.
+	LogsAllowlistURL *string `json:"logsAllowlistURL,omitempty"`
 
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
 	LogsIPAllowListCname *string `json:"logsIPAllowListCname,omitempty"`
@@ -207,6 +222,9 @@ type StackObservation struct {
 	// Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
 	PdcGatewayPrivateConnectivityInfoServiceName *string `json:"pdcGatewayPrivateConnectivityInfoServiceName,omitempty"`
 
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.
+	ProfilesAllowlistURL *string `json:"profilesAllowlistURL,omitempty"`
+
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)
 	ProfilesIPAllowListCname *string `json:"profilesIPAllowListCname,omitempty"`
 
@@ -232,6 +250,9 @@ type StackObservation struct {
 	ProfilesURL *string `json:"profilesURL,omitempty"`
 
 	ProfilesUserID *int64 `json:"profilesUserID,omitempty"`
+
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.
+	PrometheusAllowlistURL *string `json:"prometheusAllowlistURL,omitempty"`
 
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)
 	PrometheusIPAllowListCname *string `json:"prometheusIPAllowListCname,omitempty"`
@@ -277,6 +298,9 @@ type StackObservation struct {
 
 	// Status of the stack.
 	Status *string `json:"status,omitempty"`
+
+	// Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.
+	TracesAllowlistURL *string `json:"tracesAllowlistURL,omitempty"`
 
 	// Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
 	TracesIPAllowListCname *string `json:"tracesIPAllowListCname,omitempty"`

@@ -1,0 +1,74 @@
+apiVersion: agento11y.grafana.crossplane.io/v1alpha1
+kind: RuleAction
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agento11y/v1alpha1/ruleaction
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    collectionIds:
+    - ${grafana_agento11y_collection.failed.id}
+    condition: all_evaluators_fail
+    ruleId: ${grafana_agento11y_evaluation_rule.example.rule_id}
+
+---
+
+apiVersion: agento11y.grafana.crossplane.io/v1alpha1
+kind: Collection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agento11y/v1alpha1/ruleaction
+  labels:
+    testing.upbound.io/example-name: failed
+  name: failed
+spec:
+  forProvider:
+    description: Conversations where every evaluator failed.
+    name: Failed evaluations
+
+---
+
+apiVersion: agento11y.grafana.crossplane.io/v1alpha1
+kind: EvaluationRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agento11y/v1alpha1/ruleaction
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    evaluatorIds:
+    - ${grafana_agento11y_evaluator.example.evaluator_id}
+    ruleId: score_user_turns
+    sampleRate: 0.1
+    selector: user_visible_turn
+
+---
+
+apiVersion: agento11y.grafana.crossplane.io/v1alpha1
+kind: Evaluator
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agento11y/v1alpha1/ruleaction
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    config: |-
+      ${jsonencode({
+          pattern = "(?i)(api[_-]?key|password|secret)"
+        })}
+    evaluatorId: no_secrets
+    kind: regex
+    outputKeys: |-
+      ${jsonencode([
+          {
+            key  = "clean"
+            type = "bool"
+          }
+        ])}
+    version: "1"

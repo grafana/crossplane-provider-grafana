@@ -31,4 +31,10 @@ func (tr *NotificationPolicy) Hub() {}
 func (tr *RecordingruleV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *RoutingtreeV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *RuleGroup) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RulesequenceV0Alpha1) Hub() {}

@@ -16,67 +16,85 @@ import (
 
 type InhibitionruleV1Beta1InitParameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *InhibitionruleV1Beta1MetadataInitParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *InhibitionruleV1Beta1OptionsInitParameters `json:"options,omitempty" tf:"options,omitempty"`
 
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *InhibitionruleV1Beta1SpecInitParameters `json:"spec,omitempty" tf:"spec,omitempty"`
 }
 
 type InhibitionruleV1Beta1MetadataInitParameters struct {
 
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 }
 
 type InhibitionruleV1Beta1MetadataObservation struct {
 
+	// (Map of String) Annotations of the resource.
 	// Annotations of the resource.
 	// +mapType=granular
 	Annotations map[string]*string `json:"annotations,omitempty" tf:"annotations,omitempty"`
 
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
+	// (String) The full URL of the resource.
 	// The full URL of the resource.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
+	// (String) The globally unique identifier of a resource, used by the API for tracking.
 	// The globally unique identifier of a resource, used by the API for tracking.
 	UUID *string `json:"uuid,omitempty" tf:"uuid,omitempty"`
 
+	// (String) The version of the resource.
 	// The version of the resource.
 	Version *string `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type InhibitionruleV1Beta1MetadataParameters struct {
 
+	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid" tf:"uid,omitempty"`
 }
 
 type InhibitionruleV1Beta1Observation struct {
+
+	// (String) The ID of the resource derived from UUID.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	Metadata *InhibitionruleV1Beta1MetadataObservation `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	Options *InhibitionruleV1Beta1OptionsObservation `json:"options,omitempty" tf:"options,omitempty"`
 
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	Spec *InhibitionruleV1Beta1SpecObservation `json:"spec,omitempty" tf:"spec,omitempty"`
 }
@@ -86,6 +104,7 @@ type InhibitionruleV1Beta1OptionsInitParameters struct {
 	// Override the identity stamped on this resource's manager metadata.
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
@@ -95,6 +114,7 @@ type InhibitionruleV1Beta1OptionsObservation struct {
 	// Override the identity stamped on this resource's manager metadata.
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
 }
@@ -105,6 +125,7 @@ type InhibitionruleV1Beta1OptionsParameters struct {
 	// +kubebuilder:validation:Optional
 	ManagerIdentity *string `json:"managerIdentity,omitempty" tf:"manager_identity,omitempty"`
 
+	// (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
 	// +kubebuilder:validation:Optional
 	Overwrite *bool `json:"overwrite,omitempty" tf:"overwrite,omitempty"`
@@ -112,14 +133,17 @@ type InhibitionruleV1Beta1OptionsParameters struct {
 
 type InhibitionruleV1Beta1Parameters struct {
 
+	// (Block, Optional) The metadata of the resource. (see below for nested schema)
 	// The metadata of the resource.
 	// +kubebuilder:validation:Optional
 	Metadata *InhibitionruleV1Beta1MetadataParameters `json:"metadata,omitempty" tf:"metadata,omitempty"`
 
+	// (Block, Optional) Options for applying the resource. (see below for nested schema)
 	// Options for applying the resource.
 	// +kubebuilder:validation:Optional
 	Options *InhibitionruleV1Beta1OptionsParameters `json:"options,omitempty" tf:"options,omitempty"`
 
+	// (Block, Optional) The spec of the resource. (see below for nested schema)
 	// The spec of the resource.
 	// +kubebuilder:validation:Optional
 	Spec *InhibitionruleV1Beta1SpecParameters `json:"spec,omitempty" tf:"spec,omitempty"`
@@ -127,95 +151,126 @@ type InhibitionruleV1Beta1Parameters struct {
 
 type InhibitionruleV1Beta1SpecInitParameters struct {
 
+	// (List of String) Labels that must have equal values in source and target alerts for the inhibition to take effect.
 	// Labels that must have equal values in source and target alerts for the inhibition to take effect.
 	Equal []*string `json:"equal,omitempty" tf:"equal,omitempty"`
 
+	// (List of Object) Matchers that must be satisfied for an alert to be a source of inhibition. (see below for nested schema)
 	// Matchers that must be satisfied for an alert to be a source of inhibition.
 	SourceMatchers []SourceMatchersInitParameters `json:"sourceMatchers,omitempty" tf:"source_matchers,omitempty"`
 
+	// (List of Object) Matchers that must be satisfied for an alert to be inhibited. (see below for nested schema)
 	// Matchers that must be satisfied for an alert to be inhibited.
 	TargetMatchers []TargetMatchersInitParameters `json:"targetMatchers,omitempty" tf:"target_matchers,omitempty"`
 }
 
 type InhibitionruleV1Beta1SpecObservation struct {
 
+	// (List of String) Labels that must have equal values in source and target alerts for the inhibition to take effect.
 	// Labels that must have equal values in source and target alerts for the inhibition to take effect.
 	Equal []*string `json:"equal,omitempty" tf:"equal,omitempty"`
 
+	// (List of Object) Matchers that must be satisfied for an alert to be a source of inhibition. (see below for nested schema)
 	// Matchers that must be satisfied for an alert to be a source of inhibition.
 	SourceMatchers []SourceMatchersObservation `json:"sourceMatchers,omitempty" tf:"source_matchers,omitempty"`
 
+	// (List of Object) Matchers that must be satisfied for an alert to be inhibited. (see below for nested schema)
 	// Matchers that must be satisfied for an alert to be inhibited.
 	TargetMatchers []TargetMatchersObservation `json:"targetMatchers,omitempty" tf:"target_matchers,omitempty"`
 }
 
 type InhibitionruleV1Beta1SpecParameters struct {
 
+	// (List of String) Labels that must have equal values in source and target alerts for the inhibition to take effect.
 	// Labels that must have equal values in source and target alerts for the inhibition to take effect.
 	// +kubebuilder:validation:Optional
 	Equal []*string `json:"equal,omitempty" tf:"equal,omitempty"`
 
+	// (List of Object) Matchers that must be satisfied for an alert to be a source of inhibition. (see below for nested schema)
 	// Matchers that must be satisfied for an alert to be a source of inhibition.
 	// +kubebuilder:validation:Optional
 	SourceMatchers []SourceMatchersParameters `json:"sourceMatchers,omitempty" tf:"source_matchers,omitempty"`
 
+	// (List of Object) Matchers that must be satisfied for an alert to be inhibited. (see below for nested schema)
 	// Matchers that must be satisfied for an alert to be inhibited.
 	// +kubebuilder:validation:Optional
 	TargetMatchers []TargetMatchersParameters `json:"targetMatchers,omitempty" tf:"target_matchers,omitempty"`
 }
 
 type SourceMatchersInitParameters struct {
+
+	// (String)
 	Label *string `json:"label,omitempty" tf:"label"`
 
+	// (String)
 	Type *string `json:"type,omitempty" tf:"type"`
 
+	// (String)
 	Value *string `json:"value,omitempty" tf:"value"`
 }
 
 type SourceMatchersObservation struct {
+
+	// (String)
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
+	// (String)
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String)
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type SourceMatchersParameters struct {
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value"`
 }
 
 type TargetMatchersInitParameters struct {
+
+	// (String)
 	Label *string `json:"label,omitempty" tf:"label"`
 
+	// (String)
 	Type *string `json:"type,omitempty" tf:"type"`
 
+	// (String)
 	Value *string `json:"value,omitempty" tf:"value"`
 }
 
 type TargetMatchersObservation struct {
+
+	// (String)
 	Label *string `json:"label,omitempty" tf:"label,omitempty"`
 
+	// (String)
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
+	// (String)
 	Value *string `json:"value,omitempty" tf:"value,omitempty"`
 }
 
 type TargetMatchersParameters struct {
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Label *string `json:"label,omitempty" tf:"label"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type"`
 
+	// (String)
 	// +kubebuilder:validation:Optional
 	Value *string `json:"value,omitempty" tf:"value"`
 }
@@ -247,7 +302,7 @@ type InhibitionruleV1Beta1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// InhibitionruleV1Beta1 is the Schema for the InhibitionruleV1Beta1s API. <no value>
+// InhibitionruleV1Beta1 is the Schema for the InhibitionruleV1Beta1s API. Manages Grafana Inhibition Rules.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -1,5 +1,185 @@
 name: grafana/grafana
 resources:
+    grafana_agento11y_collection:
+        subCategory: Agent Observability
+        description: 'Manages a Grafana Agent Observability collection: a named group of saved conversations. Rule actions add matching conversations to a collection, so use this resource to reference a collection from grafana_agento11y_rule_action without hardcoding a server-generated ID. Terraform does not manage collection membership. Rule actions and the Agent Observability UI add and remove members. Requires a Grafana instance with the grafana-agento11y-app plugin installed. Writes require a user or service account with the grafana-agento11y-app.eval:write permission, which only the Admin basic role grants by default.'
+        name: grafana_agento11y_collection
+        title: grafana_agento11y_collection Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "description": "Conversations where every evaluator failed.",
+                  "name": "Failed evaluations"
+                }
+        argumentDocs:
+            description: (String) Description of the collection. Remove this attribute to clear the stored description; an empty string is not accepted.
+            id: (String) The server-generated collection identifier.
+            name: (String) Display name of the collection. Names are not unique.
+        importStatements:
+            - terraform import grafana_agento11y_collection.name "{{ collection_id }}"
+    grafana_agento11y_evaluation_rule:
+        subCategory: Agent Observability
+        description: Manages a Grafana Agent Observability online evaluation rule. Rules select which agent generations (or whole conversations) are sampled and scored by one or more evaluators. Requires a Grafana instance with the grafana-agento11y-app plugin installed. Writes require a user or service account with the grafana-agento11y-app.eval:write permission, which only the Admin basic role grants by default.
+        name: grafana_agento11y_evaluation_rule
+        title: grafana_agento11y_evaluation_rule Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "enabled": true,
+                  "evaluator_ids": [
+                    "${grafana_agento11y_evaluator.example.evaluator_id}"
+                  ],
+                  "execution_mode": "parallel",
+                  "filterable_tag_keys": [
+                    "environment",
+                    "team"
+                  ],
+                  "match": "${jsonencode({\n    agent_name = \"checkout-*\"\n  })}",
+                  "rule_id": "score_user_turns",
+                  "sample_rate": 0.1,
+                  "selector": "user_visible_turn"
+                }
+              references:
+                evaluator_ids: grafana_agento11y_evaluator.example.evaluator_id
+              dependencies:
+                grafana_agento11y_evaluator.example: |-
+                    {
+                      "config": "${jsonencode({\n    pattern = \"(?i)(api[_-]?key|password|secret)\"\n  })}",
+                      "evaluator_id": "no_secrets",
+                      "kind": "regex",
+                      "output_keys": "${jsonencode([\n    {\n      key  = \"clean\"\n      type = \"bool\"\n    }\n  ])}",
+                      "version": "1"
+                    }
+        argumentDocs:
+            alert_rule_uids: (List of String) Optional Grafana alert rule UIDs associated with this evaluation rule.
+            enabled: (Boolean) Whether the rule is enabled. Defaults to true.
+            evaluator_ids: (List of String) IDs of the evaluators to run against matching generations. Must be non-empty.
+            execution_mode: (String) How evaluators execute. parallel runs all evaluators independently; sequential treats evaluator_ids as an ordered gate chain. Defaults to parallel.
+            filterable_tag_keys: (List of String) Generation tag keys to promote to Prometheus labels on evaluation metrics. Supports at most 10 unique, non-empty keys and cannot be set when selector is conversation.
+            id: (String) The rule identifier (equal to rule_id).
+            match: (String) Optional JSON object of match filters (for example {"agent_name":"checkout-*"}). Omit to match everything.
+            min_idle_seconds: (Number) Idle window, in seconds, before a conversation-scope rule runs. Required when selector is conversation; must be unset otherwise.
+            rule_id: (String) Tenant-unique identifier of the rule. Changing this forces a new resource.
+            sample_rate: (Number) Fraction of matching generations to evaluate, in [0,1]. Defaults to 0.01.
+            selector: (String) Which generations the rule applies to. One of user_visible_turn, all_assistant_generations, tool_call_steps, errored_generations, conversation. Defaults to user_visible_turn.
+        importStatements:
+            - terraform import grafana_agento11y_evaluation_rule.name "{{ rule_id }}"
+    grafana_agento11y_evaluator:
+        subCategory: Agent Observability
+        description: Manages a Grafana Agent Observability evaluator definition. Evaluators score agent generations or conversations (LLM judge, JSON schema, regex, or heuristic). Requires a Grafana instance with the grafana-agento11y-app plugin installed. Writes require a user or service account with the grafana-agento11y-app.eval:write permission, which only the Admin basic role grants by default.
+        name: grafana_agento11y_evaluator
+        title: grafana_agento11y_evaluator Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "config": "${jsonencode({\n    pattern = \"(?i)(api[_-]?key|password|secret)\"\n  })}",
+                  "description": "Flags assistant responses that leak secrets.",
+                  "evaluator_id": "no_secrets",
+                  "kind": "regex",
+                  "output_keys": "${jsonencode([\n    {\n      key  = \"clean\"\n      type = \"bool\"\n    }\n  ])}",
+                  "version": "1"
+                }
+        argumentDocs:
+            config: (String) Kind-specific evaluator configuration, encoded as a JSON object string. The server normalizes this payload, so it is managed from configuration and not refreshed from the API.
+            description: (String) Optional human-readable description of the evaluator.
+            evaluator_id: (String) Tenant-unique identifier of the evaluator. Changing this forces a new resource.
+            id: (String) The evaluator identifier (equal to evaluator_id).
+            kind: (String) The evaluator kind. One of llm_judge, json_schema, regex, heuristic.
+            output_keys: (String) JSON array of output key definitions produced by the evaluator (for example [{"key":"score","type":"number","pass_threshold":0.5}]). Managed from configuration and not refreshed from the API.
+            version: (String) Version label of the evaluator definition.
+        importStatements:
+            - terraform import grafana_agento11y_evaluator.name "{{ evaluator_id }}"
+    grafana_agento11y_hook_rule:
+        subCategory: Agent Observability
+        description: Manages a Grafana Agent Observability hook (guard) rule. Hook rules run synchronously on the request path and can deny or warn on matching generations, block tool calls, or redact content. At least one of evaluator_ids, blocked_tools, or redact must be set. Requires a Grafana instance with the grafana-agento11y-app plugin installed. Writes require a user or service account with the grafana-agento11y-app.eval:write permission, which only the Admin basic role grants by default.
+        name: grafana_agento11y_hook_rule
+        title: grafana_agento11y_hook_rule Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "action_on_fail": "deny",
+                  "blocked_tools": [
+                    "delete_*",
+                    "drop_*"
+                  ],
+                  "phase": "preflight",
+                  "redact": [
+                    {
+                      "id": "emails",
+                      "regex": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+"
+                    }
+                  ],
+                  "rule_id": "block_destructive_tools"
+                }
+        argumentDocs:
+            action_on_fail: (String) Action taken when the hook fails. One of deny, warn. Defaults to deny.
+            blocked_tools: (List of String) Glob patterns of tool call names to block (for example ["delete_*"]).
+            enabled: (Boolean) Whether the hook rule is enabled. Defaults to true.
+            evaluator_ids: (List of String) IDs of the evaluators to run synchronously. Optional when blocked_tools or redact is set.
+            id: (String) The hook rule identifier (equal to rule_id).
+            match: (String) Optional JSON object of match filters (for example {"agent_name":"checkout-*"}). Omit to match everything.
+            phase: (String) When the hook runs. One of preflight, postflight. Defaults to preflight.
+            priority: (Number) Evaluation priority; lower priority rules run first. Defaults to 0.
+            redact: (Block List) Ordered regex redaction patterns applied to request/response text. (see below for nested schema)
+            regex: (String) Regular expression to redact.
+            rule_id: (String) Tenant-unique identifier of the hook rule. Changing this forces a new resource.
+            selector: (String) Which generations the hook applies to. One of all, user_visible_turn, all_assistant_generations, tool_call_steps, errored_generations. Defaults to all.
+            short_circuit: (Boolean) When true (default), stop at the first failed rule. When false, run all evaluators and deny if any failed.
+        importStatements:
+            - terraform import grafana_agento11y_hook_rule.name "{{ rule_id }}"
+    grafana_agento11y_rule_action:
+        subCategory: Agent Observability
+        description: Manages an action attached to a Grafana Agent Observability evaluation rule. When the rule's aggregate verdict matches the configured condition, matching conversations are added to one or more collections. Requires a Grafana instance with the grafana-agento11y-app plugin installed. Writes require a user or service account with the grafana-agento11y-app.eval:write permission, which only the Admin basic role grants by default.
+        name: grafana_agento11y_rule_action
+        title: grafana_agento11y_rule_action Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "collection_ids": [
+                    "${grafana_agento11y_collection.failed.id}"
+                  ],
+                  "condition": "all_evaluators_fail",
+                  "rule_id": "${grafana_agento11y_evaluation_rule.example.rule_id}"
+                }
+              references:
+                collection_ids: grafana_agento11y_collection.failed.id
+                rule_id: grafana_agento11y_evaluation_rule.example.rule_id
+              dependencies:
+                grafana_agento11y_collection.failed: |-
+                    {
+                      "description": "Conversations where every evaluator failed.",
+                      "name": "Failed evaluations"
+                    }
+                grafana_agento11y_evaluation_rule.example: |-
+                    {
+                      "evaluator_ids": [
+                        "${grafana_agento11y_evaluator.example.evaluator_id}"
+                      ],
+                      "rule_id": "score_user_turns",
+                      "sample_rate": 0.1,
+                      "selector": "user_visible_turn"
+                    }
+                grafana_agento11y_evaluator.example: |-
+                    {
+                      "config": "${jsonencode({\n    pattern = \"(?i)(api[_-]?key|password|secret)\"\n  })}",
+                      "evaluator_id": "no_secrets",
+                      "kind": "regex",
+                      "output_keys": "${jsonencode([\n    {\n      key  = \"clean\"\n      type = \"bool\"\n    }\n  ])}",
+                      "version": "1"
+                    }
+        argumentDocs:
+            collection_ids: (List of String) IDs of the collections that matching conversations are added to. Must be non-empty.
+            condition: (String) Aggregate verdict that triggers the action. One of all_evaluators_pass, all_evaluators_fail.
+            enabled: (Boolean) Whether the action is enabled. Defaults to true.
+            id: (String) The server-generated action identifier.
+            rule_id: (String) ID of the evaluation rule this action is attached to. Changing this forces a new resource.
+        importStatements:
+            - terraform import grafana_agento11y_rule_action.name "{{ rule_id }}:{{ action_id }}"
     grafana_annotation:
         subCategory: Grafana OSS
         description: Manages Grafana annotations. Official documentation https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/annotations/
@@ -477,11 +657,43 @@ resources:
             secure_version: (Number) Set this to 1 when using secure, then increment it whenever you want Terraform to re-apply secure values.
         importStatements:
             - terraform import grafana_apps_generic_resource.example provisioning.grafana.app/v1beta1/Repository/platform-repo
-    grafana_apps_notifications_inhibitionrule_v1beta1 Resource - terraform-provider-grafana:
+    grafana_apps_notifications_inhibitionrule_v1beta1:
         subCategory: Alerting
         description: Manages Grafana Inhibition Rules.
-        name: grafana_apps_notifications_inhibitionrule_v1beta1 Resource - terraform-provider-grafana
+        name: grafana_apps_notifications_inhibitionrule_v1beta1
         title: grafana_apps_notifications_inhibitionrule_v1beta1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-inhibition-rule"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "equal": [
+                        "namespace",
+                        "pod"
+                      ],
+                      "source_matchers": [
+                        {
+                          "label": "alertname",
+                          "type": "=",
+                          "value": "TargetDown"
+                        }
+                      ],
+                      "target_matchers": [
+                        {
+                          "label": "severity",
+                          "type": "=",
+                          "value": "warning"
+                        }
+                      ]
+                    }
+                  ]
+                }
         argumentDocs:
             annotations: (Map of String) Annotations of the resource.
             equal: (List of String) Labels that must have equal values in source and target alerts for the inhibition to take effect.
@@ -500,6 +712,138 @@ resources:
             url: (String) The full URL of the resource.
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             value: (String)
+            version: (String) The version of the resource.
+        importStatements: []
+    grafana_apps_notifications_routingtree_v1beta1:
+        subCategory: Alerting
+        description: Manages the Grafana notification routing tree using the Grafana Alerting Notifications API. The routing tree determines which contact point an alert is routed to, based on its labels. Requires Grafana 13.1+ with the alertingMultiplePolicies feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/ enabled. Official documentation https://grafana.com/docs/grafana/latest/alerting/configure-notifications/create-notification-policy/
+        name: grafana_apps_notifications_routingtree_v1beta1
+        title: grafana_apps_notifications_routingtree_v1beta1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "my-routing-tree"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "defaults": [
+                        {
+                          "group_by": [
+                            "grafana_folder",
+                            "alertname"
+                          ],
+                          "group_interval": "5m",
+                          "group_wait": "30s",
+                          "receiver": "empty",
+                          "repeat_interval": "4h"
+                        }
+                      ],
+                      "disable_provenance": false,
+                      "routes": [
+                        {
+                          "continue": false,
+                          "group_by": [
+                            "alertname"
+                          ],
+                          "matchers": [
+                            {
+                              "label": "severity",
+                              "type": "=",
+                              "value": "critical"
+                            }
+                          ],
+                          "mute_time_intervals": [],
+                          "receiver": "empty",
+                          "routes": [
+                            {
+                              "continue": true,
+                              "matchers": [
+                                {
+                                  "label": "team",
+                                  "type": "=~",
+                                  "value": "backend|platform"
+                                }
+                              ],
+                              "receiver": "empty"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+            - name: default
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "default"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "defaults": [
+                        {
+                          "group_by": [
+                            "grafana_folder",
+                            "alertname"
+                          ],
+                          "group_interval": "5m",
+                          "group_wait": "30s",
+                          "receiver": "a contact point",
+                          "repeat_interval": "4h"
+                        }
+                      ],
+                      "disable_provenance": false,
+                      "routes": [
+                        {
+                          "continue": true,
+                          "group_by": [
+                            "alertname"
+                          ],
+                          "matchers": [
+                            {
+                              "label": "severity",
+                              "type": "=",
+                              "value": "critical"
+                            }
+                          ],
+                          "receiver": "a contact point"
+                        }
+                      ]
+                    }
+                  ]
+                }
+        argumentDocs:
+            active_time_intervals: (List of String) A list of time interval names that activate this route only during the specified times.
+            annotations: (Map of String) Annotations of the resource.
+            continue: (Boolean) Whether to continue matching subsequent sibling routes if an alert matches this route. Defaults to false.
+            defaults: (Block, Optional) The default values applied to alerts that do not match any specific route. (see below for nested schema)
+            disable_provenance: (Boolean) Set to true to allow editing this resource from other sources (UI, API). Defaults to false, which locks the resource to Terraform management only.
+            group_by: (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group by all labels.
+            group_interval: (String) Minimum time interval between two notifications for the same group. Default is 5 minutes.
+            group_wait: (String) Time to wait to buffer alerts of the same group before sending a notification. Default is 30 seconds.
+            id: (String) The ID of the resource derived from UUID.
+            label: (String) The name of the label to match against.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
+            matchers: (List of Object) Matchers that an alert has to fulfill to match this route. When multiple matchers are supplied, an alert must match ALL of them. (see below for nested schema)
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            mute_time_intervals: (List of String) A list of time interval names that mute this route during the specified times.
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            receiver: (String) The default contact point to route all unmatched notifications to.
+            repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
+            routes: (Block List) Routing rules for specific label sets. (see below for nested schema)
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            type: (String) The matching operator. One of =, !=, =~, !~.
+            uid: (String) The unique identifier (Kubernetes name) of the routing tree. The default routing tree is named default.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            value: (String) The label value to match against.
             version: (String) The version of the resource.
         importStatements: []
     grafana_apps_playlist_playlist_v0alpha1:
@@ -1110,6 +1454,68 @@ resources:
             webhook_secret: (Map of String, Write-only) Webhook secret.
             workflows: '(List of String) Allowed change workflows: write, branch.'
         importStatements: []
+    grafana_apps_queries_query_v1:
+        subCategory: Grafana Apps
+        description: Manages Grafana Saved Queries, also known as the Query Library, using the Grafana App Platform API (queries.grafana.app/v1). The datasource query stored in each target, the target's variable replacements, and a variable's value list definition are passed as raw JSON strings (use jsonencode()) because their shape depends on the datasource. Query Library documentation https://grafana.com/docs/grafana/latest/explore/query-management/
+        name: grafana_apps_queries_query_v1
+        title: grafana_apps_queries_query_v1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "example-saved-query"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "description": "Prometheus rate of HTTP requests",
+                      "is_visible": true,
+                      "tags": [
+                        "http",
+                        "prometheus"
+                      ],
+                      "targets": [
+                        {
+                          "properties_json": "${jsonencode({\n        refId = \"A\"\n        expr  = \"rate(http_requests_total[$__rate_interval])\"\n        datasource = {\n          type = \"prometheus\"\n          uid  = \"my-prometheus-uid\"\n        }\n      })}"
+                        }
+                      ],
+                      "title": "Requests per second"
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            data_type: (String) The returned Dataplane frame type for the target.
+            default_values: (List of String) The values used when no value is selected during render.
+            description: (String) A longer description of the saved query.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+            id: (String) The ID of the resource derived from UUID.
+            is_locked: (Boolean) Whether the saved query is locked and cannot be edited in the UI. This is purely for UI display purposes and not for security.
+            is_visible: (Boolean) Whether the saved query is visible in the query library.
+            key: (String) The name of the variable.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            properties_json: (String) The datasource query for the target, as a JSON string (use jsonencode()).
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            tags: (Set of String) The tags used to filter the saved query.
+            targets: (Block List) The query targets that make up the saved query. At least one target is required. (see below for nested schema)
+            title: (String) The display name of the saved query.
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            value_list_definition_json: (String) The definition (as a JSON string) used by the frontend to fetch the list of selectable values.
+            variables_json: (String) The variable replacements to apply to the target, as a JSON string (use jsonencode()).
+            vars: (Block List) The template variables that can be interpolated into the query targets. (see below for nested schema)
+            version: (String) The version of the resource.
+        importStatements:
+            - |-
+              #!/bin/bash
+              # Import an existing saved query by its UID
+              terraform import grafana_apps_queries_query_v1.example example-saved-query
     grafana_apps_rules_alertrule_v0alpha1:
         subCategory: Alerting
         description: Manages Grafana Alert Rules. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
@@ -1274,6 +1680,115 @@ resources:
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
             version: (String) The version of the resource.
         importStatements: []
+    grafana_apps_rules_rulesequence_v0alpha1:
+        subCategory: Alerting
+        description: Manages Grafana Rule Sequences. A rule sequence groups existing alert rules and recording rules so they are evaluated in order, at a shared interval, within a single folder. All referenced rules must live in the same folder as the sequence (set metadata.folder_uid). This resource is currently in alpha and is subject to change.
+        name: grafana_apps_rules_rulesequence_v0alpha1
+        title: grafana_apps_rules_rulesequence_v0alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "folder_uid": "${grafana_folder.rulesequence_folder.uid}",
+                      "uid": "example-rule-sequence"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "alerting_rules": [
+                        {
+                          "name": "${grafana_apps_rules_alertrule_v0alpha1.example.metadata[0].uid}"
+                        }
+                      ],
+                      "recording_rules": [
+                        {
+                          "name": "${grafana_apps_rules_recordingrule_v0alpha1.example.metadata[0].uid}"
+                        }
+                      ],
+                      "trigger": [
+                        {
+                          "interval": "1m"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              references:
+                metadata.folder_uid: grafana_folder.rulesequence_folder.uid
+              dependencies:
+                grafana_apps_rules_alertrule_v0alpha1.example: |-
+                    {
+                      "metadata": [
+                        {
+                          "folder_uid": "${grafana_folder.rulesequence_folder.uid}",
+                          "uid": "example-seq-alert-rule"
+                        }
+                      ],
+                      "spec": [
+                        {
+                          "exec_err_state": "KeepLast",
+                          "expressions": {
+                            "A": "${jsonencode({\n        model = {\n          datasource = {\n            type = \"prometheus\"\n            uid  = \"ds_uid\"\n          }\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        }\n        datasource_uid = \"ds_uid\"\n        relative_time_range = {\n          from = \"600s\"\n          to   = \"0s\"\n        }\n        query_type = \"\"\n        source     = true\n      })}"
+                          },
+                          "no_data_state": "KeepLast",
+                          "title": "Example Sequence Alert Rule",
+                          "trigger": [
+                            {
+                              "interval": "1m"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                grafana_apps_rules_recordingrule_v0alpha1.example: |-
+                    {
+                      "metadata": [
+                        {
+                          "folder_uid": "${grafana_folder.rulesequence_folder.uid}",
+                          "uid": "example-seq-recording-rule"
+                        }
+                      ],
+                      "spec": [
+                        {
+                          "expressions": {
+                            "A": "${jsonencode({\n        model = {\n          editorMode    = \"code\"\n          expr          = \"count(up{})\"\n          instant       = true\n          intervalMs    = 1000\n          legendFormat  = \"__auto\"\n          maxDataPoints = 43200\n          range         = false\n          refId         = \"A\"\n        }\n        datasource_uid = \"ds_uid\"\n        relative_time_range = {\n          from = \"600s\"\n          to   = \"0s\"\n        }\n        query_type = \"\"\n        source     = true\n      })}"
+                          },
+                          "metric": "tf-seq-metric",
+                          "target_datasource_uid": "target_ds_uid",
+                          "title": "Example Sequence Recording Rule",
+                          "trigger": [
+                            {
+                              "interval": "1m"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                grafana_folder.rulesequence_folder: |-
+                    {
+                      "title": "Rule Sequence Folder"
+                    }
+        argumentDocs:
+            alerting_rules: (List of Object) The alert rules that belong to this sequence, evaluated in the order listed. Each entry references an alert rule by its name (the rule's UID). (see below for nested schema)
+            annotations: (Map of String) Annotations of the resource.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+            id: (String) The ID of the resource derived from UUID.
+            interval: (String) The interval at which the rules in the sequence should be evaluated.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            name: (String)
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            recording_rules: (List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            trigger: (Block, Optional) The trigger configuration shared by every rule in the sequence. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+        importStatements: []
     grafana_apps_secret_keeper_activation_v1beta1 Resource - terraform-provider-grafana:
         subCategory: Grafana Enterprise
         description: Sets the active keeper for a namespace. Only one keeper can be active at a time.
@@ -1338,6 +1853,112 @@ resources:
             value_hash: (String, Sensitive) Hash of the stored plaintext value.
             version: (String) The version of the resource.
         importStatements: []
+    grafana_apps_servicemodel_component_v1alpha1:
+        subCategory: Cloud
+        description: 'Manages services in Grafana Service Center via the Service Model API (servicemodel.ext.grafana.com/v1alpha1, kind Component). Services are catalog components of type service (the default for spec.type). Service Center currently displays components of type service; components of other types are stored but not shown. Availability: Grafana Cloud. The API is v1alpha1 and may evolve; the attributes exposed here are stable. Naming: metadata.uid is the object name, e.g. checkout-service. It can only contain lowercase letters, numbers and dashes, must start and end with a letter or number, and must be 2 to 63 characters long. Changing metadata.uid replaces the resource (destroy and create). The uid is also the service identifier: dashboards, alerts, SLOs and other resources are matched to the service when they carry a service_name label or tag equal to it; the identifiers block can add further values to match. Backstage catalog sync: services imported from Backstage https://grafana.com/docs/grafana-cloud/alerting-and-irm/service-center/create-a-service/ must be managed there, not in Terraform; otherwise the two will repeatedly overwrite each other.'
+        name: grafana_apps_servicemodel_component_v1alpha1
+        title: grafana_apps_servicemodel_component_v1alpha1 Resource - terraform-provider-grafana
+        examples:
+            - name: payments
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "payments-api"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "title": "Payments API"
+                    }
+                  ]
+                }
+              dependencies:
+                grafana_team.checkout: |-
+                    {
+                      "name": "Checkout Team"
+                    }
+            - name: checkout
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "checkout-service"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "depends_on_refs": [
+                        {
+                          "name": "${grafana_apps_servicemodel_component_v1alpha1.payments.metadata.uid}"
+                        }
+                      ],
+                      "description": "Handles checkout and payment orchestration.",
+                      "identifiers": [
+                        {
+                          "key": "service_name",
+                          "value": "Checkout_Service"
+                        },
+                        {
+                          "key": "namespace",
+                          "value": "checkout-prod"
+                        }
+                      ],
+                      "links": [
+                        {
+                          "title": "Source code",
+                          "type": "repository",
+                          "url": "https://github.com/example/checkout"
+                        }
+                      ],
+                      "owner_ref": [
+                        {
+                          "name": "${grafana_team.checkout.team_uid}"
+                        }
+                      ],
+                      "title": "Checkout Service"
+                    }
+                  ]
+                }
+              references:
+                spec.depends_on_refs.name: grafana_apps_servicemodel_component_v1alpha1.payments.metadata.uid
+                spec.owner_ref.name: grafana_team.checkout.team_uid
+              dependencies:
+                grafana_team.checkout: |-
+                    {
+                      "name": "Checkout Team"
+                    }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            api_version: (String) API version of the referenced object. Defaults to servicemodel.ext.grafana.com/v1alpha1.
+            depends_on_refs: (Block List) References to services this service depends on. (see below for nested schema)
+            description: (String) Description of the service.
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+            icon: (String) Icon of the link.
+            id: (String) The ID of the resource derived from UUID.
+            identifiers: '(Block List) Additional key/value pairs used to match resources to the service: a resource matches when it has a label or tag with the same key and value. For example, an identifier with key namespace and value checkout-prod matches alerts, SLOs and dashboards labeled or tagged namespace=checkout-prod. Maximum of 5. A service_name identifier equal to metadata.uid is implicit; add an explicit service_name when the telemetry value differs from the uid, for example because it contains characters the uid does not allow (such as uppercase letters, dots or underscores); the explicit value is matched in addition to the uid. (see below for nested schema)'
+            key: (String) Identifier key.
+            kind: (String) Kind of the referenced object. Defaults to Component.
+            links: (Block List) Links attached to the service (documentation, repository, etc.). (see below for nested schema)
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            name: (String) Name (metadata.uid) of the component this service depends on.
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            owner_ref: (Block, Optional) Reference to the team owning the service. Set name to the Grafana team UID; api_version and kind default to a Grafana IAM team reference. (see below for nested schema)
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            title: (String) Display name of the service.
+            type: (String) Component type. Defaults to service, the only type currently displayed by Service Center.
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            value: (String) Identifier value.
+            version: (String) The version of the resource.
+        importStatements:
+            - |-
+              #!/bin/bash
+              # Import an existing Service Center component by its UID (the Kubernetes object name).
+              terraform import grafana_apps_servicemodel_component_v1alpha1.checkout checkout-service
     grafana_asserts_custom_model_rules:
         subCategory: Knowledge Graph
         description: Manages Knowledge Graph Custom Model Rules through the Grafana API.
@@ -2465,8 +3086,16 @@ resources:
                   "scope": "tenant",
                   "title": "SLO health"
                 }
+            - name: with_context
+              manifest: |-
+                {
+                  "context_items": "${jsonencode([\n    {\n      node = {\n        id   = \"prometheus-uid\"\n        name = \"Prometheus\"\n        icon = \"database\"\n        data = {\n          type = \"datasource\"\n          data = {\n            name = \"Prometheus\"\n            uid  = \"prometheus-uid\"\n            type = \"prometheus\"\n            text = \"Prometheus\"\n          }\n        }\n      }\n    }\n  ])}",
+                  "prompt": "Which alerts are firing right now and why?",
+                  "scope": "tenant",
+                  "title": "Investigate Prometheus alerts"
+                }
         argumentDocs:
-            context_items: (String) Optional JSON array of context items for the quickstart.
+            context_items: '(String) Optional JSON-encoded array of context items pre-attached to the quickstart. Each element is an Assistant ChatContextItem; only node.id, node.name, and node.data ({"type": ..., "data": {...}}) are required, e.g. {"node": {"id": ..., "name": ..., "data": {"type": ..., "data": {...}}}}. This is an advanced, internal-format field. The most reliable way to produce a valid value is to create a quickstart with the desired context through the Assistant UI, then copy the resulting contextItems JSON. Omit this field if no pre-attached context is needed. See the example for a typical datasource context item.'
             enabled: (Boolean) Whether the resource is enabled.
             id: (String) The UUID of the resource.
             prompt: (String) The quickstart question text.
@@ -2512,12 +3141,14 @@ resources:
               manifest: |-
                 {
                   "body": "1. Check deployment pipeline status.\n2. Verify SLO error budget before promoting.\n",
+                  "command_name": "deploy-readiness",
                   "name": "Deploy readiness check",
                   "scope": "tenant"
                 }
         argumentDocs:
             allowed_tools: (Block List) MCP tools to auto-approve when this skill is invoked. (see below for nested schema)
             body: (String) The skill content.
+            command_name: (String) The slash command name that invokes the skill. Setting this enables the skill as a command.
             context_items: (String) Optional JSON array of context items referenced by the skill.
             id: (String) The UUID of the resource.
             include_in_knowledgebase: (Boolean) Whether the skill is included in the knowledgebase.
@@ -2527,6 +3158,22 @@ resources:
             tool_name: (String) MCP tool name.
         importStatements:
             - terraform import grafana_assistant_skill.name "{{ id }}"
+    grafana_assistant_terms_acceptance:
+        subCategory: Grafana Assistant
+        description: Manages Grafana Assistant terms acceptance for the stack configured by the provider. Setting accepted to true constitutes acceptance of the current Assistant terms for the stack. The authenticated identity must have the grafana-assistant-app.settings.terms:write permission.
+        name: grafana_assistant_terms_acceptance
+        title: grafana_assistant_terms_acceptance Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "accepted": true
+                }
+        argumentDocs:
+            accepted: (Boolean) Whether the current Grafana Assistant terms are accepted for the stack. Setting this to false withdraws acceptance.
+            id: (String) The fixed identifier for the stack's Assistant terms acceptance.
+        importStatements:
+            - terraform import grafana_assistant_terms_acceptance.name "{{ id }}"
     grafana_cloud_access_policy:
         subCategory: Cloud
         description: 'Official documentation https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/API documentation https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#create-an-access-policy Required access policy scopes: accesspolicies:readaccesspolicies:writeaccesspolicies:delete'
@@ -2576,7 +3223,7 @@ resources:
             label_policy: (Block Set) (see below for nested schema)
             name: (String) Name of the access policy.
             policy_id: (String) ID of the access policy.
-            realm: '(Block Set, Min: 1) (see below for nested schema)'
+            realm: '(Block List, Min: 1) (see below for nested schema)'
             region: '(String) Region where the API is deployed. Generally where the stack is deployed. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.'
             scopes: (Set of String) Scopes of the access policy. See https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/#scopes for possible values.
             selector: (String) The label selector to match in metrics or logs query. Should be in PromQL or LogQL format.
@@ -3110,6 +3757,7 @@ resources:
                   "slug": "gcloudstacktest"
                 }
         argumentDocs:
+            alertmanager_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.
             alertmanager_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Alertmanager instances (Optional)
             alertmanager_name: (String) Name of the Alertmanager instance configured for this stack.
             alertmanager_status: (String) Status of the Alertmanager instance configured for this stack.
@@ -3121,6 +3769,7 @@ resources:
             connections_api_url: (String) Base URL of the Connections API for this stack's cluster. This can be used with the connections_api_url provider config option to manage Connections resources for this stack.
             delete_protection: (Boolean) Whether to enable delete protection for the stack, preventing accidental deletion. Defaults to true.
             description: (String) Description of stack.
+            fleet_management_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.
             fleet_management_name: (String) Name of the Fleet Management instance configured for this stack.
             fleet_management_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Fleet Management when using AWS PrivateLink (only for AWS stacks)
             fleet_management_private_connectivity_info_availability_zones: (List of String) Availability Zones for Fleet Management when using AWS PrivateLink (only for AWS stacks)
@@ -3130,7 +3779,9 @@ resources:
             fleet_management_status: (String) Status of the Fleet Management instance configured for this stack.
             fleet_management_url: (String) Base URL of the Fleet Management instance configured for this stack.
             fleet_management_user_id: (Number) User ID of the Fleet Management instance configured for this stack.
+            grafanas_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.
             grafanas_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
+            graphite_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.
             graphite_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Graphite instance (Optional)
             graphite_name: (String)
             graphite_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Graphite when using AWS PrivateLink (only for AWS stacks)
@@ -3144,6 +3795,7 @@ resources:
             id: (String) The stack id assigned to this stack by Grafana.
             influx_url: (String) Base URL of the InfluxDB instance configured for this stack. The username is the same as the metrics' (prometheus_user_id attribute of this resource). See https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-influxdb/push-from-telegraf/ for docs on how to use this.
             labels: '(Map of String) A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\-._]+$" and stacks cannot have more than 10 labels.'
+            logs_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.
             logs_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)
             logs_name: (String)
             logs_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Logs when using AWS PrivateLink (only for AWS stacks)
@@ -3175,6 +3827,7 @@ resources:
             pdc_gateway_private_connectivity_info_private_dns: (String) Private DNS for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_regions: (List of String) Regions for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
             pdc_gateway_private_connectivity_info_service_name: (String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
+            profiles_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.
             profiles_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)
             profiles_name: (String)
             profiles_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Profiles when using AWS PrivateLink (only for AWS stacks)
@@ -3185,6 +3838,7 @@ resources:
             profiles_status: (String)
             profiles_url: (String)
             profiles_user_id: (Number)
+            prometheus_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.
             prometheus_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)
             prometheus_name: (String) Prometheus name for this instance.
             prometheus_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Prometheus when using AWS PrivateLink (only for AWS stacks)
@@ -3201,6 +3855,7 @@ resources:
             slug: (String) Subdomain that the Grafana instance will be available at. Setting slug to <stack_slug> will make the instance available at https://<stack_slug>.grafana.net.
             sm_url: '(String) Base URL of the Synthetic Monitoring API for this stack''s region. This can be used with the sm_url provider config option. Note: Synthetic Monitoring requires activation either via the grafana_synthetic_monitoring_installation resource or manually in the Grafana Cloud UI before it can be used.'
             status: (String) Status of the stack.
+            traces_allowlist_url: (String) Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.
             traces_ip_allow_list_cname: (String) Comma-separated list of CNAMEs that can be whitelisted to access the Traces instance (Optional)
             traces_name: (String)
             traces_private_connectivity_info_availability_zone_ids: (List of String) Availability Zone IDs for Traces when using AWS PrivateLink (only for AWS stacks)
@@ -4539,21 +5194,19 @@ resources:
             - terraform import grafana_frontend_o11y_app.name "{{ stack_id }}:{{ name }}"
     grafana_k6_installation:
         subCategory: k6
-        description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ Required access policy scopes: stacks:readstacks:writesubscriptions:readorgs:readstack-service-accounts:write'
+        description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ The provider''s cloud_access_policy_token needs the following scopes to manage the resources in the example below: stacks:readstacks:writestacks:deletestack-service-accounts:write'
         name: grafana_k6_installation
         title: grafana_k6_installation Resource - terraform-provider-grafana
         examples:
             - name: k6_installation
               manifest: |-
                 {
-                  "cloud_access_policy_token": "${var.cloud_access_policy_token}",
                   "grafana_sa_token": "${grafana_cloud_stack_service_account_token.k6_sa_token.key}",
                   "grafana_user": "admin",
                   "provider": "${grafana.cloud}",
                   "stack_id": "${grafana_cloud_stack.k6_stack.id}"
                 }
               references:
-                cloud_access_policy_token: var.cloud_access_policy_token
                 grafana_sa_token: grafana_cloud_stack_service_account_token.k6_sa_token.key
                 provider: grafana.cloud
                 stack_id: grafana_cloud_stack.k6_stack.id
@@ -4586,7 +5239,7 @@ resources:
                       "provider": "${grafana.k6}"
                     }
         argumentDocs:
-            cloud_access_policy_token: (String, Sensitive) The Grafana Cloud access policy.
+            cloud_access_policy_token: '(String, Sensitive, Deprecated) Deprecated: The Grafana Cloud access policy token. It is no longer used to install the k6 App and can be safely removed.'
             grafana_sa_token: (String, Sensitive) The service account token.
             grafana_user: (String) The user to use for the installation.
             id: (String) The ID of this resource.
@@ -4616,9 +5269,10 @@ resources:
                       "name": "Terraform Load Test Project"
                     }
         argumentDocs:
-            baseline_test_run_id: (String) Identifier of a baseline test run used for results comparison.
+            baseline_test_run_id: (String, Deprecated) Identifier of a baseline test run used for results comparison.
             created: (String) The date when the load test was created.
             id: (String) Numeric identifier of the load test.
+            k6_version: '(String) Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2'
             name: (String) Human-friendly identifier of the load test.
             project_id: (String) The identifier of the project this load test belongs to.
             script: (String) The k6 test script content. Can be provided inline or via the file() function.
@@ -5601,6 +6255,7 @@ resources:
             grouping_key: (String) Template for the key by which alerts are grouped.
             id: (String) The ID of this resource.
             image_url: (String) Template for Alert image url.
+            inbound_email: (String) The inbound email address for the integration. Only available for integration type inbound_email.
             labels: (List of Map of String) A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
             link: (String) The link for using in an integrated tool.
             message: (String) Template for Alert message.
@@ -7925,6 +8580,7 @@ resources:
             request: '(Block Set, Max: 1) An individual MultiHTTP request (see below for nested schema)'
             script: (String)
             scripted: '(Block Set, Max: 1) Settings for scripted check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6/. (see below for nested schema)'
+            secret_manager_enabled: (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so the reference is passed through literally rather than interpolated by Terraform. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
             send: (String) Data to send.
             server: (String) DNS server address to target. Defaults to 8.8.8.8.
             server_name: (String) Used to verify the hostname for the targets.
@@ -8116,6 +8772,9 @@ resources:
             - name: test-team
               manifest: |-
                 {
+                  "admins": [
+                    "${grafana_user.team_admin.email}"
+                  ],
                   "email": "teamemail@example.com",
                   "members": [
                     "${grafana_user.viewer.email}"
@@ -8123,8 +8782,16 @@ resources:
                   "name": "Test Team"
                 }
               references:
+                admins: grafana_user.team_admin.email
                 members: grafana_user.viewer.email
               dependencies:
+                grafana_user.team_admin: |-
+                    {
+                      "email": "team-admin@example.com",
+                      "login": "team-admin",
+                      "name": "Team Admin",
+                      "password": "my-password-2"
+                    }
                 grafana_user.viewer: |-
                     {
                       "email": "viewer@example.com",
@@ -8133,12 +8800,13 @@ resources:
                       "password": "my-password"
                     }
         argumentDocs:
+            admins: '(Set of String) A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into members are demoted; administrators only present in state (for example from the UI) are preserved until admins is set explicitly, including to [].'
             email: (String) An email address for the team.
             groups: (Set of String)
             home_dashboard_uid: (String) The UID of the dashboard to display when a team member logs in.
             id: (String) The ID of this resource.
             ignore_externally_synced_members: (Boolean) Ignores team members that have been added to team by Team Sync. Team Sync can be provisioned using grafana_team_external_group resource.
-            members: '(Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.'
+            members: '(Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.'
             name: (String) The display name for the Grafana team created.
             org_id: (String) The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
             preferences: (Block List) (see below for nested schema)

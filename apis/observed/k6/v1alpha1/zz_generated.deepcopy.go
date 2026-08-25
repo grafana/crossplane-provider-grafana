@@ -84,6 +84,11 @@ func (in *LoadTestObservation) DeepCopyInto(out *LoadTestObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.K6Version != nil {
+		in, out := &in.K6Version, &out.K6Version
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
 		*out = new(string)

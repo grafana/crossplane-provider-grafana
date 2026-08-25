@@ -17,3 +17,6 @@ func (tr *Rule) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Skill) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TermsAcceptance) Hub() {}

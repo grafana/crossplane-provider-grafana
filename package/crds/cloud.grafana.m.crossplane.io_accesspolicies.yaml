@@ -88,7 +88,7 @@ spec:
                       Name of the access policy.
                     type: string
                   realm:
-                    description: '(Block Set, Min: 1) (see below for nested schema)'
+                    description: '(Block List, Min: 1) (see below for nested schema)'
                     items:
                       properties:
                         identifier:
@@ -248,7 +248,7 @@ spec:
                       Name of the access policy.
                     type: string
                   realm:
-                    description: '(Block Set, Min: 1) (see below for nested schema)'
+                    description: '(Block List, Min: 1) (see below for nested schema)'
                     items:
                       properties:
                         identifier:
@@ -488,7 +488,7 @@ spec:
                       ID of the access policy.
                     type: string
                   realm:
-                    description: '(Block Set, Min: 1) (see below for nested schema)'
+                    description: '(Block List, Min: 1) (see below for nested schema)'
                     items:
                       properties:
                         identifier:
