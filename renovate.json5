@@ -46,4 +46,13 @@
       semanticCommitType: 'fix',
     },
   ],
+  // Grafana's global Renovate config titles vulnerability fixes as
+  // "fix(security/<severity>/<cve>): ... [security]". The PR title check
+  // requires scopes to match [a-z][a-z0-9_-]*, so the slashes make every
+  // security PR fail and block automerge. Severity and CVE are already
+  // conveyed via labels and the PR body, so use a plain "deps" scope.
+  vulnerabilityAlerts: {
+    semanticCommitScope: 'deps',
+    commitMessageSuffix: '',
+  },
 }
