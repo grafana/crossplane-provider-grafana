@@ -1,0 +1,29 @@
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: QueryV1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/queryv1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+      uid: example-saved-query
+    spec:
+      description: Prometheus rate of HTTP requests
+      isVisible: true
+      tags:
+      - http
+      - prometheus
+      targets:
+      - propertiesJson: |-
+          ${jsonencode({
+                  refId = "A"
+                  expr  = "rate(http_requests_total[$__rate_interval])"
+                  datasource = {
+                    type = "prometheus"
+                    uid  = "my-prometheus-uid"
+                  }
+                })}
+      title: Requests per second

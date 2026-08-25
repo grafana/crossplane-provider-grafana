@@ -15,9 +15,9 @@ import (
 
 type InstallationInitParameters struct {
 
-	// (String, Sensitive) The Grafana Cloud access policy.
-	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
-	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	// (String, Sensitive, Deprecated) Deprecated: The Grafana Cloud access policy token. It is no longer used to install the k6 App and can be safely removed.
+	// Deprecated: The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) token. It is no longer used to install the k6 App and can be safely removed.
+	CloudAccessPolicyTokenSecretRef *v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The service account token.
 	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
@@ -60,10 +60,10 @@ type InstallationObservation struct {
 
 type InstallationParameters struct {
 
-	// (String, Sensitive) The Grafana Cloud access policy.
-	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/).
+	// (String, Sensitive, Deprecated) Deprecated: The Grafana Cloud access policy token. It is no longer used to install the k6 App and can be safely removed.
+	// Deprecated: The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) token. It is no longer used to install the k6 App and can be safely removed.
 	// +kubebuilder:validation:Optional
-	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	CloudAccessPolicyTokenSecretRef *v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The service account token.
 	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
@@ -113,7 +113,7 @@ type InstallationStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Installation is the Schema for the Installations API. Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ Required access policy scopes: stacks:readstacks:writesubscriptions:readorgs:readstack-service-accounts:write
+// Installation is the Schema for the Installations API. Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ The provider's cloud_access_policy_token needs the following scopes to manage the resources in the example below: stacks:readstacks:writestacks:deletestack-service-accounts:write
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"
@@ -122,7 +122,6 @@ type InstallationStatus struct {
 type Installation struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.cloudAccessPolicyTokenSecretRef)",message="spec.forProvider.cloudAccessPolicyTokenSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaSaTokenSecretRef)",message="spec.forProvider.grafanaSaTokenSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaUser) || (has(self.initProvider) && has(self.initProvider.grafanaUser))",message="spec.forProvider.grafanaUser is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"

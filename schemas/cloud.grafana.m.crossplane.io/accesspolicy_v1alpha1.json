@@ -46,7 +46,7 @@
               "type": "string"
             },
             "realm": {
-              "description": "(Block Set, Min: 1) (see below for nested schema)",
+              "description": "(Block List, Min: 1) (see below for nested schema)",
               "items": {
                 "additionalProperties": false,
                 "properties": {
@@ -211,7 +211,7 @@
               "type": "string"
             },
             "realm": {
-              "description": "(Block Set, Min: 1) (see below for nested schema)",
+              "description": "(Block List, Min: 1) (see below for nested schema)",
               "items": {
                 "additionalProperties": false,
                 "properties": {
@@ -471,7 +471,7 @@
               "type": "string"
             },
             "realm": {
-              "description": "(Block Set, Min: 1) (see below for nested schema)",
+              "description": "(Block List, Min: 1) (see below for nested schema)",
               "items": {
                 "additionalProperties": false,
                 "properties": {

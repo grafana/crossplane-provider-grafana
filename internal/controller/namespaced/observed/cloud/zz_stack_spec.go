@@ -35,6 +35,12 @@ var StackSpec = tfdatasource.Spec{
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
 			cr := mg.(*v1alpha1.Stack)
 			meta.SetExternalName(cr, d.Id())
+			if v, ok := d.GetOk("alertmanager_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.AlertmanagerAllowlistURL = &s
+				}
+			}
+
 			if v, ok := d.GetOk("alertmanager_ip_allow_list_cname"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.AlertmanagerIPAllowListCname = &s
@@ -102,6 +108,12 @@ var StackSpec = tfdatasource.Spec{
 				}
 			}
 
+			if v, ok := d.GetOk("fleet_management_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.FleetManagementAllowlistURL = &s
+				}
+			}
+
 			if v, ok := d.GetOk("fleet_management_name"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.FleetManagementName = &s
@@ -145,9 +157,21 @@ var StackSpec = tfdatasource.Spec{
 				}
 			}
 
+			if v, ok := d.GetOk("grafanas_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GrafanasAllowlistURL = &s
+				}
+			}
+
 			if v, ok := d.GetOk("grafanas_ip_allow_list_cname"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.GrafanasIPAllowListCname = &s
+				}
+			}
+
+			if v, ok := d.GetOk("graphite_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.GraphiteAllowlistURL = &s
 				}
 			}
 
@@ -207,6 +231,12 @@ var StackSpec = tfdatasource.Spec{
 			}
 
 			// TODO: complex type map[string]string for labels
+
+			if v, ok := d.GetOk("logs_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.LogsAllowlistURL = &s
+				}
+			}
 
 			if v, ok := d.GetOk("logs_ip_allow_list_cname"); ok {
 				if s, ok := v.(string); ok {
@@ -348,6 +378,12 @@ var StackSpec = tfdatasource.Spec{
 				}
 			}
 
+			if v, ok := d.GetOk("profiles_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.ProfilesAllowlistURL = &s
+				}
+			}
+
 			if v, ok := d.GetOk("profiles_ip_allow_list_cname"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.ProfilesIPAllowListCname = &s
@@ -394,6 +430,12 @@ var StackSpec = tfdatasource.Spec{
 				if i, ok := v.(int); ok {
 					v := int64(i)
 					cr.Status.AtProvider.ProfilesUserID = &v
+				}
+			}
+
+			if v, ok := d.GetOk("prometheus_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.PrometheusAllowlistURL = &s
 				}
 			}
 
@@ -476,6 +518,12 @@ var StackSpec = tfdatasource.Spec{
 				}
 			}
 
+			if v, ok := d.GetOk("traces_allowlist_url"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TracesAllowlistURL = &s
+				}
+			}
+
 			if v, ok := d.GetOk("traces_ip_allow_list_cname"); ok {
 				if s, ok := v.(string); ok {
 					cr.Status.AtProvider.TracesIPAllowListCname = &s
@@ -539,6 +587,9 @@ var StackSpec = tfdatasource.Spec{
 		if id := meta.GetExternalName(cr); id != "" {
 			cd["id"] = []byte(id)
 		}
+		if cr.Status.AtProvider.AlertmanagerAllowlistURL != nil {
+			cd["alertmanager_allowlist_url"] = []byte(*cr.Status.AtProvider.AlertmanagerAllowlistURL)
+		}
 		if cr.Status.AtProvider.AlertmanagerIPAllowListCname != nil {
 			cd["alertmanager_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.AlertmanagerIPAllowListCname)
 		}
@@ -572,6 +623,9 @@ var StackSpec = tfdatasource.Spec{
 		if cr.Status.AtProvider.Description != nil {
 			cd["description"] = []byte(*cr.Status.AtProvider.Description)
 		}
+		if cr.Status.AtProvider.FleetManagementAllowlistURL != nil {
+			cd["fleet_management_allowlist_url"] = []byte(*cr.Status.AtProvider.FleetManagementAllowlistURL)
+		}
 		if cr.Status.AtProvider.FleetManagementName != nil {
 			cd["fleet_management_name"] = []byte(*cr.Status.AtProvider.FleetManagementName)
 		}
@@ -590,8 +644,14 @@ var StackSpec = tfdatasource.Spec{
 		if cr.Status.AtProvider.FleetManagementUserID != nil {
 			cd["fleet_management_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.FleetManagementUserID, 10))
 		}
+		if cr.Status.AtProvider.GrafanasAllowlistURL != nil {
+			cd["grafanas_allowlist_url"] = []byte(*cr.Status.AtProvider.GrafanasAllowlistURL)
+		}
 		if cr.Status.AtProvider.GrafanasIPAllowListCname != nil {
 			cd["grafanas_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.GrafanasIPAllowListCname)
+		}
+		if cr.Status.AtProvider.GraphiteAllowlistURL != nil {
+			cd["graphite_allowlist_url"] = []byte(*cr.Status.AtProvider.GraphiteAllowlistURL)
 		}
 		if cr.Status.AtProvider.GraphiteIPAllowListCname != nil {
 			cd["graphite_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.GraphiteIPAllowListCname)
@@ -616,6 +676,9 @@ var StackSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.InfluxURL != nil {
 			cd["influx_url"] = []byte(*cr.Status.AtProvider.InfluxURL)
+		}
+		if cr.Status.AtProvider.LogsAllowlistURL != nil {
+			cd["logs_allowlist_url"] = []byte(*cr.Status.AtProvider.LogsAllowlistURL)
 		}
 		if cr.Status.AtProvider.LogsIPAllowListCname != nil {
 			cd["logs_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.LogsIPAllowListCname)
@@ -674,6 +737,9 @@ var StackSpec = tfdatasource.Spec{
 		if cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoServiceName != nil {
 			cd["pdc_gateway_private_connectivity_info_service_name"] = []byte(*cr.Status.AtProvider.PdcGatewayPrivateConnectivityInfoServiceName)
 		}
+		if cr.Status.AtProvider.ProfilesAllowlistURL != nil {
+			cd["profiles_allowlist_url"] = []byte(*cr.Status.AtProvider.ProfilesAllowlistURL)
+		}
 		if cr.Status.AtProvider.ProfilesIPAllowListCname != nil {
 			cd["profiles_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.ProfilesIPAllowListCname)
 		}
@@ -694,6 +760,9 @@ var StackSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.ProfilesUserID != nil {
 			cd["profiles_user_id"] = []byte(strconv.FormatInt(*cr.Status.AtProvider.ProfilesUserID, 10))
+		}
+		if cr.Status.AtProvider.PrometheusAllowlistURL != nil {
+			cd["prometheus_allowlist_url"] = []byte(*cr.Status.AtProvider.PrometheusAllowlistURL)
 		}
 		if cr.Status.AtProvider.PrometheusIPAllowListCname != nil {
 			cd["prometheus_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.PrometheusIPAllowListCname)
@@ -730,6 +799,9 @@ var StackSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.Status != nil {
 			cd["status"] = []byte(*cr.Status.AtProvider.Status)
+		}
+		if cr.Status.AtProvider.TracesAllowlistURL != nil {
+			cd["traces_allowlist_url"] = []byte(*cr.Status.AtProvider.TracesAllowlistURL)
 		}
 		if cr.Status.AtProvider.TracesIPAllowListCname != nil {
 			cd["traces_ip_allow_list_cname"] = []byte(*cr.Status.AtProvider.TracesIPAllowListCname)

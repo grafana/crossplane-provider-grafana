@@ -45,6 +45,13 @@ var TeamSpec = tfdatasource.Spec{
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.Team)
 			{
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("admins"), &v); !diags.HasError() && len(v) > 0 {
+					cr.Status.AtProvider.Admins = v
+				}
+			}
+
+			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root("email"), &v); !diags.HasError() && v != nil {
 					cr.Status.AtProvider.Email = v

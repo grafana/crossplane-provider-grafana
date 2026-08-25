@@ -1,0 +1,11 @@
+apiVersion: assistant.grafana.crossplane.io/v1alpha1
+kind: TermsAcceptance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: assistant/v1alpha1/termsacceptance
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    accepted: true

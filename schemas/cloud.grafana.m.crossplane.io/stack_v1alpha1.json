@@ -188,6 +188,10 @@
         "atProvider": {
           "additionalProperties": false,
           "properties": {
+            "alertmanagerAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.\nAllowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.",
+              "type": "string"
+            },
             "alertmanagerIpAllowListCname": {
               "description": "separated list of CNAMEs that can be whitelisted to access the Alertmanager instances\nComma-separated list of CNAMEs that can be whitelisted to access the Alertmanager instances (Optional)",
               "type": "string"
@@ -230,6 +234,10 @@
             },
             "description": {
               "description": "(String) Description of stack.\nDescription of stack.",
+              "type": "string"
+            },
+            "fleetManagementAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.\nAllowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.",
               "type": "string"
             },
             "fleetManagementName": {
@@ -277,8 +285,16 @@
               "description": "(Number) User ID of the Fleet Management instance configured for this stack.\nUser ID of the Fleet Management instance configured for this stack.",
               "type": "number"
             },
+            "grafanasAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.\nAllowlist API endpoint that returns the source IP addresses to allow for the grafana instance.",
+              "type": "string"
+            },
             "grafanasIpAllowListCname": {
               "description": "separated list of CNAMEs that can be whitelisted to access the grafana instance\nComma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)",
+              "type": "string"
+            },
+            "graphiteAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.\nAllowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.",
               "type": "string"
             },
             "graphiteIpAllowListCname": {
@@ -345,6 +361,10 @@
               "description": "zA-Z0-9/\\-._]+$\" and stacks cannot have more than 10 labels.\nA map of labels to assign to the stack. Label keys and values must match the following regexp: \"^[a-zA-Z0-9/\\\\-._]+$\" and stacks cannot have more than 10 labels.",
               "type": "object",
               "x-kubernetes-map-type": "granular"
+            },
+            "logsAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.\nAllowlist API endpoint that returns the source IP addresses to allow for the Logs instance.",
+              "type": "string"
             },
             "logsIpAllowListCname": {
               "description": "separated list of CNAMEs that can be whitelisted to access the Logs instance\nComma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)",
@@ -506,6 +526,10 @@
               "description": "(String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)\nService Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)",
               "type": "string"
             },
+            "profilesAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.\nAllowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.",
+              "type": "string"
+            },
             "profilesIpAllowListCname": {
               "description": "separated list of CNAMEs that can be whitelisted to access the Profiles instance\nComma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)",
               "type": "string"
@@ -554,6 +578,10 @@
             "profilesUserId": {
               "description": "(Number)",
               "type": "number"
+            },
+            "prometheusAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.\nAllowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.",
+              "type": "string"
             },
             "prometheusIpAllowListCname": {
               "description": "separated list of CNAMEs that can be whitelisted to access the Prometheus instance\nComma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)",
@@ -626,6 +654,10 @@
             },
             "status": {
               "description": "(String) Status of the stack.\nStatus of the stack.",
+              "type": "string"
+            },
+            "tracesAllowlistUrl": {
+              "description": "(String) Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.\nAllowlist API endpoint that returns the source IP addresses to allow for the Traces instance.",
               "type": "string"
             },
             "tracesIpAllowListCname": {

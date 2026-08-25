@@ -12,5 +12,6 @@ spec:
     body: |
       1. Check deployment pipeline status.
       2. Verify SLO error budget before promoting.
+    commandName: deploy-readiness
     name: Deploy readiness check
     scope: tenant

@@ -101,6 +101,7 @@ type CategoryInfo struct {
 // Category string values match common.ResourceCategory constants from the
 // upstream Terraform provider.
 var CategoryConfig = map[string]CategoryInfo{
+	"Agent Observability":    {"agento11y", 1},
 	"Alerting":               {"alerting", 0},
 	"Grafana Assistant":      {"assistant", 1},
 	"Cloud":                  {"cloud", 1},

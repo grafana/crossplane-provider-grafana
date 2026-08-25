@@ -1192,6 +1192,11 @@ func (in *IntegrationObservation) DeepCopyInto(out *IntegrationObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.InboundEmail != nil {
+		in, out := &in.InboundEmail, &out.InboundEmail
+		*out = new(string)
+		**out = **in
+	}
 	if in.Labels != nil {
 		in, out := &in.Labels, &out.Labels
 		*out = make([]map[string]*string, len(*in))

@@ -1871,6 +1871,11 @@ func (in *HTTPInitParameters) DeepCopyInto(out *HTTPInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.SecretManagerEnabled != nil {
+		in, out := &in.SecretManagerEnabled, &out.SecretManagerEnabled
+		*out = new(bool)
+		**out = **in
+	}
 	if in.TLSConfig != nil {
 		in, out := &in.TLSConfig, &out.TLSConfig
 		*out = make([]HTTPTLSConfigInitParameters, len(*in))
@@ -2023,6 +2028,11 @@ func (in *HTTPObservation) DeepCopyInto(out *HTTPObservation) {
 	if in.ProxyURL != nil {
 		in, out := &in.ProxyURL, &out.ProxyURL
 		*out = new(string)
+		**out = **in
+	}
+	if in.SecretManagerEnabled != nil {
+		in, out := &in.SecretManagerEnabled, &out.SecretManagerEnabled
+		*out = new(bool)
 		**out = **in
 	}
 	if in.TLSConfig != nil {
@@ -2182,6 +2192,11 @@ func (in *HTTPParameters) DeepCopyInto(out *HTTPParameters) {
 	if in.ProxyURL != nil {
 		in, out := &in.ProxyURL, &out.ProxyURL
 		*out = new(string)
+		**out = **in
+	}
+	if in.SecretManagerEnabled != nil {
+		in, out := &in.SecretManagerEnabled, &out.SecretManagerEnabled
+		*out = new(bool)
 		**out = **in
 	}
 	if in.TLSConfig != nil {

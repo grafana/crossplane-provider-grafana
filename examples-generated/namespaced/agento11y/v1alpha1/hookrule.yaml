@@ -1,0 +1,20 @@
+apiVersion: agento11y.grafana.m.crossplane.io/v1alpha1
+kind: HookRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: agento11y/v1alpha1/hookrule
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    actionOnFail: deny
+    blockedTools:
+    - delete_*
+    - drop_*
+    phase: preflight
+    redact:
+    - id: emails
+      regex: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+'
+    ruleId: block_destructive_tools

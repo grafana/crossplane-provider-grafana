@@ -60,6 +60,14 @@ spec:
             properties:
               forProvider:
                 properties:
+                  admins:
+                    description: |-
+                      (Set of String) A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into members are demoted; administrators only present in state (for example from the UI) are preserved until admins is set explicitly, including to [].
+                      A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into `members` are demoted; administrators only present in state (for example from the UI) are preserved until `admins` is set explicitly, including to `[]`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   email:
                     description: |-
                       (String) An email address for the team.
@@ -155,8 +163,8 @@ spec:
                     type: object
                   members:
                     description: |-
-                      (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
-                      A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+                      (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
+                      A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
                     items:
                       type: string
                     type: array
@@ -307,6 +315,14 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  admins:
+                    description: |-
+                      (Set of String) A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into members are demoted; administrators only present in state (for example from the UI) are preserved until admins is set explicitly, including to [].
+                      A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into `members` are demoted; administrators only present in state (for example from the UI) are preserved until `admins` is set explicitly, including to `[]`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   email:
                     description: |-
                       (String) An email address for the team.
@@ -402,8 +418,8 @@ spec:
                     type: object
                   members:
                     description: |-
-                      (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
-                      A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+                      (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
+                      A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
                     items:
                       type: string
                     type: array
@@ -609,6 +625,14 @@ spec:
             properties:
               atProvider:
                 properties:
+                  admins:
+                    description: |-
+                      (Set of String) A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into members are demoted; administrators only present in state (for example from the UI) are preserved until admins is set explicitly, including to [].
+                      A set of email addresses corresponding to users who should be given administrator membership to the team. Note: users specified here must already exist in Grafana. When omitted after being set, users moved into `members` are demoted; administrators only present in state (for example from the UI) are preserved until `admins` is set explicitly, including to `[]`.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   email:
                     description: |-
                       (String) An email address for the team.
@@ -624,8 +648,8 @@ spec:
                     type: boolean
                   members:
                     description: |-
-                      (Set of String) A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
-                      A set of email addresses corresponding to users who should be given membership to the team. Note: users specified here must already exist in Grafana.
+                      (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
+                      A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
                     items:
                       type: string
                     type: array

@@ -98,6 +98,10 @@
           "additionalProperties": false,
           "description": "StackObservation holds the observed (computed) fields from the grafana_cloud_stack data source.",
           "properties": {
+            "alertmanagerAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.",
+              "type": "string"
+            },
             "alertmanagerIPAllowListCname": {
               "description": "Comma-separated list of CNAMEs that can be whitelisted to access the Alertmanager instances (Optional)",
               "type": "string"
@@ -141,6 +145,10 @@
             },
             "description": {
               "description": "Description of stack.",
+              "type": "string"
+            },
+            "fleetManagementAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.",
               "type": "string"
             },
             "fleetManagementName": {
@@ -189,8 +197,16 @@
               "format": "int64",
               "type": "integer"
             },
+            "grafanasAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.",
+              "type": "string"
+            },
             "grafanasIPAllowListCname": {
               "description": "Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)",
+              "type": "string"
+            },
+            "graphiteAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.",
               "type": "string"
             },
             "graphiteIPAllowListCname": {
@@ -249,6 +265,10 @@
               },
               "description": "A map of labels to assign to the stack. Label keys and values must match the following regexp: \"^[a-zA-Z0-9/\\\\-._]+$\" and stacks cannot have more than 10 labels.",
               "type": "object"
+            },
+            "logsAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.",
+              "type": "string"
             },
             "logsIPAllowListCname": {
               "description": "Comma-separated list of CNAMEs that can be whitelisted to access the Logs instance (Optional)",
@@ -408,6 +428,10 @@
               "description": "Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)",
               "type": "string"
             },
+            "profilesAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.",
+              "type": "string"
+            },
             "profilesIPAllowListCname": {
               "description": "Comma-separated list of CNAMEs that can be whitelisted to access the Profiles instance (Optional)",
               "type": "string"
@@ -453,6 +477,10 @@
             "profilesUserID": {
               "format": "int64",
               "type": "integer"
+            },
+            "prometheusAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.",
+              "type": "string"
             },
             "prometheusIPAllowListCname": {
               "description": "Comma-separated list of CNAMEs that can be whitelisted to access the Prometheus instance (Optional)",
@@ -522,6 +550,10 @@
             },
             "status": {
               "description": "Status of the stack.",
+              "type": "string"
+            },
+            "tracesAllowlistURL": {
+              "description": "Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.",
               "type": "string"
             },
             "tracesIPAllowListCname": {

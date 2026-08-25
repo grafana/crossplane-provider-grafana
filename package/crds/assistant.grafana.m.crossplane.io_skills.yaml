@@ -82,6 +82,11 @@ spec:
                       (String) The skill content.
                       The skill content.
                     type: string
+                  commandName:
+                    description: |-
+                      (String) The slash command name that invokes the skill. Setting this enables the skill as a command.
+                      The slash command name that invokes the skill. Setting this enables the skill as a command.
+                    type: string
                   contextItems:
                     description: |-
                       (String) Optional JSON array of context items referenced by the skill.
@@ -138,6 +143,11 @@ spec:
                     description: |-
                       (String) The skill content.
                       The skill content.
+                    type: string
+                  commandName:
+                    description: |-
+                      (String) The slash command name that invokes the skill. Setting this enables the skill as a command.
+                      The slash command name that invokes the skill. Setting this enables the skill as a command.
                     type: string
                   contextItems:
                     description: |-
@@ -258,6 +268,11 @@ spec:
                     description: |-
                       (String) The skill content.
                       The skill content.
+                    type: string
+                  commandName:
+                    description: |-
+                      (String) The slash command name that invokes the skill. Setting this enables the skill as a command.
+                      The slash command name that invokes the skill. Setting this enables the skill as a command.
                     type: string
                   contextItems:
                     description: |-

@@ -75,8 +75,13 @@ spec:
                 properties:
                   baselineTestRunId:
                     description: |-
-                      (String) Identifier of a baseline test run used for results comparison.
+                      (String, Deprecated) Identifier of a baseline test run used for results comparison.
                       Identifier of a baseline test run used for results comparison.
+                    type: string
+                  k6Version:
+                    description: |-
+                      (String) Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+                      Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
                     type: string
                   name:
                     description: |-
@@ -183,8 +188,13 @@ spec:
                 properties:
                   baselineTestRunId:
                     description: |-
-                      (String) Identifier of a baseline test run used for results comparison.
+                      (String, Deprecated) Identifier of a baseline test run used for results comparison.
                       Identifier of a baseline test run used for results comparison.
+                    type: string
+                  k6Version:
+                    description: |-
+                      (String) Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+                      Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
                     type: string
                   name:
                     description: |-
@@ -378,7 +388,7 @@ spec:
                 properties:
                   baselineTestRunId:
                     description: |-
-                      (String) Identifier of a baseline test run used for results comparison.
+                      (String, Deprecated) Identifier of a baseline test run used for results comparison.
                       Identifier of a baseline test run used for results comparison.
                     type: string
                   created:
@@ -388,6 +398,11 @@ spec:
                     type: string
                   id:
                     description: (String) Numeric identifier of the load test.
+                    type: string
+                  k6Version:
+                    description: |-
+                      (String) Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
+                      Identifier of the k6 version used to run the test. If not set, the test is pinned at creation to the current default major version established by Grafana Cloud. Example: 2
                     type: string
                   name:
                     description: |-

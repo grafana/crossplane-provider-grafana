@@ -134,12 +134,18 @@ spec:
                 description: TeamObservation holds the observed (computed) fields
                   from the grafana_team data source.
                 properties:
+                  admins:
+                    description: A set of email addresses corresponding to users who
+                      are administrators of the team.
+                    items:
+                      type: string
+                    type: array
                   email:
                     description: An email address for the team.
                     type: string
                   members:
                     description: A set of email addresses corresponding to users who
-                      are members of the team.
+                      are ordinary members of the team.
                     items:
                       type: string
                     type: array

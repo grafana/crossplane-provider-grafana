@@ -285,6 +285,11 @@ spec:
             properties:
               atProvider:
                 properties:
+                  alertmanagerAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the Alertmanager instances.
+                    type: string
                   alertmanagerIpAllowListCname:
                     description: |-
                       separated list of CNAMEs that can be whitelisted to access the Alertmanager instances
@@ -340,6 +345,11 @@ spec:
                       (String) Description of stack.
                       Description of stack.
                     type: string
+                  fleetManagementAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the Fleet Management instance.
+                    type: string
                   fleetManagementName:
                     description: |-
                       (String) Name of the Fleet Management instance configured for this stack.
@@ -391,10 +401,20 @@ spec:
                       (Number) User ID of the Fleet Management instance configured for this stack.
                       User ID of the Fleet Management instance configured for this stack.
                     type: number
+                  grafanasAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the grafana instance.
+                    type: string
                   grafanasIpAllowListCname:
                     description: |-
                       separated list of CNAMEs that can be whitelisted to access the grafana instance
                       Comma-separated list of CNAMEs that can be whitelisted to access the grafana instance (Optional)
+                    type: string
+                  graphiteAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the Graphite instance.
                     type: string
                   graphiteIpAllowListCname:
                     description: |-
@@ -460,6 +480,11 @@ spec:
                       A map of labels to assign to the stack. Label keys and values must match the following regexp: "^[a-zA-Z0-9/\\-._]+$" and stacks cannot have more than 10 labels.
                     type: object
                     x-kubernetes-map-type: granular
+                  logsAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the Logs instance.
+                    type: string
                   logsIpAllowListCname:
                     description: |-
                       separated list of CNAMEs that can be whitelisted to access the Logs instance
@@ -631,6 +656,11 @@ spec:
                       (String) Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
                       Service Name for PDC's Gateway when using AWS PrivateLink (only for AWS stacks)
                     type: string
+                  profilesAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the Profiles instance.
+                    type: string
                   profilesIpAllowListCname:
                     description: |-
                       separated list of CNAMEs that can be whitelisted to access the Profiles instance
@@ -679,6 +709,11 @@ spec:
                   profilesUserId:
                     description: (Number)
                     type: number
+                  prometheusAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the Prometheus instance.
+                    type: string
                   prometheusIpAllowListCname:
                     description: |-
                       separated list of CNAMEs that can be whitelisted to access the Prometheus instance
@@ -764,6 +799,11 @@ spec:
                     description: |-
                       (String) Status of the stack.
                       Status of the stack.
+                    type: string
+                  tracesAllowlistUrl:
+                    description: |-
+                      (String) Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.
+                      Allowlist API endpoint that returns the source IP addresses to allow for the Traces instance.
                     type: string
                   tracesIpAllowListCname:
                     description: |-

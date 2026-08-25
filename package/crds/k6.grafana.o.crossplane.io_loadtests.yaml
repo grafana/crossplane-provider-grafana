@@ -126,6 +126,9 @@ spec:
                   created:
                     description: The date when the load test was created.
                     type: string
+                  k6Version:
+                    description: Identifier of the k6 version used to run the test.
+                    type: string
                   name:
                     description: Human-friendly identifier of the load test.
                     type: string
