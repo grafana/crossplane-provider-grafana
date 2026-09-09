@@ -1,0 +1,138 @@
+# Manual E2E reproduction for
+# https://github.com/grafana/crossplane-provider-grafana/issues/662
+#
+# This fixture creates two organizations:
+#
+# 1. organization-users-omitted does not configure admins, editors, or viewers.
+# 2. organization-users-init-empty configures empty membership sets only in
+#    initProvider.
+#
+# After the resources become Ready, add the users below to both organizations
+# through the Grafana API or UI. On the next reconciliation, both organizations
+# remove those out-of-band memberships.
+#
+# The first result follows terraform-provider-grafana behavior. ReadUsers adds
+# the observed memberships to Terraform state, then UpdateUsers removes users
+# absent from the configured membership sets.
+#
+# The second result does not follow initProvider's intended behavior. Upjet
+# should ignore fields present only in initProvider after creation, but empty
+# slices are omitted while marshaling OrganizationInitParameters because their
+# Terraform tags use omitempty. The ignore list therefore does not contain
+# admins, editors, or viewers, and Terraform manages them as empty sets.
+---
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/organization-init-provider
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: organization-users-omitted
+  name: organization-users-omitted
+spec:
+  forProvider:
+    createUsers: false
+    name: Organization Users Omitted
+  providerConfigRef:
+    name: grafana-provider
+
+---
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/organization-init-provider
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: organization-users-init-empty
+  name: organization-users-init-empty
+spec:
+  forProvider:
+    createUsers: false
+    name: Organization Users Init Empty
+  initProvider:
+    admins: []
+    editors: []
+    viewers: []
+  providerConfigRef:
+    name: grafana-provider
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/organization-init-provider
+  labels:
+    testing.upbound.io/example-name: organization-init-provider-users
+  name: organization-init-provider-users
+  namespace: upbound-system
+stringData:
+  password: example-password
+
+---
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/organization-init-provider
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: organization-external-admin
+  name: organization-external-admin
+spec:
+  forProvider:
+    email: organization-external-admin@example.com
+    login: organization-external-admin
+    name: Organization External Admin
+    passwordSecretRef:
+      key: password
+      name: organization-init-provider-users
+      namespace: upbound-system
+  providerConfigRef:
+    name: grafana-provider
+
+---
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/organization-init-provider
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: organization-external-editor
+  name: organization-external-editor
+spec:
+  forProvider:
+    email: organization-external-editor@example.com
+    login: organization-external-editor
+    name: Organization External Editor
+    passwordSecretRef:
+      key: password
+      name: organization-init-provider-users
+      namespace: upbound-system
+  providerConfigRef:
+    name: grafana-provider
+
+---
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oss/v1alpha1/organization-init-provider
+    uptest.upbound.io/disable-import: "true"
+  labels:
+    testing.upbound.io/example-name: organization-external-viewer
+  name: organization-external-viewer
+spec:
+  forProvider:
+    email: organization-external-viewer@example.com
+    login: organization-external-viewer
+    name: Organization External Viewer
+    passwordSecretRef:
+      key: password
+      name: organization-init-provider-users
+      namespace: upbound-system
+  providerConfigRef:
+    name: grafana-provider
