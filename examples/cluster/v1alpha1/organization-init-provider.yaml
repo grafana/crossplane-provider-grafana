@@ -16,9 +16,10 @@
 # configured sets as empty, and UpdateUsers removes the observed users.
 #
 # For initProvider, Upjet should ignore fields present only there after creation.
-# Empty slices are omitted during the API round trip because the generated Go
-# fields use omitempty, so the three fields no longer contribute to Upjet's
-# ignored-field list. They consequently behave like the omitted case.
+# Empty slices are omitted when the generated Go parameters are marshaled into
+# Terraform configuration because their tf tags use omitempty. The three fields
+# therefore do not contribute to Upjet's ignored-field list and behave like the
+# omitted case.
 #
 # The post-assert hook expects the desired behavior and currently fails both
 # assertions, reproducing the issue.
