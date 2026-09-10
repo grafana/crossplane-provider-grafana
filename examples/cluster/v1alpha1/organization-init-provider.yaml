@@ -1,4 +1,4 @@
-# Manual E2E reproduction for
+# Local E2E reproduction for
 # https://github.com/grafana/crossplane-provider-grafana/issues/662
 #
 # This fixture creates two organizations:
@@ -7,19 +7,21 @@
 # 2. organization-users-init-empty configures empty membership sets only in
 #    initProvider.
 #
-# After the resources become Ready, add the users below to both organizations
-# through the Grafana API or UI. On the next reconciliation, both organizations
-# remove those out-of-band memberships.
+# Its uptest post-assert hook adds the users below to both organizations through
+# the Grafana API and then changes the organization names to force Terraform's
+# update path.
 #
-# The first result follows terraform-provider-grafana behavior. ReadUsers adds
-# the observed memberships to Terraform state, then UpdateUsers removes users
-# absent from the configured membership sets.
+# For omitted optional sets, terraform-provider-grafana's ReadUsers adds the
+# observed memberships to Terraform state. The next Terraform diff treats the
+# configured sets as empty, and UpdateUsers removes the observed users.
 #
-# The second result does not follow initProvider's intended behavior. Upjet
-# should ignore fields present only in initProvider after creation, but empty
-# slices are omitted while marshaling OrganizationInitParameters because their
-# Terraform tags use omitempty. The ignore list therefore does not contain
-# admins, editors, or viewers, and Terraform manages them as empty sets.
+# For initProvider, Upjet should ignore fields present only there after creation.
+# Empty slices are omitted during the API round trip because the generated Go
+# fields use omitempty, so the three fields no longer contribute to Upjet's
+# ignored-field list. They consequently behave like the omitted case.
+#
+# The post-assert hook expects the desired behavior and currently fails both
+# assertions, reproducing the issue.
 ---
 apiVersion: oss.grafana.crossplane.io/v1alpha1
 kind: Organization
@@ -27,10 +29,16 @@ metadata:
   annotations:
     meta.upbound.io/example-id: oss/v1alpha1/organization-init-provider
     uptest.upbound.io/disable-import: "true"
+    uptest.upbound.io/post-assert-hook: ../../../cluster/test/test-organization-init-provider.sh
   labels:
     testing.upbound.io/example-name: organization-users-omitted
   name: organization-users-omitted
 spec:
+  managementPolicies:
+  - Observe
+  - Create
+  - Update
+  - Delete
   forProvider:
     createUsers: false
     name: Organization Users Omitted
@@ -48,6 +56,11 @@ metadata:
     testing.upbound.io/example-name: organization-users-init-empty
   name: organization-users-init-empty
 spec:
+  managementPolicies:
+  - Observe
+  - Create
+  - Update
+  - Delete
   forProvider:
     createUsers: false
     name: Organization Users Init Empty
