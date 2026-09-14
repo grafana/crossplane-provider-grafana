@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	resourcefake "github.com/crossplane/crossplane-runtime/v2/pkg/resource/fake"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/google/go-cmp/cmp"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -147,6 +147,7 @@ func createModernManaged(t *testing.T, kind string) resource.ModernManaged {
 	}
 }
 
+//nolint:staticcheck // Exercises support for legacy cluster-scoped resources.
 func createLegacyManaged(t *testing.T) resource.LegacyManaged {
 	t.Helper()
 	return &resourcefake.LegacyManaged{

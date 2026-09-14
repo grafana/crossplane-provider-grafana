@@ -9,8 +9,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/crossplane/upjet/v2/pkg/terraform"
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
 	terraformSDK "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
@@ -42,7 +42,7 @@ var stackSecretKeyRemap = map[string]string{
 }
 
 type Credentials struct {
-	Source                       xpv2.CredentialsSource
+	Source                         xpv2.CredentialsSource
 	xpv2.CommonCredentialSelectors `json:",inline"`
 }
 
@@ -85,6 +85,7 @@ func mergeStackSecret(ctx context.Context, c client.Client, cfg *Config, creds m
 	return nil
 }
 
+//nolint:staticcheck // Cluster-scoped resources still use the legacy ProviderConfig API.
 func useLegacyProviderConfig(ctx context.Context, c client.Client, mg resource.LegacyManaged) (*Config, error) {
 	ref := mg.GetProviderConfigReference()
 	if ref == nil {
@@ -213,7 +214,7 @@ func TerraformSetupBuilder() terraform.SetupFn {
 		var credSpec Config
 
 		switch mr := mg.(type) {
-		case resource.LegacyManaged:
+		case resource.LegacyManaged: //nolint:staticcheck // Cluster-scoped resources still use the legacy ProviderConfig API.
 			config, err := useLegacyProviderConfig(ctx, client, mr)
 			if err != nil {
 				return ps, errors.Wrapf(err, "cannot use legacy provider config")
