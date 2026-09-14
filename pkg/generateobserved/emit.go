@@ -10,6 +10,8 @@ import "fmt"
 const (
 	goTypeString    = "string"
 	goTypePtrString = "*string"
+	goTypeInt32     = "int32"
+	goTypePtrInt32  = "*int32"
 	goTypeInt64     = "int64"
 	goTypeSliceStr  = "[]string"
 	goTypePtrInt64  = "*int64"

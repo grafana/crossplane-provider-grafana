@@ -184,7 +184,13 @@
    Data: fieldInfo
    =================================================================== */ -}}
 {{- define "_fromState" -}}
-{{- if eq .GoType "*string" -}}
+{{- if .UseTypedStateDecode }}			{
+				var v {{ .StateGoType }}
+				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() {
+					cr.Status.AtProvider.{{ .GoName }} = v
+				}
+			}
+{{ else if eq .GoType "*string" -}}
 			{
 				var v *string
 				if diags := state.GetAttribute(ctx, path.Root({{ printf "%q" .TFName }}), &v); !diags.HasError() && v != nil {
@@ -290,7 +296,7 @@
 type {{ .Name }} struct {
 {{- range .Fields }}
 {{ fieldDoc . -}}
-	{{ .GoName }} {{ .GoType }} `json:"{{ .JSONName }},omitempty"`
+	{{ .GoName }} {{ .GoType }} `json:"{{ .JSONName }},omitempty"{{ if $.IncludeTFSDKTags }} tfsdk:"{{ .TFName }}"{{ end }}`
 {{ end -}}
 }
 

@@ -6,12 +6,14 @@ package generateobserved
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	fwschema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
@@ -46,6 +48,12 @@ type fieldInfo struct {
 	GoType      string
 	Required    bool
 	Description string
+	// StateGoType is GoType qualified for use from the generated controller package.
+	StateGoType string
+	// HasObject is true when this field contains an object at any depth.
+	HasObject bool
+	// UseTypedStateDecode enables decoding collections and objects into their generated Go types.
+	UseTypedStateDecode bool
 
 	// NestedFields holds the fields of a nested struct type (for List/Set of objects).
 	NestedFields []fieldInfo
@@ -83,6 +91,16 @@ func Generate(cfg Config, legacyProvider *sdkschema.Provider, frameworkProvider 
 			if singular != ds.KindName && kindSet[singular] != nil {
 				ds.KindName = singular + "Set"
 				ds.FileName = strings.ToLower(singular) + "set"
+			}
+		}
+	}
+
+	// Framework nested struct names are derived from the final kind name.
+	acronyms := buildAcronymSet(cfg)
+	for _, dsList := range grouped {
+		for _, ds := range dsList {
+			if !ds.IsLegacySDK {
+				parseFWSchema(acronyms, ds, ds.FwDS)
 			}
 		}
 	}
@@ -143,7 +161,6 @@ func collectFrameworkDataSources(cfg Config, fwp fwprovider.Provider, grouped ma
 			FwDS:        ds,
 		}
 		info.KindName, info.FileName = deriveNames(cfg, acronyms, name, ci.TFPrefix)
-		parseFWSchema(acronyms, info, ds)
 		grouped[ci.DirName] = append(grouped[ci.DirName], info)
 	}
 }
@@ -270,18 +287,17 @@ func parseFWSchema(acronyms map[string]bool, info *dsInfo, ds datasource.DataSou
 		if name == "id" {
 			continue
 		}
-		fi := fieldInfo{
-			TFName:      name,
-			GoName:      snakeToCamel(acronyms, name),
-			JSONName:    snakeToCamelJSON(acronyms, name),
-			GoType:      fwAttrTypeToGo(attr),
-			Required:    attr.IsRequired(),
-			Description: attr.GetMarkdownDescription(),
+		fi, err := buildFrameworkFieldInfo(acronyms, info.KindName, name, attr)
+		if err != nil {
+			log.Fatalf("data source %q attribute %q: %v", info.TFName, name, err)
 		}
 		if fi.Description == "" {
 			fi.Description = attr.GetDescription()
 		}
 		if attr.IsRequired() || attr.IsOptional() {
+			if err := validateFrameworkInput(fi); err != nil {
+				log.Fatalf("data source %q attribute %q: %v", info.TFName, name, err)
+			}
 			info.ForProviderFields = append(info.ForProviderFields, fi)
 		}
 		// All fields are observable outputs in data sources: TF data sources
@@ -291,6 +307,13 @@ func parseFWSchema(acronyms map[string]bool, info *dsInfo, ds datasource.DataSou
 		}
 	}
 	sortFields(info)
+}
+
+func validateFrameworkInput(field fieldInfo) error {
+	if field.HasObject {
+		return fmt.Errorf("framework object inputs are not supported")
+	}
+	return nil
 }
 
 func sortFields(info *dsInfo) {
@@ -339,33 +362,190 @@ func sdkTypeToGo(field *sdkschema.Schema) string {
 	}
 }
 
-func fwAttrTypeToGo(attr fwschema.Attribute) string {
+func buildFrameworkFieldInfo(acronyms map[string]bool, parentName, name string, attribute fwschema.Attribute) (fieldInfo, error) {
+	containsObject, err := frameworkTypeContainsObject(attribute.GetType())
+	if err != nil {
+		return fieldInfo{}, err
+	}
+	if !containsObject {
+		goType := fwAttrTypeToGo(attribute)
+		return fieldInfo{
+			TFName:      name,
+			GoName:      snakeToCamel(acronyms, name),
+			JSONName:    snakeToCamelJSON(acronyms, name),
+			GoType:      goType,
+			StateGoType: goType,
+			Required:    attribute.IsRequired(),
+			Description: attribute.GetMarkdownDescription(),
+		}, nil
+	}
+
+	structName := parentName + snakeToCamel(acronyms, name)
+	typeInfo, err := frameworkObjectTypeToGo(acronyms, structName, attribute.GetType(), !attribute.IsRequired())
+	if err != nil {
+		return fieldInfo{}, err
+	}
+
+	return fieldInfo{
+		TFName:              name,
+		GoName:              snakeToCamel(acronyms, name),
+		JSONName:            snakeToCamelJSON(acronyms, name),
+		GoType:              typeInfo.goType,
+		StateGoType:         typeInfo.stateGoType,
+		Required:            attribute.IsRequired(),
+		Description:         attribute.GetMarkdownDescription(),
+		NestedFields:        typeInfo.nestedFields,
+		NestedStructName:    typeInfo.nestedStructName,
+		IsSet:               typeInfo.isSet,
+		HasObject:           true,
+		UseTypedStateDecode: true,
+	}, nil
+}
+
+type frameworkTypeInfo struct {
+	goType           string
+	stateGoType      string
+	nestedFields     []fieldInfo
+	nestedStructName string
+	isSet            bool
+	hasObject        bool
+}
+
+func frameworkTypeContainsObject(attributeType attr.Type) (bool, error) {
 	ctx := context.Background()
-	attrType := attr.GetType()
-	tfType := attrType.TerraformType(ctx)
-	required := attr.IsRequired()
+	tfType := attributeType.TerraformType(ctx)
+	if tfType.Is(tftypes.Object{}) {
+		if _, ok := attributeType.(attr.TypeWithAttributeTypes); !ok {
+			return false, fmt.Errorf("object type %T does not expose its attribute types", attributeType)
+		}
+		return true, nil
+	}
+	if !tfType.Is(tftypes.List{}) && !tfType.Is(tftypes.Set{}) && !tfType.Is(tftypes.Map{}) {
+		return false, nil
+	}
+	collectionType, ok := attributeType.(attr.TypeWithElementType)
+	if !ok {
+		return false, fmt.Errorf("collection type %T does not expose its element type", attributeType)
+	}
+	return frameworkTypeContainsObject(collectionType.ElementType())
+}
+
+func frameworkObjectTypeToGo(acronyms map[string]bool, structName string, attributeType attr.Type, nullable bool) (frameworkTypeInfo, error) {
+	ctx := context.Background()
+	tfType := attributeType.TerraformType(ctx)
+
+	scalar := func(goType string) frameworkTypeInfo {
+		if nullable {
+			goType = "*" + goType
+		}
+		return frameworkTypeInfo{goType: goType, stateGoType: goType}
+	}
+
+	switch {
+	case attributeType.Equal(fwtypes.StringType):
+		return scalar(goTypeString), nil
+	case attributeType.Equal(fwtypes.Int32Type):
+		return scalar(goTypeInt32), nil
+	case attributeType.Equal(fwtypes.Int64Type):
+		return scalar(goTypeInt64), nil
+	case attributeType.Equal(fwtypes.Float64Type):
+		return scalar(goTypeFloat64), nil
+	case attributeType.Equal(fwtypes.BoolType):
+		return scalar(goTypeBool), nil
+	case tfType.Is(tftypes.List{}) || tfType.Is(tftypes.Set{}) || tfType.Is(tftypes.Map{}):
+		collectionType, ok := attributeType.(attr.TypeWithElementType)
+		if !ok {
+			return frameworkTypeInfo{}, fmt.Errorf("collection type %T does not expose its element type", attributeType)
+		}
+		element, err := frameworkObjectTypeToGo(acronyms, structName, collectionType.ElementType(), false)
+		if err != nil {
+			return frameworkTypeInfo{}, err
+		}
+		result := element
+		switch {
+		case tfType.Is(tftypes.List{}):
+			result.goType = "[]" + element.goType
+			result.stateGoType = "[]" + element.stateGoType
+		case tfType.Is(tftypes.Set{}):
+			result.goType = "[]" + element.goType
+			result.stateGoType = "[]" + element.stateGoType
+			result.isSet = true
+		default:
+			result.goType = "map[string]" + element.goType
+			result.stateGoType = "map[string]" + element.stateGoType
+		}
+		return result, nil
+	case tfType.Is(tftypes.Object{}):
+		objectType, ok := attributeType.(attr.TypeWithAttributeTypes)
+		if !ok {
+			return frameworkTypeInfo{}, fmt.Errorf("object type %T does not expose its attribute types", attributeType)
+		}
+		attributeTypes := objectType.AttributeTypes()
+		fields := make([]fieldInfo, 0, len(attributeTypes))
+		for name, nestedType := range attributeTypes {
+			nestedStructName := structName + snakeToCamel(acronyms, name)
+			nested, err := frameworkObjectTypeToGo(acronyms, nestedStructName, nestedType, true)
+			if err != nil {
+				return frameworkTypeInfo{}, fmt.Errorf("object attribute %q: %w", name, err)
+			}
+			fields = append(fields, fieldInfo{
+				TFName:           name,
+				GoName:           snakeToCamel(acronyms, name),
+				JSONName:         snakeToCamelJSON(acronyms, name),
+				GoType:           nested.goType,
+				StateGoType:      nested.stateGoType,
+				NestedFields:     nested.nestedFields,
+				NestedStructName: nested.nestedStructName,
+				IsSet:            nested.isSet,
+				HasObject:        nested.hasObject,
+			})
+		}
+		sort.Slice(fields, func(i, j int) bool { return fields[i].TFName < fields[j].TFName })
+		goType := structName
+		stateGoType := "v1alpha1." + structName
+		if nullable {
+			goType = "*" + goType
+			stateGoType = "*" + stateGoType
+		}
+		return frameworkTypeInfo{
+			goType:           goType,
+			stateGoType:      stateGoType,
+			nestedFields:     fields,
+			nestedStructName: structName,
+			hasObject:        true,
+		}, nil
+	default:
+		return frameworkTypeInfo{}, fmt.Errorf("unsupported framework type %T with Terraform type %T", attributeType, tfType)
+	}
+}
+
+func fwAttrTypeToGo(attribute fwschema.Attribute) string {
+	ctx := context.Background()
+	attributeType := attribute.GetType()
+	tfType := attributeType.TerraformType(ctx)
+	required := attribute.IsRequired()
 
 	switch {
 	case tfType.Is(tftypes.List{}) || tfType.Is(tftypes.Set{}):
 		return goTypeSliceStr
 	case tfType.Is(tftypes.Map{}):
 		return "map[string]string"
-	case attrType.Equal(fwtypes.StringType):
+	case attributeType.Equal(fwtypes.StringType):
 		if required {
 			return goTypeString
 		}
 		return goTypePtrString
-	case attrType.Equal(fwtypes.Int64Type):
+	case attributeType.Equal(fwtypes.Int64Type):
 		if required {
 			return goTypeInt64
 		}
 		return goTypePtrInt64
-	case attrType.Equal(fwtypes.Float64Type):
+	case attributeType.Equal(fwtypes.Float64Type):
 		if required {
 			return goTypeFloat64
 		}
 		return goTypePtrFloat
-	case attrType.Equal(fwtypes.BoolType):
+	case attributeType.Equal(fwtypes.BoolType):
 		if required {
 			return goTypeBool
 		}
