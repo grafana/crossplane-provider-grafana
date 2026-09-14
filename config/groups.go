@@ -39,22 +39,33 @@ func KindOverrides() config.ResourceOption {
 func ExternalNameConfigurations() config.ResourceOption {
 	return func(r *config.Resource) {
 		if _, ok := GroupMap[r.Name]; ok {
-			r.ExternalName = identifierFromProviderTreatingEmptyIDAsNotFound()
+			r.ExternalName = identifierFromProviderTreatingNotFoundDiagnostics()
 		}
 	}
 }
 
-func identifierFromProviderTreatingEmptyIDAsNotFound() config.ExternalName {
+func identifierFromProviderTreatingNotFoundDiagnostics() config.ExternalName {
 	externalName := config.IdentifierFromProvider
-	externalName.IsNotFoundDiagnosticFn = isEmptyResourceIDDiagnostic
+	externalName.IsNotFoundDiagnosticFn = shouldTreatDiagnosticsAsResourceNotFound
 	return externalName
 }
 
-func isEmptyResourceIDDiagnostic(diags []*tfprotov6.Diagnostic) bool {
+func shouldTreatDiagnosticsAsResourceNotFound(diags []*tfprotov6.Diagnostic) bool {
 	for _, diag := range diags {
 		if diag == nil || diag.Severity != tfprotov6.DiagnosticSeverityError {
 			continue
 		}
+
+		// The Connections API returns ErrNotFound when a metrics endpoint
+		// scrape job does not exist. The upstream Terraform resource reports
+		// that error as a diagnostic instead of removing the resource from
+		// state. Treat this specific diagnostic as an absent remote resource so
+		// that Upjet can proceed with Create.
+		if diag.Summary == "failed to get metrics endpoint scrape job" &&
+			strings.HasSuffix(diag.Detail, ": not found") {
+			return true
+		}
+
 		msg := diag.Summary + ": " + diag.Detail
 
 		// Int-typed and composite IDs: parsing the empty id fails.

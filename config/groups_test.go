@@ -10,7 +10,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
 )
 
-func TestIsEmptyResourceIDDiagnostic(t *testing.T) {
+func TestShouldTreatDiagnosticsAsResourceNotFound(t *testing.T) {
+	isNotFound := identifierFromProviderTreatingNotFoundDiagnostics().IsNotFoundDiagnosticFn
+
 	cases := map[string]struct {
 		diags []*tfprotov6.Diagnostic
 		want  bool
@@ -58,6 +60,38 @@ func TestIsEmptyResourceIDDiagnostic(t *testing.T) {
 			diags: []*tfprotov6.Diagnostic{nil},
 			want:  false,
 		},
+		"metrics endpoint scrape job not found": {
+			diags: []*tfprotov6.Diagnostic{{
+				Severity: tfprotov6.DiagnosticSeverityError,
+				Summary:  "failed to get metrics endpoint scrape job",
+				Detail:   `failed to get metrics endpoint scrape job "staging-smoke": not found`,
+			}},
+			want: true,
+		},
+		"metrics endpoint scrape job read failure": {
+			diags: []*tfprotov6.Diagnostic{{
+				Severity: tfprotov6.DiagnosticSeverityError,
+				Summary:  "failed to get metrics endpoint scrape job",
+				Detail:   `failed to get metrics endpoint scrape job "staging-smoke": request not authorized for stack`,
+			}},
+			want: false,
+		},
+		"other resource not found": {
+			diags: []*tfprotov6.Diagnostic{{
+				Severity: tfprotov6.DiagnosticSeverityError,
+				Summary:  "failed to get dashboard",
+				Detail:   `failed to get dashboard "example": not found`,
+			}},
+			want: false,
+		},
+		"metrics endpoint scrape job not found warning": {
+			diags: []*tfprotov6.Diagnostic{{
+				Severity: tfprotov6.DiagnosticSeverityWarning,
+				Summary:  "failed to get metrics endpoint scrape job",
+				Detail:   `failed to get metrics endpoint scrape job "staging-smoke": not found`,
+			}},
+			want: false,
+		},
 		"string id hits list endpoint - folder": {
 			diags: []*tfprotov6.Diagnostic{{
 				Severity: tfprotov6.DiagnosticSeverityError,
@@ -86,7 +120,7 @@ func TestIsEmptyResourceIDDiagnostic(t *testing.T) {
 
 	for name, tc := range cases {
 		t.Run(name, func(t *testing.T) {
-			if got := isEmptyResourceIDDiagnostic(tc.diags); got != tc.want {
+			if got := isNotFound(tc.diags); got != tc.want {
 				t.Fatalf("got %t, want %t", got, tc.want)
 			}
 		})
