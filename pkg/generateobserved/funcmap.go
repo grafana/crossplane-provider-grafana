@@ -59,8 +59,9 @@ type connectionDetailsData struct {
 
 // nestedStructData is passed to the _nestedStruct template.
 type nestedStructData struct {
-	Name   string
-	Fields []fieldInfo
+	Name             string
+	Fields           []fieldInfo
+	IncludeTFSDKTags bool
 }
 
 func executeTemplate(name string, data any) string {
@@ -85,25 +86,26 @@ func splitLines(s string) []string {
 func nestedStructsFn(ds *dsInfo) string {
 	var b strings.Builder
 	emitted := make(map[string]bool)
-	emitNestedStructs(&b, ds.ForProviderFields, emitted)
-	emitNestedStructs(&b, ds.AtProviderFields, emitted)
+	emitNestedStructs(&b, ds.ForProviderFields, emitted, !ds.IsLegacySDK)
+	emitNestedStructs(&b, ds.AtProviderFields, emitted, !ds.IsLegacySDK)
 	return b.String()
 }
 
 // emitNestedStructs recursively emits Go struct definitions for fields that
 // have nested sub-fields (e.g. TypeList/TypeSet with Resource elements).
-func emitNestedStructs(b *strings.Builder, fields []fieldInfo, emitted map[string]bool) {
+func emitNestedStructs(b *strings.Builder, fields []fieldInfo, emitted map[string]bool, includeTFSDKTags bool) {
 	for _, f := range fields {
 		if len(f.NestedFields) == 0 || emitted[f.NestedStructName] {
 			continue
 		}
 		emitted[f.NestedStructName] = true
 		// Recurse first so inner types are defined before outer types.
-		emitNestedStructs(b, f.NestedFields, emitted)
+		emitNestedStructs(b, f.NestedFields, emitted, includeTFSDKTags)
 
 		b.WriteString(executeTemplate("_nestedStruct", nestedStructData{
-			Name:   f.NestedStructName,
-			Fields: f.NestedFields,
+			Name:             f.NestedStructName,
+			Fields:           f.NestedFields,
+			IncludeTFSDKTags: includeTFSDKTags,
 		}))
 	}
 }

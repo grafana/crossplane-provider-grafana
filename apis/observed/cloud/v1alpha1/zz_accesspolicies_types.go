@@ -13,6 +13,18 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type AccessPoliciesAccessPolicies struct {
+	DisplayName *string `json:"displayName,omitempty" tfsdk:"display_name"`
+
+	ID *string `json:"id,omitempty" tfsdk:"id"`
+
+	Name *string `json:"name,omitempty" tfsdk:"name"`
+
+	Region *string `json:"region,omitempty" tfsdk:"region"`
+
+	Status *string `json:"status,omitempty" tfsdk:"status"`
+}
+
 // AccessPoliciesParameters defines the input parameters for the grafana_cloud_access_policies data source.
 type AccessPoliciesParameters struct {
 	// If set, only access policies with the specified name will be returned. This is faster than filtering in Terraform.
@@ -26,7 +38,7 @@ type AccessPoliciesParameters struct {
 
 // AccessPoliciesObservation holds the observed (computed) fields from the grafana_cloud_access_policies data source.
 type AccessPoliciesObservation struct {
-	AccessPolicies []string `json:"accessPolicies,omitempty"`
+	AccessPolicies []AccessPoliciesAccessPolicies `json:"accessPolicies,omitempty"`
 
 	// If set, only access policies with the specified name will be returned. This is faster than filtering in Terraform.
 	NameFilter *string `json:"nameFilter,omitempty"`

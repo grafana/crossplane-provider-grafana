@@ -101,7 +101,25 @@
             },
             "panels": {
               "items": {
-                "type": "string"
+                "additionalProperties": false,
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "folderUID": {
+                    "type": "string"
+                  },
+                  "modelJSON": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "uid": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
               },
               "type": "array"
             }

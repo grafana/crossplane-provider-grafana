@@ -13,6 +13,18 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type PrivateDataSourceConnectNetworksPrivateDataSourceConnectNetworks struct {
+	DisplayName *string `json:"displayName,omitempty" tfsdk:"display_name"`
+
+	ID *string `json:"id,omitempty" tfsdk:"id"`
+
+	Name *string `json:"name,omitempty" tfsdk:"name"`
+
+	Region *string `json:"region,omitempty" tfsdk:"region"`
+
+	Status *string `json:"status,omitempty" tfsdk:"status"`
+}
+
 // PrivateDataSourceConnectNetworksParameters defines the input parameters for the grafana_cloud_private_data_source_connect_networks data source.
 type PrivateDataSourceConnectNetworksParameters struct {
 	// If set, only private data source connect networks with the specified name will be returned. This is faster than filtering in Terraform.
@@ -29,7 +41,7 @@ type PrivateDataSourceConnectNetworksObservation struct {
 	// If set, only private data source connect networks with the specified name will be returned. This is faster than filtering in Terraform.
 	NameFilter *string `json:"nameFilter,omitempty"`
 
-	PrivateDataSourceConnectNetworks []string `json:"privateDataSourceConnectNetworks,omitempty"`
+	PrivateDataSourceConnectNetworks []PrivateDataSourceConnectNetworksPrivateDataSourceConnectNetworks `json:"privateDataSourceConnectNetworks,omitempty"`
 
 	// If set, only private data source connect networks in the specified region will be returned. This is faster than filtering in Terraform.
 	RegionFilter *string `json:"regionFilter,omitempty"`

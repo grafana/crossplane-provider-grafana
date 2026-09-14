@@ -13,6 +13,18 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type LibraryPanelSetPanels struct {
+	Description *string `json:"description,omitempty" tfsdk:"description"`
+
+	FolderUID *string `json:"folderUID,omitempty" tfsdk:"folder_uid"`
+
+	ModelJSON *string `json:"modelJSON,omitempty" tfsdk:"model_json"`
+
+	Name *string `json:"name,omitempty" tfsdk:"name"`
+
+	UID *string `json:"uid,omitempty" tfsdk:"uid"`
+}
+
 // LibraryPanelSetParameters defines the input parameters for the grafana_library_panels data source.
 type LibraryPanelSetParameters struct {
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
@@ -25,7 +37,7 @@ type LibraryPanelSetObservation struct {
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
 	OrgID *string `json:"orgID,omitempty"`
 
-	Panels []string `json:"panels,omitempty"`
+	Panels []LibraryPanelSetPanels `json:"panels,omitempty"`
 }
 
 type LibraryPanelSetSpec struct {

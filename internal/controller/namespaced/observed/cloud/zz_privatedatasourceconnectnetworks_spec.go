@@ -49,8 +49,8 @@ var PrivateDataSourceConnectNetworksSpec = tfdatasource.Spec{
 			}
 
 			{
-				var v []string
-				if diags := state.GetAttribute(ctx, path.Root("private_data_source_connect_networks"), &v); !diags.HasError() && len(v) > 0 {
+				var v []v1alpha1.PrivateDataSourceConnectNetworksPrivateDataSourceConnectNetworks
+				if diags := state.GetAttribute(ctx, path.Root("private_data_source_connect_networks"), &v); !diags.HasError() {
 					cr.Status.AtProvider.PrivateDataSourceConnectNetworks = v
 				}
 			}

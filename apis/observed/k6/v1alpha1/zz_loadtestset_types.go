@@ -13,6 +13,24 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type LoadTestSetLoadTests struct {
+	BaselineTestRunID *string `json:"baselineTestRunID,omitempty" tfsdk:"baseline_test_run_id"`
+
+	Created *string `json:"created,omitempty" tfsdk:"created"`
+
+	ID *string `json:"id,omitempty" tfsdk:"id"`
+
+	K6Version *string `json:"k6Version,omitempty" tfsdk:"k6_version"`
+
+	Name *string `json:"name,omitempty" tfsdk:"name"`
+
+	ProjectID *string `json:"projectID,omitempty" tfsdk:"project_id"`
+
+	Script *string `json:"script,omitempty" tfsdk:"script"`
+
+	Updated *string `json:"updated,omitempty" tfsdk:"updated"`
+}
+
 // LoadTestSetParameters defines the input parameters for the grafana_k6_load_tests data source.
 type LoadTestSetParameters struct {
 	// Human-friendly identifier of the load test.
@@ -26,7 +44,7 @@ type LoadTestSetParameters struct {
 
 // LoadTestSetObservation holds the observed (computed) fields from the grafana_k6_load_tests data source.
 type LoadTestSetObservation struct {
-	LoadTests []string `json:"loadTests,omitempty"`
+	LoadTests []LoadTestSetLoadTests `json:"loadTests,omitempty"`
 
 	// Human-friendly identifier of the load test.
 	Name *string `json:"name,omitempty"`

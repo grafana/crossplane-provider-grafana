@@ -13,6 +13,20 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type TeamSetTeams struct {
+	Email *string `json:"email,omitempty" tfsdk:"email"`
+
+	ID *int64 `json:"id,omitempty" tfsdk:"id"`
+
+	MemberCount *int64 `json:"memberCount,omitempty" tfsdk:"member_count"`
+
+	Name *string `json:"name,omitempty" tfsdk:"name"`
+
+	OrgID *int64 `json:"orgID,omitempty" tfsdk:"org_id"`
+
+	UID *string `json:"uid,omitempty" tfsdk:"uid"`
+}
+
 // TeamSetParameters defines the input parameters for the grafana_teams data source.
 type TeamSetParameters struct {
 	// The Organization ID. If not set, the default organization is used for basic authentication, or the one that owns your service account for token authentication.
@@ -33,7 +47,7 @@ type TeamSetObservation struct {
 	Query *string `json:"query,omitempty"`
 
 	// The list of matching Grafana teams.
-	Teams []string `json:"teams,omitempty"`
+	Teams []TeamSetTeams `json:"teams,omitempty"`
 }
 
 type TeamSetSpec struct {

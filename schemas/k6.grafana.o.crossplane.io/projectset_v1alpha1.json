@@ -101,7 +101,28 @@
             },
             "projects": {
               "items": {
-                "type": "string"
+                "additionalProperties": false,
+                "properties": {
+                  "created": {
+                    "type": "string"
+                  },
+                  "grafanaFolderUID": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "isDefault": {
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "updated": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
               },
               "type": "array"
             }

@@ -91,7 +91,66 @@
             "schedules": {
               "description": "List of k6 schedules.",
               "items": {
-                "type": "string"
+                "additionalProperties": false,
+                "properties": {
+                  "createdBy": {
+                    "type": "string"
+                  },
+                  "cron": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "schedule": {
+                        "type": "string"
+                      },
+                      "timezone": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "deactivated": {
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "loadTestID": {
+                    "type": "string"
+                  },
+                  "nextRun": {
+                    "type": "string"
+                  },
+                  "recurrenceRule": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "byday": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "count": {
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "frequency": {
+                        "type": "string"
+                      },
+                      "interval": {
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "until": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "starts": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
               },
               "type": "array"
             }

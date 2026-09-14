@@ -13,13 +13,49 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type ScheduleSetSchedulesCron struct {
+	Schedule *string `json:"schedule,omitempty" tfsdk:"schedule"`
+
+	Timezone *string `json:"timezone,omitempty" tfsdk:"timezone"`
+}
+
+type ScheduleSetSchedulesRecurrenceRule struct {
+	Byday []string `json:"byday,omitempty" tfsdk:"byday"`
+
+	Count *int32 `json:"count,omitempty" tfsdk:"count"`
+
+	Frequency *string `json:"frequency,omitempty" tfsdk:"frequency"`
+
+	Interval *int32 `json:"interval,omitempty" tfsdk:"interval"`
+
+	Until *string `json:"until,omitempty" tfsdk:"until"`
+}
+
+type ScheduleSetSchedules struct {
+	CreatedBy *string `json:"createdBy,omitempty" tfsdk:"created_by"`
+
+	Cron *ScheduleSetSchedulesCron `json:"cron,omitempty" tfsdk:"cron"`
+
+	Deactivated *bool `json:"deactivated,omitempty" tfsdk:"deactivated"`
+
+	ID *string `json:"id,omitempty" tfsdk:"id"`
+
+	LoadTestID *string `json:"loadTestID,omitempty" tfsdk:"load_test_id"`
+
+	NextRun *string `json:"nextRun,omitempty" tfsdk:"next_run"`
+
+	RecurrenceRule *ScheduleSetSchedulesRecurrenceRule `json:"recurrenceRule,omitempty" tfsdk:"recurrence_rule"`
+
+	Starts *string `json:"starts,omitempty" tfsdk:"starts"`
+}
+
 // ScheduleSetParameters defines the input parameters for the grafana_k6_schedules data source.
 type ScheduleSetParameters struct{}
 
 // ScheduleSetObservation holds the observed (computed) fields from the grafana_k6_schedules data source.
 type ScheduleSetObservation struct {
 	// List of k6 schedules.
-	Schedules []string `json:"schedules,omitempty"`
+	Schedules []ScheduleSetSchedules `json:"schedules,omitempty"`
 }
 
 type ScheduleSetSpec struct {

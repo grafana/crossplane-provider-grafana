@@ -13,6 +13,20 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type ProjectSetProjects struct {
+	Created *string `json:"created,omitempty" tfsdk:"created"`
+
+	GrafanaFolderUID *string `json:"grafanaFolderUID,omitempty" tfsdk:"grafana_folder_uid"`
+
+	ID *string `json:"id,omitempty" tfsdk:"id"`
+
+	IsDefault *bool `json:"isDefault,omitempty" tfsdk:"is_default"`
+
+	Name *string `json:"name,omitempty" tfsdk:"name"`
+
+	Updated *string `json:"updated,omitempty" tfsdk:"updated"`
+}
+
 // ProjectSetParameters defines the input parameters for the grafana_k6_projects data source.
 type ProjectSetParameters struct {
 	// Human-friendly identifier of the project.
@@ -25,7 +39,7 @@ type ProjectSetObservation struct {
 	// Human-friendly identifier of the project.
 	Name *string `json:"name,omitempty"`
 
-	Projects []string `json:"projects,omitempty"`
+	Projects []ProjectSetProjects `json:"projects,omitempty"`
 }
 
 type ProjectSetSpec struct {
