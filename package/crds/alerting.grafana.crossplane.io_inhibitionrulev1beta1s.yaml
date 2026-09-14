@@ -330,11 +330,6 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.metadata is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.metadata)
-                || (has(self.initProvider) && has(self.initProvider.metadata))'
           status:
             description: InhibitionruleV1Beta1Status defines the observed state of
               InhibitionruleV1Beta1.

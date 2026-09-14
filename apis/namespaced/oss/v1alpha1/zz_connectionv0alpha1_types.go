@@ -230,7 +230,7 @@ type ConnectionV0Alpha1SpecParameters struct {
 	// (Block, Optional) GitHub App configuration. (see below for nested schema)
 	// GitHub App configuration.
 	// +kubebuilder:validation:Optional
-	Github *GithubParameters `json:"github" tf:"github,omitempty"`
+	Github *GithubParameters `json:"github,omitempty" tf:"github,omitempty"`
 
 	// (String) Display name shown in the UI.
 	// Display name shown in the UI.
@@ -360,10 +360,8 @@ type ConnectionV0Alpha1Status struct {
 type ConnectionV0Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec   ConnectionV0Alpha1Spec   `json:"spec"`
-	Status ConnectionV0Alpha1Status `json:"status,omitempty"`
+	Spec              ConnectionV0Alpha1Spec   `json:"spec"`
+	Status            ConnectionV0Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

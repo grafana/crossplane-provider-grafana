@@ -1134,7 +1134,7 @@ type RoutingtreeV1Beta1SpecParameters struct {
 	// (Block, Optional) The default values applied to alerts that do not match any specific route. (see below for nested schema)
 	// The default values applied to alerts that do not match any specific route.
 	// +kubebuilder:validation:Optional
-	Defaults *DefaultsParameters `json:"defaults" tf:"defaults,omitempty"`
+	Defaults *DefaultsParameters `json:"defaults,omitempty" tf:"defaults,omitempty"`
 
 	// (Boolean) Set to true to allow editing this resource from other sources (UI, API).
 	// Set to `true` to allow editing this resource from other sources (UI, API).
@@ -1183,10 +1183,8 @@ type RoutingtreeV1Beta1Status struct {
 type RoutingtreeV1Beta1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec   RoutingtreeV1Beta1Spec   `json:"spec"`
-	Status RoutingtreeV1Beta1Status `json:"status,omitempty"`
+	Spec              RoutingtreeV1Beta1Spec   `json:"spec"`
+	Status            RoutingtreeV1Beta1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

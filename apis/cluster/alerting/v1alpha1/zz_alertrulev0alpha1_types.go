@@ -335,7 +335,7 @@ type AlertruleV0Alpha1SpecParameters struct {
 	// (Block, Optional) The trigger configuration for the alert rule. (see below for nested schema)
 	// The trigger configuration for the alert rule.
 	// +kubebuilder:validation:Optional
-	Trigger *TriggerParameters `json:"trigger" tf:"trigger,omitempty"`
+	Trigger *TriggerParameters `json:"trigger,omitempty" tf:"trigger,omitempty"`
 }
 
 type NamedRoutingTreeInitParameters struct {
@@ -644,10 +644,8 @@ type AlertruleV0Alpha1Status struct {
 type AlertruleV0Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec   AlertruleV0Alpha1Spec   `json:"spec"`
-	Status AlertruleV0Alpha1Status `json:"status,omitempty"`
+	Spec              AlertruleV0Alpha1Spec   `json:"spec"`
+	Status            AlertruleV0Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

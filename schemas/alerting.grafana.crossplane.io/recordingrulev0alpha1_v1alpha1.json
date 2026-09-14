@@ -281,17 +281,7 @@
       "required": [
         "forProvider"
       ],
-      "type": "object",
-      "x-kubernetes-validations": [
-        {
-          "message": "spec.forProvider.metadata is a required parameter",
-          "rule": "!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) \u0026\u0026 has(self.initProvider.metadata))"
-        },
-        {
-          "message": "spec.forProvider.spec is a required parameter",
-          "rule": "!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) \u0026\u0026 has(self.initProvider.spec))"
-        }
-      ]
+      "type": "object"
     },
     "status": {
       "additionalProperties": false,

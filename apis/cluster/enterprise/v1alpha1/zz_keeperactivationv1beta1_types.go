@@ -111,9 +111,8 @@ type KeeperActivationV1Beta1Status struct {
 type KeeperActivationV1Beta1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	Spec   KeeperActivationV1Beta1Spec   `json:"spec"`
-	Status KeeperActivationV1Beta1Status `json:"status,omitempty"`
+	Spec              KeeperActivationV1Beta1Spec   `json:"spec"`
+	Status            KeeperActivationV1Beta1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -245,10 +245,8 @@ type DashboardV2Beta1Status struct {
 type DashboardV2Beta1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec   DashboardV2Beta1Spec   `json:"spec"`
-	Status DashboardV2Beta1Status `json:"status,omitempty"`
+	Spec              DashboardV2Beta1Spec   `json:"spec"`
+	Status            DashboardV2Beta1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
