@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type RouteInitParameters struct {
@@ -24,11 +24,11 @@ type RouteInitParameters struct {
 
 	// Reference to a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainRef *v1.Reference `json:"escalationChainRef,omitempty" tf:"-"`
+	EscalationChainRef *v2.Reference `json:"escalationChainRef,omitempty" tf:"-"`
 
 	// Selector for a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainSelector *v1.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
+	EscalationChainSelector *v2.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// (String) The ID of the integration.
 	// The ID of the integration.
@@ -39,11 +39,11 @@ type RouteInitParameters struct {
 
 	// Reference to a Integration in oncall to populate integrationId.
 	// +kubebuilder:validation:Optional
-	IntegrationRef *v1.Reference `json:"integrationRef,omitempty" tf:"-"`
+	IntegrationRef *v2.Reference `json:"integrationRef,omitempty" tf:"-"`
 
 	// Selector for a Integration in oncall to populate integrationId.
 	// +kubebuilder:validation:Optional
-	IntegrationSelector *v1.Selector `json:"integrationSelector,omitempty" tf:"-"`
+	IntegrationSelector *v2.Selector `json:"integrationSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.
@@ -155,11 +155,11 @@ type RouteParameters struct {
 
 	// Reference to a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainRef *v1.Reference `json:"escalationChainRef,omitempty" tf:"-"`
+	EscalationChainRef *v2.Reference `json:"escalationChainRef,omitempty" tf:"-"`
 
 	// Selector for a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainSelector *v1.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
+	EscalationChainSelector *v2.Selector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// (String) The ID of the integration.
 	// The ID of the integration.
@@ -171,11 +171,11 @@ type RouteParameters struct {
 
 	// Reference to a Integration in oncall to populate integrationId.
 	// +kubebuilder:validation:Optional
-	IntegrationRef *v1.Reference `json:"integrationRef,omitempty" tf:"-"`
+	IntegrationRef *v2.Reference `json:"integrationRef,omitempty" tf:"-"`
 
 	// Selector for a Integration in oncall to populate integrationId.
 	// +kubebuilder:validation:Optional
-	IntegrationSelector *v1.Selector `json:"integrationSelector,omitempty" tf:"-"`
+	IntegrationSelector *v2.Selector `json:"integrationSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.
@@ -224,11 +224,11 @@ type RouteSlackInitParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.Reference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.Reference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type RouteSlackObservation struct {
@@ -260,11 +260,11 @@ type RouteSlackParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.Reference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.Reference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type RouteTelegramInitParameters struct {
@@ -304,8 +304,8 @@ type RouteTelegramParameters struct {
 
 // RouteSpec defines the desired state of Route
 type RouteSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     RouteParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   RouteParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -321,8 +321,8 @@ type RouteSpec struct {
 
 // RouteStatus defines the observed state of Route.
 type RouteStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RouteObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               RouteObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

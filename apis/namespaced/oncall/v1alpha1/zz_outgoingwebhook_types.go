@@ -10,15 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OutgoingWebhookInitParameters struct {
 
 	// (String, Sensitive) The auth data of the webhook. Used in Authorization header instead of user/password auth.
 	// The auth data of the webhook. Used in Authorization header instead of user/password auth.
-	AuthorizationHeaderSecretRef *v1.LocalSecretKeySelector `json:"authorizationHeaderSecretRef,omitempty" tf:"-"`
+	AuthorizationHeaderSecretRef *v2.LocalSecretKeySelector `json:"authorizationHeaderSecretRef,omitempty" tf:"-"`
 
 	// (String) The data of the webhook.
 	// The data of the webhook.
@@ -45,11 +44,11 @@ type OutgoingWebhookInitParameters struct {
 
 	// References to Integration in oncall to populate integrationFilter.
 	// +kubebuilder:validation:Optional
-	IntegrationFilterRef []v1.NamespacedReference `json:"integrationFilterRef,omitempty" tf:"-"`
+	IntegrationFilterRef []v2.NamespacedReference `json:"integrationFilterRef,omitempty" tf:"-"`
 
 	// Selector for a list of Integration in oncall to populate integrationFilter.
 	// +kubebuilder:validation:Optional
-	IntegrationFilterSelector *v1.NamespacedSelector `json:"integrationFilterSelector,omitempty" tf:"-"`
+	IntegrationFilterSelector *v2.NamespacedSelector `json:"integrationFilterSelector,omitempty" tf:"-"`
 
 	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
 	// Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
@@ -61,7 +60,7 @@ type OutgoingWebhookInitParameters struct {
 
 	// (String, Sensitive) The auth data of the webhook. Used for Basic authentication
 	// The auth data of the webhook. Used for Basic authentication
-	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, grafana_assistant, incident_webhook. If no preset is set, the default preset is advanced_webhook.
 	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `grafana_assistant`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
@@ -77,11 +76,11 @@ type OutgoingWebhookInitParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
 	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
@@ -163,7 +162,7 @@ type OutgoingWebhookParameters struct {
 	// (String, Sensitive) The auth data of the webhook. Used in Authorization header instead of user/password auth.
 	// The auth data of the webhook. Used in Authorization header instead of user/password auth.
 	// +kubebuilder:validation:Optional
-	AuthorizationHeaderSecretRef *v1.LocalSecretKeySelector `json:"authorizationHeaderSecretRef,omitempty" tf:"-"`
+	AuthorizationHeaderSecretRef *v2.LocalSecretKeySelector `json:"authorizationHeaderSecretRef,omitempty" tf:"-"`
 
 	// (String) The data of the webhook.
 	// The data of the webhook.
@@ -195,11 +194,11 @@ type OutgoingWebhookParameters struct {
 
 	// References to Integration in oncall to populate integrationFilter.
 	// +kubebuilder:validation:Optional
-	IntegrationFilterRef []v1.NamespacedReference `json:"integrationFilterRef,omitempty" tf:"-"`
+	IntegrationFilterRef []v2.NamespacedReference `json:"integrationFilterRef,omitempty" tf:"-"`
 
 	// Selector for a list of Integration in oncall to populate integrationFilter.
 	// +kubebuilder:validation:Optional
-	IntegrationFilterSelector *v1.NamespacedSelector `json:"integrationFilterSelector,omitempty" tf:"-"`
+	IntegrationFilterSelector *v2.NamespacedSelector `json:"integrationFilterSelector,omitempty" tf:"-"`
 
 	// (Boolean) Controls whether the outgoing webhook will trigger or is ignored. Defaults to true.
 	// Controls whether the outgoing webhook will trigger or is ignored. Defaults to `true`.
@@ -214,7 +213,7 @@ type OutgoingWebhookParameters struct {
 	// (String, Sensitive) The auth data of the webhook. Used for Basic authentication
 	// The auth data of the webhook. Used for Basic authentication
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) The preset of the outgoing webhook. Possible values are: simple_webhook, advanced_webhook, grafana_sift, grafana_assistant, incident_webhook. If no preset is set, the default preset is advanced_webhook.
 	// The preset of the outgoing webhook. Possible values are: `simple_webhook`, `advanced_webhook`, `grafana_sift`, `grafana_assistant`, `incident_webhook`. If no preset is set, the default preset is `advanced_webhook`.
@@ -232,11 +231,11 @@ type OutgoingWebhookParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) A template used to dynamically determine whether the webhook should execute based on the content of the payload.
 	// A template used to dynamically determine whether the webhook should execute based on the content of the payload.
@@ -278,8 +277,8 @@ type OutgoingWebhookSpec struct {
 
 // OutgoingWebhookStatus defines the observed state of OutgoingWebhook.
 type OutgoingWebhookStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OutgoingWebhookObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OutgoingWebhookObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

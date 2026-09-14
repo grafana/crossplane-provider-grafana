@@ -5,204 +5,204 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this AwsAccount.
-func (mg *AwsAccount) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *AwsAccount) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this AwsAccount.
-func (mg *AwsAccount) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *AwsAccount) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this AwsAccount.
-func (mg *AwsAccount) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *AwsAccount) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this AwsAccount.
-func (mg *AwsAccount) GetProviderConfigReference() *xpv1.Reference {
+func (mg *AwsAccount) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this AwsAccount.
-func (mg *AwsAccount) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *AwsAccount) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this AwsAccount.
-func (mg *AwsAccount) SetConditions(c ...xpv1.Condition) {
+func (mg *AwsAccount) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this AwsAccount.
-func (mg *AwsAccount) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *AwsAccount) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this AwsAccount.
-func (mg *AwsAccount) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *AwsAccount) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this AwsAccount.
-func (mg *AwsAccount) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *AwsAccount) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this AwsAccount.
-func (mg *AwsAccount) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *AwsAccount) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *AwsCloudwatchScrapeJob) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *AwsCloudwatchScrapeJob) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *AwsCloudwatchScrapeJob) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) GetProviderConfigReference() *xpv1.Reference {
+func (mg *AwsCloudwatchScrapeJob) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *AwsCloudwatchScrapeJob) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) SetConditions(c ...xpv1.Condition) {
+func (mg *AwsCloudwatchScrapeJob) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *AwsCloudwatchScrapeJob) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *AwsCloudwatchScrapeJob) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *AwsCloudwatchScrapeJob) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this AwsCloudwatchScrapeJob.
-func (mg *AwsCloudwatchScrapeJob) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *AwsCloudwatchScrapeJob) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *AwsResourceMetadataScrapeJob) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *AwsResourceMetadataScrapeJob) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *AwsResourceMetadataScrapeJob) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) GetProviderConfigReference() *xpv1.Reference {
+func (mg *AwsResourceMetadataScrapeJob) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *AwsResourceMetadataScrapeJob) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) SetConditions(c ...xpv1.Condition) {
+func (mg *AwsResourceMetadataScrapeJob) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *AwsResourceMetadataScrapeJob) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *AwsResourceMetadataScrapeJob) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *AwsResourceMetadataScrapeJob) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this AwsResourceMetadataScrapeJob.
-func (mg *AwsResourceMetadataScrapeJob) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *AwsResourceMetadataScrapeJob) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this AzureCredential.
-func (mg *AzureCredential) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *AzureCredential) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this AzureCredential.
-func (mg *AzureCredential) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *AzureCredential) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this AzureCredential.
-func (mg *AzureCredential) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *AzureCredential) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this AzureCredential.
-func (mg *AzureCredential) GetProviderConfigReference() *xpv1.Reference {
+func (mg *AzureCredential) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this AzureCredential.
-func (mg *AzureCredential) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *AzureCredential) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this AzureCredential.
-func (mg *AzureCredential) SetConditions(c ...xpv1.Condition) {
+func (mg *AzureCredential) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this AzureCredential.
-func (mg *AzureCredential) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *AzureCredential) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this AzureCredential.
-func (mg *AzureCredential) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *AzureCredential) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this AzureCredential.
-func (mg *AzureCredential) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *AzureCredential) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this AzureCredential.
-func (mg *AzureCredential) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *AzureCredential) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

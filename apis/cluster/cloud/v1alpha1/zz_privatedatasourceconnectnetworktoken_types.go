@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PrivateDataSourceConnectNetworkTokenInitParameters struct {
@@ -37,11 +37,11 @@ type PrivateDataSourceConnectNetworkTokenInitParameters struct {
 
 	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
 	// +kubebuilder:validation:Optional
-	PdcNetworkRef *v1.Reference `json:"pdcNetworkRef,omitempty" tf:"-"`
+	PdcNetworkRef *v2.Reference `json:"pdcNetworkRef,omitempty" tf:"-"`
 
 	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
 	// +kubebuilder:validation:Optional
-	PdcNetworkSelector *v1.Selector `json:"pdcNetworkSelector,omitempty" tf:"-"`
+	PdcNetworkSelector *v2.Selector `json:"pdcNetworkSelector,omitempty" tf:"-"`
 
 	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
@@ -110,11 +110,11 @@ type PrivateDataSourceConnectNetworkTokenParameters struct {
 
 	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
 	// +kubebuilder:validation:Optional
-	PdcNetworkRef *v1.Reference `json:"pdcNetworkRef,omitempty" tf:"-"`
+	PdcNetworkRef *v2.Reference `json:"pdcNetworkRef,omitempty" tf:"-"`
 
 	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate pdcNetworkId.
 	// +kubebuilder:validation:Optional
-	PdcNetworkSelector *v1.Selector `json:"pdcNetworkSelector,omitempty" tf:"-"`
+	PdcNetworkSelector *v2.Selector `json:"pdcNetworkSelector,omitempty" tf:"-"`
 
 	// cloud/developer-resources/api-reference/cloud-api/#list-regions.
 	// Region of the private data source network. Should be set to the same region as the private data source network. Use the region list API to get the list of available regions: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/#list-regions.
@@ -124,8 +124,8 @@ type PrivateDataSourceConnectNetworkTokenParameters struct {
 
 // PrivateDataSourceConnectNetworkTokenSpec defines the desired state of PrivateDataSourceConnectNetworkToken
 type PrivateDataSourceConnectNetworkTokenSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     PrivateDataSourceConnectNetworkTokenParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   PrivateDataSourceConnectNetworkTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -141,8 +141,8 @@ type PrivateDataSourceConnectNetworkTokenSpec struct {
 
 // PrivateDataSourceConnectNetworkTokenStatus defines the observed state of PrivateDataSourceConnectNetworkToken.
 type PrivateDataSourceConnectNetworkTokenStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PrivateDataSourceConnectNetworkTokenObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PrivateDataSourceConnectNetworkTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

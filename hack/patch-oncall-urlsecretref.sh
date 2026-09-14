@@ -9,7 +9,7 @@ PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 echo "Patching OnCall contact point types to add URLSecretRef field..."
 
-# Patch cluster-scoped contact point types (uses v1.SecretKeySelector for cross-namespace refs)
+# Patch cluster-scoped contact point types (uses v2.SecretKeySelector for cross-namespace refs)
 CLUSTER_TYPES="${PROJECT_ROOT}/apis/cluster/alerting/v1alpha1/zz_contactpoint_types.go"
 if [[ -f "${CLUSTER_TYPES}" ]]; then
   # Check if already patched (idempotency)
@@ -26,7 +26,7 @@ if [[ -f "${CLUSTER_TYPES}" ]]; then
 \
 	// The OnCall webhook URL (from secret).\
 	// +kubebuilder:validation:Optional\
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
       }
     }' "${CLUSTER_TYPES}"
 
@@ -36,7 +36,7 @@ else
   echo "  Warning: ${CLUSTER_TYPES} not found, skipping"
 fi
 
-# Patch namespaced contact point types (uses v1.LocalSecretKeySelector for same-namespace only)
+# Patch namespaced contact point types (uses v2.LocalSecretKeySelector for same-namespace only)
 NAMESPACED_TYPES="${PROJECT_ROOT}/apis/namespaced/alerting/v1alpha1/zz_contactpoint_types.go"
 if [[ -f "${NAMESPACED_TYPES}" ]]; then
   # Check if already patched (idempotency)
@@ -52,7 +52,7 @@ if [[ -f "${NAMESPACED_TYPES}" ]]; then
 \
 	// The OnCall webhook URL (from secret).\
 	// +kubebuilder:validation:Optional\
-	URLSecretRef *v1.LocalSecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.LocalSecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
       }
     }' "${NAMESPACED_TYPES}"
 

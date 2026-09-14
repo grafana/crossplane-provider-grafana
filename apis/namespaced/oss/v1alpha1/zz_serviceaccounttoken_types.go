@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ServiceAccountTokenInitParameters struct {
@@ -33,11 +32,11 @@ type ServiceAccountTokenInitParameters struct {
 
 	// Reference to a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
 type ServiceAccountTokenObservation struct {
@@ -88,11 +87,11 @@ type ServiceAccountTokenParameters struct {
 
 	// Reference to a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
 // ServiceAccountTokenSpec defines the desired state of ServiceAccountToken
@@ -114,8 +113,8 @@ type ServiceAccountTokenSpec struct {
 
 // ServiceAccountTokenStatus defines the observed state of ServiceAccountToken.
 type ServiceAccountTokenStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServiceAccountTokenObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServiceAccountTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

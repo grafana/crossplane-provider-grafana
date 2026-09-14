@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DatasetInitParameters struct {
@@ -200,7 +200,7 @@ type StackInitParameters struct {
 
 	// (String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
 	// A Grafana Cloud Access Policy token with the following scopes: `stacks:read`, `metrics:read`, `metrics:write`. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
-	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	CloudAccessPolicyTokenSecretRef v2.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
 
 	// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
 	// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
@@ -208,7 +208,7 @@ type StackInitParameters struct {
 
 	// (String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.
 	// A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: `dashboards:create`, `dashboards:write`, `dashboards:read`, `folders:create`, `folders:write`, `folders:read`, `folders:delete`, `datasources:read`, `datasources:query`, `alert.provisioning:write`, `alert.notifications.provisioning:write`, `alert.notifications:write`, `alert.rules:read`, `alert.rules:create`, `alert.rules:delete`. Create using `grafana_cloud_stack_service_account_token` resource.
-	GrafanaTokenSecretRef *v1.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
+	GrafanaTokenSecretRef *v2.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
 }
 
 type StackObservation struct {
@@ -238,7 +238,7 @@ type StackParameters struct {
 	// (String, Sensitive) A Grafana Cloud Access Policy token with the following scopes: stacks:read, metrics:read, metrics:write. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
 	// A Grafana Cloud Access Policy token with the following scopes: `stacks:read`, `metrics:read`, `metrics:write`. This token is used for GCom API access, Mimir authentication, and assertion detector webhook authentication.
 	// +kubebuilder:validation:Optional
-	CloudAccessPolicyTokenSecretRef v1.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
+	CloudAccessPolicyTokenSecretRef v2.SecretKeySelector `json:"cloudAccessPolicyTokenSecretRef" tf:"-"`
 
 	// detection. Use this when your metrics use non-standard label names (e.g., a custom environment label). (see below for nested schema)
 	// Manual dataset configuration. When specified, datasets are configured manually instead of using auto-detection. Use this when your metrics use non-standard label names (e.g., a custom environment label).
@@ -248,13 +248,13 @@ type StackParameters struct {
 	// (String, Sensitive) A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: dashboards:create, dashboards:write, dashboards:read, folders:create, folders:write, folders:read, folders:delete, datasources:read, datasources:query, alert.provisioning:write, alert.notifications.provisioning:write, alert.notifications:write, alert.rules:read, alert.rules:create, alert.rules:delete. Create using grafana_cloud_stack_service_account_token resource.
 	// A Grafana Service Account token for installing dashboards and Grafana Managed Alerts. Required permissions: `dashboards:create`, `dashboards:write`, `dashboards:read`, `folders:create`, `folders:write`, `folders:read`, `folders:delete`, `datasources:read`, `datasources:query`, `alert.provisioning:write`, `alert.notifications.provisioning:write`, `alert.notifications:write`, `alert.rules:read`, `alert.rules:create`, `alert.rules:delete`. Create using `grafana_cloud_stack_service_account_token` resource.
 	// +kubebuilder:validation:Optional
-	GrafanaTokenSecretRef *v1.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
+	GrafanaTokenSecretRef *v2.SecretKeySelector `json:"grafanaTokenSecretRef,omitempty" tf:"-"`
 }
 
 // StackSpec defines the desired state of Stack
 type StackSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     StackParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   StackParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -270,8 +270,8 @@ type StackSpec struct {
 
 // StackStatus defines the observed state of Stack.
 type StackStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StackObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StackObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

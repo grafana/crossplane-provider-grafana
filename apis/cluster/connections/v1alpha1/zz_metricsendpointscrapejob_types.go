@@ -10,14 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MetricsEndpointScrapeJobInitParameters struct {
 
 	// (String, Sensitive) Password for basic authentication, use if scrape job is using basic authentication method
 	// Password for basic authentication, use if scrape job is using basic authentication method
-	AuthenticationBasicPasswordSecretRef *v1.SecretKeySelector `json:"authenticationBasicPasswordSecretRef,omitempty" tf:"-"`
+	AuthenticationBasicPasswordSecretRef *v2.SecretKeySelector `json:"authenticationBasicPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) Username for basic authentication, use if scrape job is using basic authentication method
 	// Username for basic authentication, use if scrape job is using basic authentication method
@@ -25,7 +25,7 @@ type MetricsEndpointScrapeJobInitParameters struct {
 
 	// (String, Sensitive) Bearer token used for authentication, use if scrape job is using bearer authentication method
 	// Bearer token used for authentication, use if scrape job is using bearer authentication method
-	AuthenticationBearerTokenSecretRef *v1.SecretKeySelector `json:"authenticationBearerTokenSecretRef,omitempty" tf:"-"`
+	AuthenticationBearerTokenSecretRef *v2.SecretKeySelector `json:"authenticationBearerTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) Method to pass authentication credentials: basic or bearer.
 	// Method to pass authentication credentials: basic or bearer.
@@ -91,7 +91,7 @@ type MetricsEndpointScrapeJobParameters struct {
 	// (String, Sensitive) Password for basic authentication, use if scrape job is using basic authentication method
 	// Password for basic authentication, use if scrape job is using basic authentication method
 	// +kubebuilder:validation:Optional
-	AuthenticationBasicPasswordSecretRef *v1.SecretKeySelector `json:"authenticationBasicPasswordSecretRef,omitempty" tf:"-"`
+	AuthenticationBasicPasswordSecretRef *v2.SecretKeySelector `json:"authenticationBasicPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) Username for basic authentication, use if scrape job is using basic authentication method
 	// Username for basic authentication, use if scrape job is using basic authentication method
@@ -101,7 +101,7 @@ type MetricsEndpointScrapeJobParameters struct {
 	// (String, Sensitive) Bearer token used for authentication, use if scrape job is using bearer authentication method
 	// Bearer token used for authentication, use if scrape job is using bearer authentication method
 	// +kubebuilder:validation:Optional
-	AuthenticationBearerTokenSecretRef *v1.SecretKeySelector `json:"authenticationBearerTokenSecretRef,omitempty" tf:"-"`
+	AuthenticationBearerTokenSecretRef *v2.SecretKeySelector `json:"authenticationBearerTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) Method to pass authentication credentials: basic or bearer.
 	// Method to pass authentication credentials: basic or bearer.
@@ -136,8 +136,8 @@ type MetricsEndpointScrapeJobParameters struct {
 
 // MetricsEndpointScrapeJobSpec defines the desired state of MetricsEndpointScrapeJob
 type MetricsEndpointScrapeJobSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MetricsEndpointScrapeJobParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MetricsEndpointScrapeJobParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -153,8 +153,8 @@ type MetricsEndpointScrapeJobSpec struct {
 
 // MetricsEndpointScrapeJobStatus defines the observed state of MetricsEndpointScrapeJob.
 type MetricsEndpointScrapeJobStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MetricsEndpointScrapeJobObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MetricsEndpointScrapeJobObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

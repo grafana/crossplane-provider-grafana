@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MessageTemplateInitParameters struct {
@@ -31,11 +31,11 @@ type MessageTemplateInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The content of the notification template group.
 	// The content of the notification template group.
@@ -84,11 +84,11 @@ type MessageTemplateParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The content of the notification template group.
 	// The content of the notification template group.
@@ -98,8 +98,8 @@ type MessageTemplateParameters struct {
 
 // MessageTemplateSpec defines the desired state of MessageTemplate
 type MessageTemplateSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     MessageTemplateParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   MessageTemplateParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -115,8 +115,8 @@ type MessageTemplateSpec struct {
 
 // MessageTemplateStatus defines the observed state of MessageTemplate.
 type MessageTemplateStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MessageTemplateObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MessageTemplateObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

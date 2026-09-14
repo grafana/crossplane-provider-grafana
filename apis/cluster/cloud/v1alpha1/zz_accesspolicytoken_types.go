@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AccessPolicyTokenInitParameters struct {
@@ -25,11 +25,11 @@ type AccessPolicyTokenInitParameters struct {
 
 	// Reference to a AccessPolicy in cloud to populate accessPolicyId.
 	// +kubebuilder:validation:Optional
-	AccessPolicyRef *v1.Reference `json:"accessPolicyRef,omitempty" tf:"-"`
+	AccessPolicyRef *v2.Reference `json:"accessPolicyRef,omitempty" tf:"-"`
 
 	// Selector for a AccessPolicy in cloud to populate accessPolicyId.
 	// +kubebuilder:validation:Optional
-	AccessPolicySelector *v1.Selector `json:"accessPolicySelector,omitempty" tf:"-"`
+	AccessPolicySelector *v2.Selector `json:"accessPolicySelector,omitempty" tf:"-"`
 
 	// (String) Display name of the access policy token. Defaults to the name.
 	// Display name of the access policy token. Defaults to the name.
@@ -95,11 +95,11 @@ type AccessPolicyTokenParameters struct {
 
 	// Reference to a AccessPolicy in cloud to populate accessPolicyId.
 	// +kubebuilder:validation:Optional
-	AccessPolicyRef *v1.Reference `json:"accessPolicyRef,omitempty" tf:"-"`
+	AccessPolicyRef *v2.Reference `json:"accessPolicyRef,omitempty" tf:"-"`
 
 	// Selector for a AccessPolicy in cloud to populate accessPolicyId.
 	// +kubebuilder:validation:Optional
-	AccessPolicySelector *v1.Selector `json:"accessPolicySelector,omitempty" tf:"-"`
+	AccessPolicySelector *v2.Selector `json:"accessPolicySelector,omitempty" tf:"-"`
 
 	// (String) Display name of the access policy token. Defaults to the name.
 	// Display name of the access policy token. Defaults to the name.
@@ -124,8 +124,8 @@ type AccessPolicyTokenParameters struct {
 
 // AccessPolicyTokenSpec defines the desired state of AccessPolicyToken
 type AccessPolicyTokenSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccessPolicyTokenParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AccessPolicyTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -141,8 +141,8 @@ type AccessPolicyTokenSpec struct {
 
 // AccessPolicyTokenStatus defines the observed state of AccessPolicyToken.
 type AccessPolicyTokenStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccessPolicyTokenObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AccessPolicyTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -6,8 +6,7 @@ package v1beta1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	xpv2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 // ProviderConfigSpec defines desired state for namespaced ProviderConfig.
@@ -34,17 +33,17 @@ type ProviderConfigSpec struct {
 	// override the primary credentials secret and are in turn overridden by
 	// explicit spec fields (url, oncallUrl, etc.).
 	// +optional
-	StackSecretRef *xpv1.SecretReference `json:"stackSecretRef,omitempty"`
+	StackSecretRef *xpv2.SecretReference `json:"stackSecretRef,omitempty"`
 }
 
 type ProviderCredentials struct {
 	// +kubebuilder:validation:Enum=None;Secret;InjectedIdentity;Environment;Filesystem
-	Source                         xpv1.CredentialsSource `json:"source"`
-	xpv1.CommonCredentialSelectors `json:",inline"`
+	Source                         xpv2.CredentialsSource `json:"source"`
+	xpv2.CommonCredentialSelectors `json:",inline"`
 }
 
 type ProviderConfigStatus struct {
-	xpv1.ProviderConfigStatus `json:",inline"`
+	xpv2.ProviderConfigStatus `json:",inline"`
 }
 
 // +kubebuilder:object:root=true

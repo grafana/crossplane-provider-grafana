@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DashboardV2Beta1InitParameters struct {
@@ -229,8 +228,8 @@ type DashboardV2Beta1Spec struct {
 
 // DashboardV2Beta1Status defines the observed state of DashboardV2Beta1.
 type DashboardV2Beta1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DashboardV2Beta1Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DashboardV2Beta1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

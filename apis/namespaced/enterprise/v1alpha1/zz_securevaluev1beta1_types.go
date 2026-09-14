@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SecurevalueV1Beta1InitParameters struct {
@@ -137,7 +136,7 @@ type SecurevalueV1Beta1SpecInitParameters struct {
 	Ref *string `json:"ref,omitempty" tf:"ref,omitempty"`
 
 	// Plaintext value to store. This value is write-only.
-	ValueSecretRef *v1.LocalSecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
+	ValueSecretRef *v2.LocalSecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
 }
 
 type SecurevalueV1Beta1SpecObservation struct {
@@ -168,7 +167,7 @@ type SecurevalueV1Beta1SpecParameters struct {
 
 	// Plaintext value to store. This value is write-only.
 	// +kubebuilder:validation:Optional
-	ValueSecretRef *v1.LocalSecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
+	ValueSecretRef *v2.LocalSecretKeySelector `json:"valueSecretRef,omitempty" tf:"-"`
 }
 
 // SecurevalueV1Beta1Spec defines the desired state of SecurevalueV1Beta1
@@ -190,8 +189,8 @@ type SecurevalueV1Beta1Spec struct {
 
 // SecurevalueV1Beta1Status defines the observed state of SecurevalueV1Beta1.
 type SecurevalueV1Beta1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecurevalueV1Beta1Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SecurevalueV1Beta1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

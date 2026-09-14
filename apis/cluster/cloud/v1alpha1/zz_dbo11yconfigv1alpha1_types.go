@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type Dbo11YconfigV1Alpha1InitParameters struct {
@@ -172,8 +172,8 @@ type Dbo11YconfigV1Alpha1SpecParameters struct {
 
 // Dbo11YconfigV1Alpha1Spec defines the desired state of Dbo11YconfigV1Alpha1
 type Dbo11YconfigV1Alpha1Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     Dbo11YconfigV1Alpha1Parameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   Dbo11YconfigV1Alpha1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -189,8 +189,8 @@ type Dbo11YconfigV1Alpha1Spec struct {
 
 // Dbo11YconfigV1Alpha1Status defines the observed state of Dbo11YconfigV1Alpha1.
 type Dbo11YconfigV1Alpha1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        Dbo11YconfigV1Alpha1Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               Dbo11YconfigV1Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

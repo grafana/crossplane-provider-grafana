@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PlaylistV1InitParameters struct {
@@ -227,8 +227,8 @@ type SpecItemsParameters struct {
 
 // PlaylistV1Spec defines the desired state of PlaylistV1
 type PlaylistV1Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     PlaylistV1Parameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   PlaylistV1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -244,8 +244,8 @@ type PlaylistV1Spec struct {
 
 // PlaylistV1Status defines the observed state of PlaylistV1.
 type PlaylistV1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PlaylistV1Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PlaylistV1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

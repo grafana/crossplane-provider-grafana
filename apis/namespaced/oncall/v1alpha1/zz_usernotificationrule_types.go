@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type UserNotificationRuleInitParameters struct {
@@ -26,11 +25,11 @@ type UserNotificationRuleInitParameters struct {
 
 	// Reference to a User in oncall to populate userId.
 	// +kubebuilder:validation:Optional
-	OnCallUserRef *v1.NamespacedReference `json:"onCallUserRef,omitempty" tf:"-"`
+	OnCallUserRef *v2.NamespacedReference `json:"onCallUserRef,omitempty" tf:"-"`
 
 	// Selector for a User in oncall to populate userId.
 	// +kubebuilder:validation:Optional
-	OnCallUserSelector *v1.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
+	OnCallUserSelector *v2.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
 
 	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
@@ -89,11 +88,11 @@ type UserNotificationRuleParameters struct {
 
 	// Reference to a User in oncall to populate userId.
 	// +kubebuilder:validation:Optional
-	OnCallUserRef *v1.NamespacedReference `json:"onCallUserRef,omitempty" tf:"-"`
+	OnCallUserRef *v2.NamespacedReference `json:"onCallUserRef,omitempty" tf:"-"`
 
 	// Selector for a User in oncall to populate userId.
 	// +kubebuilder:validation:Optional
-	OnCallUserSelector *v1.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
+	OnCallUserSelector *v2.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
 
 	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
@@ -134,8 +133,8 @@ type UserNotificationRuleSpec struct {
 
 // UserNotificationRuleStatus defines the observed state of UserNotificationRule.
 type UserNotificationRuleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        UserNotificationRuleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               UserNotificationRuleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

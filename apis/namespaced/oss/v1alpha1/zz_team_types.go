@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PreferencesInitParameters struct {
@@ -92,11 +91,11 @@ type TeamInitParameters struct {
 
 	// References to User in oss to populate members.
 	// +kubebuilder:validation:Optional
-	MemberRefs []v1.NamespacedReference `json:"memberRefs,omitempty" tf:"-"`
+	MemberRefs []v2.NamespacedReference `json:"memberRefs,omitempty" tf:"-"`
 
 	// Selector for a list of User in oss to populate members.
 	// +kubebuilder:validation:Optional
-	MemberSelector *v1.NamespacedSelector `json:"memberSelector,omitempty" tf:"-"`
+	MemberSelector *v2.NamespacedSelector `json:"memberSelector,omitempty" tf:"-"`
 
 	// (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
 	// A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
@@ -120,11 +119,11 @@ type TeamInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List) (see below for nested schema)
 	Preferences []PreferencesInitParameters `json:"preferences,omitempty" tf:"preferences,omitempty"`
@@ -205,11 +204,11 @@ type TeamParameters struct {
 
 	// References to User in oss to populate members.
 	// +kubebuilder:validation:Optional
-	MemberRefs []v1.NamespacedReference `json:"memberRefs,omitempty" tf:"-"`
+	MemberRefs []v2.NamespacedReference `json:"memberRefs,omitempty" tf:"-"`
 
 	// Selector for a list of User in oss to populate members.
 	// +kubebuilder:validation:Optional
-	MemberSelector *v1.NamespacedSelector `json:"memberSelector,omitempty" tf:"-"`
+	MemberSelector *v2.NamespacedSelector `json:"memberSelector,omitempty" tf:"-"`
 
 	// (Set of String) A set of email addresses corresponding to users who should be given ordinary membership to the team. Use admins to grant team administrator rights. Note: users specified here must already exist in Grafana.
 	// A set of email addresses corresponding to users who should be given ordinary membership to the team. Use `admins` to grant team administrator rights. Note: users specified here must already exist in Grafana.
@@ -236,11 +235,11 @@ type TeamParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List) (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -295,8 +294,8 @@ type TeamSpec struct {
 
 // TeamStatus defines the observed state of Team.
 type TeamStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        TeamObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               TeamObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

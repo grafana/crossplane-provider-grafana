@@ -10,19 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type StackServiceAccountInitParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (Boolean) The disabled status for the service account. Defaults to false.
 	// The disabled status for the service account. Defaults to `false`.
@@ -69,11 +68,11 @@ type StackServiceAccountParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (Boolean) The disabled status for the service account. Defaults to false.
 	// The disabled status for the service account. Defaults to `false`.
@@ -118,8 +117,8 @@ type StackServiceAccountSpec struct {
 
 // StackServiceAccountStatus defines the observed state of StackServiceAccount.
 type StackServiceAccountStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StackServiceAccountObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StackServiceAccountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

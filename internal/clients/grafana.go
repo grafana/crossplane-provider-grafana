@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/crossplane/upjet/v2/pkg/terraform"
 	grafanaProvider "github.com/grafana/terraform-provider-grafana/v4/pkg/provider"
@@ -42,8 +42,8 @@ var stackSecretKeyRemap = map[string]string{
 }
 
 type Credentials struct {
-	Source                       v1.CredentialsSource
-	v1.CommonCredentialSelectors `json:",inline"`
+	Source                       xpv2.CredentialsSource
+	xpv2.CommonCredentialSelectors `json:",inline"`
 }
 
 type Config struct {
@@ -57,7 +57,7 @@ type Config struct {
 	OrgID              *int
 	StackID            *int
 	Credentials        Credentials
-	StackSecretRef     *v1.SecretReference
+	StackSecretRef     *xpv2.SecretReference
 }
 
 // mergeStackSecret fetches the Secret referenced by cfg.StackSecretRef and
@@ -102,7 +102,7 @@ func useLegacyProviderConfig(ctx context.Context, c client.Client, mg resource.L
 	}
 
 	if len(pc.Status.Conditions) == 0 {
-		pc.Status.SetConditions(v1.Available())
+		pc.Status.SetConditions(xpv2.Available())
 		if err := c.Status().Update(ctx, pc); err != nil {
 			return nil, errors.Wrap(err, errUpdateStatus)
 		}
@@ -121,7 +121,7 @@ func useLegacyProviderConfig(ctx context.Context, c client.Client, mg resource.L
 	}
 
 	if sr := pc.Spec.StackSecretRef; sr != nil {
-		config.StackSecretRef = &v1.SecretReference{
+		config.StackSecretRef = &xpv2.SecretReference{
 			Name:      sr.Name,
 			Namespace: sr.Namespace,
 		}
@@ -129,10 +129,10 @@ func useLegacyProviderConfig(ctx context.Context, c client.Client, mg resource.L
 
 	// Convert v1 to v2 types explicitly
 	// Best-effort simple field copies (types differ between v1 and v2 runtime packages); we only use SecretRef today.
-	config.Credentials.Source = v1.CredentialsSource(string(pc.Spec.Credentials.Source))
+	config.Credentials.Source = xpv2.CredentialsSource(string(pc.Spec.Credentials.Source))
 	if secret := pc.Spec.Credentials.SecretRef; secret != nil {
-		config.Credentials.SecretRef = &v1.SecretKeySelector{
-			SecretReference: v1.SecretReference{
+		config.Credentials.SecretRef = &xpv2.SecretKeySelector{
+			SecretReference: xpv2.SecretReference{
 				Name:      secret.Name,
 				Namespace: secret.Namespace,
 			},
@@ -159,7 +159,7 @@ func useModernProviderConfig(ctx context.Context, c client.Client, mg resource.M
 		spec = &pc.Spec
 
 		if len(pc.Status.Conditions) == 0 {
-			pc.Status.SetConditions(v1.Available())
+			pc.Status.SetConditions(xpv2.Available())
 			if err := c.Status().Update(ctx, pc); err != nil {
 				return nil, errors.Wrap(err, errUpdateStatus)
 			}
@@ -172,7 +172,7 @@ func useModernProviderConfig(ctx context.Context, c client.Client, mg resource.M
 		spec = &cpc.Spec
 
 		if len(cpc.Status.Conditions) == 0 {
-			cpc.Status.SetConditions(v1.Available())
+			cpc.Status.SetConditions(xpv2.Available())
 			if err := c.Status().Update(ctx, cpc); err != nil {
 				return nil, errors.Wrap(err, errUpdateStatus)
 			}

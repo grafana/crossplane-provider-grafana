@@ -75,3 +75,11 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	}, v1beta1.ClusterProviderConfigGroupVersionKind, v1beta1.ProviderConfigGroupVersionKind, v1beta1.ProviderConfigUsageGroupVersionKind)
 	return nil
 }
+
+// SetupWebhookWithManager is a no-op. It exists so this hand-written base
+// controller package satisfies the interface upjet's generated setup expects
+// (see SetupWebhookWithManager* in zz_setup.go). ProviderConfig has a single
+// API version, so it needs no conversion webhook.
+func SetupWebhookWithManager(_ ctrl.Manager) error {
+	return nil
+}

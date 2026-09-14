@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DefaultRouteInitParameters struct {
@@ -25,11 +24,11 @@ type DefaultRouteInitParameters struct {
 
 	// Reference to a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainRef *v1.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
+	EscalationChainRef *v2.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
 
 	// Selector for a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainSelector *v1.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
+	EscalationChainSelector *v2.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.
@@ -78,11 +77,11 @@ type DefaultRouteParameters struct {
 
 	// Reference to a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainRef *v1.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
+	EscalationChainRef *v2.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
 
 	// Selector for a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainSelector *v1.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
+	EscalationChainSelector *v2.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// specific settings for a route. (see below for nested schema)
 	// MS teams-specific settings for a route.
@@ -163,11 +162,11 @@ type IntegrationInitParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)
 	// Jinja2 templates for Alert payload. An empty templates block will be ignored.
@@ -253,11 +252,11 @@ type IntegrationParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (Block List, Max: 1) Jinja2 templates for Alert payload. An empty templates block will be ignored. (see below for nested schema)
 	// Jinja2 templates for Alert payload. An empty templates block will be ignored.
@@ -448,11 +447,11 @@ type SlackInitParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type SlackObservation struct {
@@ -484,11 +483,11 @@ type SlackParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
 }
 
 type TelegramInitParameters struct {
@@ -854,8 +853,8 @@ type IntegrationSpec struct {
 
 // IntegrationStatus defines the observed state of Integration.
 type IntegrationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        IntegrationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               IntegrationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

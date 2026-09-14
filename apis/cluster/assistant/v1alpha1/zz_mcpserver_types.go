@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ConfigurationInitParameters struct {
@@ -154,7 +154,7 @@ type McpServerParameters struct {
 	// only and not returned by the API.
 	// Custom HTTP headers sent to the MCP server. Values are write-only and not returned by the API.
 	// +kubebuilder:validation:Optional
-	CustomHeadersSecretRef *v1.SecretReference `json:"customHeadersSecretRef,omitempty" tf:"-"`
+	CustomHeadersSecretRef *v2.SecretReference `json:"customHeadersSecretRef,omitempty" tf:"-"`
 
 	// (String) Optional description.
 	// Optional description.
@@ -179,8 +179,8 @@ type McpServerParameters struct {
 
 // McpServerSpec defines the desired state of McpServer
 type McpServerSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     McpServerParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   McpServerParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -196,8 +196,8 @@ type McpServerSpec struct {
 
 // McpServerStatus defines the observed state of McpServer.
 type McpServerStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        McpServerObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               McpServerObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

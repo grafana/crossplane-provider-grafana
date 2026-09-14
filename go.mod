@@ -1,12 +1,12 @@
 module github.com/grafana/crossplane-provider-grafana/v2
 
-go 1.26.5
+go 1.26.7
 
 require (
 	dario.cat/mergo v1.0.2
 	github.com/alecthomas/kingpin/v2 v2.4.0
-	github.com/crossplane/crossplane-runtime/v2 v2.1.0
-	github.com/crossplane/crossplane-tools v0.0.0-20251017183449-dd4517244339
+	github.com/crossplane/crossplane-runtime/v2 v2.3.3
+	github.com/crossplane/crossplane-tools v0.0.0-20260719180100-659f1dc036c5
 	github.com/crossplane/upjet/v2 v2.2.0
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.62.0
@@ -20,13 +20,25 @@ require (
 	go.uber.org/zap v1.28.0
 	golang.org/x/tools v0.49.0
 	k8s.io/api v0.36.1
-	k8s.io/apiextensions-apiserver v0.36.0
-	k8s.io/apimachinery v0.36.1
+	k8s.io/apiextensions-apiserver v0.36.2
+	k8s.io/apimachinery v0.36.2
 	k8s.io/client-go v0.36.1
-	k8s.io/utils v0.0.0-20260626114624-be93311217bd
-	sigs.k8s.io/controller-runtime v0.22.0
-	sigs.k8s.io/controller-tools v0.18.0
+	k8s.io/utils v0.0.0-20260707023825-cf1189d6abe3
+	sigs.k8s.io/controller-runtime v0.23.3
+	sigs.k8s.io/controller-tools v0.20.0
 	sigs.k8s.io/yaml v1.6.0
+)
+
+require (
+	cloud.google.com/go v0.123.0 // indirect
+	github.com/oasdiff/oasdiff v1.26.1 // indirect
+	github.com/tidwall/gjson v1.18.0 // indirect
+	github.com/tidwall/match v1.2.0 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
+	github.com/tidwall/sjson v1.2.5 // indirect
+	github.com/upbound/uptest v0.12.1-0.20260728095952-c230a8044006 // indirect
+	github.com/wI2L/jsondiff v0.7.1 // indirect
+	github.com/yargevad/filepathx v1.0.0 // indirect
 )
 
 require (
@@ -48,6 +60,7 @@ require (
 	github.com/cockroachdb/apd/v3 v3.2.1 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.7.0 // indirect
+	github.com/crossplane/crossplane/apis/v2 v2.3.3
 	github.com/dave/jennifer v1.7.1 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/emicklei/go-restful/v3 v3.13.0 // indirect
@@ -69,7 +82,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.23.1 // indirect
 	github.com/go-openapi/jsonreference v0.21.6 // indirect
 	github.com/go-openapi/loads v0.23.3 // indirect
-	github.com/go-openapi/runtime v0.28.0 // indirect
+	github.com/go-openapi/runtime v0.29.3 // indirect
 	github.com/go-openapi/spec v0.22.4 // indirect
 	github.com/go-openapi/strfmt v0.26.1 // indirect
 	github.com/go-openapi/swag v0.26.0 // indirect
@@ -178,9 +191,8 @@ require (
 	github.com/olekukonko/errors v1.2.0 // indirect
 	github.com/olekukonko/ll v0.1.6 // indirect
 	github.com/olekukonko/tablewriter v1.1.4 // indirect
-	github.com/opentracing/opentracing-go v1.2.1-0.20220228012449-10b1cf09e00b // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
-	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
+	github.com/pelletier/go-toml/v2 v2.3.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.25 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/prometheus/alertmanager v0.27.0 // indirect
@@ -202,7 +214,7 @@ require (
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
-	github.com/yuin/goldmark v1.7.17 // indirect
+	github.com/yuin/goldmark v1.8.4 // indirect
 	github.com/zclconf/go-cty v1.17.0 // indirect
 	github.com/zclconf/go-cty-yaml v1.0.3 // indirect
 	github.com/zeebo/xxh3 v1.1.0 // indirect
@@ -259,7 +271,7 @@ require (
 	sigs.k8s.io/structured-merge-diff/v6 v6.4.0 // indirect
 )
 
-replace github.com/crossplane/upjet/v2 => github.com/grafana/upjet/v2 v2.0.0-20260213085820-76c0da58c1b9
+replace github.com/crossplane/upjet/v2 => github.com/Duologic/upjet/v2 v2.0.0-20260825104211-421c185e6323
 
 // The Grafana TF provider v4.39.x pulls in the k8s.io v0.36 stack (via
 // grafana-app-sdk and grafana/apps/provisioning). client-go v0.36 added

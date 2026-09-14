@@ -15,7 +15,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
@@ -139,7 +139,7 @@ func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.Exte
 	}
 
 	if upToDate {
-		mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
+		mg.(interface{ SetConditions(...xpv2.Condition) }).SetConditions(xpv2.Available())
 		tjresource.SetUpToDateCondition(mg, true)
 	}
 
@@ -182,7 +182,7 @@ func (e *external) Update(ctx context.Context, mg resource.Managed) (managed.Ext
 		obj.SetResourceVersion(copy.GetResourceVersion())
 	}
 
-	mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
+	mg.(interface{ SetConditions(...xpv2.Condition) }).SetConditions(xpv2.Available())
 	tjresource.SetUpToDateCondition(mg, true)
 
 	var cd managed.ConnectionDetails

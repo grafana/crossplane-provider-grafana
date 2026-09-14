@@ -10,19 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DataSourcePermissionItemInitParameters struct {
 
 	// Reference to a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
 
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
 
 	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
@@ -45,11 +44,11 @@ type DataSourcePermissionItemInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) the permission to be assigned
 	// the permission to be assigned
@@ -68,11 +67,11 @@ type DataSourcePermissionItemInitParameters struct {
 
 	// Reference to a Team in oss to populate team.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate team.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
@@ -83,11 +82,11 @@ type DataSourcePermissionItemInitParameters struct {
 
 	// Reference to a User in oss to populate user.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate user.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type DataSourcePermissionItemObservation struct {
@@ -128,11 +127,11 @@ type DataSourcePermissionItemParameters struct {
 
 	// Reference to a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
+	DataSourceRef *v2.NamespacedReference `json:"dataSourceRef,omitempty" tf:"-"`
 
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
+	DataSourceSelector *v2.NamespacedSelector `json:"dataSourceSelector,omitempty" tf:"-"`
 
 	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
@@ -158,11 +157,11 @@ type DataSourcePermissionItemParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) the permission to be assigned
 	// the permission to be assigned
@@ -184,11 +183,11 @@ type DataSourcePermissionItemParameters struct {
 
 	// Reference to a Team in oss to populate team.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate team.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) the user or service account onto which the permission is to be assigned
 	// the user or service account onto which the permission is to be assigned
@@ -200,11 +199,11 @@ type DataSourcePermissionItemParameters struct {
 
 	// Reference to a User in oss to populate user.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate user.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // DataSourcePermissionItemSpec defines the desired state of DataSourcePermissionItem
@@ -226,8 +225,8 @@ type DataSourcePermissionItemSpec struct {
 
 // DataSourcePermissionItemStatus defines the observed state of DataSourcePermissionItem.
 type DataSourcePermissionItemStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DataSourcePermissionItemObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DataSourcePermissionItemObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

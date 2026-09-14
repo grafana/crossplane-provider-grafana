@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type BitbucketInitParameters struct {
@@ -1026,8 +1026,8 @@ type WebhookParameters struct {
 
 // RepositoryV0Alpha1Spec defines the desired state of RepositoryV0Alpha1
 type RepositoryV0Alpha1Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     RepositoryV0Alpha1Parameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   RepositoryV0Alpha1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1043,8 +1043,8 @@ type RepositoryV0Alpha1Spec struct {
 
 // RepositoryV0Alpha1Status defines the observed state of RepositoryV0Alpha1.
 type RepositoryV0Alpha1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RepositoryV0Alpha1Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               RepositoryV0Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AlertenrichmentV1Beta1InitParameters struct {
@@ -1855,8 +1855,8 @@ type ThenStepParameters struct {
 
 // AlertenrichmentV1Beta1Spec defines the desired state of AlertenrichmentV1Beta1
 type AlertenrichmentV1Beta1Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AlertenrichmentV1Beta1Parameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AlertenrichmentV1Beta1Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1872,8 +1872,8 @@ type AlertenrichmentV1Beta1Spec struct {
 
 // AlertenrichmentV1Beta1Status defines the observed state of AlertenrichmentV1Beta1.
 type AlertenrichmentV1Beta1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AlertenrichmentV1Beta1Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AlertenrichmentV1Beta1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

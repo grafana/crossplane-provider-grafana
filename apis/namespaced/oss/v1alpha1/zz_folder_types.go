@@ -10,19 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type FolderInitParameters struct {
 
 	// Reference to a Folder in oss to populate parentFolderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate parentFolderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -33,11 +32,11 @@ type FolderInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
 	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
@@ -94,11 +93,11 @@ type FolderParameters struct {
 
 	// Reference to a Folder in oss to populate parentFolderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate parentFolderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
@@ -110,11 +109,11 @@ type FolderParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
 	// The uid of the parent folder. If set, the folder will be nested. If not set, the folder will be created in the root folder. Note: This requires the nestedFolders feature flag to be enabled on your Grafana instance.
@@ -160,8 +159,8 @@ type FolderSpec struct {
 
 // FolderStatus defines the observed state of Folder.
 type FolderStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        FolderObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               FolderObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
