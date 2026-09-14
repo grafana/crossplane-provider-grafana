@@ -5,44 +5,44 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this CloudIntegration.
-func (mg *CloudIntegration) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *CloudIntegration) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetManagementPolicies of this CloudIntegration.
-func (mg *CloudIntegration) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *CloudIntegration) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this CloudIntegration.
-func (mg *CloudIntegration) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *CloudIntegration) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this CloudIntegration.
-func (mg *CloudIntegration) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *CloudIntegration) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this CloudIntegration.
-func (mg *CloudIntegration) SetConditions(c ...xpv1.Condition) {
+func (mg *CloudIntegration) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetManagementPolicies of this CloudIntegration.
-func (mg *CloudIntegration) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *CloudIntegration) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this CloudIntegration.
-func (mg *CloudIntegration) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *CloudIntegration) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this CloudIntegration.
-func (mg *CloudIntegration) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *CloudIntegration) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

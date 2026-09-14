@@ -15,11 +15,11 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
 	tjresource "github.com/crossplane/upjet/v2/pkg/resource"
 
@@ -79,10 +79,11 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options, spec Spec) error {
 	name := managed.ControllerName(spec.ManagedKind.String())
 	r := managed.NewReconciler(mgr,
 		resource.ManagedKind(spec.ManagedKind),
-		managed.WithExternalConnecter(&connector{kube: mgr.GetClient(), spec: spec}),
+		managed.WithExternalConnector(&connector{kube: mgr.GetClient(), spec: spec}),
 		managed.WithInitializers(), // Disable the default NameAsExternalName initializer.
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
-		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
+		// NewAPIRecorder still requires the deprecated client-go recorder.
+		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))), //nolint:staticcheck
 		managed.WithPollInterval(o.PollInterval),
 	)
 	return ctrl.NewControllerManagedBy(mgr).
@@ -139,7 +140,7 @@ func (e *external) Observe(_ context.Context, mg resource.Managed) (managed.Exte
 	}
 
 	if upToDate {
-		mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
+		mg.(interface{ SetConditions(...xpv2.Condition) }).SetConditions(xpv2.Available())
 		tjresource.SetUpToDateCondition(mg, true)
 	}
 
@@ -182,7 +183,7 @@ func (e *external) Update(ctx context.Context, mg resource.Managed) (managed.Ext
 		obj.SetResourceVersion(copy.GetResourceVersion())
 	}
 
-	mg.(interface{ SetConditions(...xpv1.Condition) }).SetConditions(xpv1.Available())
+	mg.(interface{ SetConditions(...xpv2.Condition) }).SetConditions(xpv2.Available())
 	tjresource.SetUpToDateCondition(mg, true)
 
 	var cd managed.ConnectionDetails

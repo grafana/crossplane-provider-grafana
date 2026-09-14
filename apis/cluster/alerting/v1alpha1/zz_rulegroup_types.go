@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DataInitParameters struct {
@@ -177,11 +177,11 @@ type RuleGroupInitParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.Reference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.Selector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) The UID of the folder that the group belongs to.
 	// The UID of the folder that the group belongs to.
@@ -208,11 +208,11 @@ type RuleGroupInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1) The rules within the group. (see below for nested schema)
 	// The rules within the group.
@@ -256,11 +256,11 @@ type RuleGroupParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.Reference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.Selector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) The UID of the folder that the group belongs to.
 	// The UID of the folder that the group belongs to.
@@ -291,11 +291,11 @@ type RuleGroupParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List, Min: 1) The rules within the group. (see below for nested schema)
 	// The rules within the group.
@@ -380,11 +380,11 @@ type RuleNotificationSettingsInitParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
 	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
@@ -456,11 +456,11 @@ type RuleNotificationSettingsParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
 	// A list of alert labels to group alerts into notifications by. Use the special label `...` to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
@@ -626,8 +626,8 @@ type RuleParameters struct {
 
 // RuleGroupSpec defines the desired state of RuleGroup
 type RuleGroupSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     RuleGroupParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   RuleGroupParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -643,8 +643,8 @@ type RuleGroupSpec struct {
 
 // RuleGroupStatus defines the observed state of RuleGroup.
 type RuleGroupStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RuleGroupObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               RuleGroupObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

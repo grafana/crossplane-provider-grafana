@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ScimConfigInitParameters struct {
@@ -32,11 +32,11 @@ type ScimConfigInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
 	// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
@@ -87,11 +87,11 @@ type ScimConfigParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
 	// Whether to block non-provisioned user access to Grafana. Cloud Portal users will always be able to access Grafana, regardless of this setting.
@@ -101,8 +101,8 @@ type ScimConfigParameters struct {
 
 // ScimConfigSpec defines the desired state of ScimConfig
 type ScimConfigSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ScimConfigParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ScimConfigParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -118,8 +118,8 @@ type ScimConfigSpec struct {
 
 // ScimConfigStatus defines the observed state of ScimConfig.
 type ScimConfigStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ScimConfigObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ScimConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ProjectLimitsInitParameters struct {
@@ -29,11 +28,11 @@ type ProjectLimitsInitParameters struct {
 
 	// Reference to a Project in k6 to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectRef *v1.NamespacedReference `json:"projectRef,omitempty" tf:"-"`
+	ProjectRef *v2.NamespacedReference `json:"projectRef,omitempty" tf:"-"`
 
 	// Selector for a Project in k6 to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectSelector *v1.NamespacedSelector `json:"projectSelector,omitempty" tf:"-"`
+	ProjectSelector *v2.NamespacedSelector `json:"projectSelector,omitempty" tf:"-"`
 
 	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
 	// Maximum number of concurrent browser virtual users (VUs) used in one test.
@@ -91,11 +90,11 @@ type ProjectLimitsParameters struct {
 
 	// Reference to a Project in k6 to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectRef *v1.NamespacedReference `json:"projectRef,omitempty" tf:"-"`
+	ProjectRef *v2.NamespacedReference `json:"projectRef,omitempty" tf:"-"`
 
 	// Selector for a Project in k6 to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectSelector *v1.NamespacedSelector `json:"projectSelector,omitempty" tf:"-"`
+	ProjectSelector *v2.NamespacedSelector `json:"projectSelector,omitempty" tf:"-"`
 
 	// (Number) Maximum number of concurrent browser virtual users (VUs) used in one test.
 	// Maximum number of concurrent browser virtual users (VUs) used in one test.
@@ -132,8 +131,8 @@ type ProjectLimitsSpec struct {
 
 // ProjectLimitsStatus defines the observed state of ProjectLimits.
 type ProjectLimitsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ProjectLimitsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ProjectLimitsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

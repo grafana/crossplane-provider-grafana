@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ScheduleInitParameters struct {
@@ -42,11 +41,11 @@ type ScheduleInitParameters struct {
 
 	// References to OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsRef []v1.NamespacedReference `json:"shiftsRef,omitempty" tf:"-"`
+	ShiftsRef []v2.NamespacedReference `json:"shiftsRef,omitempty" tf:"-"`
 
 	// Selector for a list of OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsSelector *v1.NamespacedSelector `json:"shiftsSelector,omitempty" tf:"-"`
+	ShiftsSelector *v2.NamespacedSelector `json:"shiftsSelector,omitempty" tf:"-"`
 
 	// specific settings for a schedule. (see below for nested schema)
 	// The Slack-specific settings for a schedule.
@@ -62,11 +61,11 @@ type ScheduleInitParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The schedule's time zone.
 	// The schedule's time zone.
@@ -153,11 +152,11 @@ type ScheduleParameters struct {
 
 	// References to OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsRef []v1.NamespacedReference `json:"shiftsRef,omitempty" tf:"-"`
+	ShiftsRef []v2.NamespacedReference `json:"shiftsRef,omitempty" tf:"-"`
 
 	// Selector for a list of OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsSelector *v1.NamespacedSelector `json:"shiftsSelector,omitempty" tf:"-"`
+	ShiftsSelector *v2.NamespacedSelector `json:"shiftsSelector,omitempty" tf:"-"`
 
 	// specific settings for a schedule. (see below for nested schema)
 	// The Slack-specific settings for a schedule.
@@ -175,11 +174,11 @@ type ScheduleParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The schedule's time zone.
 	// The schedule's time zone.
@@ -204,19 +203,19 @@ type ScheduleSlackInitParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
 
 	// Reference to a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupRef *v1.NamespacedReference `json:"slackUserGroupRef,omitempty" tf:"-"`
+	SlackUserGroupRef *v2.NamespacedReference `json:"slackUserGroupRef,omitempty" tf:"-"`
 
 	// Selector for a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupSelector *v1.NamespacedSelector `json:"slackUserGroupSelector,omitempty" tf:"-"`
+	SlackUserGroupSelector *v2.NamespacedSelector `json:"slackUserGroupSelector,omitempty" tf:"-"`
 
 	// call users change.
 	// Slack user group id. Members of user group will be updated when on-call users change.
@@ -251,19 +250,19 @@ type ScheduleSlackParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.NamespacedReference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.NamespacedSelector `json:"slackChannelSelector,omitempty" tf:"-"`
 
 	// Reference to a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupRef *v1.NamespacedReference `json:"slackUserGroupRef,omitempty" tf:"-"`
+	SlackUserGroupRef *v2.NamespacedReference `json:"slackUserGroupRef,omitempty" tf:"-"`
 
 	// Selector for a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupSelector *v1.NamespacedSelector `json:"slackUserGroupSelector,omitempty" tf:"-"`
+	SlackUserGroupSelector *v2.NamespacedSelector `json:"slackUserGroupSelector,omitempty" tf:"-"`
 
 	// call users change.
 	// Slack user group id. Members of user group will be updated when on-call users change.
@@ -294,8 +293,8 @@ type ScheduleSpec struct {
 
 // ScheduleStatus defines the observed state of Schedule.
 type ScheduleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ScheduleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ScheduleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

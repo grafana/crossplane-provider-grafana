@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type RoleAssignmentInitParameters struct {
@@ -24,19 +24,19 @@ type RoleAssignmentInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Reference to a Role in enterprise to populate roleUid.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a Role in enterprise to populate roleUid.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// (String) Grafana RBAC role UID.
 	// Grafana RBAC role UID.
@@ -48,11 +48,11 @@ type RoleAssignmentInitParameters struct {
 
 	// References to ServiceAccount in oss to populate serviceAccounts.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRefs []v1.Reference `json:"serviceAccountRefs,omitempty" tf:"-"`
+	ServiceAccountRefs []v2.Reference `json:"serviceAccountRefs,omitempty" tf:"-"`
 
 	// Selector for a list of ServiceAccount in oss to populate serviceAccounts.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (Set of String) IDs of service accounts that the role should be assigned to.
 	// IDs of service accounts that the role should be assigned to.
@@ -64,11 +64,11 @@ type RoleAssignmentInitParameters struct {
 
 	// References to Team in oss to populate teams.
 	// +kubebuilder:validation:Optional
-	TeamRefs []v1.Reference `json:"teamRefs,omitempty" tf:"-"`
+	TeamRefs []v2.Reference `json:"teamRefs,omitempty" tf:"-"`
 
 	// Selector for a list of Team in oss to populate teams.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (Set of String) IDs of teams that the role should be assigned to.
 	// IDs of teams that the role should be assigned to.
@@ -80,11 +80,11 @@ type RoleAssignmentInitParameters struct {
 
 	// References to User in oss to populate users.
 	// +kubebuilder:validation:Optional
-	UserRefs []v1.Reference `json:"userRefs,omitempty" tf:"-"`
+	UserRefs []v2.Reference `json:"userRefs,omitempty" tf:"-"`
 
 	// Selector for a list of User in oss to populate users.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.Selector `json:"userSelector,omitempty" tf:"-"`
 
 	// (Set of Number) IDs of users that the role should be assigned to.
 	// IDs of users that the role should be assigned to.
@@ -136,19 +136,19 @@ type RoleAssignmentParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// Reference to a Role in enterprise to populate roleUid.
 	// +kubebuilder:validation:Optional
-	RoleRef *v1.Reference `json:"roleRef,omitempty" tf:"-"`
+	RoleRef *v2.Reference `json:"roleRef,omitempty" tf:"-"`
 
 	// Selector for a Role in enterprise to populate roleUid.
 	// +kubebuilder:validation:Optional
-	RoleSelector *v1.Selector `json:"roleSelector,omitempty" tf:"-"`
+	RoleSelector *v2.Selector `json:"roleSelector,omitempty" tf:"-"`
 
 	// (String) Grafana RBAC role UID.
 	// Grafana RBAC role UID.
@@ -161,11 +161,11 @@ type RoleAssignmentParameters struct {
 
 	// References to ServiceAccount in oss to populate serviceAccounts.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRefs []v1.Reference `json:"serviceAccountRefs,omitempty" tf:"-"`
+	ServiceAccountRefs []v2.Reference `json:"serviceAccountRefs,omitempty" tf:"-"`
 
 	// Selector for a list of ServiceAccount in oss to populate serviceAccounts.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (Set of String) IDs of service accounts that the role should be assigned to.
 	// IDs of service accounts that the role should be assigned to.
@@ -178,11 +178,11 @@ type RoleAssignmentParameters struct {
 
 	// References to Team in oss to populate teams.
 	// +kubebuilder:validation:Optional
-	TeamRefs []v1.Reference `json:"teamRefs,omitempty" tf:"-"`
+	TeamRefs []v2.Reference `json:"teamRefs,omitempty" tf:"-"`
 
 	// Selector for a list of Team in oss to populate teams.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (Set of String) IDs of teams that the role should be assigned to.
 	// IDs of teams that the role should be assigned to.
@@ -195,11 +195,11 @@ type RoleAssignmentParameters struct {
 
 	// References to User in oss to populate users.
 	// +kubebuilder:validation:Optional
-	UserRefs []v1.Reference `json:"userRefs,omitempty" tf:"-"`
+	UserRefs []v2.Reference `json:"userRefs,omitempty" tf:"-"`
 
 	// Selector for a list of User in oss to populate users.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.Selector `json:"userSelector,omitempty" tf:"-"`
 
 	// (Set of Number) IDs of users that the role should be assigned to.
 	// IDs of users that the role should be assigned to.
@@ -213,8 +213,8 @@ type RoleAssignmentParameters struct {
 
 // RoleAssignmentSpec defines the desired state of RoleAssignment
 type RoleAssignmentSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     RoleAssignmentParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   RoleAssignmentParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -230,8 +230,8 @@ type RoleAssignmentSpec struct {
 
 // RoleAssignmentStatus defines the observed state of RoleAssignment.
 type RoleAssignmentStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        RoleAssignmentObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               RoleAssignmentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

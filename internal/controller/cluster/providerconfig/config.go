@@ -32,7 +32,8 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
 		Complete(providerconfig.NewReconciler(mgr, of,
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
-			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
+			// NewAPIRecorder still requires the deprecated client-go recorder.
+			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))))) //nolint:staticcheck
 }
 
 // SetupGated currently identical to Setup; separated for phased activation capability.
@@ -44,5 +45,13 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 			mgr.GetLogger().Error(err, "unable to setup reconciler", "gvk", v1beta1.ProviderConfigGroupVersionKind.String())
 		}
 	}, v1beta1.ProviderConfigGroupVersionKind, v1beta1.ProviderConfigUsageGroupVersionKind)
+	return nil
+}
+
+// SetupWebhookWithManager is a no-op. It exists so this hand-written base
+// controller package satisfies the interface upjet's generated setup expects
+// (see SetupWebhookWithManager* in zz_setup.go). ProviderConfig has a single
+// API version, so it needs no conversion webhook.
+func SetupWebhookWithManager(_ ctrl.Manager) error {
 	return nil
 }

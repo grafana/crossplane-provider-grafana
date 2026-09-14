@@ -10,19 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type LibraryPanelInitParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) Unique ID (UID) of the folder containing the library panel.
 	// Unique ID (UID) of the folder containing the library panel.
@@ -49,11 +48,11 @@ type LibraryPanelInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
 	// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
@@ -122,11 +121,11 @@ type LibraryPanelParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) Unique ID (UID) of the folder containing the library panel.
 	// Unique ID (UID) of the folder containing the library panel.
@@ -157,11 +156,11 @@ type LibraryPanelParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
 	// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
@@ -188,8 +187,8 @@ type LibraryPanelSpec struct {
 
 // LibraryPanelStatus defines the observed state of LibraryPanel.
 type LibraryPanelStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        LibraryPanelObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               LibraryPanelObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

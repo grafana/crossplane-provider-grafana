@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DashboardInitParameters struct {
@@ -36,11 +35,11 @@ type DashboardInitParameters struct {
 
 	// Reference to a Folder in oss to populate folder.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folder.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) Set a commit message for the version history.
 	// Set a commit message for the version history.
@@ -55,11 +54,11 @@ type DashboardInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
 	// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
@@ -138,11 +137,11 @@ type DashboardParameters struct {
 
 	// Reference to a Folder in oss to populate folder.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folder.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) Set a commit message for the version history.
 	// Set a commit message for the version history.
@@ -159,11 +158,11 @@ type DashboardParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Boolean) Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
 	// Set to true if you want to overwrite existing dashboard with newer version, same dashboard title in folder or same dashboard uid.
@@ -190,8 +189,8 @@ type DashboardSpec struct {
 
 // DashboardStatus defines the observed state of Dashboard.
 type DashboardStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DashboardObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DashboardObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

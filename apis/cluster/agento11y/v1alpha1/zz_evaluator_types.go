@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EvaluatorInitParameters struct {
@@ -105,8 +105,8 @@ type EvaluatorParameters struct {
 
 // EvaluatorSpec defines the desired state of Evaluator
 type EvaluatorSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     EvaluatorParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   EvaluatorParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -122,8 +122,8 @@ type EvaluatorSpec struct {
 
 // EvaluatorStatus defines the observed state of Evaluator.
 type EvaluatorStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        EvaluatorObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               EvaluatorObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

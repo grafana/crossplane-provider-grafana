@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EscalationChainInitParameters struct {
@@ -30,11 +29,11 @@ type EscalationChainInitParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 }
 
 type EscalationChainObservation struct {
@@ -69,11 +68,11 @@ type EscalationChainParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 }
 
 // EscalationChainSpec defines the desired state of EscalationChain
@@ -95,8 +94,8 @@ type EscalationChainSpec struct {
 
 // EscalationChainStatus defines the observed state of EscalationChain.
 type EscalationChainStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        EscalationChainObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               EscalationChainObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

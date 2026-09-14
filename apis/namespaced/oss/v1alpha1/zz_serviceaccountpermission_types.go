@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ServiceAccountPermissionInitParameters struct {
@@ -25,11 +24,11 @@ type ServiceAccountPermissionInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
@@ -44,11 +43,11 @@ type ServiceAccountPermissionInitParameters struct {
 
 	// Reference to a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
 type ServiceAccountPermissionObservation struct {
@@ -81,11 +80,11 @@ type ServiceAccountPermissionParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
@@ -102,11 +101,11 @@ type ServiceAccountPermissionParameters struct {
 
 	// Reference to a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a ServiceAccount in oss to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 }
 
 type ServiceAccountPermissionPermissionsInitParameters struct {
@@ -124,11 +123,11 @@ type ServiceAccountPermissionPermissionsInitParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
@@ -139,11 +138,11 @@ type ServiceAccountPermissionPermissionsInitParameters struct {
 
 	// Reference to a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type ServiceAccountPermissionPermissionsObservation struct {
@@ -178,11 +177,11 @@ type ServiceAccountPermissionPermissionsParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
@@ -194,11 +193,11 @@ type ServiceAccountPermissionPermissionsParameters struct {
 
 	// Reference to a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // ServiceAccountPermissionSpec defines the desired state of ServiceAccountPermission
@@ -220,8 +219,8 @@ type ServiceAccountPermissionSpec struct {
 
 // ServiceAccountPermissionStatus defines the observed state of ServiceAccountPermission.
 type ServiceAccountPermissionStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServiceAccountPermissionObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServiceAccountPermissionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

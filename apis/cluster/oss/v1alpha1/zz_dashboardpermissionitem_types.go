@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DashboardPermissionItemInitParameters struct {
@@ -28,11 +28,11 @@ type DashboardPermissionItemInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) the permission to be assigned
 	// the permission to be assigned
@@ -98,11 +98,11 @@ type DashboardPermissionItemParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) the permission to be assigned
 	// the permission to be assigned
@@ -127,8 +127,8 @@ type DashboardPermissionItemParameters struct {
 
 // DashboardPermissionItemSpec defines the desired state of DashboardPermissionItem
 type DashboardPermissionItemSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     DashboardPermissionItemParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   DashboardPermissionItemParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -144,8 +144,8 @@ type DashboardPermissionItemSpec struct {
 
 // DashboardPermissionItemStatus defines the observed state of DashboardPermissionItem.
 type DashboardPermissionItemStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DashboardPermissionItemObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DashboardPermissionItemObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

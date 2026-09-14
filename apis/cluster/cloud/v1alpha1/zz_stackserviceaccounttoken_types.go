@@ -10,18 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type StackServiceAccountTokenInitParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String) The name of the service account token.
 	// The name of the service account token.
@@ -40,11 +40,11 @@ type StackServiceAccountTokenInitParameters struct {
 
 	// Reference to a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
@@ -87,11 +87,11 @@ type StackServiceAccountTokenParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String) The name of the service account token.
 	// The name of the service account token.
@@ -113,11 +113,11 @@ type StackServiceAccountTokenParameters struct {
 
 	// Reference to a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.Reference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.Selector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/cluster/cloud/v1alpha1.Stack
@@ -130,8 +130,8 @@ type StackServiceAccountTokenParameters struct {
 
 // StackServiceAccountTokenSpec defines the desired state of StackServiceAccountToken
 type StackServiceAccountTokenSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     StackServiceAccountTokenParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   StackServiceAccountTokenParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -147,8 +147,8 @@ type StackServiceAccountTokenSpec struct {
 
 // StackServiceAccountTokenStatus defines the observed state of StackServiceAccountToken.
 type StackServiceAccountTokenStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StackServiceAccountTokenObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StackServiceAccountTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AssertionsInitParameters struct {
@@ -91,7 +91,7 @@ type BasicAuthInitParameters struct {
 
 	// (String, Sensitive) Basic auth password.
 	// Basic auth password.
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// (String) Basic auth username.
 	// Basic auth username.
@@ -110,7 +110,7 @@ type BasicAuthParameters struct {
 	// (String, Sensitive) Basic auth password.
 	// Basic auth password.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.SecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// (String) Basic auth username.
 	// Basic auth username.
@@ -758,7 +758,7 @@ type HTTPInitParameters struct {
 
 	// (String, Sensitive) Token for use with bearer authorization header.
 	// Token for use with bearer authorization header.
-	BearerTokenSecretRef *v1.SecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
+	BearerTokenSecretRef *v2.SecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The body of the HTTP request used in probe.
 	// The body of the HTTP request used in probe.
@@ -942,7 +942,7 @@ type HTTPParameters struct {
 	// (String, Sensitive) Token for use with bearer authorization header.
 	// Token for use with bearer authorization header.
 	// +kubebuilder:validation:Optional
-	BearerTokenSecretRef *v1.SecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
+	BearerTokenSecretRef *v2.SecretKeySelector `json:"bearerTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The body of the HTTP request used in probe.
 	// The body of the HTTP request used in probe.
@@ -1058,7 +1058,7 @@ type HTTPTLSConfigInitParameters struct {
 
 	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
@@ -1103,7 +1103,7 @@ type HTTPTLSConfigParameters struct {
 	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
 	// +kubebuilder:validation:Optional
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
@@ -1641,7 +1641,7 @@ type TCPTLSConfigInitParameters struct {
 
 	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
@@ -1686,7 +1686,7 @@ type TCPTLSConfigParameters struct {
 	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
 	// +kubebuilder:validation:Optional
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
@@ -1711,7 +1711,7 @@ type TLSConfigInitParameters struct {
 
 	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
@@ -1756,7 +1756,7 @@ type TLSConfigParameters struct {
 	// (String, Sensitive) Client key in PEM format.
 	// Client key in PEM format.
 	// +kubebuilder:validation:Optional
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Disable target certificate validation. Defaults to false.
 	// Disable target certificate validation. Defaults to `false`.
@@ -2003,8 +2003,8 @@ type VariablesParameters struct {
 
 // CheckSpec defines the desired state of Check
 type CheckSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CheckParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CheckParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -2020,8 +2020,8 @@ type CheckSpec struct {
 
 // CheckStatus defines the observed state of Check.
 type CheckStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CheckObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CheckObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

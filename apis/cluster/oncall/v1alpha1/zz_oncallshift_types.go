@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OnCallShiftInitParameters struct {
@@ -72,11 +72,11 @@ type OnCallShiftInitParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The shift's timezone.  Overrides schedule's timezone.
 	// The shift's timezone.  Overrides schedule's timezone.
@@ -101,11 +101,11 @@ type OnCallShiftInitParameters struct {
 
 	// References to User in oncall to populate users.
 	// +kubebuilder:validation:Optional
-	UsersRef []v1.Reference `json:"usersRef,omitempty" tf:"-"`
+	UsersRef []v2.Reference `json:"usersRef,omitempty" tf:"-"`
 
 	// Selector for a list of User in oncall to populate users.
 	// +kubebuilder:validation:Optional
-	UsersSelector *v1.Selector `json:"usersSelector,omitempty" tf:"-"`
+	UsersSelector *v2.Selector `json:"usersSelector,omitempty" tf:"-"`
 
 	// (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
@@ -261,11 +261,11 @@ type OnCallShiftParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The shift's timezone.  Overrides schedule's timezone.
 	// The shift's timezone.  Overrides schedule's timezone.
@@ -294,11 +294,11 @@ type OnCallShiftParameters struct {
 
 	// References to User in oncall to populate users.
 	// +kubebuilder:validation:Optional
-	UsersRef []v1.Reference `json:"usersRef,omitempty" tf:"-"`
+	UsersRef []v2.Reference `json:"usersRef,omitempty" tf:"-"`
 
 	// Selector for a list of User in oncall to populate users.
 	// +kubebuilder:validation:Optional
-	UsersSelector *v1.Selector `json:"usersSelector,omitempty" tf:"-"`
+	UsersSelector *v2.Selector `json:"usersSelector,omitempty" tf:"-"`
 
 	// (String) Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
 	// Start day of the week in iCal format. Can be MO, TU, WE, TH, FR, SA, SU
@@ -308,8 +308,8 @@ type OnCallShiftParameters struct {
 
 // OnCallShiftSpec defines the desired state of OnCallShift
 type OnCallShiftSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     OnCallShiftParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   OnCallShiftParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -325,8 +325,8 @@ type OnCallShiftSpec struct {
 
 // OnCallShiftStatus defines the observed state of OnCallShift.
 type OnCallShiftStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OnCallShiftObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OnCallShiftObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

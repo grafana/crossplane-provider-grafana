@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ConfigInitParameters struct {
@@ -201,7 +201,7 @@ type Oauth2SettingsInitParameters struct {
 
 	// (String, Sensitive) The client secret of your OAuth2 app.
 	// The client secret of your OAuth2 app.
-	ClientSecretSecretRef *v1.SecretKeySelector `json:"clientSecretSecretRef,omitempty" tf:"-"`
+	ClientSecretSecretRef *v2.SecretKeySelector `json:"clientSecretSecretRef,omitempty" tf:"-"`
 
 	// (Map of String) Custom fields to configure for OAuth2 such as the force_use_graph_api field.
 	// Custom fields to configure for OAuth2 such as the [force_use_graph_api](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/azuread/#force-fetching-groups-from-microsoft-graph-api) field.
@@ -544,7 +544,7 @@ type Oauth2SettingsParameters struct {
 	// (String, Sensitive) The client secret of your OAuth2 app.
 	// The client secret of your OAuth2 app.
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef *v1.SecretKeySelector `json:"clientSecretSecretRef,omitempty" tf:"-"`
+	ClientSecretSecretRef *v2.SecretKeySelector `json:"clientSecretSecretRef,omitempty" tf:"-"`
 
 	// (Map of String) Custom fields to configure for OAuth2 such as the force_use_graph_api field.
 	// Custom fields to configure for OAuth2 such as the [force_use_graph_api](https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/azuread/#force-fetching-groups-from-microsoft-graph-api) field.
@@ -750,7 +750,7 @@ type SAMLSettingsInitParameters struct {
 
 	// encoded string for the SP X.509 certificate.
 	// Base64-encoded string for the SP X.509 certificate.
-	CertificateSecretRef *v1.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
+	CertificateSecretRef *v2.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
 
 	// (String) The client Id of your OAuth2 app.
 	// The client Id of your OAuth2 app.
@@ -810,7 +810,7 @@ type SAMLSettingsInitParameters struct {
 
 	// encoded string for the SP private key.
 	// Base64-encoded string for the SP private key.
-	PrivateKeySecretRef *v1.SecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
+	PrivateKeySecretRef *v2.SecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
 
 	// initiated login. Should match relay state configured in IdP.
 	// Relay state for IdP-initiated login. Should match relay state configured in IdP.
@@ -1065,7 +1065,7 @@ type SAMLSettingsParameters struct {
 	// encoded string for the SP X.509 certificate.
 	// Base64-encoded string for the SP X.509 certificate.
 	// +kubebuilder:validation:Optional
-	CertificateSecretRef *v1.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
+	CertificateSecretRef *v2.SecretKeySelector `json:"certificateSecretRef,omitempty" tf:"-"`
 
 	// (String) The client Id of your OAuth2 app.
 	// The client Id of your OAuth2 app.
@@ -1140,7 +1140,7 @@ type SAMLSettingsParameters struct {
 	// encoded string for the SP private key.
 	// Base64-encoded string for the SP private key.
 	// +kubebuilder:validation:Optional
-	PrivateKeySecretRef *v1.SecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
+	PrivateKeySecretRef *v2.SecretKeySelector `json:"privateKeySecretRef,omitempty" tf:"-"`
 
 	// initiated login. Should match relay state configured in IdP.
 	// Relay state for IdP-initiated login. Should match relay state configured in IdP.
@@ -1206,7 +1206,7 @@ type ServersInitParameters struct {
 
 	// (String, Sensitive) The search user bind password.
 	// The search user bind password.
-	BindPasswordSecretRef *v1.SecretKeySelector `json:"bindPasswordSecretRef,omitempty" tf:"-"`
+	BindPasswordSecretRef *v2.SecretKeySelector `json:"bindPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The path to the client certificate.
 	// The path to the client certificate.
@@ -1218,11 +1218,11 @@ type ServersInitParameters struct {
 
 	// (String, Sensitive) The path to the client private key.
 	// The path to the client private key.
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The Base64 encoded value of the client private key.
 	// The Base64 encoded value of the client private key.
-	ClientKeyValueSecretRef *v1.SecretKeySelector `json:"clientKeyValueSecretRef,omitempty" tf:"-"`
+	ClientKeyValueSecretRef *v2.SecretKeySelector `json:"clientKeyValueSecretRef,omitempty" tf:"-"`
 
 	// (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
 	// For mapping an LDAP group to a Grafana organization and role.
@@ -1389,7 +1389,7 @@ type ServersParameters struct {
 	// (String, Sensitive) The search user bind password.
 	// The search user bind password.
 	// +kubebuilder:validation:Optional
-	BindPasswordSecretRef *v1.SecretKeySelector `json:"bindPasswordSecretRef,omitempty" tf:"-"`
+	BindPasswordSecretRef *v2.SecretKeySelector `json:"bindPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The path to the client certificate.
 	// The path to the client certificate.
@@ -1404,12 +1404,12 @@ type ServersParameters struct {
 	// (String, Sensitive) The path to the client private key.
 	// The path to the client private key.
 	// +kubebuilder:validation:Optional
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The Base64 encoded value of the client private key.
 	// The Base64 encoded value of the client private key.
 	// +kubebuilder:validation:Optional
-	ClientKeyValueSecretRef *v1.SecretKeySelector `json:"clientKeyValueSecretRef,omitempty" tf:"-"`
+	ClientKeyValueSecretRef *v2.SecretKeySelector `json:"clientKeyValueSecretRef,omitempty" tf:"-"`
 
 	// (Block List) For mapping an LDAP group to a Grafana organization and role. (see below for nested schema)
 	// For mapping an LDAP group to a Grafana organization and role.
@@ -1558,8 +1558,8 @@ type SsoSettingsParameters struct {
 
 // SsoSettingsSpec defines the desired state of SsoSettings
 type SsoSettingsSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SsoSettingsParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SsoSettingsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1575,8 +1575,8 @@ type SsoSettingsSpec struct {
 
 // SsoSettingsStatus defines the observed state of SsoSettings.
 type SsoSettingsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SsoSettingsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SsoSettingsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

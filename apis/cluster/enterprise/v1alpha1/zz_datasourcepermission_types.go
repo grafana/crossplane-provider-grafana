@@ -10,18 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DataSourcePermissionInitParameters struct {
 
 	// Reference to a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+	DataSourceRef *v2.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+	DataSourceSelector *v2.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
 	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
@@ -44,11 +44,11 @@ type DataSourcePermissionInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
@@ -81,11 +81,11 @@ type DataSourcePermissionParameters struct {
 
 	// Reference to a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+	DataSourceRef *v2.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+	DataSourceSelector *v2.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
 	// (String) The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
 	// The plugin type of the datasource (e.g. "prometheus"). If set, skips the lookup of the datasource type from the API.
@@ -111,11 +111,11 @@ type DataSourcePermissionParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
@@ -142,11 +142,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
@@ -157,11 +157,11 @@ type PermissionsInitParameters struct {
 
 	// Reference to a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.Reference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type PermissionsObservation struct {
@@ -205,11 +205,11 @@ type PermissionsParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) ID of the user or service account to manage permissions for. Defaults to 0.
 	// ID of the user or service account to manage permissions for. Defaults to `0`.
@@ -221,17 +221,17 @@ type PermissionsParameters struct {
 
 	// Reference to a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.Reference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.Reference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.Selector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.Selector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // DataSourcePermissionSpec defines the desired state of DataSourcePermission
 type DataSourcePermissionSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     DataSourcePermissionParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   DataSourcePermissionParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -247,8 +247,8 @@ type DataSourcePermissionSpec struct {
 
 // DataSourcePermissionStatus defines the observed state of DataSourcePermission.
 type DataSourcePermissionStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DataSourcePermissionObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DataSourcePermissionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

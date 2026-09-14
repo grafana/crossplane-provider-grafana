@@ -10,14 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AlertmanagerInitParameters struct {
 
 	// (String, Sensitive) The password component of the basic auth credentials to use.
 	// The password component of the basic auth credentials to use.
-	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+	BasicAuthPasswordSecretRef *v2.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username component of the basic auth credentials to use.
@@ -58,7 +58,7 @@ type AlertmanagerParameters struct {
 	// (String, Sensitive) The password component of the basic auth credentials to use.
 	// The password component of the basic auth credentials to use.
 	// +kubebuilder:validation:Optional
-	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+	BasicAuthPasswordSecretRef *v2.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username component of the basic auth credentials to use.
@@ -73,7 +73,7 @@ type AlertmanagerParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// The URL of the Alertmanager instance.
@@ -139,11 +139,11 @@ type ContactPointInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
@@ -370,11 +370,11 @@ type ContactPointParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) A contact point that sends notifications to PagerDuty. (see below for nested schema)
 	// A contact point that sends notifications to PagerDuty.
@@ -459,7 +459,7 @@ type DingdingInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The DingDing webhook URL.
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type DingdingObservation struct {
@@ -505,7 +505,7 @@ type DingdingParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated title of the message.
@@ -515,7 +515,7 @@ type DingdingParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The DingDing webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type DiscordInitParameters struct {
@@ -540,7 +540,7 @@ type DiscordInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The discord webhook URL.
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 
 	// (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
 	// Whether to use the bot account's plain username instead of "Grafana." Defaults to `false`.
@@ -594,7 +594,7 @@ type DiscordParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated content of the title.
@@ -604,7 +604,7 @@ type DiscordParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The discord webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 
 	// (Boolean) Whether to use the bot account's plain username instead of "Grafana." Defaults to false.
 	// Whether to use the bot account's plain username instead of "Grafana." Defaults to `false`.
@@ -684,7 +684,7 @@ type EmailParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to false.
 	// Whether to send a single email CC'ing all addresses, rather than a separate email to each address. Defaults to `false`.
@@ -723,7 +723,7 @@ type GooglechatInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The Google Chat webhook URL.
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type GooglechatObservation struct {
@@ -778,7 +778,7 @@ type GooglechatParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated content of the title.
@@ -788,7 +788,7 @@ type GooglechatParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The Google Chat webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type HMACConfigInitParameters struct {
@@ -799,7 +799,7 @@ type HMACConfigInitParameters struct {
 
 	// (String, Sensitive) The secret key used to generate the HMAC signature.
 	// The secret key used to generate the HMAC signature.
-	SecretSecretRef v1.SecretKeySelector `json:"secretSecretRef" tf:"-"`
+	SecretSecretRef v2.SecretKeySelector `json:"secretSecretRef" tf:"-"`
 
 	// (String) If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
 	// If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
@@ -827,7 +827,7 @@ type HMACConfigParameters struct {
 	// (String, Sensitive) The secret key used to generate the HMAC signature.
 	// The secret key used to generate the HMAC signature.
 	// +kubebuilder:validation:Optional
-	SecretSecretRef v1.SecretKeySelector `json:"secretSecretRef" tf:"-"`
+	SecretSecretRef v2.SecretKeySelector `json:"secretSecretRef" tf:"-"`
 
 	// (String) If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
 	// If set, the timestamp will be included in the HMAC signature. The value should be the name of the header to use.
@@ -861,7 +861,7 @@ type JiraInitParameters struct {
 
 	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
 	// Personal Access Token that is used as a bearer authorization header.
-	APITokenSecretRef *v1.SecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
+	APITokenSecretRef *v2.SecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Jira REST API (v2 or v3).
 	// The URL of the Jira REST API (v2 or v3).
@@ -894,7 +894,7 @@ type JiraInitParameters struct {
 
 	// (String, Sensitive) Password to use for Jira authentication.
 	// Password to use for Jira authentication.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) The priority level of the issue (e.g., High, Medium, Low).
 	// The priority level of the issue (e.g., High, Medium, Low).
@@ -924,7 +924,7 @@ type JiraInitParameters struct {
 
 	// (String, Sensitive) Username to use for Jira authentication.
 	// Username to use for Jira authentication.
-	UserSecretRef *v1.SecretKeySelector `json:"userSecretRef,omitempty" tf:"-"`
+	UserSecretRef *v2.SecretKeySelector `json:"userSecretRef,omitempty" tf:"-"`
 
 	// (String) Resolution status to exclude from reopening/updating.
 	// Resolution status to exclude from reopening/updating.
@@ -1000,7 +1000,7 @@ type JiraParameters struct {
 	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
 	// Personal Access Token that is used as a bearer authorization header.
 	// +kubebuilder:validation:Optional
-	APITokenSecretRef *v1.SecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
+	APITokenSecretRef *v2.SecretKeySelector `json:"apiTokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Jira REST API (v2 or v3).
 	// The URL of the Jira REST API (v2 or v3).
@@ -1041,7 +1041,7 @@ type JiraParameters struct {
 	// (String, Sensitive) Password to use for Jira authentication.
 	// Password to use for Jira authentication.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) The priority level of the issue (e.g., High, Medium, Low).
 	// The priority level of the issue (e.g., High, Medium, Low).
@@ -1071,7 +1071,7 @@ type JiraParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated summary of the Jira issue. Maximum length is 255 characters.
 	// The templated summary of the Jira issue. Maximum length is 255 characters.
@@ -1081,7 +1081,7 @@ type JiraParameters struct {
 	// (String, Sensitive) Username to use for Jira authentication.
 	// Username to use for Jira authentication.
 	// +kubebuilder:validation:Optional
-	UserSecretRef *v1.SecretKeySelector `json:"userSecretRef,omitempty" tf:"-"`
+	UserSecretRef *v2.SecretKeySelector `json:"userSecretRef,omitempty" tf:"-"`
 
 	// (String) Resolution status to exclude from reopening/updating.
 	// Resolution status to exclude from reopening/updating.
@@ -1113,11 +1113,11 @@ type KafkaInitParameters struct {
 
 	// (String, Sensitive) Password to use for Jira authentication.
 	// The password to use when making a call to the Kafka REST Proxy
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
 	// The URL of the Kafka REST proxy to send requests to.
-	RestProxyURLSecretRef v1.SecretKeySelector `json:"restProxyUrlSecretRef" tf:"-"`
+	RestProxyURLSecretRef v2.SecretKeySelector `json:"restProxyUrlSecretRef" tf:"-"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
@@ -1195,17 +1195,17 @@ type KafkaParameters struct {
 	// (String, Sensitive) Password to use for Jira authentication.
 	// The password to use when making a call to the Kafka REST Proxy
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The URL of the Kafka REST proxy to send requests to.
 	// The URL of the Kafka REST proxy to send requests to.
 	// +kubebuilder:validation:Optional
-	RestProxyURLSecretRef v1.SecretKeySelector `json:"restProxyUrlSecretRef" tf:"-"`
+	RestProxyURLSecretRef v2.SecretKeySelector `json:"restProxyUrlSecretRef" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The name of the Kafka topic to publish to.
 	// The name of the Kafka topic to publish to.
@@ -1236,7 +1236,7 @@ type LineInitParameters struct {
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The bearer token used to authorize the client.
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type LineObservation struct {
@@ -1273,7 +1273,7 @@ type LineParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated title of the message.
@@ -1283,7 +1283,7 @@ type LineParameters struct {
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The bearer token used to authorize the client.
 	// +kubebuilder:validation:Optional
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type Oauth2InitParameters struct {
@@ -1294,7 +1294,7 @@ type Oauth2InitParameters struct {
 
 	// (String, Sensitive) Client secret to use when authenticating.
 	// Client secret to use when authenticating.
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// (Map of String) Optional parameters to append to the access token request.
 	// Optional parameters to append to the access token request.
@@ -1356,7 +1356,7 @@ type Oauth2Parameters struct {
 	// (String, Sensitive) Client secret to use when authenticating.
 	// Client secret to use when authenticating.
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.SecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// (Map of String) Optional parameters to append to the access token request.
 	// Optional parameters to append to the access token request.
@@ -1389,7 +1389,7 @@ type OncallInitParameters struct {
 
 	// attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
-	AuthorizationCredentialsSecretRef *v1.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
+	AuthorizationCredentialsSecretRef *v2.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
 
 	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
@@ -1397,7 +1397,7 @@ type OncallInitParameters struct {
 
 	// (String, Sensitive) The password component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
-	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+	BasicAuthPasswordSecretRef *v2.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
@@ -1421,11 +1421,11 @@ type OncallInitParameters struct {
 
 	// Reference to a Integration in oncall to populate url.
 	// +kubebuilder:validation:Optional
-	OncallIntegrationRef *v1.Reference `json:"oncallIntegrationRef,omitempty" tf:"-"`
+	OncallIntegrationRef *v2.Reference `json:"oncallIntegrationRef,omitempty" tf:"-"`
 
 	// Selector for a Integration in oncall to populate url.
 	// +kubebuilder:validation:Optional
-	OncallIntegrationSelector *v1.Selector `json:"oncallIntegrationSelector,omitempty" tf:"-"`
+	OncallIntegrationSelector *v2.Selector `json:"oncallIntegrationSelector,omitempty" tf:"-"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
@@ -1443,7 +1443,7 @@ type OncallInitParameters struct {
 
 	// The OnCall webhook URL (from secret).
 	// +kubebuilder:validation:Optional
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 type OncallObservation struct {
@@ -1490,7 +1490,7 @@ type OncallParameters struct {
 	// attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
 	// +kubebuilder:validation:Optional
-	AuthorizationCredentialsSecretRef *v1.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
+	AuthorizationCredentialsSecretRef *v2.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
 
 	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
@@ -1500,7 +1500,7 @@ type OncallParameters struct {
 	// (String, Sensitive) The password component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
 	// +kubebuilder:validation:Optional
-	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+	BasicAuthPasswordSecretRef *v2.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
@@ -1529,16 +1529,16 @@ type OncallParameters struct {
 
 	// Reference to a Integration in oncall to populate url.
 	// +kubebuilder:validation:Optional
-	OncallIntegrationRef *v1.Reference `json:"oncallIntegrationRef,omitempty" tf:"-"`
+	OncallIntegrationRef *v2.Reference `json:"oncallIntegrationRef,omitempty" tf:"-"`
 
 	// Selector for a Integration in oncall to populate url.
 	// +kubebuilder:validation:Optional
-	OncallIntegrationSelector *v1.Selector `json:"oncallIntegrationSelector,omitempty" tf:"-"`
+	OncallIntegrationSelector *v2.Selector `json:"oncallIntegrationSelector,omitempty" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// Templated title of the message.
@@ -1556,14 +1556,14 @@ type OncallParameters struct {
 
 	// The OnCall webhook URL (from secret).
 	// +kubebuilder:validation:Optional
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 type OpsgenieInitParameters struct {
 
 	// (String, Sensitive) The OpsGenie API key to use.
 	// The OpsGenie API key to use.
-	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
+	APIKeySecretRef v2.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
 	// close alerts in OpsGenie when they resolve in the Alertmanager.
 	// Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
@@ -1644,7 +1644,7 @@ type OpsgenieParameters struct {
 	// (String, Sensitive) The OpsGenie API key to use.
 	// The OpsGenie API key to use.
 	// +kubebuilder:validation:Optional
-	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
+	APIKeySecretRef v2.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
 	// close alerts in OpsGenie when they resolve in the Alertmanager.
 	// Whether to auto-close alerts in OpsGenie when they resolve in the Alertmanager.
@@ -1684,7 +1684,7 @@ type OpsgenieParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// Allows customization of the OpsGenie API URL.
@@ -1725,7 +1725,7 @@ type PagerdutyInitParameters struct {
 
 	// (String, Sensitive) The PagerDuty API key.
 	// The PagerDuty API key.
-	IntegrationKeySecretRef v1.SecretKeySelector `json:"integrationKeySecretRef" tf:"-"`
+	IntegrationKeySecretRef v2.SecretKeySelector `json:"integrationKeySecretRef" tf:"-"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
@@ -1839,12 +1839,12 @@ type PagerdutyParameters struct {
 	// (String, Sensitive) The PagerDuty API key.
 	// The PagerDuty API key.
 	// +kubebuilder:validation:Optional
-	IntegrationKeySecretRef v1.SecretKeySelector `json:"integrationKeySecretRef" tf:"-"`
+	IntegrationKeySecretRef v2.SecretKeySelector `json:"integrationKeySecretRef" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The PagerDuty event severity level. Default is critical.
 	// The PagerDuty event severity level. Default is `critical`.
@@ -1973,7 +1973,7 @@ type PushoverInitParameters struct {
 
 	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
 	// The Pushover API token.
-	APITokenSecretRef v1.SecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
+	APITokenSecretRef v2.SecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
 
 	// separated list of devices to which the event is associated.
 	// Comma-separated list of devices to which the event is associated.
@@ -2023,7 +2023,7 @@ type PushoverInitParameters struct {
 
 	// (String, Sensitive) The Pushover user key.
 	// The Pushover user key.
-	UserKeySecretRef v1.SecretKeySelector `json:"userKeySecretRef" tf:"-"`
+	UserKeySecretRef v2.SecretKeySelector `json:"userKeySecretRef" tf:"-"`
 }
 
 type PushoverObservation struct {
@@ -2082,7 +2082,7 @@ type PushoverParameters struct {
 	// (String, Sensitive) Personal Access Token that is used as a bearer authorization header.
 	// The Pushover API token.
 	// +kubebuilder:validation:Optional
-	APITokenSecretRef v1.SecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
+	APITokenSecretRef v2.SecretKeySelector `json:"apiTokenSecretRef" tf:"-"`
 
 	// separated list of devices to which the event is associated.
 	// Comma-separated list of devices to which the event is associated.
@@ -2127,7 +2127,7 @@ type PushoverParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The sound associated with the notification.
 	// The sound associated with the notification.
@@ -2147,7 +2147,7 @@ type PushoverParameters struct {
 	// (String, Sensitive) The Pushover user key.
 	// The Pushover user key.
 	// +kubebuilder:validation:Optional
-	UserKeySecretRef v1.SecretKeySelector `json:"userKeySecretRef" tf:"-"`
+	UserKeySecretRef v2.SecretKeySelector `json:"userKeySecretRef" tf:"-"`
 }
 
 type RespondersInitParameters struct {
@@ -2215,7 +2215,7 @@ type SensugoInitParameters struct {
 
 	// (String, Sensitive) The OpsGenie API key to use.
 	// The SensuGo API key.
-	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
+	APIKeySecretRef v2.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
 	// (String) The SensuGo check to which the event should be routed.
 	// The SensuGo check to which the event should be routed.
@@ -2288,7 +2288,7 @@ type SensugoParameters struct {
 	// (String, Sensitive) The OpsGenie API key to use.
 	// The SensuGo API key.
 	// +kubebuilder:validation:Optional
-	APIKeySecretRef v1.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
+	APIKeySecretRef v2.SecretKeySelector `json:"apiKeySecretRef" tf:"-"`
 
 	// (String) The SensuGo check to which the event should be routed.
 	// The SensuGo check to which the event should be routed.
@@ -2323,7 +2323,7 @@ type SensugoParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// The SensuGo URL to send requests to.
@@ -2381,11 +2381,11 @@ type SlackInitParameters struct {
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// A Slack API token,for sending messages directly without the webhook method.
-	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
+	TokenSecretRef *v2.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// A Slack webhook URL,for sending messages via the webhook method.
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	// (String) The user name to use when making a call to the Kafka REST Proxy
 	// Username for the bot to use.
@@ -2497,7 +2497,7 @@ type SlackParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) Templated content of the message.
 	// Templated content of the message.
@@ -2512,12 +2512,12 @@ type SlackParameters struct {
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// A Slack API token,for sending messages directly without the webhook method.
 	// +kubebuilder:validation:Optional
-	TokenSecretRef *v1.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
+	TokenSecretRef *v2.SecretKeySelector `json:"tokenSecretRef,omitempty" tf:"-"`
 
 	// (String) The URL of the Alertmanager instance.
 	// A Slack webhook URL,for sending messages via the webhook method.
 	// +kubebuilder:validation:Optional
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 
 	// (String) The user name to use when making a call to the Kafka REST Proxy
 	// Username for the bot to use.
@@ -2529,7 +2529,7 @@ type SnsInitParameters struct {
 
 	// (String, Sensitive) AWS access key ID used to authenticate with Amazon SNS.
 	// AWS access key ID used to authenticate with Amazon SNS.
-	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
+	AccessKeySecretRef *v2.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
 	// The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
@@ -2556,7 +2556,7 @@ type SnsInitParameters struct {
 
 	// (String, Sensitive) AWS secret access key used to authenticate with Amazon SNS.
 	// AWS secret access key used to authenticate with Amazon SNS.
-	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
+	SecretKeySecretRef *v2.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
@@ -2610,7 +2610,7 @@ type SnsParameters struct {
 	// (String, Sensitive) AWS access key ID used to authenticate with Amazon SNS.
 	// AWS access key ID used to authenticate with Amazon SNS.
 	// +kubebuilder:validation:Optional
-	AccessKeySecretRef *v1.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
+	AccessKeySecretRef *v2.SecretKeySelector `json:"accessKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
 	// The Amazon Resource Name (ARN) of the role to assume to send notifications to Amazon SNS.
@@ -2644,12 +2644,12 @@ type SnsParameters struct {
 	// (String, Sensitive) AWS secret access key used to authenticate with Amazon SNS.
 	// AWS secret access key used to authenticate with Amazon SNS.
 	// +kubebuilder:validation:Optional
-	SecretKeySecretRef *v1.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
+	SecretKeySecretRef *v2.SecretKeySelector `json:"secretKeySecretRef,omitempty" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated subject line of the email. Defaults to “.
 	// +kubebuilder:validation:Optional
@@ -2665,15 +2665,15 @@ type TLSConfigInitParameters struct {
 
 	// (String, Sensitive) Certificate in PEM format to use when verifying the server's certificate chain.
 	// Certificate in PEM format to use when verifying the server's certificate chain.
-	CACertificateSecretRef *v1.SecretKeySelector `json:"caCertificateSecretRef,omitempty" tf:"-"`
+	CACertificateSecretRef *v2.SecretKeySelector `json:"caCertificateSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Client certificate in PEM format to use when connecting to the server.
 	// Client certificate in PEM format to use when connecting to the server.
-	ClientCertificateSecretRef *v1.SecretKeySelector `json:"clientCertificateSecretRef,omitempty" tf:"-"`
+	ClientCertificateSecretRef *v2.SecretKeySelector `json:"clientCertificateSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Client key in PEM format to use when connecting to the server.
 	// Client key in PEM format to use when connecting to the server.
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Do not verify the server's certificate chain and host name. Defaults to false.
 	// Do not verify the server's certificate chain and host name. Defaults to `false`.
@@ -2692,17 +2692,17 @@ type TLSConfigParameters struct {
 	// (String, Sensitive) Certificate in PEM format to use when verifying the server's certificate chain.
 	// Certificate in PEM format to use when verifying the server's certificate chain.
 	// +kubebuilder:validation:Optional
-	CACertificateSecretRef *v1.SecretKeySelector `json:"caCertificateSecretRef,omitempty" tf:"-"`
+	CACertificateSecretRef *v2.SecretKeySelector `json:"caCertificateSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Client certificate in PEM format to use when connecting to the server.
 	// Client certificate in PEM format to use when connecting to the server.
 	// +kubebuilder:validation:Optional
-	ClientCertificateSecretRef *v1.SecretKeySelector `json:"clientCertificateSecretRef,omitempty" tf:"-"`
+	ClientCertificateSecretRef *v2.SecretKeySelector `json:"clientCertificateSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Client key in PEM format to use when connecting to the server.
 	// Client key in PEM format to use when connecting to the server.
 	// +kubebuilder:validation:Optional
-	ClientKeySecretRef *v1.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
+	ClientKeySecretRef *v2.SecretKeySelector `json:"clientKeySecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Do not verify the server's certificate chain and host name. Defaults to false.
 	// Do not verify the server's certificate chain and host name. Defaults to `false`.
@@ -2732,7 +2732,7 @@ type TeamsInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// A Teams webhook URL.
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type TeamsObservation struct {
@@ -2778,7 +2778,7 @@ type TeamsParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated title of the message.
@@ -2788,7 +2788,7 @@ type TeamsParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// A Teams webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type TelegramInitParameters struct {
@@ -2829,7 +2829,7 @@ type TelegramInitParameters struct {
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The Telegram bot token.
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type TelegramObservation struct {
@@ -2916,19 +2916,19 @@ type TelegramParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The Telegram bot token.
 	// +kubebuilder:validation:Optional
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type ThreemaInitParameters struct {
 
 	// (String, Sensitive) The Threema API key.
 	// The Threema API key.
-	APISecretSecretRef v1.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
+	APISecretSecretRef v2.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
 	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
@@ -2985,7 +2985,7 @@ type ThreemaParameters struct {
 	// (String, Sensitive) The Threema API key.
 	// The Threema API key.
 	// +kubebuilder:validation:Optional
-	APISecretSecretRef v1.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
+	APISecretSecretRef v2.SecretKeySelector `json:"apiSecretSecretRef" tf:"-"`
 
 	// (String) The templated description of the Jira issue. Maximum length is 32767 characters.
 	// The templated description of the message.
@@ -3010,7 +3010,7 @@ type ThreemaParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated title of the message.
@@ -3040,7 +3040,7 @@ type VictoropsInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The VictorOps webhook URL.
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type VictoropsObservation struct {
@@ -3086,7 +3086,7 @@ type VictoropsParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// Templated title to display.
@@ -3096,7 +3096,7 @@ type VictoropsParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The VictorOps webhook URL.
 	// +kubebuilder:validation:Optional
-	URLSecretRef v1.SecretKeySelector `json:"urlSecretRef" tf:"-"`
+	URLSecretRef v2.SecretKeySelector `json:"urlSecretRef" tf:"-"`
 }
 
 type WebexInitParameters struct {
@@ -3121,7 +3121,7 @@ type WebexInitParameters struct {
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The bearer token used to authorize the client.
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type WebexObservation struct {
@@ -3172,19 +3172,19 @@ type WebexParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The bearer token used to authorize the client.
 	// The bearer token used to authorize the client.
 	// +kubebuilder:validation:Optional
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 }
 
 type WebhookInitParameters struct {
 
 	// attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
-	AuthorizationCredentialsSecretRef *v1.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
+	AuthorizationCredentialsSecretRef *v2.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
 
 	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
@@ -3192,7 +3192,7 @@ type WebhookInitParameters struct {
 
 	// (String, Sensitive) The password component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
-	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+	BasicAuthPasswordSecretRef *v2.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
@@ -3305,7 +3305,7 @@ type WebhookParameters struct {
 	// attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this value. Do not use in conjunction with basic auth parameters.
 	// +kubebuilder:validation:Optional
-	AuthorizationCredentialsSecretRef *v1.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
+	AuthorizationCredentialsSecretRef *v2.SecretKeySelector `json:"authorizationCredentialsSecretRef,omitempty" tf:"-"`
 
 	// attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
 	// Allows a custom authorization scheme - attaches an auth header with this name. Do not use in conjunction with basic auth parameters.
@@ -3315,7 +3315,7 @@ type WebhookParameters struct {
 	// (String, Sensitive) The password component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
 	// +kubebuilder:validation:Optional
-	BasicAuthPasswordSecretRef *v1.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
+	BasicAuthPasswordSecretRef *v2.SecretKeySelector `json:"basicAuthPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String) The username component of the basic auth credentials to use.
 	// The username to use in basic auth headers attached to the request. If omitted, basic auth will not be used.
@@ -3366,12 +3366,12 @@ type WebhookParameters struct {
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (Map of String, Sensitive) Allows configuring TLS for the webhook notifier.
 	// Allows configuring TLS for the webhook notifier.
 	// +kubebuilder:validation:Optional
-	TLSConfigSecretRef *v1.SecretReference `json:"tlsConfigSecretRef,omitempty" tf:"-"`
+	TLSConfigSecretRef *v2.SecretReference `json:"tlsConfigSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// Templated title of the message.
@@ -3408,7 +3408,7 @@ type WecomInitParameters struct {
 
 	// (String, Sensitive) The secret key used to generate the HMAC signature.
 	// The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
-	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
+	SecretSecretRef *v2.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	Settings map[string]*string `json:"settingsSecretRef,omitempty" tf:"-"`
 
@@ -3422,7 +3422,7 @@ type WecomInitParameters struct {
 
 	// (String) The URL of the Alertmanager instance.
 	// The WeCom webhook URL. Required if using GroupRobot.
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 type WecomObservation struct {
@@ -3490,12 +3490,12 @@ type WecomParameters struct {
 	// (String, Sensitive) The secret key used to generate the HMAC signature.
 	// The secret key required to obtain access token when using APIAPP. See https://work.weixin.qq.com/wework_admin/frame#apps to create APIAPP.
 	// +kubebuilder:validation:Optional
-	SecretSecretRef *v1.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
+	SecretSecretRef *v2.SecretKeySelector `json:"secretSecretRef,omitempty" tf:"-"`
 
 	// (Map of String, Sensitive) Additional custom properties to attach to the notifier. Defaults to map[].
 	// Additional custom properties to attach to the notifier. Defaults to `map[]`.
 	// +kubebuilder:validation:Optional
-	SettingsSecretRef *v1.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
+	SettingsSecretRef *v2.SecretReference `json:"settingsSecretRef,omitempty" tf:"-"`
 
 	// (String) The templated title of the message.
 	// The templated title of the message to send.
@@ -3510,13 +3510,13 @@ type WecomParameters struct {
 	// (String) The URL of the Alertmanager instance.
 	// The WeCom webhook URL. Required if using GroupRobot.
 	// +kubebuilder:validation:Optional
-	URLSecretRef *v1.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
+	URLSecretRef *v2.SecretKeySelector `json:"urlSecretRef,omitempty" tf:"-"`
 }
 
 // ContactPointSpec defines the desired state of ContactPoint
 type ContactPointSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ContactPointParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ContactPointParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -3532,8 +3532,8 @@ type ContactPointSpec struct {
 
 // ContactPointStatus defines the observed state of ContactPoint.
 type ContactPointStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ContactPointObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ContactPointObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

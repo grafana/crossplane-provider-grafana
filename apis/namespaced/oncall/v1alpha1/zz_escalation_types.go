@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EscalationInitParameters struct {
@@ -25,11 +24,11 @@ type EscalationInitParameters struct {
 
 	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
 	// +kubebuilder:validation:Optional
-	ActionToTriggerRef *v1.NamespacedReference `json:"actionToTriggerRef,omitempty" tf:"-"`
+	ActionToTriggerRef *v2.NamespacedReference `json:"actionToTriggerRef,omitempty" tf:"-"`
 
 	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
 	// +kubebuilder:validation:Optional
-	ActionToTriggerSelector *v1.NamespacedSelector `json:"actionToTriggerSelector,omitempty" tf:"-"`
+	ActionToTriggerSelector *v2.NamespacedSelector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
 	// 86400) seconds
 	// The duration of delay for wait type step. (60-86400) seconds
@@ -44,11 +43,11 @@ type EscalationInitParameters struct {
 
 	// Reference to a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainRef *v1.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
+	EscalationChainRef *v2.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
 
 	// Selector for a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainSelector *v1.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
+	EscalationChainSelector *v2.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a User Group for notify_user_group type step.
 	// The ID of a User Group for notify_user_group type step.
@@ -60,11 +59,11 @@ type EscalationInitParameters struct {
 
 	// Reference to a UserGroup in oncall to populate groupToNotify.
 	// +kubebuilder:validation:Optional
-	GroupToNotifyRef *v1.NamespacedReference `json:"groupToNotifyRef,omitempty" tf:"-"`
+	GroupToNotifyRef *v2.NamespacedReference `json:"groupToNotifyRef,omitempty" tf:"-"`
 
 	// Selector for a UserGroup in oncall to populate groupToNotify.
 	// +kubebuilder:validation:Optional
-	GroupToNotifySelector *v1.NamespacedSelector `json:"groupToNotifySelector,omitempty" tf:"-"`
+	GroupToNotifySelector *v2.NamespacedSelector `json:"groupToNotifySelector,omitempty" tf:"-"`
 
 	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
 	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
@@ -87,11 +86,11 @@ type EscalationInitParameters struct {
 
 	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
 	// +kubebuilder:validation:Optional
-	NotifyOnCallFromScheduleRef *v1.NamespacedReference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
+	NotifyOnCallFromScheduleRef *v2.NamespacedReference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
 
 	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
 	// +kubebuilder:validation:Optional
-	NotifyOnCallFromScheduleSelector *v1.NamespacedSelector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
+	NotifyOnCallFromScheduleSelector *v2.NamespacedSelector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
@@ -129,19 +128,19 @@ type EscalationInitParameters struct {
 
 	// References to User in oncall to populate personsToNotifyNextEachTime.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifyNextEachTimeRef []v1.NamespacedReference `json:"personsToNotifyNextEachTimeRef,omitempty" tf:"-"`
+	PersonsToNotifyNextEachTimeRef []v2.NamespacedReference `json:"personsToNotifyNextEachTimeRef,omitempty" tf:"-"`
 
 	// Selector for a list of User in oncall to populate personsToNotifyNextEachTime.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifyNextEachTimeSelector *v1.NamespacedSelector `json:"personsToNotifyNextEachTimeSelector,omitempty" tf:"-"`
+	PersonsToNotifyNextEachTimeSelector *v2.NamespacedSelector `json:"personsToNotifyNextEachTimeSelector,omitempty" tf:"-"`
 
 	// References to User in oncall to populate personsToNotify.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifyRef []v1.NamespacedReference `json:"personsToNotifyRef,omitempty" tf:"-"`
+	PersonsToNotifyRef []v2.NamespacedReference `json:"personsToNotifyRef,omitempty" tf:"-"`
 
 	// Selector for a list of User in oncall to populate personsToNotify.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifySelector *v1.NamespacedSelector `json:"personsToNotifySelector,omitempty" tf:"-"`
+	PersonsToNotifySelector *v2.NamespacedSelector `json:"personsToNotifySelector,omitempty" tf:"-"`
 
 	// (Number) The position of the escalation step (starts from 0).
 	// The position of the escalation step (starts from 0).
@@ -153,11 +152,11 @@ type EscalationInitParameters struct {
 
 	// Reference to a Team in oncall to populate notifyToTeamMembers.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate notifyToTeamMembers.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
@@ -248,11 +247,11 @@ type EscalationParameters struct {
 
 	// Reference to a OutgoingWebhook in oncall to populate actionToTrigger.
 	// +kubebuilder:validation:Optional
-	ActionToTriggerRef *v1.NamespacedReference `json:"actionToTriggerRef,omitempty" tf:"-"`
+	ActionToTriggerRef *v2.NamespacedReference `json:"actionToTriggerRef,omitempty" tf:"-"`
 
 	// Selector for a OutgoingWebhook in oncall to populate actionToTrigger.
 	// +kubebuilder:validation:Optional
-	ActionToTriggerSelector *v1.NamespacedSelector `json:"actionToTriggerSelector,omitempty" tf:"-"`
+	ActionToTriggerSelector *v2.NamespacedSelector `json:"actionToTriggerSelector,omitempty" tf:"-"`
 
 	// 86400) seconds
 	// The duration of delay for wait type step. (60-86400) seconds
@@ -269,11 +268,11 @@ type EscalationParameters struct {
 
 	// Reference to a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainRef *v1.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
+	EscalationChainRef *v2.NamespacedReference `json:"escalationChainRef,omitempty" tf:"-"`
 
 	// Selector for a EscalationChain in oncall to populate escalationChainId.
 	// +kubebuilder:validation:Optional
-	EscalationChainSelector *v1.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
+	EscalationChainSelector *v2.NamespacedSelector `json:"escalationChainSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a User Group for notify_user_group type step.
 	// The ID of a User Group for notify_user_group type step.
@@ -286,11 +285,11 @@ type EscalationParameters struct {
 
 	// Reference to a UserGroup in oncall to populate groupToNotify.
 	// +kubebuilder:validation:Optional
-	GroupToNotifyRef *v1.NamespacedReference `json:"groupToNotifyRef,omitempty" tf:"-"`
+	GroupToNotifyRef *v2.NamespacedReference `json:"groupToNotifyRef,omitempty" tf:"-"`
 
 	// Selector for a UserGroup in oncall to populate groupToNotify.
 	// +kubebuilder:validation:Optional
-	GroupToNotifySelector *v1.NamespacedSelector `json:"groupToNotifySelector,omitempty" tf:"-"`
+	GroupToNotifySelector *v2.NamespacedSelector `json:"groupToNotifySelector,omitempty" tf:"-"`
 
 	// (Boolean) Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
 	// Will activate "important" personal notification rules. Actual for steps: notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, notify_user_group and notify_team_members
@@ -317,11 +316,11 @@ type EscalationParameters struct {
 
 	// Reference to a Schedule in oncall to populate notifyOnCallFromSchedule.
 	// +kubebuilder:validation:Optional
-	NotifyOnCallFromScheduleRef *v1.NamespacedReference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
+	NotifyOnCallFromScheduleRef *v2.NamespacedReference `json:"notifyOnCallFromScheduleRef,omitempty" tf:"-"`
 
 	// Selector for a Schedule in oncall to populate notifyOnCallFromSchedule.
 	// +kubebuilder:validation:Optional
-	NotifyOnCallFromScheduleSelector *v1.NamespacedSelector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
+	NotifyOnCallFromScheduleSelector *v2.NamespacedSelector `json:"notifyOnCallFromScheduleSelector,omitempty" tf:"-"`
 
 	// (String) The ID of a Team for a notify_team_members type step.
 	// The ID of a Team for a notify_team_members type step.
@@ -364,19 +363,19 @@ type EscalationParameters struct {
 
 	// References to User in oncall to populate personsToNotifyNextEachTime.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifyNextEachTimeRef []v1.NamespacedReference `json:"personsToNotifyNextEachTimeRef,omitempty" tf:"-"`
+	PersonsToNotifyNextEachTimeRef []v2.NamespacedReference `json:"personsToNotifyNextEachTimeRef,omitempty" tf:"-"`
 
 	// Selector for a list of User in oncall to populate personsToNotifyNextEachTime.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifyNextEachTimeSelector *v1.NamespacedSelector `json:"personsToNotifyNextEachTimeSelector,omitempty" tf:"-"`
+	PersonsToNotifyNextEachTimeSelector *v2.NamespacedSelector `json:"personsToNotifyNextEachTimeSelector,omitempty" tf:"-"`
 
 	// References to User in oncall to populate personsToNotify.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifyRef []v1.NamespacedReference `json:"personsToNotifyRef,omitempty" tf:"-"`
+	PersonsToNotifyRef []v2.NamespacedReference `json:"personsToNotifyRef,omitempty" tf:"-"`
 
 	// Selector for a list of User in oncall to populate personsToNotify.
 	// +kubebuilder:validation:Optional
-	PersonsToNotifySelector *v1.NamespacedSelector `json:"personsToNotifySelector,omitempty" tf:"-"`
+	PersonsToNotifySelector *v2.NamespacedSelector `json:"personsToNotifySelector,omitempty" tf:"-"`
 
 	// (Number) The position of the escalation step (starts from 0).
 	// The position of the escalation step (starts from 0).
@@ -390,11 +389,11 @@ type EscalationParameters struct {
 
 	// Reference to a Team in oncall to populate notifyToTeamMembers.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate notifyToTeamMembers.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
 	// The type of escalation policy. Can be wait, notify_persons, notify_person_next_each_time, notify_on_call_from_schedule, notify_next_on_call_from_schedule, trigger_webhook, notify_user_group, resolve, notify_whole_channel, notify_if_time_from_to, notify_if_num_alerts_in_window, repeat_escalation, notify_team_members, declare_incident
@@ -421,8 +420,8 @@ type EscalationSpec struct {
 
 // EscalationStatus defines the observed state of Escalation.
 type EscalationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        EscalationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               EscalationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

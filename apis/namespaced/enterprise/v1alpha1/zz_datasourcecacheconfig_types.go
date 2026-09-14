@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DataSourceCacheConfigInitParameters struct {
@@ -33,11 +32,11 @@ type DataSourceCacheConfigInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
 	// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
@@ -104,11 +103,11 @@ type DataSourceCacheConfigParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Number) TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
 	// TTL for query caching, in milliseconds. Ignored if use_default_ttl is true.
@@ -145,8 +144,8 @@ type DataSourceCacheConfigSpec struct {
 
 // DataSourceCacheConfigStatus defines the observed state of DataSourceCacheConfig.
 type DataSourceCacheConfigStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DataSourceCacheConfigObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DataSourceCacheConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AlertsInitParameters struct {
@@ -78,11 +78,11 @@ type CheckAlertsInitParameters struct {
 
 	// Reference to a Check in sm to populate checkId.
 	// +kubebuilder:validation:Optional
-	CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+	CheckRef *v2.Reference `json:"checkRef,omitempty" tf:"-"`
 
 	// Selector for a Check in sm to populate checkId.
 	// +kubebuilder:validation:Optional
-	CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
+	CheckSelector *v2.Selector `json:"checkSelector,omitempty" tf:"-"`
 }
 
 type CheckAlertsObservation struct {
@@ -117,17 +117,17 @@ type CheckAlertsParameters struct {
 
 	// Reference to a Check in sm to populate checkId.
 	// +kubebuilder:validation:Optional
-	CheckRef *v1.Reference `json:"checkRef,omitempty" tf:"-"`
+	CheckRef *v2.Reference `json:"checkRef,omitempty" tf:"-"`
 
 	// Selector for a Check in sm to populate checkId.
 	// +kubebuilder:validation:Optional
-	CheckSelector *v1.Selector `json:"checkSelector,omitempty" tf:"-"`
+	CheckSelector *v2.Selector `json:"checkSelector,omitempty" tf:"-"`
 }
 
 // CheckAlertsSpec defines the desired state of CheckAlerts
 type CheckAlertsSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CheckAlertsParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CheckAlertsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -143,8 +143,8 @@ type CheckAlertsSpec struct {
 
 // CheckAlertsStatus defines the observed state of CheckAlerts.
 type CheckAlertsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CheckAlertsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CheckAlertsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

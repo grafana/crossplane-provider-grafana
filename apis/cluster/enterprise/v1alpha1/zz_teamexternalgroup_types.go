@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type TeamExternalGroupInitParameters struct {
@@ -29,11 +29,11 @@ type TeamExternalGroupInitParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 }
 
 type TeamExternalGroupObservation struct {
@@ -69,17 +69,17 @@ type TeamExternalGroupParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 }
 
 // TeamExternalGroupSpec defines the desired state of TeamExternalGroup
 type TeamExternalGroupSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     TeamExternalGroupParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   TeamExternalGroupParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -95,8 +95,8 @@ type TeamExternalGroupSpec struct {
 
 // TeamExternalGroupStatus defines the observed state of TeamExternalGroup.
 type TeamExternalGroupStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        TeamExternalGroupObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               TeamExternalGroupObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -9,7 +9,7 @@ Copyright 2022 Upbound Inc.
 package v1beta1
 
 import (
-	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	"github.com/crossplane/crossplane/apis/v2/core/v2"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -88,7 +88,7 @@ func (in *ProviderConfigSpec) DeepCopyInto(out *ProviderConfigSpec) {
 	in.Credentials.DeepCopyInto(&out.Credentials)
 	if in.StackSecretRef != nil {
 		in, out := &in.StackSecretRef, &out.StackSecretRef
-		*out = new(v1.SecretReference)
+		*out = new(v2.SecretReference)
 		**out = **in
 	}
 }

@@ -10,22 +10,22 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type InstallationInitParameters struct {
 
 	// Reference to a Stack in cloud to populate stackId.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackId.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.
 	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/) with the following scopes: `stacks:read`, `metrics:write`, `logs:write`, `traces:write`. This is used to publish metrics and logs to Grafana Cloud stack.
-	MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
+	MetricsPublisherKeySecretRef v2.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
 
 	// (String) The ID or slug of the stack to install SM on.
 	// The ID or slug of the stack to install SM on.
@@ -62,16 +62,16 @@ type InstallationParameters struct {
 
 	// Reference to a Stack in cloud to populate stackId.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackId.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) The Grafana Cloud access policy with the following scopes: stacks:read, metrics:write, logs:write, traces:write. This is used to publish metrics and logs to Grafana Cloud stack.
 	// The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/security-and-account-management/authentication-and-permissions/access-policies/) with the following scopes: `stacks:read`, `metrics:write`, `logs:write`, `traces:write`. This is used to publish metrics and logs to Grafana Cloud stack.
 	// +kubebuilder:validation:Optional
-	MetricsPublisherKeySecretRef v1.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
+	MetricsPublisherKeySecretRef v2.SecretKeySelector `json:"metricsPublisherKeySecretRef" tf:"-"`
 
 	// (String) The ID or slug of the stack to install SM on.
 	// The ID or slug of the stack to install SM on.
@@ -90,8 +90,8 @@ type InstallationParameters struct {
 
 // InstallationSpec defines the desired state of Installation
 type InstallationSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     InstallationParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   InstallationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -107,8 +107,8 @@ type InstallationSpec struct {
 
 // InstallationStatus defines the observed state of Installation.
 type InstallationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        InstallationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               InstallationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

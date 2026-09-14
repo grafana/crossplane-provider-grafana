@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ServiceAccountPermissionItemInitParameters struct {
@@ -24,11 +24,11 @@ type ServiceAccountPermissionItemInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) the permission to be assigned
 	// the permission to be assigned
@@ -85,11 +85,11 @@ type ServiceAccountPermissionItemParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) the permission to be assigned
 	// the permission to be assigned
@@ -114,8 +114,8 @@ type ServiceAccountPermissionItemParameters struct {
 
 // ServiceAccountPermissionItemSpec defines the desired state of ServiceAccountPermissionItem
 type ServiceAccountPermissionItemSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ServiceAccountPermissionItemParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ServiceAccountPermissionItemParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -131,8 +131,8 @@ type ServiceAccountPermissionItemSpec struct {
 
 // ServiceAccountPermissionItemStatus defines the observed state of ServiceAccountPermissionItem.
 type ServiceAccountPermissionItemStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServiceAccountPermissionItemObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServiceAccountPermissionItemObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

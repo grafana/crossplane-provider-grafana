@@ -10,19 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type InstallationInitParameters struct {
 
 	// (String, Sensitive, Deprecated) Deprecated: The Grafana Cloud access policy token. It is no longer used to install the k6 App and can be safely removed.
 	// Deprecated: The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) token. It is no longer used to install the k6 App and can be safely removed.
-	CloudAccessPolicyTokenSecretRef *v1.LocalSecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
+	CloudAccessPolicyTokenSecretRef *v2.LocalSecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The service account token.
 	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
-	GrafanaSaTokenSecretRef v1.LocalSecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
+	GrafanaSaTokenSecretRef v2.LocalSecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
 
 	// (String) The user to use for the installation.
 	// The user to use for the installation.
@@ -64,12 +63,12 @@ type InstallationParameters struct {
 	// (String, Sensitive, Deprecated) Deprecated: The Grafana Cloud access policy token. It is no longer used to install the k6 App and can be safely removed.
 	// Deprecated: The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) token. It is no longer used to install the k6 App and can be safely removed.
 	// +kubebuilder:validation:Optional
-	CloudAccessPolicyTokenSecretRef *v1.LocalSecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
+	CloudAccessPolicyTokenSecretRef *v2.LocalSecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) The service account token.
 	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
 	// +kubebuilder:validation:Optional
-	GrafanaSaTokenSecretRef v1.LocalSecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
+	GrafanaSaTokenSecretRef v2.LocalSecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
 
 	// (String) The user to use for the installation.
 	// The user to use for the installation.
@@ -106,8 +105,8 @@ type InstallationSpec struct {
 
 // InstallationStatus defines the observed state of Installation.
 type InstallationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        InstallationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               InstallationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

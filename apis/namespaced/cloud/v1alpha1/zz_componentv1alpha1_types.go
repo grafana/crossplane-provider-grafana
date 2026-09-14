@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ComponentV1Alpha1InitParameters struct {
@@ -460,8 +459,8 @@ type ComponentV1Alpha1Spec struct {
 
 // ComponentV1Alpha1Status defines the observed state of ComponentV1Alpha1.
 type ComponentV1Alpha1Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ComponentV1Alpha1Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ComponentV1Alpha1Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -477,10 +476,8 @@ type ComponentV1Alpha1Status struct {
 type ComponentV1Alpha1 struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.metadata) || (has(self.initProvider) && has(self.initProvider.metadata))",message="spec.forProvider.metadata is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.spec) || (has(self.initProvider) && has(self.initProvider.spec))",message="spec.forProvider.spec is a required parameter"
-	Spec   ComponentV1Alpha1Spec   `json:"spec"`
-	Status ComponentV1Alpha1Status `json:"status,omitempty"`
+	Spec              ComponentV1Alpha1Spec   `json:"spec"`
+	Status            ComponentV1Alpha1Status `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

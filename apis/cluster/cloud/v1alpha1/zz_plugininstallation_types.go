@@ -10,18 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PluginInstallationInitParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String) Slug of the plugin to be installed.
 	// Slug of the plugin to be installed.
@@ -62,11 +62,11 @@ type PluginInstallationParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.Reference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.Reference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.Selector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String) Slug of the plugin to be installed.
 	// Slug of the plugin to be installed.
@@ -90,8 +90,8 @@ type PluginInstallationParameters struct {
 
 // PluginInstallationSpec defines the desired state of PluginInstallation
 type PluginInstallationSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     PluginInstallationParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   PluginInstallationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -107,8 +107,8 @@ type PluginInstallationSpec struct {
 
 // PluginInstallationStatus defines the observed state of PluginInstallation.
 type PluginInstallationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PluginInstallationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PluginInstallationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

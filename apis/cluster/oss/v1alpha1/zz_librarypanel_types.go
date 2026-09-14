@@ -10,18 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type LibraryPanelInitParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.Reference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.Selector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) Unique ID (UID) of the folder containing the library panel.
 	// Unique ID (UID) of the folder containing the library panel.
@@ -48,11 +48,11 @@ type LibraryPanelInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
 	// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
@@ -121,11 +121,11 @@ type LibraryPanelParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.Reference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.Reference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.Selector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.Selector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) Unique ID (UID) of the folder containing the library panel.
 	// Unique ID (UID) of the folder containing the library panel.
@@ -156,11 +156,11 @@ type LibraryPanelParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
 	// The unique identifier (UID) of a library panel uniquely identifies library panels between multiple Grafana installs. It’s automatically generated unless you specify it during library panel creation.The UID provides consistent URLs for accessing library panels and when syncing library panels between multiple Grafana installs.
@@ -170,8 +170,8 @@ type LibraryPanelParameters struct {
 
 // LibraryPanelSpec defines the desired state of LibraryPanel
 type LibraryPanelSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     LibraryPanelParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   LibraryPanelParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -187,8 +187,8 @@ type LibraryPanelSpec struct {
 
 // LibraryPanelStatus defines the observed state of LibraryPanel.
 type LibraryPanelStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        LibraryPanelObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               LibraryPanelObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

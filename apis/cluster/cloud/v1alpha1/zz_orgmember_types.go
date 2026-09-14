@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type OrgMemberInitParameters struct {
@@ -65,8 +65,8 @@ type OrgMemberParameters struct {
 
 // OrgMemberSpec defines the desired state of OrgMember
 type OrgMemberSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     OrgMemberParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   OrgMemberParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -82,8 +82,8 @@ type OrgMemberSpec struct {
 
 // OrgMemberStatus defines the observed state of OrgMember.
 type OrgMemberStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OrgMemberObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OrgMemberObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

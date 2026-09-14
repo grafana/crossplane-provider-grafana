@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	resourcefake "github.com/crossplane/crossplane-runtime/v2/pkg/resource/fake"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	"github.com/google/go-cmp/cmp"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -42,10 +42,10 @@ func createClusterProviderConfig(t *testing.T, orgID, stackID *int) *nv1beta1.Cl
 			OrgID:   orgID,
 			StackID: stackID,
 			Credentials: nv1beta1.ProviderCredentials{
-				Source: v1.CredentialsSourceSecret,
-				CommonCredentialSelectors: v1.CommonCredentialSelectors{
-					SecretRef: &v1.SecretKeySelector{
-						SecretReference: v1.SecretReference{
+				Source: xpv2.CredentialsSourceSecret,
+				CommonCredentialSelectors: xpv2.CommonCredentialSelectors{
+					SecretRef: &xpv2.SecretKeySelector{
+						SecretReference: xpv2.SecretReference{
 							Name:      "test-secret",
 							Namespace: "default",
 						},
@@ -55,9 +55,9 @@ func createClusterProviderConfig(t *testing.T, orgID, stackID *int) *nv1beta1.Cl
 			},
 		},
 		Status: nv1beta1.ProviderConfigStatus{
-			ProviderConfigStatus: v1.ProviderConfigStatus{
-				ConditionedStatus: v1.ConditionedStatus{
-					Conditions: []v1.Condition{},
+			ProviderConfigStatus: xpv2.ProviderConfigStatus{
+				ConditionedStatus: xpv2.ConditionedStatus{
+					Conditions: []xpv2.Condition{},
 				},
 			},
 		},
@@ -76,10 +76,10 @@ func createNamespacedProviderConfig(t *testing.T, orgID, stackID *int) *nv1beta1
 			OrgID:   orgID,
 			StackID: stackID,
 			Credentials: nv1beta1.ProviderCredentials{
-				Source: v1.CredentialsSourceSecret,
-				CommonCredentialSelectors: v1.CommonCredentialSelectors{
-					SecretRef: &v1.SecretKeySelector{
-						SecretReference: v1.SecretReference{
+				Source: xpv2.CredentialsSourceSecret,
+				CommonCredentialSelectors: xpv2.CommonCredentialSelectors{
+					SecretRef: &xpv2.SecretKeySelector{
+						SecretReference: xpv2.SecretReference{
 							Name:      "test-secret",
 							Namespace: "default",
 						},
@@ -89,9 +89,9 @@ func createNamespacedProviderConfig(t *testing.T, orgID, stackID *int) *nv1beta1
 			},
 		},
 		Status: nv1beta1.ProviderConfigStatus{
-			ProviderConfigStatus: v1.ProviderConfigStatus{
-				ConditionedStatus: v1.ConditionedStatus{
-					Conditions: []v1.Condition{},
+			ProviderConfigStatus: xpv2.ProviderConfigStatus{
+				ConditionedStatus: xpv2.ConditionedStatus{
+					Conditions: []xpv2.Condition{},
 				},
 			},
 		},
@@ -108,10 +108,10 @@ func createLegacyProviderConfig(t *testing.T, orgID, stackID *int) *cv1beta1.Pro
 			OrgID:   orgID,
 			StackID: stackID,
 			Credentials: cv1beta1.ProviderCredentials{
-				Source: v1.CredentialsSourceSecret,
-				CommonCredentialSelectors: v1.CommonCredentialSelectors{
-					SecretRef: &v1.SecretKeySelector{
-						SecretReference: v1.SecretReference{
+				Source: xpv2.CredentialsSourceSecret,
+				CommonCredentialSelectors: xpv2.CommonCredentialSelectors{
+					SecretRef: &xpv2.SecretKeySelector{
+						SecretReference: xpv2.SecretReference{
 							Name:      "test-secret",
 							Namespace: "default",
 						},
@@ -121,9 +121,9 @@ func createLegacyProviderConfig(t *testing.T, orgID, stackID *int) *cv1beta1.Pro
 			},
 		},
 		Status: cv1beta1.ProviderConfigStatus{
-			ProviderConfigStatus: v1.ProviderConfigStatus{
-				ConditionedStatus: v1.ConditionedStatus{
-					Conditions: []v1.Condition{},
+			ProviderConfigStatus: xpv2.ProviderConfigStatus{
+				ConditionedStatus: xpv2.ConditionedStatus{
+					Conditions: []xpv2.Condition{},
 				},
 			},
 		},
@@ -139,7 +139,7 @@ func createModernManaged(t *testing.T, kind string) resource.ModernManaged {
 			UID:       "test-uid-12345",
 		},
 		TypedProviderConfigReferencer: resourcefake.TypedProviderConfigReferencer{
-			Ref: &v1.ProviderConfigReference{
+			Ref: &xpv2.ProviderConfigReference{
 				Kind: kind,
 				Name: "test-config",
 			},
@@ -147,6 +147,7 @@ func createModernManaged(t *testing.T, kind string) resource.ModernManaged {
 	}
 }
 
+//nolint:staticcheck // Exercises support for legacy cluster-scoped resources.
 func createLegacyManaged(t *testing.T) resource.LegacyManaged {
 	t.Helper()
 	return &resourcefake.LegacyManaged{
@@ -156,7 +157,7 @@ func createLegacyManaged(t *testing.T) resource.LegacyManaged {
 			UID:       "test-uid-12345",
 		},
 		LegacyProviderConfigReferencer: resourcefake.LegacyProviderConfigReferencer{
-			Ref: &v1.Reference{Name: "test-config"},
+			Ref: &xpv2.Reference{Name: "test-config"},
 		},
 	}
 }

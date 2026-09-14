@@ -10,19 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type StackServiceAccountTokenInitParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String) The name of the service account token.
 	// The name of the service account token.
@@ -41,11 +40,11 @@ type StackServiceAccountTokenInitParameters struct {
 
 	// Reference to a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
@@ -88,11 +87,11 @@ type StackServiceAccountTokenParameters struct {
 
 	// Reference to a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackRef *v1.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
 
 	// Selector for a Stack in cloud to populate stackSlug.
 	// +kubebuilder:validation:Optional
-	CloudStackSelector *v1.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
 
 	// (String) The name of the service account token.
 	// The name of the service account token.
@@ -114,11 +113,11 @@ type StackServiceAccountTokenParameters struct {
 
 	// Reference to a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountRef *v1.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
+	ServiceAccountRef *v2.NamespacedReference `json:"serviceAccountRef,omitempty" tf:"-"`
 
 	// Selector for a StackServiceAccount in cloud to populate serviceAccountId.
 	// +kubebuilder:validation:Optional
-	ServiceAccountSelector *v1.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
+	ServiceAccountSelector *v2.NamespacedSelector `json:"serviceAccountSelector,omitempty" tf:"-"`
 
 	// (String)
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
@@ -148,8 +147,8 @@ type StackServiceAccountTokenSpec struct {
 
 // StackServiceAccountTokenStatus defines the observed state of StackServiceAccountToken.
 type StackServiceAccountTokenStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StackServiceAccountTokenObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StackServiceAccountTokenObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

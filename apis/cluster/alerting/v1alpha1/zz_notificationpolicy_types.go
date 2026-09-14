@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MatcherInitParameters struct {
@@ -73,11 +73,11 @@ type NotificationPolicyInitParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// Defaults to false. Defaults to `false`.
 	DisableProvenance *bool `json:"disableProvenance,omitempty" tf:"disable_provenance,omitempty"`
@@ -103,11 +103,11 @@ type NotificationPolicyInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
@@ -168,11 +168,11 @@ type NotificationPolicyParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// Defaults to false. Defaults to `false`.
 	// +kubebuilder:validation:Optional
@@ -203,11 +203,11 @@ type NotificationPolicyParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block List) Routing rules for specific label sets. (see below for nested schema)
 	// Routing rules for specific label sets.
@@ -236,11 +236,11 @@ type PolicyInitParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -264,11 +264,11 @@ type PolicyInitParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -396,11 +396,11 @@ type PolicyParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -429,11 +429,11 @@ type PolicyParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -471,11 +471,11 @@ type PolicyPolicyInitParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -499,11 +499,11 @@ type PolicyPolicyInitParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -631,11 +631,11 @@ type PolicyPolicyParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -664,11 +664,11 @@ type PolicyPolicyParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -706,11 +706,11 @@ type PolicyPolicyPolicyInitParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -734,11 +734,11 @@ type PolicyPolicyPolicyInitParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -866,11 +866,11 @@ type PolicyPolicyPolicyParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -899,11 +899,11 @@ type PolicyPolicyPolicyParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -941,11 +941,11 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -969,11 +969,11 @@ type PolicyPolicyPolicyPolicyInitParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -1101,11 +1101,11 @@ type PolicyPolicyPolicyPolicyParameters struct {
 
 	// Reference to a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointRef *v1.Reference `json:"contactPointRef,omitempty" tf:"-"`
+	ContactPointRef *v2.Reference `json:"contactPointRef,omitempty" tf:"-"`
 
 	// Selector for a ContactPoint in alerting to populate contactPoint.
 	// +kubebuilder:validation:Optional
-	ContactPointSelector *v1.Selector `json:"contactPointSelector,omitempty" tf:"-"`
+	ContactPointSelector *v2.Selector `json:"contactPointSelector,omitempty" tf:"-"`
 
 	// (Boolean) Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
 	// Whether to continue matching subsequent rules if an alert matches the current rule. Otherwise, the rule will be 'consumed' by the first policy to match it.
@@ -1134,11 +1134,11 @@ type PolicyPolicyPolicyPolicyParameters struct {
 
 	// References to MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingRef []v1.Reference `json:"muteTimingRef,omitempty" tf:"-"`
+	MuteTimingRef []v2.Reference `json:"muteTimingRef,omitempty" tf:"-"`
 
 	// Selector for a list of MuteTiming in alerting to populate muteTimings.
 	// +kubebuilder:validation:Optional
-	MuteTimingSelector *v1.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
+	MuteTimingSelector *v2.Selector `json:"muteTimingSelector,omitempty" tf:"-"`
 
 	// (List of String) A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
 	// A list of time intervals to apply to alerts that match this policy to mute them for the specified time.
@@ -1288,8 +1288,8 @@ type PolicyPolicyPolicyPolicyPolicyParameters struct {
 
 // NotificationPolicySpec defines the desired state of NotificationPolicy
 type NotificationPolicySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     NotificationPolicyParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   NotificationPolicyParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1305,8 +1305,8 @@ type NotificationPolicySpec struct {
 
 // NotificationPolicyStatus defines the observed state of NotificationPolicy.
 type NotificationPolicyStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        NotificationPolicyObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               NotificationPolicyObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

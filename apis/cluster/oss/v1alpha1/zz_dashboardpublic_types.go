@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DashboardPublicInitParameters struct {
@@ -25,11 +25,11 @@ type DashboardPublicInitParameters struct {
 
 	// Reference to a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
-	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
+	DashboardRef *v2.Reference `json:"dashboardRef,omitempty" tf:"-"`
 
 	// Selector for a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
-	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+	DashboardSelector *v2.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
 	// (String) The unique identifier of the original dashboard.
 	// The unique identifier of the original dashboard.
@@ -52,11 +52,11 @@ type DashboardPublicInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) Set the share mode. The default value is public.
 	// Set the share mode. The default value is `public`.
@@ -123,11 +123,11 @@ type DashboardPublicParameters struct {
 
 	// Reference to a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
-	DashboardRef *v1.Reference `json:"dashboardRef,omitempty" tf:"-"`
+	DashboardRef *v2.Reference `json:"dashboardRef,omitempty" tf:"-"`
 
 	// Selector for a Dashboard in oss to populate dashboardUid.
 	// +kubebuilder:validation:Optional
-	DashboardSelector *v1.Selector `json:"dashboardSelector,omitempty" tf:"-"`
+	DashboardSelector *v2.Selector `json:"dashboardSelector,omitempty" tf:"-"`
 
 	// (String) The unique identifier of the original dashboard.
 	// The unique identifier of the original dashboard.
@@ -153,11 +153,11 @@ type DashboardPublicParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.Reference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.Reference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.Selector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.Selector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String) Set the share mode. The default value is public.
 	// Set the share mode. The default value is `public`.
@@ -177,8 +177,8 @@ type DashboardPublicParameters struct {
 
 // DashboardPublicSpec defines the desired state of DashboardPublic
 type DashboardPublicSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     DashboardPublicParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   DashboardPublicParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -194,8 +194,8 @@ type DashboardPublicSpec struct {
 
 // DashboardPublicStatus defines the observed state of DashboardPublic.
 type DashboardPublicStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DashboardPublicObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DashboardPublicObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

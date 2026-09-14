@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AlgorithmInitParameters struct {
@@ -78,11 +78,11 @@ type OutlierDetectorInitParameters struct {
 
 	// Reference to a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+	DataSourceRef *v2.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+	DataSourceSelector *v2.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
 	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	DatasourceType *string `json:"datasourceType,omitempty" tf:"datasource_type,omitempty"`
@@ -149,11 +149,11 @@ type OutlierDetectorParameters struct {
 
 	// Reference to a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceRef *v1.Reference `json:"dataSourceRef,omitempty" tf:"-"`
+	DataSourceRef *v2.Reference `json:"dataSourceRef,omitempty" tf:"-"`
 
 	// Selector for a DataSource in oss to populate datasourceUid.
 	// +kubebuilder:validation:Optional
-	DataSourceSelector *v1.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
+	DataSourceSelector *v2.Selector `json:"dataSourceSelector,omitempty" tf:"-"`
 
 	// The type of datasource being queried. Currently allowed values are prometheus, grafana-prometheus-datasource, grafana-amazonprometheus-datasource, loki, grafana-loki-datasource, graphite, grafana-graphite-datasource, grafana-datadog-datasource, postgres, grafana-postgresql-datasource, doitintl-bigquery-datasource, grafana-bigquery-datasource, grafana-snowflake-datasource, influxdb, grafana-influxdb-datasource, grafana-splunk-datasource, elasticsearch, grafana-elasticsearch-datasource, and grafana-mongodb-datasource.
 	// +kubebuilder:validation:Optional
@@ -191,8 +191,8 @@ type OutlierDetectorParameters struct {
 
 // OutlierDetectorSpec defines the desired state of OutlierDetector
 type OutlierDetectorSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     OutlierDetectorParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   OutlierDetectorParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -208,8 +208,8 @@ type OutlierDetectorSpec struct {
 
 // OutlierDetectorStatus defines the observed state of OutlierDetector.
 type OutlierDetectorStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OutlierDetectorObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OutlierDetectorObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

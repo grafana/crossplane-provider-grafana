@@ -5,104 +5,104 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this Collector.
-func (mg *Collector) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *Collector) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this Collector.
-func (mg *Collector) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *Collector) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this Collector.
-func (mg *Collector) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *Collector) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Collector.
-func (mg *Collector) GetProviderConfigReference() *xpv1.Reference {
+func (mg *Collector) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this Collector.
-func (mg *Collector) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *Collector) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this Collector.
-func (mg *Collector) SetConditions(c ...xpv1.Condition) {
+func (mg *Collector) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this Collector.
-func (mg *Collector) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *Collector) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this Collector.
-func (mg *Collector) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *Collector) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Collector.
-func (mg *Collector) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *Collector) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this Collector.
-func (mg *Collector) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *Collector) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this Pipeline.
-func (mg *Pipeline) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *Pipeline) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this Pipeline.
-func (mg *Pipeline) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *Pipeline) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this Pipeline.
-func (mg *Pipeline) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *Pipeline) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Pipeline.
-func (mg *Pipeline) GetProviderConfigReference() *xpv1.Reference {
+func (mg *Pipeline) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this Pipeline.
-func (mg *Pipeline) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *Pipeline) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this Pipeline.
-func (mg *Pipeline) SetConditions(c ...xpv1.Condition) {
+func (mg *Pipeline) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this Pipeline.
-func (mg *Pipeline) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *Pipeline) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this Pipeline.
-func (mg *Pipeline) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *Pipeline) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Pipeline.
-func (mg *Pipeline) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *Pipeline) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this Pipeline.
-func (mg *Pipeline) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *Pipeline) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

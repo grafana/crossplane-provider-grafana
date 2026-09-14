@@ -10,19 +10,18 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type FolderPermissionInitParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) The UID of the folder.
 	// The UID of the folder.
@@ -41,11 +40,11 @@ type FolderPermissionInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
@@ -74,11 +73,11 @@ type FolderPermissionParameters struct {
 
 	// Reference to a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderRef *v1.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
+	FolderRef *v2.NamespacedReference `json:"folderRef,omitempty" tf:"-"`
 
 	// Selector for a Folder in oss to populate folderUid.
 	// +kubebuilder:validation:Optional
-	FolderSelector *v1.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
+	FolderSelector *v2.NamespacedSelector `json:"folderSelector,omitempty" tf:"-"`
 
 	// (String) The UID of the folder.
 	// The UID of the folder.
@@ -99,11 +98,11 @@ type FolderPermissionParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (Block Set) The permission items to add/update. Items that are omitted from the list will be removed. (see below for nested schema)
 	// The permission items to add/update. Items that are omitted from the list will be removed.
@@ -130,11 +129,11 @@ type FolderPermissionPermissionsInitParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) ID of the user or service account to manage permissions for.
 	// ID of the user or service account to manage permissions for.
@@ -145,11 +144,11 @@ type FolderPermissionPermissionsInitParameters struct {
 
 	// Reference to a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 type FolderPermissionPermissionsObservation struct {
@@ -193,11 +192,11 @@ type FolderPermissionPermissionsParameters struct {
 
 	// Reference to a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.NamespacedReference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oss to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.NamespacedSelector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) ID of the user or service account to manage permissions for.
 	// ID of the user or service account to manage permissions for.
@@ -209,11 +208,11 @@ type FolderPermissionPermissionsParameters struct {
 
 	// Reference to a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserRef *v1.NamespacedReference `json:"userRef,omitempty" tf:"-"`
+	UserRef *v2.NamespacedReference `json:"userRef,omitempty" tf:"-"`
 
 	// Selector for a User in oss to populate userId.
 	// +kubebuilder:validation:Optional
-	UserSelector *v1.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
+	UserSelector *v2.NamespacedSelector `json:"userSelector,omitempty" tf:"-"`
 }
 
 // FolderPermissionSpec defines the desired state of FolderPermission
@@ -235,8 +234,8 @@ type FolderPermissionSpec struct {
 
 // FolderPermissionStatus defines the observed state of FolderPermission.
 type FolderPermissionStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        FolderPermissionObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               FolderPermissionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

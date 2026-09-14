@@ -5,44 +5,44 @@ Copyright 2022 Upbound Inc.
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *MetricsEndpointScrapeJob) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetManagementPolicies of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *MetricsEndpointScrapeJob) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) GetProviderConfigReference() *xpv1.ProviderConfigReference {
+func (mg *MetricsEndpointScrapeJob) GetProviderConfigReference() *xpv2.ProviderConfigReference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) GetWriteConnectionSecretToReference() *xpv1.LocalSecretReference {
+func (mg *MetricsEndpointScrapeJob) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) SetConditions(c ...xpv1.Condition) {
+func (mg *MetricsEndpointScrapeJob) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetManagementPolicies of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *MetricsEndpointScrapeJob) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) SetProviderConfigReference(r *xpv1.ProviderConfigReference) {
+func (mg *MetricsEndpointScrapeJob) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this MetricsEndpointScrapeJob.
-func (mg *MetricsEndpointScrapeJob) SetWriteConnectionSecretToReference(r *xpv1.LocalSecretReference) {
+func (mg *MetricsEndpointScrapeJob) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

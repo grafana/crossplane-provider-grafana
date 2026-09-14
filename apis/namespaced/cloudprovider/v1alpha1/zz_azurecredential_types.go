@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AutoDiscoveryConfigurationInitParameters struct {
@@ -61,7 +60,7 @@ type AzureCredentialInitParameters struct {
 
 	// (String, Sensitive) The client secret of the Azure Credential.
 	// The client secret of the Azure Credential.
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
 	// Whether the Azure Credential is enabled or not. Defaults to `true`.
@@ -157,7 +156,7 @@ type AzureCredentialParameters struct {
 	// (String, Sensitive) The client secret of the Azure Credential.
 	// The client secret of the Azure Credential.
 	// +kubebuilder:validation:Optional
-	ClientSecretSecretRef v1.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
+	ClientSecretSecretRef v2.LocalSecretKeySelector `json:"clientSecretSecretRef" tf:"-"`
 
 	// (Boolean) Whether the Azure Credential is enabled or not. Defaults to true.
 	// Whether the Azure Credential is enabled or not. Defaults to `true`.
@@ -319,8 +318,8 @@ type AzureCredentialSpec struct {
 
 // AzureCredentialStatus defines the observed state of AzureCredential.
 type AzureCredentialStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AzureCredentialObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AzureCredentialObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

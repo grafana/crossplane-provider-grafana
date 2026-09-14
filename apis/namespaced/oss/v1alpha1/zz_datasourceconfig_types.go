@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DataSourceConfigInitParameters struct {
@@ -30,15 +29,15 @@ type DataSourceConfigInitParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
-	SecureJSONDataEncodedSecretRef *v1.LocalSecretKeySelector `json:"secureJsonDataEncodedSecretRef,omitempty" tf:"-"`
+	SecureJSONDataEncodedSecretRef *v2.LocalSecretKeySelector `json:"secureJsonDataEncodedSecretRef,omitempty" tf:"-"`
 
 	// (String) Unique identifier. If unset, this will be automatically generated.
 	// Unique identifier. If unset, this will be automatically generated.
@@ -68,7 +67,7 @@ type DataSourceConfigParameters struct {
 	// (Map of String, Sensitive) Custom HTTP headers
 	// Custom HTTP headers
 	// +kubebuilder:validation:Optional
-	HTTPHeadersSecretRef *v1.LocalSecretReference `json:"httpHeadersSecretRef,omitempty" tf:"-"`
+	HTTPHeadersSecretRef *v2.LocalSecretReference `json:"httpHeadersSecretRef,omitempty" tf:"-"`
 
 	// (String) Serialized JSON string containing the json data. This attribute can be used to pass configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the json data. This attribute can be used to pass configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
@@ -85,16 +84,16 @@ type DataSourceConfigParameters struct {
 
 	// Reference to a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationRef *v1.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
+	OrganizationRef *v2.NamespacedReference `json:"organizationRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrganizationSelector *v1.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
+	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// +kubebuilder:validation:Optional
-	SecureJSONDataEncodedSecretRef *v1.LocalSecretKeySelector `json:"secureJsonDataEncodedSecretRef,omitempty" tf:"-"`
+	SecureJSONDataEncodedSecretRef *v2.LocalSecretKeySelector `json:"secureJsonDataEncodedSecretRef,omitempty" tf:"-"`
 
 	// (String) Unique identifier. If unset, this will be automatically generated.
 	// Unique identifier. If unset, this will be automatically generated.
@@ -121,8 +120,8 @@ type DataSourceConfigSpec struct {
 
 // DataSourceConfigStatus defines the observed state of DataSourceConfig.
 type DataSourceConfigStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DataSourceConfigObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DataSourceConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

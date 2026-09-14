@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ScheduleInitParameters struct {
@@ -41,11 +41,11 @@ type ScheduleInitParameters struct {
 
 	// References to OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
+	ShiftsRef []v2.Reference `json:"shiftsRef,omitempty" tf:"-"`
 
 	// Selector for a list of OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
+	ShiftsSelector *v2.Selector `json:"shiftsSelector,omitempty" tf:"-"`
 
 	// specific settings for a schedule. (see below for nested schema)
 	// The Slack-specific settings for a schedule.
@@ -61,11 +61,11 @@ type ScheduleInitParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The schedule's time zone.
 	// The schedule's time zone.
@@ -152,11 +152,11 @@ type ScheduleParameters struct {
 
 	// References to OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsRef []v1.Reference `json:"shiftsRef,omitempty" tf:"-"`
+	ShiftsRef []v2.Reference `json:"shiftsRef,omitempty" tf:"-"`
 
 	// Selector for a list of OnCallShift in oncall to populate shifts.
 	// +kubebuilder:validation:Optional
-	ShiftsSelector *v1.Selector `json:"shiftsSelector,omitempty" tf:"-"`
+	ShiftsSelector *v2.Selector `json:"shiftsSelector,omitempty" tf:"-"`
 
 	// specific settings for a schedule. (see below for nested schema)
 	// The Slack-specific settings for a schedule.
@@ -174,11 +174,11 @@ type ScheduleParameters struct {
 
 	// Reference to a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamRef *v1.Reference `json:"teamRef,omitempty" tf:"-"`
+	TeamRef *v2.Reference `json:"teamRef,omitempty" tf:"-"`
 
 	// Selector for a Team in oncall to populate teamId.
 	// +kubebuilder:validation:Optional
-	TeamSelector *v1.Selector `json:"teamSelector,omitempty" tf:"-"`
+	TeamSelector *v2.Selector `json:"teamSelector,omitempty" tf:"-"`
 
 	// (String) The schedule's time zone.
 	// The schedule's time zone.
@@ -203,19 +203,19 @@ type ScheduleSlackInitParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.Reference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.Reference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
 
 	// Reference to a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupRef *v1.Reference `json:"slackUserGroupRef,omitempty" tf:"-"`
+	SlackUserGroupRef *v2.Reference `json:"slackUserGroupRef,omitempty" tf:"-"`
 
 	// Selector for a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupSelector *v1.Selector `json:"slackUserGroupSelector,omitempty" tf:"-"`
+	SlackUserGroupSelector *v2.Selector `json:"slackUserGroupSelector,omitempty" tf:"-"`
 
 	// call users change.
 	// Slack user group id. Members of user group will be updated when on-call users change.
@@ -250,19 +250,19 @@ type ScheduleSlackParameters struct {
 
 	// Reference to a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelRef *v1.Reference `json:"slackChannelRef,omitempty" tf:"-"`
+	SlackChannelRef *v2.Reference `json:"slackChannelRef,omitempty" tf:"-"`
 
 	// Selector for a SlackChannel in oncall to populate channelId.
 	// +kubebuilder:validation:Optional
-	SlackChannelSelector *v1.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
+	SlackChannelSelector *v2.Selector `json:"slackChannelSelector,omitempty" tf:"-"`
 
 	// Reference to a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupRef *v1.Reference `json:"slackUserGroupRef,omitempty" tf:"-"`
+	SlackUserGroupRef *v2.Reference `json:"slackUserGroupRef,omitempty" tf:"-"`
 
 	// Selector for a UserGroup in oncall to populate userGroupId.
 	// +kubebuilder:validation:Optional
-	SlackUserGroupSelector *v1.Selector `json:"slackUserGroupSelector,omitempty" tf:"-"`
+	SlackUserGroupSelector *v2.Selector `json:"slackUserGroupSelector,omitempty" tf:"-"`
 
 	// call users change.
 	// Slack user group id. Members of user group will be updated when on-call users change.
@@ -276,8 +276,8 @@ type ScheduleSlackParameters struct {
 
 // ScheduleSpec defines the desired state of Schedule
 type ScheduleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ScheduleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ScheduleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -293,8 +293,8 @@ type ScheduleSpec struct {
 
 // ScheduleStatus defines the observed state of Schedule.
 type ScheduleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ScheduleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ScheduleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
