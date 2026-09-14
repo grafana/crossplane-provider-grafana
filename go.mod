@@ -11,7 +11,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.62.0
 	github.com/grafana/synthetic-monitoring-api-go-client v0.20.5
-	github.com/grafana/terraform-provider-grafana/v4 v4.45.1
+	github.com/grafana/terraform-provider-grafana/v4 v4.46.0
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/hashicorp/terraform-plugin-framework v1.15.0
 	github.com/hashicorp/terraform-plugin-go v0.30.0
@@ -123,7 +123,7 @@ require (
 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.9 // indirect
 	github.com/grafana/river v0.3.0 // indirect
-	github.com/grafana/slo-openapi-client/go/slo v0.0.0-20260601093053-2dcb0e110cba // indirect
+	github.com/grafana/slo-openapi-client/go/slo v0.0.0-20260730190738-75fe08b09d87 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.1-0.20191002090509-6af20e3a5340 // indirect
