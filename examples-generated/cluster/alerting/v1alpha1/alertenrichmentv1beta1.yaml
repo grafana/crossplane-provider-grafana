@@ -31,22 +31,22 @@ spec:
       - slack-critical
       step:
       - assign:
-        - annotations:
+          annotations:
             priority: high
             runbook_url: https://runbooks.grafana.com/alert-handling
           timeout: 30s
       - external:
-        - url: https://some-api.grafana.com/alert-enrichment
+          url: https://some-api.grafana.com/alert-enrichment
       - dataSource:
-        - logsQuery:
-          - dataSourceType: loki
+          logsQuery:
+            dataSourceType: loki
             dataSourceUid: loki-uid-123
             expr: '{job="my-app"} |= "error"'
             maxLines: 5
           timeout: 30s
       - dataSource:
-        - rawQuery:
-          - refId: A
+          rawQuery:
+            refId: A
             request: |-
               ${jsonencode({
                           datasource = {
@@ -59,28 +59,26 @@ spec:
                           maxDataPoints = 43200
                         })}
           timeout: 30s
-      - sift:
-        - {}
+      - sift: {}
       - explain:
-        - annotation: ai_explanation
-      - assistantInvestigations:
-        - {}
+          annotation: ai_explanation
+      - assistantInvestigations: {}
       - conditional:
-        - else:
-          - step:
+          else:
+            step:
             - assign:
-              - annotations:
+                annotations:
                   escalation_level: standard
           if:
-          - labelMatchers:
+            labelMatchers:
             - name: severity
               type: =
               value: critical
           then:
-          - step:
+            step:
             - assign:
-              - annotations:
+                annotations:
                   escalation_level: immediate
             - external:
-              - url: https://irm.grafana.com/create-incident
+                url: https://irm.grafana.com/create-incident
       title: Comprehensive alert enrichment
