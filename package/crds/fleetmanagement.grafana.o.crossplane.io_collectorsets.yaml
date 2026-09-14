@@ -122,7 +122,22 @@ spec:
                   collectors:
                     description: List of collectors
                     items:
-                      type: string
+                      properties:
+                        collectorType:
+                          type: string
+                        enabled:
+                          type: boolean
+                        id:
+                          type: string
+                        localAttributes:
+                          additionalProperties:
+                            type: string
+                          type: object
+                        remoteAttributes:
+                          additionalProperties:
+                            type: string
+                          type: object
+                      type: object
                     type: array
                 type: object
               conditions:

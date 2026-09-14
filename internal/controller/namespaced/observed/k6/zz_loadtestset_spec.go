@@ -40,8 +40,8 @@ var LoadTestSetSpec = tfdatasource.Spec{
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.LoadTestSet)
 			{
-				var v []string
-				if diags := state.GetAttribute(ctx, path.Root("load_tests"), &v); !diags.HasError() && len(v) > 0 {
+				var v []v1alpha1.LoadTestSetLoadTests
+				if diags := state.GetAttribute(ctx, path.Root("load_tests"), &v); !diags.HasError() {
 					cr.Status.AtProvider.LoadTests = v
 				}
 			}

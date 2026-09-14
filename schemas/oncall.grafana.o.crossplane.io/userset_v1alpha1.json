@@ -90,7 +90,22 @@
           "properties": {
             "users": {
               "items": {
-                "type": "string"
+                "additionalProperties": false,
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
               },
               "type": "array"
             }

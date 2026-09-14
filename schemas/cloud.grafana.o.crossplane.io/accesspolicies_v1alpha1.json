@@ -101,7 +101,25 @@
           "properties": {
             "accessPolicies": {
               "items": {
-                "type": "string"
+                "additionalProperties": false,
+                "properties": {
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
               },
               "type": "array"
             },

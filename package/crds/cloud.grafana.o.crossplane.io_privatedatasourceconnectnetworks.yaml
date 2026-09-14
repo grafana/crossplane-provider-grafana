@@ -140,7 +140,18 @@ spec:
                     type: string
                   privateDataSourceConnectNetworks:
                     items:
-                      type: string
+                      properties:
+                        displayName:
+                          type: string
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        region:
+                          type: string
+                        status:
+                          type: string
+                      type: object
                     type: array
                   regionFilter:
                     description: If set, only private data source connect networks

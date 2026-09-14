@@ -131,7 +131,24 @@ spec:
                 properties:
                   loadTests:
                     items:
-                      type: string
+                      properties:
+                        baselineTestRunID:
+                          type: string
+                        created:
+                          type: string
+                        id:
+                          type: string
+                        k6Version:
+                          type: string
+                        name:
+                          type: string
+                        projectID:
+                          type: string
+                        script:
+                          type: string
+                        updated:
+                          type: string
+                      type: object
                     type: array
                   name:
                     description: Human-friendly identifier of the load test.

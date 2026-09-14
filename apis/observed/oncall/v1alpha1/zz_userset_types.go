@@ -13,12 +13,22 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type UserSetUsers struct {
+	Email *string `json:"email,omitempty" tfsdk:"email"`
+
+	ID *string `json:"id,omitempty" tfsdk:"id"`
+
+	Role *string `json:"role,omitempty" tfsdk:"role"`
+
+	Username *string `json:"username,omitempty" tfsdk:"username"`
+}
+
 // UserSetParameters defines the input parameters for the grafana_oncall_users data source.
 type UserSetParameters struct{}
 
 // UserSetObservation holds the observed (computed) fields from the grafana_oncall_users data source.
 type UserSetObservation struct {
-	Users []string `json:"users,omitempty"`
+	Users []UserSetUsers `json:"users,omitempty"`
 }
 
 type UserSetSpec struct {

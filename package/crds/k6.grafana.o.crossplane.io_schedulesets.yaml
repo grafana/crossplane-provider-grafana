@@ -122,7 +122,44 @@ spec:
                   schedules:
                     description: List of k6 schedules.
                     items:
-                      type: string
+                      properties:
+                        createdBy:
+                          type: string
+                        cron:
+                          properties:
+                            schedule:
+                              type: string
+                            timezone:
+                              type: string
+                          type: object
+                        deactivated:
+                          type: boolean
+                        id:
+                          type: string
+                        loadTestID:
+                          type: string
+                        nextRun:
+                          type: string
+                        recurrenceRule:
+                          properties:
+                            byday:
+                              items:
+                                type: string
+                              type: array
+                            count:
+                              format: int32
+                              type: integer
+                            frequency:
+                              type: string
+                            interval:
+                              format: int32
+                              type: integer
+                            until:
+                              type: string
+                          type: object
+                        starts:
+                          type: string
+                      type: object
                     type: array
                 type: object
               conditions:

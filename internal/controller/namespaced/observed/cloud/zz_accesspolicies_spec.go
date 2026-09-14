@@ -42,8 +42,8 @@ var AccessPoliciesSpec = tfdatasource.Spec{
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.AccessPolicies)
 			{
-				var v []string
-				if diags := state.GetAttribute(ctx, path.Root("access_policies"), &v); !diags.HasError() && len(v) > 0 {
+				var v []v1alpha1.AccessPoliciesAccessPolicies
+				if diags := state.GetAttribute(ctx, path.Root("access_policies"), &v); !diags.HasError() {
 					cr.Status.AtProvider.AccessPolicies = v
 				}
 			}

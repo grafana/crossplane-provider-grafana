@@ -128,7 +128,20 @@ spec:
                     type: string
                   projects:
                     items:
-                      type: string
+                      properties:
+                        created:
+                          type: string
+                        grafanaFolderUID:
+                          type: string
+                        id:
+                          type: string
+                        isDefault:
+                          type: boolean
+                        name:
+                          type: string
+                        updated:
+                          type: string
+                      type: object
                     type: array
                 type: object
               conditions:

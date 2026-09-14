@@ -45,8 +45,8 @@ var LibraryPanelSetSpec = tfdatasource.Spec{
 			}
 
 			{
-				var v []string
-				if diags := state.GetAttribute(ctx, path.Root("panels"), &v); !diags.HasError() && len(v) > 0 {
+				var v []v1alpha1.LibraryPanelSetPanels
+				if diags := state.GetAttribute(ctx, path.Root("panels"), &v); !diags.HasError() {
 					cr.Status.AtProvider.Panels = v
 				}
 			}

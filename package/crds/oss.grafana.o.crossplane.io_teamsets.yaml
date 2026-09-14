@@ -141,7 +141,23 @@ spec:
                   teams:
                     description: The list of matching Grafana teams.
                     items:
-                      type: string
+                      properties:
+                        email:
+                          type: string
+                        id:
+                          format: int64
+                          type: integer
+                        memberCount:
+                          format: int64
+                          type: integer
+                        name:
+                          type: string
+                        orgID:
+                          format: int64
+                          type: integer
+                        uid:
+                          type: string
+                      type: object
                     type: array
                 type: object
               conditions:

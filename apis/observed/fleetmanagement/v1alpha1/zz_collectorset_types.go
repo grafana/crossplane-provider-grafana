@@ -13,13 +13,25 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+type CollectorSetCollectors struct {
+	CollectorType *string `json:"collectorType,omitempty" tfsdk:"collector_type"`
+
+	Enabled *bool `json:"enabled,omitempty" tfsdk:"enabled"`
+
+	ID *string `json:"id,omitempty" tfsdk:"id"`
+
+	LocalAttributes map[string]string `json:"localAttributes,omitempty" tfsdk:"local_attributes"`
+
+	RemoteAttributes map[string]string `json:"remoteAttributes,omitempty" tfsdk:"remote_attributes"`
+}
+
 // CollectorSetParameters defines the input parameters for the grafana_fleet_management_collectors data source.
 type CollectorSetParameters struct{}
 
 // CollectorSetObservation holds the observed (computed) fields from the grafana_fleet_management_collectors data source.
 type CollectorSetObservation struct {
 	// List of collectors
-	Collectors []string `json:"collectors,omitempty"`
+	Collectors []CollectorSetCollectors `json:"collectors,omitempty"`
 }
 
 type CollectorSetSpec struct {
