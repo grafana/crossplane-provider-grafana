@@ -335,6 +335,10 @@ type FreeformInitParameters struct {
 	// (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
 	// Freeform Query Field - valid promQl
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	SourceDatasourceUID *string `json:"sourceDatasourceUid,omitempty" tf:"source_datasource_uid,omitempty"`
 }
 
 type FreeformObservation struct {
@@ -342,6 +346,10 @@ type FreeformObservation struct {
 	// (Block List) Required. Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported. (see below for nested schema)
 	// Freeform Query Field - valid promQl
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
+
+	// (String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	SourceDatasourceUID *string `json:"sourceDatasourceUid,omitempty" tf:"source_datasource_uid,omitempty"`
 }
 
 type FreeformParameters struct {
@@ -350,6 +358,11 @@ type FreeformParameters struct {
 	// Freeform Query Field - valid promQl
 	// +kubebuilder:validation:Optional
 	Query *string `json:"query" tf:"query,omitempty"`
+
+	// (String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// +kubebuilder:validation:Optional
+	SourceDatasourceUID *string `json:"sourceDatasourceUid,omitempty" tf:"source_datasource_uid,omitempty"`
 }
 
 type GrafanaQueriesInitParameters struct {
@@ -511,6 +524,10 @@ type RatioInitParameters struct {
 	// Defines Group By Labels used for per-label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
 	GroupByLabels []*string `json:"groupByLabels,omitempty" tf:"group_by_labels,omitempty"`
 
+	// (String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	SourceDatasourceUID *string `json:"sourceDatasourceUid,omitempty" tf:"source_datasource_uid,omitempty"`
+
 	// (String) Counter metric for success events (numerator)
 	// Counter metric for success events (numerator)
 	SuccessMetric *string `json:"successMetric,omitempty" tf:"success_metric,omitempty"`
@@ -525,6 +542,10 @@ type RatioObservation struct {
 	// label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
 	// Defines Group By Labels used for per-label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
 	GroupByLabels []*string `json:"groupByLabels,omitempty" tf:"group_by_labels,omitempty"`
+
+	// (String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	SourceDatasourceUID *string `json:"sourceDatasourceUid,omitempty" tf:"source_datasource_uid,omitempty"`
 
 	// (String) Counter metric for success events (numerator)
 	// Counter metric for success events (numerator)
@@ -541,6 +562,11 @@ type RatioParameters struct {
 	// Defines Group By Labels used for per-label alerting. These appear as variables on SLO dashboards to enable filtering and aggregation. Labels must adhere to Prometheus label name schema - "^[a-zA-Z_][a-zA-Z0-9_]*$"
 	// +kubebuilder:validation:Optional
 	GroupByLabels []*string `json:"groupByLabels,omitempty" tf:"group_by_labels,omitempty"`
+
+	// (String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.
+	// +kubebuilder:validation:Optional
+	SourceDatasourceUID *string `json:"sourceDatasourceUid,omitempty" tf:"source_datasource_uid,omitempty"`
 
 	// (String) Counter metric for success events (numerator)
 	// Counter metric for success events (numerator)
@@ -593,8 +619,8 @@ type SLOInitParameters struct {
 	// **Required.** Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
 	Query []QueryInitParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
-	// The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	// rate alert rules carry a workbench_troubleshoot_url annotation pointing at the matching entities. See predefined searches for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.
+	// A Knowledge Graph search expression scoping this SLO to a set of entities, for example "shipping connected services". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.
 	SearchExpression *string `json:"searchExpression,omitempty" tf:"search_expression,omitempty"`
 
 	// (String) UUID for the SLO. Custom UUIDs can be set. If not provided, a random UUID will be generated by the API.
@@ -679,8 +705,8 @@ type SLOObservation struct {
 	// **Required.** Query describes the indicator that will be measured against the objective. Freeform Query types are currently supported.
 	Query []QueryObservation `json:"query,omitempty" tf:"query,omitempty"`
 
-	// empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
-	// The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	// rate alert rules carry a workbench_troubleshoot_url annotation pointing at the matching entities. See predefined searches for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.
+	// A Knowledge Graph search expression scoping this SLO to a set of entities, for example "shipping connected services". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.
 	SearchExpression *string `json:"searchExpression,omitempty" tf:"search_expression,omitempty"`
 
 	// (String) UUID for the SLO. Custom UUIDs can be set. If not provided, a random UUID will be generated by the API.
@@ -736,8 +762,8 @@ type SLOParameters struct {
 	// +kubebuilder:validation:Optional
 	Query []QueryParameters `json:"query,omitempty" tf:"query,omitempty"`
 
-	// empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
-	// The name of a search expression in Grafana Asserts. Must be non-empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.
+	// rate alert rules carry a workbench_troubleshoot_url annotation pointing at the matching entities. See predefined searches for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.
+	// A Knowledge Graph search expression scoping this SLO to a set of entities, for example "shipping connected services". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.
 	// +kubebuilder:validation:Optional
 	SearchExpression *string `json:"searchExpression,omitempty" tf:"search_expression,omitempty"`
 
