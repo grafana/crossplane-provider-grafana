@@ -31,6 +31,13 @@
       ],
     },
     {
+      // Let terraform-provider-grafana drive Grafana monorepo dependency updates
+      enabled: false,
+      matchPackageNames: [
+        '/^github\\.com/grafana/grafana(/|$)/',
+      ],
+    },
+    {
       // Terraform provider updates bring new/updated resources, use feat(deps) to trigger a minor release
       // When terraform-provider-grafana is updated, run make submodules and make generate on that PR
       matchPackageNames: [
