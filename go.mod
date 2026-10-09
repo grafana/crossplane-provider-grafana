@@ -79,7 +79,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-logr/zapr v1.3.0 // indirect
 	github.com/go-openapi/analysis v0.25.2 // indirect
-	github.com/go-openapi/errors v0.22.7 // indirect
+	github.com/go-openapi/errors v0.22.8 // indirect
 	github.com/go-openapi/jsonpointer v0.23.1 // indirect
 	github.com/go-openapi/jsonreference v0.21.6 // indirect
 	github.com/go-openapi/loads v0.23.3 // indirect
@@ -122,7 +122,7 @@ require (
 	github.com/grafana/grafana-app-sdk/logging v0.56.2 // indirect
 	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 // indirect
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260622091431-7fe3d665bcc0 // indirect
-	github.com/grafana/grafana-openapi-client-go v0.0.0-20260414120814-5b95bb183fae // indirect
+	github.com/grafana/grafana-openapi-client-go v0.0.0-20260828183528-15d99ca95e47 // indirect
 	github.com/grafana/grafana-plugin-sdk-go v0.292.0 // indirect
 	github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.0-20250925121631-89b988ca553e // indirect
 	github.com/grafana/grafana/apps/alerting/notifications v0.0.0-20260323093832-0cb690db9135 // indirect
@@ -237,7 +237,7 @@ require (
 	go.opentelemetry.io/proto/otlp v1.10.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
-	go.yaml.in/yaml/v3 v3.0.4 // indirect
+	go.yaml.in/yaml/v3 v3.0.5 // indirect
 	golang.org/x/exp v0.0.0-20260611194520-c48552f49976 // indirect
 	golang.org/x/mod v0.40.0 // indirect
 	golang.org/x/net v0.58.0 // indirect
