@@ -21,6 +21,10 @@ type MetricsEndpointScrapeJobParameters struct {
 	// The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
 	// +kubebuilder:validation:Required
 	StackID string `json:"stackID"`
+
+	// Extra labels to add to scraped series
+	// +optional
+	StaticLabels map[string]string `json:"staticLabels,omitempty"`
 }
 
 // MetricsEndpointScrapeJobObservation holds the observed (computed) fields from the grafana_connections_metrics_endpoint_scrape_job data source.
@@ -42,6 +46,9 @@ type MetricsEndpointScrapeJobObservation struct {
 
 	// Frequency for scraping the metrics endpoint: 30, 60, or 120 seconds.
 	ScrapeIntervalSeconds *int64 `json:"scrapeIntervalSeconds,omitempty"`
+
+	// Extra labels to add to scraped series
+	StaticLabels map[string]string `json:"staticLabels,omitempty"`
 
 	// The url to scrape metrics.
 	URL *string `json:"url,omitempty"`

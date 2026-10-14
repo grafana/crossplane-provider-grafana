@@ -18,4 +18,6 @@ spec:
     name: my-scrape-job
     scrapeIntervalSeconds: 120
     stackId: "1"
+    staticLabels:
+      example: value
     url: https://grafana.com/metrics

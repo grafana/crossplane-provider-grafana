@@ -7,5 +7,6 @@ spec:
   forProvider:
     name: "example-name"
     stackID: "example-stack_id"
+    staticLabels: # TODO
   providerConfigRef:
     name: example

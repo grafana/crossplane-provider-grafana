@@ -34,6 +34,8 @@ var MetricsEndpointScrapeJobSpec = tfdatasource.Spec{
 
 			attrs["stack_id"] = tftypes.NewValue(tftypes.String, cr.Spec.ForProvider.StackID)
 
+			// TODO: complex type map[string]string for static_labels
+
 			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
@@ -79,6 +81,8 @@ var MetricsEndpointScrapeJobSpec = tfdatasource.Spec{
 					cr.Status.AtProvider.ScrapeIntervalSeconds = v
 				}
 			}
+
+			// TODO: complex type map[string]string for static_labels
 
 			{
 				var v *string

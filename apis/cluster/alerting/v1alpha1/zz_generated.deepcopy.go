@@ -13977,6 +13977,11 @@ func (in *RuleNotificationSettingsInitParameters) DeepCopyInto(out *RuleNotifica
 			}
 		}
 	}
+	if in.Policy != nil {
+		in, out := &in.Policy, &out.Policy
+		*out = new(string)
+		**out = **in
+	}
 	if in.RepeatInterval != nil {
 		in, out := &in.RepeatInterval, &out.RepeatInterval
 		*out = new(string)
@@ -14044,6 +14049,11 @@ func (in *RuleNotificationSettingsObservation) DeepCopyInto(out *RuleNotificatio
 				**out = **in
 			}
 		}
+	}
+	if in.Policy != nil {
+		in, out := &in.Policy, &out.Policy
+		*out = new(string)
+		**out = **in
 	}
 	if in.RepeatInterval != nil {
 		in, out := &in.RepeatInterval, &out.RepeatInterval
@@ -14122,6 +14132,11 @@ func (in *RuleNotificationSettingsParameters) DeepCopyInto(out *RuleNotification
 				**out = **in
 			}
 		}
+	}
+	if in.Policy != nil {
+		in, out := &in.Policy, &out.Policy
+		*out = new(string)
+		**out = **in
 	}
 	if in.RepeatInterval != nil {
 		in, out := &in.RepeatInterval, &out.RepeatInterval

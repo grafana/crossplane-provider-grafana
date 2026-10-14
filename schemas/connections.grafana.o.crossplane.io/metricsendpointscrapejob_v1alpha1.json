@@ -26,6 +26,13 @@
             "stackID": {
               "description": "The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.",
               "type": "string"
+            },
+            "staticLabels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Extra labels to add to scraped series",
+              "type": "object"
             }
           },
           "required": [
@@ -127,6 +134,13 @@
               "description": "Frequency for scraping the metrics endpoint: 30, 60, or 120 seconds.",
               "format": "int64",
               "type": "integer"
+            },
+            "staticLabels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Extra labels to add to scraped series",
+              "type": "object"
             },
             "url": {
               "description": "The url to scrape metrics.",

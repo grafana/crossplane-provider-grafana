@@ -3473,7 +3473,7 @@ resources:
             - terraform import grafana_cloud_private_data_source_connect_network_token.name "{{ region }}:{{ tokenId }}"
     grafana_cloud_provider_aws_account:
         subCategory: Cloud Provider
-        description: This resource allows you to link your AWS Account to Grafana Cloud for use in creating Cloud Provider resources. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
+        description: This resource allows you to link your AWS Account to Grafana Cloud for use in creating Cloud Provider resources. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/infrastructure-as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_account
         title: grafana_cloud_provider_aws_account Resource - terraform-provider-grafana
         examples:
@@ -3502,7 +3502,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_account.name "{{ stack_id }}:{{ resource_id }}"
     grafana_cloud_provider_aws_cloudwatch_scrape_job:
         subCategory: Cloud Provider
-        description: This resource allows you to scrape AWS CloudWatch metrics in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
+        description: This resource allows you to scrape AWS CloudWatch metrics in Grafana Cloud without needing to run your own infrastructure. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/infrastructure-as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_cloudwatch_scrape_job
         title: grafana_cloud_provider_aws_cloudwatch_scrape_job Resource - terraform-provider-grafana
         examples:
@@ -3581,6 +3581,7 @@ resources:
             custom_namespace: (Block List) Zero or more configuration blocks to configure custom namespaces for the AWS CloudWatch Scrape Job to scrape. Each block must have a distinct name attribute. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             disabled_reason: (String) When the AWS CloudWatch Scrape Job is disabled, this will show the reason that it is in that state.
             enabled: (Boolean) Whether the AWS CloudWatch Scrape Job is enabled or not. Defaults to true.
+            enhanced_metric: (Block List) Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one metric or enhanced_metric block must be configured. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
             export_tags: (Boolean) When enabled, AWS resource tags are exported as Prometheus labels to metrics formatted as aws_<service_name>_info. Defaults to true.
             id: (String) The Terraform Resource ID. This has the format "{{ stack_id }}:{{ name }}".
             key: (String) The key of the tag filter.
@@ -3599,7 +3600,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_cloudwatch_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_provider_aws_resource_metadata_scrape_job:
         subCategory: Cloud Provider
-        description: This resource allows you to scrape AWS resource metadata such as ARN and tags as info metrics in Grafana Cloud without needing to run your own infrastructure. Use this resource if you aren't using grafana_cloud_provider_aws_cloudwatch_scrape_job, but still want to have AWS resource metadata available in Grafana Cloud, for example for use with our AWS Metrics Streams integration and/or Knowledge Graph features. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
+        description: This resource allows you to scrape AWS resource metadata such as ARN and tags as info metrics in Grafana Cloud without needing to run your own infrastructure. Use this resource if you aren't using grafana_cloud_provider_aws_cloudwatch_scrape_job, but still want to have AWS resource metadata available in Grafana Cloud, for example for use with our AWS Metrics Streams integration and/or Knowledge Graph features. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/infrastructure-as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/aws/
         name: grafana_cloud_provider_aws_resource_metadata_scrape_job
         title: grafana_cloud_provider_aws_resource_metadata_scrape_job Resource - terraform-provider-grafana
         examples:
@@ -3658,7 +3659,7 @@ resources:
             - terraform import grafana_cloud_provider_aws_resource_metadata_scrape_job.name "{{ stack_id }}:{{ name }}"
     grafana_cloud_provider_azure_credential:
         subCategory: Cloud Provider
-        description: This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.terraform.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/
+        description: This resource allows you to autodiscover resources in your Azure tenant and scrape Azure Monitor metrics for those resources in Grafana Cloud without needing to run your own infrastructure. Refer to Configure authentication for the Grafana Provider https://grafana.com/docs/grafana-cloud/learn-and-build/as-code/infrastructure-as-code/terraform/terraform-cloud-provider-o11y/#configure-authentication-for-the-grafana-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/azure/
         name: grafana_cloud_provider_azure_credential
         title: grafana_cloud_provider_azure_credential Resource - terraform-provider-grafana
         examples:
@@ -3980,6 +3981,9 @@ resources:
                   "name": "my-scrape-job",
                   "scrape_interval_seconds": 120,
                   "stack_id": "1",
+                  "static_labels": {
+                    "example": "value"
+                  },
                   "url": "https://grafana.com/metrics"
                 }
         argumentDocs:
@@ -3992,6 +3996,7 @@ resources:
             name: (String) The name of the metrics endpoint scrape job. Part of the Terraform Resource ID.
             scrape_interval_seconds: '(Number) Frequency for scraping the metrics endpoint: 30, 60, or 120 seconds.'
             stack_id: (String) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
+            static_labels: (Map of String) Extra labels to add to scraped series
             url: (String) The url to scrape metrics from; a valid HTTPs URL is required.
         importStatements:
             - terraform import grafana_connections_metrics_endpoint_scrape_job.name "{{ stack_id }}:{{ name }}"
@@ -4503,6 +4508,14 @@ resources:
                   "secure_json_data_encoded": "${jsonencode({\n    basicAuthPassword = \"password\"\n  })}",
                   "type": "prometheus",
                   "url": "https://my-instances.com"
+                }
+            - name: amp
+              manifest: |-
+                {
+                  "json_data_encoded": "${jsonencode({\n    httpMethod    = \"POST\"\n    authType      = \"default\"\n    defaultRegion = \"us-east-1\"\n    assumeRoleArn = \"arn:aws:iam::123456789012:role/my-grafana-role\"\n  })}",
+                  "name": "amp",
+                  "type": "grafana-amazonprometheus-datasource",
+                  "url": "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example"
                 }
         argumentDocs:
             access_mode: '(String) The method by which Grafana will access the data source: proxy or direct. Defaults to proxy.'
@@ -5192,6 +5205,29 @@ resources:
             stack_id: (Number) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
         importStatements:
             - terraform import grafana_frontend_o11y_app.name "{{ stack_id }}:{{ name }}"
+    grafana_incident_role:
+        subCategory: Incident
+        description: 'Manages a Grafana Incident role that can be assigned to people during an incident. The Incident API enforces two limits that affect Terraform: Creating or unarchiving a role fails when the organization already has 5 active (non-archived) roles.Deleting or archiving a role fails when the organization has 2 or fewer active roles. Terraform applies independent resources in parallel, so a configuration that frees an active slot and fills it in the same apply may fail depending on which call reaches the API first. Order the two with depends_on, putting the dependency on whichever role frees the slot:'
+        name: grafana_incident_role
+        title: grafana_incident_role Resource - terraform-provider-grafana
+        examples:
+            - name: commander
+              manifest: |-
+                {
+                  "description": "Coordinates the response and owns the incident.",
+                  "important": true,
+                  "mandatory": true,
+                  "name": "Commander"
+                }
+        argumentDocs:
+            archived: (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
+            description: (String) A description of what the role is responsible for.
+            id: (String) The numeric ID of the role.
+            important: (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
+            mandatory: (Boolean) Whether this role must be assigned on every incident. Defaults to false.
+            name: (String) The name of the role, for example Commander.
+        importStatements:
+            - terraform import grafana_incident_role.name "{{ id }}"
     grafana_k6_installation:
         subCategory: k6
         description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ The provider''s cloud_access_policy_token needs the following scopes to manage the resources in the example below: stacks:readstacks:writestacks:deletestack-service-accounts:write'
@@ -6248,7 +6284,7 @@ resources:
             acknowledge_signal: (String) Template for sending a signal to acknowledge the Incident.
             channel_id: (String) Slack channel id. Alerts will be directed to this channel in Slack.
             default_route: '(Block List, Min: 1, Max: 1) The Default route for all alerts from the given integration (see below for nested schema)'
-            dynamic_labels: (List of Map of String) A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+            dynamic_labels: (List of Map of String) A list of string-to-string mappings for dynamic labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.
             email: '(Block List, Max: 1) Templates for Email. (see below for nested schema)'
             enabled: (Boolean) Enable notification in MS teams. Defaults to true.
             escalation_chain_id: (String) The ID of the escalation chain.
@@ -6256,7 +6292,7 @@ resources:
             id: (String) The ID of this resource.
             image_url: (String) Template for Alert image url.
             inbound_email: (String) The inbound email address for the integration. Only available for integration type inbound_email.
-            labels: (List of Map of String) A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource).
+            labels: (List of Map of String) A list of string-to-string mappings for static labels. Each map must include one key named "key" and one key named "value" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.
             link: (String) The link for using in an integrated tool.
             message: (String) Template for Alert message.
             microsoft_teams: '(Block List, Max: 1) Templates for Microsoft Teams. NOTE: Microsoft Teams templates are only available on Grafana Cloud. (see below for nested schema)'
@@ -6318,11 +6354,22 @@ resources:
                   "duration": "${60 * 60 * 12}",
                   "frequency": "weekly",
                   "interval": 1,
+                  "lifecycle": [
+                    {
+                      "precondition": [
+                        {
+                          "condition": "${length(local.emea_missing_emails) == 0}",
+                          "error_message": "No OnCall user has these emails: ${join(\", \", local.emea_missing_emails)}"
+                        }
+                      ]
+                    }
+                  ],
                   "name": "EMEA Weekday Shift",
-                  "rolling_users": "${[for k in flatten([\n    local.teams_map_of_user_id.emea,\n  ]) : [k]]}",
+                  "rolling_users": "${[\n    for email in local.emea_rotation : [local.oncall_user_ids_by_email[lower(email)]]\n  ]}",
                   "start": "2022-02-28T03:00:00",
                   "start_rotation_from_user_index": 0,
                   "team_id": "${data.grafana_oncall_team.my_team.id}",
+                  "time_zone": "UTC",
                   "type": "rolling_users",
                   "week_start": "MO"
                 }
@@ -7127,7 +7174,7 @@ resources:
             active_timings: (List of String) A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
             annotations: (Map of String) Key-value pairs of metadata to attach to the alert rule. They add additional information, such as a summary or runbook_url, to help identify and investigate alerts. The __dashboardUid__ and __panelId__ annotations, which link alerts to a panel, must be set together. Defaults to map[].
             condition: (String) The ref_id of the query node in the data field to use as the alert condition.
-            contact_point: (String) The contact point to route notifications that match this rule to.
+            contact_point: (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
             data: '(Block List, Min: 1) A sequence of stages that describe the contents of the rule. (see below for nested schema)'
             datasource_uid: (String) The UID of the datasource being queried, or "-100" if this stage is an expression stage.
             disable_provenance: (Boolean) Allow modifying the rule group from other sources than Terraform or the Grafana API. Defaults to false.
@@ -7151,6 +7198,7 @@ resources:
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting. Defaults to NoData if not set.
             notification_settings: '(Block List, Max: 1) Notification settings for the rule. If specified, it overrides the notification policies. Available since Grafana 10.4, requires feature flag ''alertingSimplifiedRouting'' to be enabled. (see below for nested schema)'
             org_id: (String) The Organization ID. If not set, the Org ID defined in the provider block will be used.
+            policy: (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
             query_type: (String) An optional identifier for the type of query being executed. Defaults to ``.
             record: '(Block List, Max: 1) Settings for a recording rule. Available since Grafana 11.2, requires feature flag ''grafanaManagedRecordingRules'' to be enabled. (see below for nested schema)'
             ref_id: (String) A unique string to identify this query stage within a rule.

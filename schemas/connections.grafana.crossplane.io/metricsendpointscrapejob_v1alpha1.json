@@ -100,6 +100,14 @@
               "description": "(String) The Stack ID of the Grafana Cloud instance.\nThe Stack ID of the Grafana Cloud instance.",
               "type": "string"
             },
+            "staticLabels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "(Map of String) Extra labels to add to scraped series\nExtra labels to add to scraped series",
+              "type": "object",
+              "x-kubernetes-map-type": "granular"
+            },
             "url": {
               "description": "(String) The url to scrape metrics from; a valid HTTPs URL is required.\nThe url to scrape metrics from; a valid HTTPs URL is required.",
               "type": "string"
@@ -182,6 +190,14 @@
             "stackId": {
               "description": "(String) The Stack ID of the Grafana Cloud instance.\nThe Stack ID of the Grafana Cloud instance.",
               "type": "string"
+            },
+            "staticLabels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "(Map of String) Extra labels to add to scraped series\nExtra labels to add to scraped series",
+              "type": "object",
+              "x-kubernetes-map-type": "granular"
             },
             "url": {
               "description": "(String) The url to scrape metrics from; a valid HTTPs URL is required.\nThe url to scrape metrics from; a valid HTTPs URL is required.",
@@ -327,6 +343,14 @@
             "stackId": {
               "description": "(String) The Stack ID of the Grafana Cloud instance.\nThe Stack ID of the Grafana Cloud instance.",
               "type": "string"
+            },
+            "staticLabels": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "(Map of String) Extra labels to add to scraped series\nExtra labels to add to scraped series",
+              "type": "object",
+              "x-kubernetes-map-type": "granular"
             },
             "url": {
               "description": "(String) The url to scrape metrics from; a valid HTTPs URL is required.\nThe url to scrape metrics from; a valid HTTPs URL is required.",

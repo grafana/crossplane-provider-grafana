@@ -128,6 +128,7 @@ var CategoryConfig = map[string]CategoryInfo{
 	"Connections":            {"connections", 1},
 	"Fleet Management":       {"fleetmanagement", 2},
 	"Frontend Observability": {"frontendobservability", 2},
+	"Incident":               {"incident", 1},
 	"k6":                     {"k6", 1},
 	"Knowledge Graph":        {"asserts", 1},
 }

@@ -23,8 +23,8 @@ type DataInitParameters struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -46,8 +46,8 @@ type DataObservation struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -71,8 +71,8 @@ type DataParameters struct {
 	// +kubebuilder:validation:Optional
 	Model *string `json:"model" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
@@ -370,8 +370,8 @@ type RuleNotificationSettingsInitParameters struct {
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
-	// The contact point to route notifications that match this rule to.
+	// (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+	// The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/alerting/v1alpha1.ContactPoint
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
@@ -402,6 +402,10 @@ type RuleNotificationSettingsInitParameters struct {
 	// A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
 
+	// (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
+	// The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
+	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
+
 	// sending a notification if an alert is still firing. Default is 4 hours.
 	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
 	RepeatInterval *string `json:"repeatInterval,omitempty" tf:"repeat_interval,omitempty"`
@@ -413,8 +417,8 @@ type RuleNotificationSettingsObservation struct {
 	// A list of time interval names to apply to alerts that match this policy to suppress them unless they are sent at the specified time. Supported in Grafana 12.1.0 and later
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
-	// The contact point to route notifications that match this rule to.
+	// (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+	// The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
 	ContactPoint *string `json:"contactPoint,omitempty" tf:"contact_point,omitempty"`
 
 	// (List of String) A list of alert labels to group alerts into notifications by. Use the special label ... to group alerts by all labels, effectively disabling grouping. If empty, no grouping is used. If specified, requires labels 'alertname' and 'grafana_folder' to be included.
@@ -432,6 +436,10 @@ type RuleNotificationSettingsObservation struct {
 	// (List of String) A list of mute timing names to apply to alerts that match this policy.
 	// A list of mute timing names to apply to alerts that match this policy.
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
+	// The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
+	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 
 	// sending a notification if an alert is still firing. Default is 4 hours.
 	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
@@ -445,8 +453,8 @@ type RuleNotificationSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	ActiveTimings []*string `json:"activeTimings,omitempty" tf:"active_timings,omitempty"`
 
-	// (String) The contact point to route notifications that match this rule to.
-	// The contact point to route notifications that match this rule to.
+	// (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+	// The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
 	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/alerting/v1alpha1.ContactPoint
 	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.FieldExtractor("name")
 	// +crossplane:generate:reference:refFieldName=ContactPointRef
@@ -481,6 +489,11 @@ type RuleNotificationSettingsParameters struct {
 	// A list of mute timing names to apply to alerts that match this policy.
 	// +kubebuilder:validation:Optional
 	MuteTimings []*string `json:"muteTimings,omitempty" tf:"mute_timings,omitempty"`
+
+	// (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
+	// The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
+	// +kubebuilder:validation:Optional
+	Policy *string `json:"policy,omitempty" tf:"policy,omitempty"`
 
 	// sending a notification if an alert is still firing. Default is 4 hours.
 	// Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
