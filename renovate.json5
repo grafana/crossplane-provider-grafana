@@ -31,10 +31,11 @@
       ],
     },
     {
-      // Let terraform-provider-grafana drive Grafana monorepo dependency updates
+      // Let terraform-provider-grafana drive Grafana monorepo and Asserts client dependency updates
       enabled: false,
       matchPackageNames: [
         '/^github\\.com/grafana/grafana(/|$)/',
+        '/^github\\.com/grafana/grafana-asserts-public-clients(/|$)/',
       ],
     },
     {
