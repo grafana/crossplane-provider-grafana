@@ -119,6 +119,8 @@ github.com/go-openapi/analysis v0.25.2 h1:I0vy4n3alz+DHTiN1PRhCb7QZxkK6g5YmswZKv
 github.com/go-openapi/analysis v0.25.2/go.mod h1:Uhs1t/2XR10EnwONYILGEzw8gcfGIG5Xk5K2AxnhqDo=
 github.com/go-openapi/errors v0.22.7 h1:JLFBGC0Apwdzw3484MmBqspjPbwa2SHvpDm0u5aGhUA=
 github.com/go-openapi/errors v0.22.7/go.mod h1://QW6SD9OsWtH6gHllUCddOXDL0tk0ZGNYHwsw4sW3w=
+github.com/go-openapi/errors v0.22.8 h1:oP7sW7TWc3wFFjrzzj0nI83H2qMBkNjNfSd+XRejk/I=
+github.com/go-openapi/errors v0.22.8/go.mod h1:BuUoHcYrU6E7V9gfj1I5wLQqgtIHnup/alXZ8KdgQ0w=
 github.com/go-openapi/jsonpointer v0.23.1 h1:1HBACs7XIwR2RcmItfdSFlALhGbe6S92p0ry4d1GWg4=
 github.com/go-openapi/jsonpointer v0.23.1/go.mod h1:iWRmZTrGn7XwYhtPt/fvdSFj1OfNBngqRT2UG3BxSqY=
 github.com/go-openapi/jsonreference v0.21.6 h1:NZ5nGfnaM1n4I43Xjm1e5/M2GjOwQwndQz22uhxwD+Y=
@@ -246,6 +248,8 @@ github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260622091431-7fe3
 github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260622091431-7fe3d665bcc0/go.mod h1:1NirfPnyqo/RQKgfSCXw+EPy77sP8lj4Dqsdgnv+2oo=
 github.com/grafana/grafana-openapi-client-go v0.0.0-20260414120814-5b95bb183fae h1:ExiJ4Ha24+MRuKxymlGp5bAJwbUSHe+QXcf6E8pwlo0=
 github.com/grafana/grafana-openapi-client-go v0.0.0-20260414120814-5b95bb183fae/go.mod h1:4WkWL9W7QMnRgRA1XrrSbZRg/UIoTx4x5ynx5RjJldU=
+github.com/grafana/grafana-openapi-client-go v0.0.0-20260826175523-1c43014c9904 h1:XNihIkhiSMdTve1eX8ZE2pYDNIf5x02kC/+N0rW8rwo=
+github.com/grafana/grafana-openapi-client-go v0.0.0-20260826175523-1c43014c9904/go.mod h1:XB8wjmx06k5i8oWms6CtnUtTKvY+vD8zYYRospGUvRM=
 github.com/grafana/grafana-plugin-sdk-go v0.292.0 h1:HaFIbBmPX9K+BVsVemid+poDEbja+HJ8VE+6tVnZKLU=
 github.com/grafana/grafana-plugin-sdk-go v0.292.0/go.mod h1:lnWyfzENuIU+N2EzivEe9YJob8AAqPl7HBMXMbPyv3k=
 github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.0-20250925121631-89b988ca553e h1:0EVTtyz/kpD1FAsPNTcs4X0wTeMnan1wAI6eXxUVeng=
@@ -282,6 +286,8 @@ github.com/grafana/synthetic-monitoring-api-go-client v0.20.5 h1:FTJ4XEQQ8BSRp44
 github.com/grafana/synthetic-monitoring-api-go-client v0.20.5/go.mod h1:pp7YXVfOnRJGfpTZaSvT9ifXVo+utqlWE7ZUjE5BL+g=
 github.com/grafana/terraform-provider-grafana/v4 v4.46.0 h1:QTw3+t6bBokVJUB9y4bAjDQ2bZqli8Mh94JNrYb2ED8=
 github.com/grafana/terraform-provider-grafana/v4 v4.46.0/go.mod h1:rS8R1Z35GngCtMgjLhKRF+xNS41GpQxphdv9BqRdh+8=
+github.com/grafana/terraform-provider-grafana/v4 v4.48.0 h1:byYns4WMZBPd8lA2fI6Wz2kDBCBJ3TCS78abkwdGAOU=
+github.com/grafana/terraform-provider-grafana/v4 v4.48.0/go.mod h1:HpE6pisZ/WKt9r1xqCxM2HUupKG04J2miRo/HWAFOU4=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 h1:QGLs/O40yoNK9vmy4rhUGBVyMf1lISBGtXRpsu/Qu/o=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0/go.mod h1:hM2alZsMUni80N33RBe6J0e423LB+odMj7d3EMP9l20=
 github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3 h1:B+8ClL/kCQkRiU82d9xajRPKYMrB7E0MbtzWVi1K4ns=
@@ -619,6 +625,8 @@ go.yaml.in/yaml/v2 v2.4.4 h1:tuyd0P+2Ont/d6e2rl3be67goVK4R6deVxCUX5vyPaQ=
 go.yaml.in/yaml/v2 v2.4.4/go.mod h1:gMZqIpDtDqOfM0uNfy0SkpRhvUryYH0Z6wdMYcacYXQ=
 go.yaml.in/yaml/v3 v3.0.4 h1:tfq32ie2Jv2UxXFdLJdh3jXuOzWiL1fo0bu/FbuKpbc=
 go.yaml.in/yaml/v3 v3.0.4/go.mod h1:DhzuOOF2ATzADvBadXxruRBLzYTpT36CKvDb3+aBEFg=
+go.yaml.in/yaml/v3 v3.0.5 h1:N6y/pJk8buWs9NY5ERU2HSMfm+IuD/OtfdAnq6kESPw=
+go.yaml.in/yaml/v3 v3.0.5/go.mod h1:HVTZu1O7/Vkt2N+BFy8Zza+lnLsABggaTM2ZpNIGuKg=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550/go.mod h1:yigFU9vqHzYiE8UmvKecakEJjdnWj3jj499lnFckfCI=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
