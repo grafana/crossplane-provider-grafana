@@ -14,11 +14,11 @@ import (
 
 // LabelParameters defines the input parameters for the grafana_oncall_label data source.
 type LabelParameters struct {
-	// The key for the label.
+	// The key for the label. Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter.
 	// +kubebuilder:validation:Required
 	Key string `json:"key"`
 
-	// The value of the label.
+	// The value of the label. When the label is used as a static label, values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit. When the label is used as a dynamic label, the value is a Jinja2 template evaluated when an alert is received, and is not restricted.
 	// +kubebuilder:validation:Required
 	Value string `json:"value"`
 }

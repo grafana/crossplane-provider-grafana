@@ -83,6 +83,22 @@ func (in *MetricsEndpointScrapeJobInitParameters) DeepCopyInto(out *MetricsEndpo
 		*out = new(string)
 		**out = **in
 	}
+	if in.StaticLabels != nil {
+		in, out := &in.StaticLabels, &out.StaticLabels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -170,6 +186,22 @@ func (in *MetricsEndpointScrapeJobObservation) DeepCopyInto(out *MetricsEndpoint
 		*out = new(string)
 		**out = **in
 	}
+	if in.StaticLabels != nil {
+		in, out := &in.StaticLabels, &out.StaticLabels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
+	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL
 		*out = new(string)
@@ -229,6 +261,22 @@ func (in *MetricsEndpointScrapeJobParameters) DeepCopyInto(out *MetricsEndpointS
 		in, out := &in.StackID, &out.StackID
 		*out = new(string)
 		**out = **in
+	}
+	if in.StaticLabels != nil {
+		in, out := &in.StaticLabels, &out.StaticLabels
+		*out = make(map[string]*string, len(*in))
+		for key, val := range *in {
+			var outVal *string
+			if val == nil {
+				(*out)[key] = nil
+			} else {
+				inVal := (*in)[key]
+				in, out := &inVal, &outVal
+				*out = new(string)
+				**out = **in
+			}
+			(*out)[key] = outVal
+		}
 	}
 	if in.URL != nil {
 		in, out := &in.URL, &out.URL

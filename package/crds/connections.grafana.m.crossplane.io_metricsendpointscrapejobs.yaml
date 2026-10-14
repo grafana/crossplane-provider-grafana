@@ -118,6 +118,14 @@ spec:
                       (String) The Stack ID of the Grafana Cloud instance.
                       The Stack ID of the Grafana Cloud instance.
                     type: string
+                  staticLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) Extra labels to add to scraped series
+                      Extra labels to add to scraped series
+                    type: object
+                    x-kubernetes-map-type: granular
                   url:
                     description: |-
                       (String) The url to scrape metrics from; a valid HTTPs URL is required.
@@ -195,6 +203,14 @@ spec:
                       (String) The Stack ID of the Grafana Cloud instance.
                       The Stack ID of the Grafana Cloud instance.
                     type: string
+                  staticLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) Extra labels to add to scraped series
+                      Extra labels to add to scraped series
+                    type: object
+                    x-kubernetes-map-type: granular
                   url:
                     description: |-
                       (String) The url to scrape metrics from; a valid HTTPs URL is required.
@@ -315,6 +331,14 @@ spec:
                       (String) The Stack ID of the Grafana Cloud instance.
                       The Stack ID of the Grafana Cloud instance.
                     type: string
+                  staticLabels:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) Extra labels to add to scraped series
+                      Extra labels to add to scraped series
+                    type: object
+                    x-kubernetes-map-type: granular
                   url:
                     description: |-
                       (String) The url to scrape metrics from; a valid HTTPs URL is required.

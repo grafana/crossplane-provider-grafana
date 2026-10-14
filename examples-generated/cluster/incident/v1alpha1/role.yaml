@@ -1,0 +1,14 @@
+apiVersion: incident.grafana.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: commander
+  name: commander
+spec:
+  forProvider:
+    description: Coordinates the response and owns the incident.
+    important: true
+    mandatory: true
+    name: Commander

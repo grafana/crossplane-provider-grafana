@@ -257,7 +257,7 @@
               "type": "array"
             },
             "dynamicLabels": {
-              "description": "to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource).\nA list of string-to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource).",
+              "description": "to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.\nA list of string-to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.",
               "items": {
                 "additionalProperties": {
                   "type": "string"
@@ -267,7 +267,7 @@
               "type": "array"
             },
             "labels": {
-              "description": "to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource).\nA list of string-to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource).",
+              "description": "to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.\nA list of string-to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.",
               "items": {
                 "additionalProperties": {
                   "type": "string"
@@ -782,7 +782,7 @@
               "type": "array"
             },
             "dynamicLabels": {
-              "description": "to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource).\nA list of string-to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource).",
+              "description": "to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.\nA list of string-to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.",
               "items": {
                 "additionalProperties": {
                   "type": "string"
@@ -792,7 +792,7 @@
               "type": "array"
             },
             "labels": {
-              "description": "to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource).\nA list of string-to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource).",
+              "description": "to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.\nA list of string-to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.",
               "items": {
                 "additionalProperties": {
                   "type": "string"
@@ -1253,7 +1253,7 @@
               "type": "array"
             },
             "dynamicLabels": {
-              "description": "to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource).\nA list of string-to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource).",
+              "description": "to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.\nA list of string-to-string mappings for dynamic labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are Jinja2 templates evaluated when an alert is received, and are not restricted.",
               "items": {
                 "additionalProperties": {
                   "type": "string"
@@ -1271,7 +1271,7 @@
               "type": "string"
             },
             "labels": {
-              "description": "to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource).\nA list of string-to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource).",
+              "description": "to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the grafana_oncall_label datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.\nA list of string-to-string mappings for static labels. Each map must include one key named \"key\" and one key named \"value\" (using the `grafana_oncall_label` datasource). Keys are 1-63 characters, can only contain alphanumeric characters or underscores, and must start and end with a letter. Values are 1-63 characters, can only contain alphanumeric characters, hyphens, underscores and periods, must start with a letter and must end with a letter or digit.",
               "items": {
                 "additionalProperties": {
                   "type": "string"

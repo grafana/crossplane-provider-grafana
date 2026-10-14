@@ -14,7 +14,7 @@ import (
 
 // UserParameters defines the input parameters for the grafana_oncall_user data source.
 type UserParameters struct {
-	// The username of the user.
+	// The user's Grafana login, which can differ from their email address. Matching is case-insensitive.
 	// +kubebuilder:validation:Required
 	Username string `json:"username"`
 }

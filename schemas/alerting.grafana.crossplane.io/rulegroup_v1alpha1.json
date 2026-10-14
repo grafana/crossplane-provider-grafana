@@ -318,7 +318,7 @@
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
+                          "description": "(String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "contactPointRef": {
@@ -422,6 +422,10 @@
                             "type": "string"
                           },
                           "type": "array"
+                        },
+                        "policy": {
+                          "description": "(String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.\nThe name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
+                          "type": "string"
                         },
                         "repeatInterval": {
                           "description": "sending a notification if an alert is still firing. Default is 4 hours.\nMinimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.",
@@ -760,7 +764,7 @@
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
+                          "description": "(String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "contactPointRef": {
@@ -864,6 +868,10 @@
                             "type": "string"
                           },
                           "type": "array"
+                        },
+                        "policy": {
+                          "description": "(String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.\nThe name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
+                          "type": "string"
                         },
                         "repeatInterval": {
                           "description": "sending a notification if an alert is still firing. Default is 4 hours.\nMinimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.",
@@ -1148,7 +1156,7 @@
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to.",
+                          "description": "(String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "groupBy": {
@@ -1172,6 +1180,10 @@
                             "type": "string"
                           },
                           "type": "array"
+                        },
+                        "policy": {
+                          "description": "(String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.\nThe name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
+                          "type": "string"
                         },
                         "repeatInterval": {
                           "description": "sending a notification if an alert is still firing. Default is 4 hours.\nMinimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.",

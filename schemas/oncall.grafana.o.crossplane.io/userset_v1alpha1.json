@@ -89,6 +89,7 @@
           "description": "UserSetObservation holds the observed (computed) fields from the grafana_oncall_users data source.",
           "properties": {
             "users": {
+              "description": "Every OnCall user, with their ID, username (the Grafana login), email, and role.",
               "items": {
                 "additionalProperties": false,
                 "properties": {

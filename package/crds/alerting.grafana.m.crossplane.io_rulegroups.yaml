@@ -366,8 +366,8 @@ spec:
                                 type: array
                               contactPoint:
                                 description: |-
-                                  (String) The contact point to route notifications that match this rule to.
-                                  The contact point to route notifications that match this rule to.
+                                  (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+                                  The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
                                 type: string
                               contactPointRef:
                                 description: Reference to a ContactPoint in alerting
@@ -475,6 +475,11 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              policy:
+                                description: |-
+                                  (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
+                                  The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
+                                type: string
                               repeatInterval:
                                 description: |-
                                   sending a notification if an alert is still firing. Default is 4 hours.
@@ -832,8 +837,8 @@ spec:
                                 type: array
                               contactPoint:
                                 description: |-
-                                  (String) The contact point to route notifications that match this rule to.
-                                  The contact point to route notifications that match this rule to.
+                                  (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+                                  The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
                                 type: string
                               contactPointRef:
                                 description: Reference to a ContactPoint in alerting
@@ -941,6 +946,11 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              policy:
+                                description: |-
+                                  (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
+                                  The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
+                                type: string
                               repeatInterval:
                                 description: |-
                                   sending a notification if an alert is still firing. Default is 4 hours.
@@ -1204,8 +1214,8 @@ spec:
                                 type: array
                               contactPoint:
                                 description: |-
-                                  (String) The contact point to route notifications that match this rule to.
-                                  The contact point to route notifications that match this rule to.
+                                  (String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.
+                                  The contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.
                                 type: string
                               groupBy:
                                 description: |-
@@ -1231,6 +1241,11 @@ spec:
                                 items:
                                   type: string
                                 type: array
+                              policy:
+                                description: |-
+                                  (String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.
+                                  The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.
+                                type: string
                               repeatInterval:
                                 description: |-
                                   sending a notification if an alert is still firing. Default is 4 hours.

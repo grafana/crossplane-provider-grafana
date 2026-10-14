@@ -200,6 +200,28 @@ type CustomNamespaceParameters struct {
 	ScrapeIntervalSeconds *float64 `json:"scrapeIntervalSeconds,omitempty" tf:"scrape_interval_seconds,omitempty"`
 }
 
+type EnhancedMetricInitParameters struct {
+
+	// (String) The name of the AWS CloudWatch Scrape Job.
+	// The name of the enhanced metric to scrape.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type EnhancedMetricObservation struct {
+
+	// (String) The name of the AWS CloudWatch Scrape Job.
+	// The name of the enhanced metric to scrape.
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+}
+
+type EnhancedMetricParameters struct {
+
+	// (String) The name of the AWS CloudWatch Scrape Job.
+	// The name of the enhanced metric to scrape.
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name" tf:"name,omitempty"`
+}
+
 type MetricInitParameters struct {
 
 	// (String) The name of the AWS CloudWatch Scrape Job.
@@ -275,8 +297,12 @@ type ResourceDiscoveryTagFilterParameters struct {
 
 type ServiceInitParameters struct {
 
+	// (Block List) Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one metric or enhanced_metric block must be configured. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one `metric` or `enhanced_metric` block must be configured. When accessing this as an attribute reference, it is a list of objects.
+	EnhancedMetric []EnhancedMetricInitParameters `json:"enhancedMetric,omitempty" tf:"enhanced_metric,omitempty"`
+
 	// (Block List) One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// One or more configuration blocks to configure metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects.
+	// Configuration block representing CloudWatch metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. At least one `metric` or `enhanced_metric` block must be configured. When accessing this as an attribute reference, it is a list of objects.
 	Metric []ServiceMetricInitParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// (String) The name of the AWS CloudWatch Scrape Job.
@@ -337,8 +363,12 @@ type ServiceMetricParameters struct {
 
 type ServiceObservation struct {
 
+	// (Block List) Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one metric or enhanced_metric block must be configured. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one `metric` or `enhanced_metric` block must be configured. When accessing this as an attribute reference, it is a list of objects.
+	EnhancedMetric []EnhancedMetricObservation `json:"enhancedMetric,omitempty" tf:"enhanced_metric,omitempty"`
+
 	// (Block List) One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// One or more configuration blocks to configure metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects.
+	// Configuration block representing CloudWatch metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. At least one `metric` or `enhanced_metric` block must be configured. When accessing this as an attribute reference, it is a list of objects.
 	Metric []ServiceMetricObservation `json:"metric,omitempty" tf:"metric,omitempty"`
 
 	// (String) The name of the AWS CloudWatch Scrape Job.
@@ -361,8 +391,13 @@ type ServiceObservation struct {
 
 type ServiceParameters struct {
 
+	// (Block List) Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one metric or enhanced_metric block must be configured. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
+	// Configuration block representing AWS enhanced metrics as supported by Yet Another CloudWatch Exporter (YACE) to scrape. Each block must represent a distinct enhanced metric name. At least one `metric` or `enhanced_metric` block must be configured. When accessing this as an attribute reference, it is a list of objects.
+	// +kubebuilder:validation:Optional
+	EnhancedMetric []EnhancedMetricParameters `json:"enhancedMetric,omitempty" tf:"enhanced_metric,omitempty"`
+
 	// (Block List) One or more configuration blocks to configure metrics and their statistics to scrape. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects. (see below for nested schema)
-	// One or more configuration blocks to configure metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. When accessing this as an attribute reference, it is a list of objects.
+	// Configuration block representing CloudWatch metrics and their statistics to scrape. Please note that AWS metric names must be supplied, and not their PromQL counterparts. Each block must represent a distinct metric name. At least one `metric` or `enhanced_metric` block must be configured. When accessing this as an attribute reference, it is a list of objects.
 	// +kubebuilder:validation:Optional
 	Metric []ServiceMetricParameters `json:"metric,omitempty" tf:"metric,omitempty"`
 
@@ -415,7 +450,7 @@ type AwsCloudwatchScrapeJobStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AwsCloudwatchScrapeJob is the Schema for the AwsCloudwatchScrapeJobs API. This resource allows you to scrape AWS CloudWatch metrics in Grafana Cloud without needing to run your own infrastructure. See the Grafana Provider configuration docs https://registry.io/providers/grafana/grafana/latest/docs#managing-cloud-provider for information on authentication and required access policy scopes. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/aws/
+// AwsCloudwatchScrapeJob is the Schema for the AwsCloudwatchScrapeJobs API. This resource allows you to scrape AWS CloudWatch metrics in Grafana Cloud without needing to run your own infrastructure. Refer to Configure authentication for the Grafana Provider https://grafana. Official Grafana Cloud documentation https://grafana.com/docs/grafana-cloud/observe-and-act/monitor-infrastructure/monitor-cloud-provider/aws/
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

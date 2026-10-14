@@ -56,7 +56,8 @@ spec:
                   data source.
                 properties:
                   username:
-                    description: The username of the user.
+                    description: The user's Grafana login, which can differ from their
+                      email address. Matching is case-insensitive.
                     type: string
                 required:
                 - username

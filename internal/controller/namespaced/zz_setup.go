@@ -76,6 +76,7 @@ import (
 	collector "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/fleetmanagement/collector"
 	pipeline "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/fleetmanagement/pipeline"
 	app "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/frontendobservability/app"
+	roleincident "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/incident/role"
 	installation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/k6/installation"
 	loadtest "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/k6/loadtest"
 	project "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/k6/project"
@@ -204,6 +205,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		collector.Setup,
 		pipeline.Setup,
 		app.Setup,
+		roleincident.Setup,
 		installation.Setup,
 		loadtest.Setup,
 		project.Setup,
@@ -338,6 +340,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		collector.SetupGated,
 		pipeline.SetupGated,
 		app.SetupGated,
+		roleincident.SetupGated,
 		installation.SetupGated,
 		loadtest.SetupGated,
 		project.SetupGated,
@@ -471,6 +474,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		collector.SetupWebhookWithManager,
 		pipeline.SetupWebhookWithManager,
 		app.SetupWebhookWithManager,
+		roleincident.SetupWebhookWithManager,
 		installation.SetupWebhookWithManager,
 		loadtest.SetupWebhookWithManager,
 		project.SetupWebhookWithManager,

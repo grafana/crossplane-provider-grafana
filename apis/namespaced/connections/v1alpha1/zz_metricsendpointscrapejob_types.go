@@ -47,6 +47,11 @@ type MetricsEndpointScrapeJobInitParameters struct {
 	// The Stack ID of the Grafana Cloud instance.
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 
+	// (Map of String) Extra labels to add to scraped series
+	// Extra labels to add to scraped series
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
+
 	// (String) The url to scrape metrics from; a valid HTTPs URL is required.
 	// The url to scrape metrics from; a valid HTTPs URL is required.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
@@ -80,6 +85,11 @@ type MetricsEndpointScrapeJobObservation struct {
 	// (String) The Stack ID of the Grafana Cloud instance.
 	// The Stack ID of the Grafana Cloud instance.
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// (Map of String) Extra labels to add to scraped series
+	// Extra labels to add to scraped series
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
 
 	// (String) The url to scrape metrics from; a valid HTTPs URL is required.
 	// The url to scrape metrics from; a valid HTTPs URL is required.
@@ -127,6 +137,12 @@ type MetricsEndpointScrapeJobParameters struct {
 	// The Stack ID of the Grafana Cloud instance.
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
+
+	// (Map of String) Extra labels to add to scraped series
+	// Extra labels to add to scraped series
+	// +kubebuilder:validation:Optional
+	// +mapType=granular
+	StaticLabels map[string]*string `json:"staticLabels,omitempty" tf:"static_labels,omitempty"`
 
 	// (String) The url to scrape metrics from; a valid HTTPs URL is required.
 	// The url to scrape metrics from; a valid HTTPs URL is required.
