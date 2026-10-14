@@ -1,0 +1,33 @@
+# E2E reproduction for https://github.com/grafana/crossplane-provider-grafana/issues/607
+#
+# A ContactPoint that specifies only a name and no integrations ("empty"
+# contact point). The Grafana UI allows creating such a grouping, but the
+# Grafana provisioning API (and therefore terraform-provider-grafana, which
+# this provider wraps) has no representation for a contact point with zero
+# integrations.
+#
+# In terraform-provider-grafana, ContactPoint Create == Update. The update
+# routine iterates over notifier sets only; with no integrations there is
+# nothing to POST, so no contact point is ever created. Create then sets the
+# ID and immediately re-reads, finds nothing, and clears the ID. The Terraform
+# SDK reports this as:
+#
+#   create failed: failed to read the ID of the new resource
+#
+# Expected (today): this resource never becomes Ready and surfaces the error
+# above. This example reproduces the bug; it is NOT expected to pass uptest.
+---
+apiVersion: alerting.grafana.m.crossplane.io/v1alpha1
+kind: ContactPoint
+metadata:
+  annotations:
+    uptest.upbound.io/disable-import: "true"
+    meta.upbound.io/example-id: cloud/v1alpha1/empty-contactpoint
+  name: e2e-empty-contactpoint
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: e2e-empty-contactpoint
+  providerConfigRef:
+    kind: ClusterProviderConfig
+    name: e2e-cloud-instance
