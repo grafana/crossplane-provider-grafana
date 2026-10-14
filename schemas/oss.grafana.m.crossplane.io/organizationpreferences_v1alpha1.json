@@ -124,7 +124,7 @@
               "type": "string"
             },
             "weekStart": {
-              "description": "(String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.\nThe Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to ``.",
+              "description": "(String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.\nThe Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.",
               "type": "string"
             }
           },
@@ -239,7 +239,7 @@
               "type": "string"
             },
             "weekStart": {
-              "description": "(String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.\nThe Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to ``.",
+              "description": "(String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.\nThe Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.",
               "type": "string"
             }
           },
@@ -335,7 +335,7 @@
               "type": "string"
             },
             "weekStart": {
-              "description": "(String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to ``.\nThe Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to ``.",
+              "description": "(String) The Organization week start day. Available values are sunday, monday, saturday, or an empty string for the default. Defaults to “.\nThe Organization week start day. Available values are `sunday`, `monday`, `saturday`, or an empty string for the default. Defaults to “.",
               "type": "string"
             }
           },

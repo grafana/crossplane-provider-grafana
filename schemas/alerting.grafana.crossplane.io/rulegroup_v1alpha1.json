@@ -239,7 +239,7 @@
                           "type": "string"
                         },
                         "queryType": {
-                          "description": "(String) An optional identifier for the type of query being executed. Defaults to ``.\nAn optional identifier for the type of query being executed. Defaults to ``.",
+                          "description": "(String) An optional identifier for the type of query being executed. Defaults to “.\nAn optional identifier for the type of query being executed. Defaults to “.",
                           "type": "string"
                         },
                         "refId": {
@@ -685,7 +685,7 @@
                           "type": "string"
                         },
                         "queryType": {
-                          "description": "(String) An optional identifier for the type of query being executed. Defaults to ``.\nAn optional identifier for the type of query being executed. Defaults to ``.",
+                          "description": "(String) An optional identifier for the type of query being executed. Defaults to “.\nAn optional identifier for the type of query being executed. Defaults to “.",
                           "type": "string"
                         },
                         "refId": {
@@ -1077,7 +1077,7 @@
                           "type": "string"
                         },
                         "queryType": {
-                          "description": "(String) An optional identifier for the type of query being executed. Defaults to ``.\nAn optional identifier for the type of query being executed. Defaults to ``.",
+                          "description": "(String) An optional identifier for the type of query being executed. Defaults to “.\nAn optional identifier for the type of query being executed. Defaults to “.",
                           "type": "string"
                         },
                         "refId": {
