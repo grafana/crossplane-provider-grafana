@@ -123,7 +123,7 @@ require (
 	github.com/grafana/grafana-app-sdk/logging v0.56.2 // indirect
 	github.com/grafana/grafana-asserts-public-clients/go/gcom v0.0.0-20260203142553-433280da6996 // indirect
 	github.com/grafana/grafana-com-public-clients/go/gcom v0.0.0-20260622091431-7fe3d665bcc0 // indirect
-	github.com/grafana/grafana-openapi-client-go v0.0.0-20260826175523-1c43014c9904 // indirect
+	github.com/grafana/grafana-openapi-client-go v0.0.0-20261015192556-fcf0a80b71e9 // indirect
 	github.com/grafana/grafana-plugin-sdk-go v0.292.0 // indirect
 	github.com/grafana/grafana/apps/alerting/alertenrichment v0.0.0-20250925121631-89b988ca553e // indirect
 	github.com/grafana/grafana/apps/alerting/notifications v0.0.0-20260323093832-0cb690db9135 // indirect
