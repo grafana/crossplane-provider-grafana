@@ -16,9 +16,11 @@ import (
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/statemetrics"
 	"go.uber.org/zap/zapcore"
+	corev1 "k8s.io/api/core/v1"
 	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
+	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
 
 	"github.com/alecthomas/kingpin/v2"
@@ -53,6 +55,8 @@ func main() {
 		leaderElection          = app.Flag("leader-election", "Use leader election for the controller manager.").Short('l').Default("false").OverrideDefaultFromEnvar("LEADER_ELECTION").Bool()
 		maxReconcileRate        = app.Flag("max-reconcile-rate", "The global maximum rate per second at which resources may checked for drift from the desired state.").Default("100").Int()
 
+		enableSecretCache = app.Flag("enable-secret-cache", "Enable caching of Secret objects. Disable to read Secrets directly from the API server.").Default("true").Envar("ENABLE_SECRET_CACHE").Bool()
+
 		enableManagementPolicies = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Envar("ENABLE_MANAGEMENT_POLICIES").Bool()
 		enableSafeStart          = app.Flag("safe-start", "Enable SafeStart gated controller initialization (phased rollout). ").Default("false").Envar("ENABLE_SAFE_START").Bool()
 	)
@@ -79,6 +83,7 @@ func main() {
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		LeaderElection:   *leaderElection,
 		LeaderElectionID: "crossplane-leader-election-provider-grafana",
+		Client:           secretCacheClientOptions(*enableSecretCache),
 		Cache: cache.Options{
 			SyncPeriod: syncInterval,
 		},
@@ -148,4 +153,15 @@ func main() {
 		kingpin.FatalIfError(observedcontroller.Setup(mgr, o), "Cannot setup observed Grafana controllers")
 	}
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
+}
+
+func secretCacheClientOptions(enabled bool) client.Options {
+	if enabled {
+		return client.Options{}
+	}
+	return client.Options{
+		Cache: &client.CacheOptions{
+			DisableFor: []client.Object{&corev1.Secret{}},
+		},
+	}
 }
