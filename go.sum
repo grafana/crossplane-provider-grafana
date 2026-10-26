@@ -226,6 +226,8 @@ github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674 h1:JeSE6pjso5T
 github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674/go.mod h1:r4w70xmWCQKmi1ONH4KIaBptdivuRPyosB9RmPlGEwA=
 github.com/grafana/amixr-api-go-client v0.0.31 h1:JxRD6lH1FNhW68qhrK4YovEeWLFWFRtKHg/HscwjAn8=
 github.com/grafana/amixr-api-go-client v0.0.31/go.mod h1:hVoEV9w0xwx73j8ypmrxGDM/oIWeK8zgK5zbTd3kfJk=
+github.com/grafana/amixr-api-go-client v0.0.33 h1:Tc+V73xOQN/35Cp8SfURhKEJP+3k8xKp5I1birNanXY=
+github.com/grafana/amixr-api-go-client v0.0.33/go.mod h1:hpfhBBGV/cf5uWWGlfJdoUlPKM7OGUVcBGtkre0AlO8=
 github.com/grafana/authlib v0.0.0-20260814184937-0d62418c2815 h1:kdWTzTnExdZbbngXmCuA4UPrZpdYiwC/Mf5ujcg+e6Q=
 github.com/grafana/authlib v0.0.0-20260814184937-0d62418c2815/go.mod h1:DKf93Uhnfwl8dkOoFdsiUVMaO08mcpvyRXhGUkT5v38=
 github.com/grafana/authlib/claims v0.0.0-20250120084028-e3328c576437 h1:OlwbIVFcYgMjnQhpbZwRPVNrvZKTodvPMqwb8yEqVW0=
@@ -266,6 +268,8 @@ github.com/grafana/grafana/pkg/apimachinery v0.0.0-20260225160729-8b7042cc192e h
 github.com/grafana/grafana/pkg/apimachinery v0.0.0-20260225160729-8b7042cc192e/go.mod h1:ST5MajilNNoxR8r8aRI2O6CBsTaARgIcdVWnZki4Fmo=
 github.com/grafana/incident-go v0.0.0-20261007120105-21a0e7878e02 h1:P07+23gBK383MYDNthV+5qU2RtyZPKbrAfwaGnG0IwY=
 github.com/grafana/incident-go v0.0.0-20261007120105-21a0e7878e02/go.mod h1:3QDfdZOWKRxNhMJFL+0C/+12+jLNHDlt0VKNr/i9Daw=
+github.com/grafana/incident-go v0.0.0-20261022125241-fd8886fee1f3 h1:OQS0/3daTcXmqxeecJdt//amYG7+u+vsNyL/6AbXBjE=
+github.com/grafana/incident-go v0.0.0-20261022125241-fd8886fee1f3/go.mod h1:3QDfdZOWKRxNhMJFL+0C/+12+jLNHDlt0VKNr/i9Daw=
 github.com/grafana/k6-cloud-openapi-client-go v0.0.3-0.20260625132134-c48eae4f9a18 h1:ZRUtDAU/2ozxTApsNPbXRGDig4VwVydhEntdNTz5olY=
 github.com/grafana/k6-cloud-openapi-client-go v0.0.3-0.20260625132134-c48eae4f9a18/go.mod h1:RhZGBq6e90zSi0EME83c6S1qkOzD8pP0MNETqieWX0k=
 github.com/grafana/machine-learning-go-client v0.8.2 h1:TvU4e+Kgg4GhwBNYTMjBUNq4tbhcxe0L8w1eo/UfV2M=
@@ -284,6 +288,8 @@ github.com/grafana/synthetic-monitoring-api-go-client v0.20.5 h1:FTJ4XEQQ8BSRp44
 github.com/grafana/synthetic-monitoring-api-go-client v0.20.5/go.mod h1:pp7YXVfOnRJGfpTZaSvT9ifXVo+utqlWE7ZUjE5BL+g=
 github.com/grafana/terraform-provider-grafana/v4 v4.50.0 h1:Ifhid46/EBs+Szk4uTDBEc48+EV4Wp9pEQau/Sj2H2I=
 github.com/grafana/terraform-provider-grafana/v4 v4.50.0/go.mod h1:EG8bbQpnJe2dcRvsRtqCA85bQ+io8LcCFjIsDAfp4OA=
+github.com/grafana/terraform-provider-grafana/v4 v4.52.0 h1:UJ+QfpqBGKAeqOLhQOsLQRSZjaGQBzUhpUKN2QX1QnA=
+github.com/grafana/terraform-provider-grafana/v4 v4.52.0/go.mod h1:aC2C+2LZZQbb7Fm44RuDGlcGawb7A5C3k9eyktlpPXM=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 h1:QGLs/O40yoNK9vmy4rhUGBVyMf1lISBGtXRpsu/Qu/o=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0/go.mod h1:hM2alZsMUni80N33RBe6J0e423LB+odMj7d3EMP9l20=
 github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3 h1:B+8ClL/kCQkRiU82d9xajRPKYMrB7E0MbtzWVi1K4ns=

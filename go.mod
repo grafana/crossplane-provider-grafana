@@ -11,7 +11,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.62.0
 	github.com/grafana/synthetic-monitoring-api-go-client v0.20.5
-	github.com/grafana/terraform-provider-grafana/v4 v4.50.0
+	github.com/grafana/terraform-provider-grafana/v4 v4.52.0
 	github.com/hashicorp/terraform-json v0.27.2
 	github.com/hashicorp/terraform-plugin-framework v1.15.0
 	github.com/hashicorp/terraform-plugin-go v0.30.0
@@ -32,7 +32,7 @@ require (
 require (
 	cloud.google.com/go v0.123.0 // indirect
 	github.com/go-openapi/runtime/server-middleware v0.30.0 // indirect
-	github.com/grafana/incident-go v0.0.0-20261007120105-21a0e7878e02 // indirect
+	github.com/grafana/incident-go v0.0.0-20261022125241-fd8886fee1f3 // indirect
 	github.com/oasdiff/oasdiff v1.26.1 // indirect
 	github.com/tidwall/gjson v1.18.0 // indirect
 	github.com/tidwall/match v1.2.0 // indirect
@@ -113,7 +113,7 @@ require (
 	github.com/google/gnostic-models v0.7.1 // indirect
 	github.com/google/go-querystring v1.2.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/grafana/amixr-api-go-client v0.0.31 // indirect
+	github.com/grafana/amixr-api-go-client v0.0.33 // indirect
 	github.com/grafana/authlib v0.0.0-20260814184937-0d62418c2815 // indirect
 	github.com/grafana/authlib/claims v0.0.0-20250120084028-e3328c576437 // indirect
 	github.com/grafana/authlib/types v0.0.0-20260930204439-665ccbf27cbe // indirect
