@@ -13,7 +13,19 @@ import (
 )
 
 // IntegrationParameters defines the input parameters for the grafana_oncall_integration data source.
-type IntegrationParameters struct{}
+type IntegrationParameters struct {
+	// The integration name. When set, only the integration with this exact name matches.
+	// +optional
+	Name *string `json:"name,omitempty"`
+
+	// The ID of the OnCall team the integration belongs to (using the `grafana_oncall_team` datasource). When set, only integrations of this team match. Set it to `"null"` to match only integrations that do not belong to a team.
+	// +optional
+	TeamID *string `json:"teamID,omitempty"`
+
+	// The type of integration, for example `direct_paging`. When set, only integrations of this type match. A `direct_paging` lookup waits up to a minute for the integration to be created, since a team's direct paging integration can appear shortly after the team.
+	// +optional
+	Type *string `json:"type,omitempty"`
+}
 
 // IntegrationObservation holds the observed (computed) fields from the grafana_oncall_integration data source.
 type IntegrationObservation struct {
@@ -23,8 +35,14 @@ type IntegrationObservation struct {
 	// The link for the integration.
 	Link *string `json:"link,omitempty"`
 
-	// The integration name.
+	// The integration name. When set, only the integration with this exact name matches.
 	Name *string `json:"name,omitempty"`
+
+	// The ID of the OnCall team the integration belongs to (using the `grafana_oncall_team` datasource). When set, only integrations of this team match. Set it to `"null"` to match only integrations that do not belong to a team.
+	TeamID *string `json:"teamID,omitempty"`
+
+	// The type of integration, for example `direct_paging`. When set, only integrations of this type match. A `direct_paging` lookup waits up to a minute for the integration to be created, since a team's direct paging integration can appear shortly after the team.
+	Type *string `json:"type,omitempty"`
 }
 
 type IntegrationSpec struct {

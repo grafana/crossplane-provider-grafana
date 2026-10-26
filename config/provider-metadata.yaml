@@ -400,6 +400,7 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             raw_query: (Block, Optional) Raw query configuration for advanced data source queries. (see below for nested schema)
             receivers: (List of String) Receiver names to match. If empty, applies to all receivers.
@@ -448,6 +449,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -487,6 +489,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -526,6 +529,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             tags: (List of String) The tags of the dashboard. If not set, the tags will be derived from the JSON spec.
@@ -703,6 +707,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             source_matchers: (List of Object) Matchers that must be satisfied for an alert to be a source of inhibition. (see below for nested schema)
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -834,6 +839,7 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             mute_time_intervals: (List of String) A list of time interval names that mute this route during the specified times.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             receiver: (String) The default contact point to route all unmatched notifications to.
             repeat_interval: (String) Minimum time interval for re-sending a notification if an alert is still firing. Default is 4 hours.
@@ -882,6 +888,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             title: (String) The title of the playlist.
@@ -928,6 +935,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             title: (String) The title of the playlist.
@@ -966,6 +974,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             uid: (String) The unique identifier of the resource.
@@ -1005,6 +1014,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             uid: (String) The unique identifier of the resource.
@@ -1044,6 +1054,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
             uid: (String) The unique identifier of the resource.
@@ -1103,6 +1114,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             private_key: (Map of String, Write-only) Private key for GitHub App authentication.
             secure: (Block, Optional) Sensitive credentials. Values are write-only and never stored in Terraform state. (see below for nested schema)
@@ -1427,6 +1439,7 @@ resources:
             name: (String) Connection resource name.
             name_template: (String) Template for the branch name created in the branch workflow.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             path: (String) Optional subdirectory path.
             pull_request: (Block, Optional) Pull request options for the branch workflow. (see below for nested schema)
@@ -1498,6 +1511,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             properties_json: (String) The datasource query for the target, as a JSON string (use jsonencode()).
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -1600,6 +1614,7 @@ resources:
             no_data_state: (String) Describes what state to enter when the rule's query returns No Data. Options are OK, NoData, KeepLast, and Alerting.
             notification_settings: (Block, Optional) Notification settings for the rule. If specified, it overrides the notification policies. The flat configuration is deprecated, please specify one of named_routing_tree or simplified_routing (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             panel_ref: (Map of String) Reference to a panel that this alert rule is associated with. Should be an object with 'dashboard_uid' (string) and 'panel_id' (number) fields.
             paused: (Boolean) Sets whether the rule should be paused or not.
@@ -1669,6 +1684,7 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             metric: (String) The name of the metric to write to.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             paused: (Boolean) Sets whether the recording rule should be paused or not.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -1780,6 +1796,7 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             recording_rules: (List of Object) The recording rules that belong to this sequence, evaluated in the order listed. At least one recording rule is required. Each entry references a recording rule by its name (the rule's UID). (see below for nested schema)
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -1799,6 +1816,7 @@ resources:
             folder_uid: (String) The UID of the folder to save the resource in.
             id: (String) The ID of the resource derived from the keeper name.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             uid: (String) The unique identifier of the resource.
             url: (String) The full URL of the resource.
             uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
@@ -1821,6 +1839,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             region: (String) AWS region.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -1843,6 +1862,7 @@ resources:
             manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             ref: (String) Reference to an existing secret managed by the keeper.
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -1944,6 +1964,7 @@ resources:
             metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
             name: (String) Name (metadata.uid) of the component this service depends on.
             options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
             overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
             owner_ref: (Block, Optional) Reference to the team owning the service. Set name to the Grafana team UID; api_version and kind default to a Grafana IAM team reference. (see below for nested schema)
             spec: (Block, Optional) The spec of the resource. (see below for nested schema)
@@ -5228,6 +5249,35 @@ resources:
             name: (String) The name of the role, for example Commander.
         importStatements:
             - terraform import grafana_incident_role.name "{{ id }}"
+    grafana_incident_severity:
+        subCategory: Incident
+        description: 'Manages a Grafana Incident severity, which expresses the impact of an incident. The Incident API enforces a few rules that affect Terraform: Severities can be created at levels 1 to 5, and labels and levels must be unique within the organization, including archived severities. Besides Pending, an organization can therefore hold at most 5 severities, archived or not. A new organization starts with Pending, Critical, Major and Minor, which leaves two levels free. When a new severity''s level or label is already taken, the error names the severity that holds it.An archived severity keeps its label and level, so neither can be reused until it is deleted. Archiving a severity does not free its level for another one.The level cannot be changed after the severity is created, so changing level replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one''s level or label.A severity that any incident uses, open or closed, cannot be deleted, and that includes the delete a replacement makes. Set archived = true to retire it instead, which keeps the incident history intact. To stop managing it without deleting it, use a removed block with lifecycle { destroy = false }. The Pending severity Every organization has a system-managed Pending severity at level -1, which incidents get when they are declared without one. It can be imported and its label, description, icon and colors changed, but it cannot be archived, its level cannot change, and a second one cannot be created. Destroying it only removes it from the Terraform state; the severity itself is left in place. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/'
+        name: grafana_incident_severity
+        title: grafana_incident_severity Resource - terraform-provider-grafana
+        examples:
+            - name: informational
+              manifest: |-
+                {
+                  "dark_color": "rgba(110, 159, 255, 1)",
+                  "description": "No customer impact, tracked for awareness.",
+                  "icon": "angle-double-down",
+                  "label": "Informational",
+                  "level": 4,
+                  "light_color": "rgba(31, 98, 224, 1)"
+                }
+        argumentDocs:
+            "1": to 5, and labels and levels must be unique within the organization, including archived severities. Besides Pending, an organization can therefore hold at most 5 severities, archived or not. A new organization starts with Pending, Critical, Major and Minor, which leaves two levels free. When a new severity's level or label is already taken, the error names the severity that holds it.
+            archived: (Boolean) Whether the severity is archived. Archived severities cannot be assigned to new incidents, but remain on historical ones. The Pending severity cannot be archived. Defaults to false.
+            archived = true: to retire it instead, which keeps the incident history intact. To stop managing it without deleting it, use a removed block with lifecycle { destroy = false }.
+            dark_color: '(String) The color of the severity in dark mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).'
+            description: (String) A description of when the severity applies.
+            icon: (String) The name of the icon shown for the severity in the UI and in Slack. One of angle-double-down, angle-double-up, bolt, bug, exclamation, exclamation-triangle, fire, question-circle or shield.
+            id: (String) The ID of the severity.
+            label: (String) The display label of the severity, for example Critical. Incidents reference the severity by this label. It must be unique within the organization, including archived severities.
+            level: replaces the severity. The plan is refused when another severity, archived or not, already holds the new level or label, since the replacement would otherwise delete the severity and then fail to create it. create_before_destroy cannot be used, because the new severity would conflict with the old one's level or label.
+            light_color: '(String) The color of the severity in light mode, as a CSS color such as #FF5286 or rgb(255, 82, 134).'
+        importStatements:
+            - terraform import grafana_incident_severity.name "{{ id }}"
     grafana_k6_installation:
         subCategory: k6
         description: 'Sets up the k6 App on a Grafana Cloud instance and generates a token. Once a Grafana Cloud stack is created, a user can either use this resource or go into the UI to install k6. This resource cannot be imported but it can be used on an existing k6 App installation without issues. Note that this resource must be used on a provider configured with Grafana Cloud credentials. Official documentation https://grafana.com/docs/grafana-cloud/testing/k6/ The provider''s cloud_access_policy_token needs the following scopes to manage the resources in the example below: stacks:readstacks:writestacks:deletestack-service-accounts:write'
@@ -6569,6 +6619,31 @@ resources:
             user_group_id: (String) Slack user group id. Members of user group will be updated when on-call users change.
         importStatements:
             - terraform import grafana_oncall_schedule.name "{{ id }}"
+    grafana_oncall_team_access_management:
+        subCategory: OnCall
+        description: Manages the Team Access Management setting of a Grafana OnCall team. Destroying this resource resets the team's setting to the OnCall default (resources visible to all users). Official documentation https://grafana.com/docs/oncall/latest/set-up/manage-access/teams/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/teams/
+        name: grafana_oncall_team_access_management
+        title: grafana_oncall_team_access_management Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "is_sharing_resources_to_all": false,
+                  "team_id": "${data.grafana_oncall_team.example.id}"
+                }
+              references:
+                team_id: data.grafana_oncall_team.example.id
+              dependencies:
+                grafana_team.example: |-
+                    {
+                      "name": "Example team"
+                    }
+        argumentDocs:
+            id: (String) The ID of this resource.
+            is_sharing_resources_to_all: (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
+            team_id: (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
+        importStatements:
+            - terraform import grafana_oncall_team_access_management.name "{{ id }}"
     grafana_oncall_user_notification_rule:
         subCategory: OnCall
         description: 'HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/personal_notification_rules/ Note: you must be running Grafana OnCall >= v1.8.0 to use this resource.'
@@ -6673,7 +6748,7 @@ resources:
             duration: (Number) A time in seconds to wait (when type=wait). Can be 60, 300, 900, 1800, 3600
             id: (String) The ID of this resource.
             important: (Boolean) Boolean value which indicates if a rule is “important”
-            position: (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+            position: (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
             type: '(String) The type of notification rule. Can be wait, notify_by_slack, notify_by_msteams, notify_by_sms, notify_by_phone_call, notify_by_telegram, notify_by_email, notify_by_mobile_app, notify_by_mobile_app_critical. NOTE: notify_by_msteams is only available for Grafana Cloud customers.'
             user_id: (String) User ID
         importStatements:

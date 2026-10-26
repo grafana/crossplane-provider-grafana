@@ -77,6 +77,7 @@ import (
 	pipeline "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/fleetmanagement/pipeline"
 	app "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/frontendobservability/app"
 	roleincident "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/incident/role"
+	severity "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/incident/severity"
 	installation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/k6/installation"
 	loadtest "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/k6/loadtest"
 	project "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/k6/project"
@@ -94,6 +95,7 @@ import (
 	outgoingwebhook "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oncall/outgoingwebhook"
 	route "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oncall/route"
 	scheduleoncall "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oncall/schedule"
+	teamaccessmanagement "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oncall/teamaccessmanagement"
 	usernotificationrule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oncall/usernotificationrule"
 	annotation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/annotation"
 	connectionv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/oss/connectionv0alpha1"
@@ -206,6 +208,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		pipeline.Setup,
 		app.Setup,
 		roleincident.Setup,
+		severity.Setup,
 		installation.Setup,
 		loadtest.Setup,
 		project.Setup,
@@ -223,6 +226,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.Setup,
 		route.Setup,
 		scheduleoncall.Setup,
+		teamaccessmanagement.Setup,
 		usernotificationrule.Setup,
 		annotation.Setup,
 		connectionv0alpha1.Setup,
@@ -341,6 +345,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		pipeline.SetupGated,
 		app.SetupGated,
 		roleincident.SetupGated,
+		severity.SetupGated,
 		installation.SetupGated,
 		loadtest.SetupGated,
 		project.SetupGated,
@@ -358,6 +363,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.SetupGated,
 		route.SetupGated,
 		scheduleoncall.SetupGated,
+		teamaccessmanagement.SetupGated,
 		usernotificationrule.SetupGated,
 		annotation.SetupGated,
 		connectionv0alpha1.SetupGated,
@@ -475,6 +481,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		pipeline.SetupWebhookWithManager,
 		app.SetupWebhookWithManager,
 		roleincident.SetupWebhookWithManager,
+		severity.SetupWebhookWithManager,
 		installation.SetupWebhookWithManager,
 		loadtest.SetupWebhookWithManager,
 		project.SetupWebhookWithManager,
@@ -492,6 +499,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		outgoingwebhook.SetupWebhookWithManager,
 		route.SetupWebhookWithManager,
 		scheduleoncall.SetupWebhookWithManager,
+		teamaccessmanagement.SetupWebhookWithManager,
 		usernotificationrule.SetupWebhookWithManager,
 		annotation.SetupWebhookWithManager,
 		connectionv0alpha1.SetupWebhookWithManager,

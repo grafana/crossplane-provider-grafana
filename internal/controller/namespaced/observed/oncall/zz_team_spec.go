@@ -7,6 +7,8 @@ Copyright 2026 Grafana Labs
 package oncall
 
 import (
+	"strconv"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
@@ -45,6 +47,12 @@ var TeamSpec = tfdatasource.Spec{
 				}
 			}
 
+			if v, ok := d.GetOk("is_sharing_resources_to_all"); ok {
+				if b, ok := v.(bool); ok {
+					cr.Status.AtProvider.IsSharingResourcesToAll = &b
+				}
+			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
@@ -58,6 +66,9 @@ var TeamSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.Email != nil {
 			cd["email"] = []byte(*cr.Status.AtProvider.Email)
+		}
+		if cr.Status.AtProvider.IsSharingResourcesToAll != nil {
+			cd["is_sharing_resources_to_all"] = []byte(strconv.FormatBool(*cr.Status.AtProvider.IsSharingResourcesToAll))
 		}
 		return cd
 	},

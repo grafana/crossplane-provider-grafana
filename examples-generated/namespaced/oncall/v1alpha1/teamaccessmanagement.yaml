@@ -1,0 +1,28 @@
+apiVersion: oncall.grafana.m.crossplane.io/v1alpha1
+kind: TeamAccessManagement
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/teamaccessmanagement
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    isSharingResourcesToAll: false
+    teamId: ${data.grafana_oncall_team.example.id}
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Team
+metadata:
+  annotations:
+    meta.upbound.io/example-id: oncall/v1alpha1/teamaccessmanagement
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    name: Example team
