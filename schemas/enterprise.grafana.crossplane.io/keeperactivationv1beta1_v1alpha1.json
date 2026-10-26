@@ -36,6 +36,10 @@
                   "description": "The UID of the folder to save the resource in.",
                   "type": "string"
                 },
+                "orgId": {
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "type": "number"
+                },
                 "uid": {
                   "description": "The unique identifier of the resource.",
                   "type": "string"
@@ -57,6 +61,10 @@
                 "folderUid": {
                   "description": "The UID of the folder to save the resource in.",
                   "type": "string"
+                },
+                "orgId": {
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "type": "number"
                 },
                 "uid": {
                   "description": "The unique identifier of the resource.",
@@ -178,6 +186,10 @@
                 "folderUid": {
                   "description": "The UID of the folder to save the resource in.",
                   "type": "string"
+                },
+                "orgId": {
+                  "description": "The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.",
+                  "type": "number"
                 },
                 "uid": {
                   "description": "The unique identifier of the resource.",
