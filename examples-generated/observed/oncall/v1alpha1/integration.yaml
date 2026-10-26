@@ -5,6 +5,8 @@ metadata:
   namespace: default
 spec:
   forProvider:
-    {}
+    name: "example-name"
+    teamID: "example-team_id"
+    type: "example-type"
   providerConfigRef:
     name: example

@@ -160,8 +160,8 @@ spec:
                     type: object
                   position:
                     description: |-
-                      (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-                      Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+                      (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
+                      Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
                     type: number
                   type:
                     description: |-
@@ -273,8 +273,8 @@ spec:
                     type: object
                   position:
                     description: |-
-                      (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-                      Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+                      (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
+                      Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
                     type: number
                   type:
                     description: |-
@@ -399,8 +399,8 @@ spec:
                     type: boolean
                   position:
                     description: |-
-                      (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
-                      Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
+                      (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
+                      Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
                     type: number
                   type:
                     description: |-
