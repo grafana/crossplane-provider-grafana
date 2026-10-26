@@ -869,6 +869,11 @@ func (in *ConnectionV0Alpha1MetadataInitParameters) DeepCopyInto(out *Connection
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -910,6 +915,11 @@ func (in *ConnectionV0Alpha1MetadataObservation) DeepCopyInto(out *ConnectionV0A
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -948,6 +958,11 @@ func (in *ConnectionV0Alpha1MetadataParameters) DeepCopyInto(out *ConnectionV0Al
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -2667,6 +2682,11 @@ func (in *DashboardV2Beta1MetadataInitParameters) DeepCopyInto(out *DashboardV2B
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -2708,6 +2728,11 @@ func (in *DashboardV2Beta1MetadataObservation) DeepCopyInto(out *DashboardV2Beta
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -2746,6 +2771,11 @@ func (in *DashboardV2Beta1MetadataParameters) DeepCopyInto(out *DashboardV2Beta1
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -3133,6 +3163,11 @@ func (in *DashboardV2MetadataInitParameters) DeepCopyInto(out *DashboardV2Metada
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -3174,6 +3209,11 @@ func (in *DashboardV2MetadataObservation) DeepCopyInto(out *DashboardV2MetadataO
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -3212,6 +3252,11 @@ func (in *DashboardV2MetadataParameters) DeepCopyInto(out *DashboardV2MetadataPa
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -6206,6 +6251,11 @@ func (in *MetadataInitParameters) DeepCopyInto(out *MetadataInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -6247,6 +6297,11 @@ func (in *MetadataObservation) DeepCopyInto(out *MetadataObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -6285,6 +6340,11 @@ func (in *MetadataParameters) DeepCopyInto(out *MetadataParameters) {
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -8119,6 +8179,11 @@ func (in *PlaylistV0Alpha1MetadataInitParameters) DeepCopyInto(out *PlaylistV0Al
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -8160,6 +8225,11 @@ func (in *PlaylistV0Alpha1MetadataObservation) DeepCopyInto(out *PlaylistV0Alpha
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -8198,6 +8268,11 @@ func (in *PlaylistV0Alpha1MetadataParameters) DeepCopyInto(out *PlaylistV0Alpha1
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -8585,6 +8660,11 @@ func (in *PlaylistV1MetadataInitParameters) DeepCopyInto(out *PlaylistV1Metadata
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -8626,6 +8706,11 @@ func (in *PlaylistV1MetadataObservation) DeepCopyInto(out *PlaylistV1MetadataObs
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -8664,6 +8749,11 @@ func (in *PlaylistV1MetadataParameters) DeepCopyInto(out *PlaylistV1MetadataPara
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -9231,6 +9321,11 @@ func (in *QueryV1MetadataInitParameters) DeepCopyInto(out *QueryV1MetadataInitPa
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -9272,6 +9367,11 @@ func (in *QueryV1MetadataObservation) DeepCopyInto(out *QueryV1MetadataObservati
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -9310,6 +9410,11 @@ func (in *QueryV1MetadataParameters) DeepCopyInto(out *QueryV1MetadataParameters
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -9791,6 +9896,11 @@ func (in *RepositoryV0Alpha1MetadataInitParameters) DeepCopyInto(out *Repository
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -9832,6 +9942,11 @@ func (in *RepositoryV0Alpha1MetadataObservation) DeepCopyInto(out *RepositoryV0A
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -9870,6 +9985,11 @@ func (in *RepositoryV0Alpha1MetadataParameters) DeepCopyInto(out *RepositoryV0Al
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
