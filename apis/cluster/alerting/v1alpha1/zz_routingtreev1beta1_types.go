@@ -985,6 +985,10 @@ type RoutingtreeV1Beta1MetadataInitParameters struct {
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// (String) The unique identifier (Kubernetes name) of the routing tree. The default routing tree is named default.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
@@ -1000,6 +1004,10 @@ type RoutingtreeV1Beta1MetadataObservation struct {
 	// (String) The unique identifier (Kubernetes name) of the routing tree. The default routing tree is named default.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// (String) The unique identifier (Kubernetes name) of the routing tree. The default routing tree is named default.
 	// The unique identifier of the resource.
@@ -1024,6 +1032,11 @@ type RoutingtreeV1Beta1MetadataParameters struct {
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
+	// +kubebuilder:validation:Optional
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// (String) The unique identifier (Kubernetes name) of the routing tree. The default routing tree is named default.
 	// The unique identifier of the resource.
