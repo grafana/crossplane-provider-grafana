@@ -25,6 +25,15 @@ func (l *AlertruleV0Alpha1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this AlertruleV1Beta1List.
+func (l *AlertruleV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ContactPointList.
 func (l *ContactPointList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -79,6 +88,15 @@ func (l *RecordingruleV0Alpha1List) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this RecordingruleV1Beta1List.
+func (l *RecordingruleV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this RoutingtreeV1Beta1List.
 func (l *RoutingtreeV1Beta1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -99,6 +117,15 @@ func (l *RuleGroupList) GetItems() []resource.Managed {
 
 // GetItems of this RulesequenceV0Alpha1List.
 func (l *RulesequenceV0Alpha1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RulesequenceV1Beta1List.
+func (l *RulesequenceV1Beta1List) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

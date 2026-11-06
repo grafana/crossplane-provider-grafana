@@ -24,6 +24,9 @@ type TeamObservation struct {
 	AvatarURL *string `json:"avatarURL,omitempty"`
 
 	Email *string `json:"email,omitempty"`
+
+	// Whether the team's resources are visible to all users (true), or only to team members and admins (false).
+	IsSharingResourcesToAll *bool `json:"isSharingResourcesToAll,omitempty"`
 }
 
 type TeamSpec struct {

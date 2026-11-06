@@ -87,6 +87,46 @@ func (mg *AlertruleV0Alpha1) SetWriteConnectionSecretToReference(r *xpv2.LocalSe
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this AlertruleV1Beta1.
+func (mg *AlertruleV1Beta1) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this ContactPoint.
 func (mg *ContactPoint) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
@@ -327,6 +367,46 @@ func (mg *RecordingruleV0Alpha1) SetWriteConnectionSecretToReference(r *xpv2.Loc
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
+// GetCondition of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this RecordingruleV1Beta1.
+func (mg *RecordingruleV1Beta1) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
 // GetCondition of this RoutingtreeV1Beta1.
 func (mg *RoutingtreeV1Beta1) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
@@ -444,5 +524,45 @@ func (mg *RulesequenceV0Alpha1) SetProviderConfigReference(r *xpv2.ProviderConfi
 
 // SetWriteConnectionSecretToReference of this RulesequenceV0Alpha1.
 func (mg *RulesequenceV0Alpha1) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}
+
+// GetCondition of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetManagementPolicies of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) GetProviderConfigReference() *xpv2.ProviderConfigReference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) GetWriteConnectionSecretToReference() *xpv2.LocalSecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetManagementPolicies of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) SetProviderConfigReference(r *xpv2.ProviderConfigReference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this RulesequenceV1Beta1.
+func (mg *RulesequenceV1Beta1) SetWriteConnectionSecretToReference(r *xpv2.LocalSecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

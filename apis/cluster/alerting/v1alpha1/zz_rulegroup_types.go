@@ -23,8 +23,8 @@ type DataInitParameters struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -33,7 +33,7 @@ type DataInitParameters struct {
 
 	// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
 	// The time range, relative to when the query is executed, across which to query.
-	RelativeTimeRange []RelativeTimeRangeInitParameters `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
+	RelativeTimeRange []DataRelativeTimeRangeInitParameters `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
 }
 
 type DataObservation struct {
@@ -46,8 +46,8 @@ type DataObservation struct {
 	// Custom JSON data to send to the specified datasource when querying.
 	Model *string `json:"model,omitempty" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
 	// (String) A unique string to identify this query stage within a rule.
@@ -56,7 +56,7 @@ type DataObservation struct {
 
 	// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
 	// The time range, relative to when the query is executed, across which to query.
-	RelativeTimeRange []RelativeTimeRangeObservation `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
+	RelativeTimeRange []DataRelativeTimeRangeObservation `json:"relativeTimeRange,omitempty" tf:"relative_time_range,omitempty"`
 }
 
 type DataParameters struct {
@@ -71,8 +71,8 @@ type DataParameters struct {
 	// +kubebuilder:validation:Optional
 	Model *string `json:"model" tf:"model,omitempty"`
 
-	// (String) An optional identifier for the type of query being executed. Defaults to “.
-	// An optional identifier for the type of query being executed. Defaults to “.
+	// (String) An optional identifier for the type of query being executed. Defaults to ``.
+	// An optional identifier for the type of query being executed. Defaults to ``.
 	// +kubebuilder:validation:Optional
 	QueryType *string `json:"queryType,omitempty" tf:"query_type,omitempty"`
 
@@ -84,7 +84,42 @@ type DataParameters struct {
 	// (Block List, Min: 1, Max: 1) The time range, relative to when the query is executed, across which to query. (see below for nested schema)
 	// The time range, relative to when the query is executed, across which to query.
 	// +kubebuilder:validation:Optional
-	RelativeTimeRange []RelativeTimeRangeParameters `json:"relativeTimeRange" tf:"relative_time_range,omitempty"`
+	RelativeTimeRange []DataRelativeTimeRangeParameters `json:"relativeTimeRange" tf:"relative_time_range,omitempty"`
+}
+
+type DataRelativeTimeRangeInitParameters struct {
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type DataRelativeTimeRangeObservation struct {
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
+}
+
+type DataRelativeTimeRangeParameters struct {
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
+	// +kubebuilder:validation:Optional
+	From *float64 `json:"from" tf:"from,omitempty"`
+
+	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
+	// +kubebuilder:validation:Optional
+	To *float64 `json:"to" tf:"to,omitempty"`
 }
 
 type RecordInitParameters struct {
@@ -133,41 +168,6 @@ type RecordParameters struct {
 	// The UID of the datasource to write the metric to.
 	// +kubebuilder:validation:Optional
 	TargetDatasourceUID *string `json:"targetDatasourceUid,omitempty" tf:"target_datasource_uid,omitempty"`
-}
-
-type RelativeTimeRangeInitParameters struct {
-
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
-
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
-}
-
-type RelativeTimeRangeObservation struct {
-
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	From *float64 `json:"from,omitempty" tf:"from,omitempty"`
-
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	To *float64 `json:"to,omitempty" tf:"to,omitempty"`
-}
-
-type RelativeTimeRangeParameters struct {
-
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range begins.
-	// +kubebuilder:validation:Optional
-	From *float64 `json:"from" tf:"from,omitempty"`
-
-	// (Number) The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// The number of seconds in the past, relative to when the rule is evaluated, at which the time range ends.
-	// +kubebuilder:validation:Optional
-	To *float64 `json:"to" tf:"to,omitempty"`
 }
 
 type RuleGroupInitParameters struct {

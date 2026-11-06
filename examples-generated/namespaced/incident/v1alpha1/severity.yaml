@@ -1,0 +1,17 @@
+apiVersion: incident.grafana.m.crossplane.io/v1alpha1
+kind: Severity
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/severity
+  labels:
+    testing.upbound.io/example-name: informational
+  name: informational
+  namespace: upbound-system
+spec:
+  forProvider:
+    darkColor: rgba(110, 159, 255, 1)
+    description: No customer impact, tracked for awareness.
+    icon: angle-double-down
+    label: Informational
+    level: 4
+    lightColor: rgba(31, 98, 224, 1)
