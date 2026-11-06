@@ -67,7 +67,7 @@ func main() {
 func flattenObjectBlocks(pc *ujconfig.Provider, dir string) error {
 	kindPaths := collectObjectBlockPaths(pc)
 
-	return filepath.Walk(filepath.Clean(dir), func(path string, info os.FileInfo, err error) error {
+	return filepath.Walk(filepath.Clean(dir), func(path string, info os.FileInfo, err error) error { //nolint:gosec // dir is derived from the generator's root directory
 		if err != nil || info.IsDir() || !strings.HasSuffix(info.Name(), ".yaml") {
 			return err
 		}

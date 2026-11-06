@@ -16,7 +16,7 @@ const externalNameExtractor = `github.com/crossplane/crossplane-runtime/v2/pkg/r
 // which the observed controller populates with the resource ID.
 func observedRef(typePath, prefix string) ujconfig.Reference {
 	return ujconfig.Reference{
-		Type:              typePath,
+		Type:              typePath, //nolint:staticcheck // observed resources are not in the Terraform resource map, so TerraformName can't be used
 		RefFieldName:      prefix + "Ref",
 		SelectorFieldName: prefix + "Selector",
 		Extractor:         externalNameExtractor,
