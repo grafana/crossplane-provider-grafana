@@ -254,6 +254,7 @@ jobs:
             --title "feat(deps): update terraform-provider-grafana to ${VERSION}" \
             --body-file /tmp/pr-body.md \
             --reviewer "grafana/platform-monitoring" \
+            --label "terraform-provider-update" \
             $draft_flag
 
   # Catastrophic fallback: only fires when the automated flow failed before a PR
@@ -286,6 +287,7 @@ jobs:
           gh issue create --repo "$GITHUB_REPOSITORY" \
             --title "Automated terraform-provider-grafana update to ${VERSION} failed" \
             --label "automated-update-failure" \
+            --label "terraform-provider-update" \
             --body "The [update-terraform-provider](${RUN_URL}) workflow failed before it could open a pull request for \`terraform-provider-grafana\` \`${VERSION}\`.
 
           No PR was created, so manual action is required. This usually means an early step (dependency resolution, branch creation, or the commit API call) failed.
