@@ -130,6 +130,33 @@ jobs:
         continue-on-error: true
         run: go mod tidy
 
+      # make generate runs `terraform init`, which downloads the provider from
+      # the Terraform Registry. A new version can be listed on the registry
+      # minutes before it is downloadable, so poll the download endpoint that
+      # `terraform init` uses. On timeout, warn and let generation run anyway so
+      # the PR is still created.
+      - name: Wait for Terraform Registry to serve the provider
+        if: steps.branch.outputs.exists == 'false' && steps.tidy.outcome == 'success'
+        env:
+          VERSION: ${{ steps.params.outputs.version }}
+          TERRAFORM_PROVIDER_SOURCE: grafana/grafana
+        run: |
+          version="${VERSION#v}"
+          url="https://registry.terraform.io/v1/providers/${TERRAFORM_PROVIDER_SOURCE}/${version}/download/linux/amd64"
+
+          attempts=45
+          sleep_seconds=20
+          for i in $(seq 1 "$attempts"); do
+            if curl -fsSL -o /dev/null "$url"; then
+              echo "Version ${version} is downloadable from the Terraform Registry."
+              exit 0
+            fi
+            echo "Attempt ${i}/${attempts}: version ${version} not yet downloadable; retrying in ${sleep_seconds}s..."
+            sleep "$sleep_seconds"
+          done
+
+          echo "::warning::Version ${version} was not downloadable from the Terraform Registry within the timeout."
+
       # Only run when go mod tidy succeeded; running it on a broken module would
       # just produce noise. May fail: make generate panics when a new resource
       # category was added upstream (see docs/contributing.md#update-resources).
@@ -227,6 +254,7 @@ jobs:
             --title "feat(deps): update terraform-provider-grafana to ${VERSION}" \
             --body-file /tmp/pr-body.md \
             --reviewer "grafana/platform-monitoring" \
+            --label "terraform-provider-update" \
             $draft_flag
 
   # Catastrophic fallback: only fires when the automated flow failed before a PR
@@ -259,6 +287,7 @@ jobs:
           gh issue create --repo "$GITHUB_REPOSITORY" \
             --title "Automated terraform-provider-grafana update to ${VERSION} failed" \
             --label "automated-update-failure" \
+            --label "terraform-provider-update" \
             --body "The [update-terraform-provider](${RUN_URL}) workflow failed before it could open a pull request for \`terraform-provider-grafana\` \`${VERSION}\`.
 
           No PR was created, so manual action is required. This usually means an early step (dependency resolution, branch creation, or the commit API call) failed.
