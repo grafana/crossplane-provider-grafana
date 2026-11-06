@@ -21,7 +21,7 @@ func (mg *McpServer) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this McpServer
 func (tr *McpServer) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"custom_headers": "customHeadersSecretRef"}
+	return map[string]string{"custom_headers": "customHeadersSecretRef", "github_app.private_key": "githubApp.privateKeySecretRef", "github_app.private_key_hash": "status.atProvider.githubApp.privateKeyHash"}
 }
 
 // GetObservation of this McpServer

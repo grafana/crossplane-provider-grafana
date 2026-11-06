@@ -79,6 +79,39 @@
               "description": "(Boolean) Whether the resource is enabled.\nWhether the resource is enabled.",
               "type": "boolean"
             },
+            "githubApp": {
+              "additionalProperties": false,
+              "description": "lived installation tokens from these credentials and uses them in place of any Authorization custom header. All three attributes are required when the block is set. Removing the block clears the credentials. (see below for nested schema)\nGitHub App installation credentials, used instead of a personal access token for `tenant` scoped GitHub MCP servers (`https://api.githubcopilot.com/mcp` or `https://\u003cHOSTNAME\u003e.ghe.com/mcp`). The Assistant mints short-lived installation tokens from these credentials and uses them in place of any `Authorization` custom header. All three attributes are required when the block is set. Removing the block clears the credentials.",
+              "properties": {
+                "appId": {
+                  "description": "(Number) The GitHub App ID.\nThe GitHub App ID.",
+                  "type": "number"
+                },
+                "installationId": {
+                  "description": "(Number) The ID of the GitHub App installation on your organization.\nThe ID of the GitHub App installation on your organization.",
+                  "type": "number"
+                },
+                "privateKeySecretRef": {
+                  "additionalProperties": false,
+                  "description": "only) The GitHub App private key in PEM format.\nThe GitHub App private key in PEM format.",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the secret.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "name"
+                  ],
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
             "name": {
               "description": "(String) The MCP server integration name.\nThe MCP server integration name.",
               "type": "string"
@@ -145,6 +178,39 @@
             "enabled": {
               "description": "(Boolean) Whether the resource is enabled.\nWhether the resource is enabled.",
               "type": "boolean"
+            },
+            "githubApp": {
+              "additionalProperties": false,
+              "description": "lived installation tokens from these credentials and uses them in place of any Authorization custom header. All three attributes are required when the block is set. Removing the block clears the credentials. (see below for nested schema)\nGitHub App installation credentials, used instead of a personal access token for `tenant` scoped GitHub MCP servers (`https://api.githubcopilot.com/mcp` or `https://\u003cHOSTNAME\u003e.ghe.com/mcp`). The Assistant mints short-lived installation tokens from these credentials and uses them in place of any `Authorization` custom header. All three attributes are required when the block is set. Removing the block clears the credentials.",
+              "properties": {
+                "appId": {
+                  "description": "(Number) The GitHub App ID.\nThe GitHub App ID.",
+                  "type": "number"
+                },
+                "installationId": {
+                  "description": "(Number) The ID of the GitHub App installation on your organization.\nThe ID of the GitHub App installation on your organization.",
+                  "type": "number"
+                },
+                "privateKeySecretRef": {
+                  "additionalProperties": false,
+                  "description": "only) The GitHub App private key in PEM format.\nThe GitHub App private key in PEM format.",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "Name of the secret.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "name"
+                  ],
+                  "type": "object"
+                }
+              },
+              "type": "object"
             },
             "name": {
               "description": "(String) The MCP server integration name.\nThe MCP server integration name.",
@@ -281,6 +347,21 @@
             "enabled": {
               "description": "(Boolean) Whether the resource is enabled.\nWhether the resource is enabled.",
               "type": "boolean"
+            },
+            "githubApp": {
+              "additionalProperties": false,
+              "description": "lived installation tokens from these credentials and uses them in place of any Authorization custom header. All three attributes are required when the block is set. Removing the block clears the credentials. (see below for nested schema)\nGitHub App installation credentials, used instead of a personal access token for `tenant` scoped GitHub MCP servers (`https://api.githubcopilot.com/mcp` or `https://\u003cHOSTNAME\u003e.ghe.com/mcp`). The Assistant mints short-lived installation tokens from these credentials and uses them in place of any `Authorization` custom header. All three attributes are required when the block is set. Removing the block clears the credentials.",
+              "properties": {
+                "appId": {
+                  "description": "(Number) The GitHub App ID.\nThe GitHub App ID.",
+                  "type": "number"
+                },
+                "installationId": {
+                  "description": "(Number) The ID of the GitHub App installation on your organization.\nThe ID of the GitHub App installation on your organization.",
+                  "type": "number"
+                }
+              },
+              "type": "object"
             },
             "id": {
               "description": "(String) The UUID of the resource.",

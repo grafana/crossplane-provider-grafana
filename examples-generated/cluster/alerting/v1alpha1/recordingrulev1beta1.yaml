@@ -1,0 +1,55 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: RecordingruleV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/recordingrulev1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+      folderUid: ${grafana_folder.recordingrule_folder.uid}
+      uid: example-recording-rule
+    spec:
+      expressions:
+        A:
+          datasource_uid: ds_uid
+          model: |-
+            ${jsonencode({
+                      editorMode    = "code"
+                      expr          = "count(up{})"
+                      instant       = true
+                      intervalMs    = 1000
+                      legendFormat  = "__auto"
+                      maxDataPoints = 43200
+                      range         = false
+                      refId         = "A"
+                    })}
+          query_type: ""
+          relative_time_range:
+            from: 600s
+            to: 0s
+          source: true
+      labels:
+        foo: bar
+      metric: tf-metric
+      paused: true
+      targetDatasourceUid: target_ds_uid
+      title: Example Recording Rule
+      trigger:
+        interval: 1m
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/recordingrulev1beta1
+  labels:
+    testing.upbound.io/example-name: recordingrule_folder
+  name: recordingrule-folder
+spec:
+  forProvider:
+    title: Recording Rule Folder

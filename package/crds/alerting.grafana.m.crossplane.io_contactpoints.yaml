@@ -172,8 +172,8 @@ spec:
                       properties:
                         avatarUrl:
                           description: |-
-                            (String) The URL of a custom avatar image to use. Defaults to “.
-                            The URL of a custom avatar image to use. Defaults to “.
+                            (String) The URL of a custom avatar image to use. Defaults to ``.
+                            The URL of a custom avatar image to use. Defaults to ``.
                           type: string
                         disableResolveMessage:
                           description: |-
@@ -183,7 +183,7 @@ spec:
                         message:
                           description: |-
                             (String) The templated content of the message.
-                            The templated content of the message. Defaults to “.
+                            The templated content of the message. Defaults to ``.
                           type: string
                         settingsSecretRef:
                           description: |-
@@ -243,7 +243,7 @@ spec:
                         message:
                           description: |-
                             (String) The templated content of the message.
-                            The templated content of the email. Defaults to “.
+                            The templated content of the email. Defaults to ``.
                           type: string
                         settingsSecretRef:
                           description: |-
@@ -263,8 +263,8 @@ spec:
                           type: boolean
                         subject:
                           description: |-
-                            (String) The templated subject line of the email. Defaults to “.
-                            The templated subject line of the email. Defaults to “.
+                            (String) The templated subject line of the email. Defaults to ``.
+                            The templated subject line of the email. Defaults to ``.
                           type: string
                       type: object
                     type: array
@@ -1402,7 +1402,7 @@ spec:
                           type: object
                         subject:
                           description: (String) The templated subject line of the
-                            email. Defaults to “.
+                            email. Defaults to ``.
                           type: string
                         topic:
                           description: |-
@@ -2197,8 +2197,8 @@ spec:
                       properties:
                         avatarUrl:
                           description: |-
-                            (String) The URL of a custom avatar image to use. Defaults to “.
-                            The URL of a custom avatar image to use. Defaults to “.
+                            (String) The URL of a custom avatar image to use. Defaults to ``.
+                            The URL of a custom avatar image to use. Defaults to ``.
                           type: string
                         disableResolveMessage:
                           description: |-
@@ -2208,7 +2208,7 @@ spec:
                         message:
                           description: |-
                             (String) The templated content of the message.
-                            The templated content of the message. Defaults to “.
+                            The templated content of the message. Defaults to ``.
                           type: string
                         settingsSecretRef:
                           additionalProperties:
@@ -2263,7 +2263,7 @@ spec:
                         message:
                           description: |-
                             (String) The templated content of the message.
-                            The templated content of the email. Defaults to “.
+                            The templated content of the email. Defaults to ``.
                           type: string
                         settingsSecretRef:
                           additionalProperties:
@@ -2276,8 +2276,8 @@ spec:
                           type: boolean
                         subject:
                           description: |-
-                            (String) The templated subject line of the email. Defaults to “.
-                            The templated subject line of the email. Defaults to “.
+                            (String) The templated subject line of the email. Defaults to ``.
+                            The templated subject line of the email. Defaults to ``.
                           type: string
                       type: object
                     type: array
@@ -3353,7 +3353,7 @@ spec:
                           type: object
                         subject:
                           description: (String) The templated subject line of the
-                            email. Defaults to “.
+                            email. Defaults to ``.
                           type: string
                         topic:
                           description: |-
@@ -4133,8 +4133,8 @@ spec:
                       properties:
                         avatarUrl:
                           description: |-
-                            (String) The URL of a custom avatar image to use. Defaults to “.
-                            The URL of a custom avatar image to use. Defaults to “.
+                            (String) The URL of a custom avatar image to use. Defaults to ``.
+                            The URL of a custom avatar image to use. Defaults to ``.
                           type: string
                         disableResolveMessage:
                           description: |-
@@ -4144,7 +4144,7 @@ spec:
                         message:
                           description: |-
                             (String) The templated content of the message.
-                            The templated content of the message. Defaults to “.
+                            The templated content of the message. Defaults to ``.
                           type: string
                         title:
                           description: |-
@@ -4184,7 +4184,7 @@ spec:
                         message:
                           description: |-
                             (String) The templated content of the message.
-                            The templated content of the email. Defaults to “.
+                            The templated content of the email. Defaults to ``.
                           type: string
                         singleEmail:
                           description: |-
@@ -4193,8 +4193,8 @@ spec:
                           type: boolean
                         subject:
                           description: |-
-                            (String) The templated subject line of the email. Defaults to “.
-                            The templated subject line of the email. Defaults to “.
+                            (String) The templated subject line of the email. Defaults to ``.
+                            The templated subject line of the email. Defaults to ``.
                           type: string
                         uid:
                           description: |-
@@ -4843,7 +4843,7 @@ spec:
                           type: string
                         subject:
                           description: (String) The templated subject line of the
-                            email. Defaults to “.
+                            email. Defaults to ``.
                           type: string
                         topic:
                           description: |-

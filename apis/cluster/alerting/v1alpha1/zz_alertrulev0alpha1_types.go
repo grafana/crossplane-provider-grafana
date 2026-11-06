@@ -34,6 +34,10 @@ type AlertruleV0Alpha1MetadataInitParameters struct {
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
 
+	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
 	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
@@ -49,6 +53,10 @@ type AlertruleV0Alpha1MetadataObservation struct {
 	// (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
@@ -73,6 +81,11 @@ type AlertruleV0Alpha1MetadataParameters struct {
 	// The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
 	// +kubebuilder:validation:Optional
 	FolderUID *string `json:"folderUid,omitempty" tf:"folder_uid,omitempty"`
+
+	// hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+	// The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's `org_id` for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with `stack_id` instead). Changing this value forces the resource to be recreated in the new organization.
+	// +kubebuilder:validation:Optional
+	OrgID *float64 `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
 	// (String) The unique identifier of the resource.
 	// The unique identifier of the resource.
@@ -635,7 +648,7 @@ type AlertruleV0Alpha1Status struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// AlertruleV0Alpha1 is the Schema for the AlertruleV0Alpha1s API. Manages Grafana Alert Rules. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
+// AlertruleV0Alpha1 is the Schema for the AlertruleV0Alpha1s API. Manages Grafana Alert Rules. ~> Deprecated: This resource uses the v0alpha1 API. Use grafana_apps_rules_alertrule_v1beta1 instead. This resource is currently in alpha and is subject to change. Grafana 12.4+ users must enable the kubernetesAlertingRules feature toggle https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/feature-toggles/.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -13,6 +13,9 @@ func (tr *AlertenrichmentV1Beta1) Hub() {}
 func (tr *AlertruleV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *AlertruleV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *ContactPoint) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -31,6 +34,9 @@ func (tr *NotificationPolicy) Hub() {}
 func (tr *RecordingruleV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *RecordingruleV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *RoutingtreeV1Beta1) Hub() {}
 
 // Hub marks this type as a conversion hub.
@@ -38,3 +44,6 @@ func (tr *RuleGroup) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *RulesequenceV0Alpha1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RulesequenceV1Beta1) Hub() {}

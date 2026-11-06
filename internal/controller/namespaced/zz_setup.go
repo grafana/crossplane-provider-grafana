@@ -16,15 +16,18 @@ import (
 	ruleaction "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/agento11y/ruleaction"
 	alertenrichmentv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertenrichmentv1beta1"
 	alertrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertrulev0alpha1"
+	alertrulev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/alertrulev1beta1"
 	contactpoint "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/contactpoint"
 	inhibitionrulev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/inhibitionrulev1beta1"
 	messagetemplate "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/messagetemplate"
 	mutetiming "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/mutetiming"
 	notificationpolicy "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/notificationpolicy"
 	recordingrulev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/recordingrulev0alpha1"
+	recordingrulev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/recordingrulev1beta1"
 	routingtreev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/routingtreev1beta1"
 	rulegroup "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/rulegroup"
 	rulesequencev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/rulesequencev0alpha1"
+	rulesequencev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/alerting/rulesequencev1beta1"
 	custommodelrules "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/custommodelrules"
 	logconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/logconfig"
 	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/asserts/notificationalertsconfig"
@@ -77,6 +80,7 @@ import (
 	pipeline "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/fleetmanagement/pipeline"
 	app "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/frontendobservability/app"
 	roleincident "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/incident/role"
+	severity "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/incident/severity"
 	installation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/k6/installation"
 	loadtest "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/k6/loadtest"
 	project "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/k6/project"
@@ -94,6 +98,7 @@ import (
 	outgoingwebhook "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oncall/outgoingwebhook"
 	route "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oncall/route"
 	scheduleoncall "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oncall/schedule"
+	teamaccessmanagement "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oncall/teamaccessmanagement"
 	usernotificationrule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oncall/usernotificationrule"
 	annotation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/annotation"
 	connectionv0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/namespaced/oss/connectionv0alpha1"
@@ -145,15 +150,18 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		ruleaction.Setup,
 		alertenrichmentv1beta1.Setup,
 		alertrulev0alpha1.Setup,
+		alertrulev1beta1.Setup,
 		contactpoint.Setup,
 		inhibitionrulev1beta1.Setup,
 		messagetemplate.Setup,
 		mutetiming.Setup,
 		notificationpolicy.Setup,
 		recordingrulev0alpha1.Setup,
+		recordingrulev1beta1.Setup,
 		routingtreev1beta1.Setup,
 		rulegroup.Setup,
 		rulesequencev0alpha1.Setup,
+		rulesequencev1beta1.Setup,
 		custommodelrules.Setup,
 		logconfig.Setup,
 		notificationalertsconfig.Setup,
@@ -206,6 +214,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		pipeline.Setup,
 		app.Setup,
 		roleincident.Setup,
+		severity.Setup,
 		installation.Setup,
 		loadtest.Setup,
 		project.Setup,
@@ -223,6 +232,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.Setup,
 		route.Setup,
 		scheduleoncall.Setup,
+		teamaccessmanagement.Setup,
 		usernotificationrule.Setup,
 		annotation.Setup,
 		connectionv0alpha1.Setup,
@@ -280,15 +290,18 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		ruleaction.SetupGated,
 		alertenrichmentv1beta1.SetupGated,
 		alertrulev0alpha1.SetupGated,
+		alertrulev1beta1.SetupGated,
 		contactpoint.SetupGated,
 		inhibitionrulev1beta1.SetupGated,
 		messagetemplate.SetupGated,
 		mutetiming.SetupGated,
 		notificationpolicy.SetupGated,
 		recordingrulev0alpha1.SetupGated,
+		recordingrulev1beta1.SetupGated,
 		routingtreev1beta1.SetupGated,
 		rulegroup.SetupGated,
 		rulesequencev0alpha1.SetupGated,
+		rulesequencev1beta1.SetupGated,
 		custommodelrules.SetupGated,
 		logconfig.SetupGated,
 		notificationalertsconfig.SetupGated,
@@ -341,6 +354,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		pipeline.SetupGated,
 		app.SetupGated,
 		roleincident.SetupGated,
+		severity.SetupGated,
 		installation.SetupGated,
 		loadtest.SetupGated,
 		project.SetupGated,
@@ -358,6 +372,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		outgoingwebhook.SetupGated,
 		route.SetupGated,
 		scheduleoncall.SetupGated,
+		teamaccessmanagement.SetupGated,
 		usernotificationrule.SetupGated,
 		annotation.SetupGated,
 		connectionv0alpha1.SetupGated,
@@ -414,15 +429,18 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		ruleaction.SetupWebhookWithManager,
 		alertenrichmentv1beta1.SetupWebhookWithManager,
 		alertrulev0alpha1.SetupWebhookWithManager,
+		alertrulev1beta1.SetupWebhookWithManager,
 		contactpoint.SetupWebhookWithManager,
 		inhibitionrulev1beta1.SetupWebhookWithManager,
 		messagetemplate.SetupWebhookWithManager,
 		mutetiming.SetupWebhookWithManager,
 		notificationpolicy.SetupWebhookWithManager,
 		recordingrulev0alpha1.SetupWebhookWithManager,
+		recordingrulev1beta1.SetupWebhookWithManager,
 		routingtreev1beta1.SetupWebhookWithManager,
 		rulegroup.SetupWebhookWithManager,
 		rulesequencev0alpha1.SetupWebhookWithManager,
+		rulesequencev1beta1.SetupWebhookWithManager,
 		custommodelrules.SetupWebhookWithManager,
 		logconfig.SetupWebhookWithManager,
 		notificationalertsconfig.SetupWebhookWithManager,
@@ -475,6 +493,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		pipeline.SetupWebhookWithManager,
 		app.SetupWebhookWithManager,
 		roleincident.SetupWebhookWithManager,
+		severity.SetupWebhookWithManager,
 		installation.SetupWebhookWithManager,
 		loadtest.SetupWebhookWithManager,
 		project.SetupWebhookWithManager,
@@ -492,6 +511,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		outgoingwebhook.SetupWebhookWithManager,
 		route.SetupWebhookWithManager,
 		scheduleoncall.SetupWebhookWithManager,
+		teamaccessmanagement.SetupWebhookWithManager,
 		usernotificationrule.SetupWebhookWithManager,
 		annotation.SetupWebhookWithManager,
 		connectionv0alpha1.SetupWebhookWithManager,

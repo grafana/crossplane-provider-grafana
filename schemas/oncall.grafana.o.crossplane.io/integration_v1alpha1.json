@@ -16,7 +16,22 @@
       "additionalProperties": false,
       "properties": {
         "forProvider": {
+          "additionalProperties": false,
           "description": "IntegrationParameters defines the input parameters for the grafana_oncall_integration data source.",
+          "properties": {
+            "name": {
+              "description": "The integration name. When set, only the integration with this exact name matches.",
+              "type": "string"
+            },
+            "teamID": {
+              "description": "The ID of the OnCall team the integration belongs to (using the `grafana_oncall_team` datasource). When set, only integrations of this team match. Set it to `\"null\"` to match only integrations that do not belong to a team.",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of integration, for example `direct_paging`. When set, only integrations of this type match. A `direct_paging` lookup waits up to a minute for the integration to be created, since a team's direct paging integration can appear shortly after the team.",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "managementPolicies": {
@@ -97,7 +112,15 @@
               "type": "string"
             },
             "name": {
-              "description": "The integration name.",
+              "description": "The integration name. When set, only the integration with this exact name matches.",
+              "type": "string"
+            },
+            "teamID": {
+              "description": "The ID of the OnCall team the integration belongs to (using the `grafana_oncall_team` datasource). When set, only integrations of this team match. Set it to `\"null\"` to match only integrations that do not belong to a team.",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of integration, for example `direct_paging`. When set, only integrations of this type match. A `direct_paging` lookup waits up to a minute for the integration to be created, since a team's direct paging integration can appear shortly after the team.",
               "type": "string"
             }
           },

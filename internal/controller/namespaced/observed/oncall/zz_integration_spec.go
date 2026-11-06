@@ -7,6 +7,8 @@ Copyright 2026 Grafana Labs
 package oncall
 
 import (
+	"fmt"
+
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
@@ -24,7 +26,20 @@ var IntegrationSpec = tfdatasource.Spec{
 		"grafana_oncall_integration",
 		legacyDSIntegration,
 		func(mg resource.Managed) map[string]string {
+			cr := mg.(*v1alpha1.Integration)
 			attrs := map[string]string{}
+			if cr.Spec.ForProvider.Name != nil {
+				attrs["name"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Name)
+			}
+
+			if cr.Spec.ForProvider.TeamID != nil {
+				attrs["team_id"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.TeamID)
+			}
+
+			if cr.Spec.ForProvider.Type != nil {
+				attrs["type"] = fmt.Sprintf("%v", *cr.Spec.ForProvider.Type)
+			}
+
 			return attrs
 		},
 		func(mg resource.Managed, d *sdkschema.ResourceData) {
@@ -48,6 +63,18 @@ var IntegrationSpec = tfdatasource.Spec{
 				}
 			}
 
+			if v, ok := d.GetOk("team_id"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.TeamID = &s
+				}
+			}
+
+			if v, ok := d.GetOk("type"); ok {
+				if s, ok := v.(string); ok {
+					cr.Status.AtProvider.Type = &s
+				}
+			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
@@ -64,6 +91,12 @@ var IntegrationSpec = tfdatasource.Spec{
 		}
 		if cr.Status.AtProvider.Name != nil {
 			cd["name"] = []byte(*cr.Status.AtProvider.Name)
+		}
+		if cr.Status.AtProvider.TeamID != nil {
+			cd["team_id"] = []byte(*cr.Status.AtProvider.TeamID)
+		}
+		if cr.Status.AtProvider.Type != nil {
+			cd["type"] = []byte(*cr.Status.AtProvider.Type)
 		}
 		return cd
 	},

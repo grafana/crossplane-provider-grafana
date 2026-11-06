@@ -129,6 +129,10 @@ spec:
                     type: string
                   email:
                     type: string
+                  isSharingResourcesToAll:
+                    description: Whether the team's resources are visible to all users
+                      (true), or only to team members and admins (false).
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.

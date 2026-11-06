@@ -1,0 +1,124 @@
+apiVersion: alerting.grafana.m.crossplane.io/v1alpha1
+kind: RulesequenceV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/rulesequencev1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    metadata:
+      folderUid: ${grafana_folder.rulesequence_folder.uid}
+      uid: example-rule-sequence
+    spec:
+      alertRules:
+      - name: example-alert-rule
+      recordingRules:
+      - name: example-recording-rule
+      trigger:
+        interval: 1m
+
+---
+
+apiVersion: alerting.grafana.m.crossplane.io/v1alpha1
+kind: AlertruleV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/rulesequencev1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    metadata:
+      folderUid: ${grafana_folder.rulesequence_folder.uid}
+      uid: example-seq-alert-rule
+    spec:
+      execErrState: KeepLast
+      expressions:
+        A:
+          datasource_uid: ds_uid
+          model: |-
+            ${jsonencode({
+                      datasource = {
+                        type = "prometheus"
+                        uid  = "ds_uid"
+                      }
+                      editorMode    = "code"
+                      expr          = "count(up{})"
+                      instant       = true
+                      intervalMs    = 1000
+                      legendFormat  = "__auto"
+                      maxDataPoints = 43200
+                      range         = false
+                      refId         = "A"
+                    })}
+          query_type: ""
+          relative_time_range:
+            from: 600s
+            to: 0s
+          source: true
+      noDataState: KeepLast
+      title: Example Sequence Alert Rule
+      trigger:
+        interval: 1m
+
+---
+
+apiVersion: alerting.grafana.m.crossplane.io/v1alpha1
+kind: RecordingruleV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/rulesequencev1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    metadata:
+      folderUid: ${grafana_folder.rulesequence_folder.uid}
+      uid: example-seq-recording-rule
+    spec:
+      expressions:
+        A:
+          datasource_uid: ds_uid
+          model: |-
+            ${jsonencode({
+                      editorMode    = "code"
+                      expr          = "count(up{})"
+                      instant       = true
+                      intervalMs    = 1000
+                      legendFormat  = "__auto"
+                      maxDataPoints = 43200
+                      range         = false
+                      refId         = "A"
+                    })}
+          query_type: ""
+          relative_time_range:
+            from: 600s
+            to: 0s
+          source: true
+      metric: tf-seq-metric
+      targetDatasourceUid: target_ds_uid
+      title: Example Sequence Recording Rule
+      trigger:
+        interval: 1m
+
+---
+
+apiVersion: oss.grafana.m.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/rulesequencev1beta1
+  labels:
+    testing.upbound.io/example-name: rulesequence_folder
+  name: rulesequence-folder
+  namespace: upbound-system
+spec:
+  forProvider:
+    title: Rule Sequence Folder

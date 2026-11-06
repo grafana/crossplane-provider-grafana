@@ -1,0 +1,105 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: AlertruleV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/alertrulev1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+      folderUid: ${grafana_folder.alertrule_folder.uid}
+      uid: example-alert-rule
+    spec:
+      annotations:
+        runbook_url: https://example.com
+      execErrState: KeepLast
+      expressions:
+        A:
+          datasource_uid: ds_uid
+          model: |-
+            ${jsonencode({
+                      datasource = {
+                        type = "prometheus"
+                        uid  = "ds_uid"
+                      }
+                      editorMode    = "code"
+                      expr          = "count(up{})"
+                      instant       = true
+                      intervalMs    = 1000
+                      legendFormat  = "__auto"
+                      maxDataPoints = 43200
+                      range         = false
+                      refId         = "A"
+                    })}
+          query_type: ""
+          relative_time_range:
+            from: 600s
+            to: 0s
+          source: true
+        B:
+          datasource_uid: __expr__
+          model: |-
+            ${jsonencode({
+                      conditions = [
+                        {
+                          evaluator = {
+                            params = [1]
+                            type   = "gt"
+                          }
+                          operator = {
+                            type = "and"
+                          }
+                          query = {
+                            params = ["C"]
+                          }
+                          reducer = {
+                            params = []
+                            type   = "last"
+                          }
+                          type = "query"
+                        }
+                      ]
+                      datasource = {
+                        type = "__expr__"
+                        uid  = "__expr__"
+                      }
+                      expression    = "A"
+                      intervalMs    = 1000
+                      maxDataPoints = 43200
+                      refId         = "C"
+                      type          = "threshold"
+                    })}
+          query_type: ""
+          relative_time_range: null
+          source: false
+      for: 5m
+      labels:
+        severity: critical
+      missingSeriesEvalsToResolve: 5
+      noDataState: KeepLast
+      notificationSettings:
+        simplifiedRouting:
+          contactPoint: grafana-default-email
+      panelRef:
+        dashboardUid: dashboard123
+        panelId: 5
+      paused: true
+      title: Example Alert Rule
+      trigger:
+        interval: 1m
+
+---
+
+apiVersion: oss.grafana.crossplane.io/v1alpha1
+kind: Folder
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/alertrulev1beta1
+  labels:
+    testing.upbound.io/example-name: alertrule_folder
+  name: alertrule-folder
+spec:
+  forProvider:
+    title: Alert Rule Folder

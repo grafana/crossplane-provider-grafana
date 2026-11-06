@@ -1101,6 +1101,11 @@ func (in *ComponentV1Alpha1MetadataInitParameters) DeepCopyInto(out *ComponentV1
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -1142,6 +1147,11 @@ func (in *ComponentV1Alpha1MetadataObservation) DeepCopyInto(out *ComponentV1Alp
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -1180,6 +1190,11 @@ func (in *ComponentV1Alpha1MetadataParameters) DeepCopyInto(out *ComponentV1Alph
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -1717,6 +1732,11 @@ func (in *Dbo11YconfigV1Alpha1MetadataInitParameters) DeepCopyInto(out *Dbo11Yco
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -1758,6 +1778,11 @@ func (in *Dbo11YconfigV1Alpha1MetadataObservation) DeepCopyInto(out *Dbo11Yconfi
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -1796,6 +1821,11 @@ func (in *Dbo11YconfigV1Alpha1MetadataParameters) DeepCopyInto(out *Dbo11Yconfig
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -2312,6 +2342,11 @@ func (in *K8So11YconfigV1Alpha1MetadataInitParameters) DeepCopyInto(out *K8So11Y
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -2353,6 +2388,11 @@ func (in *K8So11YconfigV1Alpha1MetadataObservation) DeepCopyInto(out *K8So11Ycon
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -2391,6 +2431,11 @@ func (in *K8So11YconfigV1Alpha1MetadataParameters) DeepCopyInto(out *K8So11Yconf
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
@@ -2818,6 +2863,11 @@ func (in *MetadataInitParameters) DeepCopyInto(out *MetadataInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -2859,6 +2909,11 @@ func (in *MetadataObservation) DeepCopyInto(out *MetadataObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
+		**out = **in
+	}
 	if in.UID != nil {
 		in, out := &in.UID, &out.UID
 		*out = new(string)
@@ -2897,6 +2952,11 @@ func (in *MetadataParameters) DeepCopyInto(out *MetadataParameters) {
 	if in.FolderUID != nil {
 		in, out := &in.FolderUID, &out.FolderUID
 		*out = new(string)
+		**out = **in
+	}
+	if in.OrgID != nil {
+		in, out := &in.OrgID, &out.OrgID
+		*out = new(float64)
 		**out = **in
 	}
 	if in.UID != nil {
