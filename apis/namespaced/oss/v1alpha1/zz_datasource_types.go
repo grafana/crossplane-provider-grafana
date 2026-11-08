@@ -76,8 +76,8 @@ type DataSourceInitParameters struct {
 	// Unique identifier. If unset, this will be automatically generated.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
-	// The URL for the data source. The type of URL required varies depending on the chosen data source type.
+	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
+	// The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// (String)  The username to use to authenticate to the data source. Defaults to ``.
@@ -134,8 +134,8 @@ type DataSourceObservation struct {
 	// Unique identifier. If unset, this will be automatically generated.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
-	// The URL for the data source. The type of URL required varies depending on the chosen data source type.
+	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
+	// The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// (String)  The username to use to authenticate to the data source. Defaults to ``.
@@ -221,8 +221,8 @@ type DataSourceParameters struct {
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
-	// The URL for the data source. The type of URL required varies depending on the chosen data source type.
+	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
+	// The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
@@ -259,7 +259,7 @@ type DataSourceStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// DataSource is the Schema for the DataSources API. Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
+// DataSource is the Schema for the DataSources API. Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). This resource should generally not be used for Grafana Cloud provisioned data sources since the configuration in these data sources is bound to work inside the Grafana Cloud platform only.  Use the grafana_cloud_stack https://registry.io/providers/grafana/grafana/latest/docs/resources/cloud_stack resource fields instead.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

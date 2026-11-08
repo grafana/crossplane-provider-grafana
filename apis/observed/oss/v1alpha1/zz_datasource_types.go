@@ -58,7 +58,7 @@ type DataSourceObservation struct {
 
 	UID *string `json:"uid,omitempty"`
 
-	// The URL for the data source. The type of URL required varies depending on the chosen data source type.
+	// The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
 	URL *string `json:"url,omitempty"`
 
 	// (Required by some data source types) The username to use to authenticate to the data source.
