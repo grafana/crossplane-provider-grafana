@@ -1,0 +1,38 @@
+apiVersion: assistant.grafana.m.crossplane.io/v1alpha1
+kind: Automation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: assistant/v1alpha1/automation
+  labels:
+    testing.upbound.io/example-name: daily_incident_report
+  name: daily-incident-report
+  namespace: upbound-system
+spec:
+  forProvider:
+    description: Every morning, summarize the alerts that fired for the ecommerce
+      app.
+    enabled: true
+    executionMode: user
+    labels:
+      application: ecommerce
+      managed_by: terraform
+    name: Daily ecommerce incident report
+    notifications:
+      slack:
+        enabled: true
+        notifyOn:
+        - completed
+        - failed
+        target:
+          channelId: C0123456789
+          type: channel
+    prompt: |
+      Produce a daily report on the incidents for the main alerts that fired in
+      the last 24 hours for the ecommerce app in the ecommerce-prod namespace.
+
+      For each alert: how long it fired, which services were affected, and
+      whether it correlates with a deploy. Close with the single most important
+      thing to look at today.
+    scheduleCron: 0 9 * * *
+    scheduleTimezone: Europe/Paris
+    scope: tenant

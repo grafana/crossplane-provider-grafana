@@ -173,7 +173,9 @@ spec:
                     type: string
                   url:
                     description: The URL for the data source. The type of URL required
-                      varies depending on the chosen data source type.
+                      varies depending on the chosen data source type. The URL might
+                      not be publicly accessible for Grafana Cloud provisioned data
+                      sources, so use the grafana_cloud_stack resource in this case.
                     type: string
                   username:
                     description: (Required by some data source types) The username

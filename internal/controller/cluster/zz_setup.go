@@ -37,6 +37,7 @@ import (
 	suppressedassertionsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/suppressedassertionsconfig"
 	thresholds "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/thresholds"
 	traceconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/traceconfig"
+	automation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/automation"
 	mcpserver "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/mcpserver"
 	quickstart "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/quickstart"
 	rule "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/assistant/rule"
@@ -171,6 +172,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		suppressedassertionsconfig.Setup,
 		thresholds.Setup,
 		traceconfig.Setup,
+		automation.Setup,
 		mcpserver.Setup,
 		quickstart.Setup,
 		rule.Setup,
@@ -311,6 +313,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		suppressedassertionsconfig.SetupGated,
 		thresholds.SetupGated,
 		traceconfig.SetupGated,
+		automation.SetupGated,
 		mcpserver.SetupGated,
 		quickstart.SetupGated,
 		rule.SetupGated,
@@ -450,6 +453,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		suppressedassertionsconfig.SetupWebhookWithManager,
 		thresholds.SetupWebhookWithManager,
 		traceconfig.SetupWebhookWithManager,
+		automation.SetupWebhookWithManager,
 		mcpserver.SetupWebhookWithManager,
 		quickstart.SetupWebhookWithManager,
 		rule.SetupWebhookWithManager,
