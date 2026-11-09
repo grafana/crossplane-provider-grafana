@@ -8,7 +8,7 @@ require (
 	github.com/crossplane/crossplane-runtime/v2 v2.4.3
 	github.com/crossplane/crossplane-tools v0.0.0-20260719180100-659f1dc036c5
 	github.com/crossplane/crossplane/apis/v2 v2.4.3
-	github.com/crossplane/upjet/v2 v2.2.0
+	github.com/crossplane/upjet/v2 v2.5.1
 	github.com/google/go-cmp v0.7.0
 	github.com/grafana/synthetic-monitoring-agent v0.62.0
 	github.com/grafana/synthetic-monitoring-api-go-client v0.20.5
