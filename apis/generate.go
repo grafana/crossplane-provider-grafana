@@ -43,6 +43,11 @@ Copyright 2021 Upbound Inc.
 // Generate crossplane-runtime methodsets (resource.Claim, etc)
 //go:generate go run -tags generate github.com/crossplane/crossplane-tools/cmd/angryjet generate-methodsets --header-file=../hack/boilerplate.go.txt ./...
 
+// Normalize generated file modes: upjet writes files as executable, but the
+// signed-commit API used by the update-terraform-provider workflow can only
+// create regular (0644) files, which would otherwise fail check-diff.
+//go:generate bash -c "find . ../internal/controller -type f -iname 'zz_*' -exec chmod 0644 {} +"
+
 package apis
 
 import (
