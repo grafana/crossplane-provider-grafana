@@ -271,3 +271,42 @@ The implementation can be found in:
 - Managed Stack connection details: `config/grafana/cloud.go` (`AdditionalConnectionDetailsFn`)
 - Observed Stack connection details: generated in `internal/controller/namespaced/observed/cloud/zz_stack_spec.go` (`ConnectionDetailsFn`)
 - Connection details controller support: `pkg/tfdatasource/controller.go`
+
+## Least-privilege Secret reads
+
+By default, the provider uses the controller-runtime cache for Secrets. A first
+Secret read can start an informer that lists and watches Secrets, even if the
+provider only needs a particular referenced Secret. This can require broader
+Secret permissions than a namespace-scoped, named `get` permission.
+
+Set `--no-enable-secret-cache` (or `ENABLE_SECRET_CACHE=false`) to make the
+manager client read Secrets directly from the Kubernetes API server. Other
+resource kinds continue to use the cache. This allows deployments to restrict
+Secret access to the credentials and connection Secrets they actually use,
+without granting cluster-wide Secret `list`/`watch` just to populate a cache.
+Direct reads still require the corresponding RBAC permissions; unauthorized
+requests remain forbidden. The option does not narrow existing RBAC grants.
+
+For example, attach a `DeploymentRuntimeConfig` to the installed Provider:
+
+```yaml
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
+metadata:
+  name: grafana-direct-secret-reads
+spec:
+  deploymentTemplate:
+    spec:
+      selector: {}
+      template:
+        spec:
+          containers:
+            - name: package-runtime
+              args:
+                - --no-enable-secret-cache
+```
+
+Reference it with `spec.runtimeConfigRef.name: grafana-direct-secret-reads` on
+the Provider. Secret caching remains enabled when the option is omitted, so
+existing installations keep their current behavior. Disabling it trades Secret
+cache memory and informer permissions for direct API requests during reconciliation.
