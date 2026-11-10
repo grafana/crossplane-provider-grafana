@@ -13,7 +13,7 @@ require (
 	github.com/grafana/synthetic-monitoring-agent v0.69.0
 	github.com/grafana/synthetic-monitoring-api-go-client v0.20.14
 	github.com/grafana/terraform-provider-grafana/v4 v4.54.0
-	github.com/hashicorp/terraform-json v0.27.2
+	github.com/hashicorp/terraform-json v0.29.0
 	github.com/hashicorp/terraform-plugin-framework v1.15.0
 	github.com/hashicorp/terraform-plugin-go v0.30.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.39.0
