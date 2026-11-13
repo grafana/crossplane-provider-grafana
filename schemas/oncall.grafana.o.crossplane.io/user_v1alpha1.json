@@ -105,6 +105,13 @@
             "role": {
               "description": "The role of the user.",
               "type": "string"
+            },
+            "teams": {
+              "description": "The IDs of the teams the user belongs to, which are the IDs the `grafana_oncall_team` data source returns. Empty when the user belongs to no team.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           "type": "object"

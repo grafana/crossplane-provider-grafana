@@ -1,0 +1,484 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.0
+  name: customfields.incident.grafana.m.crossplane.io
+spec:
+  group: incident.grafana.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - grafana
+    kind: CustomField
+    listKind: CustomFieldList
+    plural: customfields
+    singular: customfield
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: 'CustomField is the Schema for the CustomFields API. Manages
+          a Grafana Incident custom field, which records extra information on every
+          incident, such as the affected team or the customer impact. It can be changed
+          without replacing the field.The type cannot be changed after the field is
+          created, so changing type replaces the field. create_before_destroy cannot
+          be used, because the new field would conflict with the old one''s slug.A
+          select option is identified by its value. Changing an option''s label, description,
+          color or icon updates it in place, but changing its value deletes the option
+          and adds a new one. Option values must be unique within the field.A field
+          or select option that is a value on any incident, open or resolved, cannot
+          be deleted, archived or not. Deleting it, removing the option, or changing
+          the option''s value or the field''s type, which deletes and creates it again,
+          fails.To retire a field or a select option that incidents use, archive it
+          instead: set archived = true. Archived fields and options can''t be used
+          on new incidents, but incidents that already use them keep them.Default
+          values are not managed by this resource, since the Incident API does not
+          expose them. A default set in the UI is kept. Only fields in the incident
+          domain are supported. Fields synced with Grafana labels and system-managed
+          fields cannot be imported. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API
+          documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/'
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: CustomFieldSpec defines the desired state of CustomField
+            properties:
+              forProvider:
+                properties:
+                  archived:
+                    description: |-
+                      (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
+                      Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.
+                    type: boolean
+                  color:
+                    description: |-
+                      (String) The color of the custom field, as a CSS color such as #FF5286.
+                      The color of the custom field, as a CSS color such as `#FF5286`.
+                    type: string
+                  description:
+                    description: |-
+                      (String) A description of what the custom field records.
+                      A description of what the custom field records.
+                    type: string
+                  icon:
+                    description: |-
+                      (String) The name of the icon shown for the custom field.
+                      The name of the icon shown for the custom field.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The display name of the custom field, for example Affected team.
+                      The display name of the custom field, for example `Affected team`.
+                    type: string
+                  required:
+                    description: |-
+                      (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
+                      Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.
+                    type: boolean
+                  selectOption:
+                    description: |-
+                      select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
+                      An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.
+                    items:
+                      properties:
+                        archived:
+                          description: |-
+                            (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
+                            Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.
+                          type: boolean
+                        color:
+                          description: |-
+                            (String) The color of the custom field, as a CSS color such as #FF5286.
+                            The color of the option, as a CSS color such as `#FF5286`.
+                          type: string
+                        description:
+                          description: |-
+                            (String) A description of what the custom field records.
+                            A description of when the option applies.
+                          type: string
+                        icon:
+                          description: |-
+                            (String) The name of the icon shown for the custom field.
+                            The name of the icon shown for the option.
+                          type: string
+                        label:
+                          description: |-
+                            (String) The display label of the option.
+                            The display label of the option.
+                          type: string
+                        value:
+                          description: |-
+                            , _ and ., starting and ending with a letter or digit.
+                            The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.
+                          type: string
+                      type: object
+                    type: array
+                  slug:
+                    description: |-
+                      (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
+                      The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
+                    type: string
+                  type:
+                    description: |-
+                      replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
+                      The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date & time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  archived:
+                    description: |-
+                      (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
+                      Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.
+                    type: boolean
+                  color:
+                    description: |-
+                      (String) The color of the custom field, as a CSS color such as #FF5286.
+                      The color of the custom field, as a CSS color such as `#FF5286`.
+                    type: string
+                  description:
+                    description: |-
+                      (String) A description of what the custom field records.
+                      A description of what the custom field records.
+                    type: string
+                  icon:
+                    description: |-
+                      (String) The name of the icon shown for the custom field.
+                      The name of the icon shown for the custom field.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The display name of the custom field, for example Affected team.
+                      The display name of the custom field, for example `Affected team`.
+                    type: string
+                  required:
+                    description: |-
+                      (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
+                      Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.
+                    type: boolean
+                  selectOption:
+                    description: |-
+                      select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
+                      An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.
+                    items:
+                      properties:
+                        archived:
+                          description: |-
+                            (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
+                            Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.
+                          type: boolean
+                        color:
+                          description: |-
+                            (String) The color of the custom field, as a CSS color such as #FF5286.
+                            The color of the option, as a CSS color such as `#FF5286`.
+                          type: string
+                        description:
+                          description: |-
+                            (String) A description of what the custom field records.
+                            A description of when the option applies.
+                          type: string
+                        icon:
+                          description: |-
+                            (String) The name of the icon shown for the custom field.
+                            The name of the icon shown for the option.
+                          type: string
+                        label:
+                          description: |-
+                            (String) The display label of the option.
+                            The display label of the option.
+                          type: string
+                        value:
+                          description: |-
+                            , _ and ., starting and ending with a letter or digit.
+                            The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.
+                          type: string
+                      type: object
+                    type: array
+                  slug:
+                    description: |-
+                      (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
+                      The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
+                    type: string
+                  type:
+                    description: |-
+                      replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
+                      The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date & time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.name)
+                || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.slug is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.slug)
+                || (has(self.initProvider) && has(self.initProvider.slug))'
+            - message: spec.forProvider.type is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.type)
+                || (has(self.initProvider) && has(self.initProvider.type))'
+          status:
+            description: CustomFieldStatus defines the observed state of CustomField.
+            properties:
+              atProvider:
+                properties:
+                  archived:
+                    description: |-
+                      (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
+                      Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to `false`.
+                    type: boolean
+                  color:
+                    description: |-
+                      (String) The color of the custom field, as a CSS color such as #FF5286.
+                      The color of the custom field, as a CSS color such as `#FF5286`.
+                    type: string
+                  description:
+                    description: |-
+                      (String) A description of what the custom field records.
+                      A description of what the custom field records.
+                    type: string
+                  icon:
+                    description: |-
+                      (String) The name of the icon shown for the custom field.
+                      The name of the icon shown for the custom field.
+                    type: string
+                  id:
+                    description: (String) The UUID of the custom field.
+                    type: string
+                  name:
+                    description: |-
+                      (String) The display name of the custom field, for example Affected team.
+                      The display name of the custom field, for example `Affected team`.
+                    type: string
+                  required:
+                    description: |-
+                      (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
+                      Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a `bool` field, No counts as set. Defaults to `false`.
+                    type: boolean
+                  selectOption:
+                    description: |-
+                      select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
+                      An option of a `single-select` or `multi-select` field. Options are identified by their value, which must be unique within the field.
+                    items:
+                      properties:
+                        archived:
+                          description: |-
+                            (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
+                            Whether the option is archived. Archived options can't be selected on new incidents, but incidents that already use them keep them. Defaults to `false`.
+                          type: boolean
+                        color:
+                          description: |-
+                            (String) The color of the custom field, as a CSS color such as #FF5286.
+                            The color of the option, as a CSS color such as `#FF5286`.
+                          type: string
+                        description:
+                          description: |-
+                            (String) A description of what the custom field records.
+                            A description of when the option applies.
+                          type: string
+                        icon:
+                          description: |-
+                            (String) The name of the icon shown for the custom field.
+                            The name of the icon shown for the option.
+                          type: string
+                        label:
+                          description: |-
+                            (String) The display label of the option.
+                            The display label of the option.
+                          type: string
+                        value:
+                          description: |-
+                            , _ and ., starting and ending with a letter or digit.
+                            The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, `-`, `_` and `.`, starting and ending with a letter or digit.
+                          type: string
+                      type: object
+                    type: array
+                  selectOptionIds:
+                    additionalProperties:
+                      type: string
+                    description: |-
+                      (Map of String) The UUIDs of the select options, keyed by the option value.
+                      The UUIDs of the select options, keyed by the option value.
+                    type: object
+                    x-kubernetes-map-type: granular
+                  slug:
+                    description: |-
+                      (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
+                      The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
+                    type: string
+                  type:
+                    description: |-
+                      replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
+                      The type of the custom field. One of `string`, `single-select`, `multi-select`, `number`, `bool` (shown as Yes/No) or `date` (shown as Date & time). Changing it forces a new custom field to be created, which fails if any incident has a value for the field. `create_before_destroy` cannot be used, because the new field would conflict with the old one's slug.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              lastHandledReconcileAt:
+                description: |-
+                  LastHandledReconcileAt holds the value of the most recent
+                  reconcile-requested-at annotation token that the controller has
+                  processed. Users can compare this to the annotation to determine
+                  whether a reconcile request has been handled.
+                type: string
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -706,3 +706,53 @@ func (mg *RulesequenceV1Beta1) SetProviderConfigReference(r *xpv2.Reference) {
 func (mg *RulesequenceV1Beta1) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
+
+// GetCondition of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
+	return mg.Status.GetCondition(ct)
+}
+
+// GetDeletionPolicy of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) GetDeletionPolicy() xpv2.DeletionPolicy {
+	return mg.Spec.DeletionPolicy
+}
+
+// GetManagementPolicies of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) GetManagementPolicies() xpv2.ManagementPolicies {
+	return mg.Spec.ManagementPolicies
+}
+
+// GetProviderConfigReference of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) GetProviderConfigReference() *xpv2.Reference {
+	return mg.Spec.ProviderConfigReference
+}
+
+// GetWriteConnectionSecretToReference of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
+	return mg.Spec.WriteConnectionSecretToReference
+}
+
+// SetConditions of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) SetConditions(c ...xpv2.Condition) {
+	mg.Status.SetConditions(c...)
+}
+
+// SetDeletionPolicy of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) SetDeletionPolicy(r xpv2.DeletionPolicy) {
+	mg.Spec.DeletionPolicy = r
+}
+
+// SetManagementPolicies of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) SetManagementPolicies(r xpv2.ManagementPolicies) {
+	mg.Spec.ManagementPolicies = r
+}
+
+// SetProviderConfigReference of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) SetProviderConfigReference(r *xpv2.Reference) {
+	mg.Spec.ProviderConfigReference = r
+}
+
+// SetWriteConnectionSecretToReference of this TimeintervalV1Beta1.
+func (mg *TimeintervalV1Beta1) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
+	mg.Spec.WriteConnectionSecretToReference = r
+}

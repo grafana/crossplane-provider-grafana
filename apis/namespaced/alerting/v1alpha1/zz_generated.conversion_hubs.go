@@ -47,3 +47,6 @@ func (tr *RulesequenceV0Alpha1) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *RulesequenceV1Beta1) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TimeintervalV1Beta1) Hub() {}

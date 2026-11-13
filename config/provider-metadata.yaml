@@ -852,6 +852,64 @@ resources:
             value: (String) The label value to match against.
             version: (String) The version of the resource.
         importStatements: []
+    grafana_apps_notifications_timeinterval_v1beta1:
+        subCategory: Alerting
+        description: Manages Grafana Time Intervals. Requires Grafana 13.4.0-41840432882 or later, which accepts a time interval UID set by the client. Grafana 13.3.0 rejects the create call with HTTP 400 - object's metadata.name should be empty.
+        name: grafana_apps_notifications_timeinterval_v1beta1
+        title: grafana_apps_notifications_timeinterval_v1beta1 Resource - terraform-provider-grafana
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "metadata": [
+                    {
+                      "uid": "business-hours"
+                    }
+                  ],
+                  "spec": [
+                    {
+                      "name": "business-hours",
+                      "time_intervals": [
+                        {
+                          "times": [
+                            {
+                              "end_time": "17:00",
+                              "start_time": "09:00"
+                            }
+                          ],
+                          "weekdays": [
+                            "monday:friday"
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+        argumentDocs:
+            annotations: (Map of String) Annotations of the resource.
+            days_of_month: (List of String) Days of the month (1-31, negative values count from end of month).
+            end_time: (String)
+            folder_uid: (String) The UID of the folder to save the resource in. For example, it's supported for dashboards and folders. To know if it's supported for the specific resource you're using check the documentation.
+            id: (String) The ID of the resource derived from UUID.
+            location: (String) IANA timezone name (e.g. America/New_York). Defaults to UTC when unset.
+            manager_identity: (String) Override the identity stamped on this resource's manager metadata. Defaults to "grafana-terraform-provider". Use this to distinguish resources managed by different Terraform workspaces targeting the same Grafana instance.
+            metadata: (Block, Optional) The metadata of the resource. (see below for nested schema)
+            months: (List of String) Months of the year (e.g. january, february).
+            name: (String) The name of the time interval.
+            options: (Block, Optional) Options for applying the resource. (see below for nested schema)
+            org_id: (Number) The Grafana organization ID this resource belongs to, for self-hosted OSS or Enterprise Grafana. When set, it overrides the provider's org_id for this resource only, so a single provider configuration can manage App Platform resources across multiple organizations. Not supported on Grafana Cloud (configure a stack with stack_id instead). Changing this value forces the resource to be recreated in the new organization.
+            overwrite: (Boolean) Set to true if you want to overwrite existing resource with newer version, same resource title in folder or same resource uid.
+            spec: (Block, Optional) The spec of the resource. (see below for nested schema)
+            start_time: (String)
+            time_intervals: (Block List) A list of time interval definitions. (see below for nested schema)
+            times: (List of Object) Ranges of time within a day. (see below for nested schema)
+            uid: (String) The unique identifier of the resource.
+            url: (String) The full URL of the resource.
+            uuid: (String) The globally unique identifier of a resource, used by the API for tracking.
+            version: (String) The version of the resource.
+            weekdays: (List of String) Days of the week (e.g. monday, tuesday).
+            years: (List of String) Calendar years (e.g. 2024, 2025:2027).
+        importStatements: []
     grafana_apps_playlist_playlist_v0alpha1:
         subCategory: Grafana Apps
         description: Manages Grafana playlists using the new Grafana APIs. Official documentation https://grafana.com/docs/grafana/latest/dashboards/create-manage-playlists/HTTP API https://grafana.com/docs/grafana/latest/developers/http_api/apis/
@@ -5677,6 +5735,78 @@ resources:
             stack_id: (Number) The Stack ID of the Grafana Cloud instance. Part of the Terraform Resource ID.
         importStatements:
             - terraform import grafana_frontend_o11y_app.name "{{ stack_id }}:{{ name }}"
+    grafana_incident_custom_field:
+        subCategory: Incident
+        description: 'Manages a Grafana Incident custom field, which records extra information on every incident, such as the affected team or the customer impact. The Incident API enforces a few rules that affect Terraform: The slug must be unique among the organization''s incident custom fields, archived ones included. It can be changed without replacing the field.The type cannot be changed after the field is created, so changing type replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one''s slug.A select option is identified by its value. Changing an option''s label, description, color or icon updates it in place, but changing its value deletes the option and adds a new one. Option values must be unique within the field.A field or select option that is a value on any incident, open or resolved, cannot be deleted, archived or not. Deleting it, removing the option, or changing the option''s value or the field''s type, which deletes and creates it again, fails. To stop managing a field with Terraform without deleting it, use a removed block with lifecycle { destroy = false }.To retire a field or a select option that incidents use, archive it instead: set archived = true. Archived fields and options can''t be used on new incidents, but incidents that already use them keep them.Default values are not managed by this resource, since the Incident API does not expose them. A default set in the UI is kept. Only fields in the incident domain are supported. Fields synced with Grafana labels and system-managed fields cannot be imported. Official documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/API documentation https://grafana.com/docs/grafana-cloud/alerting-and-irm/irm/incident/api/'
+        name: grafana_incident_custom_field
+        title: grafana_incident_custom_field Resource - terraform-provider-grafana
+        examples:
+            - name: affected_team
+              manifest: |-
+                {
+                  "description": "The team that owns the affected service.",
+                  "name": "Affected team",
+                  "select_option": [
+                    {
+                      "label": "Payments",
+                      "value": "payments"
+                    },
+                    {
+                      "description": "Cart, checkout and order confirmation.",
+                      "label": "Checkout",
+                      "value": "checkout"
+                    },
+                    {
+                      "archived": true,
+                      "label": "Billing",
+                      "value": "billing"
+                    }
+                  ],
+                  "slug": "affected_team",
+                  "type": "single-select"
+                }
+            - name: customer_ticket
+              manifest: |-
+                {
+                  "name": "Customer ticket",
+                  "required": true,
+                  "slug": "customer_ticket",
+                  "type": "string"
+                }
+            - name: customer_impact
+              manifest: |-
+                {
+                  "description": "Whether customers were affected.",
+                  "name": "Customer impact",
+                  "required": true,
+                  "slug": "customer_impact",
+                  "type": "bool"
+                }
+            - name: customers_notified_at
+              manifest: |-
+                {
+                  "name": "Customers notified at",
+                  "slug": "customers_notified_at",
+                  "type": "date"
+                }
+        argumentDocs:
+            archived: (Boolean) Whether the custom field is archived. Archived fields can't be used on new incidents, but incidents that already use them keep their values. Defaults to false.
+            archived = true: . Archived fields and options can't be used on new incidents, but incidents that already use them keep them.
+            color: '(String) The color of the custom field, as a CSS color such as #FF5286.'
+            description: (String) A description of what the custom field records.
+            icon: (String) The name of the icon shown for the custom field.
+            id: (String) The UUID of the custom field.
+            label: (String) The display label of the option.
+            name: (String) The display name of the custom field, for example Affected team.
+            removed: block with lifecycle { destroy = false }.
+            required: (Boolean) Whether the custom field must be filled in on every incident. An incident cannot be resolved until it is set; for a bool field, No counts as set. Defaults to false.
+            select_option: (Block Set) An option of a single-select or multi-select field. Options are identified by their value, which must be unique within the field. (see below for nested schema)
+            select_option_ids: (Map of String) The UUIDs of the select options, keyed by the option value.
+            slug: (String) The slug of the custom field, used to search for it and to reference it as a metric. Up to 63 letters, digits and underscores, starting and ending with a letter. It must be unique among the organization's incident custom fields, archived ones included.
+            type: replaces the field. create_before_destroy cannot be used, because the new field would conflict with the old one's slug.
+            value: (String) The value of the option, which identifies it. Changing it deletes the option and adds a new one, which fails if any incident has the option selected. Up to 63 letters, digits, -, _ and ., starting and ending with a letter or digit.
+        importStatements:
+            - terraform import grafana_incident_custom_field.name "{{ id }}"
     grafana_incident_role:
         subCategory: Incident
         description: 'Manages a Grafana Incident role that can be assigned to people during an incident. The Incident API enforces two limits that affect Terraform: Creating or unarchiving a role fails when the organization already has 5 active (non-archived) roles.Deleting or archiving a role fails when the organization has 2 or fewer active roles. Terraform applies independent resources in parallel, so a configuration that frees an active slot and fills it in the same apply may fail depending on which call reaches the API first. Order the two with depends_on, putting the dependency on whichever role frees the slot:'
@@ -8754,6 +8884,50 @@ resources:
                 }
               references:
                 probes: data.grafana_synthetic_monitoring_probes.main.probes.Mumbai
+            - name: http
+              manifest: |-
+                {
+                  "enabled": true,
+                  "job": "HTTP Secret Manager",
+                  "labels": {
+                    "environment": "production",
+                    "service": "api"
+                  },
+                  "probes": [
+                    "${data.grafana_synthetic_monitoring_probes.main.probes.Mumbai}"
+                  ],
+                  "settings": [
+                    {
+                      "http": [
+                        {
+                          "basic_auth": [
+                            {
+                              "password": "$${secrets.my-api-password}",
+                              "username": "admin"
+                            }
+                          ],
+                          "bearer_token": "$${secrets.my-api-token}",
+                          "fail_if_not_ssl": true,
+                          "fail_if_ssl": false,
+                          "headers": [
+                            "Accept: application/json",
+                            "User-Agent: Terraform-Synthetic-Monitoring"
+                          ],
+                          "ip_version": "V4",
+                          "method": "GET",
+                          "valid_status_codes": [
+                            200,
+                            201,
+                            202
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "target": "https://api.example.com"
+                }
+              references:
+                probes: data.grafana_synthetic_monitoring_probes.main.probes.Mumbai
             - name: ping
               manifest: |-
                 {
@@ -9171,14 +9345,14 @@ resources:
             attribute: (String) The attribute to use when finding the variable value. Only used when type is CSS_SELECTOR
             basic_auth: '(Block Set, Max: 1) Basic auth settings. (see below for nested schema)'
             basic_metrics_only: (Boolean) Metrics are reduced by default. Set this to false if you'd like to publish all metrics. We maintain a full list of metrics collected for each. Defaults to true.
-            bearer_token: (String, Sensitive) Token for use with bearer authorization header.
+            bearer_token: (String, Sensitive) Token for use with bearer authorization header. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
             body: (String) The body of the HTTP request used in probe.
             browser: '(Block Set, Max: 1) Settings for browser check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6-browser/. (see below for nested schema)'
-            ca_cert: (String) CA certificate in PEM format.
+            ca_cert: (String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
             cache_busting_query_param_name: (String) The name of the query parameter used to prevent the server from using a cached response. Each probe will assign a random value to this parameter each time a request is made.
             channels: '(Block List, Max: 1) Channels to assign the check to. See Manage k6 versions for details. If not specified for scripted/browser checks, the API assigns a default k6 channel. (see below for nested schema)'
-            client_cert: (String) Client certificate in PEM format.
-            client_key: (String, Sensitive) Client key in PEM format.
+            client_cert: (String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
+            client_key: (String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
             compression: (String) Check fails if the response body is not compressed using this compression algorithm. One of none, identity, br, gzip, deflate.
             condition: '(String) The condition of the assertion: NOT_CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, TYPE_OF, CONTAINS'
             content_encoding: (String) The content encoding of the body
@@ -9215,7 +9389,7 @@ resources:
             multihttp: '(Block Set, Max: 1) Settings for MultiHTTP check. The target must be a URL (http or https) (see below for nested schema)'
             name: (String) Name of the header to send
             no_follow_redirects: (Boolean) Do not follow redirects. Defaults to false.
-            password: (String, Sensitive) Basic auth password.
+            password: (String, Sensitive) Basic auth password. It can hold a ${secrets.<name>} reference, which is resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so Terraform doesn't interpolate it. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.
             payload: (String) The body payload
             payload_size: (Number) Payload size. Defaults to 0.
             ping: '(Block Set, Max: 1) Settings for ping (ICMP) check. The target must be a valid hostname or IP address. (see below for nested schema)'
@@ -9232,7 +9406,7 @@ resources:
             request: '(Block Set, Max: 1) An individual MultiHTTP request (see below for nested schema)'
             script: (String)
             scripted: '(Block Set, Max: 1) Settings for scripted check. See https://grafana.com/docs/grafana-cloud/testing/synthetic-monitoring/create-checks/checks/k6/. (see below for nested schema)'
-            secret_manager_enabled: (Boolean) Enable secret manager so that ${secrets.<name>} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. In Terraform HCL, escape the leading $ ($${secrets.<name>}) so the reference is passed through literally rather than interpolated by Terraform. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.
+            secret_manager_enabled: (Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.<name>} references. On refresh, the provider keeps the value from state, so changes made outside Terraform don't show a diff. Defaults to false.
             send: (String) Data to send.
             server: (String) DNS server address to target. Defaults to 8.8.8.8.
             server_name: (String) Used to verify the hostname for the targets.
