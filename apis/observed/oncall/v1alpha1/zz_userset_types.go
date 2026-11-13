@@ -19,15 +19,24 @@ type UserSetUsers struct {
 
 	Role *string `json:"role,omitempty" tfsdk:"role"`
 
+	Teams []string `json:"teams,omitempty" tfsdk:"teams"`
+
 	Username *string `json:"username,omitempty" tfsdk:"username"`
 }
 
 // UserSetParameters defines the input parameters for the grafana_oncall_users data source.
-type UserSetParameters struct{}
+type UserSetParameters struct {
+	// Return only the members of this team, using the ID from the `grafana_oncall_team` data source. A team ID that does not exist returns no users instead of an error, so reference the data source rather than writing an ID by hand. Unlike `grafana_oncall_integration`, this attribute does not accept `"null"`: there is no filter for users who belong to no team.
+	// +optional
+	TeamID *string `json:"teamID,omitempty"`
+}
 
 // UserSetObservation holds the observed (computed) fields from the grafana_oncall_users data source.
 type UserSetObservation struct {
-	// Every OnCall user, with their ID, username (the Grafana login), email, and role.
+	// Return only the members of this team, using the ID from the `grafana_oncall_team` data source. A team ID that does not exist returns no users instead of an error, so reference the data source rather than writing an ID by hand. Unlike `grafana_oncall_integration`, this attribute does not accept `"null"`: there is no filter for users who belong to no team.
+	TeamID *string `json:"teamID,omitempty"`
+
+	// Every matching OnCall user, with their ID, username (the Grafana login), email, and role. `teams` holds the IDs of the teams the user belongs to, which are the IDs the `grafana_oncall_team` data source returns.
 	Users []UserSetUsers `json:"users,omitempty"`
 }
 
