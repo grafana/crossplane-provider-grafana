@@ -9,6 +9,8 @@ package oncall
 import (
 	"context"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
+	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -24,11 +26,24 @@ var UserSetSpec = tfdatasource.Spec{
 	NewManaged:     func() resource.Managed { return &v1alpha1.UserSet{} },
 	Read: tfdatasource.NewFrameworkReadFn(
 		newDSUserSet,
-		func(_ resource.Managed) map[string]tftypes.Value {
-			return nil
+		func(mg resource.Managed) map[string]tftypes.Value {
+			cr := mg.(*v1alpha1.UserSet)
+			attrs := map[string]tftypes.Value{}
+			if cr.Spec.ForProvider.TeamID != nil {
+				attrs["team_id"] = tftypes.NewValue(tftypes.String, *cr.Spec.ForProvider.TeamID)
+			}
+
+			return attrs
 		},
 		func(ctx context.Context, mg resource.Managed, state tfsdk.State) {
 			cr := mg.(*v1alpha1.UserSet)
+			{
+				var v *string
+				if diags := state.GetAttribute(ctx, path.Root("team_id"), &v); !diags.HasError() && v != nil {
+					cr.Status.AtProvider.TeamID = v
+				}
+			}
+
 			{
 				var v []v1alpha1.UserSetUsers
 				if diags := state.GetAttribute(ctx, path.Root("users"), &v); !diags.HasError() {
@@ -38,4 +53,15 @@ var UserSetSpec = tfdatasource.Spec{
 
 		},
 	),
+	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {
+		cr := mg.(*v1alpha1.UserSet)
+		cd := managed.ConnectionDetails{}
+		if id := meta.GetExternalName(cr); id != "" {
+			cd["id"] = []byte(id)
+		}
+		if cr.Status.AtProvider.TeamID != nil {
+			cd["team_id"] = []byte(*cr.Status.AtProvider.TeamID)
+		}
+		return cd
+	},
 }

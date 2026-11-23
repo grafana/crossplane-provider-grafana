@@ -29,7 +29,7 @@ type IntervalsInitParameters struct {
 
 	// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
 	// The time ranges, represented in minutes, during which to mute in a given day.
-	Times []TimesInitParameters `json:"times,omitempty" tf:"times,omitempty"`
+	Times []IntervalsTimesInitParameters `json:"times,omitempty" tf:"times,omitempty"`
 
 	// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
 	// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
@@ -56,7 +56,7 @@ type IntervalsObservation struct {
 
 	// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
 	// The time ranges, represented in minutes, during which to mute in a given day.
-	Times []TimesObservation `json:"times,omitempty" tf:"times,omitempty"`
+	Times []IntervalsTimesObservation `json:"times,omitempty" tf:"times,omitempty"`
 
 	// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
 	// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
@@ -87,7 +87,7 @@ type IntervalsParameters struct {
 	// (Block List) The time ranges, represented in minutes, during which to mute in a given day. (see below for nested schema)
 	// The time ranges, represented in minutes, during which to mute in a given day.
 	// +kubebuilder:validation:Optional
-	Times []TimesParameters `json:"times,omitempty" tf:"times,omitempty"`
+	Times []IntervalsTimesParameters `json:"times,omitempty" tf:"times,omitempty"`
 
 	// (List of String) An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
 	// An inclusive range of weekdays, e.g. "monday" or "tuesday:thursday".
@@ -98,6 +98,41 @@ type IntervalsParameters struct {
 	// A positive inclusive range of years, e.g. "2030" or "2025:2026".
 	// +kubebuilder:validation:Optional
 	Years []*string `json:"years,omitempty" tf:"years,omitempty"`
+}
+
+type IntervalsTimesInitParameters struct {
+
+	// (String) The time, in hh:mm format, of when the interval should end exclusively.
+	// The time, in hh:mm format, of when the interval should end exclusively.
+	End *string `json:"end,omitempty" tf:"end,omitempty"`
+
+	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
+	// The time, in hh:mm format, of when the interval should begin inclusively.
+	Start *string `json:"start,omitempty" tf:"start,omitempty"`
+}
+
+type IntervalsTimesObservation struct {
+
+	// (String) The time, in hh:mm format, of when the interval should end exclusively.
+	// The time, in hh:mm format, of when the interval should end exclusively.
+	End *string `json:"end,omitempty" tf:"end,omitempty"`
+
+	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
+	// The time, in hh:mm format, of when the interval should begin inclusively.
+	Start *string `json:"start,omitempty" tf:"start,omitempty"`
+}
+
+type IntervalsTimesParameters struct {
+
+	// (String) The time, in hh:mm format, of when the interval should end exclusively.
+	// The time, in hh:mm format, of when the interval should end exclusively.
+	// +kubebuilder:validation:Optional
+	End *string `json:"end" tf:"end,omitempty"`
+
+	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
+	// The time, in hh:mm format, of when the interval should begin inclusively.
+	// +kubebuilder:validation:Optional
+	Start *string `json:"start" tf:"start,omitempty"`
 }
 
 type MuteTimingInitParameters struct {
@@ -181,41 +216,6 @@ type MuteTimingParameters struct {
 	// Selector for a Organization in oss to populate orgId.
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
-}
-
-type TimesInitParameters struct {
-
-	// (String) The time, in hh:mm format, of when the interval should end exclusively.
-	// The time, in hh:mm format, of when the interval should end exclusively.
-	End *string `json:"end,omitempty" tf:"end,omitempty"`
-
-	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
-	// The time, in hh:mm format, of when the interval should begin inclusively.
-	Start *string `json:"start,omitempty" tf:"start,omitempty"`
-}
-
-type TimesObservation struct {
-
-	// (String) The time, in hh:mm format, of when the interval should end exclusively.
-	// The time, in hh:mm format, of when the interval should end exclusively.
-	End *string `json:"end,omitempty" tf:"end,omitempty"`
-
-	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
-	// The time, in hh:mm format, of when the interval should begin inclusively.
-	Start *string `json:"start,omitempty" tf:"start,omitempty"`
-}
-
-type TimesParameters struct {
-
-	// (String) The time, in hh:mm format, of when the interval should end exclusively.
-	// The time, in hh:mm format, of when the interval should end exclusively.
-	// +kubebuilder:validation:Optional
-	End *string `json:"end" tf:"end,omitempty"`
-
-	// (String) The time, in hh:mm format, of when the interval should begin inclusively.
-	// The time, in hh:mm format, of when the interval should begin inclusively.
-	// +kubebuilder:validation:Optional
-	Start *string `json:"start" tf:"start,omitempty"`
 }
 
 // MuteTimingSpec defines the desired state of MuteTiming

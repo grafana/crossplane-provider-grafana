@@ -49,6 +49,13 @@ var UserSpec = tfdatasource.Spec{
 				}
 			}
 
+			{
+				var v []string
+				if diags := state.GetAttribute(ctx, path.Root("teams"), &v); !diags.HasError() && len(v) > 0 {
+					cr.Status.AtProvider.Teams = v
+				}
+			}
+
 		},
 	),
 	ConnectionDetailsFn: func(mg resource.Managed) managed.ConnectionDetails {

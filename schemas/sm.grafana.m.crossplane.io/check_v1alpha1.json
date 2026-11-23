@@ -252,16 +252,16 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientKeySecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Client key in PEM format.\nClient key in PEM format.",
+                                "description": "(String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient key in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -307,7 +307,7 @@
                             "properties": {
                               "passwordSecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Basic auth password.\nBasic auth password.",
+                                "description": "(String, Sensitive) Basic auth password. It can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nBasic auth password. It can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -334,7 +334,7 @@
                         },
                         "bearerTokenSecretRef": {
                           "additionalProperties": false,
-                          "description": "(String, Sensitive) Token for use with bearer authorization header.\nToken for use with bearer authorization header.",
+                          "description": "(String, Sensitive) Token for use with bearer authorization header. It can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nToken for use with bearer authorization header. It can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                           "properties": {
                             "key": {
                               "type": "string"
@@ -463,7 +463,7 @@
                           "type": "string"
                         },
                         "secretManagerEnabled": {
-                          "description": "(Boolean) Enable secret manager so that ${secrets.\u003cname\u003e} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.\nEnable secret manager so that `${secrets.\u003cname\u003e}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.",
+                          "description": "(Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.\u003cname\u003e} references. Defaults to false.\nThe API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold `${secrets.\u003cname\u003e}` references. Defaults to `false`.",
                           "type": "boolean"
                         },
                         "tlsConfig": {
@@ -472,16 +472,16 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientKeySecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Client key in PEM format.\nClient key in PEM format.",
+                                "description": "(String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient key in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -768,16 +768,16 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientKeySecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Client key in PEM format.\nClient key in PEM format.",
+                                "description": "(String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient key in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -1086,16 +1086,16 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientKeySecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Client key in PEM format.\nClient key in PEM format.",
+                                "description": "(String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient key in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -1141,7 +1141,7 @@
                             "properties": {
                               "passwordSecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Basic auth password.\nBasic auth password.",
+                                "description": "(String, Sensitive) Basic auth password. It can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nBasic auth password. It can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -1171,7 +1171,7 @@
                         },
                         "bearerTokenSecretRef": {
                           "additionalProperties": false,
-                          "description": "(String, Sensitive) Token for use with bearer authorization header.\nToken for use with bearer authorization header.",
+                          "description": "(String, Sensitive) Token for use with bearer authorization header. It can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nToken for use with bearer authorization header. It can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                           "properties": {
                             "key": {
                               "type": "string"
@@ -1300,7 +1300,7 @@
                           "type": "string"
                         },
                         "secretManagerEnabled": {
-                          "description": "(Boolean) Enable secret manager so that ${secrets.\u003cname\u003e} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.\nEnable secret manager so that `${secrets.\u003cname\u003e}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.",
+                          "description": "(Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.\u003cname\u003e} references. Defaults to false.\nThe API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold `${secrets.\u003cname\u003e}` references. Defaults to `false`.",
                           "type": "boolean"
                         },
                         "tlsConfig": {
@@ -1309,16 +1309,16 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientKeySecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Client key in PEM format.\nClient key in PEM format.",
+                                "description": "(String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient key in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -1605,16 +1605,16 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientKeySecretRef": {
                                 "additionalProperties": false,
-                                "description": "(String, Sensitive) Client key in PEM format.\nClient key in PEM format.",
+                                "description": "(String, Sensitive) Client key in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient key in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "properties": {
                                   "key": {
                                     "type": "string"
@@ -2010,11 +2010,11 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "insecureSkipVerify": {
@@ -2167,7 +2167,7 @@
                           "type": "string"
                         },
                         "secretManagerEnabled": {
-                          "description": "(Boolean) Enable secret manager so that ${secrets.\u003cname\u003e} references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to false.\nEnable secret manager so that `${secrets.\u003cname\u003e}` references in the bearer token, basic auth password, and TLS certificate/key fields are resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check. Defaults to `false`.",
+                          "description": "(Boolean, Deprecated) The API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold ${secrets.\u003cname\u003e} references. Defaults to false.\nThe API ignores this value. It turns on secret manager by itself when the bearer token, basic auth password, or TLS certificate/key fields hold `${secrets.\u003cname\u003e}` references. Defaults to `false`.",
                           "type": "boolean"
                         },
                         "tlsConfig": {
@@ -2176,11 +2176,11 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "insecureSkipVerify": {
@@ -2454,11 +2454,11 @@
                             "additionalProperties": false,
                             "properties": {
                               "caCert": {
-                                "description": "(String) CA certificate in PEM format.\nCA certificate in PEM format.",
+                                "description": "(String) CA certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nCA certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "clientCert": {
-                                "description": "(String) Client certificate in PEM format.\nClient certificate in PEM format.",
+                                "description": "(String) Client certificate in PEM format. In HTTP checks, it can hold a ${secrets.\u003cname\u003e} reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.\nClient certificate in PEM format. In HTTP checks, it can hold a `${secrets.\u003cname\u003e}` reference, which is resolved from Grafana Secrets Manager at check time. All probes assigned to the check must support protocol secrets, otherwise the API rejects the check.",
                                 "type": "string"
                               },
                               "insecureSkipVerify": {

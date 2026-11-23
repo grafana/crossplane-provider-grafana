@@ -1,0 +1,20 @@
+apiVersion: alerting.grafana.crossplane.io/v1alpha1
+kind: TimeintervalV1Beta1
+metadata:
+  annotations:
+    meta.upbound.io/example-id: alerting/v1alpha1/timeintervalv1beta1
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    metadata:
+      uid: business-hours
+    spec:
+      name: business-hours
+      timeIntervals:
+      - times:
+        - endTime: "17:00"
+          startTime: "09:00"
+        weekdays:
+        - monday:friday

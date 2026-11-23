@@ -28,6 +28,7 @@ import (
 	rulegroup "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/rulegroup"
 	rulesequencev0alpha1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/rulesequencev0alpha1"
 	rulesequencev1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/rulesequencev1beta1"
+	timeintervalv1beta1 "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/alerting/timeintervalv1beta1"
 	custommodelrules "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/custommodelrules"
 	logconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/logconfig"
 	notificationalertsconfig "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/asserts/notificationalertsconfig"
@@ -80,6 +81,7 @@ import (
 	collector "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/fleetmanagement/collector"
 	pipeline "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/fleetmanagement/pipeline"
 	app "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/frontendobservability/app"
+	customfield "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/incident/customfield"
 	roleincident "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/incident/role"
 	severity "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/incident/severity"
 	installation "github.com/grafana/crossplane-provider-grafana/v2/internal/controller/cluster/k6/installation"
@@ -163,6 +165,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		rulegroup.Setup,
 		rulesequencev0alpha1.Setup,
 		rulesequencev1beta1.Setup,
+		timeintervalv1beta1.Setup,
 		custommodelrules.Setup,
 		logconfig.Setup,
 		notificationalertsconfig.Setup,
@@ -215,6 +218,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		collector.Setup,
 		pipeline.Setup,
 		app.Setup,
+		customfield.Setup,
 		roleincident.Setup,
 		severity.Setup,
 		installation.Setup,
@@ -304,6 +308,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		rulegroup.SetupGated,
 		rulesequencev0alpha1.SetupGated,
 		rulesequencev1beta1.SetupGated,
+		timeintervalv1beta1.SetupGated,
 		custommodelrules.SetupGated,
 		logconfig.SetupGated,
 		notificationalertsconfig.SetupGated,
@@ -356,6 +361,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		collector.SetupGated,
 		pipeline.SetupGated,
 		app.SetupGated,
+		customfield.SetupGated,
 		roleincident.SetupGated,
 		severity.SetupGated,
 		installation.SetupGated,
@@ -444,6 +450,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		rulegroup.SetupWebhookWithManager,
 		rulesequencev0alpha1.SetupWebhookWithManager,
 		rulesequencev1beta1.SetupWebhookWithManager,
+		timeintervalv1beta1.SetupWebhookWithManager,
 		custommodelrules.SetupWebhookWithManager,
 		logconfig.SetupWebhookWithManager,
 		notificationalertsconfig.SetupWebhookWithManager,
@@ -496,6 +503,7 @@ func SetupWebhookWithManager(mgr ctrl.Manager) error {
 		collector.SetupWebhookWithManager,
 		pipeline.SetupWebhookWithManager,
 		app.SetupWebhookWithManager,
+		customfield.SetupWebhookWithManager,
 		roleincident.SetupWebhookWithManager,
 		severity.SetupWebhookWithManager,
 		installation.SetupWebhookWithManager,

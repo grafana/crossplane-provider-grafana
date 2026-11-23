@@ -26,6 +26,9 @@ type UserObservation struct {
 
 	// The role of the user.
 	Role *string `json:"role,omitempty"`
+
+	// The IDs of the teams the user belongs to, which are the IDs the `grafana_oncall_team` data source returns. Empty when the user belongs to no team.
+	Teams []string `json:"teams,omitempty"`
 }
 
 type UserSpec struct {

@@ -132,3 +132,12 @@ func (l *RulesequenceV1Beta1List) GetItems() []resource.Managed {
 	}
 	return items
 }
+
+// GetItems of this TimeintervalV1Beta1List.
+func (l *TimeintervalV1Beta1List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}

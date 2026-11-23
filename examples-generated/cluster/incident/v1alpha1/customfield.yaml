@@ -1,0 +1,23 @@
+apiVersion: incident.grafana.crossplane.io/v1alpha1
+kind: CustomField
+metadata:
+  annotations:
+    meta.upbound.io/example-id: incident/v1alpha1/customfield
+  labels:
+    testing.upbound.io/example-name: affected_team
+  name: affected-team
+spec:
+  forProvider:
+    description: The team that owns the affected service.
+    name: Affected team
+    selectOption:
+    - label: Payments
+      value: payments
+    - description: Cart, checkout and order confirmation.
+      label: Checkout
+      value: checkout
+    - archived: true
+      label: Billing
+      value: billing
+    slug: affected_team
+    type: single-select
