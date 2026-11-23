@@ -38,12 +38,14 @@
       ],
     },
     {
-      // Terraform provider updates bring new/updated resources, use feat(deps) to trigger a minor release
-      // When terraform-provider-grafana is updated, run make submodules and make generate on that PR
+      // terraform-provider-grafana is updated by the update-terraform-provider
+      // workflow, triggered by a repository_dispatch from upstream releases.
+      // It runs make generate and opens the PR, so Renovate must not open a
+      // competing one.
+      enabled: false,
       matchPackageNames: [
         'github.com/grafana/terraform-provider-grafana/v4',
       ],
-      semanticCommitType: 'feat',
     },
     {
       // Other Go module updates affect the compiled binary, use fix(deps) to trigger a patch release
