@@ -14,7 +14,7 @@ env:
 
 jobs:
   detect-noop:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     outputs:
@@ -29,7 +29,7 @@ jobs:
           do_not_skip: '["workflow_dispatch", "schedule", "push"]'
 
   report-breaking-changes:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     permissions:
@@ -59,7 +59,7 @@ jobs:
           make schema-version-diff
 
   lint:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     permissions:
@@ -86,7 +86,7 @@ jobs:
           version-file: .tool-versions
 
   check-diff:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     permissions:
@@ -109,7 +109,7 @@ jobs:
         run: make check-diff
 
   unit-tests:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     permissions:
@@ -135,7 +135,7 @@ jobs:
         run: make -j2 test
 
   local-deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     needs: detect-noop
     if: needs.detect-noop.outputs.noop != 'true'
     permissions:
@@ -160,7 +160,7 @@ jobs:
         run: make local-deploy
 
   publish-artifacts:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     # Explicitly set permissions for this job
     permissions:
       id-token: write
