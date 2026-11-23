@@ -123,6 +123,11 @@ TERRAFORM := $(TOOLS_HOST_DIR)/terraform-$(TERRAFORM_VERSION)
 TERRAFORM_WORKDIR := $(WORK_DIR)/terraform
 TERRAFORM_PROVIDER_SCHEMA := config/schema.json
 
+# terraform init downloads the provider from the Terraform Registry, which can
+# briefly serve stale data right after a release, so retry it.
+TF_INIT_ATTEMPTS ?= 10
+TF_INIT_RETRY_DELAY ?= 30
+
 $(TERRAFORM):
 	@$(INFO) installing terraform $(HOSTOS)-$(HOSTARCH)
 	@mkdir -p $(TOOLS_HOST_DIR)/tmp-terraform
@@ -136,8 +141,19 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 	@$(INFO) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
 	@mkdir -p $(TERRAFORM_WORKDIR)
 	@echo '{"terraform":[{"required_providers":[{"provider":{"source":"'"$(TERRAFORM_PROVIDER_SOURCE)"'","version":"'"$(TERRAFORM_PROVIDER_VERSION)"'"}}],"required_version":"'"$(TERRAFORM_VERSION)"'"}]}' > $(TERRAFORM_WORKDIR)/main.tf.json
-	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) init > $(TERRAFORM_WORKDIR)/terraform-logs.txt 2>&1
-	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2>> $(TERRAFORM_WORKDIR)/terraform-logs.txt
+	@attempt=1; \
+	until $(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) init > $(TERRAFORM_WORKDIR)/terraform-logs.txt 2>&1; do \
+		if [ "$$attempt" -ge "$(TF_INIT_ATTEMPTS)" ]; then \
+			echo "terraform init failed after $$attempt attempt(s):" >&2; \
+			cat $(TERRAFORM_WORKDIR)/terraform-logs.txt >&2; \
+			exit 1; \
+		fi; \
+		echo "terraform init failed (attempt $$attempt/$(TF_INIT_ATTEMPTS)); retrying in $(TF_INIT_RETRY_DELAY)s..." >&2; \
+		attempt=$$((attempt + 1)); \
+		sleep $(TF_INIT_RETRY_DELAY); \
+	done
+	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2>> $(TERRAFORM_WORKDIR)/terraform-logs.txt \
+		|| { cat $(TERRAFORM_WORKDIR)/terraform-logs.txt >&2; exit 1; }
 	@$(OK) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
 
 pull-docs:
