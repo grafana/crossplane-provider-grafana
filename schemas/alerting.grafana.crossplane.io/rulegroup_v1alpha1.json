@@ -230,6 +230,86 @@
                     "items": {
                       "additionalProperties": false,
                       "properties": {
+                        "dataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "dataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
                         "datasourceUid": {
                           "description": "100\" if this stage is an expression stage.\nThe UID of the datasource being queried, or \"-100\" if this stage is an expression stage.",
                           "type": "string"
@@ -239,7 +319,7 @@
                           "type": "string"
                         },
                         "queryType": {
-                          "description": "(String) An optional identifier for the type of query being executed. Defaults to ``.\nAn optional identifier for the type of query being executed. Defaults to ``.",
+                          "description": "(String) An optional identifier for the type of query being executed. Defaults to “.\nAn optional identifier for the type of query being executed. Defaults to “.",
                           "type": "string"
                         },
                         "refId": {
@@ -318,7 +398,7 @@
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
+                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "contactPointRef": {
@@ -424,7 +504,7 @@
                           "type": "array"
                         },
                         "policy": {
-                          "description": "(String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.\nThe name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
+                          "description": "The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "repeatInterval": {
@@ -448,6 +528,86 @@
                         "metric": {
                           "description": "(String) The name of the metric to write to.\nThe name of the metric to write to.",
                           "type": "string"
+                        },
+                        "targetDataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "targetDataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
                         },
                         "targetDatasourceUid": {
                           "description": "(String) The UID of the datasource to write the metric to.\nThe UID of the datasource to write the metric to.",
@@ -676,6 +836,86 @@
                     "items": {
                       "additionalProperties": false,
                       "properties": {
+                        "dataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "dataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate datasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
+                        },
                         "datasourceUid": {
                           "description": "100\" if this stage is an expression stage.\nThe UID of the datasource being queried, or \"-100\" if this stage is an expression stage.",
                           "type": "string"
@@ -685,7 +925,7 @@
                           "type": "string"
                         },
                         "queryType": {
-                          "description": "(String) An optional identifier for the type of query being executed. Defaults to ``.\nAn optional identifier for the type of query being executed. Defaults to ``.",
+                          "description": "(String) An optional identifier for the type of query being executed. Defaults to “.\nAn optional identifier for the type of query being executed. Defaults to “.",
                           "type": "string"
                         },
                         "refId": {
@@ -764,7 +1004,7 @@
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
+                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "contactPointRef": {
@@ -870,7 +1110,7 @@
                           "type": "array"
                         },
                         "policy": {
-                          "description": "(String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.\nThe name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
+                          "description": "The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "repeatInterval": {
@@ -894,6 +1134,86 @@
                         "metric": {
                           "description": "(String) The name of the metric to write to.\nThe name of the metric to write to.",
                           "type": "string"
+                        },
+                        "targetDataSourceRef": {
+                          "additionalProperties": false,
+                          "description": "Reference to a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "name": {
+                              "description": "Name of the referenced object.",
+                              "type": "string"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for referencing.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ],
+                          "type": "object"
+                        },
+                        "targetDataSourceSelector": {
+                          "additionalProperties": false,
+                          "description": "Selector for a DataSource in oss to populate targetDatasourceUid.",
+                          "properties": {
+                            "matchControllerRef": {
+                              "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                              "type": "boolean"
+                            },
+                            "matchLabels": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "description": "MatchLabels ensures an object with matching labels is selected.",
+                              "type": "object"
+                            },
+                            "policy": {
+                              "additionalProperties": false,
+                              "description": "Policies for selection.",
+                              "properties": {
+                                "resolution": {
+                                  "default": "Required",
+                                  "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                                  "enum": [
+                                    "Required",
+                                    "Optional"
+                                  ],
+                                  "type": "string"
+                                },
+                                "resolve": {
+                                  "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                                  "enum": [
+                                    "Always",
+                                    "IfNotPresent"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            }
+                          },
+                          "type": "object"
                         },
                         "targetDatasourceUid": {
                           "description": "(String) The UID of the datasource to write the metric to.\nThe UID of the datasource to write the metric to.",
@@ -1077,7 +1397,7 @@
                           "type": "string"
                         },
                         "queryType": {
-                          "description": "(String) An optional identifier for the type of query being executed. Defaults to ``.\nAn optional identifier for the type of query being executed. Defaults to ``.",
+                          "description": "(String) An optional identifier for the type of query being executed. Defaults to “.\nAn optional identifier for the type of query being executed. Defaults to “.",
                           "type": "string"
                         },
                         "refId": {
@@ -1156,7 +1476,7 @@
                           "type": "array"
                         },
                         "contactPoint": {
-                          "description": "(String) The contact point to route notifications that match this rule to. Exactly one of contact_point or policy must be set.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
+                          "description": "(String) The contact point to route notifications that match this rule to.\nThe contact point to route notifications that match this rule to. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "groupBy": {
@@ -1182,7 +1502,7 @@
                           "type": "array"
                         },
                         "policy": {
-                          "description": "(String) The name of the notification policy to route notifications that match this rule through. Mutually exclusive with contact_point and all other fields in this block. Exactly one of contact_point or policy must be set.\nThe name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
+                          "description": "The name of the notification policy to route notifications that match this rule through. Mutually exclusive with `contact_point` and all other fields in this block. Exactly one of `contact_point` or `policy` must be set.",
                           "type": "string"
                         },
                         "repeatInterval": {

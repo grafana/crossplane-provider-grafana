@@ -8,7 +8,9 @@ metadata:
   name: test
 spec:
   forProvider:
-    accessPolicyId: ${grafana_cloud_access_policy.test.policy_id}
+    accessPolicySelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
     displayName: My Policy Rotating Token
     earlyRotationWindow: 24h
     expireAfter: 720h

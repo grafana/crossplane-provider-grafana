@@ -19,6 +19,14 @@ type InstallationInitParameters struct {
 	// Deprecated: The [Grafana Cloud access policy](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/) token. It is no longer used to install the k6 App and can be safely removed.
 	CloudAccessPolicyTokenSecretRef *v2.LocalSecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (String, Sensitive) The service account token.
 	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
 	GrafanaSaTokenSecretRef v2.LocalSecretKeySelector `json:"grafanaSaTokenSecretRef" tf:"-"`
@@ -33,6 +41,10 @@ type InstallationInitParameters struct {
 
 	// (String) The identifier of the stack to install k6 on.
 	// The identifier of the stack to install k6 on.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
 
@@ -65,6 +77,14 @@ type InstallationParameters struct {
 	// +kubebuilder:validation:Optional
 	CloudAccessPolicyTokenSecretRef *v2.LocalSecretKeySelector `json:"cloudAccessPolicyTokenSecretRef,omitempty" tf:"-"`
 
+	// Reference to a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackRef *v2.NamespacedReference `json:"cloudStackRef,omitempty" tf:"-"`
+
+	// Selector for a Stack in cloud to populate stackId.
+	// +kubebuilder:validation:Optional
+	CloudStackSelector *v2.NamespacedSelector `json:"cloudStackSelector,omitempty" tf:"-"`
+
 	// (String, Sensitive) The service account token.
 	// The [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/) token.
 	// +kubebuilder:validation:Optional
@@ -82,6 +102,10 @@ type InstallationParameters struct {
 
 	// (String) The identifier of the stack to install k6 on.
 	// The identifier of the stack to install k6 on.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.Stack
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("id")
+	// +crossplane:generate:reference:refFieldName=CloudStackRef
+	// +crossplane:generate:reference:selectorFieldName=CloudStackSelector
 	// +kubebuilder:validation:Optional
 	StackID *string `json:"stackId,omitempty" tf:"stack_id,omitempty"`
 }
@@ -124,7 +148,6 @@ type Installation struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaSaTokenSecretRef)",message="spec.forProvider.grafanaSaTokenSecretRef is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grafanaUser) || (has(self.initProvider) && has(self.initProvider.grafanaUser))",message="spec.forProvider.grafanaUser is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.stackId) || (has(self.initProvider) && has(self.initProvider.stackId))",message="spec.forProvider.stackId is a required parameter"
 	Spec   InstallationSpec   `json:"spec"`
 	Status InstallationStatus `json:"status,omitempty"`
 }

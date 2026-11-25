@@ -15,187 +15,146 @@ import (
 
 type AutomationInitParameters struct {
 
-	// (String) Context items attached to the prompt, as a JSON array string.
 	// Context items attached to the prompt, as a JSON array string.
 	ContextItems *string `json:"contextItems,omitempty" tf:"context_items,omitempty"`
 
-	// (String) Optional description.
 	// Optional description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// account automation.
 	// Run identity: user (default) or service_account. service_account requires scope = tenant and Grafana organization Admin permission, including updates to an existing service-account automation.
 	ExecutionMode *string `json:"executionMode,omitempty" tf:"execution_mode,omitempty"`
 
-	// (Map of String) Operator labels. Omit or use an empty map to remove managed labels.
 	// Operator labels. Omit or use an empty map to remove managed labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// friendly automation name.
 	// Human-friendly automation name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// only secure settings the API never returns. (see below for nested schema)
 	// Where to send the result of each run. Webhook notifications are not supported by this resource because their URL and credentials are write-only secure settings the API never returns.
 	Notifications *NotificationsInitParameters `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
-	// name> to start from a skill.
 	// The prompt sent to Assistant on each run. Prefix with `/<skill-name>` to start from a skill.
 	Prompt *string `json:"prompt,omitempty" tf:"prompt,omitempty"`
 
-	// field cron expression, or multiple expressions separated by semicolons. For example 0 9 * * 1-5; 0 10 * * 0. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
 	// Standard 5-field cron expression, or multiple expressions separated by semicolons. For example `0 9 * * 1-5; 0 10 * * 0`. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
 	ScheduleCron *string `json:"scheduleCron,omitempty" tf:"schedule_cron,omitempty"`
 
-	// (String) Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
 	// Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
 	ScheduleEndsAt *string `json:"scheduleEndsAt,omitempty" tf:"schedule_ends_at,omitempty"`
 
-	// only automations.
 	// IANA timezone the schedule is interpreted in, for example `Europe/Paris`. Defaults to UTC when schedule_cron is set; absent for manual-only automations.
 	ScheduleTimezone *string `json:"scheduleTimezone,omitempty" tf:"schedule_timezone,omitempty"`
 
-	// (String) Visibility. user keeps the automation private to its creator; tenant shares it with everybody in the org.
 	// Visibility. `user` keeps the automation private to its creator; `tenant` shares it with everybody in the org.
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 
-	// (Map of Object) Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift. (see below for nested schema)
 	// Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift.
 	Triggers map[string]TriggersInitParameters `json:"triggers,omitempty" tf:"triggers,omitempty"`
 }
 
 type AutomationObservation struct {
 
-	// (String) Context items attached to the prompt, as a JSON array string.
 	// Context items attached to the prompt, as a JSON array string.
 	ContextItems *string `json:"contextItems,omitempty" tf:"context_items,omitempty"`
 
-	// (String) Optional description.
 	// Optional description.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// account automation.
 	// Run identity: user (default) or service_account. service_account requires scope = tenant and Grafana organization Admin permission, including updates to an existing service-account automation.
 	ExecutionMode *string `json:"executionMode,omitempty" tf:"execution_mode,omitempty"`
 
-	// (String) The UUID of the resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Map of String) Operator labels. Omit or use an empty map to remove managed labels.
 	// Operator labels. Omit or use an empty map to remove managed labels.
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// friendly automation name.
 	// Human-friendly automation name.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// only timestamp calculated by Grafana for the next scheduled run. This is scheduling information, not confirmation that a run executed.
 	// Read-only timestamp calculated by Grafana for the next scheduled run. This is scheduling information, not confirmation that a run executed.
 	NextRunAt *string `json:"nextRunAt,omitempty" tf:"next_run_at,omitempty"`
 
-	// only secure settings the API never returns. (see below for nested schema)
 	// Where to send the result of each run. Webhook notifications are not supported by this resource because their URL and credentials are write-only secure settings the API never returns.
 	Notifications *NotificationsObservation `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
-	// name> to start from a skill.
 	// The prompt sent to Assistant on each run. Prefix with `/<skill-name>` to start from a skill.
 	Prompt *string `json:"prompt,omitempty" tf:"prompt,omitempty"`
 
-	// field cron expression, or multiple expressions separated by semicolons. For example 0 9 * * 1-5; 0 10 * * 0. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
 	// Standard 5-field cron expression, or multiple expressions separated by semicolons. For example `0 9 * * 1-5; 0 10 * * 0`. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
 	ScheduleCron *string `json:"scheduleCron,omitempty" tf:"schedule_cron,omitempty"`
 
-	// (String) Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
 	// Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
 	ScheduleEndsAt *string `json:"scheduleEndsAt,omitempty" tf:"schedule_ends_at,omitempty"`
 
-	// only automations.
 	// IANA timezone the schedule is interpreted in, for example `Europe/Paris`. Defaults to UTC when schedule_cron is set; absent for manual-only automations.
 	ScheduleTimezone *string `json:"scheduleTimezone,omitempty" tf:"schedule_timezone,omitempty"`
 
-	// (String) Visibility. user keeps the automation private to its creator; tenant shares it with everybody in the org.
 	// Visibility. `user` keeps the automation private to its creator; `tenant` shares it with everybody in the org.
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 
-	// (Map of Object) Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift. (see below for nested schema)
 	// Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift.
 	Triggers map[string]TriggersObservation `json:"triggers,omitempty" tf:"triggers,omitempty"`
 }
 
 type AutomationParameters struct {
 
-	// (String) Context items attached to the prompt, as a JSON array string.
 	// Context items attached to the prompt, as a JSON array string.
 	// +kubebuilder:validation:Optional
 	ContextItems *string `json:"contextItems,omitempty" tf:"context_items,omitempty"`
 
-	// (String) Optional description.
 	// Optional description.
 	// +kubebuilder:validation:Optional
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// account automation.
 	// Run identity: user (default) or service_account. service_account requires scope = tenant and Grafana organization Admin permission, including updates to an existing service-account automation.
 	// +kubebuilder:validation:Optional
 	ExecutionMode *string `json:"executionMode,omitempty" tf:"execution_mode,omitempty"`
 
-	// (Map of String) Operator labels. Omit or use an empty map to remove managed labels.
 	// Operator labels. Omit or use an empty map to remove managed labels.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Labels map[string]*string `json:"labels,omitempty" tf:"labels,omitempty"`
 
-	// friendly automation name.
 	// Human-friendly automation name.
 	// +kubebuilder:validation:Optional
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// only secure settings the API never returns. (see below for nested schema)
 	// Where to send the result of each run. Webhook notifications are not supported by this resource because their URL and credentials are write-only secure settings the API never returns.
 	// +kubebuilder:validation:Optional
 	Notifications *NotificationsParameters `json:"notifications,omitempty" tf:"notifications,omitempty"`
 
-	// name> to start from a skill.
 	// The prompt sent to Assistant on each run. Prefix with `/<skill-name>` to start from a skill.
 	// +kubebuilder:validation:Optional
 	Prompt *string `json:"prompt,omitempty" tf:"prompt,omitempty"`
 
-	// field cron expression, or multiple expressions separated by semicolons. For example 0 9 * * 1-5; 0 10 * * 0. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
 	// Standard 5-field cron expression, or multiple expressions separated by semicolons. For example `0 9 * * 1-5; 0 10 * * 0`. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
 	// +kubebuilder:validation:Optional
 	ScheduleCron *string `json:"scheduleCron,omitempty" tf:"schedule_cron,omitempty"`
 
-	// (String) Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
 	// Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
 	// +kubebuilder:validation:Optional
 	ScheduleEndsAt *string `json:"scheduleEndsAt,omitempty" tf:"schedule_ends_at,omitempty"`
 
-	// only automations.
 	// IANA timezone the schedule is interpreted in, for example `Europe/Paris`. Defaults to UTC when schedule_cron is set; absent for manual-only automations.
 	// +kubebuilder:validation:Optional
 	ScheduleTimezone *string `json:"scheduleTimezone,omitempty" tf:"schedule_timezone,omitempty"`
 
-	// (String) Visibility. user keeps the automation private to its creator; tenant shares it with everybody in the org.
 	// Visibility. `user` keeps the automation private to its creator; `tenant` shares it with everybody in the org.
 	// +kubebuilder:validation:Optional
 	Scope *string `json:"scope,omitempty" tf:"scope,omitempty"`
 
-	// (Map of Object) Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift. (see below for nested schema)
 	// Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift.
 	// +kubebuilder:validation:Optional
 	Triggers map[string]TriggersParameters `json:"triggers,omitempty" tf:"triggers,omitempty"`
@@ -203,47 +162,38 @@ type AutomationParameters struct {
 
 type EmailInitParameters struct {
 
-	// (List of String) Recipient email addresses, up to 25.
 	// Recipient email addresses, up to 25.
 	Addresses []*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether email notifications are sent.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
 	// Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
 	NotifyOn []*string `json:"notifyOn,omitempty" tf:"notify_on,omitempty"`
 }
 
 type EmailObservation struct {
 
-	// (List of String) Recipient email addresses, up to 25.
 	// Recipient email addresses, up to 25.
 	Addresses []*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether email notifications are sent.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
 	// Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
 	NotifyOn []*string `json:"notifyOn,omitempty" tf:"notify_on,omitempty"`
 }
 
 type EmailParameters struct {
 
-	// (List of String) Recipient email addresses, up to 25.
 	// Recipient email addresses, up to 25.
 	// +kubebuilder:validation:Optional
 	Addresses []*string `json:"addresses,omitempty" tf:"addresses,omitempty"`
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether email notifications are sent.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
 	// Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
 	// +kubebuilder:validation:Optional
 	NotifyOn []*string `json:"notifyOn,omitempty" tf:"notify_on,omitempty"`
@@ -251,34 +201,28 @@ type EmailParameters struct {
 
 type NotificationsInitParameters struct {
 
-	// (Block, Optional) Email delivery. Email notifications must be enabled for the stack. (see below for nested schema)
 	// Email delivery. Email notifications must be enabled for the stack.
 	Email *EmailInitParameters `json:"email,omitempty" tf:"email,omitempty"`
 
-	// time manual step in Assistant settings. (see below for nested schema)
 	// Slack delivery. Requires the Slack workspace to already be connected to the stack, which is a one-time manual step in Assistant settings.
 	Slack *SlackInitParameters `json:"slack,omitempty" tf:"slack,omitempty"`
 }
 
 type NotificationsObservation struct {
 
-	// (Block, Optional) Email delivery. Email notifications must be enabled for the stack. (see below for nested schema)
 	// Email delivery. Email notifications must be enabled for the stack.
 	Email *EmailObservation `json:"email,omitempty" tf:"email,omitempty"`
 
-	// time manual step in Assistant settings. (see below for nested schema)
 	// Slack delivery. Requires the Slack workspace to already be connected to the stack, which is a one-time manual step in Assistant settings.
 	Slack *SlackObservation `json:"slack,omitempty" tf:"slack,omitempty"`
 }
 
 type NotificationsParameters struct {
 
-	// (Block, Optional) Email delivery. Email notifications must be enabled for the stack. (see below for nested schema)
 	// Email delivery. Email notifications must be enabled for the stack.
 	// +kubebuilder:validation:Optional
 	Email *EmailParameters `json:"email,omitempty" tf:"email,omitempty"`
 
-	// time manual step in Assistant settings. (see below for nested schema)
 	// Slack delivery. Requires the Slack workspace to already be connected to the stack, which is a one-time manual step in Assistant settings.
 	// +kubebuilder:validation:Optional
 	Slack *SlackParameters `json:"slack,omitempty" tf:"slack,omitempty"`
@@ -286,47 +230,38 @@ type NotificationsParameters struct {
 
 type SlackInitParameters struct {
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether Slack notifications are sent.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
 	// Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
 	NotifyOn []*string `json:"notifyOn,omitempty" tf:"notify_on,omitempty"`
 
-	// (Block, Optional) Where the notification is posted. (see below for nested schema)
 	// Where the notification is posted.
 	Target *TargetInitParameters `json:"target,omitempty" tf:"target,omitempty"`
 }
 
 type SlackObservation struct {
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether Slack notifications are sent.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
 	// Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
 	NotifyOn []*string `json:"notifyOn,omitempty" tf:"notify_on,omitempty"`
 
-	// (Block, Optional) Where the notification is posted. (see below for nested schema)
 	// Where the notification is posted.
 	Target *TargetObservation `json:"target,omitempty" tf:"target,omitempty"`
 }
 
 type SlackParameters struct {
 
-	// (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
 	// Whether Slack notifications are sent.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
-	// (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
 	// Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
 	// +kubebuilder:validation:Optional
 	NotifyOn []*string `json:"notifyOn,omitempty" tf:"notify_on,omitempty"`
 
-	// (Block, Optional) Where the notification is posted. (see below for nested schema)
 	// Where the notification is posted.
 	// +kubebuilder:validation:Optional
 	Target *TargetParameters `json:"target,omitempty" tf:"target,omitempty"`
@@ -334,90 +269,70 @@ type SlackParameters struct {
 
 type TargetInitParameters struct {
 
-	// (String) Slack channel ID. Required for a channel target.
 	// Slack channel ID. Required for a `channel` target.
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
-	// (String) Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
 	// Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) Target type. One of channel or dm. Required when a target block is present.
 	// Target type. One of `channel` or `dm`. Required when a `target` block is present.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Slack user ID for a dm target. Omit to use the creator’s verified Slack mapping.
 	// Slack user ID for a `dm` target. Omit to use the creator’s verified Slack mapping.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type TargetObservation struct {
 
-	// (String) Slack channel ID. Required for a channel target.
 	// Slack channel ID. Required for a `channel` target.
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
-	// (String) Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
 	// Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) Target type. One of channel or dm. Required when a target block is present.
 	// Target type. One of `channel` or `dm`. Required when a `target` block is present.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Slack user ID for a dm target. Omit to use the creator’s verified Slack mapping.
 	// Slack user ID for a `dm` target. Omit to use the creator’s verified Slack mapping.
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type TargetParameters struct {
 
-	// (String) Slack channel ID. Required for a channel target.
 	// Slack channel ID. Required for a `channel` target.
 	// +kubebuilder:validation:Optional
 	ChannelID *string `json:"channelId,omitempty" tf:"channel_id,omitempty"`
 
-	// (String) Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
 	// Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 
-	// (String) Target type. One of channel or dm. Required when a target block is present.
 	// Target type. One of `channel` or `dm`. Required when a `target` block is present.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
-	// (String) Slack user ID for a dm target. Omit to use the creator’s verified Slack mapping.
 	// Slack user ID for a `dm` target. Omit to use the creator’s verified Slack mapping.
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
 }
 
 type TriggersInitParameters struct {
-
-	// (String)
 	Config *string `json:"config,omitempty" tf:"config"`
 
-	// (String) Target type. One of channel or dm. Required when a target block is present.
 	Type *string `json:"type,omitempty" tf:"type"`
 }
 
 type TriggersObservation struct {
-
-	// (String)
 	Config *string `json:"config,omitempty" tf:"config,omitempty"`
 
-	// (String) Target type. One of channel or dm. Required when a target block is present.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type TriggersParameters struct {
 
-	// (String)
 	// +kubebuilder:validation:Optional
 	Config *string `json:"config,omitempty" tf:"config"`
 
-	// (String) Target type. One of channel or dm. Required when a target block is present.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type"`
 }
@@ -449,7 +364,7 @@ type AutomationStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// Automation is the Schema for the Automations API. Manages a Grafana Assistant Automation: a saved Assistant prompt that runs on demand or on a cron schedule. Each run creates its own Assistant conversation. Automations are a Grafana Cloud-only feature and require the Grafana Assistant app. execution_mode selects the identity used for runs. The default user mode uses the creator's Grafana permissions. service_account mode requires tenant scope and organization Admin permission to configure. Runtime memory and run history remain backend-owned.
+// Automation is the Schema for the Automations API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

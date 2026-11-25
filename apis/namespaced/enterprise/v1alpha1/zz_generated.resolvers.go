@@ -9,6 +9,7 @@ import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	v1alpha1 "github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/oss/v1alpha1"
+	v1alpha11 "github.com/grafana/crossplane-provider-grafana/v2/apis/observed/oss/v1alpha1"
 	grafana "github.com/grafana/crossplane-provider-grafana/v2/config/grafana"
 	errors "github.com/pkg/errors"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
@@ -20,6 +21,23 @@ func (mg *DataSourceCacheConfig) ResolveReferences(ctx context.Context, c client
 
 	var rsp reference.NamespacedResolutionResponse
 	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.DataSourceRef,
+		Selector:     mg.Spec.ForProvider.DataSourceSelector,
+		To: reference.To{
+			List:    &v1alpha1.DataSourceList{},
+			Managed: &v1alpha1.DataSource{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DatasourceUID")
+	}
+	mg.Spec.ForProvider.DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DataSourceRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
@@ -39,6 +57,23 @@ func (mg *DataSourceCacheConfig) ResolveReferences(ctx context.Context, c client
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.DataSourceRef,
+		Selector:     mg.Spec.InitProvider.DataSourceSelector,
+		To: reference.To{
+			List:    &v1alpha1.DataSourceList{},
+			Managed: &v1alpha1.DataSource{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DatasourceUID")
+	}
+	mg.Spec.InitProvider.DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DataSourceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -54,6 +89,50 @@ func (mg *DataSourceCacheConfig) ResolveReferences(ctx context.Context, c client
 	}
 	mg.Spec.InitProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.InitProvider.OrganizationRef = rsp.ResolvedReference
+
+	return nil
+}
+
+// ResolveReferences of this DataSourceConfigLbacRules.
+func (mg *DataSourceConfigLbacRules) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DatasourceUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.DataSourceRef,
+		Selector:     mg.Spec.ForProvider.DataSourceSelector,
+		To: reference.To{
+			List:    &v1alpha1.DataSourceList{},
+			Managed: &v1alpha1.DataSource{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.DatasourceUID")
+	}
+	mg.Spec.ForProvider.DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.DataSourceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DatasourceUID),
+		Extract:      grafana.OptionalFieldExtractor("uid"),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.DataSourceRef,
+		Selector:     mg.Spec.InitProvider.DataSourceSelector,
+		To: reference.To{
+			List:    &v1alpha1.DataSourceList{},
+			Managed: &v1alpha1.DataSource{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.DatasourceUID")
+	}
+	mg.Spec.InitProvider.DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.DataSourceRef = rsp.ResolvedReference
 
 	return nil
 }
@@ -99,6 +178,63 @@ func (mg *DataSourcePermission) ResolveReferences(ctx context.Context, c client.
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].ObservedOrganizationUserID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].ObservedOrganizationUserRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].ObservedOrganizationUserSelector,
+			To: reference.To{
+				List:    &v1alpha11.OrganizationUserList{},
+				Managed: &v1alpha11.OrganizationUser{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].ObservedOrganizationUserID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].ObservedOrganizationUserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].ObservedOrganizationUserRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].ObservedTeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].ObservedTeamRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].ObservedTeamSelector,
+			To: reference.To{
+				List:    &v1alpha11.TeamList{},
+				Managed: &v1alpha11.Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].ObservedTeamID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].ObservedTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].ObservedTeamRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].ObservedUserID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Permissions[i3].ObservedUserRef,
+			Selector:     mg.Spec.ForProvider.Permissions[i3].ObservedUserSelector,
+			To: reference.To{
+				List:    &v1alpha11.UserList{},
+				Managed: &v1alpha11.User{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Permissions[i3].ObservedUserID")
+		}
+		mg.Spec.ForProvider.Permissions[i3].ObservedUserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Permissions[i3].ObservedUserRef = rsp.ResolvedReference
+
+	}
 	for i3 := 0; i3 < len(mg.Spec.ForProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Permissions[i3].TeamID),
@@ -173,6 +309,63 @@ func (mg *DataSourcePermission) ResolveReferences(ctx context.Context, c client.
 
 	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
 		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].ObservedOrganizationUserID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Permissions[i3].ObservedOrganizationUserRef,
+			Selector:     mg.Spec.InitProvider.Permissions[i3].ObservedOrganizationUserSelector,
+			To: reference.To{
+				List:    &v1alpha11.OrganizationUserList{},
+				Managed: &v1alpha11.OrganizationUser{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].ObservedOrganizationUserID")
+		}
+		mg.Spec.InitProvider.Permissions[i3].ObservedOrganizationUserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].ObservedOrganizationUserRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].ObservedTeamID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Permissions[i3].ObservedTeamRef,
+			Selector:     mg.Spec.InitProvider.Permissions[i3].ObservedTeamSelector,
+			To: reference.To{
+				List:    &v1alpha11.TeamList{},
+				Managed: &v1alpha11.Team{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].ObservedTeamID")
+		}
+		mg.Spec.InitProvider.Permissions[i3].ObservedTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].ObservedTeamRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].ObservedUserID),
+			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Permissions[i3].ObservedUserRef,
+			Selector:     mg.Spec.InitProvider.Permissions[i3].ObservedUserSelector,
+			To: reference.To{
+				List:    &v1alpha11.UserList{},
+				Managed: &v1alpha11.User{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Permissions[i3].ObservedUserID")
+		}
+		mg.Spec.InitProvider.Permissions[i3].ObservedUserID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Permissions[i3].ObservedUserRef = rsp.ResolvedReference
+
+	}
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Permissions); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Permissions[i3].TeamID),
 			Extract:      reference.ExternalName(),
 			Namespace:    mg.GetNamespace(),
@@ -236,6 +429,57 @@ func (mg *DataSourcePermissionItem) ResolveReferences(ctx context.Context, c cli
 	}
 	mg.Spec.ForProvider.DatasourceUID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.DataSourceRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObservedOrganizationUser),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ObservedOrganizationUserRef,
+		Selector:     mg.Spec.ForProvider.ObservedOrganizationUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.OrganizationUserList{},
+			Managed: &v1alpha11.OrganizationUser{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedOrganizationUser")
+	}
+	mg.Spec.ForProvider.ObservedOrganizationUser = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObservedOrganizationUserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObservedTeam),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ObservedTeamRef,
+		Selector:     mg.Spec.ForProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedTeam")
+	}
+	mg.Spec.ForProvider.ObservedTeam = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObservedTeamRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObservedUser),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ObservedUserRef,
+		Selector:     mg.Spec.ForProvider.ObservedUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.UserList{},
+			Managed: &v1alpha11.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedUser")
+	}
+	mg.Spec.ForProvider.ObservedUser = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObservedUserRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
@@ -306,6 +550,57 @@ func (mg *DataSourcePermissionItem) ResolveReferences(ctx context.Context, c cli
 	mg.Spec.InitProvider.DataSourceRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObservedOrganizationUser),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ObservedOrganizationUserRef,
+		Selector:     mg.Spec.InitProvider.ObservedOrganizationUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.OrganizationUserList{},
+			Managed: &v1alpha11.OrganizationUser{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedOrganizationUser")
+	}
+	mg.Spec.InitProvider.ObservedOrganizationUser = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObservedOrganizationUserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObservedTeam),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ObservedTeamRef,
+		Selector:     mg.Spec.InitProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedTeam")
+	}
+	mg.Spec.InitProvider.ObservedTeam = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObservedTeamRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObservedUser),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ObservedUserRef,
+		Selector:     mg.Spec.InitProvider.ObservedUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.UserList{},
+			Managed: &v1alpha11.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedUser")
+	}
+	mg.Spec.InitProvider.ObservedUser = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObservedUserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -359,6 +654,104 @@ func (mg *DataSourcePermissionItem) ResolveReferences(ctx context.Context, c cli
 	return nil
 }
 
+// ResolveReferences of this KeeperActivationV1Beta1.
+func (mg *KeeperActivationV1Beta1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.ForProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Metadata.FolderUID")
+		}
+		mg.Spec.ForProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.InitProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Metadata.FolderUID")
+		}
+		mg.Spec.InitProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
+// ResolveReferences of this KeeperV1Beta1.
+func (mg *KeeperV1Beta1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.ForProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Metadata.FolderUID")
+		}
+		mg.Spec.ForProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.InitProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Metadata.FolderUID")
+		}
+		mg.Spec.InitProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this Report.
 func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
@@ -366,6 +759,25 @@ func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error 
 	var rsp reference.NamespacedResolutionResponse
 	var err error
 
+	for i3 := 0; i3 < len(mg.Spec.ForProvider.Dashboards); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Dashboards[i3].UID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Dashboards[i3].DashboardRef,
+			Selector:     mg.Spec.ForProvider.Dashboards[i3].DashboardSelector,
+			To: reference.To{
+				List:    &v1alpha1.DashboardList{},
+				Managed: &v1alpha1.Dashboard{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Dashboards[i3].UID")
+		}
+		mg.Spec.ForProvider.Dashboards[i3].UID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Dashboards[i3].DashboardRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
@@ -383,6 +795,25 @@ func (mg *Report) ResolveReferences(ctx context.Context, c client.Reader) error 
 	mg.Spec.ForProvider.OrgID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.OrganizationRef = rsp.ResolvedReference
 
+	for i3 := 0; i3 < len(mg.Spec.InitProvider.Dashboards); i3++ {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Dashboards[i3].UID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Dashboards[i3].DashboardRef,
+			Selector:     mg.Spec.InitProvider.Dashboards[i3].DashboardSelector,
+			To: reference.To{
+				List:    &v1alpha1.DashboardList{},
+				Managed: &v1alpha1.Dashboard{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Dashboards[i3].UID")
+		}
+		mg.Spec.InitProvider.Dashboards[i3].UID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Dashboards[i3].DashboardRef = rsp.ResolvedReference
+
+	}
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
 		Extract:      reference.ExternalName(),
@@ -454,6 +885,57 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	var rsp reference.NamespacedResolutionResponse
 	var mrsp reference.MultiNamespacedResolutionResponse
 	var err error
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.ObservedOrganizationUsers),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.ObservedOrganizationUserRefs,
+		Selector:      mg.Spec.ForProvider.ObservedOrganizationUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.OrganizationUserList{},
+			Managed: &v1alpha11.OrganizationUser{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedOrganizationUsers")
+	}
+	mg.Spec.ForProvider.ObservedOrganizationUsers = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.ObservedOrganizationUserRefs = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.ObservedTeams),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.ObservedTeamRefs,
+		Selector:      mg.Spec.ForProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedTeams")
+	}
+	mg.Spec.ForProvider.ObservedTeams = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.ObservedTeamRefs = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromFloatPtrValues(mg.Spec.ForProvider.ObservedUsers),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.ForProvider.ObservedUserRefs,
+		Selector:      mg.Spec.ForProvider.ObservedUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.UserList{},
+			Managed: &v1alpha11.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedUsers")
+	}
+	mg.Spec.ForProvider.ObservedUsers = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+	mg.Spec.ForProvider.ObservedUserRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
@@ -539,6 +1021,57 @@ func (mg *RoleAssignment) ResolveReferences(ctx context.Context, c client.Reader
 	}
 	mg.Spec.ForProvider.Users = reference.ToFloatPtrValues(mrsp.ResolvedValues)
 	mg.Spec.ForProvider.UserRefs = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.ObservedOrganizationUsers),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.ObservedOrganizationUserRefs,
+		Selector:      mg.Spec.InitProvider.ObservedOrganizationUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.OrganizationUserList{},
+			Managed: &v1alpha11.OrganizationUser{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedOrganizationUsers")
+	}
+	mg.Spec.InitProvider.ObservedOrganizationUsers = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.ObservedOrganizationUserRefs = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.ObservedTeams),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.ObservedTeamRefs,
+		Selector:      mg.Spec.InitProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedTeams")
+	}
+	mg.Spec.InitProvider.ObservedTeams = reference.ToPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.ObservedTeamRefs = mrsp.ResolvedReferences
+
+	mrsp, err = r.ResolveMultiple(ctx, reference.MultiNamespacedResolutionRequest{
+		CurrentValues: reference.FromFloatPtrValues(mg.Spec.InitProvider.ObservedUsers),
+		Extract:       reference.ExternalName(),
+		Namespace:     mg.GetNamespace(),
+		References:    mg.Spec.InitProvider.ObservedUserRefs,
+		Selector:      mg.Spec.InitProvider.ObservedUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.UserList{},
+			Managed: &v1alpha11.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedUsers")
+	}
+	mg.Spec.InitProvider.ObservedUsers = reference.ToFloatPtrValues(mrsp.ResolvedValues)
+	mg.Spec.InitProvider.ObservedUserRefs = mrsp.ResolvedReferences
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
@@ -636,6 +1169,57 @@ func (mg *RoleAssignmentItem) ResolveReferences(ctx context.Context, c client.Re
 	var err error
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObservedOrganizationUserID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ObservedOrganizationUserRef,
+		Selector:     mg.Spec.ForProvider.ObservedOrganizationUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.OrganizationUserList{},
+			Managed: &v1alpha11.OrganizationUser{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedOrganizationUserID")
+	}
+	mg.Spec.ForProvider.ObservedOrganizationUserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObservedOrganizationUserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObservedTeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ObservedTeamRef,
+		Selector:     mg.Spec.ForProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedTeamID")
+	}
+	mg.Spec.ForProvider.ObservedTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObservedTeamRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObservedUserID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ObservedUserRef,
+		Selector:     mg.Spec.ForProvider.ObservedUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.UserList{},
+			Managed: &v1alpha11.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedUserID")
+	}
+	mg.Spec.ForProvider.ObservedUserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObservedUserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrgID),
 		Extract:      reference.ExternalName(),
 		Namespace:    mg.GetNamespace(),
@@ -719,6 +1303,57 @@ func (mg *RoleAssignmentItem) ResolveReferences(ctx context.Context, c client.Re
 	}
 	mg.Spec.ForProvider.UserID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.UserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObservedOrganizationUserID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ObservedOrganizationUserRef,
+		Selector:     mg.Spec.InitProvider.ObservedOrganizationUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.OrganizationUserList{},
+			Managed: &v1alpha11.OrganizationUser{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedOrganizationUserID")
+	}
+	mg.Spec.InitProvider.ObservedOrganizationUserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObservedOrganizationUserRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObservedTeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ObservedTeamRef,
+		Selector:     mg.Spec.InitProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedTeamID")
+	}
+	mg.Spec.InitProvider.ObservedTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObservedTeamRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObservedUserID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ObservedUserRef,
+		Selector:     mg.Spec.InitProvider.ObservedUserSelector,
+		To: reference.To{
+			List:    &v1alpha11.UserList{},
+			Managed: &v1alpha11.User{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedUserID")
+	}
+	mg.Spec.InitProvider.ObservedUserID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObservedUserRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrgID),
@@ -852,12 +1487,78 @@ func (mg *ScimConfig) ResolveReferences(ctx context.Context, c client.Reader) er
 	return nil
 }
 
+// ResolveReferences of this SecurevalueV1Beta1.
+func (mg *SecurevalueV1Beta1) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	if mg.Spec.ForProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.ForProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.ForProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.ForProvider.Metadata.FolderUID")
+		}
+		mg.Spec.ForProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.ForProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+	if mg.Spec.InitProvider.Metadata != nil {
+		rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.Metadata.FolderUID),
+			Extract:      grafana.OptionalFieldExtractor("uid"),
+			Namespace:    mg.GetNamespace(),
+			Reference:    mg.Spec.InitProvider.Metadata.FolderRef,
+			Selector:     mg.Spec.InitProvider.Metadata.FolderSelector,
+			To: reference.To{
+				List:    &v1alpha1.FolderList{},
+				Managed: &v1alpha1.Folder{},
+			},
+		})
+		if err != nil {
+			return errors.Wrap(err, "mg.Spec.InitProvider.Metadata.FolderUID")
+		}
+		mg.Spec.InitProvider.Metadata.FolderUID = reference.ToPtrValue(rsp.ResolvedValue)
+		mg.Spec.InitProvider.Metadata.FolderRef = rsp.ResolvedReference
+
+	}
+
+	return nil
+}
+
 // ResolveReferences of this TeamExternalGroup.
 func (mg *TeamExternalGroup) ResolveReferences(ctx context.Context, c client.Reader) error {
 	r := reference.NewAPINamespacedResolver(c, mg)
 
 	var rsp reference.NamespacedResolutionResponse
 	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ObservedTeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.ObservedTeamRef,
+		Selector:     mg.Spec.ForProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.ObservedTeamID")
+	}
+	mg.Spec.ForProvider.ObservedTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.ObservedTeamRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TeamID),
@@ -875,6 +1576,23 @@ func (mg *TeamExternalGroup) ResolveReferences(ctx context.Context, c client.Rea
 	}
 	mg.Spec.ForProvider.TeamID = reference.ToPtrValue(rsp.ResolvedValue)
 	mg.Spec.ForProvider.TeamRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ObservedTeamID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.ObservedTeamRef,
+		Selector:     mg.Spec.InitProvider.ObservedTeamSelector,
+		To: reference.To{
+			List:    &v1alpha11.TeamList{},
+			Managed: &v1alpha11.Team{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.ObservedTeamID")
+	}
+	mg.Spec.InitProvider.ObservedTeamID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.ObservedTeamRef = rsp.ResolvedReference
 
 	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TeamID),

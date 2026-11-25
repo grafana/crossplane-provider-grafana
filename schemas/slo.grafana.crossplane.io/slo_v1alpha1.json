@@ -306,6 +306,86 @@
               },
               "type": "array"
             },
+            "folderRef": {
+              "additionalProperties": false,
+              "description": "Reference to a Folder in oss to populate folderUid.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "folderSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a Folder in oss to populate folderUid.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
             "folderUid": {
               "description": "empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.\nUID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.",
               "type": "string"
@@ -365,7 +445,7 @@
                           "type": "string"
                         },
                         "sourceDatasourceUid": {
-                          "description": "(String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
+                          "description": "(String) UID for the Datasource\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
                           "type": "string"
                         }
                       },
@@ -400,7 +480,7 @@
                           "type": "array"
                         },
                         "sourceDatasourceUid": {
-                          "description": "(String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
+                          "description": "(String) UID for the Datasource\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
                           "type": "string"
                         },
                         "successMetric": {
@@ -426,7 +506,7 @@
               "type": "array"
             },
             "searchExpression": {
-              "description": "rate alert rules carry a workbench_troubleshoot_url annotation pointing at the matching entities. See predefined searches for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.\nA Knowledge Graph search expression scoping this SLO to a set of entities, for example \"shipping connected services\". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.",
+              "description": "empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.\nA Knowledge Graph search expression scoping this SLO to a set of entities, for example \"shipping connected services\". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.",
               "type": "string"
             },
             "uuid": {
@@ -718,6 +798,86 @@
               },
               "type": "array"
             },
+            "folderRef": {
+              "additionalProperties": false,
+              "description": "Reference to a Folder in oss to populate folderUid.",
+              "properties": {
+                "name": {
+                  "description": "Name of the referenced object.",
+                  "type": "string"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for referencing.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "folderSelector": {
+              "additionalProperties": false,
+              "description": "Selector for a Folder in oss to populate folderUid.",
+              "properties": {
+                "matchControllerRef": {
+                  "description": "MatchControllerRef ensures an object with the same controller reference\nas the selecting object is selected.",
+                  "type": "boolean"
+                },
+                "matchLabels": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "MatchLabels ensures an object with matching labels is selected.",
+                  "type": "object"
+                },
+                "policy": {
+                  "additionalProperties": false,
+                  "description": "Policies for selection.",
+                  "properties": {
+                    "resolution": {
+                      "default": "Required",
+                      "description": "Resolution specifies whether resolution of this reference is required.\nThe default is 'Required', which means the reconcile will fail if the\nreference cannot be resolved. 'Optional' means this reference will be\na no-op if it cannot be resolved.",
+                      "enum": [
+                        "Required",
+                        "Optional"
+                      ],
+                      "type": "string"
+                    },
+                    "resolve": {
+                      "description": "Resolve specifies when this reference should be resolved. The default\nis 'IfNotPresent', which will attempt to resolve the reference only when\nthe corresponding field is not present. Use 'Always' to resolve the\nreference on every reconcile.",
+                      "enum": [
+                        "Always",
+                        "IfNotPresent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
             "folderUid": {
               "description": "empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.\nUID for the SLO folder. Must be non-empty if set; omit the attribute entirely to associate the SLO with the default Grafana SLO folder.",
               "type": "string"
@@ -777,7 +937,7 @@
                           "type": "string"
                         },
                         "sourceDatasourceUid": {
-                          "description": "(String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
+                          "description": "(String) UID for the Datasource\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
                           "type": "string"
                         }
                       },
@@ -812,7 +972,7 @@
                           "type": "array"
                         },
                         "sourceDatasourceUid": {
-                          "description": "(String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
+                          "description": "(String) UID for the Datasource\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
                           "type": "string"
                         },
                         "successMetric": {
@@ -838,7 +998,7 @@
               "type": "array"
             },
             "searchExpression": {
-              "description": "rate alert rules carry a workbench_troubleshoot_url annotation pointing at the matching entities. See predefined searches for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.\nA Knowledge Graph search expression scoping this SLO to a set of entities, for example \"shipping connected services\". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.",
+              "description": "empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.\nA Knowledge Graph search expression scoping this SLO to a set of entities, for example \"shipping connected services\". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.",
               "type": "string"
             },
             "uuid": {
@@ -1210,7 +1370,7 @@
                           "type": "string"
                         },
                         "sourceDatasourceUid": {
-                          "description": "(String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
+                          "description": "(String) UID for the Datasource\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
                           "type": "string"
                         }
                       },
@@ -1245,7 +1405,7 @@
                           "type": "array"
                         },
                         "sourceDatasourceUid": {
-                          "description": "(String) Datasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
+                          "description": "(String) UID for the Datasource\nDatasource UID the SLO query runs against. When empty, the query is run against the same datasource as the destination datasource.",
                           "type": "string"
                         },
                         "successMetric": {
@@ -1271,7 +1431,7 @@
               "type": "array"
             },
             "searchExpression": {
-              "description": "rate alert rules carry a workbench_troubleshoot_url annotation pointing at the matching entities. See predefined searches for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.\nA Knowledge Graph search expression scoping this SLO to a set of entities, for example \"shipping connected services\". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.",
+              "description": "empty if set; omit the attribute entirely to leave it unset. This is used in the SLO UI to open the Asserts RCA workbench and in alerts to link to the RCA workbench.\nA Knowledge Graph search expression scoping this SLO to a set of entities, for example \"shipping connected services\". When set, the SLO links to the Asserts RCA workbench from the SLO list and performance pages, and generated burn-rate alert rules carry a `workbench_troubleshoot_url` annotation pointing at the matching entities. See [predefined searches](https://grafana.com/docs/grafana-cloud/platform/knowledge-graph/troubleshoot-infra-apps/explore-entity-graph/#use-predefined-searches) for the expression syntax. Must be non-empty if set; omit the attribute entirely to leave it unset.",
               "type": "string"
             },
             "uuid": {

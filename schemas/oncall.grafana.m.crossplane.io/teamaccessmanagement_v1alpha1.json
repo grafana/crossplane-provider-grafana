@@ -1,5 +1,5 @@
 {
-  "description": "TeamAccessManagement is the Schema for the TeamAccessManagements API. Manages the Team Access Management setting of a Grafana OnCall team. Destroying this resource resets the team's setting to the OnCall default (resources visible to all users). Official documentation https://grafana.com/docs/oncall/latest/set-up/manage-access/teams/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/teams/",
+  "description": "TeamAccessManagement is the Schema for the TeamAccessManagements API. \u003cno value\u003e",
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -20,11 +20,11 @@
           "additionalProperties": false,
           "properties": {
             "isSharingResourcesToAll": {
-              "description": "(Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).\nWhether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).",
+              "description": "Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).",
               "type": "boolean"
             },
             "teamId": {
-              "description": "(String) The ID of the OnCall team, for example from the grafana_oncall_team data source.\nThe ID of the OnCall team, for example from the `grafana_oncall_team` data source.",
+              "description": "The ID of the OnCall team, for example from the `grafana_oncall_team` data source.",
               "type": "string"
             }
           },
@@ -35,11 +35,11 @@
           "description": "THIS IS A BETA FIELD. It will be honored\nunless the Management Policies feature flag is disabled.\nInitProvider holds the same fields as ForProvider, with the exception\nof Identifier and other resource reference fields. The fields that are\nin InitProvider are merged into ForProvider when the resource is created.\nThe same fields are also added to the terraform ignore_changes hook, to\navoid updating them after creation. This is useful for fields that are\nrequired on creation, but we do not desire to update them after creation,\nfor example because of an external controller is managing them, like an\nautoscaler.",
           "properties": {
             "isSharingResourcesToAll": {
-              "description": "(Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).\nWhether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).",
+              "description": "Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).",
               "type": "boolean"
             },
             "teamId": {
-              "description": "(String) The ID of the OnCall team, for example from the grafana_oncall_team data source.\nThe ID of the OnCall team, for example from the `grafana_oncall_team` data source.",
+              "description": "The ID of the OnCall team, for example from the `grafana_oncall_team` data source.",
               "type": "string"
             }
           },
@@ -125,15 +125,14 @@
           "additionalProperties": false,
           "properties": {
             "id": {
-              "description": "(String) The ID of this resource.",
               "type": "string"
             },
             "isSharingResourcesToAll": {
-              "description": "(Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).\nWhether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).",
+              "description": "Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).",
               "type": "boolean"
             },
             "teamId": {
-              "description": "(String) The ID of the OnCall team, for example from the grafana_oncall_team data source.\nThe ID of the OnCall team, for example from the `grafana_oncall_team` data source.",
+              "description": "The ID of the OnCall team, for example from the `grafana_oncall_team` data source.",
               "type": "string"
             }
           },

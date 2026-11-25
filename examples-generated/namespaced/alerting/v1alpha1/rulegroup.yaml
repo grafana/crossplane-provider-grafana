@@ -23,7 +23,9 @@ spec:
         c: d
       condition: B
       data:
-      - datasourceUid: PD8C576611E62080A
+      - dataSourceSelector:
+          matchLabels:
+            testing.upbound.io/example-name: example
         model: |-
           ${jsonencode({
                   hide          = false
@@ -36,7 +38,9 @@ spec:
         relativeTimeRange:
         - from: 600
           to: 0
-      - datasourceUid: "-100"
+      - dataSourceSelector:
+          matchLabels:
+            testing.upbound.io/example-name: example
         model: |
           {
               "conditions": [

@@ -32,7 +32,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-      folderUid: ${grafana_folder.rulesequence_folder.uid}
+      folderSelector:
+        matchLabels:
+          testing.upbound.io/example-name: rulesequence_folder
       uid: example-seq-alert-rule
     spec:
       execErrState: KeepLast
@@ -79,7 +81,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-      folderUid: ${grafana_folder.rulesequence_folder.uid}
+      folderSelector:
+        matchLabels:
+          testing.upbound.io/example-name: rulesequence_folder
       uid: example-seq-recording-rule
     spec:
       expressions:
@@ -104,7 +108,9 @@ spec:
                   source     = true
                 })}
       metric: tf-seq-metric
-      targetDatasourceUid: target_ds_uid
+      targetDataSourceSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
       title: Example Sequence Recording Rule
       trigger:
         interval: 1m

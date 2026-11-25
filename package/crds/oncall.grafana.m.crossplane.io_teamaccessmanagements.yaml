@@ -35,10 +35,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: TeamAccessManagement is the Schema for the TeamAccessManagements
-          API. Manages the Team Access Management setting of a Grafana OnCall team.
-          Destroying this resource resets the team's setting to the OnCall default
-          (resources visible to all users). Official documentation https://grafana.com/docs/oncall/latest/set-up/manage-access/teams/HTTP
-          API https://grafana.com/docs/oncall/latest/oncall-api-reference/teams/
+          API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -63,14 +60,12 @@ spec:
               forProvider:
                 properties:
                   isSharingResourcesToAll:
-                    description: |-
-                      (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
-                      Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).
+                    description: Whether the team's resources are visible to all users
+                      (`true`), or only to team members and admins (`false`).
                     type: boolean
                   teamId:
-                    description: |-
-                      (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
-                      The ID of the OnCall team, for example from the `grafana_oncall_team` data source.
+                    description: The ID of the OnCall team, for example from the `grafana_oncall_team`
+                      data source.
                     type: string
                 type: object
               initProvider:
@@ -87,14 +82,12 @@ spec:
                   autoscaler.
                 properties:
                   isSharingResourcesToAll:
-                    description: |-
-                      (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
-                      Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).
+                    description: Whether the team's resources are visible to all users
+                      (`true`), or only to team members and admins (`false`).
                     type: boolean
                   teamId:
-                    description: |-
-                      (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
-                      The ID of the OnCall team, for example from the `grafana_oncall_team` data source.
+                    description: The ID of the OnCall team, for example from the `grafana_oncall_team`
+                      data source.
                     type: string
                 type: object
               managementPolicies:
@@ -171,17 +164,14 @@ spec:
               atProvider:
                 properties:
                   id:
-                    description: (String) The ID of this resource.
                     type: string
                   isSharingResourcesToAll:
-                    description: |-
-                      (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
-                      Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).
+                    description: Whether the team's resources are visible to all users
+                      (`true`), or only to team members and admins (`false`).
                     type: boolean
                   teamId:
-                    description: |-
-                      (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
-                      The ID of the OnCall team, for example from the `grafana_oncall_team` data source.
+                    description: The ID of the OnCall team, for example from the `grafana_oncall_team`
+                      data source.
                     type: string
                 type: object
               conditions:

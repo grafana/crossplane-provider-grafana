@@ -23,12 +23,12 @@ type DataSourceInitParameters struct {
 	// Whether to enable basic auth for the data source. Defaults to `false`.
 	BasicAuthEnabled *bool `json:"basicAuthEnabled,omitempty" tf:"basic_auth_enabled,omitempty"`
 
-	// (String) Basic auth username. Defaults to ``.
-	// Basic auth username. Defaults to ``.
+	// (String) Basic auth username. Defaults to “.
+	// Basic auth username. Defaults to “.
 	BasicAuthUsername *string `json:"basicAuthUsername,omitempty" tf:"basic_auth_username,omitempty"`
 
-	// (String)  The name of the database to use on the selected data source server. Defaults to ``.
-	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
+	// (String)  The name of the database to use on the selected data source server. Defaults to “.
+	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
 	HTTPHeaders map[string]*string `json:"httpHeadersSecretRef,omitempty" tf:"-"`
@@ -60,9 +60,21 @@ type DataSourceInitParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.
-	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.
+	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.PrivateDataSourceConnectNetwork
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("pdcNetworkId")
+	// +crossplane:generate:reference:refFieldName=PrivateDataSourceConnectNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=PrivateDataSourceConnectNetworkSelector
 	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
+
+	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkRef *v2.NamespacedReference `json:"privateDataSourceConnectNetworkRef,omitempty" tf:"-"`
+
+	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkSelector *v2.NamespacedSelector `json:"privateDataSourceConnectNetworkSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
@@ -76,12 +88,12 @@ type DataSourceInitParameters struct {
 	// Unique identifier. If unset, this will be automatically generated.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
+	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
 	// The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String)  The username to use to authenticate to the data source. Defaults to ``.
-	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
+	// (String)  The username to use to authenticate to the data source. Defaults to “.
+	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
@@ -95,12 +107,12 @@ type DataSourceObservation struct {
 	// Whether to enable basic auth for the data source. Defaults to `false`.
 	BasicAuthEnabled *bool `json:"basicAuthEnabled,omitempty" tf:"basic_auth_enabled,omitempty"`
 
-	// (String) Basic auth username. Defaults to ``.
-	// Basic auth username. Defaults to ``.
+	// (String) Basic auth username. Defaults to “.
+	// Basic auth username. Defaults to “.
 	BasicAuthUsername *string `json:"basicAuthUsername,omitempty" tf:"basic_auth_username,omitempty"`
 
-	// (String)  The name of the database to use on the selected data source server. Defaults to ``.
-	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
+	// (String)  The name of the database to use on the selected data source server. Defaults to “.
+	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
 	// (String) The ID of this resource.
@@ -122,8 +134,8 @@ type DataSourceObservation struct {
 	// The Organization ID. If not set, the Org ID defined in the provider block will be used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.
-	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.
+	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
 	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
 
 	// (String) The data source type. Must be one of the supported data source keywords.
@@ -134,12 +146,12 @@ type DataSourceObservation struct {
 	// Unique identifier. If unset, this will be automatically generated.
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
+	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
 	// The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String)  The username to use to authenticate to the data source. Defaults to ``.
-	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
+	// (String)  The username to use to authenticate to the data source. Defaults to “.
+	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
 
@@ -155,13 +167,13 @@ type DataSourceParameters struct {
 	// +kubebuilder:validation:Optional
 	BasicAuthEnabled *bool `json:"basicAuthEnabled,omitempty" tf:"basic_auth_enabled,omitempty"`
 
-	// (String) Basic auth username. Defaults to ``.
-	// Basic auth username. Defaults to ``.
+	// (String) Basic auth username. Defaults to “.
+	// Basic auth username. Defaults to “.
 	// +kubebuilder:validation:Optional
 	BasicAuthUsername *string `json:"basicAuthUsername,omitempty" tf:"basic_auth_username,omitempty"`
 
-	// (String)  The name of the database to use on the selected data source server. Defaults to ``.
-	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to ``.
+	// (String)  The name of the database to use on the selected data source server. Defaults to “.
+	// (Required by some data source types) The name of the database to use on the selected data source server. Defaults to “.
 	// +kubebuilder:validation:Optional
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
@@ -201,10 +213,22 @@ type DataSourceParameters struct {
 	// +kubebuilder:validation:Optional
 	OrganizationSelector *v2.NamespacedSelector `json:"organizationSelector,omitempty" tf:"-"`
 
-	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.
-	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to ``.
+	// (String) (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// (Can only be used with data sources in Grafana Cloud) The ID of the Private Data source Connect network to use with this data source. Defaults to “.
+	// +crossplane:generate:reference:type=github.com/grafana/crossplane-provider-grafana/v2/apis/namespaced/cloud/v1alpha1.PrivateDataSourceConnectNetwork
+	// +crossplane:generate:reference:extractor=github.com/grafana/crossplane-provider-grafana/v2/config/grafana.ComputedFieldExtractor("pdcNetworkId")
+	// +crossplane:generate:reference:refFieldName=PrivateDataSourceConnectNetworkRef
+	// +crossplane:generate:reference:selectorFieldName=PrivateDataSourceConnectNetworkSelector
 	// +kubebuilder:validation:Optional
 	PrivateDataSourceConnectNetworkID *string `json:"privateDataSourceConnectNetworkId,omitempty" tf:"private_data_source_connect_network_id,omitempty"`
+
+	// Reference to a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkRef *v2.NamespacedReference `json:"privateDataSourceConnectNetworkRef,omitempty" tf:"-"`
+
+	// Selector for a PrivateDataSourceConnectNetwork in cloud to populate privateDataSourceConnectNetworkId.
+	// +kubebuilder:validation:Optional
+	PrivateDataSourceConnectNetworkSelector *v2.NamespacedSelector `json:"privateDataSourceConnectNetworkSelector,omitempty" tf:"-"`
 
 	// (String, Sensitive) Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
 	// Serialized JSON string containing the secure json data. This attribute can be used to pass secure configuration options to the data source. To figure out what options a datasource has available, see its docs or inspect the network data when saving it from the Grafana UI. Note that keys in this map are usually camelCased.
@@ -221,13 +245,13 @@ type DataSourceParameters struct {
 	// +kubebuilder:validation:Optional
 	UID *string `json:"uid,omitempty" tf:"uid,omitempty"`
 
-	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
+	// (String) The URL for the data source. The type of URL required varies depending on the chosen data source type.
 	// The URL for the data source. The type of URL required varies depending on the chosen data source type. The URL might not be publicly accessible for Grafana Cloud provisioned data sources, so use the grafana_cloud_stack resource in this case.
 	// +kubebuilder:validation:Optional
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
-	// (String)  The username to use to authenticate to the data source. Defaults to ``.
-	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to ``.
+	// (String)  The username to use to authenticate to the data source. Defaults to “.
+	// (Required by some data source types) The username to use to authenticate to the data source. Defaults to “.
 	// +kubebuilder:validation:Optional
 	Username *string `json:"username,omitempty" tf:"username,omitempty"`
 }
@@ -259,7 +283,7 @@ type DataSourceStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// DataSource is the Schema for the DataSources API. Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument). This resource should generally not be used for Grafana Cloud provisioned data sources since the configuration in these data sources is bound to work inside the Grafana Cloud platform only.  Use the grafana_cloud_stack https://registry.io/providers/grafana/grafana/latest/docs/resources/cloud_stack resource fields instead.
+// DataSource is the Schema for the DataSources API. Official documentation https://grafana.com/docs/grafana/latest/datasources/HTTP API https://grafana.com/docs/grafana/latest/developer-resources/api-reference/http-api/api-legacy/data_source/ The required arguments for this resource vary depending on the type of data source selected (via the 'type' argument).
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

@@ -34,14 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Automation is the Schema for the Automations API. Manages a
-          Grafana Assistant Automation: a saved Assistant prompt that runs on demand
-          or on a cron schedule. Each run creates its own Assistant conversation.
-          Automations are a Grafana Cloud-only feature and require the Grafana Assistant
-          app. execution_mode selects the identity used for runs. The default user
-          mode uses the creator''s Grafana permissions. service_account mode requires
-          tenant scope and organization Admin permission to configure. Runtime memory
-          and run history remain backend-owned.'
+        description: Automation is the Schema for the Automations API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -80,152 +73,137 @@ spec:
               forProvider:
                 properties:
                   contextItems:
-                    description: |-
-                      (String) Context items attached to the prompt, as a JSON array string.
-                      Context items attached to the prompt, as a JSON array string.
+                    description: Context items attached to the prompt, as a JSON array
+                      string.
                     type: string
                   description:
-                    description: |-
-                      (String) Optional description.
-                      Optional description.
+                    description: Optional description.
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                      Whether the automation runs on its schedule. Disabled automations can still be run manually.
+                    description: Whether the automation runs on its schedule. Disabled
+                      automations can still be run manually.
                     type: boolean
                   executionMode:
-                    description: |-
-                      account automation.
-                      Run identity: user (default) or service_account. service_account requires scope = tenant and Grafana organization Admin permission, including updates to an existing service-account automation.
+                    description: 'Run identity: user (default) or service_account.
+                      service_account requires scope = tenant and Grafana organization
+                      Admin permission, including updates to an existing service-account
+                      automation.'
                     type: string
                   labels:
                     additionalProperties:
                       type: string
-                    description: |-
-                      (Map of String) Operator labels. Omit or use an empty map to remove managed labels.
-                      Operator labels. Omit or use an empty map to remove managed labels.
+                    description: Operator labels. Omit or use an empty map to remove
+                      managed labels.
                     type: object
                     x-kubernetes-map-type: granular
                   name:
-                    description: |-
-                      friendly automation name.
-                      Human-friendly automation name.
+                    description: Human-friendly automation name.
                     type: string
                   notifications:
-                    description: |-
-                      only secure settings the API never returns. (see below for nested schema)
-                      Where to send the result of each run. Webhook notifications are not supported by this resource because their URL and credentials are write-only secure settings the API never returns.
+                    description: Where to send the result of each run. Webhook notifications
+                      are not supported by this resource because their URL and credentials
+                      are write-only secure settings the API never returns.
                     properties:
                       email:
-                        description: |-
-                          (Block, Optional) Email delivery. Email notifications must be enabled for the stack. (see below for nested schema)
-                          Email delivery. Email notifications must be enabled for the stack.
+                        description: Email delivery. Email notifications must be enabled
+                          for the stack.
                         properties:
                           addresses:
-                            description: |-
-                              (List of String) Recipient email addresses, up to 25.
-                              Recipient email addresses, up to 25.
+                            description: Recipient email addresses, up to 25.
                             items:
                               type: string
                             type: array
                           enabled:
-                            description: |-
-                              (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                              Whether email notifications are sent.
+                            description: Whether email notifications are sent.
                             type: boolean
                           notifyOn:
-                            description: |-
-                              (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
-                              Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
+                            description: Run outcomes that trigger a notification.
+                              Defaults to ["completed", "failed"]. Any of `completed`,
+                              `failed`, `needs_approval`. Notifications still require
+                              enabled = true.
                             items:
                               type: string
                             type: array
                         type: object
                       slack:
-                        description: |-
-                          time manual step in Assistant settings. (see below for nested schema)
-                          Slack delivery. Requires the Slack workspace to already be connected to the stack, which is a one-time manual step in Assistant settings.
+                        description: Slack delivery. Requires the Slack workspace
+                          to already be connected to the stack, which is a one-time
+                          manual step in Assistant settings.
                         properties:
                           enabled:
-                            description: |-
-                              (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                              Whether Slack notifications are sent.
+                            description: Whether Slack notifications are sent.
                             type: boolean
                           notifyOn:
-                            description: |-
-                              (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
-                              Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
+                            description: Run outcomes that trigger a notification.
+                              Defaults to ["completed", "failed"]. Any of `completed`,
+                              `failed`, `needs_approval`. Notifications still require
+                              enabled = true.
                             items:
                               type: string
                             type: array
                           target:
-                            description: |-
-                              (Block, Optional) Where the notification is posted. (see below for nested schema)
-                              Where the notification is posted.
+                            description: Where the notification is posted.
                             properties:
                               channelId:
-                                description: |-
-                                  (String) Slack channel ID. Required for a channel target.
-                                  Slack channel ID. Required for a `channel` target.
+                                description: Slack channel ID. Required for a `channel`
+                                  target.
                                 type: string
                               teamId:
-                                description: |-
-                                  (String) Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
-                                  Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
+                                description: Slack workspace (team) ID. Omit to let
+                                  Assistant resolve it; automatically resolved IDs
+                                  are not managed unless configured.
                                 type: string
                               type:
-                                description: |-
-                                  (String) Target type. One of channel or dm. Required when a target block is present.
-                                  Target type. One of `channel` or `dm`. Required when a `target` block is present.
+                                description: Target type. One of `channel` or `dm`.
+                                  Required when a `target` block is present.
                                 type: string
                               userId:
-                                description: |-
-                                  (String) Slack user ID for a dm target. Omit to use the creator’s verified Slack mapping.
-                                  Slack user ID for a `dm` target. Omit to use the creator’s verified Slack mapping.
+                                description: Slack user ID for a `dm` target. Omit
+                                  to use the creator’s verified Slack mapping.
                                 type: string
                             type: object
                         type: object
                     type: object
                   prompt:
-                    description: |-
-                      name> to start from a skill.
-                      The prompt sent to Assistant on each run. Prefix with `/<skill-name>` to start from a skill.
+                    description: The prompt sent to Assistant on each run. Prefix
+                      with `/<skill-name>` to start from a skill.
                     type: string
                   scheduleCron:
-                    description: |-
-                      field cron expression, or multiple expressions separated by semicolons. For example 0 9 * * 1-5; 0 10 * * 0. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
-                      Standard 5-field cron expression, or multiple expressions separated by semicolons. For example `0 9 * * 1-5; 0 10 * * 0`. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
+                    description: Standard 5-field cron expression, or multiple expressions
+                      separated by semicolons. For example `0 9 * * 1-5; 0 10 * *
+                      0`. Omit for a manual-only automation. Combined firings must
+                      be at least 15 minutes apart.
                     type: string
                   scheduleEndsAt:
-                    description: |-
-                      (String) Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
-                      Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
+                    description: Inclusive schedule deadline in RFC3339 format with
+                      second precision. Requires schedule_cron and backend support
+                      for bounded schedules. Omit to remove the deadline. New or changed
+                      deadlines must be in the future.
                     type: string
                   scheduleTimezone:
-                    description: |-
-                      only automations.
-                      IANA timezone the schedule is interpreted in, for example `Europe/Paris`. Defaults to UTC when schedule_cron is set; absent for manual-only automations.
+                    description: IANA timezone the schedule is interpreted in, for
+                      example `Europe/Paris`. Defaults to UTC when schedule_cron is
+                      set; absent for manual-only automations.
                     type: string
                   scope:
-                    description: |-
-                      (String) Visibility. user keeps the automation private to its creator; tenant shares it with everybody in the org.
-                      Visibility. `user` keeps the automation private to its creator; `tenant` shares it with everybody in the org.
+                    description: Visibility. `user` keeps the automation private to
+                      its creator; `tenant` shares it with everybody in the org.
                     type: string
                   triggers:
                     additionalProperties:
                       properties:
                         config:
-                          description: (String)
                           type: string
                         type:
-                          description: (String) Target type. One of channel or dm.
-                            Required when a target block is present.
                           type: string
                       type: object
-                    description: |-
-                      (Map of Object) Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift. (see below for nested schema)
-                      Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift.
+                    description: Event triggers keyed by stable, lowercase UUIDs.
+                      Each value requires type (backend trigger type) and config (a
+                      JSON object string, normally jsonencode). Keep UUIDs unchanged
+                      when editing. Omit or use an empty map to remove all triggers.
+                      GitHub and Watcher triggers require service_account execution;
+                      Slack triggers run as the mapped event author. Backend defaults
+                      and equivalent JSON formatting do not cause drift.
                     type: object
                 type: object
               initProvider:
@@ -242,152 +220,137 @@ spec:
                   autoscaler.
                 properties:
                   contextItems:
-                    description: |-
-                      (String) Context items attached to the prompt, as a JSON array string.
-                      Context items attached to the prompt, as a JSON array string.
+                    description: Context items attached to the prompt, as a JSON array
+                      string.
                     type: string
                   description:
-                    description: |-
-                      (String) Optional description.
-                      Optional description.
+                    description: Optional description.
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                      Whether the automation runs on its schedule. Disabled automations can still be run manually.
+                    description: Whether the automation runs on its schedule. Disabled
+                      automations can still be run manually.
                     type: boolean
                   executionMode:
-                    description: |-
-                      account automation.
-                      Run identity: user (default) or service_account. service_account requires scope = tenant and Grafana organization Admin permission, including updates to an existing service-account automation.
+                    description: 'Run identity: user (default) or service_account.
+                      service_account requires scope = tenant and Grafana organization
+                      Admin permission, including updates to an existing service-account
+                      automation.'
                     type: string
                   labels:
                     additionalProperties:
                       type: string
-                    description: |-
-                      (Map of String) Operator labels. Omit or use an empty map to remove managed labels.
-                      Operator labels. Omit or use an empty map to remove managed labels.
+                    description: Operator labels. Omit or use an empty map to remove
+                      managed labels.
                     type: object
                     x-kubernetes-map-type: granular
                   name:
-                    description: |-
-                      friendly automation name.
-                      Human-friendly automation name.
+                    description: Human-friendly automation name.
                     type: string
                   notifications:
-                    description: |-
-                      only secure settings the API never returns. (see below for nested schema)
-                      Where to send the result of each run. Webhook notifications are not supported by this resource because their URL and credentials are write-only secure settings the API never returns.
+                    description: Where to send the result of each run. Webhook notifications
+                      are not supported by this resource because their URL and credentials
+                      are write-only secure settings the API never returns.
                     properties:
                       email:
-                        description: |-
-                          (Block, Optional) Email delivery. Email notifications must be enabled for the stack. (see below for nested schema)
-                          Email delivery. Email notifications must be enabled for the stack.
+                        description: Email delivery. Email notifications must be enabled
+                          for the stack.
                         properties:
                           addresses:
-                            description: |-
-                              (List of String) Recipient email addresses, up to 25.
-                              Recipient email addresses, up to 25.
+                            description: Recipient email addresses, up to 25.
                             items:
                               type: string
                             type: array
                           enabled:
-                            description: |-
-                              (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                              Whether email notifications are sent.
+                            description: Whether email notifications are sent.
                             type: boolean
                           notifyOn:
-                            description: |-
-                              (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
-                              Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
+                            description: Run outcomes that trigger a notification.
+                              Defaults to ["completed", "failed"]. Any of `completed`,
+                              `failed`, `needs_approval`. Notifications still require
+                              enabled = true.
                             items:
                               type: string
                             type: array
                         type: object
                       slack:
-                        description: |-
-                          time manual step in Assistant settings. (see below for nested schema)
-                          Slack delivery. Requires the Slack workspace to already be connected to the stack, which is a one-time manual step in Assistant settings.
+                        description: Slack delivery. Requires the Slack workspace
+                          to already be connected to the stack, which is a one-time
+                          manual step in Assistant settings.
                         properties:
                           enabled:
-                            description: |-
-                              (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                              Whether Slack notifications are sent.
+                            description: Whether Slack notifications are sent.
                             type: boolean
                           notifyOn:
-                            description: |-
-                              (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
-                              Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
+                            description: Run outcomes that trigger a notification.
+                              Defaults to ["completed", "failed"]. Any of `completed`,
+                              `failed`, `needs_approval`. Notifications still require
+                              enabled = true.
                             items:
                               type: string
                             type: array
                           target:
-                            description: |-
-                              (Block, Optional) Where the notification is posted. (see below for nested schema)
-                              Where the notification is posted.
+                            description: Where the notification is posted.
                             properties:
                               channelId:
-                                description: |-
-                                  (String) Slack channel ID. Required for a channel target.
-                                  Slack channel ID. Required for a `channel` target.
+                                description: Slack channel ID. Required for a `channel`
+                                  target.
                                 type: string
                               teamId:
-                                description: |-
-                                  (String) Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
-                                  Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
+                                description: Slack workspace (team) ID. Omit to let
+                                  Assistant resolve it; automatically resolved IDs
+                                  are not managed unless configured.
                                 type: string
                               type:
-                                description: |-
-                                  (String) Target type. One of channel or dm. Required when a target block is present.
-                                  Target type. One of `channel` or `dm`. Required when a `target` block is present.
+                                description: Target type. One of `channel` or `dm`.
+                                  Required when a `target` block is present.
                                 type: string
                               userId:
-                                description: |-
-                                  (String) Slack user ID for a dm target. Omit to use the creator’s verified Slack mapping.
-                                  Slack user ID for a `dm` target. Omit to use the creator’s verified Slack mapping.
+                                description: Slack user ID for a `dm` target. Omit
+                                  to use the creator’s verified Slack mapping.
                                 type: string
                             type: object
                         type: object
                     type: object
                   prompt:
-                    description: |-
-                      name> to start from a skill.
-                      The prompt sent to Assistant on each run. Prefix with `/<skill-name>` to start from a skill.
+                    description: The prompt sent to Assistant on each run. Prefix
+                      with `/<skill-name>` to start from a skill.
                     type: string
                   scheduleCron:
-                    description: |-
-                      field cron expression, or multiple expressions separated by semicolons. For example 0 9 * * 1-5; 0 10 * * 0. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
-                      Standard 5-field cron expression, or multiple expressions separated by semicolons. For example `0 9 * * 1-5; 0 10 * * 0`. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
+                    description: Standard 5-field cron expression, or multiple expressions
+                      separated by semicolons. For example `0 9 * * 1-5; 0 10 * *
+                      0`. Omit for a manual-only automation. Combined firings must
+                      be at least 15 minutes apart.
                     type: string
                   scheduleEndsAt:
-                    description: |-
-                      (String) Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
-                      Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
+                    description: Inclusive schedule deadline in RFC3339 format with
+                      second precision. Requires schedule_cron and backend support
+                      for bounded schedules. Omit to remove the deadline. New or changed
+                      deadlines must be in the future.
                     type: string
                   scheduleTimezone:
-                    description: |-
-                      only automations.
-                      IANA timezone the schedule is interpreted in, for example `Europe/Paris`. Defaults to UTC when schedule_cron is set; absent for manual-only automations.
+                    description: IANA timezone the schedule is interpreted in, for
+                      example `Europe/Paris`. Defaults to UTC when schedule_cron is
+                      set; absent for manual-only automations.
                     type: string
                   scope:
-                    description: |-
-                      (String) Visibility. user keeps the automation private to its creator; tenant shares it with everybody in the org.
-                      Visibility. `user` keeps the automation private to its creator; `tenant` shares it with everybody in the org.
+                    description: Visibility. `user` keeps the automation private to
+                      its creator; `tenant` shares it with everybody in the org.
                     type: string
                   triggers:
                     additionalProperties:
                       properties:
                         config:
-                          description: (String)
                           type: string
                         type:
-                          description: (String) Target type. One of channel or dm.
-                            Required when a target block is present.
                           type: string
                       type: object
-                    description: |-
-                      (Map of Object) Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift. (see below for nested schema)
-                      Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift.
+                    description: Event triggers keyed by stable, lowercase UUIDs.
+                      Each value requires type (backend trigger type) and config (a
+                      JSON object string, normally jsonencode). Keep UUIDs unchanged
+                      when editing. Omit or use an empty map to remove all triggers.
+                      GitHub and Watcher triggers require service_account execution;
+                      Slack triggers run as the mapped event author. Backend defaults
+                      and equivalent JSON formatting do not cause drift.
                     type: object
                 type: object
               managementPolicies:
@@ -491,160 +454,144 @@ spec:
               atProvider:
                 properties:
                   contextItems:
-                    description: |-
-                      (String) Context items attached to the prompt, as a JSON array string.
-                      Context items attached to the prompt, as a JSON array string.
+                    description: Context items attached to the prompt, as a JSON array
+                      string.
                     type: string
                   description:
-                    description: |-
-                      (String) Optional description.
-                      Optional description.
+                    description: Optional description.
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                      Whether the automation runs on its schedule. Disabled automations can still be run manually.
+                    description: Whether the automation runs on its schedule. Disabled
+                      automations can still be run manually.
                     type: boolean
                   executionMode:
-                    description: |-
-                      account automation.
-                      Run identity: user (default) or service_account. service_account requires scope = tenant and Grafana organization Admin permission, including updates to an existing service-account automation.
+                    description: 'Run identity: user (default) or service_account.
+                      service_account requires scope = tenant and Grafana organization
+                      Admin permission, including updates to an existing service-account
+                      automation.'
                     type: string
                   id:
-                    description: (String) The UUID of the resource.
                     type: string
                   labels:
                     additionalProperties:
                       type: string
-                    description: |-
-                      (Map of String) Operator labels. Omit or use an empty map to remove managed labels.
-                      Operator labels. Omit or use an empty map to remove managed labels.
+                    description: Operator labels. Omit or use an empty map to remove
+                      managed labels.
                     type: object
                     x-kubernetes-map-type: granular
                   name:
-                    description: |-
-                      friendly automation name.
-                      Human-friendly automation name.
+                    description: Human-friendly automation name.
                     type: string
                   nextRunAt:
-                    description: |-
-                      only timestamp calculated by Grafana for the next scheduled run. This is scheduling information, not confirmation that a run executed.
-                      Read-only timestamp calculated by Grafana for the next scheduled run. This is scheduling information, not confirmation that a run executed.
+                    description: Read-only timestamp calculated by Grafana for the
+                      next scheduled run. This is scheduling information, not confirmation
+                      that a run executed.
                     type: string
                   notifications:
-                    description: |-
-                      only secure settings the API never returns. (see below for nested schema)
-                      Where to send the result of each run. Webhook notifications are not supported by this resource because their URL and credentials are write-only secure settings the API never returns.
+                    description: Where to send the result of each run. Webhook notifications
+                      are not supported by this resource because their URL and credentials
+                      are write-only secure settings the API never returns.
                     properties:
                       email:
-                        description: |-
-                          (Block, Optional) Email delivery. Email notifications must be enabled for the stack. (see below for nested schema)
-                          Email delivery. Email notifications must be enabled for the stack.
+                        description: Email delivery. Email notifications must be enabled
+                          for the stack.
                         properties:
                           addresses:
-                            description: |-
-                              (List of String) Recipient email addresses, up to 25.
-                              Recipient email addresses, up to 25.
+                            description: Recipient email addresses, up to 25.
                             items:
                               type: string
                             type: array
                           enabled:
-                            description: |-
-                              (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                              Whether email notifications are sent.
+                            description: Whether email notifications are sent.
                             type: boolean
                           notifyOn:
-                            description: |-
-                              (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
-                              Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
+                            description: Run outcomes that trigger a notification.
+                              Defaults to ["completed", "failed"]. Any of `completed`,
+                              `failed`, `needs_approval`. Notifications still require
+                              enabled = true.
                             items:
                               type: string
                             type: array
                         type: object
                       slack:
-                        description: |-
-                          time manual step in Assistant settings. (see below for nested schema)
-                          Slack delivery. Requires the Slack workspace to already be connected to the stack, which is a one-time manual step in Assistant settings.
+                        description: Slack delivery. Requires the Slack workspace
+                          to already be connected to the stack, which is a one-time
+                          manual step in Assistant settings.
                         properties:
                           enabled:
-                            description: |-
-                              (Boolean) Whether the automation runs on its schedule. Disabled automations can still be run manually.
-                              Whether Slack notifications are sent.
+                            description: Whether Slack notifications are sent.
                             type: boolean
                           notifyOn:
-                            description: |-
-                              (List of String) Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of completed, failed, needs_approval. Notifications still require enabled = true.
-                              Run outcomes that trigger a notification. Defaults to ["completed", "failed"]. Any of `completed`, `failed`, `needs_approval`. Notifications still require enabled = true.
+                            description: Run outcomes that trigger a notification.
+                              Defaults to ["completed", "failed"]. Any of `completed`,
+                              `failed`, `needs_approval`. Notifications still require
+                              enabled = true.
                             items:
                               type: string
                             type: array
                           target:
-                            description: |-
-                              (Block, Optional) Where the notification is posted. (see below for nested schema)
-                              Where the notification is posted.
+                            description: Where the notification is posted.
                             properties:
                               channelId:
-                                description: |-
-                                  (String) Slack channel ID. Required for a channel target.
-                                  Slack channel ID. Required for a `channel` target.
+                                description: Slack channel ID. Required for a `channel`
+                                  target.
                                 type: string
                               teamId:
-                                description: |-
-                                  (String) Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
-                                  Slack workspace (team) ID. Omit to let Assistant resolve it; automatically resolved IDs are not managed unless configured.
+                                description: Slack workspace (team) ID. Omit to let
+                                  Assistant resolve it; automatically resolved IDs
+                                  are not managed unless configured.
                                 type: string
                               type:
-                                description: |-
-                                  (String) Target type. One of channel or dm. Required when a target block is present.
-                                  Target type. One of `channel` or `dm`. Required when a `target` block is present.
+                                description: Target type. One of `channel` or `dm`.
+                                  Required when a `target` block is present.
                                 type: string
                               userId:
-                                description: |-
-                                  (String) Slack user ID for a dm target. Omit to use the creator’s verified Slack mapping.
-                                  Slack user ID for a `dm` target. Omit to use the creator’s verified Slack mapping.
+                                description: Slack user ID for a `dm` target. Omit
+                                  to use the creator’s verified Slack mapping.
                                 type: string
                             type: object
                         type: object
                     type: object
                   prompt:
-                    description: |-
-                      name> to start from a skill.
-                      The prompt sent to Assistant on each run. Prefix with `/<skill-name>` to start from a skill.
+                    description: The prompt sent to Assistant on each run. Prefix
+                      with `/<skill-name>` to start from a skill.
                     type: string
                   scheduleCron:
-                    description: |-
-                      field cron expression, or multiple expressions separated by semicolons. For example 0 9 * * 1-5; 0 10 * * 0. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
-                      Standard 5-field cron expression, or multiple expressions separated by semicolons. For example `0 9 * * 1-5; 0 10 * * 0`. Omit for a manual-only automation. Combined firings must be at least 15 minutes apart.
+                    description: Standard 5-field cron expression, or multiple expressions
+                      separated by semicolons. For example `0 9 * * 1-5; 0 10 * *
+                      0`. Omit for a manual-only automation. Combined firings must
+                      be at least 15 minutes apart.
                     type: string
                   scheduleEndsAt:
-                    description: |-
-                      (String) Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
-                      Inclusive schedule deadline in RFC3339 format with second precision. Requires schedule_cron and backend support for bounded schedules. Omit to remove the deadline. New or changed deadlines must be in the future.
+                    description: Inclusive schedule deadline in RFC3339 format with
+                      second precision. Requires schedule_cron and backend support
+                      for bounded schedules. Omit to remove the deadline. New or changed
+                      deadlines must be in the future.
                     type: string
                   scheduleTimezone:
-                    description: |-
-                      only automations.
-                      IANA timezone the schedule is interpreted in, for example `Europe/Paris`. Defaults to UTC when schedule_cron is set; absent for manual-only automations.
+                    description: IANA timezone the schedule is interpreted in, for
+                      example `Europe/Paris`. Defaults to UTC when schedule_cron is
+                      set; absent for manual-only automations.
                     type: string
                   scope:
-                    description: |-
-                      (String) Visibility. user keeps the automation private to its creator; tenant shares it with everybody in the org.
-                      Visibility. `user` keeps the automation private to its creator; `tenant` shares it with everybody in the org.
+                    description: Visibility. `user` keeps the automation private to
+                      its creator; `tenant` shares it with everybody in the org.
                     type: string
                   triggers:
                     additionalProperties:
                       properties:
                         config:
-                          description: (String)
                           type: string
                         type:
-                          description: (String) Target type. One of channel or dm.
-                            Required when a target block is present.
                           type: string
                       type: object
-                    description: |-
-                      (Map of Object) Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift. (see below for nested schema)
-                      Event triggers keyed by stable, lowercase UUIDs. Each value requires type (backend trigger type) and config (a JSON object string, normally jsonencode). Keep UUIDs unchanged when editing. Omit or use an empty map to remove all triggers. GitHub and Watcher triggers require service_account execution; Slack triggers run as the mapped event author. Backend defaults and equivalent JSON formatting do not cause drift.
+                    description: Event triggers keyed by stable, lowercase UUIDs.
+                      Each value requires type (backend trigger type) and config (a
+                      JSON object string, normally jsonencode). Keep UUIDs unchanged
+                      when editing. Omit or use an empty map to remove all triggers.
+                      GitHub and Watcher triggers require service_account execution;
+                      Slack triggers run as the mapped event author. Backend defaults
+                      and equivalent JSON formatting do not cause drift.
                     type: object
                 type: object
               conditions:

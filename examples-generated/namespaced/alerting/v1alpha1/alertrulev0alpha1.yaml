@@ -10,7 +10,9 @@ metadata:
 spec:
   forProvider:
     metadata:
-      folderUid: ${grafana_folder.alertrule_folder.uid}
+      folderSelector:
+        matchLabels:
+          testing.upbound.io/example-name: alertrule_folder
       uid: example-alert-rule
     spec:
       annotations:

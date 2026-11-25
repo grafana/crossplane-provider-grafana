@@ -34,11 +34,7 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: 'Role is the Schema for the Roles API. Manages a Grafana Incident
-          role that can be assigned to people during an incident.Deleting or archiving
-          a role fails when the organization has 2 or fewer active roles. Order the
-          two with depends_on, putting the dependency on whichever role frees the
-          slot:'
+        description: Role is the Schema for the Roles API. <no value>
         properties:
           apiVersion:
             description: |-
@@ -77,29 +73,23 @@ spec:
               forProvider:
                 properties:
                   archived:
-                    description: |-
-                      (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
-                      Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to `false`.
+                    description: Whether the role is archived. Archived roles cannot
+                      be assigned on new incidents, but remain on historical ones.
+                      Defaults to `false`.
                     type: boolean
                   description:
-                    description: |-
-                      (String) A description of what the role is responsible for.
-                      A description of what the role is responsible for.
+                    description: A description of what the role is responsible for.
                     type: string
                   important:
-                    description: |-
-                      (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
-                      Whether assigning this role is recorded as an important activity on the incident. Defaults to `false`.
+                    description: Whether assigning this role is recorded as an important
+                      activity on the incident. Defaults to `false`.
                     type: boolean
                   mandatory:
-                    description: |-
-                      (Boolean) Whether this role must be assigned on every incident. Defaults to false.
-                      Whether this role must be assigned on every incident. Defaults to `false`.
+                    description: Whether this role must be assigned on every incident.
+                      Defaults to `false`.
                     type: boolean
                   name:
-                    description: |-
-                      (String) The name of the role, for example Commander.
-                      The name of the role, for example `Commander`.
+                    description: The name of the role, for example `Commander`.
                     type: string
                 type: object
               initProvider:
@@ -116,29 +106,23 @@ spec:
                   autoscaler.
                 properties:
                   archived:
-                    description: |-
-                      (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
-                      Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to `false`.
+                    description: Whether the role is archived. Archived roles cannot
+                      be assigned on new incidents, but remain on historical ones.
+                      Defaults to `false`.
                     type: boolean
                   description:
-                    description: |-
-                      (String) A description of what the role is responsible for.
-                      A description of what the role is responsible for.
+                    description: A description of what the role is responsible for.
                     type: string
                   important:
-                    description: |-
-                      (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
-                      Whether assigning this role is recorded as an important activity on the incident. Defaults to `false`.
+                    description: Whether assigning this role is recorded as an important
+                      activity on the incident. Defaults to `false`.
                     type: boolean
                   mandatory:
-                    description: |-
-                      (Boolean) Whether this role must be assigned on every incident. Defaults to false.
-                      Whether this role must be assigned on every incident. Defaults to `false`.
+                    description: Whether this role must be assigned on every incident.
+                      Defaults to `false`.
                     type: boolean
                   name:
-                    description: |-
-                      (String) The name of the role, for example Commander.
-                      The name of the role, for example `Commander`.
+                    description: The name of the role, for example `Commander`.
                     type: string
                 type: object
               managementPolicies:
@@ -238,32 +222,25 @@ spec:
               atProvider:
                 properties:
                   archived:
-                    description: |-
-                      (Boolean) Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to false.
-                      Whether the role is archived. Archived roles cannot be assigned on new incidents, but remain on historical ones. Defaults to `false`.
+                    description: Whether the role is archived. Archived roles cannot
+                      be assigned on new incidents, but remain on historical ones.
+                      Defaults to `false`.
                     type: boolean
                   description:
-                    description: |-
-                      (String) A description of what the role is responsible for.
-                      A description of what the role is responsible for.
+                    description: A description of what the role is responsible for.
                     type: string
                   id:
-                    description: (String) The numeric ID of the role.
                     type: string
                   important:
-                    description: |-
-                      (Boolean) Whether assigning this role is recorded as an important activity on the incident. Defaults to false.
-                      Whether assigning this role is recorded as an important activity on the incident. Defaults to `false`.
+                    description: Whether assigning this role is recorded as an important
+                      activity on the incident. Defaults to `false`.
                     type: boolean
                   mandatory:
-                    description: |-
-                      (Boolean) Whether this role must be assigned on every incident. Defaults to false.
-                      Whether this role must be assigned on every incident. Defaults to `false`.
+                    description: Whether this role must be assigned on every incident.
+                      Defaults to `false`.
                     type: boolean
                   name:
-                    description: |-
-                      (String) The name of the role, for example Commander.
-                      The name of the role, for example `Commander`.
+                    description: The name of the role, for example `Commander`.
                     type: string
                 type: object
               conditions:

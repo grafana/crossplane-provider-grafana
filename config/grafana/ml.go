@@ -9,6 +9,19 @@ import (
 )
 
 func configureML(p *ujconfig.Provider) {
+	p.AddResourceConfigurator("grafana_machine_learning_alert", func(r *ujconfig.Resource) {
+		r.References["job_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_machine_learning_job",
+			RefFieldName:      "JobRef",
+			SelectorFieldName: "JobSelector",
+		}
+		r.References["outlier_id"] = ujconfig.Reference{
+			TerraformName:     "grafana_machine_learning_outlier_detector",
+			RefFieldName:      "OutlierDetectorRef",
+			SelectorFieldName: "OutlierDetectorSelector",
+		}
+	})
+
 	p.AddResourceConfigurator("grafana_machine_learning_job", func(r *ujconfig.Resource) {
 		r.References["datasource_uid"] = ujconfig.Reference{
 			TerraformName:     "grafana_data_source",

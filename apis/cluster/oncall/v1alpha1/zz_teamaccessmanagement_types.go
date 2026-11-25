@@ -15,37 +15,29 @@ import (
 
 type TeamAccessManagementInitParameters struct {
 
-	// (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
 	// Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).
 	IsSharingResourcesToAll *bool `json:"isSharingResourcesToAll,omitempty" tf:"is_sharing_resources_to_all,omitempty"`
 
-	// (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
 	// The ID of the OnCall team, for example from the `grafana_oncall_team` data source.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 }
 
 type TeamAccessManagementObservation struct {
-
-	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
 	// Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).
 	IsSharingResourcesToAll *bool `json:"isSharingResourcesToAll,omitempty" tf:"is_sharing_resources_to_all,omitempty"`
 
-	// (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
 	// The ID of the OnCall team, for example from the `grafana_oncall_team` data source.
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
 }
 
 type TeamAccessManagementParameters struct {
 
-	// (Boolean) Whether the team's resources are visible to all users (true), or only to team members and admins (false).
 	// Whether the team's resources are visible to all users (`true`), or only to team members and admins (`false`).
 	// +kubebuilder:validation:Optional
 	IsSharingResourcesToAll *bool `json:"isSharingResourcesToAll,omitempty" tf:"is_sharing_resources_to_all,omitempty"`
 
-	// (String) The ID of the OnCall team, for example from the grafana_oncall_team data source.
 	// The ID of the OnCall team, for example from the `grafana_oncall_team` data source.
 	// +kubebuilder:validation:Optional
 	TeamID *string `json:"teamId,omitempty" tf:"team_id,omitempty"`
@@ -78,7 +70,7 @@ type TeamAccessManagementStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// TeamAccessManagement is the Schema for the TeamAccessManagements API. Manages the Team Access Management setting of a Grafana OnCall team. Destroying this resource resets the team's setting to the OnCall default (resources visible to all users). Official documentation https://grafana.com/docs/oncall/latest/set-up/manage-access/teams/HTTP API https://grafana.com/docs/oncall/latest/oncall-api-reference/teams/
+// TeamAccessManagement is the Schema for the TeamAccessManagements API. <no value>
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

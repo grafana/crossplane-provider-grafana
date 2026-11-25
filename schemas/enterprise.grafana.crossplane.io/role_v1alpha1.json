@@ -150,7 +150,7 @@
                     "type": "string"
                   },
                   "scope": {
-                    "description": "(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.\nScope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.",
+                    "description": "(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.\nScope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.",
                     "type": "string"
                   }
                 },
@@ -295,7 +295,7 @@
                     "type": "string"
                   },
                   "scope": {
-                    "description": "(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.\nScope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.",
+                    "description": "(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.\nScope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.",
                     "type": "string"
                   }
                 },
@@ -458,7 +458,7 @@
                     "type": "string"
                   },
                   "scope": {
-                    "description": "(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to ``.\nScope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to ``.",
+                    "description": "(String) Scope to restrict the action to a set of resources (for example: users:* or roles:customrole1) Defaults to “.\nScope to restrict the action to a set of resources (for example: `users:*` or `roles:customrole1`) Defaults to “.",
                     "type": "string"
                   }
                 },

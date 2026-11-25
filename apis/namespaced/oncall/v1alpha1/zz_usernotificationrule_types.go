@@ -31,7 +31,7 @@ type UserNotificationRuleInitParameters struct {
 	// +kubebuilder:validation:Optional
 	OnCallUserSelector *v2.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
 
-	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
+	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
@@ -61,7 +61,7 @@ type UserNotificationRuleObservation struct {
 	// Boolean value which indicates if a rule is “important”
 	Important *bool `json:"important,omitempty" tf:"important,omitempty"`
 
-	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
+	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`
 
@@ -94,7 +94,7 @@ type UserNotificationRuleParameters struct {
 	// +kubebuilder:validation:Optional
 	OnCallUserSelector *v2.NamespacedSelector `json:"onCallUserSelector,omitempty" tf:"-"`
 
-	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
+	// (Number) Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list.
 	// Personal notification rules execute one after another starting from position=0. A new escalation policy created with a position of an existing escalation policy will move the old one (and all following) down on the list. When not set, the rule is added at the end of the list.
 	// +kubebuilder:validation:Optional
 	Position *float64 `json:"position,omitempty" tf:"position,omitempty"`

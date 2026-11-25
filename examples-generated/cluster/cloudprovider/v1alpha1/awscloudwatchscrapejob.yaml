@@ -8,7 +8,12 @@ metadata:
   name: test
 spec:
   forProvider:
-    awsAccountResourceId: ${grafana_cloud_provider_aws_account.test.resource_id}
+    awsAccountSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_cloud_stack
     customNamespace:
     - metric:
       - name: CoolMetric
@@ -34,7 +39,6 @@ spec:
       scrapeIntervalSeconds: 300
       tagsToAddToMetrics:
       - eks:cluster-name
-    stackId: ${data.grafana_cloud_stack.test.id}
     staticLabels:
       label1: value1
       label2: value2
@@ -51,9 +55,11 @@ metadata:
   name: test
 spec:
   forProvider:
+    cloudStackSelector:
+      matchLabels:
+        testing.upbound.io/example-name: grafana_cloud_stack
     regions:
     - us-east-1
     - us-east-2
     - us-west-1
     roleArn: ${data.aws_iam_role.test.arn}
-    stackId: ${data.grafana_cloud_stack.test.id}
